@@ -1,0 +1,23 @@
+{
+  "name": "teamform-seed",
+  "author": "Peter Chung (cspeter@ust.hk)",
+  "version": "0.0.0",
+  "private": true,
+  "description": "This is a starter project for the teamform app",
+  "repository": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^0.9.0",
+    "jasmine-core": "^2.4.1",    
+    "karma": "^1.2.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.0.2"  
+  },
+  "scripts": {
+    "prestart": "npm install",
+    "start": "http-server -a localhost -p 8080 -c-1 ./app",
+    "pretest": "npm install",
+    "test": "karma start karma.conf.js"
+  }
+}
