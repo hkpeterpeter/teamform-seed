@@ -1,14 +1,15 @@
 # teamform-seed
-## The seed project for the team forming app
+## The seed project for the team forming web application
 
 ### Prerequisites
 
 Install git: [http://git-scm.com/](http://git-scm.com/).
+
 Install node.js and npm: [http://nodejs.org/](http://nodejs.org/).
 
 ### Clone the project
 
-Clone repository using `git clone` command as follows:
+Please clone the repository at GitHub using `git clone` command:
 
 ```
 git clone https://github.com/hkpeterpeter/teamform-seed
@@ -17,7 +18,7 @@ cd teamform-seed
 
 ### Install Dependencies
  
-As it is used as a course project, key libraries with fixed version (e.g. Angular JS 1.5.7) are included to avoid discreprency. Other dependencies (e.g. karma toolkit, http-server...) will be installed separately:
+For a course project, key libraries with fixed version (e.g. AngularJS 1.5.7) are included to avoid discreprency. Other dependencies (e.g. karma toolkit, http-server...) will be installed separately via:
 
 ```
 npm install
@@ -25,18 +26,17 @@ npm install
 
 After running this command, a new folder will be created:
 
-* `node_modules` - It contains the npm packages for the tools we need to build and test our web application
+* `node_modules` - It contains the npm packages for the necessary tools we need to build and test our web application
 
 ### Run the Application
 
-We have preconfigured the project with a simple development web server.  The simplest way to start
-this server is:
+We have preconfigured the project via a configuration file `package.json`. The simplest way to start this web application is:
 
 ```
 npm start
 ```
 
-After that, open a web browse with the following URL: `http://localhost:8080/index.html`.
+After that, open a web browser (Google chrome desktop/mobile web browser is recommended) with the following URL: `http://localhost:8080/index.html`.
 
 
 ## Directory Layout
@@ -56,11 +56,11 @@ app/                    --> all of the source files for the application
   js/                   --> User-defined JavaScript files
      admin.js           --> The JS file for the admin page
      index.js           --> The JS file for the front-end page
-     leader.js          --> The JS file for the leader page
+     team.js            --> The JS file for the team page
      member.js          --> The JS file for the member page
      site.js            --> The JS file containing functions shared by multiple pages
   unit_tests            --> The folder containing the unit test cases (Syntax: Jasmine/Karma)
-     test_site.js       --> A sample unit test case (not complete yet, just a demo)
+     test_site.js       --> A sample test case
   
 ```
 
@@ -80,10 +80,12 @@ npm test
 ```
 
 This script will start the Karma test runner to execute the unit tests. 
-In this course, we will mainly focus on the branch/statement coverage. 
-The output files will be stored inside the app/coverage folder. 
+In this course, we will mainly focus on the branch and statement coverage. 
+The output files will be stored inside the `app/coverage` folder. 
 
+## Addtional information for COMP3111H students
 
+Besides from web development, COMP3111H team needs to work on a mobile app (iOS and Android). We recommend your team to use Ionic framework [http://ionicframework.com/] (http://ionicframework.com/). Ionic framework is based on AngularJS. Features completed in Angular can be easily ported to Ionic.   
 
 ## Reference
 
@@ -98,4 +100,5 @@ For more information, please checkout:
 * jasmine: http://jasmine.github.io
 * karma: http://karma-runner.github.io
 * http-server: https://github.com/nodeapps/http-server
+* ionic framework (for COMP3111H teams): http://ionicframework.com/
 
