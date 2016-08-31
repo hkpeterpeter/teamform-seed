@@ -1,18 +1,14 @@
 # teamform-seed
-## The seed project for the team form app
-
+## The seed project for the team forming app
 
 ### Prerequisites
 
-You need git to clone the hackust-seed repository. You can get git from
-[http://git-scm.com/](http://git-scm.com/).
+Install git: [http://git-scm.com/](http://git-scm.com/).
+Install node.js and npm: [http://nodejs.org/](http://nodejs.org/).
 
-Please make sure that node.js (and npm) tool is installed. You can get them from [http://nodejs.org/](http://nodejs.org/).
+### Clone the project
 
-
-### Clone hackust-seed
-
-Clone the teamform-seed repository using `git clone` command as follows:
+Clone repository using `git clone` command as follows:
 
 ```
 git clone https://github.com/hkpeterpeter/teamform-seed
@@ -20,8 +16,8 @@ cd teamform-seed
 ```
 
 ### Install Dependencies
-
-We have two kinds of dependencies in this project. As it is used as a course project. Key libraries with fixed version (e.g. Angular JS 1.5.7) are included to avoid discreprency 
+ 
+As it is used as a course project, key libraries with fixed version (e.g. Angular JS 1.5.7) are included to avoid discreprency. Other dependencies (e.g. karma toolkit, http-server...) will be installed separately:
 
 ```
 npm install
@@ -30,7 +26,6 @@ npm install
 After running this command, a new folder will be created:
 
 * `node_modules` - It contains the npm packages for the tools we need to build and test our web application
-
 
 ### Run the Application
 
@@ -41,11 +36,7 @@ this server is:
 npm start
 ```
 
-After that, browse the app at `http://localhost:8080/index.html`.
-
-### Demo (with the Coverage Report)
-
-A full functional demo of the hackUST-seed project can be found: 
+After that, open a web browse with the following URL: `http://localhost:8080/index.html`.
 
 
 ## Directory Layout
@@ -88,14 +79,10 @@ The easiest way to run the unit tests is to use the supplied npm script:
 npm test
 ```
 
-This script will start the Karma test runner to execute the unit tests. In this course, we will mainly focus on the branch/statement coverage. The output files will be stored inside the app/coverage folder. 
+This script will start the Karma test runner to execute the unit tests. 
+In this course, we will mainly focus on the branch/statement coverage. 
+The output files will be stored inside the app/coverage folder. 
 
-
-## Serving the Application Files
-
-While angular is client-side-only technology and it's possible to create angular webapps that
-don't require a backend server at all, we recommend serving the project files using a local
-webserver during development to avoid issues with security restrictions (sandbox) in browsers. 
 
 
 ### Running the App during Development
@@ -123,11 +110,13 @@ configure your server to serve the files under the `app/` directory.
 
 For more information, please checkout:
 
-* angularjs: http://angularjs.org/
+* Full Firebase 3.0+ API: https://firebase.google.com/docs/reference/
+* Full AngularFire 2.0+ API: https://github.com/firebase/angularfire/blob/master/docs/reference.md
+* Angular JS: http://angularjs.org/
 * git: http://git-scm.com/
 * npm: https://www.npmjs.org/
 * node: http://nodejs.org
 * jasmine: http://jasmine.github.io
 * karma: http://karma-runner.github.io
 * http-server: https://github.com/nodeapps/http-server
-* Full AngularFire 2.0+ API: https://github.com/firebase/angularfire/blob/master/docs/reference.md
+
