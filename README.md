@@ -85,27 +85,6 @@ The output files will be stored inside the app/coverage folder.
 
 
 
-### Running the App during Development
-
-The seed project is pre-configured with a local development webserver.  It is a `node.js`
-tool called `http-server`.  You can start this webserver with `npm start` but you may choose to
-install the tool globally:
-
-```
-sudo npm install -g http-server
-```
-
-Then you can start your own development web server to serve static files from a folder by
-running:
-
-```
-http-server -a localhost -p 8080
-```
-
-Alternatively, you can choose to configure your own webserver, such as apache or nginx. Just
-configure your server to serve the files under the `app/` directory.
-
-
 ## Reference
 
 For more information, please checkout:
