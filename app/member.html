@@ -52,11 +52,12 @@
                <form class="form-horizontal">
                   <div class="form-group">
                      <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
-                     <div class="col-sm-7">
+                     <div class="col-sm-5">
                      <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
                      </div>
 					 
-					 <div class="col-sm-2">
+					 <div class="col-sm-4">
+					   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add/Modify</button>
 					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
 					  </div>
                   </div>
@@ -69,15 +70,16 @@
                   </div>
 				  
 				  
-				  <button type="button" class="btn btn-primary" ng-click="refreshTeams();" >Refresh Teams</button>
-				  
-				  <br>
+				 
 
-				  <!-- 
-                  <strong>Requests to join:</strong>
-                  TODO: Placeholder of team list -->
-				  
-				  <div ng-repeat="team in teams" class="form-group text-left ">
+
+
+               </form>
+			   
+			     <div class="row text-left">
+			        
+				    <h3>Your team preference:</h3>
+			       <div ng-repeat="team in teams">
 					  					  
 					 <div class="checkbox">
 						<label><input type="checkbox" value="{{team.$id}}" 
@@ -87,15 +89,7 @@
 					 </div>
 					  
 				  </div>
-				  
-
-                  <br><br>
-				  <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Save</button>
-
-
-
-
-               </form>
+				</div>
 
                
             </div>

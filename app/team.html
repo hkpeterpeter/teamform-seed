@@ -30,9 +30,10 @@
    </head>
    <body>
 
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
-
+    <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >
+   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+   Back</button></a>
    <br>
 
    <div class="text-center">
@@ -44,49 +45,58 @@
 
             <div class="col-md-2 col-xs-2"></div>
 
-            <div class="col-md-8 col-xs-8 text-left panel">
+            <div class="col-md-6 col-xs-6 text-left panel">
 			
 			 
 
 
                <!-- Controls go here.. -->
-                <form class="form-horizontal">
+                <form class="form-horizontal text-left">
+				
                   <div class="form-group">
-                     <label for="inputTeamName" class="col-sm-3 control-label">Team Name</label>
-                     <div class="col-sm-7">
-                     <input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">													
-                     </div>
+				  
+                     <label for="inputTeamName" class="control-label">Team Name</label>
+					 <br>
 					 
-					 <div class="col-sm-2">
-						<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
+					 <div class="row">
+						 <div class="col-md-8 col-xs-8">
+							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">													
+						 </div>
+						
+						<div class="col-md-1 col-xs-1">
+						   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
+						 </div>
+						 
+						 <div class="col-md-1 col-xs-1">
+							<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
+						</div>
 					</div>
-					 
+					
+										 
 					 
                   </div>
 
                 
+				  <div class="row">
+					  <strong>Preferred Team Size: </strong> 					  
+					  <span>
+						 <span class="badge">
+						   {{param.currentTeamSize}}</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
-                  <strong class="col-sm-3">Preferred Team Size: </strong> 
-				  
-				  
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 
-					
-
-                  <div class="col-sm-9">
-                     <span class="badge">
-                       {{param.currentTeamSize}}</span>
-                      
-                     <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-                      <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-                      
-                   </div>
+						  
+					   </span>
+				   </div>
+				   
+				   
 
                   </form>
 
 
-
+				<div class="row">
                   <div class="col-sm-6">
                      <h4>Team members</h4>
                      <!-- TODO: Show the current team member list -->
@@ -111,13 +121,14 @@
 					 </div>
 					 
                   </div>
+				</div>
 				  
 				  
 
-                  <div class="col-sm-12 text-center">				  
-					<br><br>
-                      <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Save</button>
-                  </div>
+                  				  
+					
+                   
+                  
 
 
             </div>
@@ -125,7 +136,22 @@
 
 
 
-            <div class="col-md-2 col-xs-2"></div>
+            <div class="col-md-4 col-xs-4 text-left">
+			
+			 
+					<h3>All teams:</h3>
+					<ul ng-repeat="t in team">
+						<li>
+						
+							User ID: {{t.$id}}  <br>
+							Preferred team size: <span class="badge">{{t.size}}</span> <br>
+							Current team members: {{t.teamMembers}}
+						
+						</li>
+						
+					</ul>			
+			
+			</div>
          </div>
 
 

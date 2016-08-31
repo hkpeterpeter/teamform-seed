@@ -47,6 +47,11 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
 	
+	refPath = eventName + "/team";	
+	$scope.team = [];
+	$scope.team = $firebaseArray(firebase.database().ref(refPath));
+	
+	
 	$scope.requests = [];
 	$scope.refreshViewRequestsReceived = function() {
 		
@@ -84,8 +89,7 @@ angular.module('teamform-team-app', ['firebase'])
 	}
 
 	$scope.saveFunc = function() {
-		// Finally, go back to the front-end
-		// window.location.href= "index.html";
+		
 		
 		var teamID = $.trim( $scope.param.teamName );
 		
@@ -121,7 +125,7 @@ angular.module('teamform-team-app', ['firebase'])
 				// console.log("Success..");
 				
 				// Finally, go back to the front-end
-				window.location.href= "index.html";
+				// window.location.href= "index.html";
 			});
 			
 			
@@ -167,6 +171,8 @@ angular.module('teamform-team-app', ['firebase'])
 				
 			// Not exists, and the current number of team member is less than the preferred team size
 			$scope.param.teamMembers.push(r);
+			
+			$scope.saveFunc();
 		}
 	}
 	
@@ -175,6 +181,8 @@ angular.module('teamform-team-app', ['firebase'])
 		var index = $scope.param.teamMembers.indexOf(member);
 		if ( index > -1 ) {
 			$scope.param.teamMembers.splice(index, 1); // remove that item
+			
+			$scope.saveFunc();
 		}
 		
 	}
