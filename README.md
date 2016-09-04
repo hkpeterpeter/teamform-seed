@@ -1,11 +1,18 @@
 # teamform-seed
 ## The seed project for the team forming web application
 
-### Prerequisites
+### Pre-requisites
 
 Install git: [http://git-scm.com/](http://git-scm.com/).
 
 Install node.js and npm: [http://nodejs.org/](http://nodejs.org/).
+Commands to test the installation:
+
+```
+git --version
+node -v
+npm -v
+```
 
 ### Clone the project
 
@@ -18,7 +25,7 @@ cd teamform-seed
 
 ### Install Dependencies
  
-For a course project, key libraries with fixed version (e.g. AngularJS 1.5.7) are included to avoid discreprency. Other dependencies (e.g. karma toolkit, http-server...) will be installed separately via:
+In this course project, fixed version of key libraries (e.g. AngularJS 1.5.7) are included in `app/lib` folder to avoid discreprency. Other development dependencies (e.g. karma toolkit, http-server...) will be installed separately via:
 
 ```
 npm install
@@ -101,4 +108,3 @@ For more information, please checkout:
 * karma: http://karma-runner.github.io
 * http-server: https://github.com/nodeapps/http-server
 * ionic framework (for COMP3111H teams): http://ionicframework.com/
-
