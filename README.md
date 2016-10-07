@@ -2,7 +2,7 @@
 ## The seed project for the team forming web application
 
 ### Pre-requisites
-JOJO!
+JOJO!sdf
 
 Install git: [http://git-scm.com/](http://git-scm.com/).
 
