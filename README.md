@@ -2,6 +2,7 @@
 ## The seed project for the team forming web application
 
 ### Pre-requisites
+### Test
 
 Install git: [http://git-scm.com/](http://git-scm.com/).
 
