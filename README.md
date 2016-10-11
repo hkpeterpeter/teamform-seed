@@ -1,4 +1,4 @@
-# teamform-seed modified the 4th times.... HEHEXD
+# teamform-seed modified the 4th times.... HAHA
 ## The seed project for the team forming web application
 
 ### Pre-requisites
