@@ -1,4 +1,3 @@
-// test change
 
 //
 // How to parse parameters from URL string
@@ -30,12 +29,13 @@ function getRandomIntInclusive(min, max) {
 function initalizeFirebase() {
 	
   // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
-    authDomain: "teamform-15bcb.firebaseapp.com",
-    databaseURL: "https://teamform-15bcb.firebaseio.com",
-    storageBucket: "teamform-15bcb.appspot.com",
-  };
+    var config = {
+      apiKey: "AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY",
+      authDomain: "lab-firebase-d860e.firebaseapp.com",
+      databaseURL: "https://lab-firebase-d860e.firebaseio.com",
+      storageBucket: "lab-firebase-d860e.appspot.com",
+    };
+
   firebase.initializeApp(config);
 
 }    
