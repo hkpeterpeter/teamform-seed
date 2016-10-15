@@ -108,3 +108,7 @@ For more information, please checkout:
 * karma: http://karma-runner.github.io
 * http-server: https://github.com/nodeapps/http-server
 * ionic framework (for COMP3111H teams): http://ionicframework.com/
+
+
+*** 
+#### Footer
