@@ -1,5 +1,5 @@
 <nav class="navbar navbar-static-top navbar-default">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
          <span class="sr-only">Toggle navigation</span>
@@ -12,35 +12,12 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
-                <li ui-sref-active="active"><a ui-sref="login">Login</a></li>
                 <li ui-sref-active="active"><a ui-sref="event">Events</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#page_about">About teamform</a></li>
-                        <li>
-                            <a href="#page_team">Development team</a>
-                        </li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">TODO: Add menu items here... </a></li>
-                    </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="coverage/index.html" target="_blank">Report</a>
-                        </li>
-                        <li role="separator" class="divider"></li>
-
-                        <li>
-                            <a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-                        </li>
-
-                        <li><a href="#">TODO: Add more test cases here... </a></li>
-                    </ul>
-                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li ui-sref-active="active" ng-show="!isAuth"><a ui-sref="register">Register</a></li>
+                <li ui-sref-active="active" ng-show="!isAuth"><a ui-sref="login">Login</a></li>
+                <li ui-sref-active="active" ng-show="isAuth"><a ui-sref="logout({fromState: $state.current.name, fromParams: $state.params})">Logout</a></li>
             </ul>
         </div>
     </div>

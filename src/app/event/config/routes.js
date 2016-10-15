@@ -17,14 +17,14 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
             template: EventListView,
             controller: 'EventListCtrl',
             controllerAs: 'eventList',
-            auth: (userService) => {
-                return userService.isAuth();
-            },
             ncyBreadcrumb: {
                 label: 'Events'
             }
         })
         .state('event.create', {
+            auth: (userService) => {
+                return userService.checkAuth();
+            },
             url: '/create',
             template: EventCreateView,
             controller: 'EventCreateCtrl',

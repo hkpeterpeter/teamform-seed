@@ -1,21 +1,21 @@
-import LoginView from '../views/login.html'
+import RegisterView from '../views/register.html'
 
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider
-        .state('login', {
+        .state('register', {
             auth: (userService) => {
                 return userService.checkRules({guest: true});
             },
-            url: '/login',
-            template: LoginView,
-            controller: 'LoginCtrl',
-            controllerAs: 'login',
+            url: '/register',
+            template: RegisterView,
+            controller: 'RegisterCtrl',
+            controllerAs: 'register',
             params: {
                 toState: 'home',
                 toParams: {}
             },
             ncyBreadcrumb: {
-                label: 'Login'
+                label: 'Register'
             }
         });
 }];

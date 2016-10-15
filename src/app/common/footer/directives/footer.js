@@ -5,11 +5,10 @@ export default class Footer {
         this.scope = {};
     }
 
-    compile(tElement) {
-        return this.link.bind(this);
-    }
-
     link(scope, element, attributes) {
 
+    }
+    static instance(...args) {
+        return new Footer(...args);
     }
 }

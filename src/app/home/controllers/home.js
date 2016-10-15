@@ -1,6 +1,5 @@
 export default class HomeCtrl {
-    constructor($location, $scope, $firebaseArray, $firebaseObject, database) {
-        this.$location = $location;
+    constructor($scope, $firebaseArray, $firebaseObject, database) {
         this.a = $firebaseObject(database.ref('a'));
         this.a.$value = 'b';
         this.a.$save();
@@ -10,4 +9,4 @@ export default class HomeCtrl {
     }
 }
 
-HomeCtrl.$inject = ['$location', '$scope', '$firebaseArray', '$firebaseObject', 'database'];
+HomeCtrl.$inject = ['$scope', '$firebaseArray', '$firebaseObject', 'database'];
