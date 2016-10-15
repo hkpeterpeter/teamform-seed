@@ -32,11 +32,20 @@ footer h5 {
 }
 
 /*-----section----- */
-#intro{
-	height: 100vh;
+#profile{
+	
 }
-#intro .container-fluid{
-	padding-top: 165px;
+#profile .container-fluid{
+	padding-top: 100px;
+}
+.profile-name{
+	font-size: 20px;
+	height: 4em;
+	line-height: 4em;
+	color: white;
+}
+.profile-desc{
+	color: white;
 }
 .section-heading{
 	font-size: 40px;
@@ -49,34 +58,3 @@ footer h5 {
 	font-weight: 400;
 	margin-bottom: 70px;
 }
-/*------Login section-----*/
-.login{
-	border: transparent;
-	margin-bottom: 5px;
-	padding-top:12px;
-	position: relative;	
-	width: 30%;
-	height: 2.5em;
-	font-size: 24px;
-	color: white;
-	font-family: 'Montserrat', sans-serif;
-}
-.more{
-	margin-top: 20px;
-	height: 2em;
-	text-decoration: underline;
-	font-size: 20px;
-	color: white;
-	font-family: 'Montserrat', sans-serif;
-}
-.facebook{
-	background-color: #1565C0; /*blue800*/
-}
-.github{
-	background-color: #558B2F; /*light green800*/
-}
-.google{
-	background-color: #D84315; /*deep orange 800*/
-}
-
-/*---------- */
