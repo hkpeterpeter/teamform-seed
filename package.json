@@ -44,6 +44,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
+    "postinstall": "bower install",
     "build": "rimraf dist && webpack --bail --progress --profile",
     "server": "webpack-dev-server --history-api-fallback --inline --progress",
     "test": "karma start",
@@ -59,7 +60,9 @@
     "angularfire": "^2.0.2",
     "bootstrap-loader": "^1.2.1",
     "bootstrap-sass": "^3.3.7",
+    "express": "^4.14.0",
     "firebase": "^3.4.1",
+    "forever": "^0.15.2",
     "jquery": "^3.1.1"
   }
 }
