@@ -1,7 +1,6 @@
 import angular from 'angular';
 
 import FirebaseManager from './FirebaseManager.js';
-import firebaseConfig from '../../firebase.js';
 
 let firebaseManager = new FirebaseManager({
     apiKey: ENV.FIREBASE_API_KEY,
