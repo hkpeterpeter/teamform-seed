@@ -1,0 +1,15 @@
+<div class="container">
+    <ui-menu />
+    <ui-alert message="{{eventList.error.message}}"></ui-alert>
+    <div class="pull-right">
+      <a ui-sref="event.create"><button type="button" class="btn btn-primary">Create Event</button></a>
+    </div>
+    <div class="clearfix"></div>
+    <ul>
+        <li dir-paginate="event in eventList.events | itemsPerPage: 2">
+            <a ui-sref="event.detail({eventId: '{{event.$id}}'})">{{event.name}}</a>
+        </li>
+    </ul>
+    <dir-pagination-controls />
+    <ui-footer />
+</div>

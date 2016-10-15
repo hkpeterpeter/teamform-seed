@@ -1,6 +1,7 @@
 'use strict';
 
 // Modules
+const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -17,15 +18,19 @@ module.exports = function makeWebpackConfig() {
     var config = {};
 
     config.entry = isTest ? {} : {
-        app: './src/app/index.js',
+        app: './src/app/app.js',
         vendor: './src/app/vendor.js'
+    };
+
+    config.resolve = {
+        modulesDirectories: ['web_modules', 'node_modules', 'bower_components']
     };
 
     config.output = isTest ? {} : {
         path: __dirname + '/dist',
         publicPath: isProd ? '/' : 'http://localhost:8080/',
         filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
-        chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
+        chunkFilename: isProd ? '[id].[hash].js' : '[id].bundle.js'
     };
 
     if (isTest) {
@@ -41,22 +46,28 @@ module.exports = function makeWebpackConfig() {
         loaders: [{
             test: /\.js$/,
             loader: 'babel',
-            exclude: /node_modules/
+            exclude: /(node_modules|bower_components)/
         }, {
             test: /\.css$/,
             loader: isTest ? 'null' : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
         }, {
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+        }, {
             test: /\.woff$/,
-            loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[path][name].[ext]"
+            loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/assets/font/[hash].[ext]'
         }, {
             test: /\.woff2$/,
-            loader: "url-loader?limit=10000&mimetype=application/font-woff2&name=[path][name].[ext]"
+            loader: 'url-loader?limit=10000&mimetype=application/font-woff2&name=/assets/font/[hash].[ext]'
         }, {
-            test: /\.(eot|ttf|svg|gif|png|jpg|jpeg)$/,
-            loader: 'file-loader'
+            test: /\.(eot|ttf)$/,
+            loader: 'url-loader?limit=10000&name=/assets/font/[hash].[ext]'
+        }, {
+            test: /\.(svg|gif|png|jpe?g)$/,
+            loader: 'url-loader?limit=1024&name=/assets/images/[hash].[ext]'
         }, {
             test: /\.html$/,
-            loader: 'raw'
+            loader: 'html'
         }]
     };
 
@@ -84,6 +95,9 @@ module.exports = function makeWebpackConfig() {
             'window.jQuery': 'jquery',
             'root.jQuery': 'jquery'
         }),
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
+        )
     ];
 
     if (!isTest) {
@@ -95,6 +109,12 @@ module.exports = function makeWebpackConfig() {
             new ExtractTextPlugin('[name].[hash].css', {
                 disable: !isProd
             })
+        )
+    }
+
+    if (!isProd) {
+        config.plugins.push(
+            new webpack.HotModuleReplacementPlugin()
         )
     }
 
@@ -111,6 +131,9 @@ module.exports = function makeWebpackConfig() {
 
     config.devServer = {
         contentBase: './src/public',
+        hot: true,
+        colors: true,
+        inline: true,
         stats: 'minimal'
     };
     return config;

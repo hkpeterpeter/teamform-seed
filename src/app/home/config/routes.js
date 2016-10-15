@@ -1,12 +1,14 @@
 import HomeView from '../views/home.html'
 
-/*@ngInject*/
-export default ($stateProvider) => {
+export default ['$stateProvider', ($stateProvider) => {
     $stateProvider
         .state('home', {
             url: '/',
             template: HomeView,
             controller: 'HomeCtrl',
-            controllerAs: 'home'
+            controllerAs: 'home',
+            ncyBreadcrumb: {
+                label: 'Home'
+            }
         });
-}
+}];
