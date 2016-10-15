@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-team-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - team page</title>
+	  
+      <!-- libraries and CSS 	  
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)		
+		site.css: A customized css for our web application. Not from any web framework. 
+	  -->
+	        
+      <script src="lib/jquery.min.js"></script>      
+      <script src="lib/bootstrap.min.js"></script>      
+      	  
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+      <link rel="stylesheet" href="css/site.css" >
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+	  	  
+   </head>
+   <body>
+
+    <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >
+   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+   Back</button></a>
+   <br>
+
+   <div class="text-center">
+      <h1>Team Page</h1>
+      <h2 id="text_event_name"></h2>
+       <div id="team_page_controller" ng-controller="TeamCtrl">
+
+         <div class="row">
+
+            <div class="col-md-2 col-xs-2"></div>
+
+            <div class="col-md-6 col-xs-6 text-left panel">
+			
+			 
+
+
+               <!-- Controls go here.. -->
+                <form class="form-horizontal text-left">
+				
+                  <div class="form-group">
+				  
+                     <label for="inputTeamName" class="control-label">Team Name</label>
+					 <br>
+					 
+					 <div class="row">
+						 <div class="col-md-8 col-xs-8">
+							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">													
+						 </div>
+						
+						<div class="col-md-1 col-xs-1">
+						   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
+						 </div>
+						 
+						 <div class="col-md-1 col-xs-1">
+							<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
+						</div>
+					</div>
+					
+										 
+					 
+                  </div>
+
+                
+				  <div class="row">
+					  <strong>Preferred Team Size: </strong> 					  
+					  <span>
+						 <span class="badge">
+						   {{param.currentTeamSize}}</span>
+						  
+						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+
+						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+
+						  
+					   </span>
+				   </div>
+				   
+				   
+
+                  </form>
+
+
+				<div class="row">
+                  <div class="col-sm-6">
+                     <h4>Team members</h4>
+                     <!-- TODO: Show the current team member list -->
+					 
+					 <div ng-repeat="member in param.teamMembers">
+						<button type="button" class="btn" ng-click="removeMember(member);">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
+						</button>
+					 </div>
+					 
+                  </div>
+
+                  <div class="col-sm-6">
+                     <h4>Requests received:</h4>
+
+                     <!--TODO: Show the requests -->
+					 
+					 <div ng-repeat="r in requests">
+						<button type="button" class="btn" ng-click="processRequest(r);">
+							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
+						</button>
+					 </div>
+					 
+                  </div>
+				</div>
+				  
+				  
+
+                  				  
+					
+                   
+                  
+
+
+            </div>
+
+
+
+
+            <div class="col-md-4 col-xs-4 text-left">
+			
+					
+			 
+					<h3>All teams:</h3>
+					<ul ng-repeat="t in team">
+						<li>
+						
+							User ID: {{t.$id}}  <br>
+							Preferred team size: <span class="badge">{{t.size}}</span> <br>
+							Current team members: {{t.teamMembers}}
+						
+						</li>
+						
+					</ul>			
+			
+			</div>
+         </div>
+
+
+       </div>
+   </div>
+
+
+   <!-- JavaScript of this page -->
+
+   <!-- Angular and Angular-route libraries (v1.5.7) -->
+   <script src="lib/angular.min.js"></script>
+   <script src="lib/angular-route.min.js"></script>        
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="lib/firebase.js"></script>     
+   <script src="lib/angularfire.min.js"></script>
+
+
+   <script src="js/team.js"></script>
+
+   </body>
+</html>
+
