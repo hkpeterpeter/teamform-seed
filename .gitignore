@@ -5,3 +5,5 @@
 tmp
 .DS_Store
 *.log
+.env
+/config.js

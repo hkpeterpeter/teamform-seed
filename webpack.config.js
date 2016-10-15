@@ -4,6 +4,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -15,6 +17,7 @@ var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
 
 module.exports = function makeWebpackConfig() {
+
     var config = {};
 
     config.entry = isTest ? {} : {
@@ -97,7 +100,10 @@ module.exports = function makeWebpackConfig() {
         }),
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
-        )
+        ),
+        new DefinePlugin({
+            ENV: JSON.stringify(require('./config.js'))
+        })
     ];
 
     if (!isTest) {
