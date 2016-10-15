@@ -2,26 +2,37 @@ import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import ngprogress from 'ngprogress-lite';
 
-import routing from './config';
+import routes from './routes';
 import home from './home';
+import register from './register';
 import login from './login';
+import logout from './logout';
 import event from './event';
 
 import user from './common/user';
 
-angular.module('app', [uirouter, home, login, event, user, ngprogress])
-    .config(routing)
-    .run(['$rootScope', '$state', 'ngProgressLite', 'UserService', ($root, $state, ngProgressLite, UserService) => {
+angular.module('app', [uirouter, home, register, login, logout, event, user, ngprogress])
+    .config(routes)
+    .run(['$rootScope', '$state', 'ngProgressLite', 'UserService', ($root, $state, ngProgressLite, userService) => {
         $root.$on('$stateChangeStart', (e, toState, toParams, fromState, fromParams, options) => {
             ngProgressLite.inc();
-            if (angular.isFunction(toState.auth)) {
-                if (!toState.auth(UserService)) {
-                    e.preventDefault();
-                    $state.go('login', {
-                        toState: toState.name,
-                        toParams: toParams
+            if (angular.isFunction(toState.auth) && !options.auth) {
+                e.preventDefault();
+                toState.auth(userService)
+                    .then(() => {
+                        options.auth = true;
+                        $state.go(toState.name, toParams, options);
+                    })
+                    .catch((user) => {
+                        if (user) {
+                            $state.go('home');
+                        } else {
+                            $state.go('login', {
+                                toState: toState.name,
+                                toParams: toParams
+                            });
+                        }
                     });
-                }
             }
         });
         $root.$on('$stateChangeSuccess', () => {

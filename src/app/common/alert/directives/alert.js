@@ -5,11 +5,10 @@ export default class Alert {
         this.scope = {message: '@'};
     }
 
-    compile(tElement) {
-        return this.link.bind(this);
-    }
-
     link(scope, element, attributes) {
 
+    }
+    static instance(...args) {
+        return new Alert(...args);
     }
 }

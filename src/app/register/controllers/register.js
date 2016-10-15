@@ -1,4 +1,4 @@
-export default class LoginCtrl {
+export default class RegisterCtrl {
     constructor($state, $timeout, userService) {
         this.$state = $state;
         this.$timeout = $timeout;
@@ -11,8 +11,8 @@ export default class LoginCtrl {
         this.error = null;
     }
 
-    login() {
-        this.userService.auth(this.credential)
+    register() {
+        this.userService.register(this.credential)
             .then((result) => {
                 this.$state.go(this.$state.params.toState, this.$state.params.toParams);
             })
@@ -25,4 +25,4 @@ export default class LoginCtrl {
     }
 }
 
-LoginCtrl.$inject = ['$state', '$timeout', 'UserService'];
+RegisterCtrl.$inject = ['$state', '$timeout', 'UserService'];
