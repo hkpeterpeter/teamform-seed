@@ -9,4 +9,4 @@ Homepage
 *** 
 register
 1. upload profile image
-2. 
+2. ...
