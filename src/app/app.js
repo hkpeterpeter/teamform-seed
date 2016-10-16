@@ -10,8 +10,10 @@ import logout from './logout';
 import event from './event';
 
 import user from './common/user';
+import header from './common/header';
+import footer from './common/footer';
 
-angular.module('app', [uirouter, home, register, login, logout, event, user, ngprogress])
+angular.module('app', [uirouter, home, register, login, logout, event, user, ngprogress, header, footer])
     .config(routes)
     .run(['$rootScope', '$state', 'ngProgressLite', 'UserService', ($root, $state, ngProgressLite, userService) => {
         $root.$on('$stateChangeStart', (e, toState, toParams, fromState, fromParams, options) => {

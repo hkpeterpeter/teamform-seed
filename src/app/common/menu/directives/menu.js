@@ -9,6 +9,13 @@ export default class Menu {
 
     link(scope, element, attributes, controller) {
         scope.$state = this.$state;
+        this.updateAuth(scope);
+        scope.$on('authChanged', () => {
+            this.updateAuth(scope);
+        });
+    }
+
+    updateAuth(scope) {
         this.userService.checkAuth().then(() => {
             scope.isAuth = true;
         }).catch(() => {
