@@ -7,3 +7,4 @@ tmp
 *.log
 .env
 /config.js
+/firebase-service.json

@@ -140,6 +140,7 @@ module.exports = function makeWebpackConfig() {
         hot: true,
         colors: true,
         inline: true,
+        compress: true,
         stats: 'minimal'
     };
     return config;
