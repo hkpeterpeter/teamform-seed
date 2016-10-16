@@ -8,7 +8,7 @@ export default ['$authProvider', ($authProvider) => {
         redirectUri: window.location.origin,
         requiredUrlParams: ['service'],
         service: encodeURIComponent(serviceUri),
-        authorizationEndpoint: ENV.AUTH_URL,
+        authorizationEndpoint: ENV.ITSC_AUTH_URL,
         responseParams: {
             ticket: 'ticket',
             redirect_uri: 'redirect_uri',
