@@ -48,7 +48,7 @@ module.exports = function makeWebpackConfig() {
         preLoaders: [],
         loaders: [{
             test: /\.js$/,
-            loader: 'babel',
+            loaders: ['babel'],
             exclude: /(node_modules|bower_components)/
         }, {
             test: /\.css$/,
@@ -79,9 +79,9 @@ module.exports = function makeWebpackConfig() {
             test: /\.js$/,
             exclude: [
                 /node_modules/,
-                /\.spec\.js$/
+                /\.test\.js$/
             ],
-            loader: 'isparta-loader'
+            loader: 'isparta'
         })
     }
 
