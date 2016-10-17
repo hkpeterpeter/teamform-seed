@@ -8,6 +8,7 @@ export default class Alert {
     link(scope, element, attributes) {
 
     }
+    
     static instance(...args) {
         return new Alert(...args);
     }

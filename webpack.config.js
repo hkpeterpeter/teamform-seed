@@ -79,7 +79,8 @@ module.exports = function makeWebpackConfig() {
             test: /\.js$/,
             exclude: [
                 /node_modules/,
-                /\.test\.js$/
+                /\.test\.js$/,
+                /test.webpack.js$/
             ],
             loader: 'isparta'
         })
