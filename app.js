@@ -11,7 +11,7 @@ const XMLprocessors = require('xml2js/lib/processors');
 const CONFIG = require('./config.js');
 
 let firebaseService = firebase.initializeApp({
-    serviceAccount: './firebase-service.json',
+    serviceAccount: path.join(__dirname, 'firebase-service.json'),
     databaseURL: CONFIG.FIREBASE_DATABASE
 }, 'service');
 
@@ -83,4 +83,4 @@ app.post('/oauth', (req, res) => {
     }
 });
 
-app.listen(process.env.PORT || 80);
+app.listen(process.env.PORT || 3000);

@@ -141,6 +141,11 @@ module.exports = function makeWebpackConfig() {
         colors: true,
         inline: true,
         compress: true,
+        proxy: {
+            '/oauth': {
+                target: 'http://localhost:3000/'
+            }
+        },
         stats: 'minimal'
     };
     return config;
