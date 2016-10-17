@@ -52,6 +52,9 @@ export default class UserService {
             });
         });
     }
+    sendPasswordResetEmail(email) {
+        return this.$auth.sendPasswordResetEmail(email);
+    }
     signOut() {
         return this.$auth.signOut().then((result) => {
             this.$rootScope.$broadcast('authChanged');
