@@ -24,21 +24,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
 
-	<!-- Angular and Angular-route libraries (v1.5.7) -->
-   <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>        
-     
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>     
-   <script src="lib/angularfire.min.js"></script>
-
 	<!-- Customized libraries shared by pages -->
 	<script src="js/site.js"></script>
 
 </head>
 
 <style>
-#fblogin {
+#fblogin, #fblogout {
 	background-color: #3b5998;
 	color: white;
 	font-weight: bold;
@@ -87,7 +79,7 @@
 						</ul>
 
 						<ul class="nav navbar-nav navbar-right">
-							<li><button id="fblogin" class="btn"><i class="fa fa-facebook-official" aria-hidden="true"></i>  Facebook Login</button><br><small style="color:grey">*We don't post anything to Facebook</small></li>
+							<li><button id="fblogin" class="btn"><i class="fa fa-facebook-official" aria-hidden="true"></i>  Facebook Login</button><button id="fblogout" class="btn">Logout</button><br><small style="color:grey">*We don't post anything to Facebook</small></li>
 						</ul>
 					</div>
 				</div>
@@ -228,6 +220,15 @@
 	<!-- /.container -->
 
 	<!-- JavaScript of this page -->
+
+	<!-- Angular and Angular-route libraries (v1.5.7) -->
+   	<script src="lib/angular.min.js"></script>
+   	<script src="lib/angular-route.min.js"></script>        
+     
+   	<!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   	<script src="lib/firebase.js"></script>     
+   	<script src="lib/angularfire.min.js"></script>
+
 	<script src="js/index.js"></script>
 
 
