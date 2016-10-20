@@ -16,7 +16,15 @@ footer h6 {
 footer h5 {
 	color: #BCAAA4;
 }
-
+hr.white-line{
+  	padding: 0;
+	border: none;
+	border-top: solid 2px;
+	text-align: center;
+	max-width: 350px;
+	margin: 25px auto 30px;
+	border-color: white;
+}
 /*-----navbar----- */
 .navbar-custom {
 	background-color: #E3F2FD; /*blue 50*/
@@ -33,7 +41,7 @@ footer h5 {
 
 /*-----section----- */
 #profile{
-	
+	height: 80vh;
 }
 #profile .container-fluid{
 	padding-top: 100px;
@@ -45,6 +53,9 @@ footer h5 {
 	color: white;
 }
 .profile-desc{
+	color: white;
+}
+.team-desc{
 	color: white;
 }
 .section-heading{
