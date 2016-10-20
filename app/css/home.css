@@ -4,7 +4,7 @@ body {
 }
 section {
 	padding-top: 100px;
-	height: 60vh;
+	height: 80vh;
 }
 footer {
 	background-color: #3E2723;
@@ -16,7 +16,15 @@ footer h6 {
 footer h5 {
 	color: #BCAAA4;
 }
-
+hr.white-line{
+  	padding: 0;
+	border: none;
+	border-top: solid 2px;
+	text-align: center;
+	max-width: 350px;
+	margin: 25px auto 30px;
+	border-color: white;
+}
 /*-----navbar----- */
 .navbar-custom {
 	background-color: #E3F2FD; /*blue 50*/
@@ -33,11 +41,12 @@ footer h5 {
 
 /*-----section----- */
 #profile{
-	
+	height: 73vh;
 }
 #profile .container-fluid{
 	padding-top: 100px;
 }
+
 .profile-name{
 	font-size: 20px;
 	height: 4em;
@@ -46,6 +55,24 @@ footer h5 {
 }
 .profile-desc{
 	color: white;
+}
+
+#information{
+	background-color: white;
+	height: auto;
+}
+.team-info{
+	margin: 0 5px 15px 0;
+	display: inline-block;
+	height: auto;
+	float: none;
+}
+.team-name{
+	font-size: 20px;
+	margin: 0.8em 0 0.8em 0;
+	
+	text-transform: uppercase;
+	font-family: 'Montserrat', sans-serif;
 }
 .section-heading{
 	font-size: 40px;
