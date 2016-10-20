@@ -22,8 +22,8 @@ $(document).ready(function() {
   firebase.auth().onAuthStateChanged(function(firebaseUser) {
     if(firebaseUser) {
       var user = firebase.auth().currentUser;
-      console.log("User: " + user.displayName);
-      console.log("User: " + user.email);
+      console.log(user);
+      // console.log("User: " + user.email);
       $("#fblogout").show();
       $("#fblogin").hide();
     }
