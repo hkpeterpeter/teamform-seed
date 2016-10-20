@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>		
+	<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+	<!-- Firebase -->
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBI-eUGF0YswaONnfdxmtsmb62AYViVBms",
+	    authDomain: "sedb-b3eaf.firebaseapp.com",
+	    databaseURL: "https://sedb-b3eaf.firebaseio.com",
+	    storageBucket: "sedb-b3eaf.appspot.com",
+	    messagingSenderId: "386844005675"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+	<!-- Bootstrab -->
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+</head>
+<body>
+<div>
+	<!-- Navi bar -->
+	<div class="navbar-wrapper">
+	  
+         <div class="container">
+            <nav class="navbar navbar-static-top navbar-default">
+               <div class="container">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand" href="#">teamform</a>
+                  </div>
+                  <div id="navbar" class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav">
+                        
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                              <li><a href="#page_about">About teamform</a></li>
+                              <li>
+                              <a href="#page_team">Development team</a>
+                              </li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#">TODO: Add menu items here... </a></li>
+                           </ul>
+                        </li>
+						
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
+							
+							<ul class="dropdown-menu">
+								<li>
+									<a href="coverage/index.html" target="_blank">Report</a>
+								</li>
+								<li role="separator" class="divider"></li>
+								
+								<li>
+									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
+								</li>
+								
+								<li><a href="#">TODO: Add more test cases here... </a></li>
+							</ul>
+						</li>
+                        
+                     </ul>
+                  </div>
+               </div>
+            </nav>
+         </div>
+    </div>
+
+
+    <div class="container">
+    	<div class="row">
+    		<div class="col-md-12">
+    		<img src="img/profile.png" class="img-responsive center-block">
+    		</div>
+    		<div class="col-md-7 col-md-offset-2 col-xs-7 col-xs-offset-2">
+    			<h2>
+    				<small>Name</small> {{name}}
+    			</h2>
+    		</div>
+    		<div class="col-md-3 col-xs-3">
+	    		<h2>
+	    			<a href="#">
+	    				<i class="fa fa-pencil"></i>
+	    			</a>
+	    		</h2>
+    		</div>
+    		<div class="col-md-7 col-md-offset-2 col-xs-7 col-xs-offset-2">
+    			<h2>
+    				<small>Connect</small> {{connect}}
+    			</h2>
+    		</div>
+    		<div class="col-md-3 col-xs-3">
+	    		<h2>
+	    			<a href="#">
+	    				<i class="fa fa-pencil"></i>
+	    			</a>
+	    		</h2>
+    		</div>
+    		<div class="col-md-7 col-md-offset-2 col-xs-7 col-xs-offset-2">
+    			<h2>
+    				<small>Tag</small> {{tag}}
+    			</h2>
+    		</div>
+    		<div class="col-md-3 col-xs-3">
+	    		<h2>
+	    			<a href="#">
+	    				<i class="fa fa-pencil"></i>
+	    			</a>
+	    		</h2>
+    		</div>
+		</div>
+		
+		<label>name: </label>
+			<input type="text" ng-model="name" placeholder="Enter a your name here">
+	</div>
+</div>
+
+</body>
+</html>
