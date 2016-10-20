@@ -1,62 +1,62 @@
 <!DOCTYPE html>
 <html ng-app>
 <head>
-<title>Make your team!</title>
-<!-- Angular JS -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <title>Make your team!</title>
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 
-<!-- Bootstrab -->
-<script src="lib/jquery.min.js"></script>
-<script src="lib/bootstrap.min.js"></script>
+	<!-- Bootstrab -->
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
 
-<!-- CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">-->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-<link rel="stylesheet" href="css/home.css">
-
-<!-- font -->
-<link
-	href="https://fonts.googleapis.com/css?family=Lobster|Montserrat|Roboto+Slab"
-	rel="stylesheet">
-<!-- Customized libraries shared by pages 
+  <link rel="stylesheet" href="css/home.css">
+  
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css?family=Lobster|Montserrat|Roboto+Slab" rel="stylesheet">
+  <!-- Customized libraries shared by pages 
   <script src="js/site.js"></script>-->
 </head>
 <body data-spy="scroll" data-target=".navbar-fixed-top">
-	<!-- Navi bar -->
-	<a id="page-Top"></a>
-	<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-		<div class="container-fluid">
-			<div class="navbar-header page-scroll">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> Menu <i
-						class="fa fa-bars"></i>
-				</button>
-				<a class="navbar-brand page-scroll" href="#intro"><i
-					class="fa fa-home fa-2x"></i></a>
-			</div>
+  <!-- Navi bar -->
+  <a id="page-Top"></a>
+  <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+        </button>
+        <a class="navbar-brand page-scroll" href="#intro"><i class="fa fa-home fa-2x"></i></a>
+      </div>
 
-			<div class="collapse navbar-collapse navbar-ex1-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-					<li class="hidden"><a class="page-scroll" href="#page-top"></a>
-					</li>
-					<li><a class="page-scroll" href="#search"><i
-							class="fa fa-search"></i> Search</a></li>
-					<li><a class="page-scroll" href="#services"><i
-							class="fa fa-group"></i> Team</a></li>
-					<li><a class="page-scroll" href="profile.html"><i
-							class="fa fa-user"></i> Profile</a></li>
-					<li><a class="page-scroll" href="main.html"><i
-							class="fa fa-sign-out"></i> Sign out</a></li>
+      <div class="collapse navbar-collapse navbar-ex1-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+              <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+              <li class="hidden">
+                  <a class="page-scroll" href="#page-top"></a>
+              </li>                
+              <li>
+                  <a class="page-scroll" href="#search"><i class="fa fa-search"></i> Search</a>
+              </li>
+              <li>
+                  <a class="page-scroll" href="#services"><i class="fa fa-group"></i> Team</a>
+              </li>
+              <li>
+                  <a class="page-scroll" href="profile.html"><i class="fa fa-user"></i> Profile</a>
+              </li>
+              <li>
+                  <a class="page-scroll" href="main.html"><i class="fa fa-sign-out"></i> Sign out</a>
+              </li>
 
-<<<<<<< HEAD
+          </ul>
+      </div><!--end collapse-->
+    </div>
+  </nav><!--end nav bar-->
+
   <section id="profile">
     <div class="container-fluid profile">
     <div class="row">
@@ -91,17 +91,49 @@
     <div class="row"> 
       <div class="col-md-12 text-center">
         <h2 class="section-heading">What's New?</h2>
-        <h3 class="section-subheading">Lorem ipsum dolor sit amet.</h3>
+        <h3 class="section-subheading">New team informations</h3>
       </div>
     </div>
     <!-- content -->
-    <div class="row">
-      <div class="col-md-4 team-info">
+    <div class="row col-md-12 text-center">
+      <div class="col-md-3 team-info">
         <a href="#" class="team-img">
-          <img src="img/team1.png" class="img-responsive" alt="">
+          <img src="img/team1.png" class="img-responsive img-rounded" alt="">
         </a>
-        <div class="text-center team-desc">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit
+        <div class="text-center team-name">
+          Team Name
+        </div>
+      </div>
+      <div class="col-md-3 team-info">
+        <a href="#" class="team-img">
+          <img src="img/team2.png" class="img-responsive img-rounded" alt="">
+        </a>
+        <div class="text-center team-name">
+          Team Name
+        </div>
+      </div>
+      <div class="col-md-3 team-info">
+        <a href="#" class="team-img">
+          <img src="img/team3.png" class="img-responsive img-rounded" alt="">
+        </a>
+        <div class="text-center team-name">
+          Team Name
+        </div>
+      </div>
+      <div class="col-md-3 team-info">
+        <a href="#" class="team-img">
+          <img src="img/team4.png" class="img-responsive img-rounded" alt="">
+        </a>
+        <div class="text-center team-name">
+          Team Name
+        </div>
+      </div>
+      <div class="col-md-3 team-info">
+        <a href="#" class="team-img">
+          <img src="img/team1.png" class="img-responsive img-rounded" alt="">
+        </a>
+        <div class="text-center team-name">
+          Team Name
         </div>
       </div>
     </div>
@@ -111,129 +143,15 @@
   <!-- Section 1 Unknown -->
   <section id="services">
     
-=======
-				</ul>
-			</div>
-			<!--end collapse-->
-		</div>
-	</nav>
-	<!--end nav bar-->
 
-	<section id="profile">
-		<div class="container-fluid profile">
-			<div class="row">
-				<div class="col-md-3 col-md-offset-1 profile-img">
-					<a href="profile.html"> <img src="img/profile.png"
-						class="img-responsive center-block">
-					</a>
-				</div>
-				<div class="col-md-6">
-					<div class="col-md-12 profile-name">Name</div>
-					<hr>
-					<div class="col-md-12 profile-desc">
-						<p>
-							Description Or Some information...<br> Lorem ipsum dolor sit
-							amet, consectetur adipisicing elit, sed do eiusmod tempor
-							incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-							veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-							ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-							in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-							Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-							officia deserunt mollit anim id est laborum.
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+  </section>
+  
 
-	<!-- Section 1 About -->
-	<section id="about">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<h2 class="section-heading">About</h2>
-					<h3 class="section-subheading">Lorem ipsum dolor sit amet.</h3>
-				</div>
-			</div>
-			<div class="text-center">
-				<div class="col-md-4">
-					<span class="fa-stack fa-4x"> <i
-						class="fa fa-circle fa-stack-2x"></i> <i
-						class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
-					</span>
-					<h4>Find your team</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Morbi volutpat maximus purus, a venenatis sem porta ut. Etiam ac
-						hendrerit tortor</p>
-				</div>
-				<div class="col-md-4">
-					<span class="fa-stack fa-4x"> <i
-						class="fa fa-circle fa-stack-2x"></i> <i
-						class="fa fa-magic fa-stack-1x fa-inverse"></i>
-					</span>
-					<h4>Auto Matching System</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Morbi volutpat maximus purus, a venenatis sem porta ut. Etiam ac
-						hendrerit tortor</p>
-				</div>
-				<div class="col-md-4">
-					<span class="fa-stack fa-4x"> <i
-						class="fa fa-circle fa-stack-2x"></i> <i
-						class="fa fa-tags fa-stack-1x fa-inverse"></i>
-					</span>
-					<h4>Show your feature by tags</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Morbi volutpat maximus purus, a venenatis sem porta ut. Etiam ac
-						hendrerit tortor</p>
-				</div>
-			</div>
-		</div>
 
-	</section>
->>>>>>> b4985d01794d6bf88e7609fb49713dfade5b1399
-
-	<!-- Section 1 Services -->
-	<section id="services"></section>
-
-<<<<<<< HEAD
-=======
-	<!-- Section 1 Contact // we can remove these section-->
-	<section id="contact"></section>
-	<!-- Footer -->
-	<footer>
-		<div class="container-fluid">
-			<div class="row text-center">
-				<h5>Credit</h5>
-				<hr>
-				<h6>Front-end Developer & UI Designer</h6>
-				<h6>
-					<small>Daehyun Bae<br>Michel Qin
-					</small>
-				</h6>
-				<h6>Front-end Developer & Algorithm Master</h6>
-				<h6>
-					<small>Leonore Guillain<br>Alice Zheng
-					</small>
-				</h6>
-				<h6>Back-end Developer & DB Administrator</h6>
-				<h6>
-					<small>Jacquelyn Sloan<br>Ananya Mishra
-					</small>
-				</h6>
-				<hr>
-			</div>
-
-		</div>
-	</footer>
-	<!-- /.footer -->
->>>>>>> b4985d01794d6bf88e7609fb49713dfade5b1399
-
-	<!-- Scrolling Nav JavaScript -->
-	<script src="js/jquery.easing.min.js"></script>
-	<script src="js/scrolling-nav.js"></script>
+  <!-- Scrolling Nav JavaScript -->
+  <script src="js/jquery.easing.min.js"></script>
+  <script src="js/scrolling-nav.js"></script>
 </body>
-<<<<<<< HEAD
 <footer>
   <div class="container-fluid">
   <div class="row text-center">
@@ -247,9 +165,6 @@
     <h6><small>Jacquelyn Sloan<br>Ananya Mishra</small></h6>
     <hr class="white-line">
   </div>
-    
   </div>
 </footer>
-=======
->>>>>>> b4985d01794d6bf88e7609fb49713dfade5b1399
 </html>

@@ -4,7 +4,7 @@ body {
 }
 section {
 	padding-top: 100px;
-	height: 60vh;
+	height: 80vh;
 }
 footer {
 	background-color: #3E2723;
@@ -41,11 +41,12 @@ hr.white-line{
 
 /*-----section----- */
 #profile{
-	height: 80vh;
+	height: 73vh;
 }
 #profile .container-fluid{
 	padding-top: 100px;
 }
+
 .profile-name{
 	font-size: 20px;
 	height: 4em;
@@ -55,8 +56,23 @@ hr.white-line{
 .profile-desc{
 	color: white;
 }
-.team-desc{
-	color: white;
+
+#information{
+	background-color: white;
+	height: auto;
+}
+.team-info{
+	margin: 0 5px 15px 0;
+	display: inline-block;
+	height: auto;
+	float: none;
+}
+.team-name{
+	font-size: 20px;
+	margin: 0.8em 0 0.8em 0;
+	
+	text-transform: uppercase;
+	font-family: 'Montserrat', sans-serif;
 }
 .section-heading{
 	font-size: 40px;
