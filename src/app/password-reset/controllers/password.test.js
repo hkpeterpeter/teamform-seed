@@ -9,7 +9,7 @@ describe('PasswordResetController', () => {
 
     it('should resolve sendPasswordResetEmail', () => {
         inject((_$rootScope_, _$q_, _$timeout_, UserService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(UserService, 'sendPasswordResetEmail').and.returnValue(deferred.promise);
             $controller.sendPasswordResetEmail();
             deferred.resolve();
@@ -21,7 +21,7 @@ describe('PasswordResetController', () => {
 
     it('should reject sendPasswordResetEmail', () => {
         inject((_$rootScope_, _$q_, _$timeout_, UserService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(UserService, 'sendPasswordResetEmail').and.returnValue(deferred.promise);
             $controller.sendPasswordResetEmail();
             deferred.reject(new Error('rejected'));

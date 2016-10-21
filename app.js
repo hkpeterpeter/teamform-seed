@@ -51,9 +51,9 @@ app.post('/oauth', (req, res) => {
                         return reject(new Error('CAS authentication failed (' + result.serviceresponse.authenticationfailure.$.code + ').'));
                     }
                     if (result.serviceresponse.authenticationsuccess) {
-                        var itsc = result.serviceresponse.authenticationsuccess.user;
+                        let itsc = result.serviceresponse.authenticationsuccess.user;
                         firebaseService.database().ref('users').orderByChild('itsc').startAt(itsc).endAt(itsc).once('value', (snap) => {
-                            var user = snap.val();
+                            let user = snap.val();
                             if(!user) {
                                 firebaseClient.auth().createUserWithEmailAndPassword(itsc+'@ust.hk', randomstring.generate(12)).then((result) => {
                                     firebaseClient.auth().signOut();

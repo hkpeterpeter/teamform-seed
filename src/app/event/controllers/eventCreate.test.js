@@ -9,7 +9,7 @@ describe('EventCreateController', () => {
 
     it('should resolve createEvent', () => {
         inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(EventService, 'createEvent').and.returnValue(deferred.promise);
             $controller.createEvent();
             deferred.resolve({key: 0});
@@ -21,7 +21,7 @@ describe('EventCreateController', () => {
 
     it('should reject createEvent', () => {
         inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(EventService, 'createEvent').and.returnValue(deferred.promise);
             $controller.createEvent();
             deferred.reject(new Error('rejected'));

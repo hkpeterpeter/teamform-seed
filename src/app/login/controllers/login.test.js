@@ -9,7 +9,7 @@ describe('LoginController', () => {
 
     it('should resolve login', () => {
         inject((_$rootScope_, _$q_, UserService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(UserService, 'auth').and.returnValue(deferred.promise);
             $controller.login();
             $controller.$state.params.toState = 'login';
@@ -21,7 +21,7 @@ describe('LoginController', () => {
 
     it('should reject login', () => {
         inject((_$rootScope_, _$q_, _$timeout_, UserService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(UserService, 'auth').and.returnValue(deferred.promise);
             $controller.login();
             deferred.reject(new Error('rejected'));
@@ -34,7 +34,7 @@ describe('LoginController', () => {
 
     it('should resolve authenticate', () => {
         inject((_$rootScope_, _$q_, _$auth_) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(_$auth_, 'authenticate').and.returnValue(deferred.promise);
             $controller.authenticate('ust');
             deferred.resolve({data: {token: 'test-token'}});
@@ -44,7 +44,7 @@ describe('LoginController', () => {
 
     it('should reject authenticate', () => {
         inject((_$rootScope_, _$q_, _$timeout_, _$auth_) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(_$auth_, 'authenticate').and.returnValue(deferred.promise);
             $controller.authenticate('ust');
             deferred.reject(new Error('rejected'));

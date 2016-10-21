@@ -12,13 +12,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
-var ENV = process.env.npm_lifecycle_event;
-var isTest = ENV === 'test' || ENV === 'test-watch';
-var isProd = ENV === 'build';
+let ENV = process.env.npm_lifecycle_event;
+let isTest = ENV === 'test' || ENV === 'test-watch';
+let isProd = ENV === 'build';
 
 module.exports = function makeWebpackConfig() {
 
-    var config = {};
+    let config = {};
 
     config.entry = isTest ? {} : {
         app: './src/app/app.js',

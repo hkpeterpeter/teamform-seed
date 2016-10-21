@@ -9,7 +9,7 @@ describe('EventDetailController', () => {
 
     it('should resolve getEvent', () => {
         inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(EventService, 'getEvent').and.returnValue(deferred.promise);
             $controller.getEvent();
             deferred.resolve({$value: 0});
@@ -21,7 +21,7 @@ describe('EventDetailController', () => {
 
     it('should reject getEvent', () => {
         inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
-            var deferred = _$q_.defer();
+            let deferred = _$q_.defer();
             spyOn(EventService, 'getEvent').and.returnValue(deferred.promise);
             $controller.getEvent();
             deferred.reject(new Error('rejected'));
