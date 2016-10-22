@@ -6,9 +6,9 @@
 //   var myvar = getURLParameter('myvar');
 //
 
-function getURLParameter(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
-}
+// function getURLParameter(name) {
+//   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+// }
 
 
 // Returns a random integer between min (included) and max (included)
@@ -30,10 +30,11 @@ function initalizeFirebase() {
 	
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
-    authDomain: "teamform-15bcb.firebaseapp.com",
-    databaseURL: "https://teamform-15bcb.firebaseio.com",
-    storageBucket: "teamform-15bcb.appspot.com",
+    apiKey: "AIzaSyCdq3FVBy0zM8nAb5olfoLfevUWOfBcztI",
+    authDomain: "lab-1dd51.firebaseapp.com",
+    databaseURL: "https://lab-1dd51.firebaseio.com",
+    storageBucket: "",
+    messagingSenderId: "743797076627"
   };
   firebase.initializeApp(config);
 
