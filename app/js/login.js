@@ -1,14 +1,17 @@
 // inject firebase service
-var app = angular.module("questionApp", ["firebase"]); 
+initalizeFirebase();
+
+var app = angular.module("login", ["firebase"]); 
 
 app.factory("Auth", function($firebaseAuth){
 	return $firebaseAuth();
 });
 
 
-app.controller("questionCtrl", 
+app.controller("loginController", 
 
-	function($scope, Auth, $firebaseArray, $firebaseObject) {
+	function($scope, Auth, $firebaseArray, $firebaseObject, $window) {
+
 
 		$scope.input = {
 			name: "",
@@ -18,9 +21,16 @@ app.controller("questionCtrl",
 		Auth.$onAuthStateChanged(function(authData){
 			$scope.authData = authData;
 
-			if (authData) console.log(authData);
+			if (authData) {
+				console.log(authData);
+				$window.location.href = '/dashboard.html';
+			}
 			else console.log("signed out");
 		});
+
+		$scope.signedIn = function(){
+			return $scope.authData != null;
+		};
 
 		$scope.login = function(){
 			console.log('in');
@@ -31,7 +41,7 @@ app.controller("questionCtrl",
 				console.log("Logged in as:", authData);
 			}).catch(function(error){
 				console.log("Authentication failed:", error);
-			});
+			}, {remember: "sessionOnly"});
 
 		};
 
