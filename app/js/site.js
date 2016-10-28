@@ -30,10 +30,11 @@ function initalizeFirebase() {
 	
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
-    authDomain: "teamform-15bcb.firebaseapp.com",
-    databaseURL: "https://teamform-15bcb.firebaseio.com",
-    storageBucket: "teamform-15bcb.appspot.com",
+    apiKey: "AIzaSyA_L1m-6paz02g2gxvdF0aT2F6suG5Cy_k",
+    authDomain: "comp3111-dcd88.firebaseapp.com",
+    databaseURL: "https://comp3111-dcd88.firebaseio.com",
+    storageBucket: "",
+    messagingSenderId: "431406565312"
   };
   firebase.initializeApp(config);
 
