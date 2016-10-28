@@ -1,4 +1,4 @@
-# team git it done now
+# team git it done now added jerry
 ## The seed project for the team forming web application
 
 ### Pre-requisites
