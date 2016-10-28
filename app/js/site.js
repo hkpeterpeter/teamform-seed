@@ -33,8 +33,7 @@ function initalizeFirebase() {
     apiKey: "AIzaSyA_L1m-6paz02g2gxvdF0aT2F6suG5Cy_k",
     authDomain: "comp3111-dcd88.firebaseapp.com",
     databaseURL: "https://comp3111-dcd88.firebaseio.com",
-    storageBucket: "",
-    messagingSenderId: "431406565312"
+    storageBucket: "comp3111-dcd88.appspot.com"
   };
   firebase.initializeApp(config);
 
