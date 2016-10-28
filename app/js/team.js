@@ -13,9 +13,6 @@ $(document).ready(function(){
 angular.module('teamform-team-app', ['firebase'])
 .controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
     function($scope, $firebaseObject, $firebaseArray) {
-		
-	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
 
 	var refPath = "";
 	var eventName = getURLParameter("q");	
