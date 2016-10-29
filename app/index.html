@@ -273,7 +273,9 @@
                   </ul>
                 </li>
                 <!-- User Account: style can be found in dropdown.less -->
-
+                <li>
+                  <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                </li>
                 <li class="dropdown user user-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img class="user-image" alt="User Image">
@@ -311,7 +313,7 @@
                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                       </div>
                       <div class="pull-right">
-                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                        <a href="#" class="btn btn-default btn-flat" onclick = "signOut()">Sign out</a>
                       </div>
                     </li>
                   </ul>
@@ -726,7 +728,8 @@
       <!-- JavaScript of this page -->
       <script src="lib/firebase.js"></script>
       <script src="js/index.js"></script>
-
+      <script src="https://apis.google.com/js/platform.js" async defer></script>
+      <script src="js/login.js"></script>
       <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
       <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
       <script>
