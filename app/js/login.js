@@ -4,7 +4,6 @@ $(document).ready(function(){
 
     initalizeFirebase();
     var provider = new firebase.auth.GoogleAuthProvider();
-
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       // User is signed in.
@@ -76,9 +75,14 @@ function isUserEqual(googleUser, firebaseUser)
 
 function signOut()
 {
-firebase.auth().signOut().then(function() {
-  // Sign-out successful.
-}, function(error) {
-  // An error happened.
-});
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }, function(error) {
+      // An error happened.
+    });
+
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      location.reload();
+    });
 }
