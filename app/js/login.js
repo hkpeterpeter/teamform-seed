@@ -97,10 +97,15 @@ app.controller("signupCtrl",
 
 
 					ref = firebase.database().ref("users/nameList");
-					var namelistObj = $firebaseArray(ref);
+					// var namelistObj = $firebaseObject(ref);
 					var dict = {};
-					dict[$scope.input.name] = userData.uid;										
-					namelistObj.$add(dict);
+					dict[$scope.input.name] = userData.uid;		
+					ref.update(dict);								
+					// // namelistObj.$add(dict);
+
+					// namelistObj[$scope.input.name] = userData.uid;
+					// console.log(namelistObj);
+					// namelistObj.$save();
 
 				}).catch(function(error){
 					$window.alert(error);
