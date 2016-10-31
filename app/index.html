@@ -6,87 +6,71 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="teamform, team">
-	<!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<title>teamform - A real-time online team forming app</title>
 
-	<!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
+	<title>teamform - A real-time online team forming app</title>
 
 	<script src="lib/jquery.min.js"></script>
 	<script src="lib/bootstrap.min.js"></script>
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/site.css" >
 
-	<!-- Customized libraries shared by pages -->
 	<script src="js/site.js"></script>
 
 </head>
 
-<style>
-#fblogin, #fblogout {
-	background-color: #3b5998;
-	color: white;
-	font-weight: bold;
-	margin-top: 8px;
-}
-</style>
-
 <body>
 
-	<div class="navbar-wrapper">
-
-		<div class="container-fluid">
-			<nav class="navbar navbar-static-top navbar-default">
-				<div class="container">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                     		<span class="sr-only">Toggle navigation</span>
-                     		<span class="icon-bar"></span>
-                     		<span class="icon-bar"></span>
-                     		<span class="icon-bar"></span>
-                     	</button>
-						<a class="navbar-brand" href="#">teamform</a>
-					</div>
-					<div id="navbar" class="navbar-collapse collapse">
-
-						<ul class="nav navbar-nav navbar-left">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-								<ul class="dropdown-menu">
-									<li><a href="#page_about">About teamform</a></li>
-									<li><a href="#page_team">Development team</a></li>
-									<li role="separator" class="divider"></li>
-									<li><a href="#">TODO: Add menu items here... </a></li>
-								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-
-								<ul class="dropdown-menu">
-									<li><a href="coverage/index.html" target="_blank">Report</a></li>
-									<li role="separator" class="divider"></li>
-									<li><a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a></li>
-									<li><a href="#">TODO: Add more test cases here... </a></li>
-								</ul>
-							</li>
+	<nav class="navbar navbar-static-top navbar-default">
+		<div class="container">
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li id="teamform"><a class="navbar-brand" href="#">teamform</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#page_about">About teamform</a></li>
+							<li><a href="#page_team">Development team</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">TODO: Add menu items here... </a></li>
 						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
 
-						<ul class="nav navbar-nav navbar-right">
-							<li><button id="fblogin" class="btn"><i class="fa fa-facebook-official" aria-hidden="true"></i>  Facebook Login</button><button id="fblogout" class="btn">Logout</button><br><small style="color:grey">*We don't post anything to Facebook</small></li>
+						<ul class="dropdown-menu">
+							<li><a href="coverage/index.html" target="_blank">Report</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a></li>
+							<li><a href="#">TODO: Add more test cases here... </a></li>
 						</ul>
-					</div>
-				</div>
-			</nav>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+        		  <li class="dropdown" id="fblogout">
+           		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
+           		  <div>
+           			<span id="userName"></span>
+           			<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+           			<img id="fbicon" src="" width="48" height="48"/>
+           		  </div>
+           		  </a>
+           		  <ul class="dropdown-menu">
+             		<li id="logout"><a href="#">Log out</a></li>
+           		  </ul>
+       			  </li>               
+       			  <li id="fblogin">
+          		  <button type="button" class="btn"><i class="fa fa-facebook-official" aria-hidden="true"></i> Log In
+          		  </button>
+       			  </li>
+    			</ul>
+			</div>
 		</div>
-	</div>
-	<!-- A sample login page -->
+	</nav>
+
 	<div class="container" id="page_home">
 		<div class="row">
 			<div class="col-md-12">
@@ -97,16 +81,11 @@
 							<h1>teamform</h1>
 							<p>A real-time online team forming app for any event</p>
 						</div>
-
 						<br>
-
 						<div class="text-center">
-
-							<input id="input_text" type="text" class="input-lg">
-							<br>
+							<input id="input_text" type="text" class="input-lg"><br>
 							<em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-							<br>
-							<br>
+							<br><br>
 							<div>
 								<button id="btn_admin" type="button" class="btn btn-primary">Administrator</button>
 								<button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button>
@@ -121,22 +100,16 @@
 			</div>
 		</div>
 	</div>
-	<!-- Marketing messaging and featurettes
-         ================================================== -->
-	<!-- Wrap the rest of the page in another container to center all the content. -->
+
 	<div class="container marketing">
-
-
-		<!-- START THE FEATURETTES -->
 		<div class="row featurette" id="page_about">
 			<div class="col-md-12">
 				<h2 class="featurette-heading">What is teamform?
-					<br>
-					<span class="text-muted">A real-time online team forming app</span>
+				<br>
+				<span class="text-muted">A real-time online team forming app</span>
 				</h2>
 				<p class="lead"> The following roles are supported in teamform:
 				</p>
-
 				<div class="row">
 					<div class="col-md-4">
 						<h3 class="text-center">Administrator</h3>
@@ -146,7 +119,6 @@
 								in COMP3111H)</li>
 						</ul>
 					</div>
-
 					<div class="col-md-4">
 						<h3 class="text-center">Team</h3>
 						<ul>
@@ -154,7 +126,6 @@
 							<li>Once a member joins the team, all his/her requests will be deleted</li>
 						</ul>
 					</div>
-
 					<div class="col-md-4">
 						<h3 class="text-center">Member</h3>
 						<ul>
@@ -162,70 +133,50 @@
 						</ul>
 					</div>
 				</div>
-
 			</div>
 		</div>
 		<hr class="featurette-divider">
 
-		<!-- START THE FEATURETTES -->
 		<div class="row featurette" id="page_team">
 			<div class="col-md-12">
 				<h2 class="featurette-heading">Development Team
 					<br>
 					<span class="text-muted">[Your Team Name]</span>
 				</h2>
-
-
 				<div class="row">
-
-
 					<div class="col-xs-6 col-md-3">
 						<div class="thumbnail text-center">
 							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
 							<div class="caption">
 								<h4>[Your name]</h4>
 								<p>[ITSC email]</p>
-
 							</div>
 						</div>
 					</div>
-
 					<div class="col-xs-6 col-md-3">
 						<div class="thumbnail text-center">
 							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
 							<div class="caption">
 								<h4>[Your name]</h4>
 								<p>[ITSC email]</p>
-
 							</div>
 						</div>
 					</div>
-
 				</div>
 
 			</div>
 		</div>
 
-
-
-		<!-- /END THE FEATURETTES -->
-		<!-- FOOTER -->
-		<hr>
 		<footer>
 			<p class="pull-right"><a href="#">Back to top</a></p>
 			<p>&copy; 2017 COMP3111/H teaching team </p>
 			<p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
 		</footer>
 	</div>
-	<!-- /.container -->
 
-	<!-- JavaScript of this page -->
-
-	<!-- Angular and Angular-route libraries (v1.5.7) -->
    	<script src="lib/angular.min.js"></script>
    	<script src="lib/angular-route.min.js"></script>        
      
-   	<!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
    	<script src="lib/firebase.js"></script>     
    	<script src="lib/angularfire.min.js"></script>
 

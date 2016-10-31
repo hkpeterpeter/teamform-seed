@@ -1,32 +1,38 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
-
-    $("#btn_admin").click(function(){
+    $("#btn_admin").click(function() {
     	var val = $('#input_text').val();
-    	if ( val !== '' ) {
+    	if(val !== '') {
     		var url = "admin.html?q=" + val;
     		window.location.href= url ;
     		return false;
     	}
     });
 
-    $("#btn_leader").click(function(){
+    $("#btn_leader").click(function() {
     	var val = $('#input_text').val();
-    	if ( val !== '' ) {
+    	if(val !== '') {
     		var url = "team.html?q=" + val;
     		window.location.href= url ;
     		return false;
     	}
     });
 
-    $("#btn_member").click(function(){
+    $("#btn_member").click(function() {
     	var val = $('#input_text').val();
-    	if ( val !== '' ) {
+    	if(val !== '') {
     		var url = "member.html?q=" + val;
     		window.location.href= url ;
     		return false;
     	}
     });
 
+    firebase.auth().onAuthStateChanged(function(firebaseUser) {
+      if(firebaseUser) {
+        var user = firebase.auth().currentUser;
+        $("#userName").text(user.displayName);
+        $("#fbicon").attr("src", user.photoURL);
+      }
+    });
 
 });

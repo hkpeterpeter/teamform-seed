@@ -5,39 +5,38 @@ $(document).ready(function() {
   initalizeFirebase();
 
   $("#fblogin").click(function() {
-     console.log("Button clicked");
      var provider = new firebase.auth.FacebookAuthProvider();
      firebase.auth().signInWithPopup(provider).then(function(result) {
        var token = result.credential.accessToken;
        var user = result.user;
-       console.log("Welcome back! " + user.displayName);
+     }).then(function() {
+        location.reload();
      }).catch(function(error) {
        console.log(error.message);
     });   
   });
 
-  $("#fblogout").click(function(){
-      firebase.auth().signOut();
+  $("#logout").click(function(){
+      firebase.auth().signOut().then(function() {
+        location.reload();
+      });
   });
 
   firebase.auth().onAuthStateChanged(function(firebaseUser) {
     if(firebaseUser) {
       var user = firebase.auth().currentUser;
-      console.log(user);
-      // console.log("User: " + user.email);
       $("#fblogout").show();
       $("#fblogin").hide();
+      $("#userName").text(user.displayName);
+      $("#fbicon").attr("src", user.photoURL); 
     }
     else {
       $("#fblogout").hide();
       $("#fblogin").show();
-      console.log("not logged in");
     }
   });
 
 });
-
-
 
 //
 // How to parse parameters from URL string
@@ -48,7 +47,6 @@ $(document).ready(function() {
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
 }
-
 
 // Returns a random integer between min (included) and max (included)
 // Using Math.round() will give you a non-uniform distribution!
@@ -65,35 +63,16 @@ function getRandomIntInclusive(min, max) {
 // Reference: https://console.firebase.google.com 
 //
 
-// Initialize Firebase
 function initalizeFirebase() {
-  
-  // Initialize Firebase
   var config = {
-   apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
-   authDomain: "team-anonymous-team-forming.firebaseapp.com",
-   databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
-   storageBucket: "team-anonymous-team-forming.appspot.com",
-   messagingSenderId: "903294276428"
+    apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
+    authDomain: "team-anonymous-team-forming.firebaseapp.com",
+    databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
+    storageBucket: "team-anonymous-team-forming.appspot.com",
+    messagingSenderId: "903294276428"
   };
   firebase.initializeApp(config);
-  console.log("init firebase");
-
 }
-
-// (function() {
-//   const config = {
-//    apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
-//    authDomain: "team-anonymous-team-forming.firebaseapp.com",
-//    databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
-//    storageBucket: "team-anonymous-team-forming.appspot.com",
-//    messagingSenderId: "903294276428"
-//   };
-//   firebase.initializeApp(config);
-//   console.log("init firebase");
-
-
-// }());
 
 //
 // User-defined function - Useful for retrieving an object once, without 3-way sync 

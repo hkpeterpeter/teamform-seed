@@ -19,7 +19,7 @@
     "start": "http-server -a localhost -p 8080 -c-1 ./app",
     "pretest": "npm install",
     "test": "karma start karma.conf.js"
-  }
+  },
   "dependencies": {
 	"angular": "^1.5.8",
 	"angular-mock": "^1.0.0"
