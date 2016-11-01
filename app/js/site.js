@@ -29,11 +29,21 @@ function getRandomIntInclusive(min, max) {
 function initalizeFirebase() {
 	
   // Initialize Firebase
+  // var config = {
+  //   apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
+  //   authDomain: "teamform-15bcb.firebaseapp.com",
+  //   databaseURL: "https://teamform-15bcb.firebaseio.com",
+  //   storageBucket: "teamform-15bcb.appspot.com",
+  // };
+  
+  //the config above is peter's firebase'
+  //our own firebase (created by Vivian, owned under google account vivianhtlee@gmail.com)
   var config = {
-    apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
-    authDomain: "teamform-15bcb.firebaseapp.com",
-    databaseURL: "https://teamform-15bcb.firebaseio.com",
-    storageBucket: "teamform-15bcb.appspot.com",
+    apiKey: "AIzaSyBZLwdkcSVTj5wU81C5lmztCYk7jcBsLfs",
+    authDomain: "comp3111-418-teapot.firebaseapp.com",
+    databaseURL: "https://comp3111-418-teapot.firebaseio.com",
+    storageBucket: "",
+    messagingSenderId: "144499913129"
   };
   firebase.initializeApp(config);
 
