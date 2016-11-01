@@ -28,6 +28,7 @@ initalizeFirebase();
             // User is signed out.
             document.getElementById('sign-in-status').textContent = 'Signed out';
             document.getElementById('account-details').textContent = '';
+            document.getElementById('user-info').style.display = 'none';
           }
         }, function(error) {
           console.log(error);
