@@ -14,6 +14,12 @@ initalizeFirebase();
               document.getElementById('user-info').style.display = 'block';
               document.getElementById('name').textContent = user.displayName;
               document.getElementById('email').textContent = user.email;
+              if (user.photoURL){
+                document.getElementById('photo').src = user.photoURL;
+                document.getElementById('photo').style.display = 'block';
+              } else {
+                document.getElementById('photo').style.display = 'none';
+              }
               document.getElementById('account-details').textContent = JSON.stringify({
                 displayName: displayName,
                 email: email,
