@@ -67,15 +67,15 @@ app.config(function($stateProvider, $urlRouterProvider){
 
 
 
-app.controller("mainController",
-	function($scope, Auth, $firebaseArray, $firebaseObject, $window){
-		Auth.$onAuthStateChanged(function(authData){
-			$scope.authData = authData;
+// app.controller("mainController",
+// 	function($scope, Auth, $firebaseArray, $firebaseObject, $window){
+// 		Auth.$onAuthStateChanged(function(authData){
+// 			$scope.authData = authData;
 
-			if (authData) {
-				console.log(authData);
-			}
-			else console.log("signed out");
-		});
+// 			if (authData) {
+// 				console.log(authData);
+// 			}
+// 			else console.log("signed out");
+// 		});
 
-	});
+// 	});
