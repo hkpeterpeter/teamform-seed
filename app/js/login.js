@@ -33,12 +33,51 @@ app.controller("loginController",
 				}).catch(function(error){
 					console.log("Authentication failed:", error);
 					$window.alert(error);
-				}, {remember: "sessionOnly"});			
+				});			
 			}	
 			else{
 				$window.alert("Missing required fields!");				
 			}
 
+		};
+
+		$scope.facebookLogin = function(){
+			Auth.$signInWithPopup("facebook").then(function(result) {
+			  	console.log("Signed in as:", result.user.uid);
+			  	var ref = firebase.database().ref("users/" + result.user.uid + "/readOnly");
+				ref.update({
+					email: result.user.email,
+					name: result.user.displayName
+				});
+
+
+					// ref = firebase.database().ref("users/" + userData.uid + "/writable");
+					// var wirteObj = $firebaseObject(ref);
+					// wirteObj
+
+				var key = null;
+				ref = firebase.database().ref("users/uidList");
+				var uidlistObj = $firebaseArray(ref);
+				uidlistObj.$loaded().then(function(uidlistObj){
+					//console.log(uidlistObj.length);
+					for (var i = 0; i < uidlistObj.length; i++){
+						//console.log(uidlistObj[i],' ', result.user.uid);
+						if (uidlistObj[i].$value == result.user.uid) key = i;
+					}
+					if (key == null) uidlistObj.$add(result.user.uid);
+				});
+					
+
+
+				ref = firebase.database().ref("users/nameList");
+					// var namelistObj = $firebaseObject(ref);
+				var dict = {};
+				dict[result.user.displayName] = result.user.uid;		
+				ref.update(dict);	
+			}).catch(function(error) {
+			  	console.error("Authentication failed:", error);
+			  	$window.alert(error);
+			});
 		};
 
 		$scope.logout = function(){
@@ -93,6 +132,7 @@ app.controller("signupCtrl",
 
 					ref = firebase.database().ref("users/uidList");
 					var uidlistObj = $firebaseArray(ref);
+					//console.log(uidlistObj);
 					uidlistObj.$add(userData.uid);
 
 
