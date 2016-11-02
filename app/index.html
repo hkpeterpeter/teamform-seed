@@ -17,12 +17,17 @@
 	        
       <script src="lib/jquery.min.js"></script>      
       <script src="lib/bootstrap.min.js"></script>      
-      	  
+      <script src="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.js"></script>
+      <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.5/firebase-ui-auth.css" />	  
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
 
-      
+      <style>
+         form {
+            display: none;
+            } 
+      </style>
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 
@@ -65,29 +70,58 @@
                            </ul>
                         </li>
 						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-							
-							<ul class="dropdown-menu">
-								<li>
-									<a href="coverage/index.html" target="_blank">Report</a>
-								</li>
-								<li role="separator" class="divider"></li>
-								
-								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-								</li>
-								
-								<li><a href="#">TODO: Add more test cases here... </a></li>
-							</ul>
-						</li>
-                        
+      						<li class="dropdown">
+      							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
+      							
+      							<ul class="dropdown-menu">
+      								<li>
+      									<a href="coverage/index.html" target="_blank">Report</a>
+      								</li>
+      								<li role="separator" class="divider"></li>
+      								
+      								<li>
+      									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
+      								</li>
+      								
+      								<li><a href="#">TODO: Add more test cases here... </a></li>
+      							</ul>
+      						</li>
+                        <li> <a href="login.html">Login</a>
+
+                        </li>
+                        <li id="sign-out"> <a href="#/logout">Logout</a>
+
+                        </li>
+                        <li> <a href="login.html">Register</a>
+
+                        </li>
+                        <li> <a href="#/profile">Profile</a>
+
+                        </li> 
                      </ul>
                   </div>
                </div>
             </nav>
          </div>
       </div>
+      <div id="container" class="container">
+
+    <!-- ALERT BOX -->
+    <div id="alert" class="alert" role="alert">
+         <h4 id="alert-title"><div id="sign-in-status"></div></h4>
+
+        <p id="alert-detail"><div id="account-details"></div></p>
+    </div>
+    <div id="user-info" style="display: block;">
+              <div id="photo-container">
+                <img id="photo">
+              </div>
+              <div id="name"></div>
+              <div id="email"></div>
+              <div class="clearfix"></div>
+   </div>
+    <!-- / ALERT BOX -->
+</div>
       <!-- A sample login page -->
       <div class="container" id="page_home">
          <div class="row">
@@ -232,10 +266,15 @@
          </footer>
       </div>
       <!-- /.container -->
-
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="lib/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>     
+        
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>     
+      <script src="lib/angularfire.min.js"></script>
       <!-- JavaScript of this page -->
       <script src="js/index.js"></script>
-
-
+      <script src="js/check_login.js"></script>
    </body>
 </html>
