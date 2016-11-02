@@ -63,7 +63,7 @@ app.post('/oauth', (req, res) => {
                                     return reject(error);
                                 });
                             } else {
-                                return resolve({token: firebaseService.auth().createCustomToken(snap.key)});
+                                return resolve({token: firebaseService.auth().createCustomToken(Object.keys(user)[0])});
                             }
                         });
                     } else {
