@@ -1,4 +1,4 @@
-import LogoutView from '../views/logout.html'
+import LogoutView from '../views/logout.html';
 
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider

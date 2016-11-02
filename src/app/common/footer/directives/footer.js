@@ -8,6 +8,7 @@ export default class Footer {
     link(scope, element, attributes) {
 
     }
+    
     static instance(...args) {
         return new Footer(...args);
     }

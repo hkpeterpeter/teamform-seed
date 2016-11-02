@@ -1,2 +1,3 @@
 #!/bin/bash
-sudo forever stopall
+cd /home/ec2-user/teamform-seed/
+./node_modules/.bin/forever stopall

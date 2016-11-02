@@ -3,7 +3,7 @@ describe('HeaderDirective', function() {
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.header')
+        angular.mock.module('common.header');
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;

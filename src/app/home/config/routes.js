@@ -1,4 +1,4 @@
-import HomeView from '../views/home.html'
+import HomeView from '../views/home.html';
 
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider

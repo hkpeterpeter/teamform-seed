@@ -45,7 +45,11 @@ module.exports = function makeWebpackConfig() {
     }
 
     config.module = {
-        preLoaders: [],
+        preLoaders: [{
+            test: /\.js$/,
+            loader: 'eslint',
+            exclude: /(node_modules|bower_components|\.test.js$)/
+        }],
         loaders: [{
             test: /\.js$/,
             loaders: ['babel'],

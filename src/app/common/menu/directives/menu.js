@@ -27,4 +27,4 @@ export default class Menu {
         return new Menu(...args);
     }
 }
-Menu.instance.$inject = ['$state', 'UserService']
+Menu.instance.$inject = ['$state', 'UserService'];
