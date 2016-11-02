@@ -45,11 +45,7 @@ module.exports = function makeWebpackConfig() {
     }
 
     config.module = {
-        preLoaders: [{
-            test: /\.js$/,
-            loader: 'eslint',
-            exclude: /(node_modules|bower_components|\.test.js$)/
-        }],
+        preLoaders: [],
         loaders: [{
             test: /\.js$/,
             loaders: ['babel'],
@@ -88,6 +84,12 @@ module.exports = function makeWebpackConfig() {
             ],
             loader: 'isparta'
         })
+    } else {
+        config.module.preLoaders.push({
+            test: /\.js$/,
+            loader: 'eslint',
+            exclude: /(node_modules|bower_components|\.test.js$)/
+        });
     }
 
     config.postcss = [
@@ -148,7 +150,7 @@ module.exports = function makeWebpackConfig() {
         compress: true,
         proxy: {
             '/oauth': {
-                target: 'http://localhost:3000/'
+                target: 'http://localhost:'+(process.env.PORT || 3000)+'/'
             }
         },
         stats: 'minimal'

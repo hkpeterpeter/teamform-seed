@@ -12,10 +12,9 @@ import chat from './chat';
 import passwordreset from './password-reset';
 
 import user from './common/user';
-import header from './common/header';
-import footer from './common/footer';
+import app from './common/app';
 
-angular.module('app', [uirouter, home, register, login, logout, passwordreset, event, user, chat, ngprogress, header, footer])
+angular.module('app', [uirouter, app, home, register, login, logout, passwordreset, event, user, chat, ngprogress])
     .config(routes)
     .run(['$rootScope', '$state', 'ngProgressLite', 'UserService', ($root, $state, ngProgressLite, userService) => {
         $root.$on('$stateChangeStart', (e, toState, toParams, fromState, fromParams, options) => {

@@ -1,9 +1,9 @@
-describe('HeaderDirective', function() {
+describe('BodyDirective', function() {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.header');
+        angular.mock.module('common.body');
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
@@ -11,8 +11,8 @@ describe('HeaderDirective', function() {
         });
     });
 
-    it('Header', () => {
-        let element = $compile('<ui-header></ui-header>')($rootScope);
+    it('Body', () => {
+        let element = $compile('<ui-body></ui-body>')($rootScope);
         $rootScope.$digest();
         expect(element.html()).not.toBeNull();
     });
