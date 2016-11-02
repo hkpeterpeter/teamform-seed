@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+            authDomain: "comp3111-bb108.firebaseapp.com",
+            databaseURL: "https://comp3111-bb108.firebaseio.com",
+            storageBucket: "comp3111-bb108.appspot.com",
+            messagingSenderId: "554833059052"
+        };
+        firebase.initializeApp(config);
+
+
+
+                var provider = new firebase.auth.FacebookAuthProvider();
+
+provider.setCustomParameters({
+  'display': 'popup'
+});
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+  // ...
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+
+  
+});
+
+firebase.auth().signInWithRedirect(provider);
+
+firebase.auth().getRedirectResult().then(function(result) {
+  if (result.credential) {
+    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+    var token = result.credential.accessToken;
+    // ...
+  }
+  // The signed-in user info.
+  var user = result.user;
+}).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  // ...
+});
+    </script>
+
+
+</head>
+
+<body>
+    <div ng-controller="RegCtrl" class="container">
+
+        <div class="row">
+            <form name="form" class="css-form col-md-4" novalidate>
+                <div class="form-group">
+                    <label>Email: <span class="required " ng-show="form.email.$error.required"></span> </label>
+                    <input class="form-control" type="text" name="email" ng-model="input.email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Username: <span class="required" ng-show="form.username.$error.required"></span></label>
+                    <input class="form-control" type="text" name="username" ng-model="input.username" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password: <span class="required" ng-show="form.password.$error.required"></span></label>
+                    <input class="form-control" type="password" name="password" ng-model="input.password" required>
+                </div>
+
+                <input class="btn btn-primary" type="button" value="Submit" ng-click="signUp()" ng-disabled="!input.email || !input.username || !input.password">
+            </form>
+        </div>
+        <span>{{message}}</span>
+    </div>
+
+    <!-- Question Controller -->
+    <script src="app.js"></script>
+
+</body>
+
+</html>
