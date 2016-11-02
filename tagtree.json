@@ -1,0 +1,20 @@
+tags = {"skill" : [{"computer science":[{"language":["Java","C","C++","C#","Python","Javascript","PHP","Assembly language","Visual Basic .NET","Perl","Delphi/Object Pascal","Ruby","Swift","Object-C","MATLAB","Groovy","R","Scala","Go","PL/SQL","Haskell","Rust","VBA","Visual Basic","lua","HTML","CSS"]},
+											 {"system":["Windows","Windows XP","MAC OS X","Linux","Windows Vista","Android","Apple ios","Blackberry OS","Windows OS","BADA","Palm OS","Open WebOS","Maemo","MeeGo","Verdict","Unix"]},
+											 {"tool":["git","bootstrap","firebase","matlab","excel","mysql","apache","eclipse","wordpress","xcode","oracle"]},
+											 {"framework":[".net","angularjs","ruby-on-rails","jquery","asp.net","django","node.js","spring","cocoa","opencv"]},
+											 {"area":["algorithms and data structures","artificial intelligence","computer architecture","computer graphics and visualization","computer networks","computer performance analysis","computer security and cryptography","concurrent\,parallel and distributed systems","database","human-based computation","human-computer interaction","mathematical optimization","programming language theory","soft computing","software engineering","theoretical computer science","theory of computation"]}
+					                        ]},
+				   {"science":[{"math":["algebra","analysis","arithemetic","applied math"]},
+				  			   {"physics":["mechanics","optics","electricity","magenetism","thermodynamics"]},
+				  			   {"chemistry":["biochemistry","nuclear chemistry","organic chemistry","analytical chemistry","physical chemistry","qunatum chemistry"]},
+				 			   {"biology":["algriculture","anatomy","astrobiology","botany","ecology","marine biology","nanobiology","zoology"]}
+				 			   ]}
+				   ],
+		"interest":[{"music":["alternative music","blues","classical music","country music","dance music","electronic music","hip hop","rap","jazz","opera","pop","R&B/soul","reggae","rock","beats"]},
+				    {"cuisine":["dessert","junk food","organic food","snack","mexican food","italian food","chinese food","japanese food","indian food","thai food","american food","french food","spanish food","greek food","vietnamese food","korean food","vegetarian food"]},
+				    {"pet":["cats","dogs","ducks","fish","birds","sheep","turtles","horses","cow"]},
+				    {"outdoor activity":["hiking","jogging","park","picnic","swimming","surfing","snorkelling","diving","horse racing","travelling","ride","hunting","fishing","soccor","football","basketball","tennis","table tennis","badminton","horse riding","rock climbing"]},
+				    {"performance":["storytelling","theatre","cinema","dance","circus","magic","street performance","parades","fireworks","concert"]},
+				    {"indoor entertainment":["karaoke","board game","TV drama","film","gambling","party","drinking","reading","shopping","fair"]}
+				   ]
+        }
