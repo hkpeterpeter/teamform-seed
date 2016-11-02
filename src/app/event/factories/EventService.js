@@ -9,7 +9,7 @@ export default class EventService {
         return this.$firebaseObject(this.$database.ref('events/' + id)).$loaded();
     }
     getEvents(options = {}) {
-        var ref = this.$database.ref('events');
+        let ref = this.$database.ref('events');
         return this.$firebaseArray(ref).$loaded();
     }
     createEvent(event) {

@@ -1,4 +1,4 @@
-import EventDetailView from '../views/eventDetail.html'
+import EventDetailView from '../views/eventDetail.html';
 import EventListView from '../views/eventList.html';
 import EventCreateView from '../views/eventCreate.html';
 

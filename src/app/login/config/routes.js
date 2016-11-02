@@ -1,4 +1,4 @@
-import LoginView from '../views/login.html'
+import LoginView from '../views/login.html';
 
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider

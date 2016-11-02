@@ -1,4 +1,4 @@
-import RegisterView from '../views/register.html'
+import RegisterView from '../views/register.html';
 
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider

@@ -2,6 +2,7 @@
 /node_modules/
 /bower_components/
 /dist/
+/coverage/
 tmp
 .DS_Store
 *.log

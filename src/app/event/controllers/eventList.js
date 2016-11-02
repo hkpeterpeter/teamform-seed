@@ -6,9 +6,9 @@ export default class EventListCtrl {
         this.EventService = EventService;
         this.events = [];
         this.error = null;
-        this.updateEvents();
+        this.getEvents();
     }
-    updateEvents() {
+    getEvents() {
         this.EventService.getEvents().then((events) => {
             this.$timeout(() => {
                 this.events = events;

@@ -1,4 +1,4 @@
-import PasswordResetView from '../views/password_reset.html'
+import PasswordResetView from '../views/password_reset.html';
 
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider

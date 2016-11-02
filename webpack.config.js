@@ -12,13 +12,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
-var ENV = process.env.npm_lifecycle_event;
-var isTest = ENV === 'test' || ENV === 'test-watch';
-var isProd = ENV === 'build';
+let ENV = process.env.npm_lifecycle_event;
+let isTest = ENV === 'test' || ENV === 'test-watch';
+let isProd = ENV === 'build';
 
 module.exports = function makeWebpackConfig() {
 
-    var config = {};
+    let config = {};
 
     config.entry = isTest ? {} : {
         app: './src/app/app.js',
@@ -45,10 +45,14 @@ module.exports = function makeWebpackConfig() {
     }
 
     config.module = {
-        preLoaders: [],
+        preLoaders: [{
+            test: /\.js$/,
+            loader: 'eslint',
+            exclude: /(node_modules|bower_components|\.test.js$)/
+        }],
         loaders: [{
             test: /\.js$/,
-            loader: 'babel',
+            loaders: ['babel'],
             exclude: /(node_modules|bower_components)/
         }, {
             test: /\.css$/,
@@ -79,9 +83,10 @@ module.exports = function makeWebpackConfig() {
             test: /\.js$/,
             exclude: [
                 /node_modules/,
-                /\.spec\.js$/
+                /\.test\.js$/,
+                /test.webpack.js$/
             ],
-            loader: 'isparta-loader'
+            loader: 'isparta'
         })
     }
 

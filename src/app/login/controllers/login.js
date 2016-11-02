@@ -24,6 +24,7 @@ export default class LoginCtrl {
                 });
             });
     }
+
     authenticate(provider) {
         this.$auth.authenticate(provider)
             .then((response) => {

@@ -1,11 +1,11 @@
 export default class Header {
-    constructor($state) {
+    constructor() {
         this.template = require('../views/header.html');
         this.restrict = 'E';
         this.scope = {};
     }
 
-    link(scope, element, attributes, controller) {
+    link(scope, element, attributes) {
 
     }
 
@@ -13,4 +13,4 @@ export default class Header {
         return new Header(...args);
     }
 }
-Header.instance.$inject = []
+Header.instance.$inject = [];
