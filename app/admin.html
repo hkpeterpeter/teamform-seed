@@ -26,7 +26,7 @@
 
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
-	  	  
+	  	
    </head>
    <body>
 
@@ -39,9 +39,22 @@
 
    <div class="text-center">
       <h1>Administrative Page</h1>
-	  
-	 
-					 
+      <!---TESTING USE ONLY><!-->
+	     <div id="alert" class="alert" role="alert">
+         <h4 id="alert-title"><div id="sign-in-status"></div></h4>
+
+        <p id="alert-detail"><div id="account-details"></div></p>
+    </div>
+    <div id="user-info" style="display: block;">
+      <div id="photo-container">
+        <img id="photo">
+      </div>
+      <div id="name"></div>
+      <div id="email"></div>
+      <div class="clearfix"></div>
+    </div>
+	   <h4 id="uid"></h4>
+		  <!---TESTING USE ONLY><!-->	 
       <h2 id="text_event_name"></h2>
 
       <div id="admin_page_controller" ng-controller="AdminCtrl">
@@ -136,7 +149,7 @@
    <script src="lib/angularfire.min.js"></script>
 
    <script src="js/admin.js"></script>
-
+   <script src="js/verify.js"></script>  
    </body>
 </html>
 

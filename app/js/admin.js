@@ -20,9 +20,11 @@ angular.module('teamform-admin-app', ['firebase'])
 			
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
-	
-	var refPath, ref, eventName;
-
+	var logged_in=getUID();
+	//document.getElementById('uid').textContent = logged_in;
+	var refPath, ref, eventName, current_uid;
+	//current_uid=document.getElementById('uid').textContent;
+	//current_uid=getUID();
 	eventName = getURLParameter("q");
 	refPath = eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
@@ -32,7 +34,18 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.param = $firebaseObject(ref);
 	$scope.param.$loaded()
 		.then( function(data) {
-			
+			current_uid=document.getElementById('uid').textContent;
+			// Check if logged in user is the admin of the event
+			if (logged_in==false){
+				window.alert("You don't have permission to manage this event! Please login.");
+				window.location.href= "index.html";
+			}
+			if (typeof $scope.param.maxTeamSize != "undefined"){
+				if ($scope.param.adminUID != current_uid){
+					window.alert("You don't have permission to manage this event!");
+					window.location.href= "index.html";
+				}
+			}
 			// Fill in some initial values when the DB entry doesn't exist			
 			if(typeof $scope.param.maxTeamSize == "undefined"){				
 				$scope.param.maxTeamSize = 10;
@@ -40,7 +53,9 @@ angular.module('teamform-admin-app', ['firebase'])
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}
-			
+			if(typeof $scope.param.adminUID == "undefined"){				
+				$scope.param.adminUID = current_uid;
+			}
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
 		}) 
