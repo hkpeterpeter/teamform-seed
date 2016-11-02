@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard</title>
+    <!-- CSS IMPORTING -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body ng-app="dashboard" ng-controller="dashboardController">
+
+<!-- JAVASCRIPT FILES -->
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAYzGPDg_4F7gLeYHzbPiustxeztrRsvHA",
+        authDomain: "dcountdown-c48f1.firebaseapp.com",
+        databaseURL: "https://dcountdown-c48f1.firebaseio.com",
+        storageBucket: "dcountdown-c48f1.appspot.com",
+        messagingSenderId: "807843705431"
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script><!--Angular Fire -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="./personal-dashboard-main.js"></script>
+
+<div class="container" style="padding-top: 20px">
+    <div class="row">
+        <div class="col m6 s6">
+            <img src="./userProfilePlaceHolder.png">
+        </div>
+        <div class="col m6 s6">
+            <h2>Username: {{username}}</h2>
+            <h4>Email: hezhou556@gmail.com</h4>
+            <h4>Manage my Skills:</h4>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
