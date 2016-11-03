@@ -1,32 +1,19 @@
-var app = angular.module("loginApp", ["firebase"]);
+app.controller("RegCtrl", ["$scope", '$firebaseAuth', function($scope, $firebaseAuth) {
+    var ref = firebase.database().ref();
+    var auth = $firebaseAuth(firebase.auth());
+    $scope.signUp = function() {
+        auth.$createUserWithEmailAndPassword($scope.input.email,$scope.input.password)
+        .then(function(userData) {
+            console.log("User " + userData.uid + " created successfully!");
 
-// and use it in our controller
-app.controller("Signin", ["$scope", '$firebaseAuth', function($scope, $firebaseAuth) {
-   
-     
-   var provider = new firebase.auth.FacebookAuthProvider();
-
-   $scope.login = function() {
-
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-    }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-    });
-     
-     };
-   
-   
-   
+            return auth.$signInWithEmailAndPassword({
+                email: $scope.input.email,
+                password: $scope.input.password
+            });
+        }).then(function(authData) {
+            console.log("Logged in as:", authData.uid);
+        }).catch(function(error) {
+            console.error("Error: ", error);
+        });
+    };
 }]);
