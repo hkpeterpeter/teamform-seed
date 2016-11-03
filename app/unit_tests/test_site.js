@@ -16,6 +16,7 @@ describe('Test site.js', function() {
 
 describe('teamform-admin-app', function() {
 
+<<<<<<< HEAD
 	var $controller, $scope;
 
 	beforeEach(function(){
@@ -27,10 +28,24 @@ describe('teamform-admin-app', function() {
 			$controller = _$controller_;
 		});
 	});
+=======
+	var createController, $scope;
+
+	beforeEach(inject(function($rootScope, _$controller_){
+        $scope = $rootScope.$new();
+		
+		createController = function() {
+            return $controller('teamform-admin-app', {
+                '$scope': $scope
+            });
+        };
+	}));
+>>>>>>> refs/remotes/origin/master
 	
 
 
 	  it('change min size to 3', function() {
+<<<<<<< HEAD
 	  	var myscope = {};		
 		var controller = $controller('AdminCtrl',{$scope:myscope});
 		myscope.param = {};
@@ -58,9 +73,22 @@ describe('teamform-admin-app', function() {
 		myscope.param.$loaded().then
 	  	myscope.changeMaxTeamSize(9);
 	  	expect(myscope.param.maxTeamSize).toBe(9);
+=======
+	  	$scope.changeMinTeamSize(3);
+	  	expect($scope.param.minTeamSize).toBe(3);
+	  });
+	  
+	  it('change max size to 10', function() {
+	  	$scope.changeMaxTeamSize(10);
+	  	expect($scope.param.minTeamSize).toBe(10);
+>>>>>>> refs/remotes/origin/master
 	  });
 	  
 	  
 });   
    
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> refs/remotes/origin/master
