@@ -88,15 +88,24 @@ angular.module('index-app', ['firebase'])
 
 			var usersRef = firebase.database().ref('users');
 			var usersArray = $firebaseArray(usersRef);
-			console.log('getRecord:'+usersArray.$getRecord(user.uid));
-			if(usersArray.$getRecord(user.uid) == null){
-				console.log('it is null and i am setting new profile for it');
-				firebase.database().ref('users/'+user.uid).set({
-        		 	name: 'Default',
-        		 	language: ["Java"],
-       				gpa: 0
+			usersArray.$loaded()
+				.then(function(x){
+					console.log('helloe');
+					console.log(usersArray.$getRecord(user.uid));
+					
+					if(usersArray.$getRecord(user.uid) == null){
+						console.log('it is null and i am setting new profile for it');
+						firebase.database().ref('users/'+user.uid).set({
+        		 			name: 'Default',
+        		 			language: ["Java"],
+       						gpa: 0
+						});
+					}
+				})
+				.catch(function(error){
+					console.log("Error:"+error);
 				});
-			}
+			
 		}else{
 			console.log('not log in');
 			$scope.changeLoggedIn(false);

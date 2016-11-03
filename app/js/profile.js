@@ -2,9 +2,9 @@ angular.module('profile-app', ['firebase'])
 .controller('ProfileCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$window',function($scope, $firebaseObject, $firebaseArray, $window) {
 	//init firebase
 	initalizeFirebase();
-
+    
     $scope.userData = {
-        name: '',
+        name: 'default',
         language: [],
         gpa: 0
     }
@@ -43,6 +43,20 @@ angular.module('profile-app', ['firebase'])
 	firebase.auth().onAuthStateChanged(user => {
 		if(user){
 			console.log('logged in');
+            var database = firebase.database();
+            var ref = database.ref('users/'+user.uid);
+            var currentUserData = $firebaseObject(ref);
+            currentUserData.$loaded()
+                .then(function(data){
+                    console.log(data===currentUserData);
+                    console.log(currentUserData.name);
+                    $scope.userData.name = currentUserData.name;
+                    $scope.userData.gpa = currentUserData.gpa;
+                })
+                .catch(function(error){
+                    console.error("Error: "+error);
+                });
+
         }else{
 			console.log('not log in');
             $window.location.href = '/index.html';
