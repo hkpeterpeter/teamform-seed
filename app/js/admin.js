@@ -17,7 +17,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
-			
+	$scope.UIDparam = {};		
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
 	var logged_in=getUID();
@@ -28,10 +28,12 @@ angular.module('teamform-admin-app', ['firebase'])
 	eventName = getURLParameter("q");
 	refPath = eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
-		
+	UIDrefPath = eventName + "/admin/UIDparam";
+	UIDref = firebase.database().ref(UIDrefPath);	
 	// Link and sync a firebase object
 	
 	$scope.param = $firebaseObject(ref);
+	$scope.UIDparam = $firebaseObject(UIDref);
 	$scope.param.$loaded()
 		.then( function(data) {
 			current_uid=document.getElementById('uid').textContent;
@@ -41,7 +43,7 @@ angular.module('teamform-admin-app', ['firebase'])
 				window.location.href= "index.html";
 			}
 			if (typeof $scope.param.maxTeamSize != "undefined"){
-				if ($scope.param.adminUID != current_uid){
+				if ($scope.UID != current_uid){
 					window.alert("You don't have permission to manage this event!");
 					window.location.href= "index.html";
 				}
@@ -53,8 +55,8 @@ angular.module('teamform-admin-app', ['firebase'])
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}
-			if(typeof $scope.param.adminUID == "undefined"){				
-				$scope.param.adminUID = current_uid;
+			if(typeof $scope.UIDparam.adminUID == "undefined"){				
+				$scope.UIDparam.adminUID = current_uid;
 			}
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
@@ -101,7 +103,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.saveFunc = function() {
 
 		$scope.param.$save();
-		
+		$scope.UIDparam.$save();
 		// Finally, go back to the front-end
 		window.location.href= "index.html";
 	}
