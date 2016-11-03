@@ -12,6 +12,7 @@
     <title>Teamform - TESTING</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="js/custom.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -21,7 +22,7 @@
 
 <body>
 
-        <div ng-app="teamform">
+        <div ng-app="teamform" ng-controller="myCtrl">
 
             <div id="wrapper">
 
@@ -30,7 +31,7 @@
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
                             <a href="#">
-                                Start Bootstrap
+                                {{firstName}} {{lastName}}
                             </a>
                         </li>
                         <li>
