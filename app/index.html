@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="index-app" ng-controller="LoginCtrl">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -88,9 +88,30 @@
             </nav>
          </div>
       </div>
+      <!--Login interface-->
+      <div class="container" id="login_box"  >
+        <form ng-hide="showLogout">
+        <input ng-model="txtEmail"  placeholder="Email">
+        
+        <input ng-model="txtPassword" type="password" placeholder="Password">
+
+        <button id="btnLogin" class="btn btn-primary" ng-click="login()">
+          Login 
+        </button>
+
+        <button id="btnSignUp" class="btn btn-primary" ng-click="signup()">
+          Sign Up
+        </button>
+
+        </form>
+        <button id="btnLogout" class="btn btn-primary" ng-click="logout()" ng-show="showLogout">
+          Logout
+        </button>
+        <p ng-show="showLogout">Hello! {{displayEmail}} </p>
+      </div>
       <!-- A sample login page -->
       <div class="container" id="page_home">
-         <div class="row">
+         <div class="row" ng-show="showLogout">
             <div class="col-md-12">
                <div class="row">
                   <div class="col-md-12">
@@ -274,6 +295,15 @@
          </footer>
       </div>
       <!-- /.container -->
+
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>        
+     
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>     
+      <script src="lib/angularfire.min.js"></script>
+
 
       <!-- JavaScript of this page -->
       <script src="js/index.js"></script>
