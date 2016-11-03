@@ -3,10 +3,6 @@ initalizeFirebase();
 
 var app = angular.module("tfApp", ["firebase", "ui.router"]);
 
-app.factory("Auth", function($firebaseAuth) {
-    return $firebaseAuth();
-});
-
 
 app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider

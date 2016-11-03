@@ -1,3 +1,7 @@
+app.factory("Auth", function($firebaseAuth) {
+    return $firebaseAuth();
+});
+
 app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper = {};
     helper.debug = {};
@@ -55,7 +59,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             console.log(userData.uid);
             userObj = $firebaseObject(userRef);
             userObj.$loaded().then(function(data) {
-                // userObj.writable = {};
+                if (userObj.writable === undefined) userObj.writable = {};
                 userObj.writable[eventID] = {
                     position: "admin"
                 };
