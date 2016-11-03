@@ -17,22 +17,37 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
-			
+	$scope.UIDparam = {};		
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
-	
-	var refPath, ref, eventName;
-
+	var logged_in=getUID();
+	//document.getElementById('uid').textContent = logged_in;
+	var refPath, ref, eventName, current_uid;
+	//current_uid=document.getElementById('uid').textContent;
+	//current_uid=getUID();
 	eventName = getURLParameter("q");
 	refPath = eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
-		
+	UIDrefPath = eventName + "/admin/UIDparam";
+	UIDref = firebase.database().ref(UIDrefPath);	
 	// Link and sync a firebase object
 	
 	$scope.param = $firebaseObject(ref);
+	$scope.UIDparam = $firebaseObject(UIDref);
 	$scope.param.$loaded()
 		.then( function(data) {
-			
+			current_uid=document.getElementById('uid').textContent;
+			// Check if logged in user is the admin of the event
+			if (logged_in==false){
+				window.alert("You don't have permission to manage this event! Please login.");
+				window.location.href= "index.html";
+			}
+			if (typeof $scope.param.maxTeamSize != "undefined"){
+				if ($scope.UIDparam.adminUID != current_uid){
+					window.alert("You don't have permission to manage this event!");
+					window.location.href= "index.html";
+				}
+			}
 			// Fill in some initial values when the DB entry doesn't exist			
 			if(typeof $scope.param.maxTeamSize == "undefined"){				
 				$scope.param.maxTeamSize = 10;
@@ -40,7 +55,9 @@ angular.module('teamform-admin-app', ['firebase'])
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}
-			
+			if(typeof $scope.UIDparam.adminUID == "undefined"){				
+				$scope.UIDparam.adminUID = current_uid;
+			}
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
 		}) 
@@ -86,7 +103,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.saveFunc = function() {
 
 		$scope.param.$save();
-		
+		$scope.UIDparam.$save();
 		// Finally, go back to the front-end
 		window.location.href= "index.html";
 	}

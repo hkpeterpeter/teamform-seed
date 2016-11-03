@@ -35,6 +35,7 @@ angular.module('teamform-team-app', ['firebase'])
 		if ( data.child("param").val() != null ) {
 			$scope.range = data.child("param").val();
 			$scope.param.currentTeamSize = parseInt(($scope.range.minTeamSize + $scope.range.maxTeamSize)/2);
+			//$scope.param.currentTeamSize = parseInt(($scope.range.minTeamSize + $scope.range.maxTeamSize)/2);
 			$scope.$apply(); // force to refresh
 			$('#team_page_controller').show(); // show UI
 			
@@ -83,6 +84,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 	$scope.changeCurrentTeamSize = function(delta) {
 		var newVal = $scope.param.currentTeamSize + delta;
+
 		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
 			$scope.param.currentTeamSize = newVal;
 		} 
@@ -162,6 +164,50 @@ angular.module('teamform-team-app', ['firebase'])
 
 	}
 	
+	$scope.changeFunc = function() {
+		
+		var teamID = $.trim( $scope.param.teamName );		
+		if ( teamID !== '' ) {
+			
+			var newData = {				
+				'size': $scope.param.currentTeamSize,
+				'teamMembers': $scope.param.teamMembers
+			};		
+			
+			var refPath = getURLParameter("q") + "/team/" + teamID;	
+			var ref = firebase.database().ref(refPath);
+			
+			
+			// for each team members, clear the selection in /[eventName]/team/
+			
+			$.each($scope.param.teamMembers, function(i,obj){
+				
+				
+				//$scope.test += obj;
+				var rec = $scope.member.$getRecord(obj);
+				rec.selection = [];
+				$scope.member.$save(rec);
+				
+				
+				
+			});
+			
+			
+			
+			ref.set(newData, function(){			
+
+				// console.log("Success..");
+				
+				// Finally, go back to the front-end
+				// window.location.href= "index.html";
+			});
+			
+			
+			
+		}
+
+	}
+
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;
 		
