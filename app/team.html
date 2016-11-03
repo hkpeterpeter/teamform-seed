@@ -68,11 +68,8 @@
 	            <div class="col-md-8 col-xs-8">
 	            <input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
 	            </div>
-	            <div class="col-md-1 col-xs-1">
-	            <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
-	            </div>
-	            <div class="col-md-1 col-xs-1">
-	            <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
+	            <div class="col-md-2 col-xs-2">
+	            <button type="button" class="btn btn-primary" id="add" ng-click="saveFunc();">Add</button>
 	            </div>
 	          </div>
 	        </div>
@@ -107,7 +104,7 @@
 	        
 	          <div ng-repeat="r in requests">
 	            <button type="button" class="btn" ng-click="processRequest(r);">
-	            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{ retrieveNameFromID(r) }}
+	            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{ r }}
 	            </button>
 	          </div>
 	        </div>

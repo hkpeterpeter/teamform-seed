@@ -55,37 +55,37 @@
    <div class="text-center">
       <h1>Member Page</h1>
       <h2 id="text_event_name"></h2>
+      <br>
        <div id="member_page_controller">
          <div class="row">
-            <div class="col-md-1 col-xs-1"></div>
-            <div class="col-md-10 col-xs-10 panel">
-               <form class="form-horizontal">
-                  <div class="form-group">
-                    <label for="inputUserID" class="col-xs-2 control-label">User ID</label>
-                    <div class="col-xs-7">
-                      <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
+            <div class="col-md-3 col-xs-2"></div>
+            <div class="col-md-6 col-xs-8 panel">
+               <form class="form-horizontal">                  
+                  <div class="col-xs-10">
+                    <div class="form-group">
+                      <label for="inputUserID" class="col-xs-3 control-label">User ID</label>
+                      <div class="col-xs-9">
+                        <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
+                      </div>
+                      </div>
+                      <div class="form-group">
+                      <label for="inputName" class="col-xs-3 control-label">Name</label>
+                        <div class="col-xs-9">
+                        <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
+                      </div>
                     </div>
-					 
-        					  <div class="col-xs-1">
-                      <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add/Modify</button>
-        					  </div>
                   </div>
-                  <div class="form-group">
-                     <label for="inputName" class="col-xs-2 control-label">Name</label>
-                     <div class="col-xs-7">
-                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
-                     </div>
-                     <div class="col-xs-1">
-                      <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
-                     </div>
-                  </div>
+                  <div class="col-xs-2">
+                    <button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
+        					</div>                  
                </form>
                </div>
-               <div class="col-md-1 col-xs-1"></div>
+               <div class="col-md-3 col-xs-2"></div>
          </div>
          <div class="row">
-			       <div class="col-md-2 col-xs-2"></div>
-  			     <div class="col-md-10 col-xs-10 text-left">
+			       <div class="col-md-3 col-sm-2 col-xs-1"></div>
+  			     <div class="col-md-6 col-sm-8 col-xs-10 text-left">
+              <h4 class="text-center" id="teamStatus"></h4>
   				    <h3>Your team preference:</h3>
     			       <div ng-repeat="team in teams">
       					 <div class="checkbox">
@@ -96,7 +96,7 @@
       					 </div>
     				    </div>
   				    </div>
-            <div class="col-md-2 col-xs-2"></div>
+            <div class="col-md-3 col-sm-2 col-xs-1"></div>
          </div>
        </div>
    </div>

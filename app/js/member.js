@@ -8,19 +8,6 @@ $(document).ready(function(){
 		$('#member_page_controller').show();
 	}
 
-	firebase.auth().onAuthStateChanged(function(firebaseUser) {
-      if(firebaseUser) {
-        var user = firebase.auth().currentUser;
-        $("#inputUserID").val(user.uid);
-      	$("#inputUserName").val(user.displayName);
-      }
-      else {
-      	$("#inputUserID").val("");
-      	$("#inputUserName").val("");
-      	$(".checkbox label input").prop("checked", false);
-      }
-    });
-
 });
 
 angular.module('teamform-member-app', ['firebase'])
@@ -33,40 +20,56 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.userName = "";	
 	$scope.teams = {};
 	$scope.userInfo = "";
+	$scope.uid = "";
+	$scope.name = "";
+	$scope.teamStatus = "";
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
-        var user = firebase.auth().currentUser;
-        $scope.userName = user.displayName;
-        $scope.userID = user.uid;
+      	var user = firebase.auth().currentUser;
+        $scope.uid = user.uid;
+        $scope.name = user.displayName;
         $scope.loadFunc();
-        $scope.refreshTeams();
       }
       else {
       	$scope.userID = "";
-		$scope.userName = "";
+      	$scope.userName = "";
+      	$scope.uid = "";
+      	$scope.name = "";
+      	$scope.selection = [];
+      	$("input").prop("disabled", true);
       }
     });
 
 	$scope.loadFunc = function() {
-		var userID = $scope.userID;
-		if(userID !== '') {
-			var refPath = getURLParameter("q") + "/member/" + userID;
-			$scope.userInfo = $firebaseObject(firebase.database().ref(refPath));
-			$scope.userInfo.$bindTo($scope, "data").then(function() {
-				console.log($scope.data.selection);
-				if($scope.data.name != null) {
-					$scope.userName = $scope.data.name;
-				} else {
-					$scope.userName = "";
-				}
-				if($scope.data.selection != null) {
-					$scope.selection = $scope.data.selection;
-				} else {
-					$scope.selection = [];
-				}
-			});
-		}
+		var refPath = getURLParameter("q") + "/member/" + $scope.uid;
+		$scope.userInfo = $firebaseObject(firebase.database().ref(refPath));
+		$scope.userInfo.$bindTo($scope, "data").then(function() {
+			if($scope.data.userid != null) {
+				$scope.userID = $scope.data.userid;
+			}
+			else {
+				$scope.userID = $scope.uid;
+			}
+			if($scope.data.name != null) {
+				$scope.userName = $scope.data.name;
+			} else {
+				$scope.userName = $scope.name;
+			}
+			if($scope.data.selection != null) {
+				$scope.selection = $scope.data.selection;
+			} else {
+				$scope.selection = [];
+			}
+			if($scope.data.inTeam != null) {
+				$("#teamStatus").html("You have joined team " + $scope.data.inTeam);
+			}
+			else {
+				$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
+				 the team or <a href=\"team.html?q=" + getURLParameter("q") + "\">Click here</a> to create\
+				  a team.");
+			}
+		});
 	};
 	
 	$scope.saveFunc = function() {
@@ -75,11 +78,12 @@ angular.module('teamform-member-app', ['firebase'])
 		
 		if(userID !== '' && userName !== '') {
 			var newData = {
+				'userid': userID,
 				'name': userName,
-				'selection': $scope.selection
+				'selection': $scope.selection,
 			};
 			console.log(newData);
-			var refPath = getURLParameter("q") + "/member/" + userID;
+			var refPath = getURLParameter("q") + "/member/" + $scope.uid;
 			var ref = firebase.database().ref(refPath);
 			ref.set(newData, function() {
 				window.location.href= "index.html";
@@ -107,5 +111,6 @@ angular.module('teamform-member-app', ['firebase'])
 			.then(function(data) {}) 
 			.catch(function(error) {});
 	};
+
 	$scope.refreshTeams(); // call to refresh teams...
 }]);
