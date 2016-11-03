@@ -88,6 +88,7 @@ angular.module('teamform-team-app', ['firebase'])
 		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
 			$scope.param.currentTeamSize = newVal;
 		} 
+
 	}
 
 	$scope.saveFunc = function() {
@@ -169,39 +170,23 @@ angular.module('teamform-team-app', ['firebase'])
 		var teamID = $.trim( $scope.param.teamName );		
 		if ( teamID !== '' ) {
 			
-			var newData = {				
-				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers
-			};		
+			//var newData = {				
+			//	'size': $scope.param.currentTeamSize,
+			//	'teamMembers': $scope.param.teamMembers
+			//};		
 			
-			var refPath = getURLParameter("q") + "/team/" + teamID;	
+			var refPath = getURLParameter("q") + "/team/" + teamID + "/size";	
 			var ref = firebase.database().ref(refPath);
 			
 			
-			// for each team members, clear the selection in /[eventName]/team/
 			
-			$.each($scope.param.teamMembers, function(i,obj){
-				
-				
-				//$scope.test += obj;
-				var rec = $scope.member.$getRecord(obj);
-				rec.selection = [];
-				$scope.member.$save(rec);
-				
-				
-				
-			});
-			
-			
-			
-			ref.set(newData, function(){			
-
-				// console.log("Success..");
-				
-				// Finally, go back to the front-end
-				// window.location.href= "index.html";
-			});
-			
+			if ($scope.param.teamMembers.length <= $scope.param.currentTeamSize)
+				ref.set($scope.param.currentTeamSize);
+			else{
+				window.alert("Cannot set team size less than number of members!");
+				var difference = $scope.param.teamMembers.length - $scope.param.currentTeamSize;
+				$scope.changeCurrentTeamSize(difference);
+			}
 			
 			
 		}
