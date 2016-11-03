@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="scotchApp">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,11 @@
       <script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>  
       <script src="js/firebase.js"></script>	        
       <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
+      <script src="lib/bootstrap.min.js"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  	  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+      <script src="js/script.js"></script>
+           
       	  
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
@@ -32,7 +36,7 @@
 
 	  	  
    </head>
-   <body>
+   <body ng-controller="mainController">
    
    
   
@@ -54,7 +58,7 @@
                   </div>
                   <div id="navbar" class="navbar-collapse collapse">
                      
-                    <a class="navbar-brand" href="#">About</a>
+                    <a class="navbar-brand" href="#about">About</a>
                     <a class="navbar-brand" href="#">How to</a>
                     <a class="navbar-brand" href="#">Events</a>
                   </div>
@@ -63,6 +67,7 @@
          </div>
       </div>
       <!-- Intro -->
+   <div ng-view>   
       <div class="box" id="intro">
          <div class="row">
             <div class="col-md-12">
@@ -109,9 +114,9 @@
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
        							 <h3>Tags</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <p>can be used to label a user, team or event</p>
+       							 <p>provide information of either skill or interest</p>
+       							 <p>is foundation for recommendation system</p>
       							</div>
    						    </div>
   						</div>
@@ -121,9 +126,9 @@
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
        							 <h3>Recommendations</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <p>when you're unsure of which event to attend</p>
+       							 <p>when you're trying to find an appropriate team</p>
+       							 <p>we recommend event&team based on your tags</p>
       							</div>
    						    </div>
   						</div>
@@ -133,9 +138,9 @@
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
        							 <h3>Find Your Teams</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <p>already have a team in mind to join?</p>
+       							 <p>use search engine to find your team</p>
+       							 <p>the team can be found using name</p>
       							</div>
    						    </div>
   						</div>
@@ -172,10 +177,10 @@
     						<div class="thumbnail">
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
-       							 <h3>Ananya</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <h3>Ananya Mishra</h3>
+       							 <p>3rd year exchange student from UMN</p>
+       							 <p>Back-end developer</p>
+       							 <p>Database creater</p>
       							</div>
    						    </div>
   						</div>
@@ -184,10 +189,10 @@
     						<div class="thumbnail">
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
-       							 <h3>Daehyun</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <h3>Daehyun Bae</h3>
+       							 <p>3rd year exchange student from SKKU</p>
+       							 <p>Front-end developer</p>
+       							 <p>UI designer</p>
       							</div>
    						    </div>
   						</div>
@@ -196,10 +201,10 @@
     						<div class="thumbnail">
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
-       							 <h3>Jacqui</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <h3>Jacquelyn Sloan</h3>
+       							 <p>3rd year exchange student from UMN</p>
+       							 <p>Back-end developer</p>
+       							 <p>Database creater</p>
       							</div>
    						    </div>
   						</div>
@@ -208,10 +213,10 @@
     						<div class="thumbnail">
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
-       							 <h3>Jiahui</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <h3>Jiahui Zheng</h3>
+       							 <p>3rd year exchange student from PKU</p>
+       							 <p>Front-end developer</p>
+       							 <p>Algorithm master</p>
       							</div>
    						    </div>
   						</div>
@@ -220,10 +225,10 @@
     						<div class="thumbnail">
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
-       							 <h3>Leonore</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <h3>Leonore Guillain</h3>
+       							 <p>3rd year exchange student from EPFL</p>
+       							 <p>Front-end developer</p>
+       							 <p>Algorithm master</p>
       							</div>
    						    </div>
   						</div>
@@ -232,10 +237,10 @@
     						<div class="thumbnail">
       							<img src="img/profile.png" class="img-responsive img-circle" align = "middle" alt="profile" width="150" height="150">
       							<div class="caption">
-       							 <h3>Michel</h3>
-       							 <p>...</p>
-       							 <p>...</p>
-       							 <p>...</p>
+       							 <h3>Michel Qin</h3>
+       							 <p>3rd year exchange student from ?</p>
+       							 <p>Front-end developer</p>
+       							 <p>UI designer</p>
       							</div>
    						    </div>
   						</div>
@@ -255,7 +260,7 @@
          </div>
       </div>
      
-
+   </div>
          <!-- /END THE FEATURETTES -->
          <!-- FOOTER -->
          <hr>
