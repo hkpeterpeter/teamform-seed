@@ -60,8 +60,12 @@ angular.module('index-app', ['firebase'])
 		console.log(pass);
 		const auth = firebase.auth();
 		//Sign up
-		const promise = auth.createUserWithEmailAndPassword(email,pass);
-		promsie.catch(e => console.log(e.message));
+		var promise = auth.createUserWithEmailAndPassword(email,pass);
+		promsie
+			.then(user =>{
+				console.log(user.uid);
+			} )
+			.catch(e => console.log(e.message));
 	}
 
 	//logout function
@@ -81,6 +85,18 @@ angular.module('index-app', ['firebase'])
 			console.log($scope.loggedIn);
 			$scope.displayEmail = user.email;
 			$scope.$apply();
+
+			var usersRef = firebase.database().ref('users');
+			var usersArray = $firebaseArray(usersRef);
+			console.log('getRecord:'+usersArray.$getRecord(user.uid));
+			if(usersArray.$getRecord(user.uid) == null){
+				console.log('it is null and i am setting new profile for it');
+				firebase.database().ref('users/'+user.uid).set({
+        		 	name: 'Default',
+        		 	language: ["Java"],
+       				gpa: 0
+				});
+			}
 		}else{
 			console.log('not log in');
 			$scope.changeLoggedIn(false);
