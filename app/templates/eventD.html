@@ -1,2 +1,15 @@
-<h1>Event Page</h1>
-<a ng-href="/#/dashboard/event/01/team/01">team</a>
+<h1>{{eventObj.eventInfo.name}}</h1>
+<h3 ng-if="!(obj[eventID]===undefined)">{{obj[eventID].position}}</h3>
+<h1>{{eventObj.eventInfo.desc}}</h1>
+<div ng-if="!(obj[eventID]===undefined)">
+    <button class="btn btn-primary" ng-click="manage()" ng-if="obj[eventID].position=='admin'">Manage</button>
+</div>
+<br>
+
+<div ng-repeat="(key, team) in eventObj.teams">
+    <a ng-href="/#/dashboard/event/{{eventID}}/team/{{key}}">{{team.name}}</a>
+    <button class="btn btn-primary" ng-click="deleteTeam(key)" ng-if="isManaging">delete</button>
+</div>
+<br><br><br><br>
+<h1>Debug</h1>
+<button class="btn btn-primary" ng-click="createEventList(userData)">createEventList</button>
