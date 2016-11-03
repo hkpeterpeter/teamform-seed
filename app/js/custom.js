@@ -1,5 +1,5 @@
-var app = angular.module('teamform', ['ui.bootstrap']);
-app.controller('myCtrl', function($scope) {
+var app = angular.module('teamform', ['ui.bootstrap', 'firebase']);
+app.controller('myCtrl', function($scope, $firebaseArray) {
 
     $scope.firstName = "John";
     $scope.lastName = "Doe";
@@ -18,5 +18,10 @@ app.controller('myCtrl', function($scope) {
         }
 
     }
+
+    var ref = firebase.database().ref().child("event");
+    // create a synchronized array
+    // click on `index.html` above to see it used in the DOM!
+    $scope.events = $firebaseArray(ref);
 
 });

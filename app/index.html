@@ -12,8 +12,15 @@
     <title>Teamform - TESTING</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!-- Custom JS -->
     <script src="js/custom.js"></script>
+    <!-- UI-Boostrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.1/ui-bootstrap-tpls.min.js"></script>
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -21,6 +28,18 @@
     <link href="css/custom.css" rel="stylesheet">
 
 </head>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBKPa_aZAr7C23kkYli_wPPSH069aYLRIM",
+    authDomain: "lab-firebase-aefba.firebaseapp.com",
+    databaseURL: "https://lab-firebase-aefba.firebaseio.com",
+    storageBucket: "lab-firebase-aefba.appspot.com",
+    messagingSenderId: "470761339277"
+  };
+  firebase.initializeApp(config);
+</script>
 
 <body>
 
@@ -30,6 +49,7 @@
 
                 <!-- Sidebar -->
                 <div id="sidebar-wrapper">
+
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
                             <a href="#">
@@ -40,37 +60,37 @@
                         <br>
 
                         <div id = "event-list">Lastest events:
-                            <li>
-                                <a href="#">Event1</a>
+
+                            <li ng-repeat="event in events">
+                                <a href="#">{{ event.$value }}</a>
                             </li>
-                            <li>
-                                <a href="#">Event2</a>
-                            </li>
-                            <li>
-                                <a href="#">Event3</a>
-                            </li>
+
                         </div>
 
                         <br>
 
-                        <div id = "group-list">Your groups:
+                        <div id = "team-list">Your teams:
+
                             <li>
-                                <a href="#">Group1</a>
+                                <a href="#">Team1</a>
                             </li>
                             <li>
-                                <a href="#">Group2</a>
+                                <a href="#">Team2</a>
                             </li>
                             <li>
-                                <a href="#">Group3</a>
+                                <a href="#">Team3</a>
                             </li>
+
                         </div>
 
                         <br>
 
                         <div id = "log-out">
+
                             <li>
                                 <a href="#">Log out</a>
                             </li>
+                            
                         </div>
 
                     </ul>
@@ -86,7 +106,7 @@
                                 <a href="#sidebar-toggle" class="btn btn-default" id="sidebar-toggle" ng-click="toggleWrapper()" >|||</a>
 
                                 <h1>Annoucements</h1>
-                                <p>from event/group: #</p>
+                                <p>from event/team: #</p>
 
                             </div>
 
@@ -101,16 +121,16 @@
 
                             <div class="col-lg-4" id = "right-panel">
                                 <div class="panel panel-default panel-custom">
-                                  <div class="panel-body">Groups from event:#</div>
+                                  <div class="panel-body">Teams from event:#</div>
 
-                                  <div> Group1: ...
+                                  <div> Team1: ...
                                       <div> Team member1: ...</div>
                                       <div> Team member2: ...</div>
                                       <div> Team member3: ...</div>
                                   </div>
                                   <br>
-                                  <div> Group2: ...</div>
-                                  <div> Group3: ...</div>
+                                  <div> Team2: ...</div>
+                                  <div> Team3: ...</div>
                                 </div>
                             </div>
 
