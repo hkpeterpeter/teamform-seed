@@ -1,23 +1,49 @@
-# teamform-seed modified the 4th times....
+# teamform-seed
 ## The seed project for the team forming web application
 
+### Pre-requisites
 
-## Recommendation Algorithm 1.0
- 1. getting training data set:Google/Twitter(hashtag)
- 2. generating word vectors: word2vec
- 3. caculating the matching scores between users and events: 
-       using skills&interests tags from users and events
-       caculating similarities between two tags using the result of word2vec
-       averaging scores using (S1^2+S2^2+...+Sn^2)/(S1+S2+...+Sn)
- 4. caculating the matching scores between users and teams: 
-       using skills tags from users and skills(&needs) tags from teams 
-       caculating similarities between two tags using the result of word2vec
-       averaging scores using (S1^2+S2^2+...+Sn^2)/(S1+S2+...+Sn)
+Install git: [http://git-scm.com/](http://git-scm.com/).
+
+Install node.js and npm: [http://nodejs.org/](http://nodejs.org/).
+Commands to test the installation:
+
+```
+git --version
+node -v
+npm -v
+```
+
+### Clone the project
+
+Please clone the repository at GitHub using `git clone` command:
+
+```
+git clone https://github.com/hkpeterpeter/teamform-seed
+cd teamform-seed
+```
+
+### Install Dependencies
  
-   
+In this course project, fixed version of key libraries (e.g. AngularJS 1.5.7) are included in `app/lib` folder to avoid discreprency. Other development dependencies (e.g. karma toolkit, http-server...) will be installed separately via:
 
+```
+npm install
+```
 
+After running this command, a new folder will be created:
 
+* `node_modules` - It contains the npm packages for the necessary tools we need to build and test our web application
+
+### Run the Application
+
+We have preconfigured the project via a configuration file `package.json`. The simplest way to start this web application is:
+
+```
+npm start
+```
+
+After that, open a web browser (Google chrome desktop/mobile web browser is recommended) with the following URL: `http://localhost:8080/index.html`.
 
 
 ## Directory Layout
