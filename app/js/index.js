@@ -90,15 +90,15 @@ angular.module('index-app', ['firebase'])
 			var usersArray = $firebaseArray(usersRef);
 			usersArray.$loaded()
 				.then(function(x){
-					console.log('helloe');
 					console.log(usersArray.$getRecord(user.uid));
 					
 					if(usersArray.$getRecord(user.uid) == null){
 						console.log('it is null and i am setting new profile for it');
 						firebase.database().ref('users/'+user.uid).set({
-        		 			name: 'Default',
-        		 			language: ["Java"],
-       						gpa: 0
+							name: 'default',
+							language: ['C++'],
+							gpa: 3,
+							team: ['null']
 						});
 					}
 				})
