@@ -43,7 +43,7 @@ angular.module('teamform-admin-app', ['firebase'])
 				window.location.href= "index.html";
 			}
 			if (typeof $scope.param.maxTeamSize != "undefined"){
-				if ($scope.UID != current_uid){
+				if ($scope.UIDparam.adminUID != current_uid){
 					window.alert("You don't have permission to manage this event!");
 					window.location.href= "index.html";
 				}
