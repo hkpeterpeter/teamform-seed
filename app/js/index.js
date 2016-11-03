@@ -37,7 +37,7 @@ angular.module('index-app', ['firebase'])
 	initalizeFirebase();
 	$scope.txtEmail = '';
 	$scope.txtPassword = '';
-	$scope.showLogout  = false;
+	$scope.loggedIn  = false;
 	$scope.displayEmail = '';
 	
 	//login function
@@ -69,21 +69,21 @@ angular.module('index-app', ['firebase'])
 		firebase.auth().signOut();
 	}
 
-	//Change showLogout
-	$scope.changeShowLogout = function(bool){
-		$scope.showLogout = bool;
+	//Change LoggedIn
+	$scope.changeLoggedIn = function(bool){
+		$scope.loggedIn = bool;
 	}
 
 	firebase.auth().onAuthStateChanged(user => {
 		if(user){
 			console.log(user);
-			$scope.changeShowLogout(true);
-			console.log($scope.showLogout);
+			$scope.changeLoggedIn(true);
+			console.log($scope.loggedIn);
 			$scope.displayEmail = user.email;
 			$scope.$apply();
 		}else{
 			console.log('not log in');
-			$scope.changeShowLogout(false);
+			$scope.changeLoggedIn(false);
 			$scope.$apply();
 		}
 	})
