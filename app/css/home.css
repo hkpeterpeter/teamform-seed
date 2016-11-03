@@ -1,6 +1,9 @@
 body {
-	background-color: #1E88E5; /*blue 600*/
-	font-family: 'Roboto Slab', serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  	font-size: 14px;
+  	line-height: 1.42857143;
+  	color: #333;
+	background-color: #87CEFA; /*lightskyblue*/
 }
 section {
 	padding-top: 100px;
@@ -25,9 +28,19 @@ hr.white-line{
 	margin: 25px auto 30px;
 	border-color: white;
 }
+
+.box {
+	margin-bottom: 150px;
+}
+
 /*-----navbar----- */
+.navbar {
+	background-color: #1E90FF; /*dogerblue*/
+	border-color: transparent;
+}
+
 .navbar-custom {
-	background-color: #E3F2FD; /*blue 50*/
+	background-color: #1E90FF; /*blue 50*/
 	border-color: transparent;
 
 }
