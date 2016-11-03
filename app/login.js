@@ -9,7 +9,6 @@ app.controller("Signin", ["$scope", '$firebaseAuth', function($scope, $firebaseA
    $scope.login = function() {
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
-               
     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
     var token = result.credential.accessToken;
     // The signed-in user info.
@@ -23,7 +22,6 @@ app.controller("Signin", ["$scope", '$firebaseAuth', function($scope, $firebaseA
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
-    console.log(error)
     // ...
     });
      
