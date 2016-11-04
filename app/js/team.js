@@ -34,7 +34,7 @@ angular.module('teamform-team-app', ['firebase'])
 		
 	
 
-	refPath =  eventName + "/admin";
+	refPath =  "events/" + eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {	
 			if (!checkLoginstate()){
 		window.alert("Please login");
@@ -52,12 +52,12 @@ angular.module('teamform-team-app', ['firebase'])
 	});
 	
 	
-	refPath = eventName + "/member";	
+	refPath = "events/" + eventName + "/member";	
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
 	
-	refPath = eventName + "/team";	
+	refPath = "events/" + eventName + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
@@ -113,7 +113,7 @@ angular.module('teamform-team-app', ['firebase'])
 				'teamLeader': current_uid
 			};		
 			
-			var refPath = getURLParameter("q") + "/team/" + teamID;	
+			var refPath = "events/" + getURLParameter("q") + "/team/" + teamID;	
 			var ref = firebase.database().ref(refPath);
 			
 			
@@ -152,7 +152,7 @@ angular.module('teamform-team-app', ['firebase'])
 		
 		var teamID = $.trim( $scope.param.teamName );		
 		var eventName = getURLParameter("q");
-		var refPath = eventName + "/team/" + teamID ;
+		var refPath = "events/" + eventName + "/team/" + teamID ;
 		retrieveOnceFirebase(firebase, refPath, function(data) {	
 			var current_uid=document.getElementById('uid').textContent;
 			if (data.child("teamLeader").val() !=null){
@@ -189,7 +189,7 @@ angular.module('teamform-team-app', ['firebase'])
 			//	'teamMembers': $scope.param.teamMembers
 			//};		
 			
-			var refPath = getURLParameter("q") + "/team/" + teamID + "/size";	
+			var refPath = "events/" + getURLParameter("q") + "/team/" + teamID + "/size";	
 			var ref = firebase.database().ref(refPath);
 			
 			
