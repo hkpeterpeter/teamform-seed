@@ -50,7 +50,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                 }
                 team.$save;
             });
-            helper.pushNotificationTo(uid, eventID, "You have been deleted from your team");
+            // helper.pushNotificationTo(uid, eventID, "You have been deleted from your team");
         })
     }
     helper.createTeam = function(uid, eventID, team) {
@@ -76,20 +76,61 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         });
     }
     helper.createEvent = function(uid, event) {
-
+        //zlb
     }
-    helper.deleteEvent = function(uid, eventID) {
+    // helper.deleteEvent = function(uid, eventID) {
 
-    }
+    // }
     helper.pushNotificationTo = function(toUid, eventID, msg) {
-
+        //dht
     }
     helper.sendInvitationTo = function(toUid, eventID, teamID) {
-
+        //wyz
     }
     helper.sendApplicationTo = function(uid, eventID, teamID) {
-
+        //wyz
     }
+    helper.withdrawApplication = function(uid, eventID, teamID) {
+        //dht
+    }
+    helper.quitEvent = function(uid, eventID) {
+        //lby
+    }
+    helper.acceptInvitation = function(uid, eventID, teamID) {
+        //dht
+    }
+    helper.declineInvitation = function(uid, eventID, teamID) {
+        //dht
+    }
+    helper.acceptApplication = function(uid, eventID, teamID) {
+        //wyz
+    }
+    helper.declineApplication = function(uid, eventID, teamID) {
+        //wyz
+    }
+    helper.updateEvent = function(uid, eventID, event) {
+        //lby
+        //1.rename 2.changeInfo 3.changesize
+    }
+    helper.updateTeam = function(uid, eventID, teamID, event) {
+        //lby
+        //1.rename 2.changeInfo 3.changesize
+    }
+    helper.postEventAnnouncement = function(uid, eventID, msg) {
+        //lby
+    }
+    helper.postTeamAnnouncement = function(uid, eventID, teamID, msg) {
+        //wyz
+    }
+    helper.setEventState= function(uid, eventID, state) {
+        //lby
+    }
+    helper.changeLeader = function(fromuid, touid, eventID, teamID){
+        //wyz
+    }
+
+
+
     helper.joinEvent = function(uid, eventID) {
         eventRef=firebase.database().ref("events/"+eventID);
         eventObj=$firebaseObject(eventRef);
