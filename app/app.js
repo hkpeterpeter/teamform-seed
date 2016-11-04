@@ -1,4 +1,4 @@
-var app = angular.module("RouteApp", ["ui.router","firebase"]);
+var app = angular.module("teamApp", ["ui.router","firebase"]);
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
@@ -53,7 +53,7 @@ app.controller("AuthCtrl", ["$scope", '$firebaseAuth', function($scope, $firebas
 
 app.controller("Signin", ["$scope", '$firebaseAuth', function($scope, $firebaseAuth) {
    
-     
+   $scope.testVar = 'abccc'
    var provider = new firebase.auth.FacebookAuthProvider();
 
    $scope.login = function() {
@@ -73,6 +73,7 @@ app.controller("Signin", ["$scope", '$firebaseAuth', function($scope, $firebaseA
     // The firebase.auth.AuthCredential type that was used.
     var credential = error.credential;
     // ...
+    $scope.regMessage = "User!!";
     });
      
      };
