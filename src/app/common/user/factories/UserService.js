@@ -26,7 +26,10 @@ export default class UserService {
         }
     }
     register(credential) {
-        return this.$auth.createUserWithEmailAndPassword(credential.email, credential.password);
+        return this.$auth.createUserWithEmailAndPassword(credential.email, credential.password).then((result) => {
+            this.$rootScope.$broadcast('authChanged');
+            return result;
+        });
     }
     checkAuth() {
         return this.$q((resolve, reject) => {
@@ -58,7 +61,7 @@ export default class UserService {
     signOut() {
         return this.$auth.signOut().then((result) => {
             this.$rootScope.$broadcast('authChanged');
-            return this.$q.resolve(result);
+            return result;
         });
     }
     static instance(...args) {
