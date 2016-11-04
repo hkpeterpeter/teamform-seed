@@ -1,1 +1,4 @@
-<a ng-href="/#/dashboard/event/01">Event 01</a>
+<li ng-repeat="eventInfo in eventInfoList">
+<a ng-href="/#/dashboard/event/:{{eventInfo.eid}}">{{eventInfo.name}}</a>
+    {{ eventInfo | json }}
+</li>
