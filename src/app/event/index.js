@@ -6,12 +6,13 @@ import pagination from 'angular-utils-pagination';
 import routes from './config/routes';
 import alert from '../common/alert';
 import firebase from '../common/firebase';
+import user from '../common/user';
 import EventDetailCtrl from './controllers/eventDetail';
 import EventListCtrl from './controllers/eventList';
 import EventCreateCtrl from './controllers/eventCreate';
 import EventService from './factories/EventService';
 
-export default angular.module('event', [uirouter, angularfire, firebase, pagination, alert])
+export default angular.module('event', [uirouter, angularfire, firebase, pagination, alert, user])
     .config(routes)
     .controller('EventDetailCtrl', EventDetailCtrl)
     .controller('EventListCtrl', EventListCtrl)

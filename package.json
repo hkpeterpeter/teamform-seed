@@ -51,7 +51,7 @@
   },
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install",
-    "build": "./node_modules/.bin/rimraf dist && webpack --bail --progress --profile",
+    "build": "./node_modules/.bin/rimraf dist && ./node_modules/.bin/webpack --bail --progress --profile",
     "server": "./node_modules/.bin/webpack-dev-server --history-api-fallback --inline --progress",
     "test": "./node_modules/.bin/karma start",
     "test-watch": "./node_modules/.bin/karma start --auto-watch --no-single-run",

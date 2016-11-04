@@ -12,7 +12,7 @@ describe('FooterDirective', function() {
     });
 
     it('Footer', () => {
-        let element = $compile('<ui-footer></ui-footer >')($rootScope);
+        let element = $compile('<ui-footer></ui-footer>')($rootScope);
         $rootScope.$digest();
         expect(element.html()).not.toBeNull();
     });

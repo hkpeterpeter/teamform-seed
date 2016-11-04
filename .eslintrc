@@ -37,7 +37,7 @@
         "ENV": true,
     },
     "rules": {
-        "no-unused-vars": ["off", {"args": "all"}],
+        "no-unused-vars": ["warn", {"args": "all"}],
         "no-undef-init": 1,
         "no-undef": 1,
         "no-undefined": 1,
