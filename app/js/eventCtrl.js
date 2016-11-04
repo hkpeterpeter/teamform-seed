@@ -7,24 +7,26 @@ app.controller("eventCtrl",
 			$scope.authData = authData;
 		});
 
-        //fetch event_id_list
+        //fetch eventIdList
 
 		var ref = firebase.database().ref('users/' + authData.uid + '/readOnly');
-		var event_id_list = $firebaseArray(ref.eventIdList);
+		var eventIdList = $firebaseArray(ref.eventIdList);
 
-        //fetch event info according to event_id_list
+        //fetch event info according to eventIdList
         ref = firebase.database().ref('events');
         var events = $firebaseArray(ref);
         var eventObjList =[];
         var eventInfoList =[];
 
+        console.log("Hello World");
 
-        for(var i=0;i<event_id_list.length;i++){
-             eventObjList.push(events.$getRecord(event_id_list[i]));
-            eventInfoList = eventobjList[i].eventInfo;
+        for(var i=0;i<eventIdList.length;i++){
+             eventObjList.push(events.$getRecord(eventIdList[i]));
+            eventInfoList.push(eventObjList[i].eventInfo);
+            eventInfoList[i].eventInfo.eid = eventIdList[i];
         }
 
-        $scope.eventInfoList = eventInfoList;
+
 
 
 		console.log("event");
