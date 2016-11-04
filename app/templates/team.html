@@ -1,1 +1,86 @@
-<h1>Team Page</h1>
+<div class="">
+  <!-- Teamname: {{data.name}}
+  Maxsize: {{data.max}}
+  Current Size: {{data.currentSize}}
+  Desc: {{data.desc}} -->
+
+  <h3> Teamname:  {{data.name}} </h3>
+    <div>{{name}}</div>
+  <div> {{data.desc}} </div>
+
+  <div>current people <span class="badge">{{members.length}}</span></div>
+  <div>people needed<span class="badge">{{data.max}}</span></div>
+
+  <h4>Tags</h4>
+  <ul ng-repeat="(key,value) in tags">
+    <li>{{key}}</li>
+    <li>{{value.num}}</li>
+    <li>{{value.need}}</li>
+
+  </ul>
+
+  <h4> Members </h4>
+  {{members}}
+    <div class="">
+      {{members[0].$id}} is leader
+    </div>
+
+    <ul ng-repeat="(key,value) in members">
+      <li>{{value}}</li>
+    </ul>
+  <h4>Notification board</h4>
+  <!-- {{announcements}} -->
+  <ul ng-repeat="x in announcements">
+    <li>{{x.content}} &nbsp; Date : {{x.timeStamp}}</li>
+  </ul>
+  <h4>Applications</h4>
+  <!-- {{applications}} -->
+  <ul ng-repeat="x in applications">
+    <li>{{x.$id}} : {{x.$value}}</li>
+  </ul>
+  <h4>Invitations</h4>
+  <!-- {{invitations}} -->
+  <ul ng-repeat="x in invitations">
+    <li>{{x.$id}} : {{x.$value}}</li>
+  </ul>
+
+
+<!-- Testing member functions -->
+  <button type="button" class="btn btn-danger" ng-click="addMember(999)">Add Member</button>
+  <button type="button" class="btn btn-danger" ng-click="updateMember()">Update Member</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteMember(999)">Delete Member</button>
+
+<!-- Testing tag functions -->
+          <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a tag</button>
+
+  <button type="button" class="btn btn-danger" ng-click="addAnnouncement()">Add Announcement</button>
+
+
+
+
+
+<!-- Modal -->
+<div class = "modal fade" id = "myModal" role = "dialog">
+    <div class = "modal-dialog">
+      <!-- Modal content-->
+      <div class = "modal-content">
+        <div class = "modal-header">
+          <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+          <h4 class = "modal-title">Please fill the information</h4>
+        </div>
+        <div class = "modal-body">
+          <form class = "form-inline">
+            <div class = "form-group">
+                <label for = "name">tag name:</label>
+                <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.tagname" >
+                <input type = "text" placeholder = "1" ng-model = "form.tagneed" >
+                <input type = "text" placeholder = "0" ng-model = "form.tagnum">
+                {{form.tagname}} {{form.tagneed}} {{form.tagnum}}
+                <button class = "btn btn-primary" ng-click = "addTag(form.tagname,form.tagneed,form.tagnum)" data-dismiss = "modal">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

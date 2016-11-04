@@ -1,4 +1,4 @@
-app.controller("loginController", 
+app.controller("loginController",
 
 	function($scope, Auth, $firebaseArray, $firebaseObject, $window) {
 
@@ -33,10 +33,10 @@ app.controller("loginController",
 				}).catch(function(error){
 					console.log("Authentication failed:", error);
 					$window.alert(error);
-				});			
-			}	
+				});
+			}
 			else{
-				$window.alert("Missing required fields!");				
+				$window.alert("Missing required fields!");
 			}
 
 		};
@@ -66,14 +66,14 @@ app.controller("loginController",
 					}
 					if (key == null) uidlistObj.$add(result.user.uid);
 				});
-					
+
 
 
 				ref = firebase.database().ref("users/nameList");
 					// var namelistObj = $firebaseObject(ref);
 				var dict = {};
-				dict[result.user.displayName] = result.user.uid;		
-				ref.update(dict);	
+				dict[result.user.displayName] = result.user.uid;
+				ref.update(dict);
 			}).catch(function(error) {
 			  	console.error("Authentication failed:", error);
 			  	$window.alert(error);
@@ -139,8 +139,8 @@ app.controller("signupCtrl",
 					ref = firebase.database().ref("users/nameList");
 					// var namelistObj = $firebaseObject(ref);
 					var dict = {};
-					dict[$scope.input.name] = userData.uid;		
-					ref.update(dict);								
+					dict[$scope.input.name] = userData.uid;
+					ref.update(dict);
 					// // namelistObj.$add(dict);
 
 					// namelistObj[$scope.input.name] = userData.uid;
