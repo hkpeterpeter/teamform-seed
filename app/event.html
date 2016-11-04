@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <!-- AngularJS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+        <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+        <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+                authDomain: "comp3111-bb108.firebaseapp.com",
+                databaseURL: "https://comp3111-bb108.firebaseio.com",
+                storageBucket: "comp3111-bb108.appspot.com",
+                messagingSenderId: "554833059052"
+            };
+            firebase.initializeApp(config);
+        </script>
+    </head>
+
+    <body ng-app="events">
+         <h1>Create Event</h1>
+         <div ng-controller="eventSubmit">
+         <form name="eventForm">          
+            <p>Name:
+             <input name="newEventName" ng-model="input.name" required>
+             <span ng-show="eventForm.newEventName.$touched && eventForm.newEventName.$invalid">The event name is required.</span>
+            </p>
+
+            <p>Introduction:
+             <input name="newEventIntro" ng-model="input.intro" required>
+             <span ng-show="eventForm.newEventIntro.$touched && eventForm.newEventIntro.$invalid">The event introduction is required.</span>
+            </p>
+            <button ng-click="submit()" ng-disabled= "eventForm.newEventIntro.$invalid || eventForm.newEventName.$invalid">Submit</button>
+          </form>
+         </div>
+    </body>   
+    <script src="event.js"></script>
+    
+</html>
