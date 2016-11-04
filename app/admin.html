@@ -7,6 +7,31 @@
       <meta name="keywords" content="teamform, team">
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>teamform - admin page</title>
+
+      <!-- Angular Library -->
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+
+    	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
+  	<script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+    <script>
+  // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyAjSwkuqVhX249KogPKC04riNIzOTJTQGk",
+        authDomain: "comp3111-fc3c0.firebaseapp.com",
+        databaseURL: "https://comp3111-fc3c0.firebaseio.com",
+        storageBucket: "comp3111-fc3c0.appspot.com",
+        messagingSenderId: "863597722858"
+  };
+  firebase.initializeApp(config);
+    </script>
+
+  <style>
+	.css-form .required{color: red;}
+	</style>
 	  
       <!-- libraries and CSS 	  
 		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
@@ -14,14 +39,14 @@
 		Font-awesome: More icons for the web development (v4.6.3 is used)		
 		site.css: A customized css for our web application. Not from any web framework. 
 	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
+
+    <script src="lib/jquery.min.js"></script>      
+    <script src="lib/bootstrap.min.js"></script>      
       	  
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link rel="stylesheet" href="css/site.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+    <link rel="stylesheet" href="css/site.css" >
 
 
       <!-- Customized libraries shared by pages -->
@@ -38,10 +63,7 @@
    <br>
 
    <div class="text-center">
-      <h1>Administrative Page</h1>
-	  
-	 
-					 
+      <h1>Administrative Page</h1>		 
       <h2 id="text_event_name"></h2>
 
       <div id="admin_page_controller" ng-controller="AdminCtrl">
@@ -95,11 +117,27 @@
 				<h3>All teams:</h3>
 				<ul ng-repeat="t in team">
 					<li>
-					
+         <div class="row">
 						User ID: {{t.$id}}  <br>
 						Preferred team size: <span class="badge">{{t.size}}</span> <br>
-						Current team members: {{t.teamMembers}}
-					
+						Current team members: {{t.teamMembers}}<br>
+            <div align="center">
+            <form name="form" class="css-form col-md-4" novalidate>
+		 	    	<div class="form-group">
+				  	<label>To: <span class="required " ng-show="form.title.$error.required">*required</span> </label>
+					  <input class="form-control" type="text" name="title" placeholder="Who" ng-model="input.title"  required>
+				    </div>
+            
+				    <div class="form-group">
+				    <label>Content: <span class="required" ng-show="form.desc.$error.required">*required</span></label>
+					  <textarea class="form-control" name="desc" ng-model="input.desc" placeholder="Content" required></textarea>
+					  <br>
+					  <input class="btn btn-primary" type="button" value="Submit" ng-click="addQuestion()" ng-disabled="!input.desc || !input.title">
+			    	</form>
+            </div>
+            </div>
+		  
+           </div> 
 					</li>
 					
 				</ul>
@@ -119,8 +157,6 @@
 
 			 </div>
 		 </div>
-
-
       </div>
    </div>
 
