@@ -48,10 +48,19 @@ function getUID(){
       return true;
     }
     else{
-      uid=false;
+      //uid=false;
       document.getElementById('uid').textContent = '';
       return false;
     }
   });
   //return uid;
+}
+function checkLoginstate(){
+  var user = firebase.auth().currentUser;
+
+  if (user) {
+    return true;
+  } else {
+    return false;
+  }
 }

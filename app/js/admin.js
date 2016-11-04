@@ -38,7 +38,7 @@ angular.module('teamform-admin-app', ['firebase'])
 		.then( function(data) {
 			current_uid=document.getElementById('uid').textContent;
 			// Check if logged in user is the admin of the event
-			if (logged_in==false){
+			if (!checkLoginstate()){
 				window.alert("You don't have permission to manage this event! Please login.");
 				window.location.href= "index.html";
 			}
