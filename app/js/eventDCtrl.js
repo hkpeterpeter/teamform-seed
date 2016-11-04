@@ -2,13 +2,14 @@
 app.controller("eventDCtrl",
 
     // Implementation the todoCtrl 
-    function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $window, Helper) {
+    function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $window, Helper,  ngDialog) {
         console.log("event detail");
 
         //initialize
         $scope.isManaging = false;
         $scope.userdata = "";
         $scope.selectTeam = false;
+        $scope.eventID = "-KVcVgeRPOOdr-vUyDLV";
         personToBeAdded="";
         Auth.$onAuthStateChanged(function(authData) {
             $scope.userData = authData;
@@ -16,6 +17,13 @@ app.controller("eventDCtrl",
             //get role of user
             ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable");
             $scope.obj = $firebaseObject(ref);
+            $scope.obj.$loaded().then(function(data){
+                if($scope.obj[$scope.eventID]===undefined) 
+                    $scope.role="visitor";
+                else 
+                    $scope.role=$scope.obj[$scope.eventID].position;
+            })
+            
             // console.log($scope.obj);
             if (authData) {
 
@@ -23,7 +31,7 @@ app.controller("eventDCtrl",
         });
 
         // eventInfo
-        $scope.eventID = "-KVcVgeRPOOdr-vUyDLV"; // eventID = $stateParams.eid;
+         // eventID = $stateParams.eid;
         eventRef = firebase.database().ref("events/" + $scope.eventID);
         $scope.eventObj = $firebaseObject(eventRef);
         $scope.eventObj.$loaded().then(function(data){
@@ -52,6 +60,32 @@ app.controller("eventDCtrl",
             console.log(key);
         }
         console.log("test");
+        var dialogue;
+        $scope.createTeamDialogue = function(){
+            dialogue = ngDialog.open({
+                template: 'templates/createTeam.html',
+                className: 'ngdialog-theme-plain',
+                scope: $scope,
+                height: '40%',
+                width: '50%'
+            });
+        }
+        $scope.newTeam={
+            max: 0,
+            name: "",
+            desc: "",
+            currentSize: 0,
+            members: {},
+            tags: {}
+
+        }
+        $scope.createTeam=function(){
+            console.log($scope.newTeam);
+            // newTeam.members[$scope.userData.uid]=$scope.userData.uid;
+            helper.createTeam($scope.userData.uid,$scope.eventID,$scope.newTeam);
+            dialogue.close();
+        }
+
         
 
 

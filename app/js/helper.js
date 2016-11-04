@@ -5,7 +5,7 @@ app.factory("Auth", function($firebaseAuth) {
 app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper = {};
     helper.debug = {};
-    helper.addPersonToTeam = function(uid, eventID, teamID) {
+    helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
         ref=firebase.database().ref("events/"+eventID);
         eventObj=$firebaseObject(ref);
         eventObj.$loaded().then(function(data){
@@ -19,7 +19,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
         eventRec=$firebaseObject(ref);
         eventRec.$loaded().then(function(data){
-            eventRec.position = "member";
+            eventRec.position = "position";
             eventRec.team = teamID;
             eventRec.$save();
         })
@@ -32,6 +32,14 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             teamID=record.team;
             record.team="";
             record.$save();
+            eventRef=firebase.database().ref("events/"+eventID);
+            eventObj=$firebaseObject(eventRef);
+            eventObj.$loaded().then(function(data){
+                if(eventObj.tba===undefined)
+                    eventObj.tba={};
+                eventObj.tba[uid]=uid;
+                eventObj.$save();
+            });
             teamRef=firebase.database().ref("events/"+eventID+"/teams/"+teamID);
             team=$firebaseObject(teamRef);
             team.$loaded().then(function(data){
@@ -46,7 +54,12 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         })
     }
     helper.createTeam = function(uid, eventID, team) {
-
+        ref = firebase.database().ref("events/"+eventID+"/teams");
+        teams=$firebaseArray(ref);
+        teams.$add(team).then(function(ref){
+            teamID=ref.key;
+            helper.addPersonToTeam(uid, eventID,teamID,"leader");
+        })
     }
     helper.deleteTeam = function(eventID, teamID) {
         ref=firebase.database().ref("events/"+eventID+"/teams/"+teamID);
@@ -78,7 +91,24 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
     }
     helper.joinEvent = function(uid, eventID) {
-
+        eventRef=firebase.database().ref("events/"+eventID);
+        eventObj=$firebaseObject(eventRef);
+        eventObj.$loaded().then(function(data){
+            if(eventObj.tba===undefined)
+                eventObj.tba={};
+            eventObj.tba[uid]=uid;
+            eventObj.$save();
+        });
+        ref=firebase.database().ref("users/"+uid+"/writable");
+        obj=$firebaseObject(ref);
+        obj.$loaded.then(function(data){
+            obj[eventID]={
+                team: "",
+                postion: "tba",
+            }
+            obj.$save();
+        })
+        
     }
 
 
