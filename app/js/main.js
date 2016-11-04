@@ -1,7 +1,7 @@
 // inject firebase service
 initalizeFirebase();
 
-var app = angular.module("tfApp", ["firebase", "ui.router"]);
+var app = angular.module("tfApp", ["firebase", "ui.router", 'ngDialog']);
 
 
 app.config(function($stateProvider, $urlRouterProvider) {
