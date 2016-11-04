@@ -14,7 +14,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('login', {
             url: '/login',
             templateUrl: 'login.html',
-            controller: 'Signin'
+            controller: 'AuthCtrl'
         })
         
          .state('register', {
@@ -24,6 +24,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         });
         
 });
+
+
 app.controller("AuthCtrl", ["$scope", '$firebaseAuth', function($scope, $firebaseAuth) {
     var ref = firebase.database().ref();
     var auth = $firebaseAuth(firebase.auth());
@@ -50,6 +52,9 @@ app.controller("AuthCtrl", ["$scope", '$firebaseAuth', function($scope, $firebas
 		});
     };
 }]);
+
+
+
 
 app.controller("Signin", ["$scope", '$firebaseAuth', function($scope, $firebaseAuth) {
    

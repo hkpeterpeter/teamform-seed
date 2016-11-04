@@ -1,10 +1,24 @@
-
-<div ng-controller="Signin" class="container">
-
+<div ng-controller="AuthCtrl" class="container">
+<h1>Login</h1>
         <div class="row">
-                <button ng-click="login()">Facebook Login</button>
-                {{1+1}} <br>
-{{testVar}}
-        </div>
-    </div>
+            <form name="LoginForm" class="css-form col-md-4" novalidate>
+                <div class="form-group">
+                    <label>Email: <span class="required " ng-show="LoginForm.email.$error.required"></span> </label>
+                    <input class="form-control" type="text" name="lEmail" ng-model="lInput.email" required>
+                </div>
 
+                <div class="form-group">
+                    <label>Username: <span class="required" ng-show="LoginForm.username.$error.required"></span></label>
+                    <input class="form-control" type="text" name="lUsername" ng-model="lInput.username" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password: <span class="required" ng-show="LoginForm.password.$error.required"></span></label>
+                    <input class="form-control" type="password" name="lPassword" ng-model="lInput.password" required>
+                </div>
+
+                <input class="btn btn-primary" type="button" value="Submit" ng-click="signIn()" ng-disabled="!lInput.email || !lInput.username || !lInput.password">
+            </form>
+        </div>
+        <span>{{LoginMessage}}</span>
+    </div>
