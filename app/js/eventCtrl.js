@@ -8,8 +8,10 @@ app.controller("eventCtrl",
 		});
 
         //fetch eventIdList
+        console.log("Hello World");
 
-		var ref = firebase.database().ref('users/' + authData.uid + '/readOnly');
+
+        var ref = firebase.database().ref('users/' + authData.uid + '/readOnly');
 		var eventIdList = $firebaseArray(ref.eventIdList);
 
         //fetch event info according to eventIdList
@@ -18,7 +20,6 @@ app.controller("eventCtrl",
         var eventObjList =[];
         var eventInfoList =[];
 
-        console.log("Hello World");
 
         for(var i=0;i<eventIdList.length;i++){
              eventObjList.push(events.$getRecord(eventIdList[i]));
