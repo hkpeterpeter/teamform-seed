@@ -1,5 +1,24 @@
 var app = angular.module("teamApp", ["ui.router","firebase"]);
 
+app.factory("Auth", ["$firebaseAuth",
+  function($firebaseAuth) {
+    return $firebaseAuth();
+  }
+]);
+
+
+
+app.run(["$rootScope", "$state", "Auth", function($rootScope, $state, Auth) {
+
+  $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
+ if (toState.authRequired && !Auth.isAuthenticated()){ 
+        $state.transitionTo("login");
+        event.preventDefault(); 
+      }
+    });
+}]);
+
+
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
     
@@ -14,37 +33,53 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('login', {
             url: '/login',
             templateUrl: 'login.html',
-            controller: 'AuthCtrl'
+            controller: 'AuthCtrl',
         })
         
          .state('register', {
             url: '/register',
             templateUrl: 'register.html',
             controller: 'AuthCtrl'
-        });
+        })
+
+         .state('personal', {
+            url: '/personal',
+            templateUrl: 'personal_page.html',
+            controller: 'Personal',
+            authRequired: true,
+             resolve: {
+      "currentAuth": ["Auth", function(Auth) {
+
+        return Auth.$requireSignIn();
+      }]
+      }});
         
 });
 
 
-app.controller("AuthCtrl", ["$scope", '$firebaseAuth', function($scope, $firebaseAuth) {
+
+
+
+
+app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($scope, Auth, $rootScope, $state) {
     var ref = firebase.database().ref();
-    var auth = $firebaseAuth(firebase.auth());
 	
     $scope.signUp = function() {
-        auth.$createUserWithEmailAndPassword($scope.rInput.email,$scope.rInput.password)
+        Auth.$createUserWithEmailAndPassword($scope.rInput.email,$scope.rInput.password)
         .then(function(userData) {
             $scope.regMessage = "User " + userData.uid + " created successfully!";
 
-            return auth.$signInWithEmailAndPassword($scope.rInput.email, $scope.rInput.password);
+            return Auth.$signInWithEmailAndPassword($scope.rInput.email, $scope.rInput.password);
         }).then(function(authData) {
             console.log("Logged in as:", authData.uid);
+            $state.go('login')
         }).catch(function(error) {
             console.error("Error: ", error);
         });
     };
 	
 	$scope.signIn = function() {
-        auth.$signInWithEmailAndPassword($scope.lInput.email, $scope.lInput.password)
+        Auth.$signInWithEmailAndPassword($scope.lInput.email, $scope.lInput.password)
 		.then(function(authData) {
 			$scope.LoginMessage = "Logged in as:" + authData.uid;
 		}).catch(function(error) {
@@ -55,34 +90,6 @@ app.controller("AuthCtrl", ["$scope", '$firebaseAuth', function($scope, $firebas
 
 
 
+app.controller("Personal", ["currentAuth", function(currentAuth) {
 
-app.controller("Signin", ["$scope", '$firebaseAuth', function($scope, $firebaseAuth) {
-   
-   $scope.testVar = 'abccc'
-   var provider = new firebase.auth.FacebookAuthProvider();
-
-   $scope.login = function() {
-
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    var token = result.credential.accessToken;
-    // The signed-in user info.
-    var user = result.user;
-    // ...
-    }).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential = error.credential;
-    // ...
-    $scope.regMessage = "User!!";
-    });
-     
-     };
-   
-   
-   
 }]);
