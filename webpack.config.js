@@ -133,6 +133,11 @@ module.exports = function makeWebpackConfig() {
 
     if (isProd) {
         config.plugins.push(
+            new webpack.DefinePlugin({
+                'process.env': {
+                    NODE_ENV: JSON.stringify('production')
+                }
+            }),
             new webpack.NoErrorsPlugin(),
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.UglifyJsPlugin(),
@@ -150,7 +155,7 @@ module.exports = function makeWebpackConfig() {
         compress: true,
         proxy: {
             '/oauth': {
-                target: 'http://localhost:'+(process.env.PORT || 3000)+'/'
+                target: 'http://localhost:' + (process.env.PORT || 3000) + '/'
             }
         },
         stats: 'minimal'
