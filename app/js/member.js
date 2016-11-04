@@ -18,11 +18,31 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
-	
+	var userUID, userName;
+		firebase.auth().onAuthStateChanged(function(user){
+		if (user) {
+		$scope.userID = user.uid;
+		$scope.userName = user.displayName;	
+		//$scope.teams = {};
+
+		}
+		else{
+			$scope.userID = "";
+			$scope.userName = "";	
+			//$scope.teams = {};
+			window.alert("Please login");
+			window.location.href= "index.html";
+		}
+	})	
+
 	$scope.userID = "";
 	$scope.userName = "";	
 	$scope.teams = {};
-	
+
+		//if (!checkLoginstate()){
+		//window.alert("Please login");
+		//window.location.href= "index.html";
+		//}	
 	
 	
 	$scope.loadFunc = function() {
@@ -31,7 +51,7 @@ angular.module('teamform-member-app', ['firebase'])
 			
 			var refPath = "events/" + getURLParameter("q") + "/member/" + userID;
 			retrieveOnceFirebase(firebase, refPath, function(data) {
-								
+
 				if ( data.child("name").val() != null ) {
 					$scope.userName = data.child("name").val();
 				} else {
@@ -81,6 +101,7 @@ angular.module('teamform-member-app', ['firebase'])
 	}
 	
 	$scope.refreshTeams = function() {
+
 		var refPath = "events/" + getURLParameter("q") + "/team";	
 		var ref = firebase.database().ref(refPath);
 		
@@ -114,5 +135,5 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	
 	$scope.refreshTeams(); // call to refresh teams...
-		
+
 }]);
