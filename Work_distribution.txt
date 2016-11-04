@@ -5,3 +5,5 @@ Sam: facebook login and login account
 Tim and Nick: search and hash tag
 Matthew and Ky: message board and UI design
 Lung and Jeffrey: ???
+
+It’s great :)
