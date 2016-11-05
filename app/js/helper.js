@@ -6,22 +6,30 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper = {};
     helper.debug = {};
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
-        ref=firebase.database().ref("events/"+eventID);
-        eventObj=$firebaseObject(ref);
-        eventObj.$loaded().then(function(data){
-            delete eventObj.tba[uid];
-            console.log(eventObj);
-            if(eventObj.teams[teamID].members===undefined)
-                eventObj.teams[teamID].members={};
-            eventObj.teams[teamID].members[uid]=uid;
-            eventObj.$save();
-        });
+     
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
         eventRec=$firebaseObject(ref);
         eventRec.$loaded().then(function(data){
-            eventRec.position = "position";
             eventRec.team = teamID;
-            eventRec.$save();
+            eventRec.$save().then(function(data){
+                eventRec.position = position;
+                eventRec.$save().then(function(data){
+                    // delete eventObj.tba[uid];
+                    ref=firebase.database().ref("events/"+eventID);
+                    tbaref=ref.child("tba/"+uid);
+                    tbaref.remove().then(function(data){
+                        eventObj=$firebaseObject(ref);
+                        eventObj.$loaded().then(function(data){
+                            console.log(eventObj);
+                            if(eventObj.teams[teamID].members===undefined)
+                                eventObj.teams[teamID].members={};
+                            eventObj.teams[teamID].members[uid]=uid;
+                            eventObj.$save();
+                        });
+                    });
+                });
+            })
+
         })
     }
     helper.deletePersonFromTeam = function(uid, eventID, teamID) {
@@ -50,7 +58,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                 }
                 team.$save;
             });
-            // helper.pushNotificationTo(uid, eventID, "You have been deleted from your team");
         })
     }
     helper.createTeam = function(uid, eventID, team) {
@@ -78,14 +85,22 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.createEvent = function(uid, event) {
         //zlb
     }
-    // helper.deleteEvent = function(uid, eventID) {
 
-    // }
     helper.pushNotificationTo = function(toUid, eventID, msg) {
         //dht
     }
     helper.sendInvitationTo = function(toUid, eventID, teamID) {
-        //wyz
+        //lby
+        tref=firebase.database().ref("events/"+eventID+"/teams/"+teamID+"/invitations");
+        $firebaseObject(tref).$loaded().then(function(data){
+            data[toUid]="pending";
+            data.$save();
+        })
+        uref=firebase.database().ref("users/"+toUid+"/writable/"+eventID+"/invitations");
+        $firebaseObject(uref).$loaded().then(function(data){
+            data[teamID]=teamID;
+            data.$save();
+        })
     }
     helper.sendApplicationTo = function(uid, eventID, teamID) {
         //wyz
@@ -94,7 +109,26 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         //dht
     }
     helper.quitEvent = function(uid, eventID) {
-        //lby
+        //order of operation matters?
+        //delete user from event record
+        eref=firebase.database().ref("events/"+eventID+"/tba/"+uid);
+        // eObj=$firebaseObject(eref);
+        // eObj.$loaded().then(function(data){
+            // delete eObj[uid];
+            // eObj.$save().
+            eref.remove().then(function(data){
+                //delete event from user record
+                uref=firebase.database().ref("users/"+uid+"/writable");
+                uObj=$firebaseObject(uref);
+                uObj.$loaded().then(function(data){
+                    delete uObj[eventID];
+                    uObj.$save();
+                })
+            });
+
+            
+        // })
+
     }
     helper.acceptInvitation = function(uid, eventID, teamID) {
         //dht
@@ -108,22 +142,30 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
     }
-    helper.updateEvent = function(uid, eventID, event) {
+    helper.updateEvent = function(eventID) {
         //lby
         //1.rename 2.changeInfo 3.changesize
+        //changes should be made by 3-way binding, so we only need to use $save() on the event obj correspondingly
+        //this function is not used
     }
-    helper.updateTeam = function(uid, eventID, teamID, event) {
+    helper.updateTeam = function(eventID, teamID) {
         //lby
         //1.rename 2.changeInfo 3.changesize
+        //changes should be made by 3-way binding, so we only need to use $save() on the event obj correspondingly
+        //this function is not used
     }
-    helper.postEventAnnouncement = function(uid, eventID, msg) {
+    helper.postEventAnnouncement = function(eventID, msg) {
         //lby
+        ref=firebase.database().ref("events/"+eventID+"/eventInfo/announcements");
+        $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()});
     }
     helper.postTeamAnnouncement = function(uid, eventID, teamID, msg) {
         //wyz
     }
     helper.setEventState= function(uid, eventID, state) {
         //lby
+        //we only need to use $save() on the event obj correspondingly
+        //this function is not used
     }
     helper.changeLeader = function(fromuid, touid, eventID, teamID){
         //wyz
@@ -132,56 +174,62 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
 
     helper.joinEvent = function(uid, eventID) {
-        eventRef=firebase.database().ref("events/"+eventID);
-        eventObj=$firebaseObject(eventRef);
-        eventObj.$loaded().then(function(data){
-            if(eventObj.tba===undefined)
-                eventObj.tba={};
-            eventObj.tba[uid]=uid;
-            eventObj.$save();
-        });
         ref=firebase.database().ref("users/"+uid+"/writable");
         obj=$firebaseObject(ref);
-        obj.$loaded.then(function(data){
+        obj.$loaded().then(function(data){
             obj[eventID]={
-                team: "",
-                postion: "tba",
+                //team: "",
+                position: "tba",
             }
-            obj.$save();
+            // console.log(obj);
+            obj.$save().then(function(data){
+
+                eventRef=firebase.database().ref("events/"+eventID+"/tba");
+                // eventObj=$firebaseObject(eventRef);
+                // eventObj.$loaded().then(function(data){
+                //     eventObj[uid]=uid;
+                //     eventObj.$save();
+                // });
+
+                var temp = {};
+                temp[uid] = uid;
+                eventRef.update(temp);
+            });
+   
         })
         
     }
 
 
 
-    helper.debug.createEventList = function(userData) {
-        ref = firebase.database().ref("events");
-        eventList = $firebaseArray(ref);
-        var event = {};
-        event.eventInfo = {
-            admin: userData.uid,
-            name: "Test",
-            desc: "This event is for testing",
-            max: 8,
-            min: 4,
-            isClosed: false,
-            ddl: "testDate",
-            announcement: "NULL"
-        };
-        console.log(event);
-        eventList.$add(event).then(function(ref) {
-            eventID = ref.key;
-            userRef = firebase.database().ref("users/" + userData.uid);
-            console.log(userData.uid);
-            userObj = $firebaseObject(userRef);
-            userObj.$loaded().then(function(data) {
-                if (userObj.writable === undefined) userObj.writable = {};
-                userObj.writable[eventID] = {
-                    position: "admin"
-                };
-                userObj.$save();
-            });
-        });
-    };
+    // helper.debug.createEventList = function(userData) {
+    //     ref = firebase.database().ref("events");
+    //     eventList = $firebaseArray(ref);
+    //     var event = {};
+    //     event.eventInfo = {
+    //         admin: userData.uid,
+    //         name: "Test",
+    //         desc: "This event is for testing",
+    //         max: 8,
+    //         min: 4,
+    //         isClosed: false,
+    //         ddl: "testDate",
+    //         announcement: "NULL"
+    //     };
+    //     console.log(event);
+    //     eventList.$add(event).then(function(ref) {
+    //         eventID = ref.key;
+    //         userRef = firebase.database().ref("users/" + userData.uid);
+    //         console.log(userData.uid);
+    //         userObj = $firebaseObject(userRef);
+    //         userObj.$loaded().then(function(data) {
+    //             if (userObj.writable === undefined) userObj.writable = {};
+    //             userObj.writable[eventID] = {
+    //                 position: "admin"
+    //             };
+    //             userObj.$save();
+    //         });
+    //     });
+    // };
     return helper;
 })
