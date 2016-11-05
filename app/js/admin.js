@@ -76,4 +76,76 @@ angular.module('teamform-admin-app', ['firebase'])
 		// Finally, go back to the front-end
 		window.location.href= "index.html";
 	};
+	
+	$scope.smartAssignment = function() {
+		if($scope.member.length < 1) return;
+
+		// extract members who has no team
+		var members = [];
+		for(var idx = 0; idx < $scope.member.length; idx++) {
+			if(!$scope.member[idx].inTeam) {
+				members.push($scope.member[idx]);
+			}
+		}
+		if(members.length < 1) return; // all members have a team
+		
+		// sort all members with descending weight 
+		members.sort(function(a, b) {
+			if(a.weight < b.weight) return -1;
+			if(a.weight > b.weight) return 1;
+			return 0;
+		});
+		
+		// calculate weighted sum of each non-full group
+		var teamWeight = [];
+		var teams = [];
+		for(var idx = 0; idx < $scope.team.length; idx++) {
+			var team = $scope.team[idx];
+			if(team.size == team.teamMembers.length) continue; // already full
+			
+			var sum = 0;
+			for(var memIdx = 0; memIdx < team.teamMembers.length; memIdx++) {
+				sum += team.teamMembers[memIdx].weight;
+			}
+			teamWeight.push(sum);
+			teams.push(team);
+		}
+		
+		while(teams.length > 0 && members.length > 0) {
+			// get the team with minimum weighted sum
+			var teamIdx = 0;
+			var minWeight = teamWeight[teamIdx];
+			var member = members[0];
+			for(var idx = 0; idx < teamWeight.length; idx++) {
+				if(teamWeight[idx] < minWeight) {
+					minWeight = teamWeight[idx];
+					teamIdx = idx;
+				}
+			}
+			
+			// add the current member to the team
+			var team = teams[teamIdx];
+			team.teamMembers.push({id: member.id,
+				weight: member.weight});
+			teamWeight[teamIdx] += member.weight;
+			
+			if(team.size == team.teamMembers.length) { // already full
+				teams.splice(teamIdx, 1); // remove the team from list
+				teamWeight.splice(teamIdx, 1);
+			}
+			members.splice(0, 1); // remove the current member from list
+		}
+		
+		while(members.length > 0) {
+			// create new team(s) and assign remaining members to the team
+			var team = {size: $scope.param.maxTeamSize, teamMembers:[]};
+			for(var idx = 0; idx < $scope.param.maxTeamSize && members.length > 0; idx++) {
+				team.teamMembers.push(members[0]);
+				members.splice(0, 1);
+			}
+			$scope.team.push(team);
+		}
+		$scope.param.$save(); //TODO is it necessary?
+	};
+	
 }]);
