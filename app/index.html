@@ -55,15 +55,14 @@
                 <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus ng-model="inputEmail">
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="inputPassword">
-                <div class="checkbox">
+                <!-- <div class="checkbox">
                   <label>
                     <input type="checkbox" value="remember-me" ng-model="rememberMe"> Remember me
                   </label>
-                </div>
+                </div> -->
                 <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Log in</button>
-                <p>{{inputEmail}}</p>
-                <p>{{inputPassword}}</p>
-                <p>{{rememberMe}}</p>
+                <hr>
+                <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="loginFB()">Log in with Facebook</button>
               </form>
 
             </div>

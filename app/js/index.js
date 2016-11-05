@@ -16,7 +16,7 @@ app.controller("indexCtrl",
 
     $scope.login = function() {
       var loginUser;
-      for (var i in accounts) {
+      for (i = 0; i < accounts.length; i++) {
         if ($scope.inputEmail == accounts[i].username && $scope.inputPassword == accounts[i].password)
           loginUser = $scope.inputEmail;
       }
@@ -28,17 +28,54 @@ app.controller("indexCtrl",
 
     $scope.rememberMe = false;
 
+    var addUser = function(user) {
+      for (i = 0; i < accounts.length; i++)
+        if (user.username == accounts[i].username) return;
+      accounts.$add(user);
+    };
+
     $scope.reg = function() {
       if ($scope.inputEmailReg !== undefined && $scope.inputEmailReg !== "" &&
           $scope.inputPasswordReg !== undefined && $scope.inputPasswordReg !== "" &&
           $scope.inputConfirmPasswordReg !== undefined && $scope.inputConfirmPasswordReg !== "" &&
           $scope.inputConfirmPasswordReg == $scope.inputPasswordReg) {
 
-        for (var i in accounts)
-          if ($scope.inputEmailReg == accounts[i].username) return;
         newAcc = {username: $scope.inputEmailReg, password: $scope.inputPasswordReg};
-        accounts.$add(newAcc);
+        addUser(newAcc);
       }
+    };
+
+    $scope.loginFB = function() {
+      FB.getLoginStatus(function(response) {
+        if (response.status == "connected") {
+          addUser({username:response.authResponse.userID, password:"facebook"});
+          $cookies.put("username", response.authResponse.userID);
+          gotoURL("/profile.html", [{key:"username",value:response.authResponse.userID}], $window);
+        }
+        else FB.login(function(response){
+          if (response.status == "connected") {
+            addUser({username:response.authResponse.userID, password:"facebook"});
+            $cookies.put("username", response.authResponse.userID);
+            gotoURL("/profile.html", [{key:"username",value:response.authResponse.userID}], $window);
+          }
+        });
+      });
     };
   }
 );
+
+window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '639941769518491',
+      xfbml      : true,
+      version    : 'v2.8'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
