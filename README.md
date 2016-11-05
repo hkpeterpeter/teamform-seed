@@ -1,4 +1,4 @@
-# team git it done now added jerry
+# team git it done now added jerry, jerryling testing
 ## The seed project for the team forming web application
 
 ### Pre-requisites
