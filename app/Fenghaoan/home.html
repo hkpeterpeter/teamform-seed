@@ -10,6 +10,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/homeslide.css">
 	<link rel="stylesheet" href="./css/test.css">
+  <link rel="stylesheet" href="./css/home.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.min.css">
 	<!-- js -->
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -22,18 +25,79 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+	<script>
+  // Initialize Firebase
+  var config = {
+  	apiKey: "AIzaSyBo6qBEtKrrO5i18QTawlE-AuVRaG5Y0pw",
+  	authDomain: "authentest-b24d3.firebaseapp.com",
+  	databaseURL: "https://authentest-b24d3.firebaseio.com",
+  	storageBucket: "authentest-b24d3.appspot.com",
+  	messagingSenderId: "640784507450"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+<!-- LoginBox -->
+<div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
+    <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+      <ul class="cd-switcher">
+        <li><a href="#">Sign in</a></li>
+        <!-- <li><a href="#0">New account</a></li> -->
+      </ul>
+
+      <div id="cd-login"> <!-- log in form -->
+
+        <form class="cd-form">
+          <!-- <p class="fieldset">
+            <label class="image-replace cd-email" for="signin-email">E-mail</label>
+            <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signin-password">Password</label>
+            <input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
+            <a href="#0" class="hide-password">Hide</a>
+            <span class="cd-error-message">Error message here!</span>
+          </p> -->
+
+          <!-- <p class="fieldset">
+            <input type="checkbox" id="remember-me" checked>
+            <label for="remember-me">Remember me</label>
+          </p> -->
+<!-- 
+          <p class="fieldset">
+            <input class="full-width" type="submit" value="Login">
+          </p> -->
+          <!-- <p class="fieldset">
+            <input class="full-width" type="button" value="Login">
+          </p>  -->
+          <a class="btn btn-block btn-social btn-google">
+            <span class="fa fa-google"></span> Sign in with Google
+          </a>
+          <a class="btn btn-block btn-social btn-facebook">
+            <span class="fa fa-facebook"></span> Sign in with Facebook
+          </a>
+          <a class="btn btn-block btn-social btn-twitter">
+            <span class="fa fa-twitter"></span> Sign in with Twitter
+          </a>
+          <a class="btn btn-block btn-social btn-github">
+            <span class="fa fa-github"></span> Sign in with Github
+          </a>
+        </form>
+
+      </div> <!-- cd-login -->
+      <a href="#0" class="cd-close-form">Close</a>
+    </div>
+</div>
+<!-- LoginBox -->
 <div class="homepageWrapper"  ng-app="homepage">
 <!-- /Navigate bar -->
 
 <!-- /Navigate bar -->
-
-<!-- LoginBox -->
-<div id="loginBox">
-
-</div>
-<!-- LoginBox -->
 
 <!-- Homebackground -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -49,7 +113,7 @@
             <div class="carousel-caption">
               <h1>Project name goes here</h1>
               <p>Welcome to use our team-formation platform. The best platform you and your team ever met.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <p><a class="loginB btn btn-lg btn-primary" href="#" role="button">Login / Register</a></p>
             </div>
           </div>
         </div>
@@ -59,7 +123,7 @@
             <div class="carousel-caption">
               <h1>More info goes here</h1>
               <p>I do not know what to say. You can try it yourself. It depends on you. Keep smile face, even you are in bad mode.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <p><a class="loginB btn btn-lg btn-primary" href="#" role="button">Login / Register</a></p>
             </div>
           </div>
         </div>
@@ -268,7 +332,123 @@
 </div>
 
 <!-- /Footer -->
+<script type="text/javascript">
+function login(providerName) {
+  var successFlag = false;
+  switch (providerName) {
+    case 'google':
+    var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    break;
+    case 'twitter':
+    var provider = new firebase.auth.TwitterAuthProvider();
+    break;
+    case 'facebook':
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('user_friends');
+    break;
+    case 'github':
+    var provider = new firebase.auth.GithubAuthProvider();
+    break;
+    default:
+      // statements_def
+      console.log('error login');
+      break;
+    }
 
+
+
+  // Facebook login system
+  // remember to add redirect OAuthen in Facebook -> application -> product -> xx
+  // var provider = new firebase.auth.FacebookAuthProvider();
+  // provider.addScope('user_friends');
+  // var provider = new firebase.auth.TwitterAuthProvider();
+  // var provider = new firebase.auth.GithubAuthProvider();
+  // provider.addScope('repo'); 
+
+  firebase.auth().signInWithPopup(provider).then(function(result) {
+
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  var user = result.user;
+    console.log(result);
+
+    successFlag = true;
+    if (successFlag)
+      $('.loginB').toggle();
+  }).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  console.log(error);
+  if (errorCode == 'auth/account-exists-with-different-credential') {
+    $('.loginB').toggle();
+  }
+});
+
+  $('.cd-user-modal').removeClass('is-visible');
+}
+  $('body').ready(()=>{
+    var formModal = $('.cd-user-modal'),
+    formModalTab = $('.cd-switcher'),
+    tabLogin = formModalTab.children('li').eq(0).children('a');
+
+    $('.loginB').on('click', login_selected);
+
+    formModal.on('click', function(event){
+      if( $(event.target).is(formModal) || $(event.target).is('.cd-close-form') ) {
+        formModal.removeClass('is-visible');
+      } 
+    });
+    $(document).keyup(function(event){
+      if(event.which=='27'){
+        formModal.removeClass('is-visible');
+      }
+    });
+
+    formModalTab.on('click', function(event) {
+      event.preventDefault();
+      ( $(event.target).is( tabLogin ) ) ? login_selected() : signup_selected();
+    });
+
+
+    function login_selected(){
+      
+      // mainNav.children('ul').removeClass('is-visible');
+      formModal.addClass('is-visible');
+      if ($('#cd-login').css('display')==='none'){
+          $('#cd-login').toggle();
+      }
+
+      // formLogin.addClass('is-selected');
+      // formSignup.removeClass('is-selected');
+      // formForgotPassword.removeClass('is-selected');
+      tabLogin.addClass('selected');
+      // tabSignup.removeClass('selected');
+    }
+
+    function signup_selected(){
+      // mainNav.children('ul').removeClass('is-visible');
+      formModal.addClass('is-visible');
+      // formLogin.removeClass('is-selected');
+      // formSignup.addClass('is-selected');
+      // formForgotPassword.removeClass('is-selected');
+      tabLogin.removeClass('selected');
+      // tabSignup.addClass('selected');
+    }
+
+  });
+
+  $('.btn-google').on('click', ()=>{login('google')});
+  $('.btn-facebook').on('click', ()=>{login('facebook')});
+  $('.btn-twitter').on('click', ()=>{login('twitter')});
+  $('.btn-github').on('click', ()=>{login('github')});
+</script>
 
 </body>
 </html>
