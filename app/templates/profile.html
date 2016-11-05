@@ -1,1 +1,13 @@
 <h1>Profile Page</h1>
+<div>
+	<label>Name:</label>
+	<input name="name" value ={{profile_name}}  ng-readonly="profile_readOnly" ng-model = "profile_name">
+	<hr /> <hr />
+	<label>Age:</label>
+	<input name="age" type = "number" value={{profile_age}}  ng-readonly = "profile_readOnly" ng-model = "profile_age">
+	<hr /><hr />
+	<label>Company:</label>
+	<input name="company" value = {{profile_company}} ng--readonly = "profile_readOnly" ng-model = "profile_company">
+	<hr /><hr />
+	<input  class="btn btn-primary" type="button" value={{button_name}} ng-click = "edit()" ng-hide={{button_visible}}>
+</div>
