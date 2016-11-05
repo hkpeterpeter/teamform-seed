@@ -1,11 +1,5 @@
 $(document).ready(function(){
 
-    // check current user
-    var user = firebase.auth().currentUser;
-    if(user) {
-        console.log(user);
-    }
-    
     var asked = false;
     var isLoggedIn = false;
 
@@ -19,8 +13,17 @@ $(document).ready(function(){
     };
     firebase.initializeApp(config);
 
-    function popupLogin() {
-        var provider = new firebase.auth.FacebookAuthProvider();
+/*
+        // check current user
+        var user = firebase.auth().currentUser;
+        if(user) {
+            console.log(user);
+        }
+        */
+
+
+        function popupLogin() {
+            var provider = new firebase.auth.FacebookAuthProvider();
 
             // popup
             firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -59,6 +62,7 @@ $(document).ready(function(){
         $("#log").text("Login");
         $("#log").css('color', '#009900');
 
+        /*
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
             // logged in, I should permit it to proceed and holding its info.
@@ -86,62 +90,64 @@ $(document).ready(function(){
                 isLoggedIn = false;
             }
         });
+*/
 
-        $("#log").click(function(){
-            if($("#log").text() == "Login") {
-                popupLogin();
-                console.log("want to login");
-            } else {
+$("#log").click(function(){
+    if($("#log").text() == "Login") {
+        popupLogin();
+        console.log("want to login");
+    } else {
                 // logout
                 firebase.auth().signOut().then(function() {
                     console.log("Logged out!");
                     $("#log").text("Logout");
                     $("#log").css('color', '#990000');
                     isLoggedIn = false;
+                    alert("Logout! See you again :)");
                 }, function(error) {
                 });            
             }
         });
 
-        $("#btn_admin").click(function(){
-            if(isLoggedIn == false) {
-                alert("Please Login First :)");
-            } else {
-               var val = $('#input_text').val();
-               if ( val !== '' ) {
-                  var url = "admin.html?q=" + val;
-                  window.location.href= url ;
-                  return false;
-              }
-          }
-      });
+$("#btn_admin").click(function(){
+    if(isLoggedIn == false) {
+        alert("Please Login First :)");
+    } else {
+       var val = $('#input_text').val();
+       if ( val !== '' ) {
+          var url = "admin.html?q=" + val;
+          window.location.href= url ;
+          return false;
+      }
+  }
+});
 
-        $("#btn_leader").click(function(){
-            if(isLoggedIn == false) {
-                alert("Please Login First :)");
-            } else {
-               var val = $('#input_text').val();
-               if ( val !== '' ) {
-                  var url = "team.html?q=" + val;
-                  window.location.href= url ;
-                  return false;
-              }
-          }
-      });
+$("#btn_leader").click(function(){
+    if(isLoggedIn == false) {
+        alert("Please Login First :)");
+    } else {
+       var val = $('#input_text').val();
+       if ( val !== '' ) {
+          var url = "team.html?q=" + val;
+          window.location.href= url ;
+          return false;
+      }
+  }
+});
 
-        $("#btn_member").click(function(){
-            if(isLoggedIn == false) {
-                alert("Please Login First :)");
-            } else {
-               var val = $('#input_text').val();
-               if ( val !== '' ) {
-                  var url = "member.html?q=" + val;
-                  window.location.href= url ;
-                  return false;
-              }
+$("#btn_member").click(function(){
+    if(isLoggedIn == false) {
+        alert("Please Login First :)");
+    } else {
+       var val = $('#input_text').val();
+       if ( val !== '' ) {
+          var url = "member.html?q=" + val;
+          window.location.href= url ;
+          return false;
+      }
 
-          }
-      });
+  }
+});
 
 
-    });
+});
