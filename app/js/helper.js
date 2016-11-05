@@ -77,7 +77,31 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     }
     helper.createEvent = function(uid, event) {
 
+        //add event to events tree
+        ref = firebase.database().ref("events");
+        var events=$firebaseArray(ref);
+        events.$add(event).then(function(ref){
+            var eventId = ref.key;
+            //add event to users tree
+
+            var date = new Date();
+
+
+            ref = firebase.database().ref("users/"+uid+"/writable");
+            var user = $firebaseObject(ref);
+            user.$loaded().then(function(data){
+               user[eventId] = {
+                    position:"admin",
+                    lastLogin: date.toJSON()
+                };
+                user.$save();
+            });
+
+        })
+
     }
+
+
     // helper.deleteEvent = function(uid, eventID) {
 
     // }
