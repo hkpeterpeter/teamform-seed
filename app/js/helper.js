@@ -7,34 +7,56 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.debug = {};
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
      
+        // ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
+        // eventRec=$firebaseObject(ref);
+        // eventRec.$loaded().then(function(data){
+        //     eventRec.team = teamID;
+        //     eventRec.$save().then(function(data){
+        //         eventRec.position = position;
+        //         eventRec.$save().then(function(data){
+        //             // delete eventObj.tba[uid];
+        //             ref=firebase.database().ref("events/"+eventID);
+        //             tbaref=ref.child("tba/"+uid);
+        //             tbaref.remove().then(function(data){
+        //                 // membersref=ref.child("/teams/"+teamID+"/members");
+        //                 // temp={};
+        //                 // temp[uid]=uid;
+        //                 // membersref.update(temp);
+        //                 teamObj=$firebaseObject(ref.child("/teams/"+teamID));
+        //                 teamObj.$loaded().then(function(data){
+        //                     console.log(teamObj);
+        //                     if(teamObj.members===undefined)
+        //                         teamObj.members={};
+        //                     teamObj.members[uid]=uid;
+        //                     teamObj.$save();
+        //                 });
+        //             });
+        //         });
+        //     })
+
+        // })
+
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
-        eventRec=$firebaseObject(ref);
-        eventRec.$loaded().then(function(data){
-            eventRec.team = teamID;
-            eventRec.$save().then(function(data){
-                eventRec.position = position;
-                eventRec.$save().then(function(data){
-                    // delete eventObj.tba[uid];
+        ref.update({team:teamID}).then(function(){
+            ref.update({position:position}).then(function(){
                     ref=firebase.database().ref("events/"+eventID);
                     tbaref=ref.child("tba/"+uid);
                     tbaref.remove().then(function(data){
-                        // membersref=ref.child("/teams/"+teamID+"/members");
-                        // temp={};
-                        // temp[uid]=uid;
-                        // membersref.update(temp);
                         teamObj=$firebaseObject(ref.child("/teams/"+teamID));
                         teamObj.$loaded().then(function(data){
-                            console.log(teamObj);
-                            if(teamObj.members===undefined)
-                                teamObj.members={};
-                            teamObj.members[uid]=uid;
-                            teamObj.$save();
-                        });
-                    });
-                });
-            })
+                            console.log(ref);
+                            var temp = {};
+                            temp[uid]=uid;
+                            ref.child("/teams/"+teamID).child('members').update(temp);
 
-        })
+                        });
+
+                    });
+            });
+        });
+
+
+
     }
     helper.deletePersonFromTeam = function(uid, eventID, teamID) {
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
@@ -42,7 +64,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         record.$loaded().then(function(data){
             record.position="tba";
             teamID=record.team;
-            record.team="";
+            record.team= null;
             record.$save();
             eventRef=firebase.database().ref("events/"+eventID);
             eventObj=$firebaseObject(eventRef);
@@ -76,9 +98,9 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref=firebase.database().ref("events/"+eventID+"/teams/"+teamID);
         team=$firebaseObject(ref);
         team.$loaded().then(function(data){
-            for(key in team.member)
+            for(key in team.members)
                 {
-                    id=team.member[key];
+                    id=team.members[key];
                     console.log(id);
                     helper.pushNotificationTo(id, eventID, "Your team has been deleted");
                     helper.deletePersonFromTeam(id,eventID,teamID);
@@ -96,15 +118,15 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.sendInvitationTo = function(toUid, eventID, teamID) {
         //lby
         tref=firebase.database().ref("events/"+eventID+"/teams/"+teamID+"/invitations");
-        $firebaseObject(tref).$loaded().then(function(data){
-            data[toUid]="pending";
-            data.$save();
-        })
+        var temp = {};
+        temp[toUid] = "pending";
+        tref.update(temp);
+        
+            
         uref=firebase.database().ref("users/"+toUid+"/writable/"+eventID+"/invitations");
-        $firebaseObject(uref).$loaded().then(function(data){
-            data[teamID]=teamID;
-            data.$save();
-        })
+        temp = {};
+        temp[teamID] = teamID;
+        uref.update(temp);
     }
     helper.sendApplicationTo = function(uid, eventID, teamID) {
         //wyz
