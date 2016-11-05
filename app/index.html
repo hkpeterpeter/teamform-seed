@@ -52,17 +52,14 @@
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 
-
+     <link rel="stylesheet" href="css/index.css">
 
 
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
 
-
-
-
-      <div class="navbar-wrapper">
-        <header class="main-header" ng-controller = "LoginCtrl">
+      <div class="navbar-wrapper" ng-controller = "LoginCtrl">
+        <header class="main-header" >
           <!-- Logo -->
           <a href="index2.html" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -80,6 +77,60 @@
             <div class="navbar-custom-menu">
               <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
+<li>
+  <div class="container">
+  	<div class="row">
+  		<div class="col-md-12">
+
+                <div class="input-group" id="adv-search">
+                  <input type="text" ng-model="searchString" placeholder="Search" class = "form-control" />
+                  <div ng-if = "searchString != ''">
+                  <ul ng-repeat="i in items | searchFor:searchString" ng-hide = "searchString == null" class = "search_list" >
+                      <a href = "#" class="form-control">{{ i.name }}</a>
+                  </ul>
+                </div>
+
+                  <div class="input-group-btn">
+                      <div class="btn-group" role="group">
+                          <div class="dropdown dropdown-lg">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                              <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                  <form class="form-horizontal" role="form">
+                                    <div class="form-group">
+                                      <label for="filter">Filter by</label>
+                                      <select class="form-control">
+                                          <option value="0" selected>All Snippets</option>
+                                          <option value="1">Featured</option>
+                                          <option value="2">Most popular</option>
+                                          <option value="3">Top rated</option>
+                                          <option value="4">Most commented</option>
+                                      </select>
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="contain">Author</label>
+                                      <input class="form-control" type="text" />
+                                    </div>
+                                    <div class="form-group">
+                                      <label for="contain">Contains the words</label>
+                                      <input class="form-control" type="text" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                  </form>
+                              </div>
+                          </div>
+                          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                      </div>
+
+                  </div>
+
+              </div>
+
+            </div>
+          </div>
+  	</div>
+
+</li>
+
                 <li class="dropdown messages-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-envelope-o"></i>
@@ -273,9 +324,7 @@
                   </ul>
                 </li>
                 <!-- User Account: style can be found in dropdown.less -->
-                <li>
-                               <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
-                </li>
+
                 <li>
                   <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
                 </li>
@@ -634,7 +683,7 @@
       <!-- Marketing messaging and featurettes
          ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
-      <div class="container marketing">
+      <div id = "index_page_controller" class="container marketing" ng-controller ="indexCtrl">
 
 
          <!-- START THE FEATURETTES -->
@@ -650,24 +699,36 @@
                <div class="row">
                   <div class="col-md-4">
                      <h3 class="text-center">Administrator</h3>
-                     <ul>
-                        <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
-						<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
+
+                     <ul ng-repeat="a in admin">
+                       <li>
+
+                         User ID: {{a.$id}}  <br>
+
+
+                       </li>
+
                      </ul>
                   </div>
 
                   <div class="col-md-4">
                      <h3 class="text-center">Team</h3>
-                     <ul>
-                        <li>Be able to add and remove requests made by members</li>
-						<li>Once a member joins the team, all his/her requests will be deleted</li>
+                     <ul ng-repeat="t in team">
+                       <li>
+                         User ID: {{t.$id}}  <br>
+                         team: {{t.team}}
+                       </li>
                      </ul>
+
                   </div>
 
                   <div class="col-md-4">
                      <h3 class="text-center">Member</h3>
-                     <ul>
-                        <li>Be able to request to join multiple teams</li>
+                     <ul ng-repeat="m in member">
+                       <li>
+                         User ID: {{m.$id}}  <br>
+                         team: {{m.team}}
+                       </li>
                      </ul>
                   </div>
                </div>
@@ -738,6 +799,7 @@
       <script src="js/index.js"></script>
       <script src="https://apis.google.com/js/platform.js" async defer></script>
       <script src="js/login.js"></script>
+      <script src="js/search.js"></script>
       <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
       <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
       <script>
@@ -772,9 +834,6 @@
       <script src="dist/js/pages/dashboard.js"></script>
       <!-- AdminLTE for demo purposes -->
       <script src="dist/js/demo.js"></script>
-
-
-
 
 
    </body>
