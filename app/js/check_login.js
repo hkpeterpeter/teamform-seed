@@ -18,8 +18,7 @@ initalizeFirebase();
                 document.getElementById('photo').src = user.photoURL;
                 document.getElementById('photo').style.display = 'block';
               } else {
-                photoURL = 'https://www.pcrs-uk.org/sites/pcrs-uk.org/files/Placeholder_no_text.svg_.png';
-				user.photoURL = photoURL;
+				user.photoURL = 'placeholer.gif';
                 document.getElementById('photo').src = user.photoURL;
 				document.getElementById('photo').style.display = 'block';
               }
