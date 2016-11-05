@@ -24,7 +24,9 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
-		"teamMembers" : []
+		"teamMembers" : [],
+		"teamToSelect": []
+
 	};
 		
 	
@@ -51,8 +53,10 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
+
 	
 	$scope.requests = [];
+	$scope.mergeRequestReceived = [];
 	$scope.refreshViewRequestsReceived = function() {
 		
 		//$scope.test = "";		
@@ -70,7 +74,18 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.requests.push(userID);
 			}
 		});
+		$scope.mergeRequestReceived = [];
+		$.each($scope.team, function(i,obj) {			
+			//$scope.test += i + " " + val;
+			//$scope.test += obj.$id + " " ;
+				//$scope.test += userID + " " ;
+			if(typeof obj.mergeRequests != "undefined" && obj.mergeRequests.indexOf(teamID) > -1){
+				$scope.mergeRequestReceived.push(obj);
+			}
+		});
 		
+		
+
 		$scope.$apply();
 		
 	}
@@ -97,7 +112,8 @@ angular.module('teamform-team-app', ['firebase'])
 			
 			var newData = {				
 				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers
+				'teamMembers': $scope.param.teamMembers,
+				'mergeRequests': $scope.mergeSelection
 			};		
 			
 			var refPath = getURLParameter("q") + "/team/" + teamID;	
@@ -105,11 +121,11 @@ angular.module('teamform-team-app', ['firebase'])
 			
 			
 			// for each team members, clear the selection in /[eventName]/team/
-			
 			$.each($scope.param.teamMembers, function(i,obj){
 				
 				
 				//$scope.test += obj;
+				
 				var rec = $scope.member.$getRecord(obj);
 				rec.selection = [];
 				$scope.member.$save(rec);
@@ -117,6 +133,13 @@ angular.module('teamform-team-app', ['firebase'])
 				
 				
 			});
+			$.each($scope.mergeRequestReceived, function(i,obj){
+				var rec = $scope.team.$getRecord(obj.$id);
+				console.log(rec);
+				$scope.team.$remove(rec);
+			});
+
+				
 			
 			
 			
@@ -125,8 +148,9 @@ angular.module('teamform-team-app', ['firebase'])
 				// console.log("Success..");
 				
 				// Finally, go back to the front-end
-				// window.location.href= "index.html";
+				window.location.href= "index.html";
 			});
+			
 			
 			
 			
@@ -145,6 +169,7 @@ angular.module('teamform-team-app', ['firebase'])
 			if ( data.child("size").val() != null ) {
 				
 				$scope.param.currentTeamSize = data.child("size").val();
+				$scope.param.teamToSelect = $scope.team;
 				
 				$scope.refreshViewRequestsReceived();
 								
@@ -156,11 +181,42 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.param.teamMembers = data.child("teamMembers").val();
 				
 			}
+			else{
+				$scope.param.teamMembers = "";
+			}
+
+			if ( data.child("mergeRequests").val() != null){
+				$scope.mergeSelection = data.child("mergeRequests").val();
+			}
 			
 			$scope.$apply(); // force to refresh
 		});
 
 	}
+
+		/*************** TeamMergeRequest *******************/
+	$scope.mergeSelection = [];
+	$scope.teamMergeRequest = function(teamItem){
+		if(typeof teamItem.teamMembers == "undefined"){
+			teamItem.teamMembers = [];
+		}
+		if($scope.param.teamMembers.length + teamItem.teamMembers.length <= teamItem.size && $scope.mergeSelection.length < 1){
+			$scope.mergeSelection.push(teamItem.$id);
+			$scope.saveFunc();
+		}
+		else{
+			alert("Invalid Operation");
+		}
+	}
+
+	$scope.processMergeRequest = function(q){
+		for (var i = 0; i < q.teamMembers.length; i++){
+			$scope.param.teamMembers.push(q.teamMembers[i])
+		}
+		
+		$scope.saveFunc();	
+	}
+	//**************************************
 	
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;
