@@ -65,10 +65,7 @@ z-index:2;
         transform:rotateY(180deg);
 }
 
-.myCardContent{
-	height: 200px !important;
-	overflow: hidden !important;
-}
+
 
 
 

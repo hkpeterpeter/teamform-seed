@@ -1,0 +1,85 @@
+
+<div class="row">
+    <div class="col s12 l8 offset-l2">
+        <div class="card horizontal">
+            <div class="card-image">
+                <div style="display:table;height:100%">
+                    <div style=" display: table-cell;vertical-align: middle;">
+                        <image ng-src="{{eventPicture}}" style="height:270px"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-stacked">
+                <div class="card-content" style="height: 200px;overflow: hidden ">
+                    <div>
+                    This event is created by {{eadmin}}, the recommanded group size is {{eGroupSize}}. This event requires the following skills: {{eSkill}}.
+                    </div>
+                    
+                
+                  
+                </div>
+                <div class="card-action">
+                    <a href="#">
+                       {{eventTitle}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+{
+    "users": [{
+        "name": "samuel",
+        "id": 232794508173451340,
+        "skills": ["angular", "design"],
+        "profilePic": "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872",
+        "notifs": [{
+            "sender": "xinyu",
+            "receiver": "samuel",
+            "type": "invitation",
+            "read": false,
+            "content": "You were invited to join XXX team"
+        }, {
+            "sender": "Jenny",
+            "receiver": "samuel",
+            "type": "normal",
+            "read": false,
+            "content": "You were added to XXX team"
+        }]
+    }, {
+        "name": "Ace white",
+        "id": 445664508173451340,
+        "skills": ["angular", "design"],
+        "profilePic": "http://facebook.com/samuel.jpg",
+        "notifs": []
+    }],
+    "events": [{
+        "creatorID": 12345,
+        "allTeams": [3344, 4455],
+        "eventName": "3111h",
+        "description": "a course",
+        "maxSize": 8,
+        "minSize": 5
+    }, {
+        "creatorID": 232794508173451340,
+        "photoURL": "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872" ,
+        "allTeams": [6644, 4455],
+        "eventName": "3511",
+        "description": "os",
+        "maxSize": 8,
+        "minSize": 5
+    }],
+    "teams": [{
+        "leaderID": 232794508173451340,
+        "membersID": [445664508173451340, 232794508173451340],
+        "teamName": "Undefined",
+        "belongstoEvent": "3111h",
+        "preferedSize": 8,
+        "pendingApplicants": [1433664508173451340]
+    }]
+};
+</script>
