@@ -11,9 +11,12 @@ app.controller("eventDCtrl",
         $scope.selectTeam = false;
         $scope.eventID = "-KVcVgeRPOOdr-vUyDLV";
         personToBeAdded="";
+        this.Object=Object;
         Auth.$onAuthStateChanged(function(authData) {
             $scope.userData = authData;
 
+            ref=firebase.database().ref("users");
+            $scope.users=$firebaseObject(ref);
             //get role of user
             ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable");
             $scope.obj = $firebaseObject(ref);
@@ -21,7 +24,11 @@ app.controller("eventDCtrl",
                 if($scope.obj[$scope.eventID]===undefined) 
                     $scope.role="visitor";
                 else 
+                {
                     $scope.role=$scope.obj[$scope.eventID].position;
+                    $scope.teamID=$scope.obj[$scope.eventID].team;
+                    console.log($scope.obj[$scope.eventID]);
+                }
             })
             
             // console.log($scope.obj);
@@ -35,7 +42,7 @@ app.controller("eventDCtrl",
         eventRef = firebase.database().ref("events/" + $scope.eventID);
         $scope.eventObj = $firebaseObject(eventRef);
         $scope.eventObj.$loaded().then(function(data){
-            console.log($scope.eventObj.eventInfo);
+            console.log(Object.keys(data.teams).length);
         })
 
         //functions
@@ -43,9 +50,8 @@ app.controller("eventDCtrl",
             $scope.isManaging = !$scope.isManaging;
         };
 
-        //Debug
 
-        $scope.createEventList = Helper.debug.createEventList;
+        // $scope.createEventList = Helper.debug.createEventList;
         $scope.deleteTeam = function(key){
             Helper.deleteTeam($scope.eventID,key);
         };
@@ -59,35 +65,71 @@ app.controller("eventDCtrl",
             $scope.selectTeam=false;
             console.log(key);
         }
-        console.log("test");
+        $scope.invite=function(uid){
+            Helper.sendInvitationTo(uid,$scope.eventID,$scope.teamID);
+        }
+        $scope.quit=function(){
+            Helper.quitEvent($scope.userData.uid,$scope.eventID);
+            $scope.role="visitor";
+
+        }
+        $scope.joinEvent=function(){
+            Helper.joinEvent($scope.userData.uid,$scope.eventID);
+            $scope.role="tba";
+        }
+
+        
         var dialogue;
         $scope.createTeamDialogue = function(){
             dialogue = ngDialog.open({
                 template: 'templates/createTeam.html',
                 className: 'ngdialog-theme-plain',
-                scope: $scope,
-                height: '40%',
-                width: '50%'
+                scope: $scope
             });
-        }
+        };
+        $scope.createAnnouncementDialogue = function(){
+            dialogue = ngDialog.open({
+                template: 'templates/postAnnouncement.html',
+                className: 'ngdialog-theme-plain',
+                scope: $scope
+            });
+        };
         $scope.newTeam={
             max: 0,
             name: "",
             desc: "",
             currentSize: 0,
             members: {},
-            tags: {}
+            tags: {},
+            leader: ""
 
-        }
+        };
+        $scope.newAnn={
+            a: ""
+        };
         $scope.createTeam=function(){
+            $scope.newTeam.leader=$scope.userData.uid
             console.log($scope.newTeam);
-            // newTeam.members[$scope.userData.uid]=$scope.userData.uid;
-            helper.createTeam($scope.userData.uid,$scope.eventID,$scope.newTeam);
+            Helper.createTeam($scope.userData.uid,$scope.eventID,$scope.newTeam);
+            dialogue.close();
+            
+            $scope.role=$scope.obj[$scope.eventID].position;
+            $scope.teamID=$scope.obj[$scope.eventID].team;
+        }
+        $scope.postAnnouncement=function(){
+            console.log($scope.newAnn);
+            Helper.postEventAnnouncement($scope.eventID, $scope.newAnn.a);
             dialogue.close();
         }
-
         
-
-
     }
 );
+
+app.filter('numKeys', function() {
+    return function(json) {
+        if(json===undefined)
+            return 0;
+        var keys = Object.keys(json)
+        return keys.length;
+    }
+})
