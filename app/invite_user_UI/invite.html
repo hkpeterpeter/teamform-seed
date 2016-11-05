@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>invite interface</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+<!--search-->
+<br>
+<div class = "container">
+  <div class="col-md-3 col-xs-3">
+    <input type="text" class="form-control" placeholder="Search by tag...">
+  </div>
+
+</div>
+
+
+
+<br>
+
+<div class = "container">
+<!--user list + add button + chosen list-->
+<div class="row">
+<!--to be chosen-->
+<div class="col-md-5 col-xs-5">
+<iframe src="user_to_choose.html" width="100%" height="200" align="right">
+</iframe>
+</div>
+<!--add button-->
+<div class="col-md-2 col-xs-2">
+  <div class="button-wrapper" >
+    <button class="btn btn-default">
+      Add>>
+    </button>
+  </div>
+</div>
+<!--chosed-->
+<div class="col-md-5 col-xs-5">
+<iframe src="user_chosen.html" width="100%" height="200" align="right">
+</iframe>
+</div>
+
+</div>
+<!--invite button-->
+<br>
+<div class="row">
+  <!--invited button-->
+    <div class="col-md-9 col-xs-9"></div>
+    <div class="col-md-3 col-xs-3 ">
+    <button class="btn btn-primary">
+      Invite
+    </button>
+  </div>
+</div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
