@@ -9,17 +9,12 @@ $(document).ready(function(){
 	}
 
 });
-var app = angular.module('teamform-admin-app', ['firebase']);
 
-app.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+angular.module('teamform-admin-app', ['firebase']).controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
+function($scope, $firebaseObject, $firebaseArray) {
 	
 	// TODO: implementation of AdminCtrl
-		$scope.input = {
-			To: "",
-			content: "",
-			date: "",
-		}
-
+	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
 			
