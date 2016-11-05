@@ -18,7 +18,10 @@ initalizeFirebase();
                 document.getElementById('photo').src = user.photoURL;
                 document.getElementById('photo').style.display = 'block';
               } else {
-                document.getElementById('photo').style.display = 'none';
+                photoURL = 'https://www.pcrs-uk.org/sites/pcrs-uk.org/files/Placeholder_no_text.svg_.png';
+				user.photoURL = photoURL;
+                document.getElementById('photo').src = user.photoURL;
+				document.getElementById('photo').style.display = 'block';
               }
               document.getElementById('account-details').textContent = JSON.stringify({
                 displayName: displayName,

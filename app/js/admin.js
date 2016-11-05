@@ -39,13 +39,13 @@ angular.module('teamform-admin-app', ['firebase'])
 			current_uid=document.getElementById('uid').textContent;
 			// Check if logged in user is the admin of the event
 			if (!checkLoginstate()){
-				window.alert("You don't have permission to manage this event! Please login.");
-				window.location.href= "index.html";
+				//window.alert("You don't have permission to manage this event! Please login.");
+				window.location.href= "redirect.html";
 			}
 			if (typeof $scope.param.maxTeamSize != "undefined"){
 				if ($scope.UIDparam.adminUID != current_uid){
-					window.alert("You don't have permission to manage this event!");
-					window.location.href= "index.html";
+					//window.alert("You don't have permission to manage this event!");
+					window.location.href= "redirect.html";
 				}
 			}
 			// Fill in some initial values when the DB entry doesn't exist			

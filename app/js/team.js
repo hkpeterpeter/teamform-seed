@@ -37,8 +37,8 @@ angular.module('teamform-team-app', ['firebase'])
 	refPath =  "events/" + eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {	
 			if (!checkLoginstate()){
-		window.alert("Please login");
-		window.location.href= "index.html";
+		//window.alert("Please login");
+		window.location.href= "redirect.html";
 	}
 		if ( data.child("param").val() != null ) {
 			$scope.range = data.child("param").val();
