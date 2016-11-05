@@ -1,0 +1,25 @@
+#searchBarContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#searchTextField{
+    width: 50vw;
+    font-size: 3vh;
+    border-radius: 5px;
+    padding: 7px;
+}
+
+#searchBtn{
+    font-size: 3vh;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 7px;
+}
+
+div{
+    display: block;
+    margin: 20px;
+}

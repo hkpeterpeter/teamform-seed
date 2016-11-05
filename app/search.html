@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="lib/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyDBbzOIIjY0CQEAbIXyPeFt4lf7-pB5N1k",
+            authDomain: "comp3111pj.firebaseapp.com",
+            databaseURL: "https://comp3111pj.firebaseio.com",
+            storageBucket: "comp3111pj.appspot.com"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="js/searchbar.js"></script>
+</head>
+<body>
+<link href="css/searchBar.css" type="text/css" rel="stylesheet"/>
+
+<div ng-app="search" ng-controller="searchCtrl">
+    <div id="searchBarContainer">
+        <input id="searchTextField" type="text" placeholder="Input some keywords to search (e.g. Team Name)"/>
+        <input id="searchBtn" type="button" value="Search" ng-click="test()"/>
+    </div>
+    <div>{{result}}</div>
+</div>
+
+</body>
+</html>
