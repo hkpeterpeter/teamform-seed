@@ -1,25 +1,44 @@
-#searchBarContainer{
+.centralize {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
-#searchTextField{
-    width: 50vw;
-    font-size: 3vh;
-    border-radius: 5px;
-    padding: 7px;
+.fullscreen {
+    width: 100vw;
+    height: 100vh;
 }
 
-#searchBtn{
-    font-size: 3vh;
-    border-radius: 5px;
-    margin: 20px;
-    padding: 7px;
+.myBtn {
+    margin: 15px 0 0 0;
 }
 
-div{
-    display: block;
-    margin: 20px;
+#searchTextField, #searchSuggestion *, .myBtn {
+    font-size: medium;
+}
+
+.wellPadding {
+    padding: 30px;
+}
+
+.topPadding {
+    padding-top: 30px;
+}
+
+.leftRightPadding{
+    padding: 0 30px;
+}
+
+.noPadding {
+    padding: 0;
+}
+
+#searchSuggestion {
+    height: 0;
+    overflow: visible;
+    z-index: 1000;
+}
+
+#searchBtnContainer {
+    z-index: 100;
 }
