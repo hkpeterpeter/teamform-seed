@@ -139,6 +139,7 @@ app.controller("eventDCtrl",
             return true;                
  
         };
+        console.log({position:"tba",team:null});
         
     }
 );
