@@ -17,5 +17,3 @@ app.run(["$rootScope", "$state", "Auth", function($rootScope, $state, Auth) {
       }
     });
 }]);
-
-

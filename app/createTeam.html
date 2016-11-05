@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="Team">
+
+<head>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+            authDomain: "comp3111-bb108.firebaseapp.com",
+            databaseURL: "https://comp3111-bb108.firebaseio.com",
+            storageBucket: "comp3111-bb108.appspot.com",
+            messagingSenderId: "554833059052"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <div ng-controller="CTCtrl" class="container">
+		<form name="CTForm" class="css-form col-md-4" novalidate>
+                <div class="form-group">
+                    <label>Team Name: </label>
+                    <input class="form-control" type="text" name="teamName" ng-model="team.teamName" ng-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label>Openness: 
+					<input type="radio" ng-model="team.openness" value="public" ng-required="true">Public
+					<input type="radio" ng-model="team.openness" value="private" ng-required="true">Private<br /></label>
+                </div>
+				
+				<div class="form-group">
+                    <label>Require Position:<br />
+					<input type="checkbox" ng-model="team.developer"> Developer
+					<br />
+					<div ng-show="team.developer">
+						<label>Number: </label>
+						<input class="form-control" type="text" name="devNum" ng-model="team.devNum">
+					</div>
+					
+					<input type="checkbox" ng-model="team.designer" > Designer
+					<div ng-show="team.designer">
+						<label>Number: </label>
+						<input class="form-control" type="text" name="desNum" ng-model="team.desNum">
+					</div>
+                </div>
+
+				<div class="form-group">
+                    <label>Description: </label>
+                    <textarea class="form-control" type="text" name="desc" ng-model="team.desc" ng-required="true" style="vertical-align: top;"></textarea>
+                </div>
+				
+                <input class="btn btn-primary" type="button" value="Submit" ng-click="createTeam()" ng-disabled="!team.openness || !team.teamName">
+            </form>
+    </div>
+	<script src="team.js"></script>
+</body>
+
+</html>
