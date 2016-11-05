@@ -9,7 +9,7 @@ export default class UserEditCtrl extends UserDetailCtrl {
             .then((result) => {
                 this.$timeout(() => {
                     this.loading = false;
-                    this.$state.go('user.detail', {eventId: result.key});
+                    this.$state.go('user.detail', {userId: result.key});
                 });
             }).catch((error) => {
                 this.$timeout(() => {

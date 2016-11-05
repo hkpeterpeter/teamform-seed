@@ -1,17 +1,12 @@
-export default class EventCreateCtrl {
+import EventDetailCtrl from './eventDetail';
+
+export default class EventEditCtrl extends EventDetailCtrl {
     constructor($location, $state, $stateParams, $timeout, eventService) {
-        this.$location = $location;
-        this.$state = $state;
-        this.$stateParams = $stateParams;
-        this.$timeout = $timeout;
-        this.eventService = eventService;
-        this.loading = false;
-        this.event = {};
-        this.error = null;
+        super($location, $state, $stateParams, $timeout, eventService);
     }
-    createEvent() {
+    edit() {
         this.loading = true;
-        this.eventService.createEvent(this.event)
+        this.eventService.editEvent(this.event)
             .then((result) => {
                 this.$timeout(() => {
                     this.loading = false;
@@ -26,4 +21,4 @@ export default class EventCreateCtrl {
     }
 }
 
-EventCreateCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];
+EventEditCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];

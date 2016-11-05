@@ -10,6 +10,7 @@ import auth from '../common/auth';
 import EventDetailCtrl from './controllers/eventDetail';
 import EventListCtrl from './controllers/eventList';
 import EventCreateCtrl from './controllers/eventCreate';
+import EventEditCtrl from './controllers/eventEdit';
 import EventService from './factories/EventService';
 
 export default angular.module('event', [uirouter, angularfire, firebase, pagination, alert, auth])
@@ -17,5 +18,6 @@ export default angular.module('event', [uirouter, angularfire, firebase, paginat
     .controller('EventDetailCtrl', EventDetailCtrl)
     .controller('EventListCtrl', EventListCtrl)
     .controller('EventCreateCtrl', EventCreateCtrl)
+    .controller('EventEditCtrl', EventEditCtrl)
     .factory('EventService', EventService.instance)
     .name;

@@ -1,6 +1,7 @@
 import EventDetailView from '../views/eventDetail.html';
 import EventListView from '../views/eventList.html';
 import EventCreateView from '../views/eventCreate.html';
+import EventEditView from '../views/eventEdit.html';
 
 export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
     $urlRouterProvider.when(/^\/event\/?$/, '/event/list');
@@ -36,12 +37,32 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
         })
         .state('event.detail', {
             url: '/:eventId',
-            template: EventDetailView,
-            controller: 'EventDetailCtrl',
-            controllerAs: 'eventDetail',
+            views: {
+                '@': {
+                    template: EventDetailView,
+                    controller: 'EventDetailCtrl',
+                    controllerAs: 'eventDetail',
+                }
+            },
             ncyBreadcrumb: {
-                label: '{{ eventDetail.event.name }}',
+                label: '{{ eventDetail.event.name || eventEdit.event.name }}',
                 parent: 'event.list'
+            }
+        })
+        .state('event.detail.edit', {
+            auth: (authService) => {
+                return authService.checkAuth();
+            },
+            url: '/edit',
+            views: {
+                '@': {
+                    template: EventEditView,
+                    controller: 'EventEditCtrl',
+                    controllerAs: 'eventEdit',
+                }
+            },
+            ncyBreadcrumb: {
+                label: 'Edit'
             }
         });
 }];
