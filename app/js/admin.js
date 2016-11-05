@@ -9,12 +9,17 @@ $(document).ready(function(){
 	}
 
 });
+var app = angular.module('teamform-admin-app', ['firebase']);
 
-angular.module('teamform-admin-app', ['firebase'])
-.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+app.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	// TODO: implementation of AdminCtrl
-	
+		$scope.input = {
+			To: "",
+			content: "",
+			date: "",
+		}
+
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
 			
@@ -58,9 +63,9 @@ angular.module('teamform-admin-app', ['firebase'])
 	refPath = eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-	
-	
 
+
+	
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
 		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
@@ -93,3 +98,4 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 		
 }]);
+
