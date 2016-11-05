@@ -14,6 +14,7 @@ app.controller("dashboardCtrl",
 			}
 		});
 
+
 		$scope.logout = function(){
 			Auth.$signOut().then(function(){
 				console.log("Logged out");
