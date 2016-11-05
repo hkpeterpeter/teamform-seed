@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="http://getbootstrap.com/assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+    	<div class="container-fluid">
+		<div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://getbootstrap.com/examples/dashboard/#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="http://getbootstrap.com/examples/dashboard/#">Dashboard</a></li>
+            <li><a href="http://getbootstrap.com/examples/dashboard/#">Settings</a></li>
+            <li><a href="http://getbootstrap.com/examples/dashboard/#">Profile</a></li>
+            <li><a href="http://getbootstrap.com/examples/dashboard/#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="http://getbootstrap.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+		  <div class="col-md-offset-1"><h4>Messages</h4></div>
+            <li class="active"><a href="#">Peter</a></li>
+          </ul>
+        </div>
+		</div>
+	</div>
+	
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">         
+      <div class="col-md-1 col-lg-8">
+        <h3 class="text-center">Peter</h3>
+</div>
+</div>
+	  </div>
+</nav>
+  <div id="message_container">
+    <div id="message_placeholder">
+    </div>
+    <div id="message">
+    	<div class="col-xs-1" id="message_sender"><img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" alt="" width="50" height="30" class="img-thumbnail"></div>
+    	<div class="col-lg-9" id="message_content">
+    	<span id="message_body">
+    		Hello, I'm Slackbot. I try to be helpful. (But I’m still just a bot. Sorry!) Type *something* to get started.
+    		If you have any questions about *how to use Slack*, please ask me! I’ll do my best to help.
+    	</span>
+    	<a href="#">12:37 PM</a>
+    	</div>
+    </div>
+    <div class="col-lg-11">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Message Peter">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Send</button>
+      </span>
+    </div><!-- /input-group -->
+  </div>
+	  </div>
+
+</body>
+</html>
