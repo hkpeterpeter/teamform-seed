@@ -1,5 +1,3 @@
-var app = angular.module("events", ["firebase"]);
-
 app.controller("eventSubmit",
                
                function($scope, $firebaseArray){

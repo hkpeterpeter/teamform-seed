@@ -47,6 +47,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         return Auth.$requireSignIn();
       }]
-      }});
+      }})
+
+      .state('event', {
+            url: '/event',
+            templateUrl: 'event.html',
+            controller: 'eventSubmit'
+            });
         
 });
