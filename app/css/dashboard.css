@@ -26,27 +26,27 @@ body {
 }
 
 .navbar-default {
-	margin-left: 250px;
+  margin-left: 250px;
 }
 
 #message_container {
-	margin-left: 270px;
+  margin-left: 270px;
 }
 
 #message_content {
-	padding-top: 10px;
-	padding-bottom: 30px;
-	border:1px;
-	border-color:aquamarine;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  border:1px;
+  border-color:aquamarine;
 }
 
 #message_placeholder {
-	margin-bottom: 450px;
+  margin-bottom: 450px;
 }
 
 #input_group {
-	padding-top: 40px;
-	margin-top: 40px;
+  padding-top: 40px;
+  margin-top: 40px;
 }
 
 #message_container {
