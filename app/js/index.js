@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+    // check current user
+    var user = firebase.auth().currentUser;
+    if(user) {
+        console.log(user);
+    }
+    
     var asked = false;
     var isLoggedIn = false;
 
