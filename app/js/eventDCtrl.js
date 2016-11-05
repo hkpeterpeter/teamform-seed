@@ -44,7 +44,7 @@ app.controller("eventDCtrl",
 
             } else console.log("signed out");
         });
-        console.log($scope.eventID);
+        
 
         // eventInfo
          // eventID = $stateParams.eid;
