@@ -30,8 +30,8 @@ angular.module('teamform-member-app', ['firebase'])
 			$scope.userID = "";
 			$scope.userName = "";	
 			//$scope.teams = {};
-			window.alert("Please login");
-			window.location.href= "index.html";
+			//window.alert("Please login");
+			window.location.href= "redirect.html";
 		}
 	})	
 
