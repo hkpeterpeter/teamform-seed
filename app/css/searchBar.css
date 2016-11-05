@@ -20,6 +20,9 @@
 .wellPadding {
     padding: 30px;
 }
+.wellHalfTransparent{
+    background-color: rgba(240,240,240,0.95);
+}
 
 .topPadding {
     padding-top: 30px;
@@ -41,4 +44,9 @@
 
 #searchBtnContainer {
     z-index: 100;
+}
+
+body{
+    background-image: url("http://exchange.wysetc.org/wp-content/uploads/sites/11/2016/03/Backpacker-Australia.jpg");
+    background-size: cover;
 }

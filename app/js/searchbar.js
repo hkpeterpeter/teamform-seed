@@ -20,8 +20,12 @@ app.controller("searchCtrl",
             "text": "--suggestion3--"
         }];
 
-        $scope.$watch("searchInput", function(newVal, oldVal){
+        $scope.$watch("searchInput", function (newVal, oldVal) {
             //TODO update suggestions
+            if (newVal != "")
+                $("#searchSuggestion").show();
+            else
+                $("#searchSuggestion").hide();
         });
 
         $scope.search = function () {
@@ -51,18 +55,15 @@ $(document).ready(function () {
     $("#searchSuggestion").hide();
     $("#advancedSearchPanel").hide();
 
-    //show suggestions
-    $("#searchTextField").focus(function () {
-        $("#searchSuggestion").toggle();
-    }).blur(function () {
-        $("#searchSuggestion").toggle();
-    });
-
-    $("#advancedSearchBtn").click(function(){
+    $("#advancedSearchBtn").click(function () {
         $("#advancedSearchPanel").toggle();
     });
 
-    $("#advancedSearchCancelBtn").click(function(){
-        $("#advancedSearchPanel").toggle();
+    $("#advancedSearchCancelBtn").click(function () {
+        $("#advancedSearchPanel").hide();
+    });
+
+    $("body").click(function(){
+        $("#searchSuggestion").hide();
     });
 });
