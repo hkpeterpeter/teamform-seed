@@ -8,26 +8,26 @@ describe('LoginController', () => {
     });
 
     it('should resolve login', () => {
-        inject((_$rootScope_, _$q_, UserService) => {
+        inject((_$rootScope_, _$q_, AuthService) => {
             let deferred = _$q_.defer();
-            spyOn(UserService, 'auth').and.returnValue(deferred.promise);
+            spyOn(AuthService, 'auth').and.returnValue(deferred.promise);
             $controller.login();
             $controller.$state.params.toState = 'login';
             deferred.resolve();
             _$rootScope_.$digest();
-            expect(UserService.auth).toHaveBeenCalled();
+            expect(AuthService.auth).toHaveBeenCalled();
         });
     });
 
     it('should reject login', () => {
-        inject((_$rootScope_, _$q_, _$timeout_, UserService) => {
+        inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
             let deferred = _$q_.defer();
-            spyOn(UserService, 'auth').and.returnValue(deferred.promise);
+            spyOn(AuthService, 'auth').and.returnValue(deferred.promise);
             $controller.login();
             deferred.reject(new Error('rejected'));
             _$rootScope_.$digest();
             _$timeout_.flush();
-            expect(UserService.auth).toHaveBeenCalled();
+            expect(AuthService.auth).toHaveBeenCalled();
             expect($controller.error.message).toEqual('rejected');
         });
     });

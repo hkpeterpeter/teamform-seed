@@ -1,14 +1,14 @@
 export default class PasswordResetCtrl {
-    constructor($timeout, userService) {
+    constructor($timeout, authService) {
         this.$timeout = $timeout;
-        this.userService = userService;
+        this.authService = authService;
         this.loading = false;
         this.email = '';
         this.error = null;
     }
 
     sendPasswordResetEmail() {
-        this.userService.sendPasswordResetEmail(this.email)
+        this.authService.sendPasswordResetEmail(this.email)
             .then((result) => {
                 this.$timeout(() => {
                     this.error = {message: 'Reset Email Sent'};
@@ -24,4 +24,4 @@ export default class PasswordResetCtrl {
     }
 }
 
-PasswordResetCtrl.$inject = ['$timeout', 'UserService'];
+PasswordResetCtrl.$inject = ['$timeout', 'AuthService'];

@@ -1,10 +1,10 @@
 export default class EventService {
-    constructor($q, $firebaseArray, $firebaseObject, $database, userService) {
+    constructor($q, $firebaseArray, $firebaseObject, $database, authService) {
         this.$q = $q;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
-        this.userService = userService;
+        this.authService = authService;
     }
     getEvent(id) {
         return this.$firebaseObject(this.$database.ref('events/' + id)).$loaded();
@@ -23,7 +23,7 @@ export default class EventService {
             });
     }
     createEvent(event) {
-        return this.userService.checkAuth()
+        return this.authService.checkAuth()
             .then(user => {
                 event.createdBy = user.uid;
                 event.createdAt = Date.now();
@@ -35,4 +35,4 @@ export default class EventService {
     }
 }
 
-EventService.instance.$inject = ['$q', '$firebaseArray', '$firebaseObject', 'database', 'UserService'];
+EventService.instance.$inject = ['$q', '$firebaseArray', '$firebaseObject', 'database', 'AuthService'];

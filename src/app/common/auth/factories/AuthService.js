@@ -1,4 +1,4 @@
-export default class UserService {
+export default class AuthService {
     constructor($rootScope, $q, $firebaseArray, $firebaseObject, $auth, $database) {
         this.$rootScope = $rootScope;
         this.$q = $q;
@@ -15,13 +15,13 @@ export default class UserService {
         if (credential.hasOwnProperty('email')) {
             return this.$auth.signInWithEmailAndPassword(credential.email, credential.password).then((result) => {
                 this.$rootScope.$broadcast('authChanged');
-                return this.$q.resolve(result);
+                return result;
             });
         }
         if (credential.hasOwnProperty('token')) {
             return this.$auth.signInWithCustomToken(credential.token).then((result) => {
                 this.$rootScope.$broadcast('authChanged');
-                return this.$q.resolve(result);
+                return result;
             });
         }
     }
@@ -65,8 +65,8 @@ export default class UserService {
         });
     }
     static instance(...args) {
-        return new UserService(...args);
+        return new AuthService(...args);
     }
 }
 
-UserService.instance.$inject = ['$rootScope', '$q', '$firebaseArray', '$firebaseObject', 'auth', 'database'];
+AuthService.instance.$inject = ['$rootScope', '$q', '$firebaseArray', '$firebaseObject', 'auth', 'database'];

@@ -22,8 +22,8 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
             }
         })
         .state('event.create', {
-            auth: (userService) => {
-                return userService.checkAuth();
+            auth: (authService) => {
+                return authService.checkAuth();
             },
             url: '/create',
             template: EventCreateView,

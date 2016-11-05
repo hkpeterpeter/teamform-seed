@@ -3,8 +3,8 @@ import RegisterView from '../views/register.html';
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider
         .state('register', {
-            auth: (userService) => {
-                return userService.checkRules({guest: true});
+            auth: (authService) => {
+                return authService.checkRules({guest: true});
             },
             url: '/register',
             template: RegisterView,
