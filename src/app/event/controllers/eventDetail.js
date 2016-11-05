@@ -1,16 +1,16 @@
 export default class EventDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, EventService) {
+    constructor($location, $state, $stateParams, $timeout, eventService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
-        this.EventService = EventService;
+        this.eventService = eventService;
         this.event = null;
         this.error = null;
         this.getEvent();
     }
     getEvent() {
-        this.EventService.getEvent(this.$stateParams.eventId).then((event) => {
+        this.eventService.getEvent(this.$stateParams.eventId).then((event) => {
             this.$timeout(() => {
                 if (event.$value === null) {
                     return this.$timeout(() => {

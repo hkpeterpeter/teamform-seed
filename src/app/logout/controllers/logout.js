@@ -1,13 +1,13 @@
 export default class LogoutCtrl {
-    constructor($state, $timeout, userService) {
+    constructor($state, $timeout, authService) {
         this.$state = $state;
         this.$timeout = $timeout;
-        this.userService = userService;
+        this.authService = authService;
         this.error = null;
         this.logout();
     }
     logout() {
-        this.userService.signOut()
+        this.authService.signOut()
             .then((result) => {
                 this.$state.go(this.$state.params.fromState, this.$state.params.fromParams);
             })
@@ -19,4 +19,4 @@ export default class LogoutCtrl {
     }
 }
 
-LogoutCtrl.$inject = ['$state', '$timeout', 'UserService'];
+LogoutCtrl.$inject = ['$state', '$timeout', 'AuthService'];

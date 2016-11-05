@@ -1,10 +1,10 @@
 export default class Menu {
-    constructor($state, userService) {
+    constructor($state, authService) {
         this.template = require('../views/menu.html');
         this.restrict = 'E';
         this.scope = {};
         this.$state = $state;
-        this.userService = userService;
+        this.authService = authService;
     }
 
     link(scope, element, attributes, controller) {
@@ -16,9 +16,11 @@ export default class Menu {
     }
 
     updateAuth(scope) {
-        this.userService.checkAuth().then(() => {
+        this.authService.checkAuth().then((user) => {
+            scope.user = user;
             scope.isAuth = true;
         }).catch(() => {
+            scope.user = {};
             scope.isAuth = false;
         });
     }
@@ -27,4 +29,4 @@ export default class Menu {
         return new Menu(...args);
     }
 }
-Menu.instance.$inject = ['$state', 'UserService'];
+Menu.instance.$inject = ['$state', 'AuthService'];

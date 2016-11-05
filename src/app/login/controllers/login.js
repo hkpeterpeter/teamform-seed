@@ -1,9 +1,9 @@
 export default class LoginCtrl {
-    constructor($state, $timeout, $auth, userService) {
+    constructor($state, $timeout, $auth, authService) {
         this.$state = $state;
         this.$timeout = $timeout;
         this.$auth = $auth;
-        this.userService = userService;
+        this.authService = authService;
         this.loading = false;
         this.credential = {
             email: '',
@@ -13,7 +13,7 @@ export default class LoginCtrl {
     }
 
     login(credential = this.credential) {
-        this.userService.auth(credential)
+        this.authService.auth(credential)
             .then((result) => {
                 this.$state.go(this.$state.params.toState, this.$state.params.toParams);
             })
@@ -37,4 +37,4 @@ export default class LoginCtrl {
     }
 }
 
-LoginCtrl.$inject = ['$state', '$timeout', '$auth', 'UserService'];
+LoginCtrl.$inject = ['$state', '$timeout', '$auth', 'AuthService'];

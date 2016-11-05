@@ -1,8 +1,8 @@
 export default class RegisterCtrl {
-    constructor($state, $timeout, userService) {
+    constructor($state, $timeout, authService) {
         this.$state = $state;
         this.$timeout = $timeout;
-        this.userService = userService;
+        this.authService = authService;
         this.loading = false;
         this.credential = {
             email: '',
@@ -12,7 +12,7 @@ export default class RegisterCtrl {
     }
 
     register() {
-        this.userService.register(this.credential)
+        this.authService.register(this.credential)
             .then((result) => {
                 this.$state.go(this.$state.params.toState, this.$state.params.toParams);
             })
@@ -25,4 +25,4 @@ export default class RegisterCtrl {
     }
 }
 
-RegisterCtrl.$inject = ['$state', '$timeout', 'UserService'];
+RegisterCtrl.$inject = ['$state', '$timeout', 'AuthService'];

@@ -7,10 +7,10 @@ import routes from './config/routes';
 import oauth from './config/oauth';
 import alert from '../common/alert';
 import firebase from '../common/firebase';
-import user from '../common/user';
+import auth from '../common/auth';
 import LoginCtrl from './controllers/login';
 
-export default angular.module('login', [uirouter, angularfire, satellizer, firebase, alert, user])
+export default angular.module('login', [uirouter, angularfire, satellizer, firebase, alert, auth])
     .config(routes)
     .config(oauth)
     .controller('LoginCtrl', LoginCtrl)

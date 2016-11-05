@@ -1,0 +1,24 @@
+<ui-alert message="{{userList.error.message}}" />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Create At</th>
+        </tr>
+    </thead>
+    <tbody dir-paginate="user in userList.users | itemsPerPage: 2">
+        <tr>
+            <td>
+                <a ui-sref="user.detail({userId: '{{user.$id}}'})">{{user.$id}}</a>
+            </td>
+            <td>
+                <a ui-sref="user.detail({userId: '{{user.$id}}'})">{{user.name}}</a>
+            </td>
+            <td>
+                {{user.createdAt | date:'medium'}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<dir-pagination-controls />
