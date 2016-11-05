@@ -8,9 +8,9 @@
 	</li>
 </ul>
 
-<form name="CreateEventForm" novalidate ng-submit="CreateEventForm.$valid && createEvent()">
+<form name="CreateEventForm" novalidate >
 
-    <h2>To create a new event,please fill in following infomation</h2>
+    <h3>To create a new event,please fill in following infomation</h3>
     <div class="form-group">
         <label>Event Name: </label>
         <input class="form-control" type="text" name="EventName" ng-model="input.name"  required>
@@ -37,7 +37,7 @@
     </div>
 
 
-    <input class="btn btn-primary" type="button" value="submit" >
+    <input class="btn btn-primary" type="button" value="submit" ng-click="CreateEventForm.$valid && submit()">
 
     <div role="alert">
         <span class="error" ng-show="CreateEventForm.ddl.$error.date">
