@@ -18,8 +18,7 @@ initalizeFirebase();
                 document.getElementById('photo').src = user.photoURL;
                 document.getElementById('photo').style.display = 'block';
               } else {
-				user.photoURL = 'placeholer.gif';
-                document.getElementById('photo').src = user.photoURL;
+                document.getElementById('photo').src = photoURL;
 				document.getElementById('photo').style.display = 'block';
               }
               document.getElementById('account-details').textContent = JSON.stringify({
