@@ -18,13 +18,17 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                     ref=firebase.database().ref("events/"+eventID);
                     tbaref=ref.child("tba/"+uid);
                     tbaref.remove().then(function(data){
-                        eventObj=$firebaseObject(ref);
-                        eventObj.$loaded().then(function(data){
-                            console.log(eventObj);
-                            if(eventObj.teams[teamID].members===undefined)
-                                eventObj.teams[teamID].members={};
-                            eventObj.teams[teamID].members[uid]=uid;
-                            eventObj.$save();
+                        // membersref=ref.child("/teams/"+teamID+"/members");
+                        // temp={};
+                        // temp[uid]=uid;
+                        // membersref.update(temp);
+                        teamObj=$firebaseObject(ref.child("/teams/"+teamID));
+                        teamObj.$loaded().then(function(data){
+                            console.log(teamObj);
+                            if(teamObj.members===undefined)
+                                teamObj.members={};
+                            teamObj.members[uid]=uid;
+                            teamObj.$save();
                         });
                     });
                 });

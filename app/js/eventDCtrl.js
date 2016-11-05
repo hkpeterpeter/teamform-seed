@@ -112,6 +112,7 @@ app.controller("eventDCtrl",
             console.log($scope.newTeam);
             Helper.createTeam($scope.userData.uid,$scope.eventID,$scope.newTeam);
             dialogue.close();
+            
             $scope.role=$scope.obj[$scope.eventID].position;
             $scope.teamID=$scope.obj[$scope.eventID].team;
         }
