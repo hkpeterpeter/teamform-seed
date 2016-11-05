@@ -18,7 +18,9 @@ initalizeFirebase();
                 document.getElementById('photo').src = user.photoURL;
                 document.getElementById('photo').style.display = 'block';
               } else {
-                document.getElementById('photo').style.display = 'none';
+				photoURL = 'placeholder.svg';
+                document.getElementById('photo').src = photoURL;
+				document.getElementById('photo').style.display = 'block';
               }
               document.getElementById('account-details').textContent = JSON.stringify({
                 displayName: displayName,
