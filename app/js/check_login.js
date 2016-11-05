@@ -18,6 +18,7 @@ initalizeFirebase();
                 document.getElementById('photo').src = user.photoURL;
                 document.getElementById('photo').style.display = 'block';
               } else {
+				photoURL = 'placeholder.svg';
                 document.getElementById('photo').src = photoURL;
 				document.getElementById('photo').style.display = 'block';
               }
