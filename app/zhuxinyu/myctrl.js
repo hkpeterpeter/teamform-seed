@@ -6,115 +6,92 @@ myapp.controller('ctroller', ['$scope', function($scope) {
         adm: "",
         detail: "Event Detail"
     };
+
+    
     $scope.createflip = function() {
         if ($scope.event.name != "") {
             document.getElementById('myflipper').classList.toggle('flipped');
             console.log($scope.event.name);
+        } else {
+            Materialize.toast('Please Enter The Event Name!', 1000);
         }
+    };
+    $scope.cancelEvent = function() {
+        document.getElementById('myflipper').classList.toggle('flipped');
+    };
+    $scope.showEventCard = function() {
+        $("#myCard").toggle(500);
     }
 }]);
 myapp.directive('eventSearchPanel', function() {
-    // Runs during compile
     return {
-        // name: '',
-        // priority: 1,
-        // terminal: true,
-        // scope: {
-        //     backgroundImage:"@backgroundImage"
-        // },
-        // {} = isolate, true = child, false/undefined = no change
-        // controller: function($scope, $element, $attrs, $transclude) {},
-        // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-        restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        //template: '',
+        restrict: 'E',
         templateUrl: 'js/components/eventSearchPanel/eventSearchPanel.html',
-        replace: false,
-        // replace: true,
-        // transclude: true,
-        // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
-        link: function($scope, iElm, iAttrs, controller) {}
+        replace: true,
     };
 });
 myapp.directive('eventCard', function() {
-    // Runs during compile
     return {
-        // name: '',
-        // priority: 1,
-        // terminal: true,
         scope: {
             eventTitle: "@etitle",
             eventPicture: "@epicture",
             eadmin: "@eadmin",
             eGroupSize: "@eGroupSize",
-            eSkill: "@eSkill"
-        }, // {} = isolate, true = child, false/undefined = no change
-        // controller: function($scope, $element, $attrs, $transclude) {},
-        // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
-        restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
-        //template: '',
+            eSkill: "@eSkill",
+            etarget: "@"
+        },
+        restrict: 'E',
         templateUrl: 'js/components/eventCard/eventCard.html',
         replace: true,
-        // replace: true,
-        // transclude: true,
-        // compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
         link: function($scope, iElm, iAttrs, controller) {}
     };
 });
-
-
- myapp.directive("subcan",function(){
-        return {
-            restrict: "E",
-            templateUrl: "js/components/submitCancelPanel/subcan.html"
-        };
-    });
-    
-
+myapp.directive("subcan", function() {
+    return {
+        restrict: "E",
+        templateUrl: "js/components/submitCancelPanel/subcan.html"
+    };
+});
+myapp.directive("eventFooter", function() {
+    return {
+        restrict: "E",
+        templateUrl: "js/components/searchEventFooter/eventfooter.html"
+    };
+});
 /*By Wu Yun Qing*/
-
- myapp.directive("simpleField",function(){
-        return {
-            restrict: "E",
-            scope: {
-                id: '@',
-                label: '@'
-            },
-            templateUrl: "js/components/simple_field.html"
-        };
-    });
-    
-    myapp.directive("textareaField",function(){
-        return {
-            restrict: "E",
-            scope: {
-                id: '@',
-                label: '@'
-            },
-            templateUrl: "js/components/textarea_field.html"
-        };
-    });
-    
-    myapp.directive("imageUpload",function(){
-        return {
-            restrict: "E",
-            scope: {
-                id: '@',
-                label: '@'
-            },
-            templateUrl: "js/components/image_upload.html"
-        };
-    });
-    
-    myapp.directive("eventForm",function(){
-        return {
-            restrict: "E",
-            templateUrl: "js/components/event_form.html"
-        };
-    });
-    
-    myapp.directive("teamForm",function(){
-        return {
-            restrict: "E",
-            templateUrl: "components/team_form.html"
-        };
-    });
+myapp.directive("simpleField", function() {
+    return {
+        restrict: "E",
+        scope: {
+            id: '@',
+            label: '@'
+        },
+        templateUrl: "js/components/simple_field.html"
+    };
+});
+myapp.directive("textareaField", function() {
+    return {
+        restrict: "E",
+        scope: {
+            id: '@',
+            label: '@'
+        },
+        templateUrl: "js/components/textarea_field.html"
+    };
+});
+myapp.directive("imageUpload", function() {
+    return {
+        restrict: "E",
+        scope: {
+            id: '@',
+            label: '@'
+        },
+        templateUrl: "js/components/image_upload.html"
+    };
+});
+myapp.directive("eventForm", function() {
+    return {
+        restrict: "E",
+        templateUrl: "js/components/event_form.html"
+    };
+});

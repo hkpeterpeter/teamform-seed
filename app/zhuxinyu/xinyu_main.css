@@ -21,7 +21,7 @@ padding-left:5%;
 }
 .flip-container, .front, .back{
 width:100%;
-min-height:400px;
+min-height:600px;
 padding: left:30px;
 }
 /* flip speed goes here */
@@ -65,7 +65,17 @@ z-index:2;
         transform:rotateY(180deg);
 }
 
-
+.hoverChange{
+	color:#ee8e6d; 
+	-webkit-transition: all .25s ease-in-out;
+       -moz-transition: all .25s ease-in-out;
+         -o-transition: all .25s ease-in-out;
+            transition: all .25s ease-in-out;
+}
+.hoverChange:hover{
+	background: #ee8e6d;
+	color:#fff;
+}
 
 
 
