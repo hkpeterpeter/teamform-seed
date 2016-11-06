@@ -22,26 +22,55 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
       <link rel="stylesheet" href="css/site.css" >
-
+		<!-- old refresh timer
 	   <meta http-equiv="refresh" 
 		content="5; url=index.html">
+		-->
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 	  	  
    </head>
 
-<!DOCTYPE html>
-<html>
-<head>
-   <!-- HTML meta refresh URL redirection -->
-   <meta http-equiv="refresh" 
-   content="3; url=index.html">
-</head>
+
 <body>
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back</button></a>
-   <h1 class="text-center">You don't have permission to manage this page! <br> Please check if you are logged in with the correct account.<br> Redirecting you to front end page in 5 seconds: </h1>
-   <h2 class="text-center">Click the "back" button if your browser is not refreshing<h2>
-   <!--<a href="http://www.rapidtables.com/web/dev/html-redirect.htm">this page</a></p>-->
+
+
+	<div class="row">
+		<div class="col-md-12">
+			<a href="index.html"
+		   <button id="btn_admin" type="button" class="btn btn-primary" >Back</button></a>
+		</div>
+	</div>
+	
+	<br>
+	
+    <div class="text-center">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+		   <div class="alert alert-danger" role="alert">
+			   <p class="text-center">You don't have permission to manage this page! <br> Please check if you are logged in with the correct account.<br> Redirecting you to front end page in 10 seconds: </p>
+		   </div>
+
+		   <div class="alert alert-info" role="alert">
+			   <p class="text-center">Click the "back" button if your browser is not refreshing</p>
+			</div>
+			
+			<!--timer-->
+			<div id="counter">10</div>
+			<script>
+				setInterval(function() {
+					var div = document.querySelector("#counter");
+					var count = div.textContent * 1 - 1;
+					div.textContent = count;
+					if (count <= 0) {
+						location.href="index.html";
+					}
+				}, 1000);
+			</script>
+			<!--timer end-->
+			
+		</div>
+	</div>
 </body>
 </html>
