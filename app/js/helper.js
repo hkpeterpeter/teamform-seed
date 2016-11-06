@@ -164,5 +164,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             });        
     }
 
+
+
     return helper;
 })
