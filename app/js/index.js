@@ -93,8 +93,9 @@ $(document).ready(function(){
 */
 
 $("#log").click(function(){
+
     if($("#log").text() == "Login") {
-        popupLogin();
+        $( "#dialog" ).dialog();
         console.log("want to login");
     } else {
                 // logout
@@ -108,6 +109,33 @@ $("#log").click(function(){
                 });            
             }
         });
+
+$("#loginByFb").click(function(){
+    if(isLoggedIn == false) {
+        popupLogin();
+        $( "#dialog" ).dialog('close');
+    } else {
+        alert("You have logged in!");
+    }
+});
+
+$("#loginByMailAndPw").click(function(){
+    if(isLoggedIn == false) {
+        $( "#dialog" ).dialog('close');
+        $( "#loginByMailAndPwDialog" ).dialog();
+    } else {
+        alert("You have logged in!");
+    }
+});
+
+$("#reg").click(function(){
+    if(isLoggedIn == false) {
+        $( "#dialog" ).dialog('close');
+        $( "#regDialog" ).dialog();
+    } else {
+        alert("You have logged in!");
+    }
+});
 
 $("#btn_admin").click(function(){
     if(isLoggedIn == false) {
