@@ -29,14 +29,20 @@ angular.module('teamform-admin-app', ['firebase'])
 	refPath = "events/" + eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
 	UIDrefPath = "events/" + eventName + "/admin/UIDparam";
-	UIDref = firebase.database().ref(UIDrefPath);	
+	UIDref = firebase.database().ref(UIDrefPath);
+	
 	// Link and sync a firebase object
 	
 	$scope.param = $firebaseObject(ref);
 	$scope.UIDparam = $firebaseObject(UIDref);
+	
 	$scope.param.$loaded()
 		.then( function(data) {
 			current_uid=document.getElementById('uid').textContent;
+
+			events_adminPath = "users/"	+ current_uid +"/events_admin/";
+			events_admin_ref = firebase.database().ref(events_adminPath);
+	
 			// Check if logged in user is the admin of the event
 			if (!checkLoginstate()){
 				//window.alert("You don't have permission to manage this event! Please login.");
@@ -57,6 +63,12 @@ angular.module('teamform-admin-app', ['firebase'])
 			}
 			if(typeof $scope.UIDparam.adminUID == "undefined"){				
 				$scope.UIDparam.adminUID = current_uid;
+				events_admin_ref.once("value").then(function(snapshot){
+              	var hasEvent = snapshot.hasChild(eventName);
+              	if (!hasEvent)
+                	var newUser = events_admin_ref.child(eventName).set(true);
+            	});
+				//$scope.events_admin_param.child("eventName") = true;
 			}
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
@@ -104,6 +116,7 @@ angular.module('teamform-admin-app', ['firebase'])
 
 		$scope.param.$save();
 		$scope.UIDparam.$save();
+		//$scope.events_admin_param.$save();
 		// Finally, go back to the front-end
 		window.location.href= "index.html";
 	}
