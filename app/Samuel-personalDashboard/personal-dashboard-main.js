@@ -66,16 +66,30 @@ dasApp.controller("dashboardController", function ($scope, $firebaseArray, $fire
         console.log("Authentication failed:", error);
     });
 
-});
-dasApp.directive("skillitem", function () {
-    return {
-        restrict: "E",
-        templateUrl: "components/skillitem.html",
-        scope: {
-            name: "@"
-        },
-        replace: false
-    }
+
+
+    var newUser = {
+        "name": "Ace",
+        "id": 232794508173451340,
+        "skills": ["Angular", "design", "Nodejs"],
+        "teamsAsMember": [4455],
+        "teamsAsLeader": [3344],
+        "teamsApplying": [8899, 9977],
+        "eventsManaging": [666777],
+        "profilePic": "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872",
+        "notifs": [{
+            "sender": "xinyu",
+            "receiver": "samuel",
+            "type": "invitation",
+            "read": false,
+            "content": "You were invited to join XXX team"
+        }]
+    };
+    var usersRef = firebase.database().ref().child("dummyData/users");
+    $scope.users = $firebaseArray(usersRef);
+    $scope.users.$add(newUser);
+
+
 });
 
 
