@@ -1,12 +1,17 @@
 <!DOCTYPE html>
+<html ng-app="clickApp">  
 <html lang="en">
+
   <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <script src="btnclick.js" ></script>
     <title>invite interface</title>
-
+    <!-- Angular Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -39,14 +44,17 @@
 <div class="col-md-5 col-xs-5">
 <iframe src="user_to_choose.html" width="100%" height="200" align="right">
 </iframe>
+
 </div>
 <!--add button-->
+<div ng-controller="clickCtrl">
 <div class="col-md-2 col-xs-2">
-  <div class="button-wrapper" >
-    <button class="btn btn-default">
+  <!--div class="button-wrapper" >
+    <button class="btn btn-default" ng-click="addSelected()">
       Add>>
     </button>
-  </div>
+  </div-->
+</div>
 </div>
 <!--chosed-->
 <div class="col-md-5 col-xs-5">
@@ -66,6 +74,8 @@
     </button>
   </div>
 </div>
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
