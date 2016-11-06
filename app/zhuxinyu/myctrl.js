@@ -1,5 +1,6 @@
 
-teamapp.controller('ctroller', ['$scope', function($scope) {
+teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScope,$scope) {
+    
     $scope.event = {
         name: "",
         invite: [],
@@ -7,7 +8,7 @@ teamapp.controller('ctroller', ['$scope', function($scope) {
         detail: "Event Detail"
     };
 
-    
+    $rootScope.hello="hello";
     $scope.createflip = function() {
         if ($scope.event.name != "") {
             document.getElementById('myflipper').classList.toggle('flipped');
