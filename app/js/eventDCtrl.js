@@ -2,7 +2,7 @@
 app.controller("eventDCtrl",
 
     // Implementation the todoCtrl 
-    function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $filter, Helper, ngDialog) {
+    function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $filter, Helper, ngDialog, $state) {
         console.log("event detail");
 
         //initialize
@@ -22,15 +22,11 @@ app.controller("eventDCtrl",
                 //get role of user
                 ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable");
                 $scope.myEvents = $firebaseObject(ref);
-                $scope.myEvents.$loaded().then(function(){
-                    //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
-                    if ($filter('teamId')($scope.myEvents[$scope.eventID]) != null) {
-                        invref = firebase.database().ref('events/' + $scope.eventID + "/teams/" + $filter('teamId')($scope.myEvents[$scope.eventID]) + "/invitations");
-                        $scope.inv = $firebaseObject(invref);        
-                    }
-                    else 
-                        $scope.inv = {};                    
-                });
+                // $scope.myEvents.$loaded().then(function(){
+                //     //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
+                //     invref = firebase.database().ref('events/' + $scope.eventID + "/teams/" + $filter('teamId')($scope.myEvents[$scope.eventID]) + "/invitations");
+                //     $scope.inv = $firebaseObject(invref);                        
+                // });
                 // $scope.obj.$loaded().then(function(data){
                 //     if($scope.obj[$scope.eventID]===undefined) 
                 //         $scope.role="visitor";
@@ -50,9 +46,9 @@ app.controller("eventDCtrl",
          // eventID = $stateParams.eid;
         eventRef = firebase.database().ref("events/" + $scope.eventID);
         $scope.eventObj = $firebaseObject(eventRef);
-        $scope.eventObj.$loaded().then(function(data){
-            console.log(Object.keys(data.teams).length);
-        })
+        // $scope.eventObj.$loaded().then(function(data){
+        //     console.log(Object.keys(data.teams).length);
+        // })
 
         //functions
         $scope.manage = function() {
@@ -121,6 +117,8 @@ app.controller("eventDCtrl",
             console.log($scope.newTeam);
             Helper.createTeam($scope.userData.uid,$scope.eventID,$scope.newTeam);
             dialogue.close();
+            // $state.reload();
+
             
             // $scope.role=$scope.obj[$scope.eventID].position;
             // $scope.teamID=$scope.obj[$scope.eventID].team;
@@ -132,11 +130,14 @@ app.controller("eventDCtrl",
         }
         $scope.validInvite = function(uid){
             // console.log($scope.inv, ' ' , uid);
-            for (key in $scope.inv){
-                // console.log($scope.inv.key);
-                if (key == uid && $scope.inv[key] =='pending') return false;
+            if ($filter('teamId')($scope.myEvents[$scope.eventID]) != null) {
+                for (key in $scope.eventObj.teams[$filter('teamId')($scope.myEvents[$scope.eventID])].invitations){
+                    // console.log($scope.eventObj.teams[].key);
+                    if (key == uid && $scope.eventObj.teams[$filter('teamId')($scope.myEvents[$scope.eventID])].invitations[key] =='pending') return false;
+                }
+                return true;                
             }
-            return true;                
+            return false;
  
         };
         console.log({position:"tba",team:null});
@@ -169,7 +170,7 @@ app.filter('teamId', function(){
             return null;
         }
         else{
-            console.log(obj.team);
+            //console.log(obj.team);
             return obj.team;
         }
     }

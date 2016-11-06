@@ -13,7 +13,7 @@ app.controller("eventCtrl",
                 ref = firebase.database().ref('events');
                 $scope.events = $firebaseArray(ref);
 
-                $scope.AllEvents = $firebaseObject(ref);
+                // $scope.AllEvents = $firebaseObject(ref);
 
 
                 //ref.orderByChild("eventInfo.name").equalTo($scope.input.searchName).on("child_added", function(snapshot) {
