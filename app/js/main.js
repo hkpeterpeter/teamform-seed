@@ -12,6 +12,13 @@ teamapp.config(function($routeProvider) {
 
 
 teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope', function($scope,$firebase,$rootScope){
-	
+	$rootScope.user_ref=firebase.database().ref("users");
+	$rootScope.event_ref=firebase.database().ref("events");
+	$rootScope.team_ref=firebase.database().ref("teams");
+
+	console.log($rootScope.user_ref);
+
+
+
 }]);
 
