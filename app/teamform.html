@@ -47,10 +47,18 @@
     </head>
 
     <body ng-controller="main_ctroller" background="#fff">
+    <a ng-click="test()">Login(abc@connect.ust.hk)</a>
+
+   <input ng-model="useremail" type="text" />
+
+
+    <a ng-click="addEventTest()">Add Event</a>
+
+   <input ng-model="eventtitle" type="text" />
 
         <nav class="white" role="navigation">
         </nav>
-
+    
         <div ng-view>
 
         </div>
