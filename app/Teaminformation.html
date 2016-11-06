@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Teaminformation">
    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>teaminformation page</title>
 	  
@@ -21,46 +17,7 @@
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      
-
-
-      <!-- Customized libraries shared by pages -->
-      <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
-            authDomain: "comp3111-bb108.firebaseapp.com",
-            databaseURL: "https://comp3111-bb108.firebaseio.com",
-            storageBucket: "comp3111-bb108.appspot.com",
-            messagingSenderId: "554833059052"
-        };
-        // firebase.initializeApp(config);
-        // firebase.initializeApp(config);
-    </script>
-	  
-   </head>
-   <body>
-
-					<ul ng-repeat="t in team">
-						<li>
-						
-							TeamName: {{t.$teamName}}  <br>
-							Openness: {{t.$openness}}</span> <br>
-							developer: {{t.$developer}}<br>
-							devNum: {{t.$devNum}}  <br>
-							designer: {{t.$designer}}</span> <br>
-							desNum: {{t.$desNum}}<br>
-							desc: {{t.$desc}}<br>
-						</li>
-						
-					</ul>			
-		
-   </div>
-
-
-   <!-- JavaScript of this page -->
-
-   <!-- Angular and Angular-route libraries (v1.5.7) -->
+       <!-- Angular and Angular-route libraries (v1.5.7) -->
    <script src="lib/angular.min.js"></script>
    <script src="lib/angular-route.min.js"></script>        
      
@@ -68,8 +25,49 @@
    <script src="lib/firebase.js"></script>     
    <script src="lib/angularfire.min.js"></script>
 
-
+   <script src="js/site.js"></script>
    <script src="Teaminformation.js"></script>
+
+
+      <!-- Customized libraries shared by pages -->
+      
+<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+    authDomain: "comp3111-bb108.firebaseapp.com",
+    databaseURL: "https://comp3111-bb108.firebaseio.com",
+    storageBucket: "comp3111-bb108.appspot.com",
+    messagingSenderId: "554833059052"
+  };
+  firebase.initializeApp(config);
+</script>
+       <!-- JavaScript of this page -->
+
+  
+	  
+   </head>
+   <body>
+
+					<ul ng-repeat="t in ti">
+						<li>
+						
+							<h1>TeamName: {{t.$teamName}}  <br></h1>
+							<h1>Openness: {{t.$openness}}</span> <br></h1>
+							<h1>developer: {{t.$developer}}<br></h1>
+							<h1>devNum: {{t.$devNum}}  <br></h1>
+							<h1>designer: {{t.$designer}}</span> <br></h1>
+							<h1>desNum: {{t.$desNum}}<br></h1>
+							<h1>desc: {{t.$desc}}<br></h1>
+						</li>
+						
+					</ul>			
+		
+
+
+
+
 
    </body>
 </html>

@@ -55,4 +55,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'eventSubmit'
             });
         
+      .state('Teaminformation', {
+            url: '/Teaminformation',
+            templateUrl: 'Teaminformation.html',
+            controller: 'tictrl'
+            });
 });
