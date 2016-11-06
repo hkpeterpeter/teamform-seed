@@ -1,5 +1,5 @@
-var myapp = angular.module('teamapp', ["ngRoute"]);
-myapp.controller('ctroller', ['$scope', function($scope) {
+
+teamapp.controller('ctroller', ['$scope', function($scope) {
     $scope.event = {
         name: "",
         invite: [],
@@ -24,24 +24,14 @@ myapp.controller('ctroller', ['$scope', function($scope) {
     }
 }]);
 
-
-myapp.config(function($routeProvider) {
-    $routeProvider
-    .when("/search", {
-        templateUrl : "searchEvent.html"
-    })
-   
-});
-
-
-myapp.directive('eventSearchPanel', function() {
+teamapp.directive('eventSearchPanel', function() {
     return {
         restrict: 'E',
-        templateUrl: 'js/components/eventSearchPanel/eventSearchPanel.html',
+        templateUrl: 'zhuxinyu/js/components/eventSearchPanel/eventSearchPanel.html',
         replace: true,
     };
 });
-myapp.directive('eventCard', function() {
+teamapp.directive('eventCard', function() {
     return {
         scope: {
             eventTitle: "@etitle",
@@ -52,57 +42,57 @@ myapp.directive('eventCard', function() {
             etarget: "@"
         },
         restrict: 'E',
-        templateUrl: 'js/components/eventCard/eventCard.html',
+        templateUrl: 'zhuxinyu/js/components/eventCard/eventCard.html',
         replace: true,
         link: function($scope, iElm, iAttrs, controller) {}
     };
 });
-myapp.directive("subcan", function() {
+teamapp.directive("subcan", function() {
     return {
         restrict: "E",
-        templateUrl: "js/components/submitCancelPanel/subcan.html"
+        templateUrl: "zhuxinyu/js/components/submitCancelPanel/subcan.html"
     };
 });
-myapp.directive("eventFooter", function() {
+teamapp.directive("eventFooter", function() {
     return {
         restrict: "E",
-        templateUrl: "js/components/searchEventFooter/eventfooter.html"
+        templateUrl: "zhuxinyu/js/components/searchEventFooter/eventfooter.html"
     };
 });
 /*By Wu Yun Qing*/
-myapp.directive("simpleField", function() {
+teamapp.directive("simpleField", function() {
     return {
         restrict: "E",
         scope: {
             id: '@',
             label: '@'
         },
-        templateUrl: "js/components/simple_field.html"
+        templateUrl: "zhuxinyu/js/components/simple_field.html"
     };
 });
-myapp.directive("textareaField", function() {
+teamapp.directive("textareaField", function() {
     return {
         restrict: "E",
         scope: {
             id: '@',
             label: '@'
         },
-        templateUrl: "js/components/textarea_field.html"
+        templateUrl: "zhuxinyu/js/components/textarea_field.html"
     };
 });
-myapp.directive("imageUpload", function() {
+teamapp.directive("imageUpload", function() {
     return {
         restrict: "E",
         scope: {
             id: '@',
             label: '@'
         },
-        templateUrl: "js/components/image_upload.html"
+        templateUrl: "zhuxinyu/js/components/image_upload.html"
     };
 });
-myapp.directive("eventForm", function() {
+teamapp.directive("eventForm", function() {
     return {
         restrict: "E",
-        templateUrl: "js/components/event_form.html"
+        templateUrl: "zhuxinyu/js/components/event_form.html"
     };
 });
