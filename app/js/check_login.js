@@ -21,7 +21,7 @@ initalizeFirebase();
                   {"name":user.displayName,
                    "skills":"(placeholder)",
                    "interests":"(placeholder)",
-                   "joined_events": "(placeholder)",
+                   //"joined_events": "(placeholder)",
                    //"events_admin": "(placeholder)"
 
                 });

@@ -86,6 +86,16 @@ angular.module('teamform-member-app', ['firebase'])
 			var refPath = "events/" + getURLParameter("q") + "/member/" + userID;	
 			var ref = firebase.database().ref(refPath);
 			
+			var joined_eventsPath = "users/"	+ userID +"/joined_events";
+			var joined_events_ref = firebase.database().ref(joined_eventsPath);
+			
+			joined_events_ref.once("value").then(function(snapshot){
+				//var teamName = teamID;
+              	var hasEvent = snapshot.hasChild(getURLParameter("q"));
+              	if (!hasEvent)
+                	joined_events_ref.child(getURLParameter("q")).set(true);
+            });
+
 			ref.set(newData, function(){
 				// complete call back
 				//alert("data pushed...");
