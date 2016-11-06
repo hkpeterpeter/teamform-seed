@@ -9,11 +9,23 @@ initalizeFirebase();
             var photoURL = user.photoURL;
             var uid = user.uid;
             var providerData = user.providerData;
+            // Add refPath of user to users
+            var refPath = "users/";
+            var ref = firebase.database().ref(refPath);
+            var key = ref.key;
+            // Check if UID exists in firebase
+            ref.once("value").then(function(snapshot){
+              var hasUser = snapshot.hasChild(user.uid);
+              if (!hasUser)
+                var newUser = ref.child(user.uid).set({"placeholder":""});
+            });
+
             user.getToken().then(function(accessToken) {
               document.getElementById('sign-in-status').textContent = 'Signed in';
               document.getElementById('user-info').style.display = 'block';
               document.getElementById('name').textContent = user.displayName;
               document.getElementById('email').textContent = user.email;
+
               if (user.photoURL){
                 document.getElementById('photo').src = user.photoURL;
                 document.getElementById('photo').style.display = 'block';
