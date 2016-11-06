@@ -1,0 +1,58 @@
+/* Title */
+
+.admin-title {
+	text-align: center;
+	margin-top: 40px;
+}
+.admin-title > div {
+	padding: 15px 50px;
+	display: inline-block;
+}
+.admin-title h1 {
+	font-size: 30px;
+}
+.admin-title h5 {
+	font-size: 16px;
+}
+
+/* Team and Pariticipant List */
+
+.lists h2 {
+	font-size: 24px;
+}
+
+
+/* A Card in Team List */
+.team-text-span {
+	display: inline-block;
+	float: left;
+}
+.team-badge {
+	display: inline-block !important;
+	padding: 5px !important;
+	margin-top: 12px !important;
+}
+
+.skill-badge {
+	display: inline-block !important;
+	padding: 3px 6px !important;
+	margin-bottom: 5px !important;
+	font-size: 10px !important;
+	float: left !important;
+}
+
+/* A Card in Participants List */
+
+.profile-photo {
+	height: 100%;
+	overflow: hidden;
+}
+.card-btn {
+	margin-bottom: 5px;
+}
+.incard-divider {
+	margin: 5px 0 10px 0;
+}
+.add-btn {
+	margin-top: 20px;
+}
