@@ -1,5 +1,5 @@
 <!-- <a ng-href="/#/dashboard/event/01">Event 01</a> -->
-
+<h2> My Events</h2>
 <ul>
 	<li ng-repeat="(myEventId, myEvent) in myEvents">
 		<a ng-href="/#/dashboard/event/{{myEventId}}">
@@ -7,3 +7,5 @@
 		</a>
 	</li>
 </ul>
+
+<button class="btn btn-primary" ng-click="createEventDialog()" >createEvent</button>

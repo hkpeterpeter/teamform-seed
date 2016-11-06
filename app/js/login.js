@@ -12,7 +12,7 @@ app.controller("loginController",
             //$scope.authData = authData;
 
             if (authData) {
-                console.log(authData);
+                console.log(authData.uid);
                 $window.location.href = '/#/dashboard/home';
             } else console.log("signed out");
         });

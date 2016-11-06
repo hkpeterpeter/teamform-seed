@@ -56,8 +56,29 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         });
     }
     helper.createEvent = function(uid, event) {
-        //zlb
-    }
+
+        //add event to events tree
+        ref = firebase.database().ref("events");
+        var events=$firebaseArray(ref);
+        events.$add(event).then(function(ref){
+            var eventId = ref.key;
+            //add event to users tree
+
+            var date = new Date();
+
+
+            ref = firebase.database().ref("users/"+uid+"/writable");
+            var user = {};
+
+                user[eventId] = {
+                    position:"admin",
+                    lastLogin: date.toJSON()
+                };
+                ref.update(user);
+            });
+
+        }
+
 
     helper.pushNotificationTo = function(toUid, eventID, msg) {
         //dht

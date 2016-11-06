@@ -2,44 +2,78 @@
 app.controller("eventCtrl", 
 
 	// Implementation the todoCtrl 
-	function($scope, Auth, $firebaseArray, $firebaseObject) {
+	function($scope, Auth, $firebaseArray, $firebaseObject,Helper,ngDialog) {
 		Auth.$onAuthStateChanged(function(authData){
             if (authData){
                 $scope.authData = authData;
                 //console.log(authData.uid);
                 var ref = firebase.database().ref('users/' + authData.uid + '/writable');
                 $scope.myEvents = $firebaseObject(ref);
-                // var event_id_list = [];
 
                 ref = firebase.database().ref('events');
                 $scope.events = $firebaseArray(ref);
 
 
-                // myEvents.$loaded().then(function(myEvents){
-                //     for (key in myEvents){
-                //         event_id_list.push(key);
-                //     };
-                //     ref = firebase.database().ref('events');
-                //     $firebaseArray(ref).$loaded().then(function(events){
-                //         var eventObjList =[];
-                //         var eventInfoList =[];                    
-                //         for(var i=0;i<event_id_list.length;i++){
-                //              eventObjList.push(events.$getRecord(event_id_list[i]));
-                //             eventInfoList = eventobjList[i].eventInfo;
-                //         }
-                //         $scope.eventInfoList = eventInfoList;       
-                //     });
-             
-                // });
-                // var event_id_list = $firebaseArray(ref);
-
-                //fetch event info according to event_id_list
 
             }
             else console.log("signed out");
 		});
 
-        //fetch event_id_list
+
+        $scope.input={
+            name:"",
+            ddl: "",
+            min:"",
+            max:"",
+            desc:"",
+        }
+
+        var dialog;
+        $scope.createEventDialog = function(){
+            dialog = ngDialog.open({
+                template: 'templates/createEvent.html',
+                className: 'ngdialog-theme-plain',
+                scope: $scope
+            });
+        };
+
+
+        $scope.submit = function(){
+
+            var event = {
+                eventInfo:
+                {name:"",
+                ddl:"",
+                min:"",
+                max:"",
+                desc:""}
+
+            };
+
+
+            event.eventInfo.name = $scope.input.name;
+            event.eventInfo.min = $scope.input.min;
+            event.eventInfo.max = $scope.input.max;
+            event.eventInfo.desc = $scope.input.desc;
+
+
+
+            event.eventInfo.ddl = $scope.input.ddl.toJSON();
+
+            event.eventInfo.isClosed = false;
+            //console.log(event);
+
+
+            event.eventInfo.admin = $scope.authData.uid;
+            Helper.createEvent($scope.authData.uid,event);
+
+            dialog.close();
+
+
+
+        }
+
+
 
 
 		console.log("event");
