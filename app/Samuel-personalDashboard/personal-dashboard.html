@@ -22,15 +22,42 @@
         messagingSenderId: "591108267651"
     };
     firebase.initializeApp(config);
+
+    var provider = new firebase.auth.FacebookAuthProvider();
+    console.log("check");
+//    firebase.auth().signInWithRedirect(provider);
+//    firebase.auth().getRedirectResult().then(function(result) {
+//        if (result.credential) {
+//            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+//            var token = result.credential.accessToken;
+//            console.log(token);
+//            // ...
+//        }
+//        // The signed-in user info.
+//        var user = result.user;
+//    }).catch(function(error) {
+//        // Handle Errors here.
+//        var errorCode = error.code;
+//        var errorMessage = error.message;
+//        // The email of the user's account used.
+//        var email = error.email;
+//        // The firebase.auth.AuthCredential type that was used.
+//        var credential = error.credential;
+//        // ...
+//    });
+
+
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script><!--Angular Fire -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <script src="./personal-dashboard-main.js"></script>
 
 <div class="container" style="padding-top: 20px">
-
+    <button class="btn waves-effect waves-light" ng-click="facebookLogin()">Login
+        <i class="material-icons right">send</i>
+    </button>
     <div class="row" id="infoDisplay">
         <div class="col m6 s6">
             <img src="./userProfilePlaceHolder.png">
@@ -41,6 +68,7 @@
 
         </div>
     </div>
+    <div class="divider"></div>
 
     <div class="row" id="skillManager">
         <h4>Manage my Skills:</h4>
@@ -54,10 +82,51 @@
             </button>
         </form>
     </div>
-    <div class="row" ng-repeat="skill in skills">
-        <h4 class="col m4">{{skill.$value}}</h4>
-        <a class="waves-effect waves-light btn col" class="col m2" ng-click="skills.$remove(skill)"><i class="material-icons left">delete</i>Remove</a>
+
+
+    <div class="row">
+        <div class="col m3" ng-repeat="skill in skills">
+            <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skills.$remove(skill)">delete</i>{{skill.$value}}</a>
+        </div>
     </div>
+    <div class="divider"></div>
+
+    <!-- NOTIFICATION CENTER -->
+    <div class="row">
+        <h4>Notification Center</h4>
+    </div>
+    <div class="divider"></div>
+
+
+    <!-- MANAGEMENT TABS -->
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#eventsAsAdmin">Admin</a></li>
+                <li class="tab col s3"><a class="active" href="#teamsAsLeader">Leader</a></li>
+                <li class="tab col s3"><a href="#teamsAsMember">Member</a></li>
+            </ul>
+        </div>
+        <div class="row" id="eventsAsAdmin">
+            <h4>Events administrating by me</h4>
+        </div>
+        <div id="teamsAsLeader">
+            <h4>I am team leader</h4>
+        </div>
+        <div id="teamsAsMember">
+            <h4>I am a member in these teams</h4>
+        </div>
+    </div>
+
+
+
+
+    <!-- MY TEAMS/EVENTS -->
+
+
+
+
+
 
 </div>
 
