@@ -1,4 +1,4 @@
-const teamapp = angular.module('teamapp', ["ngRoute"]);
+const teamapp = angular.module('teamapp', ["ngRoute","firebase"]);
 
 
 
@@ -10,4 +10,8 @@ teamapp.config(function($routeProvider) {
    
 });
 
+
+teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope', function($scope,$firebase,$rootScope){
+	
+}]);
 
