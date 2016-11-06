@@ -6,7 +6,7 @@ export default class EventCreateCtrl {
         this.$timeout = $timeout;
         this.eventService = eventService;
         this.loading = false;
-        this.event = {};
+        this.event = {teamMin: 1, teamMax: 1};
         this.error = null;
     }
     createEvent() {
@@ -23,6 +23,16 @@ export default class EventCreateCtrl {
                     this.loading = false;
                 });
             });
+    }
+    setTeamMin(value) {
+        if (value > 0 && value <= this.event.teamMax) {
+            this.event.teamMin = value;
+        }
+    }
+    setTeamMax(value) {
+        if (value > 0 && value >= this.event.teamMin) {
+            this.event.teamMax = value;
+        }
     }
 }
 

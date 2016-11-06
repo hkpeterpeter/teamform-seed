@@ -10,7 +10,9 @@ export default class EventEditCtrl extends EventDetailCtrl {
             .then((result) => {
                 this.$timeout(() => {
                     this.loading = false;
-                    this.$state.go('event.detail', {eventId: result.key});
+                    this.$state.go('event.detail', {
+                        eventId: result.key
+                    });
                 });
             }).catch((error) => {
                 this.$timeout(() => {
@@ -18,6 +20,16 @@ export default class EventEditCtrl extends EventDetailCtrl {
                     this.loading = false;
                 });
             });
+    }
+    setTeamMin(value) {
+        if (value > 0 && value <= this.event.teamMax) {
+            this.event.teamMin = value;
+        }
+    }
+    setTeamMax(value) {
+        if (value > 0 && value >= this.event.teamMin) {
+            this.event.teamMax = value;
+        }
     }
 }
 

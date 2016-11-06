@@ -17,9 +17,19 @@ export default class EventDetailCtrl {
                         this.error = new Error('Event not exist');
                     });
                 }
-                this.$timeout(() => {
-                    this.event = event;
-                });
+                this.event = event;
+            });
+        }).catch((error) => {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        });
+    }
+    joinEvent() {
+        this.eventService.joinEvent(this.$stateParams.eventId).then((eventUsers) => {
+            this.$timeout(() => {
+                console.log('success');
+                this.getEvent();
             });
         }).catch((error) => {
             this.$timeout(() => {

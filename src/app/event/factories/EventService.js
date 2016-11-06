@@ -15,6 +15,27 @@ export default class EventService {
                 });
         });
     }
+    joinEvent(id) {
+        return this.authService.checkAuth()
+            .then(user => {
+                return this.$firebaseArray(this.$database.ref('events/' + id + '/users')).$loaded().then(eventUsers => {
+                    let joined = false;
+                    for(let eventUser of eventUsers) {
+                        if(eventUser.$value == user.uid) {
+                            joined = true;
+                            break;
+                        }
+                    }
+                    if (!joined) {
+                        return eventUsers.$add(user.uid);
+                    } else {
+                        return new Promise((resolve, reject) => {
+                            reject(new Error('You Already joined this event'));
+                        });
+                    }
+                });
+            });
+    }
     getEvents(options = {}) {
         let ref = this.$database.ref('events');
         return this.$firebaseArray(ref).$loaded()

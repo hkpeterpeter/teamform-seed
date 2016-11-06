@@ -1,5 +1,5 @@
 <ui-alert message="{{userDetail.error.message}}" />
-<div class="panel panel-info" ng-show="userDetail.user != null">
+<div class="panel panel-info" ng-if="userDetail.user">
     <div class="panel-heading">
         <h3 class="pull-left panel-title">{{userDetail.user.name}}'s Profile</h3>
         <div class="pull-right"><a class="label label-info" ui-sref="user.detail.edit({userId: userDetail.user.$id})">Edit</a></div>
