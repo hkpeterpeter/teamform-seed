@@ -25,6 +25,7 @@ initalizeFirebase();
               document.getElementById('user-info').style.display = 'block';
               document.getElementById('name').textContent = user.displayName;
               document.getElementById('email').textContent = user.email;
+              document.getElementById('showInfo').style.display = 'block';
 
               if (user.photoURL){
                 document.getElementById('photo').src = user.photoURL;
@@ -43,12 +44,16 @@ initalizeFirebase();
                 accessToken: accessToken,
                 providerData: providerData
               }, null, '  ');
+
+              //refPath = "event"
+
             });
           } else {
             // User is signed out.
             document.getElementById('sign-in-status').textContent = 'Signed out';
             document.getElementById('account-details').textContent = '';
             document.getElementById('user-info').style.display = 'none';
+            document.getElementById('showInfo').style.display = 'none';
           }
         }, function(error) {
           console.log(error);
