@@ -6,7 +6,7 @@ app.controller("eventCtrl",
 		Auth.$onAuthStateChanged(function(authData){
             if (authData){
                 $scope.authData = authData;
-                console.log(authData.uid);
+                //console.log(authData.uid);
                 var ref = firebase.database().ref('users/' + authData.uid + '/writable');
                 $scope.myEvents = $firebaseObject(ref);
 
@@ -28,7 +28,14 @@ app.controller("eventCtrl",
             desc:"",
         }
 
-
+        var dialog;
+        $scope.createEventDialog = function(){
+            dialog = ngDialog.open({
+                template: 'templates/createEvent.html',
+                className: 'ngdialog-theme-plain',
+                scope: $scope
+            });
+        };
 
 
         $scope.submit = function(){
@@ -54,11 +61,13 @@ app.controller("eventCtrl",
             event.eventInfo.ddl = $scope.input.ddl.toJSON();
 
             event.eventInfo.isClosed = false;
-            console.log(event);
+            //console.log(event);
 
 
             event.eventInfo.admin = $scope.authData.uid;
             Helper.createEvent($scope.authData.uid,event);
+
+            dialog.close();
 
 
 
