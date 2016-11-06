@@ -4,17 +4,43 @@
     justify-content: center;
 }
 
+.leftAlignVerticalCenter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
 .fullscreen {
     width: 100vw;
     height: 100vh;
+}
+
+.showSearchResult {
+    display: flex;
+    justify-content: center;
 }
 
 .myBtn {
     margin: 15px 0 0 0;
 }
 
-#searchTextField, #searchSuggestion *, .myBtn {
+#searchTextField, #searchSuggestion *, .myBtn, .font-size-md {
     font-size: medium;
+}
+
+.searchResultElementTitle span {
+    font-weight: bold;
+    font-size: large;
+    margin-right: 10px;
+}
+
+a.searchResultElementTitle {
+    text-decoration: none;
+}
+
+.searchResultElementTitle span::first-letter {
+    text-transform: uppercase;
 }
 
 .wellPadding {
@@ -44,6 +70,15 @@
 
 #searchBtnContainer {
     z-index: 100;
+}
+
+.searchIcon{
+    background-image: url("http://www.freeiconspng.com/uploads/search-icon-png-17.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: lightcoral;
+    margin: 5px;
 }
 
 body{
