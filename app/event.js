@@ -13,19 +13,22 @@ app.controller("eventSubmit",
         $scope.event = $firebaseArray(ref);
                 
         $scope.submit = function() {
-                    
-            if($scope.input.name!==""&&$scope.input.intro!==""){
-                $scope.input.state=true;
-                $scope.input.holder=1;
-                //$scope.input.holder=
-                $scope.event.$add($scope.input);
-                window.alert("Event create success!");
-                $scope.input.intro= "";
-                $scope.input.name= "";
-                $scope.nameTouched = false;
-                }
-                    
-                    
+//            if(firebase.user!=null){
+                if($scope.input.name!==""&&$scope.input.intro!==""){
+                    $scope.input.state=true;
+                    $scope.input.holder=1;
+                    //$scope.input.holder=
+                    $scope.event.$add($scope.input);
+                    window.alert("Event create success!");
+                    $scope.input.intro= "";
+                    $scope.input.name= "";
+                    $scope.nameTouched = false;
+               }
+            //}
+            //else{
+            //    window.alert("Please sign in first!");
+            //}
+            //        
             };
         //<span ng-show="eventForm.newEventName.$touched && eventForm.newEventName.$invalid">The event name is required.</span>
             $scope.nameTouched = false;
