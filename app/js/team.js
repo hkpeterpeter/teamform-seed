@@ -78,6 +78,16 @@ angular.module('teamform-team-app', ['firebase'])
 				//$scope.test += userID + " " ;
 				
 				$scope.requests.push(userID);
+
+				var joined_teamsPath = "users/"	+ userID +"/joined_teams";
+				var joined_teams_ref = firebase.database().ref(joined_teamsPath);
+			
+				joined_teams_ref.once("value").then(function(snapshot){
+					//var teamName = teamID;
+              		var hasTeam = snapshot.hasChild(teamID);
+              		if (!hasTeam)
+                		joined_teams_ref.child(teamID).set(getURLParameter("q"));
+            	});
 			}
 		});
 		
