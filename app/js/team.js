@@ -115,8 +115,15 @@ angular.module('teamform-team-app', ['firebase'])
 			
 			var refPath = "events/" + getURLParameter("q") + "/team/" + teamID;	
 			var ref = firebase.database().ref(refPath);
+			var events_teamPath = "users/"	+ current_uid +"/events_teamLeader";
+			var events_team_ref = firebase.database().ref(events_teamPath);
 			
-			
+			events_team_ref.once("value").then(function(snapshot){
+				//var teamName = teamID;
+              	var hasTeam = snapshot.hasChild(teamID);
+              	if (!hasTeam)
+                	events_team_ref.child(teamID).set(getURLParameter("q"));
+            });
 			// for each team members, clear the selection in /[eventName]/team/
 			
 			$.each($scope.param.teamMembers, function(i,obj){
@@ -131,7 +138,7 @@ angular.module('teamform-team-app', ['firebase'])
 				
 			});
 			
-			
+
 			
 			ref.set(newData, function(){			
 

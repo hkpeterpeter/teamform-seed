@@ -17,7 +17,14 @@ initalizeFirebase();
             ref.once("value").then(function(snapshot){
               var hasUser = snapshot.hasChild(user.uid);
               if (!hasUser)
-                var newUser = ref.child(user.uid).set({"placeholder":""});
+                var newUser = ref.child(user.uid).set(
+                  {"name":user.displayName,
+                   "skills":"(placeholder)",
+                   "interests":"(placeholder)",
+                   "joined_events": "(placeholder)",
+                   //"events_admin": "(placeholder)"
+
+                });
             });
 
             user.getToken().then(function(accessToken) {
