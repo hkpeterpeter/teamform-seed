@@ -19,18 +19,18 @@
 <p>Search Restuls:</p>
 
 <ul>
-    <li ng-repeat="(EventId, Event) in AllEvents" ng-show = "Event.eventInfo.name == searchText">
-        <a ng-href="/#/dashboard/event/{{EventId}}">
+    <li ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}">
+        <a ng-href="/#/dashboard/event/{{Event.$id}}">
             {{Event.eventInfo.name}}
         </a>
     </li>
 </ul>
 
-<h3> All Events</h3>
+<!-- <h3> All Events</h3>
 <ul>
     <li ng-repeat="(EventId, Event) in AllEvents">
         <a ng-href="/#/dashboard/event/{{EventId}}">
             {{Event.eventInfo.name}}
         </a>
     </li>
-</ul>
+</ul> -->
