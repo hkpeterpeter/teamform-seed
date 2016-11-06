@@ -12,12 +12,23 @@
 <button class="btn btn-primary" ng-click="createEventDialog()" >createEvent</button>
 
 <form name = "searchEvent"">
-    Event name: <input type="text" name="searchName" ng-model = "searchText"><br>
+    search by Event name: <input type="text" name="searchName" ng-model = "searchText"><br>
 
 </form>
 
+<p>Search Restuls:</p>
+
 <ul>
     <li ng-repeat="(EventId, Event) in AllEvents" ng-show = "Event.eventInfo.name == searchText">
+        <a ng-href="/#/dashboard/event/{{EventId}}">
+            {{Event.eventInfo.name}}
+        </a>
+    </li>
+</ul>
+
+<h3> All Events</h3>
+<ul>
+    <li ng-repeat="(EventId, Event) in AllEvents">
         <a ng-href="/#/dashboard/event/{{EventId}}">
             {{Event.eventInfo.name}}
         </a>
