@@ -1,116 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-
-    <head>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-
-        <title>
-            Event Search Page
-        </title>
-
-        <!-- CSS  -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-        <link href="css/style.css" media="screen,projection" rel="stylesheet" type="text/css"/>
-        <link href="xinyu_main.css" rel="stylesheet"/>
-
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-
-         
-            <script src="myctrl.js" type="text/javascript">
-            </script>
-            <script src="https://code.jquery.com/jquery-2.1.1.min.js">
-            </script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-            <script src="js/init.js">
-            </script>
-
-            <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
-            <script>
-              // Initialize Firebase
-              var config = {
-                apiKey: "AIzaSyBIS53sq0KQXNNL1HNcS-8VFGGFOIcu_0E",
-                authDomain: "eventcreate-b6b9d.firebaseapp.com",
-                databaseURL: "https://eventcreate-b6b9d.firebaseio.com",
-                storageBucket: "eventcreate-b6b9d.appspot.com",
-                messagingSenderId: "159207569470"
-              };
-              firebase.initializeApp(config);
-            </script>
-       
-      
-    </head>
-
-    <body ng-app="eventSearch" ng-controller="ctroller" background="#fff">
-
-        <nav class="white" role="navigation">
-        </nav>
-
-
-     
-         <div class="flip-container" style="background: #fff;margin-bottom: 50px;">
-            <div class="flipper" id="myflipper">
-                <div class="front" style="margin-bottom: 100px">
-                    <section id="search_create">
-
-                        <div class="parallax-container" id="index-banner" style="height: 600px;">
-                            <div class="section no-pad-bot" style="margin-bottom: 100px;">
-                                <div class="container">
-                                    <event-search-panel>
-                                    </event-search-panel>
-                                </div>
-                            </div>
-                            <div class="parallax" id="frontImage" >
-                                <img alt="Unsplashed background img 1" ng-src="background3.jpg" style=" display: block;" />
-                            </div>
+<div class="flip-container" style="background: #fff;margin-bottom: 50px;">
+    <div class="flipper" id="myflipper">
+        <div class="front" style="margin-bottom: 100px">
+            <section id="search_create">
+                <div class="parallax-container" id="index-banner" style="height: 600px;">
+                    <div class="section no-pad-bot" style="margin-bottom: 100px;">
+                        <div class="container">
+                            <event-search-panel>
+                            </event-search-panel>
                         </div>
-                    </section>
+                    </div>
+                    <div class="parallax" id="frontImage">
+                        <img alt="Unsplashed background img 1" ng-src="background3.jpg" style=" display: block;"/>
+                    </div>
                 </div>
-                <div class="back" style="margin-bottom: 100px">
-                    <section id="create_event">
-                        <div class="parallax-container" id="index-banner" style="height:600px">
-                            <div class="section no-pad-bot">
-                                <div class="container">
-                                    <h1 class="header center teal-text text-lighten-2">
-                                        {{event.name}}
-                                    </h1>
-                                    <!-- To be replaced by panel -->
-                                    <event-form>
-                                    </event-form>
-                                    <!--To Be replaced by panel -->
-                                    <subcan>
-                                    </subcan>
-                                </div>
-                            </div>
-                            <div class="parallax" id="backImage">
-                                <img alt="Unsplashed background img 1" ng-src="background1.jpg" style=" display: block;"/>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
+            </section>
         </div>
-
-        <section id="event_list" style="background: #fff; margin-top: 10px;">
-            <div class="section">
-                <!--   Icon Section   -->
-                <event-card id="myCard" e-group-size="10" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" etitle="OOOkkk">
-                  
-                </event-card>
-                <event-card e-group-size="10" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSsEZ_4BkG3GNQ2Dd7B8RyX1JMgp4rxKhJRSJd2-7usYVznbm2rmK-gDA" etitle="OK">
-                   
-                </event-card>
-                <event-card e-group-size="10" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="background2.jpg" etitle="OK">
-                 
-                </event-card>
-            </div>
-        </section>
-
-
-        <event-footer >
-        </event-footer>
-    
-       
-    </body>
-</html>
+        <div class="back" style="margin-bottom: 100px">
+            <section id="create_event">
+                <div class="parallax-container" id="index-banner" style="height:600px">
+                    <div class="section no-pad-bot">
+                        <div class="container">
+                            <h1 class="header center teal-text text-lighten-2">
+                                {{event.name}}
+                            </h1>
+                            <!-- To be replaced by panel -->
+                            <event-form>
+                            </event-form>
+                            <!--To Be replaced by panel -->
+                            <subcan>
+                            </subcan>
+                        </div>
+                    </div>
+                    <div class="parallax" id="backImage">
+                        <img alt="Unsplashed background img 1" ng-src="background1.jpg" style=" display: block;"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<section id="event_list" style="background: #fff; margin-top: 10px;">
+    <div class="section">
+        <!--   Icon Section   -->
+        <event-card e-group-size="10" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" etitle="OOOkkk" id="myCard">
+        </event-card>
+        <event-card e-group-size="10" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSsEZ_4BkG3GNQ2Dd7B8RyX1JMgp4rxKhJRSJd2-7usYVznbm2rmK-gDA" etitle="OK">
+        </event-card>
+        <event-card e-group-size="10" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="background2.jpg" etitle="OK">
+        </event-card>
+    </div>
+</section>
+<event-footer>
+</event-footer>

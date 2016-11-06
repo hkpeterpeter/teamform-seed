@@ -1,4 +1,4 @@
-var myapp = angular.module('eventSearch', []);
+var myapp = angular.module('teamapp', ["ngRoute"]);
 myapp.controller('ctroller', ['$scope', function($scope) {
     $scope.event = {
         name: "",
@@ -23,6 +23,17 @@ myapp.controller('ctroller', ['$scope', function($scope) {
         $("#myCard").toggle(500);
     }
 }]);
+
+
+myapp.config(function($routeProvider) {
+    $routeProvider
+    .when("/search", {
+        templateUrl : "searchEvent.html"
+    })
+   
+});
+
+
 myapp.directive('eventSearchPanel', function() {
     return {
         restrict: 'E',
