@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<html ng-app="clickApp">  
 <html lang="en">
   <head>
   	<!-- Angular Library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="./js/btnclick.js" ></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,6 +21,26 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<!-- Angular Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+<!-- AngularFire URL: https://github.com/firebase/angularfire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA0wShqGcA9d6Xz1JJRk7fYK3-I8JTRmAc",
+    authDomain: "invite-users-15243.firebaseapp.com",
+    databaseURL: "https://invite-users-15243.firebaseio.com",
+    storageBucket: "invite-users-15243.appspot.com",
+    messagingSenderId: "549507448169"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+
+
     </head>
 
     <body>
@@ -26,44 +48,31 @@
 <div class="col-md-12 col-xs-12">
     <div class="list-group" >
     <!--one user-->
-    <div class="row">
-    <div class="col-md-12"> 
-      <button type="button" class="list-group-item">
+	<div ng-controller="clickCtrl">
+    <label ng-repeat="select in selected">
+      <div class="row">
+    <div class="col-xs-12"> 
         <div class="media">
           <div class="media-left">
-            <a href="#">
-              <img class="media-object" src="selfie.jpg" width="20" height="20" alt="...">
-            </a>
+            <img class="media-object" src={{select.img}} width="50" height="50" alt="...">
+            
           </div>
           <div class="media-body">
-            <h4 class="media-heading">Tom</h4>
-            I like giant robot
+            <h4 class="media-heading">{{select.name}}</h4>
+            {{select.intro}}
           </div>
-        </div>
-      </button>
-      </div>
-      </div>
 
-    <!--one user-->
-    <div class="row">
-    <div class="col-md-12">
-      <button type="button" class="list-group-item">
-        <div class="media">
-          <div class="media-left">
-            <a href="#">
-              <img class="media-object" src="selfie.jpg" width="20" height="20" alt="...">
-            </a>
+          <div class="media-right">
+            <span class="{{select.select}}" aria-hidden="true" id="{{select.name}}" data-ng-click = "clickButton($event)"></span>
+            
           </div>
-          <div class="media-body">
-            <h4 class="media-heading">Jerrey</h4>
-            Giant robot so good
-            goog
-            goasddwajdlksajdklajlkdjwalidjladwiahdhsakjdaskjdhasda
-          </div>
+
         </div>
-      </button>
-    </div>
-    </div>
+      <!--/button-->
+      
+      </div>
+      </div>
+      </label>
     </div>
 
 </div>
