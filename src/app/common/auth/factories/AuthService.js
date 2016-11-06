@@ -37,7 +37,7 @@ export default class AuthService {
                 if (user) {
                     return resolve(user);
                 } else {
-                    return reject(user);
+                    return reject(new Error('Unauthorized, Please Login'));
                 }
             });
         });
