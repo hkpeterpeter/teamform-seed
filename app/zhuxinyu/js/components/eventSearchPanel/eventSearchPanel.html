@@ -1,0 +1,27 @@
+<div>
+    <h1 class="header center teal-text text-lighten-2">
+        Find Your Event
+    </h1>
+    <div class="row center">
+        <h5 class="header col s12" style="color: #009688">
+            Type in the name of your event
+        </h5>
+    </div>
+    <div class="row center">
+        <input class="col s10 offset-s1" name="" ng-model="event.name" placeholder="Event Name" style="font-size: 40px; text-align: center; color: #59cafa" type="text">
+            <a class="btn-floating btn-large waves-effect waves-light lighten-2 s1 createButton" ng-click="createflip()" title="create">
+                <i class="material-icons">
+                    add
+                </i>
+            </a>
+        </input>
+    </div>
+    <div class="row center">
+        <a class="waves-effect waves-light btn" ng-click="showEventCard()">
+            <i class="material-icons left">
+                search
+            </i>
+            Search
+        </a>
+    </div>
+</div>
