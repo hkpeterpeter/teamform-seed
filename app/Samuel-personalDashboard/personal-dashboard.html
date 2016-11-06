@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard</title>
+    <!-- CSS IMPORTING -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body ng-app="dashboard" ng-controller="dashboardController">
+
+<!-- JAVASCRIPT FILES -->
+<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyAkeCzzzYV9nYbxIK-se8B81wftNUqmx4c",
+        authDomain: "h-project-4fe15.firebaseapp.com",
+        databaseURL: "https://h-project-4fe15.firebaseio.com",
+        storageBucket: "h-project-4fe15.appspot.com",
+        messagingSenderId: "591108267651"
+    };
+    firebase.initializeApp(config);
+
+    var provider = new firebase.auth.FacebookAuthProvider();
+    console.log("check");
+//    firebase.auth().signInWithRedirect(provider);
+//    firebase.auth().getRedirectResult().then(function(result) {
+//        if (result.credential) {
+//            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+//            var token = result.credential.accessToken;
+//            console.log(token);
+//            // ...
+//        }
+//        // The signed-in user info.
+//        var user = result.user;
+//    }).catch(function(error) {
+//        // Handle Errors here.
+//        var errorCode = error.code;
+//        var errorMessage = error.message;
+//        // The email of the user's account used.
+//        var email = error.email;
+//        // The firebase.auth.AuthCredential type that was used.
+//        var credential = error.credential;
+//        // ...
+//    });
+
+
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script><!--Angular Fire -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+<script src="./personal-dashboard-main.js"></script>
+
+<div class="container" style="padding-top: 20px">
+    <button class="btn waves-effect waves-light" ng-click="facebookLogin()">Login
+        <i class="material-icons right">send</i>
+    </button>
+    <div class="row" id="infoDisplay">
+        <div class="col m6 s6">
+            <img src="./userProfilePlaceHolder.png">
+        </div>
+        <div class="col m6 s6">
+            <h2>Username: {{username}}</h2>
+            <h4>Email: hezhou556@gmail.com</h4>
+
+        </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="row" id="skillManager">
+        <h4>Manage my Skills:</h4>
+        <form ng-submit="receiveNewSikll()">
+            <div class="input-field col s6">
+                <input id="newSkill" type="text" class="validate" ng-model="newSkill" required>
+                <label for="newSkill">Add a skill</label>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Add Skill
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+
+
+    <div class="row">
+        <div class="col m3" ng-repeat="skill in skills">
+            <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skills.$remove(skill)">delete</i>{{skill.$value}}</a>
+        </div>
+    </div>
+    <div class="divider"></div>
+
+    <!-- NOTIFICATION CENTER -->
+    <div class="row">
+        <h4>Notification Center</h4>
+    </div>
+    <div class="divider"></div>
+
+
+    <!-- MANAGEMENT TABS -->
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#eventsAsAdmin">Admin</a></li>
+                <li class="tab col s3"><a class="active" href="#teamsAsLeader">Leader</a></li>
+                <li class="tab col s3"><a href="#teamsAsMember">Member</a></li>
+            </ul>
+        </div>
+        <div class="row" id="eventsAsAdmin">
+            <h4>Events administrating by me</h4>
+        </div>
+        <div id="teamsAsLeader">
+            <h4>I am team leader</h4>
+        </div>
+        <div id="teamsAsMember">
+            <h4>I am a member in these teams</h4>
+        </div>
+    </div>
+
+
+
+
+    <!-- MY TEAMS/EVENTS -->
+
+
+
+
+
+
+</div>
+
+</body>
+</html>
