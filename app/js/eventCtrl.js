@@ -2,7 +2,7 @@
 app.controller("eventCtrl", 
 
 	// Implementation the todoCtrl 
-	function($scope, Auth, $firebaseArray, $firebaseObject,Helper) {
+	function($scope, Auth, $firebaseArray, $firebaseObject,Helper,ngDialog) {
 		Auth.$onAuthStateChanged(function(authData){
             if (authData){
                 $scope.authData = authData;
@@ -19,6 +19,7 @@ app.controller("eventCtrl",
             else console.log("signed out");
 		});
 
+
         $scope.input={
             name:"",
             ddl: "",
@@ -31,6 +32,7 @@ app.controller("eventCtrl",
 
 
         $scope.submit = function(){
+
             var event = {
                 eventInfo:
                 {name:"",
@@ -61,6 +63,8 @@ app.controller("eventCtrl",
 
 
         }
+
+
 
 
 		console.log("event");
