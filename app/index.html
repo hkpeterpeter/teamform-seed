@@ -113,11 +113,19 @@
         <p id="alert-detail"><div id="account-details"></div></p>
     </div>
     <div id="user-info" style="display: block;">
-              <div id="photo-container" class="col-1">
-                <img id="photo" class="rounded mx-auto d-block">
-              </div>
-              <div id="name"></div>
-              <div id="email"></div>
+              <div class="row">
+				  <div id="photo-container">
+					<img style="float:left" id="photo" class="rounded mx-auto d-block">
+				  </div>
+				  <div class="col-md-3">
+					  <div class="alert alert-info" role="alert">
+						<div class="text-center">
+							  <div id="name"></div>
+							  <div id="email"></div>
+						</div>
+					  </div>
+				  </div>
+			  </div>
               <div class="clearfix"></div>
    </div>
     <!-- / ALERT BOX -->
