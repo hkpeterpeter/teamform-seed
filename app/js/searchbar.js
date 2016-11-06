@@ -90,7 +90,7 @@ app.controller("searchCtrl",
 
                 var score = 0;
                 //match id
-                getSimilarityScore(keywords, id, "id", scoreList);
+                score += getSimilarityScore(keywords, id, "id", scoreList);
 
                 //match name
                 score += getSimilarityScore(keywords, name, "name", scoreList);
