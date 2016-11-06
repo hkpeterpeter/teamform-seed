@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamapp">
+
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+
+        <title>
+            Event Search Page
+        </title>
+
+        <!-- CSS  -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+        <link href="css/style.css" media="screen,projection" rel="stylesheet" type="text/css"/>
+        <link href="zhuxinyu/xinyu_main.css" rel="stylesheet"/>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+
+            <!-- For creating the module and the maia controller-->
+         	 <script src="js/main.js" type="text/javascript"></script>
+           
+            
+            <script src="https://code.jquery.com/jquery-2.1.1.min.js">
+            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+            <script src="zhuxinyu/myctrl.js" type="text/javascript">
+            </script>
+            <script src="zhuxinyu/js/init.js">
+            </script>
+
+            <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+           <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+
+           <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/2.1.0/angularfire.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCQKYVkrCowDJXNreSNgcJ7cy9RLnlRNZc",
+    authDomain: "teamform-undefined.firebaseapp.com",
+    databaseURL: "https://teamform-undefined.firebaseio.com",
+    storageBucket: "teamform-undefined.appspot.com",
+    messagingSenderId: "640568930097"
+  };
+  firebase.initializeApp(config);
+</script>
+       
+      
+    </head>
+
+    <body ng-controller="main_ctroller" background="#fff">
+
+        <nav class="white" role="navigation">
+        </nav>
+
+        <div ng-view>
+
+        </div>
+
+
+        <script type="text/javascript">
+        	
+			var db = firebase.database();
+			var ref_user = db.ref("users");
+			var ref_event = db.ref("events");
+			var ref_team = db.ref("teams");
+
+
+
+			// Attach an asynchronous callback to read the data at our posts reference
+			console.log(searchUserById("-KVtEW8EVXIacwd9hsGx"));
+
+			function searchUserByEmail(email){
+
+			};
+			function searchEventById(id){
+				ref_event.on("value", function(snapshot) {
+				return snapshot.val()[id];
+				}, function (errorObject) {
+				console.log("The read failed: " + errorObject.code);
+				});
+			};
+			function searchTeamById(id){
+				ref_team.on("value", function(snapshot) {
+				return snapshot.val()[id];
+				}, function (errorObject) {
+				console.log("The read failed: " + errorObject.code);
+				});
+			};
+			function searchUserById(id){
+				ref_user.on("value", function(snapshot) {
+					var value=snapshot.val()[0];
+					console.log(value);
+				
+				}, function (errorObject) {
+				console.log("The read failed: " + errorObject.code);
+				});
+			};
+
+			
+			function addUser(User){};
+			function addEvent(event){};
+			function addTeam(team){};
+
+			function updateUserState(User){};
+			function updateTeam(Team){};
+			function updateEvent(event){};
+
+
+        </script>
+
+</body>
+</html>
