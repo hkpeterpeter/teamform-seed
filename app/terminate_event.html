@@ -1,0 +1,16 @@
+<body ng-app="teamApp">
+
+         <h1>Event Termination</h1>
+         <div ng-controller="eventterm">
+           
+Please select the event below: <br><br>
+<table width="400">
+<tr data-ng-repeat="q in event">
+         <td align="center">{{q.name}}</td><td align="right"><button ng-click="removeit(q)">Remove</button></td></tr>
+            </table>
+
+
+        
+         </div>
+         
+    </body>   
