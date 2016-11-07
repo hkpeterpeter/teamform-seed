@@ -88,15 +88,17 @@
                 </div>
 
                 <!--Search Result-->
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noPadding" ng-repeat="r in result">
-                    <div id={{r.eid}} class="well wellHalfTransparent">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noPadding leftAlignVerticalCenter">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="r in result">
+                    <div id={{r.eid}} class="well wellHalfTransparent well col-xs-12 col-sm-12 col-md-12 col-lg-12 searchResultElement">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leftAlignVerticalCenter">
                             <a class="searchResultElementTitle" href="#">
                                 <span>{{r.name}}</span>
                             </a>
-                            <span class="badge">Group ID: {{r.id}}</span>
+                            <span class="badge">{{r.id}}</span>
                         </div>
-                        <p>{{r.description}}</p>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <p>{{r.description}}</p>
+                        </div>
                     </div>
                 </div>
                 <!--End Search Result-->
