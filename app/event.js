@@ -14,6 +14,7 @@ app.controller("eventSubmit",
                 
         $scope.submit = function() {
 //            if(firebase.user!=null){
+            if(firebase.auth().currentUser){
                 if($scope.input.name!==""&&$scope.input.intro!==""){
                     $scope.input.state=true;
                     $scope.input.holder=1;
@@ -23,13 +24,13 @@ app.controller("eventSubmit",
                     $scope.input.intro= "";
                     $scope.input.name= "";
                     $scope.nameTouched = false;
-               }
-            //}
-            //else{
-            //    window.alert("Please sign in first!");
-            //}
-            //        
-            };
+                }
+			}
+            else{
+                window.alert("Please sign in first!");
+            }
+            
+        };
         //<span ng-show="eventForm.newEventName.$touched && eventForm.newEventName.$invalid">The event name is required.</span>
             $scope.nameTouched = false;
             $scope.introTouched = false;
@@ -56,8 +57,8 @@ app.controller("eventSubmit",
 
             
                 
-    }
+    
                
                
-);
+    });
                
