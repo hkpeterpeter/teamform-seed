@@ -15,7 +15,7 @@ Please select the event below: <br>
 
  <div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
      <table width="400"><tr align="center"><td align="center"><b>Name:</b></td><td align="center"><b>Intro.</b></td></tr>
-         <tr data-ng-repeat="g in q.Team" ng-if="g.name.indexOf(searchText) > -1 || !searchText">
+         <tr data-ng-repeat="g in q.Team" ng-if="(g.name.indexOf(searchText) > -1 && g.openness == true) || (!searchText && g.openness == true)">
          <td align="center">{{g.name}}</td><td align="center">{{g.intro}}</td></tr>
         
          </table>
