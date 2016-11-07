@@ -121,15 +121,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
     helper.withdrawApplication = function(uid, eventID, teamID) {
         //dht
-<<<<<<< HEAD
-
-
-        //add by wyz...
-        var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
-        var temp = {};
-        temp[uid] = "withdrawn";
-        ref.child('applications').update(temp);
-=======
 		var team_ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID);
 		var team = $firebaseObject(team_ref);
 
@@ -156,7 +147,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                 user.$save();
             });			
 		});
->>>>>>> Request part finished
     }
 
     helper.quitEvent = function(uid, eventID) {
