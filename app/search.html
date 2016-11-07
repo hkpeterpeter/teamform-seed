@@ -1,0 +1,25 @@
+<body ng-app="teamApp">
+    <style>
+table,th, td {
+    border: 1px solid black;
+}
+</style>
+         <h1>Search Event</h1>
+         <div ng-controller="eventSearch">
+           
+Please select the event below: <br>
+<select ng-model="selectedName" ng-options="x.name for x in event">
+</select>
+<br><br><br>
+ Input the name of the team: <input type="text" ng-model="searchText" placeholder="Type to search"><br><br> <h3>List of Team: </h3><br>
+ <div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
+     <table width="400"><tr align="center"><td align="center"><b>Name:</b></td><td align="center"><b>Intro.</b></td></tr>
+         <tr data-ng-repeat="g in q.Team" ng-if="g.name.indexOf(searchText) > -1 || !searchText">
+         <td align="center">{{g.name}}</td><td align="center">{{g.intro}}</td></tr>
+        
+         </table>
+         </div>
+        
+         </div>
+         
+    </body>   
