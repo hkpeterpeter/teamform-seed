@@ -21,8 +21,6 @@ app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($s
 		.then(function(authData) {
 			$scope.LoginMessage = "Logged in as:" + authData.uid;
             $rootScope.id=authData.uid;
-            alert("login successfully!");
-            $state.go('home');
 		}).catch(function(error) {
 			LoginMessage = "Authentication failed:" + error;
 		});
