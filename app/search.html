@@ -92,12 +92,12 @@
                     <div id={{r.eid}} class="well wellHalfTransparent well col-xs-12 col-sm-12 col-md-12 col-lg-12 searchResultElement">
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leftAlignVerticalCenter">
                             <a class="searchResultElementTitle" href="#">
-                                <span>{{r.name}}</span>
+                                <span ng-bind-html="trustAsHtml(r.name)"></span>
                             </a>
-                            <span class="badge">{{r.id}}</span>
+                            <span class="badge" ng-bind-html="trustAsHtml(r.id)"></span>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <p>{{r.description}}</p>
+                            <p ng-bind-html="trustAsHtml(r.description)"></p>
                         </div>
                     </div>
                 </div>

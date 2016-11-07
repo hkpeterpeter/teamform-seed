@@ -2,8 +2,9 @@
 var app = angular.module("search", ["firebase"]);
 
 app.controller("searchCtrl",
-    function ($scope, $firebaseArray) {
-        // Initialize Firebase
+    function ($scope, $firebaseArray, $sce) {
+        $scope.trustAsHtml = $sce.trustAsHtml;
+
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyDBbzOIIjY0CQEAbIXyPeFt4lf7-pB5N1k",
@@ -41,6 +42,11 @@ app.controller("searchCtrl",
 
         //listen to the search text field changes, and give suggestions
         $scope.$watch("searchInput", function (newVal, oldVal) {
+            if (typeof newVal != "string") {
+                $("#searchSuggestion").hide();
+                return;
+            }
+
             //give suggestions if the input is meaningful
             if (normailizeText(newVal).length > 1 || normailizeText(newVal)[0] != "") {
 
@@ -127,7 +133,11 @@ app.controller("searchCtrl",
                 //update the result if score > 0
                 if (score > 0) {
                     scores.push(score);
-                    teamsAndMembers.push(new resultElement(teams[i].name, ("Team ID: " + id), teams[i].descriptions, ("searchResultElement-" + i)));
+                    var e1 = hightlight(teams[i].name, keywords);
+                    var e2 = hightlight(id, keywords);
+                    var e3 = hightlight(teams[i].descriptions, keywords);
+                    // teamsAndMembers.push(new resultElement(teams[i].name, ("Team ID: " + id), teams[i].descriptions, ("searchResultElement-" + i)));
+                    teamsAndMembers.push(new resultElement(e1, "Team ID: " + e2, e3, ("searchResultElement-" + i)));
                 }
             }
 
@@ -186,7 +196,10 @@ app.controller("searchCtrl",
                 //update the result if score > 0
                 if (score > 0) {
                     scores.push(score);
-                    teamsAndMembers.push(new resultElement(members[i].first_name + " " + members[i].last_name, ("Member ID: " + id), members[i].descriptions, "searchResultElement-" + (i + resultCount)));
+                    var e1 = hightlight(members[i].first_name + " " + members[i].last_name, keywords);
+                    var e2 = hightlight(id, keywords);
+                    var e3 = hightlight(members[i].descriptions, keywords);
+                    teamsAndMembers.push(new resultElement(e1, ("Member ID: " + e2), e3, "searchResultElement-" + (i + resultCount)));
                 }
             }
 
@@ -259,8 +272,11 @@ $(document).ready(function () {
 
 //===some helper functions===
 
-//Normalize the text (remove all symbols and transform the text to lowercase), return an array
-function normailizeText(text) {
+//remove symbols in text
+function removeSymbols(text) {
+    if (typeof text != "string")
+        return text;
+
     var symbols = "";
     for (var i = 33; i <= 47; i++)
         symbols += String.fromCharCode(i);
@@ -272,6 +288,17 @@ function normailizeText(text) {
     //scan through the texts and remove symbols
     for (var i = 0; i < symbols.length; i++)
         text = text.split(symbols.charAt(i)).join("");
+
+    return text;
+}
+
+//Normalize the text (remove all symbols and transform the text to lowercase), return an array
+function normailizeText(text) {
+    if (typeof text != "string")
+        return text;
+
+    //remove symbols
+    text = removeSymbols(text);
 
     //to lowercase
     text = text.toLowerCase();
@@ -311,4 +338,41 @@ function sortTwoArrays(indepent, dependent) {
         if (!swapped)
             break;
     }
+}
+
+//highlight keywords in search result
+function hightlight(text, keywords) {
+    if (typeof text != "string")
+        return text;
+
+    var text1 = text.split(" ");
+    var result = []
+    for (var j = 0; j < text1.length; j++) {
+        var highlighted = false;
+        var highlighted2 = false;
+        var pushed = false;
+        for (var i = 0; i < keywords.length; i++) {
+            if (normailizeText(text1[j]).join(" ") == keywords[i] && !highlighted) {
+                if (pushed)
+                    result.pop();
+                result.push("<span class = \"highlightText\">" + text1[j] + "</span>");
+                highlighted = true;
+                pushed = true;
+            }
+            else if (normailizeText(text1[j]).join(" ").includes(keywords[i]) && !highlighted && !highlighted2) {
+                if (pushed)
+                    result.pop();
+                result.push("<span class = \"highlightTextSub\">" + text1[j] + "</span>");
+                highlighted2 = true;
+                pushed = true;
+            }
+            else if (!pushed) {
+                result.push(text1[j].trim());
+                pushed = true;
+            }
+            if (highlighted)
+                break;
+        }
+    }
+    return result.join(" ");
 }

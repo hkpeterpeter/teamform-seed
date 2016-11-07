@@ -77,6 +77,16 @@ a.searchResultElementTitle {
     margin: 5px;
 }
 
+.highlightText{
+    background-color: darkred;
+    color: white;
+}
+
+.highlightTextSub{
+    background-color: rgba(200,20,20,0.5);
+    color: white;
+}
+
 body{
     background-image: url("http://exchange.wysetc.org/wp-content/uploads/sites/11/2016/03/Backpacker-Australia.jpg");
     background-size: cover;
