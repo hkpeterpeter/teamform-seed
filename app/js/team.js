@@ -74,11 +74,8 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.requests.push(userID);
 			}
 		});
-		$scope.mergeRequestReceived = [];
+		$scope.mergeRequestReceived = []; // new array storing the merge request received by the team
 		$.each($scope.team, function(i,obj) {			
-			//$scope.test += i + " " + val;
-			//$scope.test += obj.$id + " " ;
-				//$scope.test += userID + " " ;
 			if(typeof obj.mergeRequests != "undefined" && obj.mergeRequests.indexOf(teamID) > -1){
 				$scope.mergeRequestReceived.push(obj);
 			}
@@ -133,9 +130,9 @@ angular.module('teamform-team-app', ['firebase'])
 				
 				
 			});
-			$.each($scope.mergeRequestReceived, function(i,obj){
-				var rec = $scope.team.$getRecord(obj.$id);
-				console.log(rec);
+			$.each($scope.mergeRequestReceived, function(i,obj){ // if team B received the request from team A, then team A is removed
+				var rec = $scope.team.$getRecord(obj.$id); 
+				//console.log(rec);
 				$scope.team.$remove(rec);
 			});
 
@@ -197,11 +194,11 @@ angular.module('teamform-team-app', ['firebase'])
 		/*************** TeamMergeRequest *******************/
 	$scope.mergeSelection = [];
 	$scope.teamMergeRequest = function(teamItem){
-		if(typeof teamItem.teamMembers == "undefined"){
+		if(typeof teamItem.teamMembers == "undefined"){ // if team B has no team members, create a team member array of length 0,
 			teamItem.teamMembers = [];
 		}
 		if($scope.param.teamMembers.length + teamItem.teamMembers.length <= teamItem.size && $scope.mergeSelection.length < 1){
-			$scope.mergeSelection.push(teamItem.$id);
+			$scope.mergeSelection.push(teamItem.$id); // if members in team A + members in team B > the maximum size of team B, not allow to merge
 			$scope.saveFunc();
 		}
 		else{
@@ -210,7 +207,7 @@ angular.module('teamform-team-app', ['firebase'])
 	}
 
 	$scope.processMergeRequest = function(q){
-		for (var i = 0; i < q.teamMembers.length; i++){
+		for (var i = 0; i < q.teamMembers.length; i++){ // add members of team A to team B
 			$scope.param.teamMembers.push(q.teamMembers[i])
 		}
 		
