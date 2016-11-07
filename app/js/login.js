@@ -134,6 +134,7 @@ angular.module('teamform-login-app', ['firebase'])
     }
     $scope.auth.$createUserWithEmailAndPassword($scope.username, $scope.password)
     .then(function(firebaseUser) {
+			$scope.firebaseUser=firebaseUser;
       $scope.message = "User created with uid: " + firebaseUser.uid;
     }).catch(function(error) {
       $scope.error = error;

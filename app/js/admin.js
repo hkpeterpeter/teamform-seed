@@ -58,28 +58,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	refPath = eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-
-
-
-	$scope.auth = $firebaseAuth();
-
-	$scope.singIn = function() {
-		$scope.firebaseUser = null;
-		$scope.error = null;
-		console.log("Login start");
-		$scope.auth.$signInWithPopup("google").then(function(result) {
-		  console.log("Signed in as:", result.user.uid);
-		}).catch(function(error) {
-		  console.error("Authentication failed:", error);
-		});
-		// $scope.auth.$signInAnonymously().then(function(firebaseUser) {
-		// 	$scope.firebaseUser = firebaseUser;
-		// 	console.log("Login successfully");
-		// }).catch(function(error) {
-		// 	$scope.error = error;
-		// 	console.log("Login error");
-		// });
-	};
+};
 
 
 
