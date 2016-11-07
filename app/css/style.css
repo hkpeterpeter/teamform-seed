@@ -1,1 +1,19 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+/* A Card in Team List */
+.team-private-switch {
+  font-size: 15px;
+}
+
+.team-badge {
+	display: inline-block !important;
+	padding: 5px !important;
+	margin-top: 12px !important;
+}
 
