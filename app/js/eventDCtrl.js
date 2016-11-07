@@ -103,17 +103,17 @@ app.controller("eventDCtrl",
             max: 0,
             name: "",
             desc: "",
-            currentSize: 0,
             members: {},
             tags: {},
             leader: ""
-
         };
         $scope.newAnn={
             a: ""
         };
+        console.log($scope.newTeam);
         $scope.createTeam=function(){
-            $scope.newTeam.leader=$scope.userData.uid
+            $scope.newTeam.leader=$scope.userData.uid;
+            $scope.newTeam.max=parseInt($scope.newTeam.max);
             console.log($scope.newTeam);
             Helper.createTeam($scope.userData.uid,$scope.eventID,$scope.newTeam);
             dialogue.close();
