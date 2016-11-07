@@ -77,6 +77,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/TerminateEvent',
             templateUrl: 'terminate_event.html',
             controller: 'eventterm'
+            })
+
+        .state('Eventjoin', {
+            url: '/eventjoin',
+            templateUrl: 'joinevent.html',
+            controller: 'eventjoin'
             });
 
 

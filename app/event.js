@@ -6,7 +6,8 @@ app.controller("eventSubmit",
             name:"",
             intro:"",
             holder:"",
-            state:false
+            state:false,
+            member:""
             };
                 
         var ref=firebase.database().ref("events");
