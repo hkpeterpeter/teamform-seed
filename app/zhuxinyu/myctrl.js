@@ -26,9 +26,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
         if($scope.event.name!=""){
 
 
-            $('html, body').animate({
-            scrollTop: $("#event_list").offset().top
-            }, 1000);
+            
 
             resultList=[];
             for(var i=0;i<$rootScope.events.length;i++){
@@ -37,7 +35,8 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
                     
                     resultList.push($rootScope.events[i]);
                 }
-            } console.log(resultList);
+            } 
+            console.log(resultList);
             $scope.updateEventList(resultList);
         }else{
              Materialize.toast('Please Enter The Event Name!', 1000);
@@ -45,38 +44,35 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
     }
 
     $scope.updateEventList=function(eventlist){
-      $("#searching").show();
-       $("#eventCardList").children().hide(1000,function(){
+        if(eventlist.length>0){
+            $('html, body').animate({
+            scrollTop: $("#event_list").offset().top
+            }, 1000);
+          $("#searching").show();
+           $("#eventCardList").children().hide(1000,function(){
 
 
-             $("#eventCardList").children().remove();
+                 $("#eventCardList").children().remove();
 
 
-            for(var i=0;i<eventlist.length;i++){
-                eventlist[i].epicture="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFx-uG2jowZG3cIHd204vbRprSKtNx4BHCeK7yZ5T0VaYslKeE";
-                $rootScope.addEventCard(eventlist[i]);
-            }
-             $("#eventCardList").hide();
+                for(var i=0;i<eventlist.length;i++){
+                    eventlist[i].epicture="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFx-uG2jowZG3cIHd204vbRprSKtNx4BHCeK7yZ5T0VaYslKeE";
+                    $rootScope.addEventCard(eventlist[i]);
+                }
+                 $("#eventCardList").hide();
 
-              $("#searching").fadeOut(1000,function(){
-                 $("#eventCardList").show(1000);
-              });
-         
+                  $("#searching").fadeOut(1000,function(){
+                     $("#eventCardList").show(1000);
+                  });
+             
 
-       });
+           });
+       }else{
+            Materialize.toast("Sorry We didn't find your event! You may create this event.", 3000);
+       }
 
-       /*
-        $("#eventCardList").children().remove();
-
-
-            for(var i=0;i<eventlist.length;i++){
-                eventlist[i].epicture="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFx-uG2jowZG3cIHd204vbRprSKtNx4BHCeK7yZ5T0VaYslKeE";
-                $rootScope.addEventCard(eventlist[i]);
-            }
-            $("#eventCardList").children().hide();
-            $("#eventCardList").children().show(2000);*/
-
-        }
+      
+    }
 
 }]);
 
@@ -91,6 +87,8 @@ teamapp.directive("imageBoard",function(){
         }
     }
 });
+
+
 teamapp.directive("footerPanel",function(){
     return{
         restrict: 'E',
@@ -103,6 +101,24 @@ teamapp.directive("footerPanel",function(){
     };
 
 });
+
+
+
+teamapp.directive("basicCard",function(){
+    return{
+        restrict: 'E',
+        templateUrl: 'zhuxinyu/js/components/basicCard/basicCard.html',
+        transclude: true,
+        scope:{
+            ctitle:"@",
+            clink:"@",
+            cpic:"@"
+            
+        }
+    };
+
+});
+
 teamapp.directive('eventSearchPanel', function() {
     return {
         restrict: 'E',
@@ -146,6 +162,23 @@ teamapp.directive("eventFooter", function() {
         templateUrl: "zhuxinyu/js/components/searchEventFooter/eventfooter.html"
     };
 });
+
+teamapp.directive("boardList",function(){
+    return {
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/boardList/boardList.html",
+         scope: {
+            size:"@"
+         }
+    }
+})
+
+
+
+
+
+
+
 /*By Wu Yun Qing*/
 teamapp.directive("simpleField", function() {
     return {
@@ -183,3 +216,5 @@ teamapp.directive("eventForm", function() {
         templateUrl: "zhuxinyu/js/components/event_form.html"
     };
 });
+
+
