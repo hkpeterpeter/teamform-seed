@@ -1,0 +1,16 @@
+<body ng-app="teamApp">
+
+         <h1>Join the Event</h1>
+         <div ng-controller="eventjoin">
+           
+Please select the event below: <br><br>
+<table width="400">
+<tr data-ng-repeat="q in event">
+         <td align="center">{{q.name}}</td><td align="right"><button ng-click="joinit(q)">Join</button></td></tr>
+            </table>
+
+
+        
+         </div>
+         
+    </body>   
