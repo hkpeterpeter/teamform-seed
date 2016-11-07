@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-login-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - A real-time online team forming app</title>
+
+      <!-- libraries and CSS
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)
+		site.css: A customized css for our web application. Not from any web framework.
+	  -->
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+
+   </head>
+   <body>
+    <div ng-include="'navbar.html'" ></div>
+    <div class="col-xs-12 col-md-12" ng-controller="LoginCtrl">
+        <div ng-if="message" class="alert alert-info">{{ message }}</div>
+        <div ng-if="error" class="alert alert-danger">{{ error }}</div>
+        <form name="form" ng-submit="emailLogin()" role="form"  class="col-xs-12 col-md-8 center-block">
+            <div class="form-group">
+                <label for="username">Username(E-mail)</label>
+                <i class="fa fa-key"></i>
+                <input type="text" name="username" id="username" class="form-control" ng-model="username" required />
+                <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <i class="fa fa-lock"></i>
+                <input type="password" name="password" id="password" class="form-control" ng-model="password" required />
+                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+            </div>
+            <div class="form-actions">
+                <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Login</button>
+                <button ng-disabled="dataLoading" class="btn btn-primary" ng-click="fbLogin();">Facebook Login</button>
+                <button ng-disabled="form.$invalid || dataLoading" class="btn btn-warning" ng-click="emailAccCreate();">Create account</button>
+                <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+            </div>
+        </form>
+      </div>
+
+
+  <br>
+
+    <!-- <div class="text-center" >
+      <div ng-controller="LoginCtrl">
+         <br>
+         Email:<input id="input_text" type="text" class="input-email" ng-model="username">
+         <br>
+         Password:<input id="input_text" type="text" class="input-pw" ng-model="password">
+         <br>
+         <p ng-if="message">Message: <strong>{{ message }}</strong></p>
+         <p ng-if="error">Error: <strong>{{ error }}</strong></p>
+         <br>
+         <button type="button" class="btn btn-primary" ng-click="fbLogin();">Facebook Login(ng)</button>
+         <button type="button" class="btn btn-primary" ng-click="emailAccCreate();">create Email acc(ng)</button>
+         <button type="button" class="btn btn-primary" ng-click="emailLogin();">Email Login(ng)</button>
+         <button type="button" class="btn btn-primary" ng-click="signOut();">Log out(ng)</button>
+         <br>
+         using ng one is better
+         <br>
+
+      </div>
+    </div> -->
+    <button id="btn_login_fb" type="button" class="btn btn-primary" >Facebook Login(JS)</button>
+    <button id="btn_create_email_acc" type="button" class="btn btn-primary" >create Email acc(JS)</button>
+    <button id="btn_login_email" type="button" class="btn btn-primary" >Email Login(JS)</button>
+    <button id="btn_login_out" type="button" class="btn btn-primary" >Logout(JS)</button>
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+      <!-- FOOTER -->
+
+      <hr>
+      <footer>
+         <p class="pull-right"><a href="#">Back to top</a></p>
+         <p>&copy; 2017 COMP3111/H teaching team </p>
+         <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
+      </footer>
+   </div>
+   <!-- /.container -->
+
+   <!-- JavaScript of this page -->
+   <!-- Angular and Angular-route libraries (v1.5.7) -->
+   <script src="lib/angular.min.js"></script>
+   <script src="lib/angular-route.min.js"></script>
+
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="lib/firebase.js"></script>
+   <script src="lib/angularfire.min.js"></script>
+   <script src="js/login.js"></script>
+
+
+  </body>
+</html>
