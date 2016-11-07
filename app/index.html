@@ -70,66 +70,60 @@
           <!-- Header Navbar: style can be found in header.less -->
           <nav class="navbar navbar-static-top">
             <!-- Sidebar toggle button-->
+
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
               <span class="sr-only">Toggle navigation</span>
             </a>
 
+
             <div class="navbar-custom-menu">
               <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
-<li>
-  <div class="container">
-  	<div class="row">
-  		<div class="col-md-12">
+                <li>
+                                <div class="input-group" id="adv-search" ng-controller = "searchCtrl">
+                                  <div class = "menuOverlay">
 
-                <div class="input-group" id="adv-search">
-                  <input type="text" ng-model="searchString" placeholder="Search" class = "form-control" />
-                  <div ng-if = "searchString != ''">
-                  <ul ng-repeat="i in items | searchFor:searchString" ng-hide = "searchString == null" class = "search_list" >
-                      <a href = "#" class="form-control">{{ i.name }}</a>
-                  </ul>
-                </div>
-
-                  <div class="input-group-btn">
-                      <div class="btn-group" role="group">
-                          <div class="dropdown dropdown-lg">
-                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                              <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                  <form class="form-horizontal" role="form">
-                                    <div class="form-group">
-                                      <label for="filter">Filter by</label>
-                                      <select class="form-control">
-                                          <option value="0" selected>All Snippets</option>
-                                          <option value="1">Featured</option>
-                                          <option value="2">Most popular</option>
-                                          <option value="3">Top rated</option>
-                                          <option value="4">Most commented</option>
-                                      </select>
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="contain">Author</label>
-                                      <input class="form-control" type="text" />
-                                    </div>
-                                    <div class="form-group">
-                                      <label for="contain">Contains the words</label>
-                                      <input class="form-control" type="text" />
-                                    </div>
-                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                  </form>
+                                  <input type="text" ng-model="searchString" placeholder="Search" class = "form-control" />
+                                  <div ng-if = "searchString != ''">
+                                  <ul ng-repeat="i in items | searchFor:searchString | limitTo:5 " ng-hide = "searchString == null" class = "search_list" >
+                                      <a href = "{{i.link}}"  ><li class = "list-group-item">{{ i.name }}<br />{{i.type}}</li></a>
+                                  </ul>
+                                </div>
                               </div>
-                          </div>
-                          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                      </div>
+                              <div class="input-group-btn">
+                                  <div class="btn-group" role="group">
+                                      <div class="dropdown dropdown-lg">
+                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                          <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                              <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                  <label for="filter">Filter by</label>
+                                                  <select class="form-control">
+                                                      <option value="0" selected>All Snippets</option>
+                                                      <option value="1">Featured</option>
+                                                      <option value="2">Most popular</option>
+                                                      <option value="3">Top rated</option>
+                                                      <option value="4">Most commented</option>
+                                                  </select>
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="contain">Author</label>
+                                                  <input class="form-control" type="text" />
+                                                </div>
+                                                <div class="form-group">
+                                                  <label for="contain">Contains the words</label>
+                                                  <input class="form-control" type="text" />
+                                                </div>
+                                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                              </form>
+                                          </div>
+                                      </div>
+                                      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                  </div>
+                              </div>
 
-                  </div>
-
-              </div>
-
-            </div>
-          </div>
-  	</div>
-
-</li>
+                              </div>
+                </li>
 
                 <li class="dropdown messages-menu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -326,12 +320,12 @@
                 <!-- User Account: style can be found in dropdown.less -->
 
                 <li>
-                  <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+                  <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" ng-hide ="login"></div>
                 </li>
-                <li class="dropdown user user-menu">
+                <li class="dropdown user user-menu" ng-show = "login">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <img class="user-image" alt="User Image">
-                    <span class="hidden-xs" id = "user_name">Alexander Pierce</span>
+                    <span class="hidden-xs" id = "user_name">Alexaneder Pierce</span>
                   </a>
                   <ul class="dropdown-menu">
                     <!-- User image -->
@@ -384,7 +378,7 @@
           <!-- sidebar: style can be found in sidebar.less -->
           <section class="sidebar">
             <!-- Sidebar user panel -->
-            <div class="user-panel">
+            <div class="user-panel" ng-show = "login">
               <div class="pull-left image">
                 <img class="img-circle" alt="User Image">
               </div>
@@ -422,7 +416,17 @@
               <li class="treeview">
                 <a href="#">
                   <i class="fa fa-files-o"></i>
-                  <span>Layout Options</span>
+                  <span>Profile</span>
+                  <span class="pull-right-container">
+                    <span class="label label-primary pull-right">4</span>
+                  </span>
+                </a>
+
+              </li>
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-files-o"></i>
+                  <span>Create Events</span>
                   <span class="pull-right-container">
                     <span class="label label-primary pull-right">4</span>
                   </span>
@@ -434,93 +438,27 @@
                   <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
                 </ul>
               </li>
-              <li>
-                <a href="pages/widgets.html">
-                  <i class="fa fa-th"></i> <span>Widgets</span>
-                  <span class="pull-right-container">
-                    <small class="label pull-right bg-green">new</small>
-                  </span>
-                </a>
-              </li>
+
               <li class="treeview">
                 <a href="#">
                   <i class="fa fa-pie-chart"></i>
-                  <span>Charts</span>
+                  <span>My Team</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                  <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                  <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                  <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
+                  <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Admin</a></li>
+                  <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Leader</a></li>
+                  <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Member</a></li>
+
                 </ul>
               </li>
+
+
               <li class="treeview">
                 <a href="#">
-                  <i class="fa fa-laptop"></i>
-                  <span>UI Elements</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="pages/UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                  <li><a href="pages/UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                  <li><a href="pages/UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                  <li><a href="pages/UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                  <li><a href="pages/UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                  <li><a href="pages/UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-edit"></i> <span>Forms</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="pages/forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                  <li><a href="pages/forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                  <li><a href="pages/forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-                </ul>
-              </li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-table"></i> <span>Tables</span>
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="pages/tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                  <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="pages/calendar.html">
-                  <i class="fa fa-calendar"></i> <span>Calendar</span>
-                  <span class="pull-right-container">
-                    <small class="label pull-right bg-red">3</small>
-                    <small class="label pull-right bg-blue">17</small>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="pages/mailbox/mailbox.html">
-                  <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                  <span class="pull-right-container">
-                    <small class="label pull-right bg-yellow">12</small>
-                    <small class="label pull-right bg-green">16</small>
-                    <small class="label pull-right bg-red">5</small>
-                  </span>
-                </a>
-              </li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-folder"></i> <span>Examples</span>
+                  <i class="fa fa-folder"></i> <span>Tests</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
@@ -537,40 +475,20 @@
                   <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
                 </ul>
               </li>
-              <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-share"></i> <span>Multilevel</span>
+
+              <li>
+                <a href="pages/mailbox/mailbox.html">
+                  <i class="fa fa-envelope"></i> <span>Messages</span>
                   <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
+                    <small class="label pull-right bg-yellow">12</small>
+                    <small class="label pull-right bg-green">16</small>
+                    <small class="label pull-right bg-red">5</small>
                   </span>
                 </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                  <li>
-                    <a href="#"><i class="fa fa-circle-o"></i> Level One
-                      <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                      </span>
-                    </a>
-                    <ul class="treeview-menu">
-                      <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                      <li>
-                        <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                          <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                          </span>
-                        </a>
-                        <ul class="treeview-menu">
-                          <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                          <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                </ul>
               </li>
-              <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+
+
+
               <li class="header">LABELS</li>
               <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
               <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
@@ -582,211 +500,11 @@
 
 
 
-         <div class="container">
-            <nav class="navbar navbar-static-top navbar-default">
-               <div class="container">
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                     <span class="sr-only">Toggle navigation</span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     </button>
-                     <a class="navbar-brand" href="#">teamform</a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav">
-
-                        <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="#page_about">About teamform</a></li>
-                              <li>
-                              <a href="#page_team">Development team</a>
-                              </li>
-                              <li role="separator" class="divider"></li>
-                              <li><a href="#">TODO: Add menu items here... </a></li>
-                           </ul>
-                        </li>
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-
-							<ul class="dropdown-menu">
-								<li>
-									<a href="coverage/index.html" target="_blank">Report</a>
-								</li>
-								<li role="separator" class="divider"></li>
-
-								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-								</li>
-
-								<li><a href="#">TODO: Add more test cases here... </a></li>
-							</ul>
-						</li>
-
-                     </ul>
-                  </div>
-               </div>
-            </nav>
-         </div>
       </div>
-      <!-- A sample login page -->
-      <div class="container" id="page_home">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="row">
-                  <div class="col-md-12">
-
-                     <div class="text-center">
-                        <h1>teamform</h1>
-                        <p>A real-time online team forming app for any event</p>
-                     </div>
-
-                     <br >
-
-                     <div class="text-center">
-
-                        <input id="input_text" type="text" class="input-lg">
-                        <br>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-                        <br>
-                        <br>
-
-                        <div>
-
-                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-
-
-
-                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-
-                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-
-
-
-                        </div>
-                     </div>
-                     <br >
 
 
 
 
-                     <br >
-                  </div>
-               </div>
-               <hr >
-            </div>
-         </div>
-      </div>
-      <!-- Marketing messaging and featurettes
-         ================================================== -->
-      <!-- Wrap the rest of the page in another container to center all the content. -->
-      <div id = "index_page_controller" class="container marketing" ng-controller ="indexCtrl">
-
-
-         <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="page_about">
-            <div class="col-md-12">
-               <h2 class="featurette-heading">What is teamform?
-                  <br>
-                  <span class="text-muted">A real-time online team forming app</span>
-               </h2>
-               <p class="lead"> The following roles are supported in teamform:
-               </p>
-
-               <div class="row">
-                  <div class="col-md-4">
-                     <h3 class="text-center">Administrator</h3>
-
-                     <ul ng-repeat="a in admin">
-                       <li>
-
-                         User ID: {{a.$id}}  <br>
-
-
-                       </li>
-
-                     </ul>
-                  </div>
-
-                  <div class="col-md-4">
-                     <h3 class="text-center">Team</h3>
-                     <ul ng-repeat="t in team">
-                       <li>
-                         User ID: {{t.$id}}  <br>
-                         team: {{t.team}}
-                       </li>
-                     </ul>
-
-                  </div>
-
-                  <div class="col-md-4">
-                     <h3 class="text-center">Member</h3>
-                     <ul ng-repeat="m in member">
-                       <li>
-                         User ID: {{m.$id}}  <br>
-                         team: {{m.team}}
-                       </li>
-                     </ul>
-                  </div>
-               </div>
-
-            </div>
-         </div>
-         <hr class="featurette-divider">
-
-          <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="page_team">
-            <div class="col-md-12">
-               <h2 class="featurette-heading">Development Team
-                  <br>
-                  <span class="text-muted">[Your Team Name]</span>
-               </h2>
-
-
-               <div class="row">
-
-
-                 <div class="col-xs-6 col-md-3">
-                  <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
-                    <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
-
-                    </div>
-                  </div>
-                 </div>
-
-                 <div class="col-xs-6 col-md-3">
-                  <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
-                    <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
-
-                    </div>
-                  </div>
-                 </div>
-
-               </div>
-
-             </div>
-         </div>
-
-
-
-         <!-- /END THE FEATURETTES -->
-         <!-- FOOTER -->
-         <hr>
-         <footer>
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2017 COMP3111/H teaching team </p>
-            <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
-         </footer>
-      </div>
       <!-- /.container -->
 
       <!-- JavaScript of this page -->
