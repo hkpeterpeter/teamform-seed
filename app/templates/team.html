@@ -3,64 +3,6 @@
   Maxsize: {{data.max}}
   Current Size: {{data.currentSize}}
   Desc: {{data.desc}} -->
-
-  <h3> Teamname:  {{data.name}} </h3>
-    <div>{{name}}</div>
-  <div> {{data.desc}} </div>
-
-  <div>current people <span class="badge">{{members.length}}</span></div>
-  <div>people needed<span class="badge">{{data.max}}</span></div>
-
-  <h4>Tags</h4>
-  <ul ng-repeat="(key,value) in tags">
-    <li>{{key}}</li>
-    <li>{{value.num}}</li>
-    <li>{{value.need}}</li>
-
-  </ul>
-
-  <h4> Members </h4>
-  {{members}}
-    <div class="">
-      {{data.leader.value}} is leader
-    </div>
-
-    <ul ng-repeat="(key,value) in members">
-      <li>{{value}}</li>
-    </ul>
-  <h4>Notification board</h4>
-  <!-- {{announcements}} -->
-  <ul ng-repeat="x in announcements">
-    <li>{{x.content}} &nbsp; Date : {{x.timeStamp}}</li>
-  </ul>
-  <h4>Applications</h4>
-  <!-- {{applications}} -->
-  <ul ng-repeat="x in applications">
-    <li>{{x.$id}} : {{x.$value}}</li>
-  </ul>
-  <h4>Invitations</h4>
-  <!-- {{invitations}} -->
-  <ul ng-repeat="x in invitations">
-    <li>{{x.$id}} : {{x.$value}}</li>
-  </ul>
-
-
-<!-- Testing member functions -->
-  <button type="button" class="btn btn-danger" ng-click="addMember()">Add Member</button>
-    <button type="button" class="btn btn-danger" ng-click="deleteMember()">Delete Member</button>
-
-<!-- Testing tag functions -->
-          <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a tag</button>
-
-  <button type="button" class="btn btn-danger" ng-click="addApplication()">Add Application</button>
-  <button type="button" class="btn btn-danger" ng-click="deleteApplication()">Delete Application</button>
-  <button type="button" class="btn btn-danger" ng-click="addInvitation()">Add Invitation</button>
-  <button type="button" class="btn btn-danger" ng-click="deleteInvitation()">Delete Invitation</button>
-
-
-
-
-
 <!-- Modal -->
 <div class = "modal fade" id = "myModal" role = "dialog">
     <div class = "modal-dialog">
@@ -98,6 +40,96 @@
     <ul ng-repeat="tag in tagShowList" ng-if="tag.state">
         <li> {{tag.name}}</li>
     </ul>
+  </div>
+
+
+  <div class="container-fluid">
+  	<div class="row-fluid">
+  		<div class="span12">
+  			<h3>
+  				Teamname:  {{data.name}}
+  			</h3>
+  			<p>
+  				{{data.desc}}
+  			</p>
+  			<form class="form-search">
+  				<input class="input-medium search-query" type="text" /> <button type="submit" class="btn">Search</button>
+  			</form>
+  		</div>
+  	</div>
+  	<div class="row-fluid">
+  		<div class="span8">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+              <h3 class="panel-title">Members</h3>
+          </div>
+          <div class="panel-body">
+            <ul ng-repeat="(key,value) in members">
+                <li>{{value}}</li>
+            </ul>
+          </div>
+        </div>
+  		</div>
+  		<div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+              <h3 class="panel-title">Tags</h3>
+          </div>
+          <div class="panel-body">
+            <ul ng-repeat="(key,value) in tags">
+                <li>{{key}} : {{value.num}}/{{value.need}}</li>
+            </ul>
+          </div>
+          <div class="panel-body">
+              <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a tag</button>
+          </div>
+        </div>
+  		</div>
+  	</div>
+  	<div class="row-fluid">
+      <div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Applications</h3>
+          </div>
+          <div class="panel-body">
+            <ul ng-repeat="x in applications">
+              <li>
+                {{x.$id}} : {{x.$value}}
+                <button type="button" class="btn btn-primary" ng-click="">Accept</button>
+                <button type="button" class="btn btn-primary" ng-click="">Reject</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Invitation List</h3>
+          </div>
+          <div class="panel-body">
+            <ul ng-repeat="x in invitations">
+              <li>{{x.$id}} : {{x.$value}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title"> Notification Board</h3>
+          </div>
+          <div class="panel-body">
+            <ul ng-repeat="x in announcements">
+              <li>
+                {{x.content}} &nbsp; Date : {{x.timeStamp}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
