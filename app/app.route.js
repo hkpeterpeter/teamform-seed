@@ -66,6 +66,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'Teaminformation.html',
             controller: 'teaminfo'
             })
+			
+	   .state('randomTeam', {
+            url: '/randomTeam',
+            templateUrl: 'randomTeam.html',
+            controller: 'randomTeam'
+            })
 
 });
 
