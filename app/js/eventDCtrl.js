@@ -105,7 +105,8 @@ app.controller("eventDCtrl",
             desc: "",
             members: {},
             tags: {},
-            leader: ""
+            leader: "",
+            currentSize: 0
         };
         $scope.newAnn={
             a: ""
