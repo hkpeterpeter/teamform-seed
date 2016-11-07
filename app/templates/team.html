@@ -83,4 +83,19 @@
       </div>
     </div>
   </div>
+
+
+  <div class="btn-group">
+    <ul ng-repeat="tag in tagShowList">
+      <li><input type = "checkbox" ng-click = "tag.state = !tag.state"> {{tag.name}}</li>
+    </ul>
+  </div>
+
+
+  <div class="btn-group">
+    <ul ng-repeat="tag in tagShowList" ng-if="tag.state">
+        <li> {{tag.name}}</li>
+    </ul>
+  </div>
+
 </div>

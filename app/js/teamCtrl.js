@@ -1,10 +1,25 @@
 //teamCtrl
 app.controller("teamCtrl",
 
+
+
 	// Implementation the todoCtrl
 	function($scope, Auth, $firebaseArray, $firebaseObject) {
 
+
+
 	$scope.form = {};
+
+
+	$scope.tagShowList = [
+		{name :"javascript", state: false},
+		{name :"html" , state: false},
+		{name :"css" , state: false},
+		{name :"c++" , state: false},
+	  {name :"python" , state: false},
+		{name :"SQL" , state: false}
+	];
+
 
 		var main_ref = firebase.database().ref('events/-KVcVgeRPOOdr-vUyDLV/teams/team1');
 		var teamdata = $firebaseObject(main_ref);

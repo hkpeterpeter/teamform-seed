@@ -1,7 +1,7 @@
 // inject firebase service
 initalizeFirebase();
 
-var app = angular.module("tfApp", ["firebase", "ui.router"]); 
+var app = angular.module("tfApp", ["firebase", "ui.router"]);
 
 app.factory("Auth", function($firebaseAuth){
 	return $firebaseAuth();
@@ -46,22 +46,22 @@ app.config(function($stateProvider, $urlRouterProvider){
 	.state('dashboard.team', {
 		url: '/event/:eid/team/:tid',
 		templateUrl: '/templates/team.html',
-		controller: 'teamCtrl'				
+		controller: 'teamCtrl'
 	})
 	.state('dashboard.notif', {
 		url: '/notification',
 		templateUrl: '/templates/notification.html',
-		controller: 'notificationCtrl'				
+		controller: 'notificationCtrl'
 	})
 	.state('dashboard.request', {
 		url: '/request',
 		templateUrl: '/templates/request.html',
-		controller: 'requestCtrl'				
+		controller: 'requestCtrl'
 	})
 	.state('dashboard.profile', {
 		url: '/profile/:name',
 		templateUrl: '/templates/profile.html',
-		controller: 'profileCtrl'				
+		controller: 'profileCtrl'
 	})
 });
 
