@@ -1,5 +1,4 @@
-angular.module("Team", ["firebase"])
-    .controller('CTCtrl', function($scope, $firebaseArray) {
+app.controller('CTCtrl', function($scope, $firebaseArray) {
 		$scope.team = {
 			teamName: "",
 			openness: "",

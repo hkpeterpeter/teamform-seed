@@ -83,8 +83,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/eventjoin',
             templateUrl: 'joinevent.html',
             controller: 'eventjoin'
+            })
+
+		.state('createTeam', {
+            url: '/createTeam',
+            templateUrl: 'createTeam.html',
+            controller: 'CTCtrl'
             });
-
-
 });
 
