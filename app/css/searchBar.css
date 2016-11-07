@@ -1,0 +1,52 @@
+.centralize {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.myBtn {
+    margin: 15px 0 0 0;
+}
+
+#searchTextField, #searchSuggestion *, .myBtn {
+    font-size: medium;
+}
+
+.wellPadding {
+    padding: 30px;
+}
+.wellHalfTransparent{
+    background-color: rgba(240,240,240,0.95);
+}
+
+.topPadding {
+    padding-top: 30px;
+}
+
+.leftRightPadding{
+    padding: 0 30px;
+}
+
+.noPadding {
+    padding: 0;
+}
+
+#searchSuggestion {
+    height: 0;
+    overflow: visible;
+    z-index: 1000;
+}
+
+#searchBtnContainer {
+    z-index: 100;
+}
+
+body{
+    background-image: url("http://exchange.wysetc.org/wp-content/uploads/sites/11/2016/03/Backpacker-Australia.jpg");
+    background-size: cover;
+}
