@@ -41,15 +41,30 @@ app.controller("searchCtrl",
 
         //listen to the search text field changes, and give suggestions
         $scope.$watch("searchInput", function (newVal, oldVal) {
-            //TODO update suggestions
-            if (newVal != "")
+            //give suggestions if the input is meaningful
+            if (normailizeText(newVal).length > 1 || normailizeText(newVal)[0] != "") {
+
+                //TODO
+
                 $("#searchSuggestion").show();
-            else
+            }
+            else    //do nothing if the input is not meaningful
                 $("#searchSuggestion").hide();
         });
 
         //Search function
         $scope.search = function () {
+            //create a local array to store result
+            var teamsAndMembers = [];
+
+            //local helper function for creating result elements
+            function resultElement(_name, _id, _description, _eid) {
+                this.name = _name;
+                this.id = _id;
+                this.description = _description;
+                this.eid = _eid;
+            }
+
             //clear the previos search results
             $scope.result = [];
 
@@ -78,6 +93,8 @@ app.controller("searchCtrl",
                 "description-e": 70,
                 "description-s": function (percentage) { return 70 * percentage },
             };
+
+            //loop through the team list
             for (var i = 0; i < teams.length; i++) {
                 var id = teams[i].id;
                 var name = teams[i].name.toLowerCase();
@@ -107,20 +124,82 @@ app.controller("searchCtrl",
                 //match description
                 score += getSimilarityScore(keywords, description, "description", scoreList);
 
-                //update the score
-                scores.push(score);
+                //update the result if score > 0
+                if (score > 0) {
+                    scores.push(score);
+                    teamsAndMembers.push(new resultElement(teams[i].name, ("Team ID: " + id), teams[i].descriptions, ("searchResultElement-" + i)));
+                }
             }
 
-            //sort the scoreList in descending order
-            sortTwoArrays(scores, teams);
+            //do the same thing on member data
+            //calculate the similarity of each member data
+            var members = $scope.memberData;
+            //clear the scores used in searching teams
 
-            //prepare for displaying results and assign IDs
-            for (var p = 0; p < teams.length; p++)
-                if (scores[p] != 0)
-                    $scope.result.push({ "name": teams[p].name, "description": teams[p].descriptions, "id": teams[p].id, "eid": "searchResultElement" + p });
-                else
-                    break;
-        };
+            //create similarity score list for members
+            scoreList = {
+                "id-e": 100,
+                "id-s": function (dummy) { return 0 },
+                "name-e": 90,
+                "name-s": function (percentage) { return percentage * 90 },
+                "description-e": 60,
+                "description-s": function (percentage) { return percentage * 60 },
+                "email-e": 80,
+                "email-s": function (percentage) { return percentage * 60 },
+                "from-e": 60,
+                "from-s": function (percentage) { return percentage * 60 },
+                "language-e": 30,
+                "language-s": function (percentage) { return percentage * 30 }
+            }
+
+            //save the count value in order to make the element id number correct
+            var resultCount = teamsAndMembers.length;
+
+            //loop through the whole member list
+            for (var i = 0; i < members.length; i++) {
+                id = members[i].id;
+                name = (members[i].first_name + " " + members[i].last_name).toLowerCase();
+                description = members[i].descriptions.toLowerCase();
+                var email = members[i].email.toLowerCase();
+                var from = members[i].from.toLowerCase();
+                language = members[i].language.join(" ").toLowerCase();
+
+                score = 0;
+                //match id
+                score += getSimilarityScore(keywords, id, "id", scoreList);
+
+                //match name
+                score += getSimilarityScore(keywords, name, "name", scoreList);
+
+                //match description
+                score += getSimilarityScore(keywords, description, "description", scoreList);
+
+                //match email
+                score += getSimilarityScore(keywords, email, "email", scoreList);
+
+                //match the host country
+                score += getSimilarityScore(keywords, from, "from", scoreList);
+
+                //match language
+                score += getSimilarityScore(keywords, language, "language", scoreList);
+
+                //update the result if score > 0
+                if (score > 0) {
+                    scores.push(score);
+                    teamsAndMembers.push(new resultElement(members[i].first_name + " " + members[i].last_name, ("Member ID: " + id), members[i].descriptions, "searchResultElement-" + (i + resultCount)));
+                }
+            }
+
+            //sort the result by scores in descending order
+            sortTwoArrays(scores, teamsAndMembers);
+
+            //make the result accessable to the html
+            $scope.result = teamsAndMembers;
+
+            //if no results, show the no result message
+            if ($scope.result.length == 0)
+                $scope.result.push({ "name": "No results", "description": "There are no matched results.", "eid": "NO_SEARCH_RESULT" });
+        }
         //Search function end
     }
 );
@@ -178,7 +257,9 @@ $(document).ready(function () {
     });
 });
 
-//some helper functions
+//===some helper functions===
+
+//Normalize the text (remove all symbols and transform the text to lowercase), return an array
 function normailizeText(text) {
     var symbols = "";
     for (var i = 33; i <= 47; i++)
@@ -198,6 +279,7 @@ function normailizeText(text) {
     return text.split(" ");
 }
 
+//calculate the score of similarity according to the given score list
 function getSimilarityScore(keywords, target, title, scoreList) {
     var score = 0;
     if (keywords.join(" ") == target)
@@ -212,6 +294,7 @@ function getSimilarityScore(keywords, target, title, scoreList) {
     return score;
 }
 
+//sort the both arrays in descending order according to the indepent array
 function sortTwoArrays(indepent, dependent) {
     for (var k = 0; k < indepent.length - 1; k++) {
         var swapped = false;

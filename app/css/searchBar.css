@@ -39,10 +39,6 @@ a.searchResultElementTitle {
     text-decoration: none;
 }
 
-.searchResultElementTitle span::first-letter {
-    text-transform: uppercase;
-}
-
 .wellPadding {
     padding: 30px;
 }
