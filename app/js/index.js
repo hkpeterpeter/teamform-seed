@@ -28,11 +28,13 @@ $(document).ready(function() {
     });
 
     firebase.auth().onAuthStateChanged(function(firebaseUser) {
-      if(firebaseUser) {
-        var user = firebase.auth().currentUser;
-        $("#userName").text(user.displayName);
-        $("#fbicon").attr("src", user.photoURL);
-      }
+        if(!firebaseUser) {
+            $("#btn_admin").prop('disabled', true);
+            $("#btn_leader").prop('disabled', true);
+            $("#btn_member").prop('disabled', true);
+            $("#input_text").prop('placeholder', 'Login to access the features');
+            $("#input_text").prop('disabled', true);
+        }
     });
 
 });

@@ -5,15 +5,7 @@ $(document).ready(function() {
   initalizeFirebase();
 
   $("#fblogin").click(function() {
-     var provider = new firebase.auth.FacebookAuthProvider();
-     firebase.auth().signInWithPopup(provider).then(function(result) {
-       var token = result.credential.accessToken;
-       var user = result.user;
-     }).then(function() {
-        location.reload();
-     }).catch(function(error) {
-       console.log(error.message);
-    });   
+     window.location.href = "login.html";  
   });
 
   $("#logout").click(function(){
@@ -28,7 +20,9 @@ $(document).ready(function() {
       $("#fblogout").show();
       $("#fblogin").hide();
       $("#userName").text(user.displayName);
-      $("#fbicon").attr("src", user.photoURL); 
+      if(user.photoURL) {
+        $("#fbicon").attr("src", user.photoURL); 
+      }
     }
     else {
       $("#fblogout").hide();

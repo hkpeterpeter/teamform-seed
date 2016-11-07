@@ -32,6 +32,9 @@ angular.module('teamform-admin-app', ['firebase'])
 		if(typeof $scope.param.minTeamSize == "undefined"){
 			$scope.param.minTeamSize = 1;
 		}
+		if($scope.param.eventAdmin !== firebase.auth().currentUser.uid) {
+			$("#admin_page_controller button").hide();
+		}
 		$('#admin_page_controller').show();
 	});
 	
