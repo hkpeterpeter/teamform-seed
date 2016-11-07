@@ -174,11 +174,6 @@ teamapp.directive("boardList",function(){
 })
 
 
-
-
-
-
-
 /*By Wu Yun Qing*/
 teamapp.directive("simpleField", function() {
     return {

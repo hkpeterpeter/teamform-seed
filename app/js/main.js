@@ -6,6 +6,12 @@ teamapp.config(function($routeProvider) {
     $routeProvider
     .when("/search", {
         templateUrl : "zhuxinyu/searchEvent.html"
+    }).when("/eventx",{
+    	templateUrl : "baichunyan/eventx.html"
+    }).when("/profile",{
+    	templateUrl : "Samuel-personalDashboard/personal-dashboard.html"
+    }).when("/home",{
+    	templateUrl : "Fenghaoan/home.html"
     })
    
 });
