@@ -55,25 +55,33 @@ angular.module('teamform-team-app', ['firebase'])
 	
 	$scope.requests = [];
 
-	$scope.retrieveNameFromID = function(id) {
-		var name = "";
-		$.each($scope.member, function(i, obj) {
-			if(id === obj.$id) {
-				name = obj.name;
-			}
+	$scope.users = [];
+	$scope.member.$loaded(function(data) {
+		angular.forEach(data, function(mem) {
+			$scope.users.push($firebaseObject(getUserWithId(mem.$id)));
 		});
-		return name;
+	});
+	
+	$scope.retrieveNameFromID = function(id) {
+		for(var tmpIdx = 0; tmpIdx < $scope.users.length; tmpIdx++) {
+			if($scope.users[tmpIdx].$id == id) {
+				return $scope.users[tmpIdx].name;
+			}
+		}
+		return "null";
 	};
 
-	$scope.retrieveNamesFromJSON = function(jsonObj) {
+	$scope.retrieveNamesFromJSON = function(teamMembers) {
 		var result = [];
-		angular.forEach(jsonObj, function(member) {
-			$.each($scope.member, function(i, obj) {
-				if(member == obj.$id) {
-					result.push(obj.name);
+		for(var idx = 0; idx < teamMembers.length; idx++) {
+			for(var tmpIdx = 0; tmpIdx < $scope.users.length; tmpIdx++) {
+				console.log($scope.users);
+				if($scope.users[tmpIdx].$id === teamMembers[idx]) {
+					result.push($scope.users[tmpIdx].name);
+					break;
 				}
-			});
-		});
+			}
+		}
 		return result;
 	};
 
@@ -82,7 +90,7 @@ angular.module('teamform-team-app', ['firebase'])
 		var teamID = $.trim( $scope.param.teamName );
 				
 		$.each($scope.member, function(i,obj) {
-			var userID = obj.userid;
+			var userID = obj.$id;
 			if(typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1) {
 				$scope.requests.push(userID);
 			}

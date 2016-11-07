@@ -81,6 +81,7 @@ angular.module('teamform-member-app', ['firebase'])
 				'userid': userID,
 				'name': userName,
 				'selection': $scope.selection,
+				'weight': 0 
 			};
 			console.log(newData);
 			var refPath = getURLParameter("q") + "/member/" + $scope.uid;
