@@ -59,19 +59,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/search',
             templateUrl: 'search.html',
             controller: 'eventSearch'
-            });
+            })
         
-<<<<<<< HEAD
-<<<<<<< HEAD
       .state('Teaminformation', {
             url: '/Teaminformation',
             templateUrl: 'Teaminformation.html',
             controller: 'tictrl'
             });
-=======
-        
->>>>>>> f410c301e82d83234e31d413e670ee46b3c249e2
-=======
-        
->>>>>>> f410c301e82d83234e31d413e670ee46b3c249e2
+
 });
