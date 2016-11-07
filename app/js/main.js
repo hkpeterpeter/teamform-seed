@@ -12,7 +12,11 @@ teamapp.config(function($routeProvider) {
     	templateUrl : "Samuel-personalDashboard/personal-dashboard.html"
     }).when("/home",{
     	templateUrl : "Fenghaoan/home.html"
-    })
+    }).when("/teamleader",{
+    	templateUrl : "JiaHe/teamleader.html"
+    }).when("/admin",{
+    	templateUrl : "ZhaoLucen/admin.html"
+    }).otherwise({redirectTo:'/home'});
    
 });
 
