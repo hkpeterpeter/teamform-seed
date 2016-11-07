@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-profile-app">
+   <head>
+   		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="keywords" content="teamform, team">
+    	<!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		  <title>teamform - profile page</title>
+
+    	    <!-- libraries and CSS 	  
+    	JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+    	Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+    	Font-awesome: More icons for the web development (v4.6.3 is used)		
+    	site.css: A customized css for our web application. Not from any web framework. 
+    	-->
+	        
+    	<script src="lib/jquery.min.js"></script>      
+    	<script src="lib/bootstrap.min.js"></script>
+
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
+
+    	<!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script> 
+	</head>
+
+	<body>
+      <a href="index.html"
+   		<button id="btn_admin" type="button" class="btn btn-primary" >
+   		<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+   	  Back</button></a>
+
+
+      <h2 id="uid"></h2>
+
+      
+      <!-- Reference: http://bootsnipp.com/snippets/featured/simple-user-profile  -->
+      <div class="container" ng-controller="ProfileCtrl">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+          <div class="panel panel-info">
+
+            <div class="panel-heading">
+              <h3 class="panel-title" id="name"></h3>
+            </div>
+
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center">
+                  <img alt="User Pic" id="photo" class="rounded mx-auto d-block">
+                </div>
+                <div class=" col-md-9 col-lg-9 ">
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Email</td>
+                        <td id="email"></td>
+                      </tr> 
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+		<!-- JavaScript of this page -->
+
+		<!-- Angular and Angular-route libraries (v1.5.7) -->
+    	<script src="lib/angular.min.js"></script>
+    	<script src="lib/angular-route.min.js"></script>     
+        
+    	<!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    	<script src="lib/firebase.js"></script>     
+    	<script src="lib/angularfire.min.js"></script>
+
+    	<!-- JavaScript of this page -->
+    	<script src="js/profile.js"></script>
+    	<script src="js/verify.js"></script> 
+	</body>
+</html>
