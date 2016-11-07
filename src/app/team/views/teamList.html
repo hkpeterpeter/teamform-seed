@@ -1,0 +1,33 @@
+<ui-alert message="{{teamList.error.message}}" />
+<div class="pull-right">
+    <a ui-sref="team.create"><button type="button" class="btn btn-primary">Create Team</button></a>
+</div>
+<div class="clearfix"></div>
+<div class="divider"></div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Team Name</th>
+            <th>Event</th>
+            <th>Created By</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody dir-paginate="team in teamList.teams | itemsPerPage: 2">
+        <tr>
+            <td>
+                <a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a>
+            </td>
+            <td>
+                <a ui-sref="event.detail({eventId: team.event.$id})">{{team.event.name}}</a>
+            </td>
+            <td>
+                <a ui-sref="user.detail({userId: team.createdBy})">{{team.createdByUser.name}}</a>
+            </td>
+            <td>
+                {{team.createdAt | date:'medium'}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<dir-pagination-controls />
