@@ -53,6 +53,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/event',
             templateUrl: 'event.html',
             controller: 'eventSubmit'
+            })
+            
+             .state('search', {
+            url: '/search',
+            templateUrl: 'search.html',
+            controller: 'eventSearch'
             });
+        
         
 });
