@@ -45,7 +45,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
     }
 
     $scope.updateEventList=function(eventlist){
-      
+      $("#searching").show();
        $("#eventCardList").children().hide(1000,function(){
 
 
@@ -57,7 +57,12 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
                 $rootScope.addEventCard(eventlist[i]);
             }
              $("#eventCardList").hide();
-            $("#eventCardList").show(1000);
+
+              $("#searching").fadeOut(1000,function(){
+                 $("#eventCardList").show(1000);
+              });
+         
+
        });
 
        /*
