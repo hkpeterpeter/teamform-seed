@@ -1,7 +1,7 @@
 //team list controller
 app.controller("eventDCtrl",
 
-    // Implementation the todoCtrl 
+    // Implementation the todoCtrl
     function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $filter, Helper, ngDialog, $state) {
         console.log("event detail");
 
@@ -12,7 +12,7 @@ app.controller("eventDCtrl",
         $scope.eventID = $stateParams.eid;
         personToBeAdded="";
         this.Object=Object;
-        Auth.$onAuthStateChanged(function(authData) {        
+        Auth.$onAuthStateChanged(function(authData) {
             // console.log($scope.obj);
             if (authData) {
                 $scope.userData = authData;
@@ -25,22 +25,22 @@ app.controller("eventDCtrl",
                 // $scope.myEvents.$loaded().then(function(){
                 //     //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
                 //     invref = firebase.database().ref('events/' + $scope.eventID + "/teams/" + $filter('teamId')($scope.myEvents[$scope.eventID]) + "/invitations");
-                //     $scope.inv = $firebaseObject(invref);                        
+                //     $scope.inv = $firebaseObject(invref);
                 // });
                 // $scope.obj.$loaded().then(function(data){
-                //     if($scope.obj[$scope.eventID]===undefined) 
+                //     if($scope.obj[$scope.eventID]===undefined)
                 //         $scope.role="visitor";
-                //     else 
+                //     else
                 //     {
                 //         $scope.role=$scope.obj[$scope.eventID].position;
                 //         $scope.teamID=$scope.obj[$scope.eventID].team;
                 //         console.log($scope.obj[$scope.eventID]);
                 //     }
-                // })                
+                // })
 
             } else console.log("signed out");
         });
-        
+
 
         // eventInfo
          // eventID = $stateParams.eid;
@@ -83,7 +83,7 @@ app.controller("eventDCtrl",
             // $scope.role="tba";
         }
 
-        
+
         var dialogue;
         $scope.createTeamDialogue = function(){
             dialogue = ngDialog.open({
@@ -119,7 +119,7 @@ app.controller("eventDCtrl",
             dialogue.close();
             // $state.reload();
 
-            
+
             // $scope.role=$scope.obj[$scope.eventID].position;
             // $scope.teamID=$scope.obj[$scope.eventID].team;
         }
@@ -135,13 +135,13 @@ app.controller("eventDCtrl",
                     // console.log($scope.eventObj.teams[].key);
                     if (key == uid && $scope.eventObj.teams[$filter('teamId')($scope.myEvents[$scope.eventID])].invitations[key] =='pending') return false;
                 }
-                return true;                
+                return true;
             }
             return false;
- 
+
         };
         console.log({position:"tba",team:null});
-        
+
     }
 );
 
