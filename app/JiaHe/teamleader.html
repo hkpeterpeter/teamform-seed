@@ -12,12 +12,10 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-
     </head>
     <body>
 
         <div class="container">
-
             <!-- Event card -->
             <div class="container">
                 <div class="section">
@@ -35,18 +33,17 @@
                 </div>
 
                 <!-- Team card -->
-
                 <div class="card sticky-action blue-grey darken-1">
                     <div class="card-content white-text" ng-controller="eventCtrl">
                         <span class="card-title activator">Team Name</span>
                         <span class="new badge white-text team-badge" data-badge-caption="members">5</span>
                         <div class="switch section">
-                          <label class="white-text team-private-switch">
-                            Public
-                            <input type="checkbox">
-                            <span class="lever"></span>
-                            Private
-                          </label>
+                            <label class="white-text team-private-switch">
+                                Public
+                                <input type="checkbox">
+                                <span class="lever"></span>
+                                Private
+                            </label>
                         </div>
                         <p>Preferred Size:
                             {{ preferredSize }}</p>
@@ -76,96 +73,43 @@
             <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skills.$remove(skill)">delete</i>{{skill.$value}}</a>
         </div>
     -->
-                    <div class="row">
-                        <div class="col s6">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="images/sample-1.jpg">
-                                    <span class="card-title">Card Title</span>
+                        <!-- Skill visualization -->
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="images/sample-1.jpg">
+                                        <span class="card-title">Card Title</span>
+                                    </div>
+                                    <div class="card-content grey-text text-darken-3">
+                                        <p>Skill Visulization 1</p>
+                                    </div>
                                 </div>
-                                <div class="card-content grey-text text-darken-3">
-                                    <p>Skill Visulization 1</p>
+                            </div>
+                            <div class="col s6">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="images/sample-1.jpg">
+                                        <span class="card-title">Card Title</span>
+                                    </div>
+                                    <div class="card-content grey-text text-darken-3">
+                                        <p>Skill Visulization 2</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col s6">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="images/sample-1.jpg">
-                                    <span class="card-title">Card Title</span>
-                                </div>
-                                <div class="card-content grey-text text-darken-3">
-                                    <p>Skill Visulization 2</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-<span class="card-title activator">Team Leader</span>
-                    <div class="section">
-                        <div class="card horizontal">
-                            <div class="card-image">
-                                <img src="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" height='200'>
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-3">Leader Name</span>
-                                <br/>
-                                    <span class="team-text-span grey-text text-darken-3">Skills:
-                                        <div class="chip focus teal lighten-1 white-text">Java</div>
-                                        <div class="chip focus teal lighten-1 white-text">Angularjs</div>
-                                    </span>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">This is a link to personal profile</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="card-title activator">Team Members</span>
-                    <div class="section">
-                        <div class="card horizontal">
-                            <div class="card-image">
-                                <img src="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" height='200'>
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-3">Member Name<i class="close material-icons right">close</i></span>
-                                <br/>
-                                    <span class="team-text-span grey-text text-darken-3">Skills:
-                                        <div class="chip focus teal lighten-1 white-text">Java</div>
-                                        <div class="chip focus teal lighten-1 white-text">Angularjs</div>
-                                    </span>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#">This is a link to personal profile</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <!-- Requests list -->
-            <div class="section">
-                <div class="card sticky-action blue-grey lighten-1">
-                    <div class="card-content white-text" ng-controller="eventCtrl">
-                        <span class="card-title activator">Requests</span>
-                        <span class="new badge white-text team-badge" data-badge-caption="requests">1</span>
-
+                        <!-- Team leader card -->
+                        <span class="card-title activator">Team Leader</span>
                         <div class="section">
                             <div class="card horizontal">
                                 <div class="card-image">
-                                    <img src="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" height='200'>
+                                    <img src="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" class="profile-image">
                                 </div>
                                 <div class="card-stacked">
                                     <div class="card-content">
-                                        <span class="card-title activator grey-text text-darken-3">Applicant Name<i class="close material-icons right">close</i>
-                                            <i class="close material-icons right">add</i>
-                                        </span>
-                                    <br/>
+                                        <span class="card-title activator grey-text text-darken-3">Leader Name</span>
+                                        <br/>
                                         <span class="team-text-span grey-text text-darken-3">Skills:
                                             <div class="chip focus teal lighten-1 white-text">Java</div>
                                             <div class="chip focus teal lighten-1 white-text">Angularjs</div>
@@ -177,16 +121,72 @@
                                 </div>
                             </div>
                         </div>
-
-                        <br/>
+                        <!-- Team members card -->
+                        <span class="card-title activator">Team Members</span>
+                        <div class="section">
+                            <div class="card horizontal">
+                                <div class="card-image">
+                                    <img src="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" class="profile-image">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                        <span class="card-title activator grey-text text-darken-3">Member Name<i class="close material-icons right">close</i>
+                                        </span>
+                                        <br/>
+                                        <span class="team-text-span grey-text text-darken-3">Skills:
+                                            <div class="chip focus teal lighten-1 white-text">Java</div>
+                                            <div class="chip focus teal lighten-1 white-text">Angularjs</div>
+                                        </span>
+                                    </div>
+                                    <div class="card-action">
+                                        <a href="#">This is a link to personal profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Team members card end -->
                     </div>
                 </div>
-            </div>
 
-            <!--  Scripts-->
-            <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-            <script src="js/materialize.js"></script>
-            <script src="js/init.js"></script>
+                <!-- Requests list -->
+                <div class="section">
+                    <div class="card sticky-action blue-grey lighten-1">
+                        <div class="card-content white-text" ng-controller="eventCtrl">
+                            <span class="card-title activator">Requests</span>
+                            <span class="new badge white-text team-badge" data-badge-caption="requests">1</span>
+                            <!-- Applicant cards -->
+                            <div class="section">
+                                <div class="card horizontal">
+                                    <div class="card-image">
+                                        <img src="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" class="profile-image">
+                                    </div>
+                                    <div class="card-stacked">
+                                        <div class="card-content">
+                                            <span class="card-title activator grey-text text-darken-3">Applicant Name<i class="close material-icons right">close</i>
+                                                <i class="close material-icons right">add</i>
+                                            </span>
+                                            <br/>
+                                            <span class="team-text-span grey-text text-darken-3">Skills:
+                                                <div class="chip focus teal lighten-1 white-text">Java</div>
+                                                <div class="chip focus teal lighten-1 white-text">Angularjs</div>
+                                            </span>
+                                        </div>
+                                        <div class="card-action">
+                                            <a href="#">This is a link to personal profile</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Applicant cards end -->
+                            <br/>
+                        </div>
+                    </div>
+                </div>
 
-        </body>
-    </html>
+                <!--  Scripts-->
+                <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+                <script src="js/materialize.js"></script>
+                <script src="js/init.js"></script>
+
+            </body>
+        </html>
