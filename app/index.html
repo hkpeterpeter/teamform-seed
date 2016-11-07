@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="index-app" ng-controller="LoginCtrl">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,28 +24,38 @@
 
       
       <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
-
-    <script type="text/javascript">
-      $(document).ready(function() {
-      $("#navbarMenu").load("navbar.html");
-      });
-   </script>
-	  	  
+      <script src="js/site.js"></script>	  	  
    </head>
    <body>
-   
-   <!--no need to display fork of base code-->
-   <!--<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/hkpeterpeter/teamform-seed" target="_blank">Fork me on GitHub</a></span>-->   
-   
-   
-        <div id='navbarMenu'>
-          <!--<a href="navbar.html">check navbar.html</a>-->
+      
+        <div ng-include="'navbar.html'" id='navbarMenu'>
         </div>
     
+      <!--Login interface-->
+      <div class="container" id="login_box" >
+        <form ng-hide="loggedIn"><!--Hide this when login-->
+        <input ng-model="txtEmail"  placeholder="Email">
+        
+        <input ng-model="txtPassword" type="password" placeholder="Password">
+
+        <button id="btnLogin" class="btn btn-primary" ng-click="login()">
+          Login 
+        </button>
+
+        <button id="btnSignUp" class="btn btn-primary" ng-click="signup()">
+          Sign Up
+        </button>
+
+        </form>
+        <button id="btnLogout" class="btn btn-primary" ng-click="logout()" ng-show="loggedIn">
+          Logout
+        </button>
+        <p ng-show="loggedIn">Hello! {{displayEmail}} </p><!--Show this when login-->
+      </div>
+
       <!-- A sample login page -->
       <div class="container" id="page_home">
-         <div class="row">
+         <div class="row" ng-show="loggedIn"> <!--Show this when login-->
             <div class="col-md-12">
                <div class="row">
                   <div class="col-md-12">
@@ -148,7 +158,7 @@
                     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Bryan Keung</h4>
-                     <p>[ITSC email]</p>
+                     <p>bkeung@connect.ust.hk</p>
                     </div>
                   </div>
                  </div> 
@@ -158,7 +168,7 @@
                     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Christie Tse</h4>
-                     <p>[ITSC email]</p>
+                     <p>tyctse@connect.ust.hk</p>
                     </div>
                   </div>
                  </div> 
@@ -168,7 +178,7 @@
                     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Cindy Ng</h4>
-                     <p>cindyngng@connect.ust.hk</p>
+                     <p>myngad@connect.ust.hk</p>
                     </div>
                   </div>
                  </div> 
@@ -195,7 +205,7 @@
                     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Ronald Shum</h4>
-                     <p>[ITSC email]</p>
+                     <p>khshumab@connect.ust.hk</p>
                     </div>
                   </div>
                  </div> 
@@ -225,6 +235,15 @@
          </footer>
       </div>
       <!-- /.container -->
+
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>        
+     
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>     
+      <script src="lib/angularfire.min.js"></script>
+
 
       <!-- JavaScript of this page -->
       <script src="js/index.js"></script>
