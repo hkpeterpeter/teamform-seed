@@ -1,9 +1,11 @@
 <h1>createTeam</h1>
 <form>
 	<h3>TeamName</h3>
-	<input type="text" placeHolder="name" ng-model="newTeam.name">
+	<input type="text" placeholder="name" ng-model="newTeam.name">
 	<h3>Description</h3>
-	<textarea type="text" placeHolder="Description of your team" ng-model="newTeam.desc" rows="5"></textarea>
+	<textarea type="text" placeholder="Description of your team" ng-model="newTeam.desc" rows="5"></textarea>
+	<h3>Size of Your Team</h3>
+	<input type="text" placeholder="Size" ng-model="newTeam.max">
 	<br>
 	<button class="btn btn-primary" ng-click="createTeam()">Confirm</button>
 
