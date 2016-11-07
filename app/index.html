@@ -58,7 +58,7 @@
    </head>
    <body class="hold-transition skin-blue sidebar-mini">
 
-      <div class="navbar-wrapper" ng-controller = "LoginCtrl">
+      <div class="navbar-wrapper">
         <header class="main-header" >
           <!-- Logo -->
           <a href="index2.html" class="logo">
@@ -76,11 +76,11 @@
             </a>
 
 
-            <div class="navbar-custom-menu">
+            <div class="navbar-custom-menu" ng-controller = "LoginCtrl">
               <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
                 <li>
-                                <div class="input-group" id="adv-search" ng-controller = "searchCtrl">
+                                <div class="input-group" id="adv-search"   ng-controller = "searchCtrl">
                                   <div class = "menuOverlay">
 
                                   <input type="text" ng-model="searchString" placeholder="Search" class = "form-control" />
@@ -90,37 +90,38 @@
                                   </ul>
                                 </div>
                               </div>
-                              <div class="input-group-btn">
-                                  <div class="btn-group" role="group">
-                                      <div class="dropdown dropdown-lg">
-                                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                                          <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                              <form class="form-horizontal" role="form">
-                                                <div class="form-group">
-                                                  <label for="filter">Filter by</label>
-                                                  <select class="form-control">
-                                                      <option value="0" selected>All Snippets</option>
-                                                      <option value="1">Featured</option>
-                                                      <option value="2">Most popular</option>
-                                                      <option value="3">Top rated</option>
-                                                      <option value="4">Most commented</option>
-                                                  </select>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="contain">Author</label>
-                                                  <input class="form-control" type="text" />
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="contain">Contains the words</label>
-                                                  <input class="form-control" type="text" />
-                                                </div>
-                                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                              </form>
+                                  <div class="input-group-btn">
+                                      <div class="btn-group" role="group">
+                                          <div class="dropdown dropdown-lg">
+                                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                              <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                  <form class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                      <label for="filter">Filter by</label>
+                                                      <select class="form-control">
+                                                          <option value="0" selected>All Snippets</option>
+                                                          <option value="1">Featured</option>
+                                                          <option value="2">Most popular</option>
+                                                          <option value="3">Top rated</option>
+                                                          <option value="4">Most commented</option>
+                                                      </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="contain">Author</label>
+                                                      <input class="form-control" type="text" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label for="contain">Contains the words</label>
+                                                      <input class="form-control" type="text" />
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                                  </form>
+                                              </div>
                                           </div>
+                                          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                       </div>
-                                      <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+
                                   </div>
-                              </div>
 
                               </div>
                 </li>
@@ -514,10 +515,11 @@
       <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
       <script src="lib/firebase.js"></script>
       <script src="lib/angularfire.min.js"></script>
-      <script src="js/index.js"></script>
+
       <script src="https://apis.google.com/js/platform.js" async defer></script>
       <script src="js/login.js"></script>
       <script src="js/search.js"></script>
+      <script src="js/index.js"></script>
       <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
       <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
       <script>

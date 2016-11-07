@@ -1,35 +1,38 @@
 $(document).ready(function(){
 
 });
-
-angular.module('teamform-index-app', ['firebase'])
-.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+  var app = angular.module('login',['firebase']);
+	app.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 
 	// TODO: implementation of AdminCtrl
 
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
-
+  $scope.login = false;
 	// Call Firebase initialization code defined in site.js
-  initalizeFirebase();
+
+    initalizeFirebase();
 	var id;
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
+
     user.providerData.forEach(function (profile) {
     $('#user_name').html(profile.displayName);
     $('#user_name2').text(profile.displayName);
     $('.user-image').attr('src',profile.photoURL);
     $('.img-circle').attr('src',profile.photoURL);
-
-
   });
-    $('.g-signin2').css('display', 'none');
+      $scope.login = true;
+      $scope.$apply();
+
   } else {
     // No user is signed in.
   }
   });
+
+
 
 
 	function onSignIn(googleUser) {
@@ -59,15 +62,16 @@ angular.module('teamform-index-app', ['firebase'])
 				if (user) {
 					// User is signed in.
 					user.providerData.forEach(function (profile) {
+
 					var refPath;
 					id = firebase.auth().currentUser.uid;
+
 					refPath = "/users/" + id;
 					// Link and sync a firebase object
-						$scope[id] = [];
+
 						$scope[id] = $firebaseObject(firebase.database().ref(refPath));
 						$scope[id].$loaded()
 						.then( function(data) {
-							console.log('abc');
 						$scope[id].name = profile.displayName;
 						$scope[id].$save();
 						})
@@ -115,7 +119,11 @@ angular.module('teamform-index-app', ['firebase'])
 	}
  	window.onSignIn = onSignIn;
 
+
 }]);
+
+
+
 
 
 

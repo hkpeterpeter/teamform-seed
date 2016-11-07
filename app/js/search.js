@@ -5,6 +5,7 @@ $(document).ready(function(){
   var app = angular.module('search',['firebase']);
 	app.controller('searchCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 
+
     $scope.items = [];
   	var path = "event/";
   	firebase.database().ref(path).orderByChild("name").on("child_added", function(data) {
