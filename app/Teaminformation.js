@@ -1,14 +1,14 @@
+app.controller("teaminfo",["$scope","$firebaseArray", "Auth","$rootScope",
+               
+               function($scope, $firebaseArray,Auth,$rootscope){
+                
+                var ref=firebase.database().ref("events");
+                $scope.event = $firebaseArray(ref);
 
-var ti = angular.module("Teaminformation", ["firebase"])
-    
-ti.controller('TiCtrl', function($scope) {
-	
-		$scope.loadFunc = function() {
-		var teamID = $.trim( $scope.Team.teamName );		
-		var refPath =  "Team/" + teamID ;
-		retrieveOnceFirebase(firebase, refPath, function(data) {	
-			
-			$scope.$apply(); // force to refresh
-		});
-    }
-});
+                
+                
+               }
+               
+               
+]);
+               

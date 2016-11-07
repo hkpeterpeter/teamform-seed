@@ -61,10 +61,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'eventSearch'
             })
         
-      .state('Teaminformation', {
+       .state('Teaminformation', {
             url: '/Teaminformation',
             templateUrl: 'Teaminformation.html',
-            controller: 'tictrl'
-            });
+            controller: 'teaminfo'
+            })
 
 });
+

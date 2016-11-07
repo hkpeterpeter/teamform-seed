@@ -12,6 +12,7 @@ Please select the event below: <br>
 </select>
 <br><br><br>
  Input the name of the team: <input type="text" ng-model="searchText" placeholder="Type to search"><br><br> <h3>List of Team: </h3><br>
+
  <div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
      <table width="400"><tr align="center"><td align="center"><b>Name:</b></td><td align="center"><b>Intro.</b></td></tr>
          <tr data-ng-repeat="g in q.Team" ng-if="g.name.indexOf(searchText) > -1 || !searchText">
