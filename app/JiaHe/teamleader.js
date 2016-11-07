@@ -17,7 +17,9 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", function($roo
         requests: ["Applicant1"]
     }
     $scope.addNewSkill = function() {
-        if ($scope.team.newSkill != '' && $scope.team.preferredSkills.indexOf($scope.team.newSkill) == -1)
-        $scope.team.preferredSkills.push($scope.team.newSkill);
+        if ($scope.team.newSkill != '' && $scope.team.preferredSkills.indexOf($scope.team.newSkill) == -1) {
+            $scope.team.preferredSkills.push($scope.team.newSkill);
+            $scope.team.newSkill = '';
+        }
     }
 }]);
