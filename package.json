@@ -77,6 +77,7 @@
     "randomstring": "^1.1.5",
     "request": "^2.75.0",
     "satellizer": "^0.15.5",
+    "ui-select": "^0.19.6",
     "xml2js": "^0.4.17"
   }
 }

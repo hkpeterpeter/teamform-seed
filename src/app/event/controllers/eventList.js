@@ -1,15 +1,15 @@
 export default class EventListCtrl {
-    constructor($location, $state, $timeout, EventService) {
+    constructor($location, $state, $timeout, eventService) {
         this.$location = $location;
         this.$state = $state;
         this.$timeout = $timeout;
-        this.EventService = EventService;
+        this.eventService = eventService;
         this.events = [];
         this.error = null;
         this.getEvents();
     }
     getEvents() {
-        this.EventService.getEvents().then((events) => {
+        this.eventService.getEvents().then((events) => {
             this.$timeout(() => {
                 this.events = events;
             });

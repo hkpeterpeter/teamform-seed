@@ -7,13 +7,15 @@ import routes from './config/routes';
 import alert from '../common/alert';
 import firebase from '../common/firebase';
 import auth from '../common/auth';
+import user from '../user';
+
 import EventDetailCtrl from './controllers/eventDetail';
 import EventListCtrl from './controllers/eventList';
 import EventCreateCtrl from './controllers/eventCreate';
 import EventEditCtrl from './controllers/eventEdit';
 import EventService from './factories/EventService';
 
-export default angular.module('event', [uirouter, angularfire, firebase, pagination, alert, auth])
+export default angular.module('event', [uirouter, angularfire, firebase, pagination, user, alert, auth])
     .config(routes)
     .controller('EventDetailCtrl', EventDetailCtrl)
     .controller('EventListCtrl', EventListCtrl)
