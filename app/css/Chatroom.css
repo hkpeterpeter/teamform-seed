@@ -1,0 +1,46 @@
+
+body{
+    background-image: url("http://wallpaper.zone/img/168930.jpg");
+    background-size: cover;
+    width: 1000px;
+    
+}
+
+input[type="button"]{
+    float: right;
+}
+
+.page-header{
+
+color: #D0F8FF;
+text shadow: 0 0 5px #A5F1FF, 0 0 10px #A5F1FF , 0 0 20px #A5F1FF , 0 0 30px #A5F1FF , 0 0 40 px #A5F1FF;
+
+
+}
+.row{
+width: 800px;
+height: 50px;
+}
+
+.panel-heading{
+width: 800px;
+height: 50px;
+}
+
+.panel-body{
+width: 800px;
+height: 50px;
+
+}
+
+.panel-footer{
+width: 800px;
+height: 40px;
+
+}
+
+.form-group {
+width: 800px;
+height: 50px;
+
+}

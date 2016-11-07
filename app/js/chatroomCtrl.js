@@ -5,7 +5,7 @@ app.controller("chatroomCtrl",
 	function($scope, $firebaseArray) {
 
 		$scope.input = {
-			to:"",
+			to: "",
 			content: "",
 			date: "",
 		}

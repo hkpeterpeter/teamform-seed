@@ -22,6 +22,7 @@ module.exports = function(config) {
 		 'js/admin.js' : ['coverage'],
 		 'js/team.js' : ['coverage'],
 		 'js/chatroomCtrl.js' : ['coverage'],
+		 'js/searchBar_test.js' : ['coverage'],
 		 'js/member.js' : ['coverage']
 	},
 	reporters: ['progress', 'coverage'],
