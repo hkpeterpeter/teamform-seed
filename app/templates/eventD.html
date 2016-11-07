@@ -1,2 +1,45 @@
-<h1>Event Page</h1>
-<a ng-href="/#/dashboard/event/01/team/01">team</a>
+<h1>{{eventObj.eventInfo.name}}</h1>
+<h3>{{myEvents[eventID] | role}}</h3>
+<h1>{{eventObj.eventInfo.desc}}</h1>
+<!-- <h1 ng-if="(myEvents[eventID] | role)=='admin'">testing</h1> -->
+<div ng-if="!(myEvents[eventID]===undefined)">
+    <button class="btn btn-primary" ng-click="manage()" ng-if="myEvents[eventID].position=='admin'">Manage</button>
+</div>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">Teams</h2></div>
+    <div class="panel-body">
+        <div ng-repeat="(key, team) in eventObj.teams">
+            <a ng-href="/#/dashboard/event/{{eventID}}/team/{{key}}">{{team.name}}</a>
+            <span class="text-right">{{team.members|numKeys}}/{{team.max}}</span>
+            <button class="btn btn-primary" ng-click="deleteTeam(key)" ng-if="isManaging">delete</button>
+            <button class="btn btn-primary" ng-click="toTeam(key)" ng-if="selectTeam">addTo</button>
+        </div>
+    </div>
+<div/>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">TBA</h2></div>
+    <div class="panel-body">
+        <div ng-repeat="(key, name) in eventObj.tba">
+            {{users[name].readOnly.name}}
+            <button class="btn btn-primary"  ng-click="addToTeam(name)" ng-if="isManaging">addToTeam</button>
+            <button class="btn btn-primary"  ng-click="invite(name)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(name)">invite</button>
+        </div>
+    </div>
+<div/>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">Announcments</h2></div>
+    <div class="panel-body">
+        <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
+            {{name.content}}
+        </div>
+    </div>
+<div/>
+<button class="btn btn-primary" ng-click="createTeamDialogue()" ng-if="(myEvents[eventID] | role)=='tba'">createTeam</button>
+<button class="btn btn-primary" ng-click="quit()" ng-if="(myEvents[eventID] | role)=='tba'">Quit Event</button>
+<button class="btn btn-primary" ng-click="createAnnouncementDialogue()" ng-if="(myEvents[eventID] | role)=='admin'">post an announcement</button>
+<button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join Event</button>
+<br><br><br><br>
+<!--<h1>Debug</h1>-->
+<!--<button class="btn btn-primary" ng-click="createEventList(userData)">createEventList</button>-->
