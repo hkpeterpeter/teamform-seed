@@ -1,37 +1,22 @@
-    <div ng-controller="CTCtrl" class="container">
-		<form name="CTForm" class="css-form col-md-4" novalidate>
-                <div class="form-group">
-                    <label>Team Name: </label>
-                    <input class="form-control" type="text" name="teamName" ng-model="team.teamName" ng-required="true">
-                </div>
+<body ng-app="teamsCreate">
+         <h1>Create Team</h1>
+         <div ng-controller="teamSubmit">
+         <form name="teamForm">          
+            <p>Target Event:
+             <input name="EventName" ng-model="input.event" required>
+             <span ng-show="teamForm.EventName.$touched && teamForm.EventName.$invalid">The event name is required.</span>
+            </p>
+			<p>Name:
+             <input name="newTeamName" ng-model="input.name" required>
+             <span ng-show="teamForm.newTeamName.$touched && teamForm.newTeamName.$invalid">The team name is required.</span>
+            </p>
 
-                <div class="form-group">
-                    <label>Openness: 
-					<input type="radio" ng-model="team.openness" value="public" ng-required="true">Public
-					<input type="radio" ng-model="team.openness" value="private" ng-required="true">Private<br /></label>
-                </div>
-				
-				<div class="form-group">
-                    <label>Require Position:<br />
-					<input type="checkbox" ng-model="team.developer"> Developer
-					<br />
-					<div ng-show="team.developer">
-						<label>Number: </label>
-						<input class="form-control" type="text" name="devNum" ng-model="team.devNum">
-					</div>
-					
-					<input type="checkbox" ng-model="team.designer" > Designer
-					<div ng-show="team.designer">
-						<label>Number: </label>
-						<input class="form-control" type="text" name="desNum" ng-model="team.desNum">
-					</div>
-                </div>
-
-				<div class="form-group">
-                    <label>Description: </label>
-                    <textarea class="form-control" type="text" name="desc" ng-model="team.desc" ng-required="true" style="vertical-align: top;"></textarea>
-                </div>
-				
-                <input class="btn btn-primary" type="button" value="Submit" ng-click="createTeam()" ng-disabled="!team.openness || !team.teamName">
-            </form>
-    </div>
+            <p>Introduction:
+             <input name="newTeamIntro" ng-model="input.intro" required>
+             <span ng-show="teamForm.newTeamIntro.$touched && teamForm.newTeamIntro.$invalid">The team introduction is required.</span>
+            </p>
+            <button ng-click="submit()" ng-disabled= "teamForm.newTeamIntro.$invalid || teamForm.newTeamName.$invalid">Submit</button>
+          </form>
+         </div>
+</body>
+<script>
