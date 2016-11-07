@@ -7,7 +7,8 @@ angular.module('profile-app', ['firebase'])
         name: 'default',
         language: [],
         gpa: 0,
-        team: []
+        team: [],
+        description: ''
     }
     $scope.txtLanguage = '';
     
@@ -25,6 +26,12 @@ angular.module('profile-app', ['firebase'])
     $scope.addLanguage = function(){
         $scope.userData.language.push($scope.txtLanguage);
         $scope.txtLanguage = '';
+    }
+
+    //Remove language
+    $scope.removeLanguage = function(lan){
+        console.log('remove pressed');
+        $scope.userData.language.splice($scope.userData.language.indexOf(lan),1);
     }
 
     //Submit userData
@@ -50,8 +57,8 @@ angular.module('profile-app', ['firebase'])
                     console.log(currentUserData.name);
                     $scope.userData.name = currentUserData.name;
                     $scope.userData.gpa = currentUserData.gpa;
-                    $scope.userData.language = [];
                     $scope.userData.team = currentUserData.team;
+                    $scope.userData.language = currentUserData.language;
                     console.log('refreshed');
                    // $scope.$apply();
                 })
@@ -76,6 +83,8 @@ angular.module('profile-app', ['firebase'])
                     $scope.userData.name = currentUserData.name;
                     $scope.userData.gpa = currentUserData.gpa;
                     $scope.userData.team = currentUserData.team;
+                    $scope.userData.description = currentUserData.description;
+                    $scope.userData.language = currentUserData.language;
                 })
                 .catch(function(error){
                     console.error("Error: "+error);
