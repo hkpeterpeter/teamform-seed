@@ -20,9 +20,48 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
     $scope.cancelEvent = function() {
         document.getElementById('myflipper').classList.toggle('flipped');
     };
-    $scope.showEventCard = function() {
-        $("#myCard").toggle(500);
+
+
+    $scope.searchEvent = function() {
+        if($scope.event.name!=""){
+
+
+            $('html, body').animate({
+            scrollTop: $("#event_list").offset().top
+            }, 1000);
+
+            resultList=[];
+            for(var i=0;i<$rootScope.events.length;i++){
+             
+                if($rootScope.events[i].eventName&&$rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
+                    
+                    resultList.push($rootScope.events[i]);
+                }
+            } console.log(resultList);
+            $scope.updateEventList(resultList);
+        }else{
+             Materialize.toast('Please Enter The Event Name!', 1000);
+        }
     }
+
+    $scope.updateEventList=function(eventlist){
+      
+       $("#eventCardList").children().hide(1000)
+
+     $("#eventCardList").children().empty();
+    
+
+   
+        for(var i=0;i<eventlist.length;i++){
+            eventlist[i].epicture="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D";
+            $rootScope.addEventCard(eventlist[i]);
+            
+        }
+ 
+         $("#eventCardList").children().show(1000);
+            
+        }
+
 }]);
 
 teamapp.directive('eventSearchPanel', function() {
@@ -32,19 +71,27 @@ teamapp.directive('eventSearchPanel', function() {
         replace: true,
     };
 });
-teamapp.directive('eventCard', function() {
+teamapp.directive('eventCard', function($compile) {
     return {
         scope: {
             eventTitle: "@etitle",
             eventPicture: "@epicture",
             eadmin: "@eadmin",
-            eGroupSize: "@eGroupSize",
+            eminSize: "@",
+            emaxSize: "@",
+            edescription: "@",
             eSkill: "@eSkill",
             etarget: "@"
         },
         restrict: 'E',
         templateUrl: 'zhuxinyu/js/components/eventCard/eventCard.html',
         replace: true,
+        controller: function ($rootScope,$scope, $element) {
+            $rootScope.addEventCard = function (cardInfo) {
+                var el = $compile("<event-card etitle='"+cardInfo.eventName+"' epicture='"+cardInfo.epicture+"' eadmin='"+cardInfo.adminID+"' emin-size='"+cardInfo.minSize+"' emax-size='"+cardInfo.maxSize+"' edescription='"+cardInfo.description+"' e-skill='"+cardInfo.eSkill+"' etarget='"+cardInfo.etarget+"'></event-card>")($scope);
+                $element.parent().prepend(el);
+            };
+        },
         link: function($scope, iElm, iAttrs, controller) {}
     };
 });
