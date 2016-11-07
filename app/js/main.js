@@ -16,6 +16,8 @@ teamapp.config(function($routeProvider) {
     	templateUrl : "JiaHe/teamleader.html"
     }).when("/admin",{
     	templateUrl : "ZhaoLucen/admin.html"
+    }).when("/team",{
+    	templateUrl : "fish/member-event.html"
     }).otherwise({redirectTo:'/home'});
    
 });
