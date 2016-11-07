@@ -4,12 +4,13 @@ app.controller("teamCtrl",
 
 
 	// Implementation the todoCtrl
-	function($scope, Auth, $firebaseArray, $firebaseObject) {
+	function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $filter, Helper, ngDialog, $state) {
 
 
 
 	$scope.form = {};
-
+	$scope.eventID = $stateParams.eid;
+	$scope.teamID = $stateParams.tid;
 
 	$scope.tagShowList = [
 		{name :"javascript", state: false},
@@ -21,7 +22,7 @@ app.controller("teamCtrl",
 	];
 
 
-		var main_ref = firebase.database().ref('events/-KVcVgeRPOOdr-vUyDLV/teams/team1');
+		var main_ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 		var teamdata = $firebaseObject(main_ref);
 		teamdata.$loaded().then(function(){
 			console.log(teamdata);
@@ -50,7 +51,7 @@ app.controller("teamCtrl",
 		var inviteref = main_ref.child("invitations")
 
 //get member
-		var ref = firebase.database().ref('events/-KVcVgeRPOOdr-vUyDLV/teams/team1/members');
+		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/members');
 		var memberdata = $firebaseObject(ref);
 		memberdata.$loaded().then(function(){
 			console.log(memberdata);
@@ -58,18 +59,19 @@ app.controller("teamCtrl",
 
 		$scope.members = memberdata;
 
+
 //member functions
-		$scope.addMember = function(uid){
-			memberdata[uid] = uid;
-			memberdata.$save();
-			$scope.members = memberdata;
+		$scope.addMember = function(){
+			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
+			var temp = {};
+			temp["2RB6DFylc1ZEoVFsuCsgbIYOaSz2"] = "2RB6DFylc1ZEoVFsuCsgbIYOaSz2";
+			ref.child('members').update(temp);
 		}
 
-		$scope.deleteMember = function(uid){
-			memref.child(uid).remove().then(function(){
+		$scope.deleteMember = function(){
+			memref.child("2RB6DFylc1ZEoVFsuCsgbIYOaSz2").remove().then(function(){
 				console.log(memberdata);
 			});
-			$scope.members = memberdata;
 		}
 		//
 		// $scope.updateMember = function(id,content){
@@ -79,7 +81,7 @@ app.controller("teamCtrl",
 		// 	$scope.members = memberdata;
 		// }
 //get tags
-		var ref = firebase.database().ref('events/-KVcVgeRPOOdr-vUyDLV/teams/team1/tags');
+		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
 		var tagdata = $firebaseObject(ref);
 		tagdata.$loaded().then(function(){
 			console.log(tagdata);
@@ -114,7 +116,7 @@ app.controller("teamCtrl",
 		}
 
 		//get announcements
-		var ref = firebase.database().ref('events/-KVcVgeRPOOdr-vUyDLV/teams/team1/announcements');
+		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/announcements');
 		var announcementdata = $firebaseArray(ref);
 		announcementdata.$loaded().then(function(){
 			console.log(announcementdata);
@@ -151,7 +153,7 @@ app.controller("teamCtrl",
 		}
 
 //get invitations
-		var ref = firebase.database().ref('events/-KVcVgeRPOOdr-vUyDLV/teams/team1/invitations');
+		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/invitations');
 		var invitationdata = $firebaseArray(ref);
 		invitationdata.$loaded().then(function(){
 			console.log(invitationdata);
@@ -161,32 +163,29 @@ app.controller("teamCtrl",
 		$scope.invitations = invitationdata;
 
 //invitations functions
-		$scope.addInvitation = function(username, state){
-			inviteref.child(username).set({
-				status: state,
-			}).then(function(){
-				console.log(invitationdata);
-			})
-			$scope.invitations = invitationdata;
+		$scope.addInvitation = function(){
+			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
+			var temp = {};
+			temp["2RB6DFylc1ZEoVFsuCsgbIYOaSz2"] = "withdrawn";
+			ref.child('invitations').update(temp);
 		}
 
-		$scope.deleteInvitation = function(username){
-			inviteref.child(username).remove().then(function(){
+		$scope.deleteInvitation = function(){
+			inviteref.child("2RB6DFylc1ZEoVFsuCsgbIYOaSz2").remove().then(function(){
 				console.log(invitationdata);
 			});
-			$scope.invitations = invitationdata;
-				}
+		}
 
-				$scope.updateInvitation = function(username, state){
-					inviteref.child(username).set({
-						status: state
-					}).then(function(){
-						console.log(invitationdata);
-					})
-					$scope.invitations = invitationdata;
-				}
+				// $scope.updateInvitation = function(username, state){
+				// 	inviteref.child(username).set({
+				// 		status: state
+				// 	}).then(function(){
+				// 		console.log(invitationdata);
+				// 	})
+				// 	$scope.invitations = invitationdata;
+				// }
 //get application
-		var ref = firebase.database().ref('events/-KVcVgeRPOOdr-vUyDLV/teams/team1/applications');
+		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/applications');
 		var applicationdata = $firebaseArray(ref);
 		applicationdata.$loaded().then(function(){
 			console.log(applicationdata);
@@ -195,30 +194,27 @@ app.controller("teamCtrl",
 		$scope.applications = applicationdata;
 
 		//invitations functions
-				$scope.addApplication = function(username, state){
-					applicref.child(username).set({
-						status: state,
-					}).then(function(){
-						console.log(applicationdata);
-					})
-					$scope.applications = applicationdata;
+				$scope.addApplication = function(){
+					var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
+					var temp = {};
+					temp["2RB6DFylc1ZEoVFsuCsgbIYOaSz2"] = "pending";
+					ref.child('applications').update(temp);
 				}
 
-				$scope.deleteApplication = function(username){
-					applicref.child(username).remove().then(function(){
+				$scope.deleteApplication = function(){
+					applicref.child("2RB6DFylc1ZEoVFsuCsgbIYOaSz2").remove().then(function(){
 						console.log(applicationdata);
 					});
-					$scope.applications = applicationdata;
-						}
+				}
 
-						$scope.updateApplication = function(username, state){
-							applicref.child(username).set({
-								status: state
-							}).then(function(){
-								console.log(applicationdata);
-							})
-							$scope.applications = applicationdata;
-						}
+						// $scope.updateApplication = function(username, state){
+						// 	applicref.child(username).set({
+						// 		status: state
+						// 	}).then(function(){
+						// 		console.log(applicationdata);
+						// 	})
+						// 	$scope.applications = applicationdata;
+						// }
 
 }
 );

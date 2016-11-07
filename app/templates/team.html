@@ -22,7 +22,7 @@
   <h4> Members </h4>
   {{members}}
     <div class="">
-      {{members[0].$id}} is leader
+      {{data.leader.value}} is leader
     </div>
 
     <ul ng-repeat="(key,value) in members">
@@ -46,14 +46,16 @@
 
 
 <!-- Testing member functions -->
-  <button type="button" class="btn btn-danger" ng-click="addMember(999)">Add Member</button>
-  <button type="button" class="btn btn-danger" ng-click="updateMember()">Update Member</button>
-    <button type="button" class="btn btn-danger" ng-click="deleteMember(999)">Delete Member</button>
+  <button type="button" class="btn btn-danger" ng-click="addMember()">Add Member</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteMember()">Delete Member</button>
 
 <!-- Testing tag functions -->
           <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a tag</button>
 
-  <button type="button" class="btn btn-danger" ng-click="addAnnouncement()">Add Announcement</button>
+  <button type="button" class="btn btn-danger" ng-click="addApplication()">Add Application</button>
+  <button type="button" class="btn btn-danger" ng-click="deleteApplication()">Delete Application</button>
+  <button type="button" class="btn btn-danger" ng-click="addInvitation()">Add Invitation</button>
+  <button type="button" class="btn btn-danger" ng-click="deleteInvitation()">Delete Invitation</button>
 
 
 

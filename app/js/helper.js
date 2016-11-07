@@ -6,15 +6,15 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper = {};
     helper.debug = {};
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
-     
-        ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
+
+        ref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
         ref.update({team:teamID}).then(function(){
             ref.update({position:position}).then(function(){
-                ref=firebase.database().ref("events/"+eventID);
-                tbaref=ref.child("tba/"+uid);
+                ref = firebase.database().ref("events/"+eventID);
+                tbaref = ref.child("tba/"+uid);
                 tbaref.remove().then(function(data){
                         var temp = {};
-                        temp[uid]=uid;
+                        temp[uid] = uid;
                         ref.child("/teams/"+teamID).child('members').update(temp);
                 });
             });
@@ -23,7 +23,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     }
     helper.deletePersonFromTeam = function(uid, eventID, teamID) {
 
-        teamRef=firebase.database().ref("events/"+eventID+"/teams/"+teamID+"members");
+        teamRef=firebase.database().ref("events/"+eventID+"/teams/"+teamID+"/members");
         teamRef.child(uid).remove().then(function(error){
             uref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
             uref.child("position").set("tba");
@@ -89,8 +89,8 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         var temp = {};
         temp[toUid] = "pending";
         tref.update(temp);
-        
-            
+
+
         uref=firebase.database().ref("users/"+toUid+"/writable/"+eventID+"/invitations");
         temp = {};
         temp[teamID] = teamID;
@@ -98,9 +98,21 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     }
     helper.sendApplicationTo = function(uid, eventID, teamID) {
         //wyz
+        var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
+        var temp = {};
+  			temp[uid] = "pending";
+  			ref.child('applications').update(temp);
+
     }
     helper.withdrawApplication = function(uid, eventID, teamID) {
         //dht
+
+
+        //add by wyz...
+        var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
+        var temp = {};
+        temp[uid] = "withdrawn";
+        ref.child('applications').update(temp);
     }
     helper.quitEvent = function(uid, eventID) {
         //order of operation matters?
@@ -121,9 +133,19 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     }
     helper.acceptApplication = function(uid, eventID, teamID) {
         //wyz
+        var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
+        var temp = {};
+  			temp[uid] = "accepted";
+  			ref.child('applications').update(temp);
+        helper.addPersonToTeam(uid, eventID,teamID, "member");
+
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
+        var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
+        var temp = {};
+  			temp[uid] = "declined";
+  			ref.child('applications').update(temp);
     }
     helper.updateEvent = function(eventID) {
         //lby
@@ -142,8 +164,11 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref=firebase.database().ref("events/"+eventID+"/eventInfo/announcements");
         $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()});
     }
-    helper.postTeamAnnouncement = function(uid, eventID, teamID, msg) {
+    helper.postTeamAnnouncement = function(eventID, teamID, msg) {
         //wyz
+        // DON'T NEED UID IN THIS CASE?
+        ref=firebase.database().ref("events/"+eventID+"/teams/" + teamID  + "/announcements");
+        $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()});
     }
     helper.setEventState= function(uid, eventID, state) {
         //lby
@@ -152,6 +177,16 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     }
     helper.changeLeader = function(fromuid, touid, eventID, teamID){
         //wyz
+        var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
+        var temp = {};
+        temp[touid] = touid;
+        ref.child("leader").update(temp);
+        memberRef = firebase.database().ref("users/" + touid + "/writable/" + eventID);
+        memberRef.child("position").set("leader");
+        leaderRef = firebase.database().ref("events/" + eventID + "/teams/" + teamID + "/leader");
+        leaderRef.child(fromuid).remove();
+        memberRef = firebase.database().ref("users/" + fromuid + "/writable/" + eventID);
+        memberRef.child("position").set("member");
     }
 
 
@@ -161,7 +196,8 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref.set({position:"tba"}).then(function(data){
                 eventRef=firebase.database().ref("events/"+eventID+"/tba/"+uid);
                 eventRef.set(uid);
-            });        
+            });
+
     }
 
 
