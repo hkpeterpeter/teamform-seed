@@ -37,7 +37,14 @@
                     <li>Name:<input type="text" name="userName" ng-model="userData.name"></li>
                     <li>Language:<input type="text" name="lan" ng-model="txtLanguage"><button class="btn btn-primary" ng-click="addLanguage()">Add</button></li>
                     <li>Gpa:<input type="number" name="gpa" ng-model="userData.gpa"></li>
-                    <li>Language Added:{{userData.language}}</li>
+                    <li>Description:</li>
+                    <textarea ng-model="userData.description"></textarea>
+                    <li>Language Added:</li>
+                    <ol>
+                        <div ng-repeat="lan in userData.language">
+                            <li>{{lan}}<button class="btn btn-primary btn-sm" ng-click="removeLanguage(lan)">Remove</button></li>
+                        </div>
+                    </ol>
                     <li>CurrentTeam:{{userData.team}}</li>
                </ul>
                <button class="btn btn-primary" ng-click="submitUserData()">Submit</button>
@@ -50,6 +57,7 @@
                <li>Gpa:{{u.gpa}}</li>
                <li>Language:{{u.language}}</li>
                <li>Team:{{u.team}}</li>
+               <li>Description:{{u.description}}</li>
             </ul>
         </div>
            

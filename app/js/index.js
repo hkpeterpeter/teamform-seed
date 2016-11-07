@@ -32,7 +32,7 @@ $(document).ready(function(){
 });
 
 angular.module('index-app', ['firebase'])
-.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$window', function($scope, $firebaseObject, $firebaseArray,$window) {
 	//init firebase
 	initalizeFirebase();
 	$scope.txtEmail = '';
@@ -48,8 +48,14 @@ angular.module('index-app', ['firebase'])
 		console.log(pass);
 		const auth = firebase.auth();
 		//Sign in
-		const promise = auth.signInWithEmailAndPassword(email,pass);
-		promsie.catch(e => console.log(e.message));
+		auth.signInWithEmailAndPassword(email,pass)
+			.then(user =>{
+				console.log('promise is done');
+				$window.alert("You have successfully loggedin");
+			}).catch(e => {
+				console.log(e.message);
+				$window.alert(e.message);
+				});
 	}
 
 	//signup function
@@ -60,12 +66,15 @@ angular.module('index-app', ['firebase'])
 		console.log(pass);
 		const auth = firebase.auth();
 		//Sign up
-		var promise = auth.createUserWithEmailAndPassword(email,pass);
-		promsie
+		auth.createUserWithEmailAndPassword(email,pass)
 			.then(user =>{
-				console.log(user.uid);
+				console.log('promise is done');
+				$window.alert("You have successfully signed up");
 			} )
-			.catch(e => console.log(e.message));
+			.catch(e =>{
+				 console.log(e.message);
+				 $window.alert(e.message);
+			});
 	}
 
 	//logout function
