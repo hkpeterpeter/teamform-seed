@@ -15,32 +15,34 @@
 <script>
     // Initialize Firebase
     var config = {
-        apiKey: "AIzaSyAkeCzzzYV9nYbxIK-se8B81wftNUqmx4c",
-        authDomain: "h-project-4fe15.firebaseapp.com",
-        databaseURL: "https://h-project-4fe15.firebaseio.com",
-        storageBucket: "h-project-4fe15.appspot.com",
-        messagingSenderId: "591108267651"
+        apiKey: "AIzaSyCQKYVkrCowDJXNreSNgcJ7cy9RLnlRNZc",
+        authDomain: "teamform-undefined.firebaseapp.com",
+        databaseURL: "https://teamform-undefined.firebaseio.com",
+        storageBucket: "teamform-undefined.appspot.com",
+        messagingSenderId: "640568930097"
     };
     firebase.initializeApp(config);
 </script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script><!--Angular Fire -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
 <script src="./personal-dashboard-main.js"></script>
 
 <div class="container" style="padding-top: 20px">
-
+    <button class="btn waves-effect waves-light" ng-click="facebookLogin()">Login
+        <i class="material-icons right">send</i>
+    </button>
     <div class="row" id="infoDisplay">
         <div class="col m6 s6">
-            <img src="./userProfilePlaceHolder.png">
+            <img src="{{currentUser.profilePic}}" style="height: 300px; width: 300px">
         </div>
         <div class="col m6 s6">
-            <h2>Username: {{username}}</h2>
-            <h4>Email: hezhou556@gmail.com</h4>
-
+            <h2>Username: {{currentUser.name}}</h2>
+            <h4>My ID: {{currentUser.id}}</h4>
         </div>
     </div>
+    <div class="divider"></div>
 
     <div class="row" id="skillManager">
         <h4>Manage my Skills:</h4>
@@ -54,10 +56,67 @@
             </button>
         </form>
     </div>
-    <div class="row" ng-repeat="skill in skills">
-        <h4 class="col m4">{{skill.$value}}</h4>
-        <a class="waves-effect waves-light btn col" class="col m2" ng-click="skills.$remove(skill)"><i class="material-icons left">delete</i>Remove</a>
+
+    <div class="row">
+        <div class="col m3" ng-repeat="skill in skillsList">
+            <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skillsList.$remove(skill)">delete</i>{{skill.$value}}</a>
+        </div>
     </div>
+    <div class="divider"></div>
+
+
+
+    <!-- NOTIFICATION CENTER -->
+    <div class="row">
+        <h4>Notification Center</h4>
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="active" href="#unreadNotifs">Unread</a></li>
+                    <li class="tab col s3"><a href="#allNotifs">All</a></li>
+                </ul>
+            </div>
+            <div id="unreadNotifs">
+                <h4>My unread notifications:</h4>
+            </div>
+            <div id="allNotifs">
+                <h4>All of my notifications:</h4>
+                <div ng-repeat="noti in currentUser.notifs">{{noti.content}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+
+
+    <!-- MANAGEMENT TABS -->
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#eventsAsAdmin">Admin</a></li>
+                <li class="tab col s3"><a class="active" href="#teamsAsLeader">Leader</a></li>
+                <li class="tab col s3"><a href="#teamsAsMember">Member</a></li>
+            </ul>
+        </div>
+        <div id="eventsAsAdmin">
+            <h4>Events administrating by me</h4>
+        </div>
+        <div id="teamsAsLeader">
+            <h4>I am team leader</h4>
+        </div>
+        <div id="teamsAsMember">
+            <h4>I am a member in these teams</h4>
+        </div>
+    </div>
+
+
+
+
+    <!-- MY TEAMS/EVENTS -->
+
+
+
+
+
 
 </div>
 
