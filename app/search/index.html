@@ -46,6 +46,17 @@
 	<!--angular js library-->
 	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	 
+	 <!-- filter-tag.js -->
+	 <script>
+		function setColor(obj,color){
+			obj.style.color = color;
+		}
+		
+		function deleteTag(obj){
+			var currentTag = obj.parentNode;
+			currentTag.parentNode.removeChild(currentTag);
+		}
+	 </script>
 	 <!--sample angular js module and controller-->
 	 <script>
 		angular.module("searchToggle",[])
@@ -184,7 +195,7 @@
 					<button class="btn btn-primary" type="submit">Add</button>
 				</div>
 				<div class = "col-sm-6">
-					<p class="text-danger">Please don`t use any special character including space</p>
+					<p class="text-danger">Please don`t use any special character like 'space','@','#'.'$'.'%','^'.........</p>
 				</div>
 			</div>
 			
@@ -195,15 +206,40 @@
 					<h5>Choose the tags that you want to search: </h5>
 				</div>
 				<div class = "col-sm-9  ">
-					<button class="btn btn-default filter-tag" type="submit" >Java</button>
-					<button class="btn btn-default filter-tag" type="submit">HTML</button>
-					<button class="btn btn-default filter-tag" type="submit">C++</button>
-					<button class="btn btn-default filter-tag" type="submit">AngularJS</button>
-					<button class="btn btn-default filter-tag" type="submit">CSS</button>
-					<button class="btn btn-default filter-tag" type="submit">JavaScript</button>
-					<button class="btn btn-default filter-tag" type="submit">C#</button>
-					<button class="btn btn-default filter-tag" type="submit">DataBase</button>
-					<button class="btn btn-default filter-tag" type="submit">PHP</button>
+					<div class="btn btn-default filter-tag" >Java</div>
+					<div class="btn btn-default filter-tag" >HTML</div>
+					<div class="btn btn-default filter-tag" >C++</div>
+					<div class="btn btn-default filter-tag" >AngularJS</div>
+					<div class="btn btn-default filter-tag" >CSS</div>
+					<div class="btn btn-default filter-tag" >JavaScript</div>
+					<div class="btn btn-default filter-tag" >C#</div>
+					<div class="btn btn-default filter-tag" >SQL</div>
+					<div class="btn btn-default filter-tag" >PHP</div>
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class = "row filter-bar">
+				<div class = "col-sm-3 ">
+					<h5>Current filter tags: </h5>
+				</div>
+				<div class = "col-sm-9">
+					<div class="btn btn-default filter-tag" >
+						XML
+						<span>&nbsp&nbsp</span>
+						<span id = "xml" onmouseenter = "setColor(this,'red')" onmouseleave = "setColor(this,'black')" onclick = "deleteTag(this)" style = "font-weight:bold">&times;</span>
+					</div>
+					<div class="btn btn-default filter-tag" >
+						JQuery
+						<span>&nbsp&nbsp</span>
+						<span id = "xml" onmouseenter = "setColor(this,'red')" onmouseleave = "setColor(this,'black')" onclick = "deleteTag(this)" style = "font-weight:bold">&times;</span>
+					</div>
+					<div class="btn btn-default filter-tag" >
+						Bootstrap
+						<span>&nbsp&nbsp</span>
+						<span id = "xml" onmouseenter = "setColor(this,'red')" onmouseleave = "setColor(this,'black')" onclick = "deleteTag(this)" style = "font-weight:bold">&times;</span>
+					</div>
 				</div>
 			</div>
 			
