@@ -17,42 +17,83 @@
 
 /* Team and Pariticipant List */
 
-.lists h2 {
+.admin-lists h2 {
 	font-size: 24px;
 }
 
 
 /* A Card in Team List */
-.team-text-span {
-	display: inline-block;
-	float: left;
+	/* general */
+.admin-team-card .card-action,
+.admin-user-card .card-action {
+	padding: 10px 15px !important;
 }
-.team-badge {
-	display: inline-block !important;
-	padding: 5px !important;
-	margin-top: 12px !important;
+.admin-team-card .card-content,
+.admin-user-card .card-content {
+	padding: 8px 15px !important;
+}
+.admin-team-card,
+.admin-user-card {
+	margin-bottom: 0 !important;
+	margin-top: 3px !important;
+	/* content in card */
+}
+.admin-card-subtitle {
+	margin-left: 5px;
+	margin-bottom: 10px;
+	font-size: 10px;
+	line-height: 10px;
+	height: 10px;
+	width: 70px;
+	display: inline-block;
+}
+.admin-card-text {
+	display: block;
 }
 
-.skill-badge {
+.admin-skill-badge {
 	display: inline-block !important;
 	padding: 3px 6px !important;
-	margin-bottom: 5px !important;
+	margin: 0 0 3px 8px !important;
 	font-size: 10px !important;
-	float: left !important;
+	float: none !important;
 }
+
+.admin-team-btn {
+	margin: 0 !important;
+	padding: 0 10px !important;
+	height: 0px;
+	line-height: 0px;
+}
+.admin-team-btn:hover,
+.admin-team-btn:focus {
+	background-color: rgba(0, 0, 0, 0);
+}
+
 
 /* A Card in Participants List */
 
-.profile-photo {
+.admin-profile-photo {
 	height: 100%;
 	overflow: hidden;
 }
-.card-btn {
+.admin-card-btn {
 	margin-bottom: 5px;
+	font-size: 12px;
+	padding: 0 1rem;
+	line-height: 30px;
+	height: 30px;
 }
-.incard-divider {
-	margin: 5px 0 10px 0;
+.admin-card-chip {
+	font-size: 10px;
+	height: 20px;
+	border-radius: 10px;
+	line-height: 20px;
+	padding: 0 8px;
 }
-.add-btn {
-	margin-top: 20px;
+.admin-incard-divider {
+	margin: 15px 0 5px 0;
+}
+.admin-add-btn {
+	margin-top: 25px;
 }
