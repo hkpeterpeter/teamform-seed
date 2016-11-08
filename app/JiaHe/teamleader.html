@@ -4,8 +4,8 @@
         <div class="section">
             <div class="card sticky-action blue-grey lighten-1">
                 <div class="card-content white-text">
-                    <span class="card-title activator">{{ event.name }}</span>
-                    <span class="new badge white-text team-badge" data-badge-caption="teams">{{ event.teams.length }}</span>
+                    <span class="card-title activator">{{ event.eventName }}</span>
+                    <span class="new badge white-text team-badge" data-badge-caption="teams">{{ event.allTeams.length }}</span>
                     <p>Max Size:
                         {{ event.maxSize }}</p>
                     <p>Min Size:
@@ -30,16 +30,16 @@
                     </label>
                 </div>
                 <p>Preferred Size:
-                    {{ team.preferredSize }}</p>
+                    {{ team.preferedSize }}</p>
                 <form action="#">
                     <p class="range-field">
-                        <input type="range" id="test5" min="{{ event.minSize }}" max="{{ event.maxSize }}" ng-model="team.preferredSize"/>
+                        <input type="range" id="test5" min="{{ event.minSize }}" max="{{ event.maxSize }}" ng-model="team.preferedSize"/>
                     </p>
                 </form>
 
                 <span class="section">Preferred Skills:
-                    <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in team.preferredSkills">{{ skill }}
-                        <i class="close material-icons" ng-click="team.preferredSkills.remove(skill)">close</i>
+                    <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in team.desiredSkills">{{ skill }}
+                        <i class="close material-icons" ng-click="team.desiredSkills.remove(skill)">close</i>
                     </div>
                     <div class="input-field inline">
                         <input type="text" class="validate" ng-model="team.newSkill" required>
@@ -163,15 +163,15 @@
                 <div class="card-reveal blue-grey darken-3 white-text">
                     <span class="card-title white-text">Smart pick<i class="material-icons right">close</i></span>
                     <p>Add members to size:
-                        {{ smartPick.preferredSize }}</p>
+                        {{ smartPick.preferedSize }}</p>
                     <form action="#">
                         <p class="range-field">
-                            <input type="range" id="test5" min="{{ event.minSize }}" max="{{ event.maxSize }}" ng-model="smartPick.preferredSize"/>
+                            <input type="range" id="test5" min="{{ event.minSize }}" max="{{ event.maxSize }}" ng-model="smartPick.preferedSize"/>
                         </p>
                     </form>
                     <span class="section">Required Skills:
-                        <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in smartPick.preferredSkills">{{ skill }}
-                            <i class="close material-icons" ng-click="smartPick.preferredSkills.remove(skill)">close</i>
+                        <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in smartPick.desiredSkills">{{ skill }}
+                            <i class="close material-icons" ng-click="smartPick.desiredSkills.remove(skill)">close</i>
                         </div>
                         <div class="input-field inline">
                             <input type="text" class="validate" ng-model="smartPick.newSkill" required>
