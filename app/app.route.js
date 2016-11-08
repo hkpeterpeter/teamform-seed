@@ -89,6 +89,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/createTeam',
             templateUrl: 'createTeam.html',
             controller: 'teamSubmit'
+            })
+
+    .state('editteaminfo', {
+            url: '/editteaminfo',
+            templateUrl: 'editteaminfo.html',
+            controller: 'teamedit'
             });
+
 });
 

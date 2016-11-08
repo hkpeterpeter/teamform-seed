@@ -1,0 +1,20 @@
+<body ng-app="teamApp">
+         <h1>Edit Team</h1>
+         <div ng-controller="teamedit">
+         <form name="teamForm">          
+            Please select the event below: <br>
+        <select ng-model="selectedName" ng-options="x.name for x in event">
+        </select>
+
+            <p>Name:
+             <input name="newTeamName" ng-model="input.name" required>
+            </p>
+
+            <p>Introduction:
+             <input name="newTeamIntro" ng-model="input.intro" required>
+            </p>
+            <input class="btn btn-primary" type="button" value="Update" ng-click="teamedit(selectedName.$id, input.name,input.intro);"></input>
+          </form>
+         </div>
+</body>
+<script>
