@@ -110,7 +110,24 @@
 	        </div>
 	      </div>
 	    </div>
-  
+  		
+		<div ng-repeat="m in member">
+     		<div class="checkbox">
+      		<label><input type="checkbox" value="{{m.$id}}" 
+			ng-checked="selection.indexOf(m.$id) > -1"
+			ng-click="toggleSelection(m.$id)">
+			<li>ID = {{m.$id}} <br>
+			Name = {{getMemberName(m.$id)}} <br>
+			request to join the following teams: {{m.selection | json}}</li>
+		 </label>
+		</div>
+			
+		</div>
+		<div class="col-md-2 col-xs-2">
+			<button type="button" class="btn btn-primary" id="invite" ng-click="inviteFunc();">Invite</button>
+		</div>
+
+		  
 	    <div class="col-md-4 col-xs-4 text-left">
 	    <h3>All teams:</h3>
 	    	<ul ng-repeat="t in team">
