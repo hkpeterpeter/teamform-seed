@@ -111,6 +111,8 @@
 	      </div>
 	    </div>
 
+		  
+		 <div class="col-sm-6">
 		  <div ng-repeat="m in member">
 		     <div class="checkbox">
 		      <label><input type="checkbox" value="{{m.$id}}" 
@@ -121,7 +123,7 @@
 			request to join the following teams: {{m.selection | json}}</li>
 			</label>
 		      </div>
-		
+			  </div>
 		<div class="col-md-2 col-xs-2">
 			<button type="button" class="btn btn-primary" id="invite" ng-click="inviteFunc();">Invite</button>
 		</div>
