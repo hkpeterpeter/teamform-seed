@@ -5,7 +5,36 @@
           <simple-field id="event_name" label="Event name"></simple-field>
           <textarea-field id="event_description" label="Event description"></textarea-field>
           <image-upload label="Choose event image"></image-upload>
-
+          <br>
+          <label>Minimum number of team member</label>
+          <div range-spinner
+            range-min="1" 
+            range-step="1"  
+            range-max="50" 
+            range-default-value="1"
+            range-decimal-precision="1"       
+            range-model="eventMin"
+            accept-decimal=false
+            name-of-field="rangeFieldName"
+            id-of-field="rangeFieldId">
+          </div>
+          <br><br><br><br>
+          <label>Maximum number of team member</label>
+          <div range-spinner
+            range-min="1" 
+            range-step="1"  
+            range-max="50" 
+            range-default-value="1"
+            range-decimal-precision="1"       
+            range-model="eventMax"
+            accept-decimal=false
+            name-of-field="rangeFieldName"
+            id-of-field="rangeFieldId">
+          </div>
+          <br><br><br><br>
+          <button class="btn waves-effect waves-light" type="submit" name="action">Create
+            <i class="material-icons right">send</i>
+          </button>
         </form>
     </div>
 </div>
