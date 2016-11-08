@@ -89,6 +89,7 @@ angular.module('profile-app', ['firebase'])
                 .catch(function(error){
                     console.error("Error: "+error);
                 });
+            $scope.loggedIn = true;
         }else{
 			console.log('not log in');
             $window.location.href = '/index.html';

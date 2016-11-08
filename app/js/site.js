@@ -10,7 +10,6 @@ function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
 }
 
-
 // Returns a random integer between min (included) and max (included)
 // Using Math.round() will give you a non-uniform distribution!
 // Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -57,4 +56,3 @@ function initalizeFirebase() {
 function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
 }
-
