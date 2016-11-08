@@ -176,42 +176,4 @@ teamapp.directive("boardList",function(){
 })
 
 
-/*By Wu Yun Qing*/
-teamapp.directive("simpleField", function() {
-    return {
-        restrict: "E",
-        scope: {
-            id: '@',
-            label: '@'
-        },
-        templateUrl: "zhuxinyu/js/components/simple_field.html"
-    };
-});
-teamapp.directive("textareaField", function() {
-    return {
-        restrict: "E",
-        scope: {
-            id: '@',
-            label: '@'
-        },
-        templateUrl: "zhuxinyu/js/components/textarea_field.html"
-    };
-});
-teamapp.directive("imageUpload", function() {
-    return {
-        restrict: "E",
-        scope: {
-            id: '@',
-            label: '@'
-        },
-        templateUrl: "zhuxinyu/js/components/image_upload.html"
-    };
-});
-teamapp.directive("eventForm", function() {
-    return {
-        restrict: "E",
-        templateUrl: "zhuxinyu/js/components/event_form.html"
-    };
-});
-
 
