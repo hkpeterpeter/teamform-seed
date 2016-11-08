@@ -89,6 +89,8 @@ teamapp.directive("imageBoard",function(){
 });
 
 
+
+
 teamapp.directive("footerPanel",function(){
     return{
         restrict: 'E',
