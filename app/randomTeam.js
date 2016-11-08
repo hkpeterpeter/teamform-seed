@@ -1,4 +1,4 @@
-app.controller("eventSearch",["$scope","$firebaseArray", "Auth","$rootScope",
+app.controller("random_Team",["$scope","$firebaseArray", "Auth","$rootScope",
                
                function($scope, $firebaseArray,Auth,$rootscope){
                 
