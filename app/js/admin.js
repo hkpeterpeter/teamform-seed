@@ -32,19 +32,19 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.param = $firebaseObject(ref);
 	$scope.param.$loaded()
 		.then( function(data) {
-			
 			// Fill in some initial values when the DB entry doesn't exist			
-			if ($scope.param == null){
-				$scope.param.admin = user.uid;
+			if ($scope.param.admin == null){
+				$scope.param.admin = $scope.uid;
+			}
+			if ($scope.param.description == null){
+				$scope.param.description = "This is team form for " + eventname + ".";
 			}
 			if(typeof $scope.param.maxTeamSize == "undefined"){				
 				$scope.param.maxTeamSize = 10;
 			}			
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
-			}
-
-			
+			}			
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
 		}) 
@@ -108,7 +108,7 @@ angular.module('teamform-admin-app', ['firebase'])
                     console.error("Error: "+error);
                 });
             $scope.loggedIn = true;
-			$scope.userData.uid = user.uid;
+			$scope.uid = user.uid;
         }else{
 			console.log('not log in');
             $window.location.href = '/index.html';

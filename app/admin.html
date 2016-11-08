@@ -49,15 +49,12 @@
 
             <div class="col-md-8 col-xs-8 text-left panel">
 
-			 
+                <strong>Description: </strong>
+                <input ng-model="description" type="textarea">
 
-             <strong>Minimum Team Size:</strong>  
-
-               <span class="badge">
-                 {{param.minTeamSize}}</span>
-                
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
-
+                <strong>Minimum Team Size:</strong>  
+                    <span class="badge">{{param.minTeamSize}}</span>
+                <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
                 <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
 
             <br><br>
@@ -69,7 +66,7 @@
                 
                <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
-
+               
 
 
             <br><br>
