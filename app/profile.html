@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-profile-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>Profile</title>
+
+      <!-- libraries and CSS
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)
+		site.css: A customized css for our web application. Not from any web framework.
+	  -->
+
+
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+      <link rel="stylesheet" href="css/site.css" >
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+
+   </head>
+
+   <body>
+    <div ng-include = "'navbar.html'"> </div>
+     <div class="container" ng-controller="profileinput">
+
+
+          <div class="thumbnail">
+            <img src="..." alt="...">
+            <div class="caption">
+              <h3>Profile picture</h3>
+
+              <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
+            </div>
+          </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <button class="btn btn-primary" type="button" ng-click="l.like = l.like+1; profile.$save(l);">
+    					<span class="glyphicon glyphicon-thumbs-up"></span> Likes
+    					<span class="badge"> {{l.like}}</span>
+    				</button>
+          </div>
+          <div class="col-md-6">
+
+
+
+          </div>
+        <div class="col-md-offset-6">
+          <div class="panel panel-default" id="name">
+            <div class="panel-heading">
+              <h3 class="panel-title"></h3>
+              <input class="form-control" type="text" id="name" ng-model="input.name" placeholder="Name" required>
+            </div>
+          </div>
+
+           </div>
+
+
+           <div class="col-md-offset-6">
+             <div class="panel panel-default" id="gender">
+               <div class="panel-heading">
+                 <h3 class="panel-title"></h3>
+                 <input class="form-control" type="text" id="gender" ng-model="input.gender" placeholder="Gender" required>
+               </div>
+             </div>
+           </div>
+           <div class="col-md-offset-6">
+             <div class="panel panel-default" id="birth">
+               <div class="panel-heading">
+                 <h3 class="panel-title"></h3>
+                 <input class="form-control" type="text" id="birth" ng-model="input.birth" placeholder="Birth" required>
+               </div>
+             </div>
+           </div>
+           <div class="col-md-offset-6">
+             <div class="panel panel-default" id="star">
+               <div class="panel-heading">
+                 <h3 class="panel-title"></h3>
+                 <input class="form-control" type="text" id="star" ng-model="input.star" placeholder="Zodiac" required>
+               </div>
+             </div>
+           </div>
+           <div class="col-md-offset-6">
+             <div class="panel panel-default" id="location">
+               <div class="panel-heading">
+                 <h3 class="panel-title"></h3>
+                 <input class="form-control" type="text" id="location" ng-model="input.location" placeholder="location" required>
+               </div>
+             </div>
+           </div>
+           <div class="col-md-6">
+             <input type="text"  data-role="tagsinput" placeholder="Add skills" />
+             <button class="btn btn-default" type="add" ng-click="addSkill()">AddSkill</button>
+
+           </div>
+
+           <div class="col-md-offset-6">
+             <div class="panel panel-default" id="description">
+               <div class="panel-heading">
+                 <h3 class="panel-title"></h3>
+                 <input class="form-control" type="text" id="description" ng-model="input.description" placeholder="description" required>
+               </div>
+             </div>
+
+           </div>
+           <div class="col-md-offset-10">
+             <button class="btn btn-default" type="save" ng-click="saveProfile()">Save</button>
+
+           </div>
+
+
+         </div>
+       <div class="col-md-8">
+         <p>Debug:</p>
+         <pre>{{input|json}}</pre>
+         <pre>{{ profile | json }}</pre>
+       </div>
+     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <script src="lib/angular.min.js"></script>
+     <script src="lib/angular-route.min.js"></script>
+
+     <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+     <script src="lib/firebase.js"></script>
+     <script src="lib/angularfire.min.js"></script>
+
+
+
+     <!-- JavaScript of this page -->
+     <script src="js/profile.js"></script>
+     <script src="js/login.js"></script>
+
+     </body>
+  </html>
