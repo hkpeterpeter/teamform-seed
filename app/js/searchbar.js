@@ -1,17 +1,19 @@
+"use strict";
+
 // inject firebase service
 var app = angular.module("search", ["firebase"]);
 
 app.controller("searchCtrl",
-    function ($scope, $firebaseArray, $sce) {
+    function($scope, $firebaseArray, $sce) {
         $scope.trustAsHtml = $sce.trustAsHtml;
 
         // Initialize Firebase
         var config = {
-            apiKey: "AIzaSyDBbzOIIjY0CQEAbIXyPeFt4lf7-pB5N1k",
-            authDomain: "comp3111pj.firebaseapp.com",
-            databaseURL: "https://comp3111pj.firebaseio.com",
-            storageBucket: "comp3111pj.appspot.com",
-            messagingSenderId: "164599846388"
+            apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+            authDomain: "comp3111-5fbe5.firebaseapp.com",
+            databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+            storageBucket: "comp3111-5fbe5.appspot.com",
+            messagingSenderId: "946291658553"
         };
         firebase.initializeApp(config);
 
@@ -28,6 +30,39 @@ app.controller("searchCtrl",
 
         //dummy data
         $scope.result = [];
+        $scope.constraint = {
+            tm: "0",
+            t: [],
+            m: ["-1"],
+            tDis: false,
+            mDis: false,
+            clear: function() {
+                this.tm = "0";
+                for (var i = 0; i < this.t.length; i++)
+                    this.t[i] = "-1";
+                for (var i = 0; i < this.m.length; i++)
+                    this.m[i] = "-1";
+                this.tDis = false;
+                this.mDis = false;
+            }
+        };
+
+        $scope.debugMsg = $scope.constraint.clear();
+
+        $scope.$watch("constraint.tm", function(newVal, oldVal) {
+            if (newVal == "0") {
+                $scope.constraint.mDis = false;
+                $scope.constraint.tDis = false;
+            }
+            else if (newVal == "1") {
+                $scope.constraint.mDis = true;
+                $scope.constraint.tDis = false;
+            }
+            else if (newVal == "2") {
+                $scope.constraint.mDis = false;
+                $scope.constraint.tDis = true;
+            }
+        });
 
         $scope.suggestions = [{
             "id": "suggestionID-1",
@@ -41,7 +76,7 @@ app.controller("searchCtrl",
         }];
 
         //listen to the search text field changes, and give suggestions
-        $scope.$watch("searchInput", function (newVal, oldVal) {
+        $scope.$watch("searchInput", function(newVal, oldVal) {
             if (typeof newVal != "string") {
                 $("#searchSuggestion").hide();
                 return;
@@ -59,16 +94,20 @@ app.controller("searchCtrl",
         });
 
         //Search function
-        $scope.search = function () {
+        $scope.search = function() {
             //create a local array to store result
             var teamsAndMembers = [];
 
             //local helper function for creating result elements
-            function resultElement(_name, _id, _description, _eid) {
+            function resultElement(_id, _name, _description, _eid, _language, _country, _tags, _email) {
                 this.name = _name;
                 this.id = _id;
                 this.description = _description;
                 this.eid = _eid;
+                this.language = _language;
+                this.country = _country;
+                this.tags = _tags;
+                this.email = _email;
             }
 
             //clear the previos search results
@@ -78,7 +117,7 @@ app.controller("searchCtrl",
             var keywords = normailizeText($("#searchTextField").val());
 
             //when keywords contain only symbols or spaces, do nothing
-            if (keywords.length == 1 && keywords[0] == "")
+            if (keywords.length == 1 && keywords[0] == "" || keywords.join("") == "")
                 return;
 
             //calculate the similarity of each team data
@@ -87,17 +126,17 @@ app.controller("searchCtrl",
             // -e means equal, -s means similar
             var scoreList = {
                 "id-e": 100,
-                "id-s": function (dummy) { return 0 },
+                "id-s": function(dummy) { return 0 },
                 "name-e": 90,
-                "name-s": function (percentage) { return 90 * percentage },
+                "name-s": function(percentage) { return 90 * percentage },
                 "destination-e": 60,
-                "destination-s": function (percentage) { return 60 * percentage },
+                "destination-s": function(percentage) { return 60 * percentage },
                 "language-e": 30,
-                "language-s": function (dummy) { return 0 },
+                "language-s": function(dummy) { return 0 },
                 "tag-e": 70,
-                "tag-s": function (percentage) { return 70 * percentage },
+                "tag-s": function(percentage) { return 70 * percentage },
                 "description-e": 70,
-                "description-s": function (percentage) { return 70 * percentage },
+                "description-s": function(percentage) { return 70 * percentage },
             };
 
             //loop through the team list
@@ -136,8 +175,10 @@ app.controller("searchCtrl",
                     var e1 = hightlight(teams[i].name, keywords);
                     var e2 = hightlight(id, keywords);
                     var e3 = hightlight(teams[i].descriptions, keywords);
-                    // teamsAndMembers.push(new resultElement(teams[i].name, ("Team ID: " + id), teams[i].descriptions, ("searchResultElement-" + i)));
-                    teamsAndMembers.push(new resultElement(e1, "Team ID: " + e2, e3, ("searchResultElement-" + i)));
+                    var e4 = hightlight(teams[i].language_for_communication, keywords);
+                    var e5 = hightlight(teams[i].destination, keywords);
+                    var e6 = hightlight(teams[i].tags.join(" * "), keywords).split(" * ");
+                    teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, ""));
                 }
             }
 
@@ -149,17 +190,17 @@ app.controller("searchCtrl",
             //create similarity score list for members
             scoreList = {
                 "id-e": 100,
-                "id-s": function (dummy) { return 0 },
+                "id-s": function(dummy) { return 0 },
                 "name-e": 90,
-                "name-s": function (percentage) { return percentage * 90 },
+                "name-s": function(percentage) { return percentage * 90 },
                 "description-e": 60,
-                "description-s": function (percentage) { return percentage * 60 },
+                "description-s": function(percentage) { return percentage * 60 },
                 "email-e": 80,
-                "email-s": function (percentage) { return percentage * 60 },
+                "email-s": function(percentage) { return percentage * 60 },
                 "from-e": 60,
-                "from-s": function (percentage) { return percentage * 60 },
+                "from-s": function(percentage) { return percentage * 60 },
                 "language-e": 30,
-                "language-s": function (percentage) { return percentage * 30 }
+                "language-s": function(percentage) { return percentage * 30 }
             }
 
             //save the count value in order to make the element id number correct
@@ -199,7 +240,10 @@ app.controller("searchCtrl",
                     var e1 = hightlight(members[i].first_name + " " + members[i].last_name, keywords);
                     var e2 = hightlight(id, keywords);
                     var e3 = hightlight(members[i].descriptions, keywords);
-                    teamsAndMembers.push(new resultElement(e1, ("Member ID: " + e2), e3, "searchResultElement-" + (i + resultCount)));
+                    var e4 = hightlight(members[i].language.join(" * "), keywords).split(" * ").join(", ");
+                    var e5 = hightlight(members[i].from, keywords);
+                    var e6 = hightlight(members[i].email, keywords);
+                    teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6));
                 }
             }
 
@@ -211,35 +255,39 @@ app.controller("searchCtrl",
 
             //if no results, show the no result message
             if ($scope.result.length == 0)
-                $scope.result.push({ "name": "No results", "description": "There are no matched results.", "eid": "NO_SEARCH_RESULT" });
+                $scope.result.push(false);
+
+            //clear all the constraint and hide the constraint panel
+            $scope.constraint.clear();
+            $("#advancedSearchPanel").hide();
         }
         //Search function end
     }
 );
 
 //layout stuffs
-$(document).ready(function () {
+$(document).ready(function() {
     //initialization
     $("#searchSuggestion").hide();
     $("#advancedSearchPanel").hide();
 
     //show and hide
-    $("#advancedSearchBtn").click(function () {
+    $("#advancedSearchBtn").click(function() {
         $("#advancedSearchPanel").toggle();
     });
 
-    $("#advancedSearchCancelBtn").click(function () {
+    $("#advancedSearchCancelBtn").click(function() {
         $("#advancedSearchPanel").hide();
     });
 
-    $("body").click(function () {
+    $("body").click(function() {
         $("#searchSuggestion").hide();
     });
 
     //layout changes
-    $("#searchBtnContainer input[type='button']").click(function () {
+    $("#searchBtnContainer input[type='button']").click(function() {
         var keywords = normailizeText($("#searchTextField").val());
-        if (keywords.length == 1 && keywords[0] == "")
+        if (keywords.length == 1 && keywords[0] == "" || keywords.join("") == "")
             return;
         $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
         $("#searchBtnContainer").hide();
@@ -251,7 +299,7 @@ $(document).ready(function () {
     });
 
     //keydown handling
-    $("#searchTextField").keydown(function (event) {
+    $("#searchTextField").keydown(function(event) {
         //keycode 13 is "enter"
         //keycode 27 is "esc"
         switch (event.which) {
@@ -346,7 +394,7 @@ function hightlight(text, keywords) {
         return text;
 
     var text1 = text.split(" ");
-    var result = []
+    var result = [];
     for (var j = 0; j < text1.length; j++) {
         var highlighted = false;
         var highlighted2 = false;
