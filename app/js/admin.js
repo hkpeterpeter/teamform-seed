@@ -17,9 +17,10 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
+	$scope.loggedIn = true;
 			
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	initalizeFirebase();	
 	
 	var refPath, ref, eventName;
 
@@ -32,27 +33,44 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.param = $firebaseObject(ref);
 	$scope.param.$loaded()
 		.then( function(data) {
-			// Fill in some initial values when the DB entry doesn't exist			
-			if ($scope.param.admin == null){
+			// // Fill in some initial values when the DB entry doesn't exist
+			if (typeof $scope.param.admin == "undefined"){
 				$scope.param.admin = $scope.uid;
+				console.log("warning: change admin!");
 			}
-			if ($scope.param.description == null){
-				$scope.param.description = "This is team form for " + eventname + ".";
+			if (typeof $scope.param.description == "undefined"){
+				$scope.param.description = "This is team form for " + eventName + ".";
+				console.log("warning: change admin!");
 			}
 			if(typeof $scope.param.maxTeamSize == "undefined"){				
 				$scope.param.maxTeamSize = 10;
+				console.log("warning: change teamsize!");
 			}			
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}			
+			if (typeof $scope.param.deadline =="undefined"){
+				$scope.param.deadline = new Date(new Date().setDate(new Date().getDate()+30));//outside new Date: change string to date object, 2nd Date: create date, 3 rd Date: get today day
+				console.log("warning: still changing date");
+			}else{
+				$scope.param.deadline = new Date($scope.param.deadline);
+				console.log(new Date($scope.param.deadline ));
+			}
+			$scope.today=new Date();
+			var database = firebase.database();
+            var adminRef = database.ref('users/'+$scope.param.admin);
+            var adminData = $firebaseObject(adminRef);
+            adminData.$loaded()
+                .then(function(data){
+                    $scope.adminName = adminData.name;
+                })
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
 		}) 
 		.catch(function(error) {
 			// Database connection error handling...
 			//console.error("Error:", error);
-		});
-		
+		});	
 	
 	refPath = "event/"+eventName + "/team";	
 	$scope.team = [];
@@ -79,14 +97,15 @@ angular.module('teamform-admin-app', ['firebase'])
 	}
 
 	$scope.saveFunc = function() {
+		$scope.param.deadline =$scope.param.deadline.toISOString(); 
 		$scope.param.$save();
 		// Finally, go back to the front-end
 		window.location.href= "index.html";
 	}
 
 	//$scope.users is an array of users in firebase
-    var ref = firebase.database().ref('users');
-    $scope.users = $firebaseArray(ref);
+    var usersRef = firebase.database().ref('users');
+    $scope.users = $firebaseArray(usersRef);
 	
 	//logout function
 	$scope.logout = function(){
@@ -98,8 +117,8 @@ angular.module('teamform-admin-app', ['firebase'])
 		if(user){
 			console.log('logged in');
             var database = firebase.database();
-            var ref = database.ref('users/'+user.uid);
-            var currentUserData = $firebaseObject(ref);
+            var usersRef = database.ref('users/'+user.uid);
+            var currentUserData = $firebaseObject(usersRef);
             currentUserData.$loaded()
                 .then(function(data){
                     $scope.username = currentUserData.name;
