@@ -45,6 +45,8 @@
 	
 	<!--angular js library-->
 	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	 
+	 <!--sample angular js module and controller-->
 	 <script>
 		angular.module("searchToggle",[])
 		.controller("searchController",function($scope){
@@ -99,13 +101,21 @@
         <div class="navbar-header">
 			<a class="navbar-brand" href="#" >
 				<div>
-					<img alt="Brand" style = "height:30px;width:30px" src="peter.jpg"/> <span>Peter Cheung     </span><button type="button" class="btn btn-default btn-xs">Logout</button>
+					<!--use firebase to get the user picture and user name-->
+					<img alt="Brand" style = "height:30px;width:30px" src="peter.jpg"/> <span>Peter Cheung     </span>
+					
+					<!--not yet dicided-->
+					<button type="button" class="btn btn-default btn-xs">Logout</button>
 				</div>
 			</a>
         </div>
+		
         <div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li>
+					<!-- not yet decided -->
+					<!-- get personal data and count the number of notifications in notification json-->
+					<!-- ng-click to go to notification section?-->
 					<a href="#"><img src = "images.png" style = "width:20px;height:20px"/> <span class="badge">42<!--use angular js--></span></a>
 				</li>
 			</ul>
@@ -126,6 +136,8 @@
 					</div>
 				</label>
             <input name = "search" type="text" class="form-control" placeholder="Search...">
+			
+			<!-- use ng-click to call the search function here -->
 			<button type="button" class="btn btn-default" aria-label="Left Align">
 				<span class="glyphicon glyphicon-search" aria-hidden="true">
 			</button>
@@ -161,8 +173,26 @@
 		
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
 			<div class = "row filter-bar">
+				<div class = "col-sm-3">
+					<h5>Enter the tags that you want to search: </h5>
+					
+				</div>
+				<div class = "col-sm-2">
+					<input type="text" class="form-control" placeholder="case ignored"/>
+				</div>
+				<div class = "col-sm-1">
+					<button class="btn btn-primary" type="submit">Add</button>
+				</div>
+				<div class = "col-sm-6">
+					<p class="text-danger">Please don`t use any special character including space</p>
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class = "row filter-bar">
 				<div class="col-sm-3 ">
-					<h4>Choose the tags that you want to search: </h4>
+					<h5>Choose the tags that you want to search: </h5>
 				</div>
 				<div class = "col-sm-9  ">
 					<button class="btn btn-default filter-tag" type="submit" >Java</button>
@@ -175,9 +205,9 @@
 					<button class="btn btn-default filter-tag" type="submit">DataBase</button>
 					<button class="btn btn-default filter-tag" type="submit">PHP</button>
 				</div>
-
-				
 			</div>
+			
+			<hr/>
 			
 			<div class = "row filter-bar">
 				<div class="col-sm-3 ">
@@ -185,8 +215,10 @@
 					<label for = "full" style = "margin-right:5px"><h4>Ignore full teams: </h4></label>
 					<input name = "full" type = "checkbox">
 				</div>
-				
 			</div>
+			
+			<hr/>
+			
 			<div class = "row" ng-app = "listTeams" ng-controller = "listTeamController">
 				<div class = "row">
 					<div class = "col-sm-3">
@@ -202,7 +234,7 @@
 										<div class="caption col-sm-7">
 											<h3>OOP</h3>
 											<p>...</p>
-											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Ignore</a></p>
+											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
 										</div>
 									</div>
 								</div>
@@ -212,7 +244,7 @@
 										<div class="caption col-sm-7">
 											<h3>Team Dark</h3>
 											<p>...</p>
-											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Ignore</a></p>
+											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
 										</div>
 									</div>
 								</div>
@@ -222,7 +254,7 @@
 										<div class="caption col-sm-7">
 											<h3>SK Telecom</h3>
 											<p>...</p>
-											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Ignore</a></p>
+											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
 										</div>
 									</div>
 								</div>
