@@ -51,6 +51,8 @@
 
 			<form name="form" class="css-form col-md" novalidate>
 		 		<div class="form-group">
+					 	<label>Content: <span class="required" ng-show="form.content.$error.required">*required</span></label>
+					<textarea class="form-control" name="content" ng-model="input.msg.content" placeholder="Message..." required></textarea><br>
 					<label>Content: <span class="required" ng-show="form.content.$error.required">*required</span></label>
 					<textarea class="form-control" name="content" ng-model="input.msg.content" placeholder="Message..." required></textarea><br>
 					<input class="button" type="button" value="Submit" ng-click="addChatRecord()" ng-disabled="!input.content">
