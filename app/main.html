@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="teamform, team">
+  <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>teamform - A real-time online team forming app</title>
+
+      <!-- libraries and CSS 	  
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)		
+		site.css: A customized css for our web application. Not from any web framework. 
+ -->
+
+ <script src="lib/jquery.min.js"></script>      
+ <script src="lib/bootstrap.min.js"></script>      
+
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
+
+
+ <!-- Customized libraries shared by pages -->
+ <script src="js/site.js"></script>
+
+
+
+</head>
+<body>
+
+
+  <div class="navbar-wrapper">
+
+   <div class="container">
+    <nav class="navbar navbar-static-top navbar-default">
+     <div class="container">
+      <div class="navbar-header">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="#">teamform</a>
+     </div>
+     <div id="navbar" class="navbar-collapse collapse">
+       <ul class="nav navbar-nav">
+
+        <li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+         <ul class="dropdown-menu">
+          <li><a href="#page_about">About teamform</a></li>
+          <li>
+            <a href="#page_team">Development team</a>
+          </li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">TODO: Add menu items here... </a></li>
+        </ul>
+      </li>
+
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
+
+       <ul class="dropdown-menu">
+        <li>
+         <a href="coverage/index.html" target="_blank">Report</a>
+        </li>
+       <li role="separator" class="divider"></li>
+
+       <li>
+         <a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
+       </li>
+
+       <li><a href="#">TODO: Add more test cases here... </a></li>
+     </ul>
+   </li>
+
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+      <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+  </ul>
+</div>
+</div>
+</nav>
+</div>
+</div>
+<!-- A sample login page -->
+<div class="container" id="page_home">
+ <div class="row">
+  <div class="col-md-12">
+   <div class="row">
+    <div class="col-md-12">
+
+     <div class="text-center">
+      <h1>teamform</h1>
+      <p>A real-time online team forming app for any event</p>
+    </div>
+
+    <br >
+
+    <div class="text-center">
+
+      <input id="input_text" type="text" class="input-lg">
+      <br>
+      <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
+      <br>
+      <br>
+
+      <div>
+
+       <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
+
+
+
+       <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
+
+       <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
+
+
+
+     </div>
+   </div>
+   <br >
+   <br >
+ </div>
+</div>
+<hr >
+</div>
+</div>
+</div>
+
+
+<!-- START THE FEATURETTES -->
+<div class="row featurette" id="page_team">
+  <div class="col-md-12">
+   <h2 class="featurette-heading"> Development Team
+    <br>
+    <span class="text-muted"> Yam</span>
+  </h2>
+
+
+
+  <div class="row">
+  <div class="col-lg-3 ">
+    <div class="thumbnail text-center">
+      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+      <div class="caption">
+       <h4>Chu Wai Yin</h4>
+       <p>[ITSC email]</p>
+
+     </div>
+   </div>
+ </div> 
+
+  <div class="col-lg-3 ">
+    <div class="thumbnail text-center">
+      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+      <div class="caption">
+       <h4>Li Wing Yee </h4>
+       <p>[ITSC email]</p>
+
+     </div>
+   </div>
+ </div>
+
+
+   <div class="col-lg-3 ">
+    <div class="thumbnail text-center">
+      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+      <div class="caption">
+       <h4>Ng Wai Sum </h4>
+       <p>[ITSC email]</p>
+
+     </div>
+   </div>
+ </div> 
+
+   <div class="col-lg-3 ">
+    <div class="thumbnail text-center">
+      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+      <div class="caption">
+       <h4>Ng Wai Wah </h4>
+       <p>[ITSC email]</p>
+
+     </div>
+   </div>
+ </div>  
+</div> 
+
+
+   <div class="col-lg-3 ">
+    <div class="thumbnail text-center">
+      <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+      <div class="caption">
+       <h4>Wong Chau Shing</h4>
+       <p>[ITSC email]</p>
+
+     </div>
+   </div>
+ </div> 
+
+
+
+
+</div>
+</div>
+
+
+<!-- JavaScript of this page -->
+<script src="js/index.js"></script>
+
+
+</body>
+</html>
