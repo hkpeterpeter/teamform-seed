@@ -69,11 +69,11 @@ angular.module('teamform-profile-app', ['firebase'])
         //
         // }
         $scope.profile.name = $scope.input.name;
-        $scope.input.gender = $scope.input.gender;
-        $scope.input.birth = $scope.input.birth;
-        $scope.input.star = $scope.input.star;
-        $scope.input.location = $scope.input.location;
-        $scope.input.description = $scope.input.description;
+        $scope.profile.gender = $scope.input.gender;
+        $scope.profile.birth = $scope.input.birth;
+        $scope.profile.star = $scope.input.star;
+        $scope.profile.location = $scope.input.location;
+        $scope.profile.description = $scope.input.description;
 
         $scope.profile.$save();
       }
