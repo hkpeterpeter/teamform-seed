@@ -1,15 +1,15 @@
-var app = angular.module('form_app', []);
+
     
-    app.controller('myCtrl', function($scope) {
+    teamapp.controller('myCtrl', function($scope) {
         
     });
 
-    app.controller('rangeNumberSpinnerController', ['$scope',
+    teamapp.controller('rangeNumberSpinnerController', ['$scope',
         function($scope) {
             //Use rangeValue anywhere required
     }]);
     
-    app.directive("simpleField",function(){
+    teamapp.directive("simpleField",function(){
         return {
             restrict: "E",
             scope: {
@@ -20,7 +20,7 @@ var app = angular.module('form_app', []);
         };
     });
     
-    app.directive("textareaField",function(){
+    teamapp.directive("textareaField",function(){
         return {
             restrict: "E",
             scope: {
@@ -31,7 +31,7 @@ var app = angular.module('form_app', []);
         };
     });
     
-    app.directive("imageUpload",function(){
+    teamapp.directive("imageUpload",function(){
         return {
             restrict: "E",
             scope: {
@@ -42,7 +42,7 @@ var app = angular.module('form_app', []);
         };
     });
     
-    app.directive('rangeSpinner',  function() {
+    teamapp.directive('rangeSpinner',  function() {
         return {
             restrict : 'AE',
             scope : {
@@ -149,14 +149,14 @@ var app = angular.module('form_app', []);
         </div>');
 }]);
     
-    app.directive("eventForm",function(){
+    teamapp.directive("eventForm",function(){
         return {
             restrict: "E",
             templateUrl: "component/event_form.html"
         };
     });
     
-    app.directive("teamForm",function(){
+    teamapp.directive("teamForm",function(){
         return {
             restrict: "E",
             templateUrl: "component/team_form.html"
