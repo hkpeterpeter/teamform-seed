@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     $("#btn_admin").click(function(){
     	var val = $('#input_text').val();
     	if ( val !== '' ) {
@@ -41,6 +40,33 @@ angular.module('index-app', ['firebase'])
 	$scope.displayEmail = '';
 	$scope.username='';
 	
+	//create new event
+	$scope.createNewEvent =function (eventname){
+		var val = $('#newEventName').val();
+		if (val == '' ){
+			$window.alert("empty event name");//should be change to alert in the input textbox
+		}else if ( $scope.isEventExist(val) ) {//check if the event already exsist
+    		$window.alert("Event ", val , "already exist.");
+    	}else{
+			var url = "admin.html?q=" + val;
+    		window.location.href= url ;
+    		return false;
+		}
+	}
+
+	//check if event exist
+	$scope.isEventExist = function(eventname){
+		var eventsRef = firebase.database().ref('events');
+		var eventList = $firebaseArray(eventsRef);
+		eventList.$loaded()
+			.then(function(x){
+				console.log(eventList.$getRecord(eventname));
+				if(eventList.$getRecord(eventname) == null){
+					return false;
+				}
+			});
+	}
+
 	//login function
 	$scope.login = function(){
 		const email = $scope.txtEmail;

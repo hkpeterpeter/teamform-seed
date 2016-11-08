@@ -60,33 +60,23 @@
                         <h1>teamform</h1>
                         <p>A real-time online team forming app for any event</p>
                      </div>
-
                      <br >
+                     <!--enter event-->
 
+                        <!--filter/search event (if event not exsist, ask if user want to create one)-->
+                        <!--event list-->
+                        <!--enter event name and join(just for testing)-->
+                     <!--create event and become admin-->
                      <div class="text-center">
-
-                        <input id="input_text" type="text" class="input-lg">
+                        <input id="newEventName" type="text" class="input-lg" ng-model="newEventName">
                         <br>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-                        <br>
-                        <br>
-
+                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create an event</em>
                         <div>
-                           
-                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-
-                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-                          
-                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-
+                           <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(newEventName)">Create new event</button>
                         </div>
                      </div>
-                     <br >
-					 
-																 
-					
-					 
-                     <br >
+
+                     <br>
                   </div>
                </div>
                <hr >
@@ -97,8 +87,6 @@
          ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
       <div class="container marketing">
-
-
          <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_about">
             <div class="col-md-12">

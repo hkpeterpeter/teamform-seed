@@ -24,7 +24,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	var refPath, ref, eventName;
 
 	eventName = getURLParameter("q");
-	refPath = eventName + "/admin/param";	
+	refPath = "event/"+ eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
@@ -34,12 +34,16 @@ angular.module('teamform-admin-app', ['firebase'])
 		.then( function(data) {
 			
 			// Fill in some initial values when the DB entry doesn't exist			
+			if ($scope.param == null){
+				$scope.param.admin = user.uid;
+			}
 			if(typeof $scope.param.maxTeamSize == "undefined"){				
 				$scope.param.maxTeamSize = 10;
 			}			
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}
+
 			
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
@@ -50,26 +54,20 @@ angular.module('teamform-admin-app', ['firebase'])
 		});
 		
 	
-	refPath = eventName + "/team";	
+	refPath = "event/"+eventName + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
-	
-	refPath = eventName + "/member";
+	refPath = "event/"+eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-	
-	
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
 		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
 			$scope.param.minTeamSize = newVal;
 		} 
-		
 		$scope.param.$save();
-
-		
 	}
 
 	$scope.changeMaxTeamSize = function(delta) {
@@ -77,19 +75,43 @@ angular.module('teamform-admin-app', ['firebase'])
 		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
 			$scope.param.maxTeamSize = newVal;
 		} 
-		
 		$scope.param.$save();
-		
-		
 	}
 
 	$scope.saveFunc = function() {
-
 		$scope.param.$save();
-		
 		// Finally, go back to the front-end
 		window.location.href= "index.html";
 	}
+
+	//$scope.users is an array of users in firebase
+    var ref = firebase.database().ref('users');
+    $scope.users = $firebaseArray(ref);
 	
-		
+	//logout function
+	$scope.logout = function(){
+		firebase.auth().signOut();
+	}
+
+//monitor if the user is logged in or not
+	firebase.auth().onAuthStateChanged(user => {
+		if(user){
+			console.log('logged in');
+            var database = firebase.database();
+            var ref = database.ref('users/'+user.uid);
+            var currentUserData = $firebaseObject(ref);
+            currentUserData.$loaded()
+                .then(function(data){
+                    $scope.username = currentUserData.name;
+                })
+                .catch(function(error){
+                    console.error("Error: "+error);
+                });
+            $scope.loggedIn = true;
+			$scope.userData.uid = user.uid;
+        }else{
+			console.log('not log in');
+            $window.location.href = '/index.html';
+		}
+	})
 }]);
