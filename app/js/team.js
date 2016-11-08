@@ -64,7 +64,7 @@ angular.module('teamform-team-app', ['firebase'])
 	
 	$scope.retrieveNameFromID = function(id) {
 		for(var tmpIdx = 0; tmpIdx < $scope.users.length; tmpIdx++) {
-			if($scope.users[tmpIdx].$id == id) {
+			if($scope.users[tmpIdx].$id === id) {
 				return $scope.users[tmpIdx].name;
 			}
 		}
@@ -73,9 +73,9 @@ angular.module('teamform-team-app', ['firebase'])
 
 	$scope.retrieveNamesFromJSON = function(teamMembers) {
 		var result = [];
-		for(var idx = 0; idx < teamMembers.length; idx++) {
+		var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
+		for(var idx = 0; idx < length; idx++) {
 			for(var tmpIdx = 0; tmpIdx < $scope.users.length; tmpIdx++) {
-				console.log($scope.users);
 				if($scope.users[tmpIdx].$id === teamMembers[idx]) {
 					result.push($scope.users[tmpIdx].name);
 					break;

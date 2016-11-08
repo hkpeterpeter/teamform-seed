@@ -15,9 +15,14 @@ $(document).ready(function() {
 		firebase.auth().signInWithPopup(provider).then(function(result) {
 			var token = result.credential.accessToken;
 			var user = result.user;
-		}).then(function() {
-			// location.reload();
-			window.location.href= "index.html";
+			console.log(user.displayName + " " + user.uid);
+			var refPath = "user/" + user.uid;
+			var ref = firebase.database().ref(refPath);
+			ref.set({
+				name: user.displayName
+			}).then(function() {
+				window.location.href= "index.html";
+			});
 		}).catch(function(error) {
 			console.log(error.message);
 		});
@@ -46,24 +51,40 @@ $(document).ready(function() {
 		}).then(function() {
 			var user = firebase.auth().currentUser;
 			if(user) {
+				var refPath = "user/" + user.uid;
+				console.log(refPath);
+				var ref = firebase.database().ref(refPath);
+				ref.set({
+					name: user.displayName
+				});
 				window.location.href = "index.html";
 			}
 		});
 	});
 
 	$("#signup-submit").click(function() {
-		var name = $("#signup #displayname").val();
+		var uname = $("#signup #displayname").val();
 		var email = $("#signup #email").val();
 		var pw = $("#signup #password").val();
 		firebase.auth().createUserWithEmailAndPassword(email, pw).then(function() {
 			var user = firebase.auth().currentUser;
-			user.updateProfile({
-			  displayName: name
-			});
-		});
-		firebase.auth().currentUser.sendEmailVerification().then(function() {
-			alert('Email Verification Sent! Check your email to verify your account');
-			window.location.href = "index.html";
+			if(user) {
+				var refPath = "user/" + user.uid;
+				var ref = firebase.database().ref(refPath);
+				user.updateProfile({
+			  		displayName: uname
+				}).then(function() {
+					ref.set({
+						name: uname
+					}).then(function() {
+						alert('User sign up complete');
+					});
+				});
+				user.sendEmailVerification().then(function() {
+					alert('Email Verification Sent! Check your email to verify your account');
+					window.location.href = "index.html";
+				});
+			}			
 		});
 	});
 
