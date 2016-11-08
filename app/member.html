@@ -78,7 +78,7 @@
 			   
 			     <div class="row text-left">
 			        <label>Name: <input ng-model="searchText"></label>
-					<label>Team Size: <input ng-model="sizeText" type="number"></label>
+					<label>Preferred Team Size: <input ng-model="sizeText" type="number"></label>
 				    <h3>Your team preference(s):</h3>
 					<div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
 					 <div class="checkbox">
