@@ -14,7 +14,7 @@ export default class RegisterCtrl {
     register() {
         this.authService.register(this.credential)
             .then((result) => {
-                this.$state.go(this.$state.params.toState, this.$state.params.toParams);
+                this.$state.go('user.detail.edit', {userId: result.uid, toState: this.$state.params.toState, toParams: this.$state.params.toParams});
             })
             .catch((error) => {
                 this.$timeout(() => {

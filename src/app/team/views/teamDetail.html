@@ -59,11 +59,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="user in teamDetail.team.users | itemsPerPage: 1">
+                    <tr dir-paginate="user in teamDetail.team.users | itemsPerPage: 5">
                         <td><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
                         <td>{{user.role}}</td>
                         <td>
-                            <span ng-repeat="skill in user.skills" class="label label-success">{{skill.text}}</span>
+                            <span ng-repeat="skill in user.skills" class="label label-success">{{skill}}</span>
                         </td>
                     </tr>
                 </tbody>

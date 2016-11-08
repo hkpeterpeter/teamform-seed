@@ -27,6 +27,10 @@ export default class AuthService {
     }
     register(credential) {
         return this.$auth.createUserWithEmailAndPassword(credential.email, credential.password).then((result) => {
+            let user = this.$firebaseObject(this.$database.ref('users/' + result.uid));
+            user.pending = true;
+            return Promise.all([Promise.resolve(result), user.$save()]);
+        }).then(([result]) => {
             this.$rootScope.$broadcast('authChanged');
             return result;
         });

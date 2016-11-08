@@ -9,8 +9,9 @@ export default class TeamDetailCtrl {
         this.error = null;
         this.getTeam();
     }
-    getTeam() {
-        this.teamService.getTeam(this.$stateParams.teamId).then((team) => {
+    async getTeam() {
+        try {
+            let team = await this.teamService.getTeam(this.$stateParams.teamId);
             this.$timeout(() => {
                 if (team.$value === null) {
                     return this.$timeout(() => {
@@ -19,23 +20,24 @@ export default class TeamDetailCtrl {
                 }
                 this.team = team;
             });
-        }).catch((error) => {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
-    joinTeam() {
-        this.teamService.joinTeam(this.$stateParams.teamId).then((teamUsers) => {
+    async joinTeam() {
+        try {
+            let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId);
             this.$timeout(() => {
                 console.log('success');
                 this.getTeam();
             });
-        }).catch((error) => {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
 }
 
