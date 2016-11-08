@@ -101,8 +101,11 @@
              </div>
            </div>
            <div class="col-md-6">
-             <input type="text"  data-role="tagsinput" placeholder="Add skills" />
+             <input type="text"  data-role="tagsinput" ng-model="SkillTemp" placeholder="Add skills" />
              <button class="btn btn-default" type="add" ng-click="addSkill()">AddSkill</button>
+             <div ng-repeat="p in profile.skills">
+               <p>{{p.skills|json}}</p>
+             </div>
 
            </div>
 
@@ -116,6 +119,7 @@
 
            </div>
            <div class="col-md-offset-10">
+
              <button class="btn btn-default" type="save" ng-click="saveProfile()">Save</button>
 
            </div>

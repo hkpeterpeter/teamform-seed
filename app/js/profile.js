@@ -42,6 +42,10 @@ angular.module('teamform-profile-app', ['firebase'])
                 $scope.profile[key]= $scope.input[key];
               }
             }
+            // if (typeof $scope.input.skills=="undefined"){
+            //   $scope..input.skills = [];
+            // }
+
             console.log(data);
           })
           .catch(function(error) {
@@ -55,18 +59,36 @@ angular.module('teamform-profile-app', ['firebase'])
     });
 
     $scope.saveProfile = function() {
-      if ( $scope.input.name != "" && $scope.input.gender != "" && $scope.input.birth != "" && $scope.input.star != "" && $scope.input.location != "" && $scope.input.description != "") {
+      if ( $scope.input.name != "" && $scope.input.gender != "" && $scope.input.birth != "" && $scope.input.star != "" && $scope.input.location != "" && $scope.input.description != ""  ) {
         // $scope.input.date = new Date().toString();
         // $scope.input.likes = 0;
         // add an input question
-        for (var key in $scope.input) {
+        // for (var key in $scope.input) {
+        //
+        //     $scope.profile[key] = $scope.input[key];
+        //
+        // }
+        $scope.profile.name = $scope.input.name;
+        $scope.input.gender = $scope.input.gender;
+        $scope.input.birth = $scope.input.birth;
+        $scope.input.star = $scope.input.star;
+        $scope.input.location = $scope.input.location;
+        $scope.input.description = $scope.input.description;
 
-            $scope.profile[key]= $scope.input[key];
-
-        }
         $scope.profile.$save();
       }
     }
+    $scope.SkillTemp = "";
+    $scope.addSkill = function(){
+
+        $scope.profile.skills.push($scope.SkillTemp);
+        $scope.profile.$save();
+
+    }
+
+
+
+
 
 
     // var ref = firebase.database().ref("profileApp");
