@@ -20,7 +20,8 @@ angular.module('teamform-member-app', ['firebase'])
 	initalizeFirebase();
 	
 	$scope.userID = "";
-	$scope.userName = "";	
+	$scope.userName = "";
+	$scope.sex = ""
 	$scope.teams = {};
 	
 	
@@ -57,11 +58,13 @@ angular.module('teamform-member-app', ['firebase'])
 		
 		var userID = $.trim( $scope.userID );
 		var userName = $.trim( $scope.userName );
+		var userSex = $.trim($scope.userSex);
 		
-		if ( userID !== '' && userName !== '' ) {
+		if ( userID !== '' && userName !== '' && userSex!== '' ) {
 									
 			var newData = {				
 				'name': userName,
+				'sex':userSex,
 				'selection': $scope.selection
 			};
 			
@@ -81,6 +84,31 @@ angular.module('teamform-member-app', ['firebase'])
 					
 		}
 	}
+	
+	$scope.refreshAds = function() {
+		var refPath = getURLParameter("q") + "/advertisement";	
+		var ref = firebase.database().ref(refPath);
+		
+		// Link and sync a firebase object
+		
+	
+	
+		$scope.advertisements = $firebaseArray(ref);
+		$scope.advertisements.$loaded()
+			.then( function(data) {
+								
+							
+							
+			}) 
+			.catch(function(error) {
+				// Database connection error handling...
+				//console.error("Error:", error);
+			});
+			
+		
+	}
+	
+	$scope.refreshAds();
 	
 	$scope.refreshTeams = function() {
 		var refPath = getURLParameter("q") + "/team";	
