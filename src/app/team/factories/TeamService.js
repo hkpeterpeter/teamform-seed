@@ -65,18 +65,12 @@ export default class TeamService {
         return team.$save();
     }
     createTeam(team) {
-        // TODO: join event
         return this.authService.checkAuth()
             .then(user => {
                 team.createdBy = user.uid;
                 team.createdAt = Date.now();
-                return Promise.all([Promise.resolve(user), this.$firebaseArray(this.$database.ref('teams')).$add(team), this.eventService.joinEvent(team.eventId, true)]);
-            }).then(([user, team]) => {
-                return Promise.all([Promise.resolve(team), this.$firebaseArray(this.$database.ref('teams/' + team.key + '/users')).$add({
-                    id: user.uid,
-                    role: 'leader'
-                })]);
-            }).then(([team, teamUsers]) => {
+                return Promise.all([this.$firebaseArray(this.$database.ref('teams')).$add(team), this.eventService.joinEvent(team.eventId, true)]);
+            }).then(([team]) => {
                 return team;
             });
     }

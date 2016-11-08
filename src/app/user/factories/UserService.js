@@ -10,13 +10,13 @@ export default class UserService {
         return this.$firebaseObject(this.$database.ref('users/' + id)).$loaded();
     }
     getUsers(options = {}) {
-        let ref = this.$database.ref('users');
-        return this.$firebaseArray(ref).$loaded()
+        return this.$firebaseArray(this.$database.ref('users')).$loaded()
             .then(users => {
                 return users;
             });
     }
     editUser(user) {
+        user.pending = null;
         return user.$save();
     }
     createEvent(event) {
