@@ -77,18 +77,19 @@
                </form>
 			   
 			     <div class="row text-left">
-			        
-				    <h3>Your team preference:</h3>
-			       <div ng-repeat="team in teams">
-					  					  
+			        <label>Search: <input ng-model="searchText"></label>
+					<label>Size: <input ng-model="sizeText" type="number"></label>
+				    <h3>Your team preference(s):</h3>
+					<div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
 					 <div class="checkbox">
 						<label><input type="checkbox" value="{{team.$id}}" 
 						  ng-checked="selection.indexOf(team.$id) > -1"
 						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}</label>
+						{{team.$id}}:{{team.size-team.teamMembers.length}}</label>
 					 </div>
 					  
 				  </div>
+				  <div ng-show="!(teams| filter:searchText).length">No Such Team</div>
 				</div>
 
                
