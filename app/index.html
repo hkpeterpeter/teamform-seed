@@ -34,29 +34,35 @@
       <div ng-include="'nav.html'"></div>
 
       <!--Login interface-->
-      <section  style="background-image: url('img/img1.jpg');" class="login_box_section img-responsive">
-      <div class="intro">
+      <section  style="background-image: url('img/img1.jpg');" class="login_box_section img-responsive " >
+      <div class="intro col-md-6">
               <h2 class="featurette-heading" >What is teamform?
                   <br>
                   <span class="text-muted">A real-time online team forming app</span>
                </h2>
       </div>
-      <div class="container" id="login_box" >
+      <div class="container col-md-4 " id="login_box" >
         <form ng-hide="loggedIn"><!--Hide this when login-->
-        <input ng-model="txtEmail"  placeholder="Email">
-        
-        <input ng-model="txtPassword" type="password" placeholder="Password">
-
-        <button id="btnLogin" class="btn btn-primary" ng-click="login()">
-          Login 
-        </button>
-
-        <button id="btnSignUp" class="btn btn-primary" ng-click="signup()">
-          Sign Up
-        </button>
-
+        <p class="login_heading">Login to teamform</p>
+        <table class="table borderless" style="background-color: white; ">
+          <tbody>
+            <tr>
+              <td width="15%" class="login_label text-center vertical-center" ><label ><span class="glyphicon glyphicon-envelope" ></span></label></td>
+              <td width="85%"><input ng-model="txtEmail"  type="email" placeholder="E-mail"></td>
+            </tr>
+            <tr >
+              <td class="login_label text-center "><label  ><span class="glyphicon glyphicon-lock" ></span></label></td>
+              <td><input ng-model="txtPassword" type="password" placeholder="Password"></td>
+            </tr>
+  
+          </tbody>
+        </table>
+          <a ng-click="signup()"> Sign Up Now!</a>
+          <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
+          <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
         </form>
-        <button id="btnLogout" class="btn btn-primary" ng-click="logout()" ng-show="loggedIn">
+
+        <button id="btnLogout" class="btn btn-primary " ng-click="logout()" ng-show="loggedIn">
           Logout
         </button>
         <p ng-show="loggedIn">Hello! {{displayEmail}} </p><!--Show this when login-->
@@ -118,10 +124,7 @@
          <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_about">
             <div class="col-md-12">
-               <h2 class="featurette-heading">What is teamform?
-                  <br>
-                  <span class="text-muted">A real-time online team forming app</span>
-               </h2>
+       
                <p class="lead"> The following roles are supported in teamform:
                </p>
 
