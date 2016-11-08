@@ -97,9 +97,4 @@ angular.module('profile-app', ['firebase'])
             $window.location.href = '/index.html';
 		}
 	})
-
-  
-
-
-
 }]);
