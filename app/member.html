@@ -77,7 +77,7 @@
                </form>
 			   
 			     <div class="row text-left">
-			        <label>Search: <input ng-model="searchText"></label>
+			        <label>Name: <input ng-model="searchText"></label>
 					<label>Size: <input ng-model="sizeText" type="number"></label>
 				    <h3>Your team preference(s):</h3>
 					<div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
