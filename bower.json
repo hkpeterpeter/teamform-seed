@@ -1,21 +1,21 @@
 {
-  "name": "teamform-seed",
-  "description": "This is a starter project for the teamform app",
-  "main": "",
-  "authors": [
-    "Billy Li"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/hklsk/teamform-seed",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    
-  }
+    "name": "teamform-seed",
+    "description": "This is a starter project for the teamform app",
+    "main": "",
+    "authors": [
+        "Billy Li"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/hklsk/teamform-seed",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+
+    }
 }

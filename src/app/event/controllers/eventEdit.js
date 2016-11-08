@@ -3,9 +3,14 @@ import EventDetailCtrl from './eventDetail';
 export default class EventEditCtrl extends EventDetailCtrl {
     constructor($location, $state, $stateParams, $timeout, eventService) {
         super($location, $state, $stateParams, $timeout, eventService);
+        this.eventDatepickerOptions = {minDate: Date.now(), showWeeks: false};
+        this.eventDatePopupOpened = false;
     }
     edit() {
         this.loading = true;
+        if(this.event.eventDate instanceof Date) {
+            this.event.eventDate = this.event.eventDate.getTime();
+        }
         this.eventService.editEvent(this.event)
             .then((result) => {
                 this.$timeout(() => {
