@@ -112,7 +112,7 @@
 	    </div>
 
 		  
-	<div class="col-sm-offset-2 col-sm-4 text-left">
+<div class="col-sm-offset-2 col-sm-4 text-left">
 		<h3>All members:</h3>
 			<ul ng-repeat="m in member">
 				<div class="checkbox">
@@ -120,7 +120,8 @@
 					ng-checked="selection.indexOf(m.$id) > -1"
 					ng-click="toggleSelection(m.$id)">
 					<li>
-					Name = {{getMemberName(m.$id)}} <br>
+					<!--ID = {{m.$id}} <br>-->
+					Name = {{retrieveNameFromID(m.$id)}} <br>
 					request to join the following teams: {{m.selection | json}}</li>
 					</label>
 				</div>
