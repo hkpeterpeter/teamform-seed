@@ -33,36 +33,28 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 </head>
 <body>
 	<div ng-controller="chatroomCtrl" class="container">
 		<div class="page-header">
-  			<h1>Chatroom </h1>
+  			<center><h1>Chatroom </h1></center>
 		</div>
 		
 		<div class="row">
 			<div class="panel panel-success" ng-repeat="q in chatrooms" >
-				<div class="panel-heading">{{q.to}}</div>
-				<div class="panel-body">{{q.content}}</div>			
+				<div class="panel-body">{{q.msg.content}}<br>	
 				<div class="panel-footer">
-			 	<span>Time: {{q.date}}</span>
-			 	</div>
+			 	<span>Time: {{q.msg.date}}</span>
+			 	</div></div>
 			</div>
 
 			<form name="form" class="css-form col-md" novalidate>
 		 		<div class="form-group">
-					<label>To: <span class="required " ng-show="form.to.$error.required">*required</span> </label>
-					<input class="form-control" type="text" name="to" ng-model="input.to" placeholder="To Whom...." required>
-				</div>
-
-
-				<div class="form-group">
 					<label>Content: <span class="required" ng-show="form.content.$error.required">*required</span></label>
-					<textarea class="form-control" name="content" ng-model="input.content" placeholder="Message..." required></textarea>
-					<br>
-					<input class="btn btn-primary" type="button" value="Submit" ng-click="addchatroom()" ng-disabled="!input.content || !input.to">
+					<textarea class="form-control" name="content" ng-model="input.msg.content" placeholder="Message..." required></textarea><br>
+					<input class="button" type="button" value="Submit" ng-click="addChatRecord()" ng-disabled="!input.content">
 				</div>
-			
 			</form>
 		</div>
 	</div>
