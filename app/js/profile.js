@@ -86,6 +86,27 @@ angular.module('teamform-profile-app', ['firebase'])
 
     }
 
+    $("#file").on("change", function(event){
+      selectedFile = event.target.files[0];
+      $("#uploadButton").show();
+
+    });
+
+    $scope.uploadFile = function(){
+      var filename = selectedFile.name;
+      var storageRef = firebase.storage().ref('/profilepic' + filename);
+      var uploadTask = storageRef.put(selectedFile);
+
+      uploadTask.on('state_changed', function(snapshot){
+      },function(error){
+
+
+      },function(){
+        $scope.profile.pic = uploadTask.snapshot.downloadURL.toString();
+        $scope.profile.$save();
+        console.log($scope.profile.pic);
+      });
+    }
 
 
 
