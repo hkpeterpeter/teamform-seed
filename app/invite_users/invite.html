@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <html ng-app="clickApp">  
 <html lang="en">
-
   <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+  <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA0wShqGcA9d6Xz1JJRk7fYK3-I8JTRmAc",
+    authDomain: "invite-users-15243.firebaseapp.com",
+    databaseURL: "https://invite-users-15243.firebaseio.com",
+    storageBucket: "invite-users-15243.appspot.com",
+    messagingSenderId: "549507448169"
+  };
+  firebase.initializeApp(config);
+</script>
+
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <script src="btnclick.js" ></script>
     <title>invite interface</title>
-    <!-- Angular Library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    
+    <script src="./js/btnclick.js" ></script>
+    <script src="./fonts/glyphicons-halflings-regular.woff" ></script>
+
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -42,11 +62,13 @@
 <div class="row">
 <!--to be chosen-->
 <div class="col-md-5 col-xs-5">
+<h2>Users</h2>
 <iframe src="user_to_choose.html" width="100%" height="200" align="right">
 </iframe>
 
 </div>
 <!--add button-->
+
 <div ng-controller="clickCtrl">
 <div class="col-md-2 col-xs-2">
   <!--div class="button-wrapper" >
@@ -58,6 +80,7 @@
 </div>
 <!--chosed-->
 <div class="col-md-5 col-xs-5">
+<h2>Selected</h2>
 <iframe src="user_chosen.html" width="100%" height="200" align="right">
 </iframe>
 </div>
@@ -75,6 +98,12 @@
   </div>
 </div>
 
+<!--div ng-controller="clickCtrl">
+users
+<pre>{{users|json}}</pre>
+selected
+<pre>{{selected|json}}</pre>
+</div-->
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
