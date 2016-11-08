@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="adminApp">
+<html lang="en" ng-app="teamapp">
 <head>
 	<meta charset="UTF-8">
 	<title>Admin Page</title>
@@ -12,7 +12,8 @@
 </head>
 <body>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="../lib/materialize/js/materialize.min.js"></script>
+  <script type="text/javascript" src="../lib/materialize/js/materialize.min.js"></script>
+  <script src="adminAnimate.js"></script>
     <div class="container">
     	<!-- Admin Page Title -->
     	<div class="section admin-title" ng-controller="titleCtrl">
@@ -44,32 +45,38 @@
 			  </ul>
     	<!-- Description & Tutorial Ends -->
     	<div class="divider"></div>
-    	<div class="row lists">
+    	<div class="row admin-lists">
     	<!-- Teams List -->
-    		<div class="col s12 m6">
+    		<div class="col s12 m6" ng-controller="teamCtrl">
     			<h2>Formed Teams</h2>
     			<div class="divider"></div>
 
     			<!-- A Single Card -->
-          <div class="card sticky-action blue-grey darken-1">
+          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams">
             <div class="card-content white-text">
-              <span class="card-title activator">Team Name<i class="material-icons right">more_vert</i></span>
-              <span class="new badge white-text team-badge" data-badge-caption="members">5</span>
-
-              <p>Preferred Size: 6-7</p>
-              <span class="team-text-span">Required Skills:</span>
-              <span class="new badge white-text skill-badge" data-badge-caption="">JavaScript</span>
-              <span class="new badge white-text skill-badge" data-badge-caption="">AngularJS</span>
+              <span class="card-title activator">{{ team.name }}<i class="material-icons right">more_vert</i></span>
               <br/>
+              <div class="admin-card-text">
+                <span class="admin-card-subtitle grey-text text-lighten-2">Team Size:</span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members">{{ team.size }}</span>
+              </div>
+              <div class="admin-card-text">
+                <span class="admin-card-subtitle grey-text text-lighten-2">Preferred Size:</span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members">{{ team.maxSize }}</span>
+              </div>
+              <div class="admin-card-text">
+                <span class="admin-card-subtitle grey-text text-lighten-2">Required Skills:</span>
+                <span class="new badge white-text admin-skill-badge" data-badge-caption="" ng-repeat="skill in team.skills">{{ skill }}</span>
+              </div>
             </div>
             <div class="card-action">
-              <a>Delete</a>
-              <a>Merge</a>
+              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="remove(team)">Delete</button>
+              <button class="btn-flat orange-text admin-team-btn">Merge</button>
             </div>
 
             <div class="card-reveal blue-grey darken-1 white-text">
             	<span class="card-title">Team Name<i class="material-icons right">close</i></span>
-            	<p>Team Members: </p>
+            	<p>Team Members: <span ng-repeat="member in team.members">{{ member }} </span></p>
             	<p>Other infomation about this team.</p>
             </div>
           </div>
@@ -77,36 +84,46 @@
 
     		</div>
     	<!-- Team List Ends -->
+
     	<!-- Participant List -->
-    		<div class="col s12 m6">
+    		<div class="col s12 m6" ng-controller="memberCtrl">
     			<h2>Waiting Participants</h2>
     			<div class="divider"></div>
 
     			<!-- A Single Card -->
-    				<div class="card sticky-action">
+
+          <!-- Changing Toolkit to enable html -->
+          <script type="text/javascript">
+              $(document).ready(function(){
+                $('.tooltipped').tooltip({html: true});
+              });
+          </script>
+          <!-- Finish enabling Toolkit html -->
+    				<div class="card admin-user-card sticky-action" ng-repeat="user in users">
 							<div class="card-content">
-								<span class="card-title activator grey-text text-darken-4">Username<i class="material-icons right">more_vert</i></span>
+								<span class="card-title activator grey-text text-darken-4">{{ user.name }}<i class="material-icons right">more_vert</i></span>
 								<div>
-									<a class="btn waves-effect waves-teal card-btn">JavaScript</a>
-									<a class="btn waves-effect waves-yellow card-btn">C++</a>
-									<a class="btn waves-effect waves-red card-btn">Algorithm</a>
+									<div class="chip admin-card-chip" ng-repeat="skill in user.skills">{{ skill }}</div>
 								</div>
-          			<p>I am a very simple card. I am good at containing small bits of information.</p>
+          			<p>{{ user.intro }}</p>
         			</div>
        				<div class="card-action">
-         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange card-btn">Team One</a>
-         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange card-btn">Team Two</a>
-         				<div class="divider incard-divider"></div>
+         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn tooltipped" data-tooltip="Current size: 5<br>Preferred size: 6-7<br>Required skills: JavaScript" ng-repeat="request in user.requests">{{ request }}</a>
+                <a class="btn waves-effect waves-teal admin-card-btn">Other</a>
+         				<!--
+                <div class="divider admin-incard-divider"></div>
+                
          				<div class="row">
          					<div class="input-field col s8">
           					<input id="team_name" type="text" class="validate">
           					<label for="team_name">Name of Another Team</label>
         					</div>
-        					<button class="btn waves-effect waves-teal add-btn">Add</button>
+        					<button class="btn waves-effect waves-teal admin-card-btn admin-add-btn">Add</button>
         				</div>
+                -->
        				</div>
        				<div class="card-reveal">
-       					<div class="col s3 profile-photo">
+       					<div class="col s3 admin-profile-photo">
        					<!-- This image should be replaced by profile photo afterwards -->
        						<img src="http://lorempixel.com/100/190/nature/6">
        					</div>
