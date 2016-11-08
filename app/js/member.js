@@ -50,6 +50,8 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 	}
 	
+
+	
 	$scope.saveFunc = function() {
 		
 		
@@ -114,5 +116,13 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	
 	$scope.refreshTeams(); // call to refresh teams...
+	
+	$scope.sizeText = 0;
+	
+	$scope.largerthan = function(val){
+    return function(item){
+      return item.size - item.teamMembers.length  >= val;
+    }
+}
 		
 }]);
