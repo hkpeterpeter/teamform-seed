@@ -58,7 +58,7 @@
   	<div id="team_page_controller" ng-controller="TeamCtrl">
   	
 	  <div class="row">
-	    <div class="col-md-2 col-xs-2"></div>
+	    <div class="col-md-3 col-xs-3"></div>
 	    <div class="col-md-6 col-xs-6 text-left panel">
 	      <form class="form-horizontal text-left">
 	        <div class="form-group">
@@ -112,7 +112,7 @@
 	    </div>
 
 		  
-<div class="col-sm-offset-2 col-sm-4 text-left">
+<div class="col-sm-offset-3 col-sm-4 text-left">
 		<h3>All members:</h3>
 			<ul ng-repeat="m in member">
 				<div class="checkbox">
@@ -122,7 +122,11 @@
 					<li>
 					<!--ID = {{m.$id}} <br>-->
 					Name = {{retrieveNameFromID(m.$id)}} <br>
-					request to join the following teams: {{m.selection | json}}</li>
+					request to join the following teams: 
+					<p ng-repeat="s in m.selection">
+					{{ $index+1 }}. {{s}}
+					</p>
+					</li>
 					</label>
 				</div>
 			</ul>
