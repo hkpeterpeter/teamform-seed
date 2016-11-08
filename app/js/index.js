@@ -111,7 +111,8 @@ angular.module('index-app', ['firebase'])
 							team: ['null']
 						});
 					}
-					$scope.username = usersArray.$getRecord(user.uid).name;
+					// $scope.username = usersArray.$getRecord(user.uid).name;
+					$scope.username =  user.email;
 				})
 				.catch(function(error){
 					console.log("Error:"+error);
