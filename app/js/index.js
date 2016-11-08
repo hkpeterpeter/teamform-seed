@@ -39,13 +39,7 @@ angular.module('index-app', ['firebase'])
 	$scope.txtPassword = '';
 	$scope.loggedIn  = false;
 	$scope.displayEmail = '';
-	$scope.userData = {
-        name: $scope.displayEmail,
-        language: [],
-        gpa: 0,
-        team: [],
-        description: ''
-    }
+	$scope.username='';
 	
 	//login function
 	$scope.login = function(){
@@ -117,7 +111,7 @@ angular.module('index-app', ['firebase'])
 							team: ['null']
 						});
 					}
-					$scope.userData.name = usersArray.$getRecord(user.uid).name;
+					$scope.username = usersArray.$getRecord(user.uid).name;
 				})
 				.catch(function(error){
 					console.log("Error:"+error);

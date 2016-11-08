@@ -11,6 +11,7 @@ angular.module('profile-app', ['firebase'])
         description: ''
     }
     $scope.txtLanguage = '';
+    $scope.username ='';
     
     //$scope.users is an array of users in firebase
     var ref = firebase.database().ref('users');
@@ -85,6 +86,7 @@ angular.module('profile-app', ['firebase'])
                     $scope.userData.team = currentUserData.team;
                     $scope.userData.description = currentUserData.description;
                     $scope.userData.language = currentUserData.language;
+                    $scope.username = currentUserData.name;
                 })
                 .catch(function(error){
                     console.error("Error: "+error);
