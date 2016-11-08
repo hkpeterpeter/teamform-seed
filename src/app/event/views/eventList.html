@@ -1,0 +1,29 @@
+<ui-alert message="{{eventList.error.message}}" />
+<div class="pull-right">
+    <a ui-sref="event.create"><button type="button" class="btn btn-primary">Create Event</button></a>
+</div>
+<div class="clearfix"></div>
+<div class="divider"></div>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Event Name</th>
+            <th>Created By</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody dir-paginate="event in eventList.events | itemsPerPage: 2">
+        <tr>
+            <td>
+                <a ui-sref="event.detail({eventId: event.$id})">{{event.name}}</a>
+            </td>
+            <td>
+                <a ui-sref="user.detail({userId: event.createdBy})">{{event.createdByUser.name}}</a>
+            </td>
+            <td>
+                {{event.createdAt | date:'medium'}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+<dir-pagination-controls />
