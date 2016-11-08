@@ -16,10 +16,18 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", function($roo
         members: ["Member1"],
         requests: ["Applicant1"]
     }
-    $scope.addNewSkill = function() {
-        if ($scope.team.newSkill != '' && $scope.team.preferredSkills.indexOf($scope.team.newSkill) == -1) {
-            $scope.team.preferredSkills.push($scope.team.newSkill);
-            $scope.team.newSkill = '';
+    $scope.smartPick = {
+        preferredSize: angular.copy($scope.team.preferredSize),
+        preferredSkills: angular.copy($scope.team.preferredSkills),
+        newSkill: ""
+    }
+    $scope.deleteMember = function() {
+
+    }
+    $scope.addNewSkill = function(scope) {
+        if (scope.newSkill != '' && scope.preferredSkills.indexOf(scope.newSkill) == -1) {
+            scope.preferredSkills.push(scope.newSkill);
+            scope.newSkill = '';
         }
     }
 }]);
