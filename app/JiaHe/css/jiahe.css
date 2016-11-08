@@ -22,3 +22,7 @@
 .profile-image {
   height: 190px;
 }
+
+.card-reveal.transparent {
+    opacity: 0.9;
+}

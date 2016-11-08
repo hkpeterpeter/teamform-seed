@@ -16,10 +16,11 @@
         </div>
 
         <!-- Team card -->
-        <div class="card sticky-action blue-grey darken-1">
+        <div class="card blue-grey darken-1">
             <div class="card-content white-text">
                 <span class="card-title activator">{{ team.name }}</span>
                 <span class="new badge white-text team-badge" data-badge-caption="members">{{ team.members.length + 1 }}</span>
+                <span class="new badge orange darken-2 white-text team-badge" data-badge-caption="Invite"></span>
                 <div class="switch section">
                     <label class="white-text team-private-switch">
                         Public
@@ -44,7 +45,7 @@
                         <input type="text" class="validate" ng-model="team.newSkill" required>
                         <label>+preferred skill</label>
                     </div>
-                    <a class="btn-floating waves-effect waves-light" ng-click="addNewSkill()">
+                    <a class="btn-floating waves-effect waves-light" ng-click="addNewSkill(team)">
                         <i class="material-icons">add</i>
                     </a>
                 </span>
@@ -111,6 +112,14 @@
                                 <a href="#">This is a link to personal profile</a>
                             </div>
                         </div>
+                        <div class="card-reveal transparent grey darken-3 white-text">
+                            <span class="card-title white-text">Remove Member Name?<i class="material-icons right">close</i></span>
+                            </span>
+                            <div class="card-action">
+                              <a>Cancel</a>
+                              <a>Delete</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Team members card end -->
@@ -121,8 +130,9 @@
         <div class="section">
             <div class="card blue-grey darken-3">
                 <div class="card-content white-text">
+                    <span class="card-title">Requests</span>
                     <span class="new badge white-text team-badge" data-badge-caption="requests">{{ team.requests.length }}</span>
-                    <span class="card-title activator">Requests<i class="right smart-pick light-orange-text">Smart pick</i></span>
+                    <span class="new badge orange darken-2 white-text team-badge activator" data-badge-caption="Smart pick"></span>
                     <!-- Applicant cards -->
                     <div class="section">
                         <div class="card horizontal">
@@ -131,7 +141,7 @@
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
-                                    <span class="card-title activator grey-text text-darken-3">Applicant Name<i class="close material-icons right">close</i>
+                                    <span class="card-title grey-text text-darken-3">Applicant Name<i class="close material-icons right">close</i>
                                         <i class="close material-icons right">add</i>
                                     </span>
                                     <br/>
@@ -149,17 +159,25 @@
                     <!-- Applicant cards end -->
                     <br/>
                 </div>
+                <!-- Smart pick -->
                 <div class="card-reveal blue-grey darken-3 white-text">
-                    <span class="card-title light-orange-text">Smart pick<i class="material-icons right">close</i></span>
+                    <span class="card-title white-text">Smart pick<i class="material-icons right">close</i></span>
+                    <p>Add members to size:
+                        {{ smartPick.preferredSize }}</p>
+                    <form action="#">
+                        <p class="range-field">
+                            <input type="range" id="test5" min="{{ event.minSize }}" max="{{ event.maxSize }}" ng-model="smartPick.preferredSize"/>
+                        </p>
+                    </form>
                     <span class="section">Required Skills:
-                        <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in team.preferredSkills">{{ skill }}
-                            <i class="close material-icons" ng-click="team.preferredSkills.remove(skill)">close</i>
+                        <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in smartPick.preferredSkills">{{ skill }}
+                            <i class="close material-icons" ng-click="smartPick.preferredSkills.remove(skill)">close</i>
                         </div>
                         <div class="input-field inline">
-                            <input type="text" class="validate" ng-model="team.newSkill" required>
+                            <input type="text" class="validate" ng-model="smartPick.newSkill" required>
                             <label>+required skill</label>
                         </div>
-                        <a class="btn-floating waves-effect waves-light" ng-click="addNewSkill()">
+                        <a class="btn-floating waves-effect waves-light" ng-click="addNewSkill(smartPick)">
                             <i class="material-icons">add</i>
                         </a>
                     </span>
@@ -167,8 +185,9 @@
                       <a>Smart add</a>
                     </div>
                 </div>
-
+                <!-- Smart pick end -->
             </div>
         </div>
+        <!-- Requests end -->
     </div>
 </div>
