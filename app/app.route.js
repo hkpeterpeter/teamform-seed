@@ -70,7 +70,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	   .state('randomTeam', {
             url: '/randomTeam',
             templateUrl: 'randomTeam.html',
-            controller: 'random_team'
+            controller: 'random_Team'
             })
 
         .state('TerminateEvent', {
