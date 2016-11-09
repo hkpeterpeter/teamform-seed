@@ -1,13 +1,11 @@
 # teamform-seed modified the 5th times....
 ## The seed project for the team forming web application
-<<<<<<< HEAD
 
 ### Pre-requisites
-JOJO!sdf
-=======
+
 testing
 ### Pre-requisites this is a test
->>>>>>> 4e7dbc6a8fd7f4e6a2ed8ecf7d17d9da083db817
+
 
 Install git: [http://git-scm.com/](http://git-scm.com/).
 
