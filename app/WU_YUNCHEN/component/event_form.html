@@ -1,35 +1,43 @@
+<!--
+Event description: {{eventDescription}}
+Minimum number of team member: {{eventMin}}
+Maximum number of team member: {{eventMax}}
+-->
+
 <div class="container">
     <div class="row">
-        <form>
+        <form class="col s12">
           
-          <textarea-field id="event_description" label="Event description"></textarea-field>
+          <textarea-field id="event_description" label="Event description" field-model="eventDescription"></textarea-field>
           <br>
           <label>Minimum number of team member</label>
-          <div range-spinner
-            range-min="1" 
-            range-step="1"  
-            range-max="50" 
-            range-default-value="1"
-            range-decimal-precision="1"       
-            range-model="eventMin"
-            accept-decimal=false
-            name-of-field="rangeFieldName"
-            id-of-field="rangeFieldId">
+          <div class="row">
+            <div range-spinner
+              range-min="1" 
+              range-step="1"  
+              range-max="50" 
+              range-default-value="1"
+              range-decimal-precision="1"       
+              range-model="eventMin"
+              accept-decimal=false
+              name-of-field="event_min_number"
+              id-of-field="event_min_num">
+            </div>
+            <br><br><br><br>
+            <label>Maximum number of team member</label>
+            <div range-spinner
+              range-min="1" 
+              range-step="1"  
+              range-max="50" 
+              range-default-value="1"
+              range-decimal-precision="1"       
+              range-model="eventMax"
+              accept-decimal=false
+              name-of-field="event_max_number"
+              id-of-field="event_max_num">
+            </div>
+            <br><br><br><br>
           </div>
-          <br><br><br><br>
-          <label>Maximum number of team member</label>
-          <div range-spinner
-            range-min="1" 
-            range-step="1"  
-            range-max="50" 
-            range-default-value="1"
-            range-decimal-precision="1"       
-            range-model="eventMax"
-            accept-decimal=false
-            name-of-field="rangeFieldName"
-            id-of-field="rangeFieldId">
-          </div>
-          <br><br><br><br>
           <button class="btn waves-effect waves-light" type="submit" name="action">Create
             <i class="material-icons right">send</i>
           </button>
