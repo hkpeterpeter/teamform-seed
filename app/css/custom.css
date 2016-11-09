@@ -12,9 +12,7 @@
     background-size: cover;
     background-position:center center;
     /*overflow:hidden;*/
-    background-attachment:scroll;
-    
-    
+    background-attachment:scroll;   
 }
 
 .table > tbody > tr > td {

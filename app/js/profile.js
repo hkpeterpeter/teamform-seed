@@ -8,7 +8,8 @@ angular.module('profile-app', ['firebase'])
         language: [],
         gpa: 0,
         team: [],
-        description: ''
+        description: '',
+        eventlist:{}
     }
     $scope.txtLanguage = '';
     $scope.username ='';
