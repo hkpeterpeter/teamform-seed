@@ -38,7 +38,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-block btn-info" ng-click="teamDetail.joinTeam()">Join Team</button>
+                    <button type="button" class="btn btn-block btn-info" ng-if="!teamDetail.team.private" ng-click="teamDetail.joinTeam()">Join Team</button>
                 </div>
             </div>
         </div>

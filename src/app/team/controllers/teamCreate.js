@@ -72,8 +72,8 @@ export default class TeamCreateCtrl {
             });
         }
     }
-    onEventChange(event) {
-        this.selectedEvent = event;
+    async onEventChange(event) {
+        this.selectedEvent = await this.eventService.getEvent(event.$id);
         this.updateTeamUsers();
         this.updateAvailableUsers();
     }

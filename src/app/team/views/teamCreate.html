@@ -44,9 +44,9 @@
                         <tr ng-repeat="user in teamCreate.team.users track by $index">
                             <td>
                                 <ui-select on-select="teamCreate.onTeamUserChange($item)" ng-model="user.id" ng-if="$index > 0" ng-disabled="$index == 0">
-                                    <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.id}}</ui-select-match>
+                                    <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.name}}</ui-select-match>
                                     <ui-select-choices repeat="eventUser.id as eventUser in teamCreate.availablieUsers | filter:$select.search">
-                                        {{eventUser.id}}
+                                        {{eventUser.name}}
                                     </ui-select-choices>
                                 </ui-select>
                                 <input type="text" ng-if="$index == 0" class="form-control" placeholder="Role" ng-model="user.id" ng-disabled="$index == 0" required>

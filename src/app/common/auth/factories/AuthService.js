@@ -9,31 +9,27 @@ export default class AuthService {
     }
     _boardcastAuthChanged(result) {
         this.$rootScope.$broadcast('authChanged');
-        return this.$q.resolve(result);
+        return Promise.resolve(result);
     }
-    auth(credential = {}) {
+    async auth(credential = {}) {
         if (credential.hasOwnProperty('email')) {
-            return this.$auth.signInWithEmailAndPassword(credential.email, credential.password).then((result) => {
-                this.$rootScope.$broadcast('authChanged');
-                return result;
-            });
-        }
-        if (credential.hasOwnProperty('token')) {
-            return this.$auth.signInWithCustomToken(credential.token).then((result) => {
-                this.$rootScope.$broadcast('authChanged');
-                return result;
-            });
-        }
-    }
-    register(credential) {
-        return this.$auth.createUserWithEmailAndPassword(credential.email, credential.password).then((result) => {
-            let user = this.$firebaseObject(this.$database.ref('users/' + result.uid));
-            user.pending = true;
-            return Promise.all([Promise.resolve(result), user.$save()]);
-        }).then(([result]) => {
+            let result = await this.$auth.signInWithEmailAndPassword(credential.email, credential.password);
             this.$rootScope.$broadcast('authChanged');
             return result;
-        });
+        }
+        if (credential.hasOwnProperty('token')) {
+            let result = await this.$auth.signInWithCustomToken(credential.token);
+            this.$rootScope.$broadcast('authChanged');
+            return result;
+        }
+    }
+    async register(credential) {
+        let result = await this.$auth.createUserWithEmailAndPassword(credential.email, credential.password);
+        let user = this.$firebaseObject(this.$database.ref('users/' + result.uid));
+        user.pending = true;
+        await user.$save();
+        this.$rootScope.$broadcast('authChanged');
+        return result;
     }
     checkAuth() {
         return this.$q((resolve, reject) => {

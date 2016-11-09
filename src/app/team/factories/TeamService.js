@@ -26,27 +26,45 @@ export default class TeamService {
             return team;
         });
     }
-    joinTeam(id, role) {
-        // TODO: check same event
-        return this.authService.checkAuth()
-            .then(user => {
-                return Promise.all([Promise.resolve(user), this.$firebaseArray(this.$database.ref('teams/' + id + '/users')).$loaded()]);
-            }).then(([user, teamUsers]) => {
-                let joined = false;
-                for (let teamUser of teamUsers) {
-                    if (teamUser.id == user.uid) {
-                        joined = true;
-                        break;
+    async joinTeam(id, role) {
+        let user = await this.authService.checkAuth();
+        let teamJoin = await this.getTeam(id);
+        await this.eventService.joinEvent(teamJoin.eventId, true);
+        let teams = await this.getTeams();
+        teams = teams.filter((team) => {
+            return teamJoin.eventId == team.eventId;
+        });
+        for (let team of teams) {
+            for (let teamUser of team.users) {
+                if (teamUser.id == user.uid) {
+                    if (team.$id == id) {
+                        return Promise.reject(new Error('You Already joined this team'));
+                    } else {
+                        return Promise.reject(new Error('You Already joined other team'));
                     }
                 }
-                if (!joined) {
-                    return teamUsers.$add({id: user.uid, role: role});
+            }
+        }
+        let users = await this.$firebaseArray(this.$database.ref('teams/' + id + '/users')).$loaded();
+        for (let teamUser of users) {
+            if (teamUser.id == null) {
+                let newTeamUser = {
+                    id: user.uid,
+                    role: role || teamUser.role
+                };
+                if (teamJoin.invite) {
+                    newTeamUser.pending = true;
+                    return users.$add(newTeamUser);
                 } else {
-                    return Promise.reject(new Error('You Already joined this team'));
+                    teamUser.id = newTeamUser.id;
+                    teamUser.role = newTeamUser.role;
+                    return users.$save(teamUser);
                 }
-            });
+            }
+        }
+        return Promise.reject(new Error('The team is full'));
     }
-    getTeams(options = {}) {
+    async getTeams(options = {}) {
         return this.$firebaseArray(this.$database.ref('teams')).$loaded().then(teams => {
             return Promise.all(teams.map(team => {
                 return this.userService.getUser(team.createdBy).then(user => {
