@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +22,17 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
 
-      
+      <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+      <!-- Angular Library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+      <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+      <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 
@@ -37,7 +47,6 @@
    
    
       <div class="navbar-wrapper">
-	  
          <div class="container">
             <nav class="navbar navbar-static-top navbar-default">
                <div class="container">
@@ -62,6 +71,7 @@
                               </li>
                               <li role="separator" class="divider"></li>
                               <li><a href="#">TODO: Add menu items here... </a></li>
+							  
                            </ul>
                         </li>
 						
@@ -113,11 +123,7 @@
                         <div>
                            
                            <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-                          
-
-
                            <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-                          
                            <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
                           
 
@@ -125,6 +131,11 @@
                         </div>
                      </div>
                      <br >
+
+                     <div ng-controller="LoginCtrl" ng-app="teamform-login-app">
+                      <button ng-click="loginwithgoogle()">Login with Google</button>
+                      <button ng-click="logout()">Logout</button>
+                     </div>
 					 
 																 
 					
@@ -219,6 +230,7 @@
 
              </div>
          </div>
+		 </div>
 
 
 
@@ -235,6 +247,7 @@
 
       <!-- JavaScript of this page -->
       <script src="js/index.js"></script>
+      <script src="js/login.js"></script>
 
 
    </body>

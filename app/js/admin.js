@@ -22,7 +22,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	initalizeFirebase();
 	
 	var refPath, ref, eventName;
-
+	
 	eventName = getURLParameter("q");
 	refPath = eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
