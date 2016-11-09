@@ -1,352 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>teamform - A real-time online team forming app</title>
 
-      <!-- libraries and CSS
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)
-		site.css: A customized css for our web application. Not from any web framework.
-	  -->
+<head>
 
-      <script src="lib/jquery.min.js"></script>
-      <script src="lib/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <title>Grayscale - Start Bootstrap Theme</title>
 
-      <script src="lib/firebase.js"></script>
-      <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-      <!-- Direct copy from firebase facebook pop-up auth template -->
-      <script type="text/javascript">
-          initalizeFirebase(); // Initalize the firebase using the function in js/site.js
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
-          /*
-           * Function called when clicking the Login/Logout button.
-           */
-          // [START buttoncallback]
-          function toggleSignIn() {
-            if (!firebase.auth().currentUser) {
-              // [START createprovider]
-              var provider = new firebase.auth.FacebookAuthProvider();
-              // [END createprovider]
-              // [START addscopes]
-              provider.addScope('user_birthday');
-              // [END addscopes]
-              // [START signin]
-              firebase.auth().signInWithPopup(provider).then(function(result) {
-                // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                // [START_EXCLUDE]
-                document.getElementById('quickstart-oauthtoken').textContent = token;
-                // [END_EXCLUDE]
-              }).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // [START_EXCLUDE]
-                if (errorCode === 'auth/account-exists-with-different-credential') {
-                  alert('You have already signed up with a different auth provider for that email.');
-                  // If you are using multiple auth providers on your app you should handle linking
-                  // the user's accounts here.
-                } else {
-                  console.error(error);
-                }
-                // [END_EXCLUDE]
-              });
-              // [END signin]
-            } else {
-              // [START signout]
-              firebase.auth().signOut();
-              // [END signout]
-            }
-            // [START_EXCLUDE]
-            document.getElementById('quickstart-sign-in').disabled = true;
-            // [END_EXCLUDE]
-          }
-          // [END buttoncallback]
+    <!-- Theme CSS -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
 
-          /**
-           * initApp handles setting up UI event listeners and registering Firebase auth listeners:
-           *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
-           *    out, and that is where we update the UI.
-           */
-          function initApp() {
-            // Listening for auth state changes.
-            // [START authstatelistener]
-            firebase.auth().onAuthStateChanged(function(user) {
-              if (user) {
-                // User is signed in.
-                var displayName = user.displayName;
-                var email = user.email;
-                var emailVerified = user.emailVerified;
-                var photoURL = user.photoURL;
-                var isAnonymous = user.isAnonymous;
-                var uid = user.uid;
-                var providerData = user.providerData;
-                // [START_EXCLUDE]
-                document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-                document.getElementById('quickstart-sign-in').textContent = 'Log out';
-                document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-                // [END_EXCLUDE]
-              } else {
-                // User is signed out.
-                // [START_EXCLUDE]
-                document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-                document.getElementById('quickstart-sign-in').textContent = 'Log in with Facebook';
-                document.getElementById('quickstart-account-details').textContent = 'null';
-                document.getElementById('quickstart-oauthtoken').textContent = 'null';
-                // [END_EXCLUDE]
-              }
-              // [START_EXCLUDE]
-              document.getElementById('quickstart-sign-in').disabled = false;
-              // [END_EXCLUDE]
-            });
-            // [END authstatelistener]
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-            document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
-          }
+</head>
 
-          window.onload = function() {
-            initApp();
-          };
-        </script>
-   </head>
-   <body>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-   <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/hkpeterpeter/teamform-seed" target="_blank">Fork me on GitHub</a></span>
-
-
-
-
-      <div class="navbar-wrapper">
-
-         <div class="container">
-            <nav class="navbar navbar-static-top navbar-default">
-               <div class="container">
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                     <span class="sr-only">Toggle navigation</span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     </button>
-                     <a class="navbar-brand" href="#">teamform</a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav">
-
-                        <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="#page_about">About teamform</a></li>
-                              <li>
-                              <a href="#page_team">Development team</a>
-                              </li>
-                              <li role="separator" class="divider"></li>
-                              <li><a href="#">TODO: Add menu items here... </a></li>
-                           </ul>
-                        </li>
-
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-
-							<ul class="dropdown-menu">
-								<li>
-									<a href="coverage/index.html" target="_blank">Report</a>
-								</li>
-								<li role="separator" class="divider"></li>
-
-								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-								</li>
-
-								<li><a href="#">TODO: Add more test cases here... </a></li>
-							</ul>
-						</li>
-
-                     </ul>
-                  </div>
-               </div>
-            </nav>
-         </div>
-      </div>
-      <!-- A sample login page -->
-      <div class="container" id="page_home">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="row">
-                  <div class="col-md-12">
-
-                     <div class="text-center">
-                        <h1>teamform</h1>
-                        <p>A real-time online team forming app for any event</p>
-                     </div>
-
-                     <br >
-
-                     <div class="text-center">
-
-                        <input id="input_text" type="text" class="input-lg">
-                        <br>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-                        <br>
-                        <br>
-
-                        <div>
-
-                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-
-
-
-                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-
-                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-
-                           <!-- Copy from firebase facebook pop-up auth template -->
-                           <!-- Button that handles sign-in/sign-out -->
-                           <button disabled class="btn btn-primary" id="quickstart-sign-in" type="button">Log in with Facebook</button>
-
-                        </div>
-
-                        <!-- For debugging -->
-      				          <!-- Container where we'll display the user details -->
-      				          <div class="quickstart-user-details-container">
-      				            Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-      				            <div>Firebase auth <code>currentUser</code> object value:</div>
-      				            <pre><code id="quickstart-account-details">null</code></pre>
-      				            <div>Facebook OAuth Access Token:</div>
-      				            <pre><code id="quickstart-oauthtoken">null</code></pre>
-      				          </div>
-
-                     </div>
-                     <br >
-
-
-
-
-                     <br >
-                  </div>
-               </div>
-               <hr >
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <!--<i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap-->
+                    <!--profile-->
+                    <a href = "#contact"  data-toggle ="modal">
+                        <div class = "navbar-brand">
+                            
+                            <img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                </div>
+                    </a>
+                </a>
             </div>
-         </div>
-      </div>
-      <!-- Marketing messaging and featurettes
-         ================================================== -->
-      <!-- Wrap the rest of the page in another container to center all the content. -->
-      <div class="container marketing">
 
-
-         <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="page_about">
-            <div class="col-md-12">
-               <h2 class="featurette-heading">What is teamform?
-                  <br>
-                  <span class="text-muted">A real-time online team forming app</span>
-               </h2>
-               <p class="lead"> The following roles are supported in teamform:
-               </p>
-
-               <div class="row">
-                  <div class="col-md-4">
-                     <h3 class="text-center">Administrator</h3>
-                     <ul>
-                        <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
-						<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
-                     </ul>
-                  </div>
-
-                  <div class="col-md-4">
-                     <h3 class="text-center">Team</h3>
-                     <ul>
-                        <li>Be able to add and remove requests made by members</li>
-						<li>Once a member joins the team, all his/her requests will be deleted</li>
-                     </ul>
-                  </div>
-
-                  <div class="col-md-4">
-                     <h3 class="text-center">Member</h3>
-                     <ul>
-                        <li>Be able to request to join multiple teams</li>
-                     </ul>
-                  </div>
-               </div>
-
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="tutorial.html">Tutorial</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="explore.html">Explore</a>
+                    </li>
+                </ul>
             </div>
-         </div>
-         <hr class="featurette-divider">
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-          <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="page_team">
-            <div class="col-md-12">
-               <h2 class="featurette-heading">Development Team
-                  <br>
-                  <span class="text-muted">[Your Team Name]</span>
-               </h2>
-
-
-               <div class="row">
-
-
-                 <div class="col-xs-6 col-md-3">
-                  <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
-                    <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
-
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h1 class="brand-heading">Hello World</h1>
+                       <!-- <p class="intro-text">A free, responsive, one page Bootstrap theme.
+                            <br>Created by Start Bootstrap.</p>
+                        <a href="#about" class="btn btn-circle page-scroll">
+                            <i class="fa fa-angle-double-down animated"></i>
+                        </a>
+                         -->
+                       
                     </div>
-                  </div>
-                 </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--You program-->
+    <section id="events" class="container content-section text-center">
+        <center>
+            <div class = "container">
+                     <div class = "col-md-12">
+                        <h2>Upcoming event</h2>
+                        <hr>
+                        <h3><a href="#">hackUST</a></h3>
+                        <img src="img/hackUST.jpg">
+                            <p>
+                            
+                            hackUST is a 24-hour coding event where programmers, designers, engineers, entrepreneurs come together for 2 days to turn their boldest ideas into reality.
+                            </p>
+                      </div>
+            </div>
+        
+        <div class = "row">
+            <div class = "col-md-4">
+                <h3><a href = "#">abcdefg</a></h3>
+                <img src="img/event1.jpg" height="279">
+                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
+            </div>
+         <div class = "col-md-4">
+                <!-- <div class = "jumbotron">-->
+                <h3><a href = "#">abcdefg</a></h3>
+                <img src="img/event2.jpeg" height="279">
+                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
+         </div> 
+            <div class = "col-md-4">
+                <!-- <div class = "jumbotron">-->
+                <h3><a href = "#">abcdefg</a></h3>
+                <img src="img/event3.jpg" height="279">
+                    <p>In this Bootstrap 3 tutorial, we will be using the in-built responsive grid system. This allows us to divide our page into 12 columns.</p>
+            </div>
+           
+        </div>
+         </center>
+    </section>
+        
+    <!--bottom navbar-->
+<div class = "navbar navbar-inverted navbar-fixed-bottom">
+    <div class = "container">
+            <div class="dropup pull-right">
+            <button class = "btn btn-default btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href = "#" class = "navbar-text"> Team </a></li>
+                <li><a href = "#" class = "navbar-text"> Event </a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <!-- About Section
+    <section id="about" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>About Grayscale</h2>
+                <p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply download the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
+                <p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
+                <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
+            </div>
+        </div>
+    </section>-->
 
-                 <div class="col-xs-6 col-md-3">
-                  <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
-                    <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
-
-                    </div>
-                  </div>
-                 </div>
-
-               </div>
-
-             </div>
-         </div>
 
 
+    <!-- Download Section
+    <section id="download" class="content-section text-center">
+        <div class="download-section">
+            <div class="container">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h2>Download Grayscale</h2>
+                    <p>You can download Grayscale for free on the preview page at Start Bootstrap.</p>
+                    <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit Download Page</a>
+                </div>
+            </div>
+        </div>
+    </section>
+-->
+    <!-- Contact Section
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2>Contact Start Bootstrap</h2>
+                <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
+                <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
+                </p>
+                <ul class="list-inline banner-social-buttons">
+                    <li>
+                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+                    </li>
+                    <li>
+                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+-->
+    <!-- Map Section
+    <div id="map"></div>
+-->
+    <!-- Footer
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; Your Website 2016</p>
+        </div>
+    </footer>
+     -->
+    
+    <div class="modal fade" id="contact">
+        <!--<div class="modal-content">-->
+        
+        
+        
+        <div class="container">
+            <div class="col-xs-8 col-xs-offset-2">
+                <center>
+                    <!-- <div class="panel panel-default"><div class="panel-body">-->
+                    <img class="fetureImg" src="profile/brown.png">
+                        
+                        <h2> {Username} </h2>
+                        <hr>
+                        <h3> {Self-Intro}</h3>
+                        <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.
+                        
+                        In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
+                        
+                        </p>
+                        </center>
+            </div>
+        </div>
 
-         <!-- /END THE FEATURETTES -->
-         <!-- FOOTER -->
-         <hr>
-         <footer>
-            <p class="pull-right"><a href="#">Back to top</a></p>
-            <p>&copy; 2017 COMP3111/H teaching team </p>
-            <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
-         </footer>
-      </div>
-      <!-- /.container -->
-
-      <!-- JavaScript of this page -->
-      <script src="js/index.js"></script>
 
 
-   </body>
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/grayscale.min.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+
 </html>
