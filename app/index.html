@@ -15,102 +15,60 @@
 		site.css: A customized css for our web application. Not from any web framework. 
 	  -->
 	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
+    <script src="lib/jquery.min.js"></script>      
+    <script src="lib/bootstrap.min.js"></script>      
       	  
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
+    <link rel="stylesheet" href="css/custom.css"> 
       
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
-
-
 	  	  
    </head>
+
+
    <body>
-   
+      <!--Menu bar-->
+      <div ng-include="'nav.html'"></div>
 
-  
-   
-   
-      <div class="navbar-wrapper">
-	  
-         <div class="container">
-            <nav class="navbar navbar-static-top navbar-default">
-               <div class="container">
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                     <span class="sr-only">Toggle navigation</span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     </button>
-                     <a class="navbar-brand" href="#">teamform</a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav">
-                        
-                        <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="#page_about">About teamform</a></li>
-                              <li>
-                              <a href="#page_team">Development team</a>
-                              </li>
-                              <li role="separator" class="divider"></li>
-                              <li>
-                                <a href="profile.html" ng-show="loggedIn">Profile</a><!--Show this when login-->
-                              </li>
-                              <li><a href="#">TODO: Add menu items here... </a></li>
-                           </ul>
-                        </li>
-						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-							
-							<ul class="dropdown-menu">
-								<li>
-									<a href="coverage/index.html" target="_blank">Report</a>
-								</li>
-								<li role="separator" class="divider"></li>
-								
-								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-								</li>
-								
-								<li><a href="#">TODO: Add more test cases here... </a></li>
-							</ul>
-						</li>
-                        
-                     </ul>
-                  </div>
-               </div>
-            </nav>
-         </div>
-      </div>
       <!--Login interface-->
-      <div class="container" id="login_box" >
+      <section  style="background-image: url('img/img1.jpg');" class="login_box_section img-responsive " >
+      <div class="intro col-md-6">
+              <h2 class="featurette-heading" >What is teamform?
+                  <br>
+                  <span class="text-muted">A real-time online team forming app</span>
+               </h2>
+      </div>
+      <div class="container col-md-4 " id="login_box" >
         <form ng-hide="loggedIn"><!--Hide this when login-->
-        <input ng-model="txtEmail"  placeholder="Email">
-        
-        <input ng-model="txtPassword" type="password" placeholder="Password">
-
-        <button id="btnLogin" class="btn btn-primary" ng-click="login()">
-          Login 
-        </button>
-
-        <button id="btnSignUp" class="btn btn-primary" ng-click="signup()">
-          Sign Up
-        </button>
-
+        <p class="login_heading">Login to teamform</p>
+        <table class="table borderless" style="background-color: white; ">
+          <tbody>
+            <tr>
+              <td width="15%" class="login_label text-center vertical-center" ><label ><span class="glyphicon glyphicon-envelope" ></span></label></td>
+              <td width="85%"><input ng-model="txtEmail"  type="email" placeholder="E-mail"></td>
+            </tr>
+            <tr >
+              <td class="login_label text-center "><label  ><span class="glyphicon glyphicon-lock" ></span></label></td>
+              <td><input ng-model="txtPassword" type="password" placeholder="Password"></td>
+            </tr>
+  
+          </tbody>
+        </table>
+          <a ng-click="signup()"> Sign Up Now!</a>
+          <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
+          <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
         </form>
-        <button id="btnLogout" class="btn btn-primary" ng-click="logout()" ng-show="loggedIn">
+
+        <button id="btnLogout" class="btn btn-primary " ng-click="logout()" ng-show="loggedIn">
           Logout
         </button>
         <p ng-show="loggedIn">Hello! {{displayEmail}} </p><!--Show this when login-->
       </div>
+      </section>
+
       <!-- A sample login page -->
       <div class="container" id="page_home">
          <div class="row" ng-show="loggedIn"> <!--Show this when login-->
@@ -148,10 +106,7 @@
                         </div>
                      </div>
                      <br >
-					 
-																 
-					
-					 
+
                      <br >
                   </div>
                </div>
@@ -159,6 +114,7 @@
             </div>
          </div>
       </div>
+
       <!-- Marketing messaging and featurettes
          ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
@@ -168,10 +124,7 @@
          <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_about">
             <div class="col-md-12">
-               <h2 class="featurette-heading">What is teamform?
-                  <br>
-                  <span class="text-muted">A real-time online team forming app</span>
-               </h2>
+       
                <p class="lead"> The following roles are supported in teamform:
                </p>
 
