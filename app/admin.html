@@ -28,57 +28,42 @@
       <script src="js/site.js"></script>
 	  	  
    </head>
-   <body>
-
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >
-   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-   Back</button></a>
-
+   <body  ng-controller="AdminCtrl">
+     <div ng-include="'navbar.html'" id='navbarMenu'></div>
    <br>
 
    <div class="text-center">
       <h1>Administrative Page</h1>
-	  
-	 
-					 
       <h2 id="text_event_name"></h2>
-
-      <div id="admin_page_controller" ng-controller="AdminCtrl">
-
+      <!--<div id="admin_page_controller" ng-controller="AdminCtrl"> since header need controller-->
+      <div id="admin_page_controller" >
          <div class="row">
 
             <div class="col-md-2 col-xs-2"></div>
-
             <div class="col-md-8 col-xs-8 text-left panel">
-
-			 
-
-             <strong>Minimum Team Size:</strong>  
-
-               <span class="badge">
-                 {{param.minTeamSize}}</span>
+              <!--description for event-->
+                <strong>Description: </strong>
+                <input ng-model="param.description" type="textarea"><br>
                 
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
-
+                <strong>Admin: </strong><a href="profile.html?q={{param.admin}}">{{adminName}}</a><br>
+                <strong>Minimum Team Size:</strong>  
+                    <span class="badge">{{param.minTeamSize}}</span>
+                <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
                 <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
-
             <br><br>
 
              <strong>Maximum Team Size: </strong>  
-
-               <span class="badge">
-                 {{param.maxTeamSize}}</span>
-                
+               <span class="badge">{{param.maxTeamSize}}</span>
                <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
-
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
-
+               <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+               
+            <br><br>
+                <strong>Deadline: </strong>
+                <input type="date" ng-model="param.deadline" min="{{today | date:'yyyy-MM-dd'}}"/>
+                Date left: {{(param.deadline - today)/(1000*60*60*24) | number:0}}
             <br><br>
 
-             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
-
-
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Done</button>
 
             </div>
             

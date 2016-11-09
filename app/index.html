@@ -24,74 +24,14 @@
 
       
       <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
-
-
-	  	  
+      <script src="js/site.js"></script>	  	  
    </head>
    <body>
-   
-
-  
-   
-   
-      <div class="navbar-wrapper">
-	  
-         <div class="container">
-            <nav class="navbar navbar-static-top navbar-default">
-               <div class="container">
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                     <span class="sr-only">Toggle navigation</span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     </button>
-                     <a class="navbar-brand" href="#">teamform</a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav">
-                        
-                        <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="#page_about">About teamform</a></li>
-                              <li>
-                              <a href="#page_team">Development team</a>
-                              </li>
-                              <li role="separator" class="divider"></li>
-                              <li>
-                                <a href="profile.html" ng-show="loggedIn">Profile</a><!--Show this when login-->
-                              </li>
-                              <li><a href="#">TODO: Add menu items here... </a></li>
-                           </ul>
-                        </li>
-						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-							
-							<ul class="dropdown-menu">
-								<li>
-									<a href="coverage/index.html" target="_blank">Report</a>
-								</li>
-								<li role="separator" class="divider"></li>
-								
-								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-								</li>
-								
-								<li><a href="#">TODO: Add more test cases here... </a></li>
-							</ul>
-						</li>
-                        
-                     </ul>
-                  </div>
-               </div>
-            </nav>
-         </div>
-      </div>
+      
+        <div ng-include="'navbar.html'" id='navbarMenu'></div>
+    
       <!--Login interface-->
-      <div class="container" id="login_box" >
+      <div class="container" id="login_box">
         <form ng-hide="loggedIn"><!--Hide this when login-->
         <input ng-model="txtEmail"  placeholder="Email">
         
@@ -106,11 +46,9 @@
         </button>
 
         </form>
-        <button id="btnLogout" class="btn btn-primary" ng-click="logout()" ng-show="loggedIn">
-          Logout
-        </button>
-        <p ng-show="loggedIn">Hello! {{displayEmail}} </p><!--Show this when login-->
+        <p ng-show="loggedIn">Hello! {{username}}</p><!--Show this when login-->
       </div>
+
       <!-- A sample login page -->
       <div class="container" id="page_home">
          <div class="row" ng-show="loggedIn"> <!--Show this when login-->
@@ -122,37 +60,23 @@
                         <h1>teamform</h1>
                         <p>A real-time online team forming app for any event</p>
                      </div>
-
                      <br >
+                     <!--enter event-->
 
+                        <!--filter/search event (if event not exsist, ask if user want to create one)-->
+                        <!--event list-->
+                        <!--enter event name and join(just for testing)-->
+                     <!--create event and become admin-->
                      <div class="text-center">
-
-                        <input id="input_text" type="text" class="input-lg">
+                        <input id="newEventName" type="text" class="input-lg" ng-model="newEventName">
                         <br>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-                        <br>
-                        <br>
-
+                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create an event</em>
                         <div>
-                           
-                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-                          
-
-
-                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-                          
-                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-                          
-
-
+                           <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(newEventName)">Create new event</button>
                         </div>
                      </div>
-                     <br >
-					 
-																 
-					
-					 
-                     <br >
+
+                     <br>
                   </div>
                </div>
                <hr >
@@ -163,8 +87,6 @@
          ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
       <div class="container marketing">
-
-
          <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_about">
             <div class="col-md-12">
