@@ -38,8 +38,6 @@
       <!--<div id="admin_page_controller" ng-controller="AdminCtrl"> since header need controller-->
       <div id="admin_page_controller" >
          <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
             <div class="col-md-8 col-xs-8 text-left panel">
               <!--description for event-->
                 <strong>Event Name: </Strong>
@@ -53,25 +51,20 @@
                     <span class="badge">{{param.minTeamSize}}</span>
                 <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
                 <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
-            <br><br>
+                <br><br>
 
-             <strong>Maximum Team Size: </strong>  
-               <span class="badge">{{param.maxTeamSize}}</span>
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
-               <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
-               
-            <br><br>
+                <strong>Maximum Team Size: </strong>  
+                <span class="badge">{{param.maxTeamSize}}</span>
+                <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+                
+                <br><br>
                 <strong>Deadline: </strong>
                 <input type="date" ng-model="deadline" min="{{today | date:'yyyy-MM-dd'}}"/>
                 Date left: {{(deadline - today)/(1000*60*60*24) | number:0}}
-            <br><br>
-
-             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Done</button>
-
+                <br><br>
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Save</button>
             </div>
-            
-             <div class="col-md-2 col-xs-2"></div>
-
          </div>
      
 

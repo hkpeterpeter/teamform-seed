@@ -57,10 +57,10 @@ angular.module('create-event-app', ['firebase'])
 			$scope.today=new Date();
 			var database = firebase.database();
             var adminRef = database.ref('users/'+$scope.param.admin);
-            var adminData = $firebaseObject(adminRef);
-            adminData.$loaded()
+            $adminData = $firebaseObject(adminRef);
+            $adminData.$loaded()
                 .then(function(data){
-                    $scope.adminName = adminData.name;
+                    $scope.adminName = $adminData.name;
                 })
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
@@ -106,6 +106,13 @@ angular.module('create-event-app', ['firebase'])
 	$scope.saveFunc = function() {
 		$scope.param.deadline =$scope.deadline.toISOString(); 
 		$scope.param.$save();
+		//save to user
+		var userTeamRefPath = "users/"+$scope.uid+"/teams/"+ eventid;
+		var userTeamRef = firebase.database().ref(userTeamRefPath);
+		adminData = $firebaseObject(userTeamRef);
+		adminData.role = {};
+		adminData.role = "admin";
+		adminData.$save();
 		// Finally, go back to the front-end
 		window.location.href= "admin.html?q="+eventid;
 	}
