@@ -10,7 +10,7 @@ $(document).ready(function(){
 });
 
 angular.module('create-event-app', ['firebase'])
-.controller('newEventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+.controller('newEventCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$window', function($scope, $firebaseObject, $firebaseArray,$window) {
 	console.log("enter create-event-app");
 	// TODO: implementation of AdminCtrl
 	
@@ -69,14 +69,6 @@ angular.module('create-event-app', ['firebase'])
 			// Database connection error handling...
 			console.error("Error:", error);
 		});	
-	
-	refPath = "event/"+ eventid + "/team";	
-	$scope.team = [];
-	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-
-	refPath = "event/"+ eventid + "/member";
-	$scope.member = [];
-	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
@@ -104,17 +96,43 @@ angular.module('create-event-app', ['firebase'])
 	}
 
 	$scope.saveFunc = function() {
-		$scope.param.deadline =$scope.deadline.toISOString(); 
-		$scope.param.$save();
-		//save to user
-		var userTeamRefPath = "users/"+$scope.uid+"/teams/"+ eventid;
-		var userTeamRef = firebase.database().ref(userTeamRefPath);
-		adminData = $firebaseObject(userTeamRef);
-		adminData.role = {};
-		adminData.role = "admin";
-		adminData.$save();
-		// Finally, go back to the front-end
-		window.location.href= "admin.html?q="+eventid;
+		if ($scope.param.eventName == ""|| $scope.param.eventName == null){
+			$window.alert("Event Name cannot be empty");
+		}else if ($scope.isEventExist($scope.param.eventName)){
+			console.log("Event "+ $scope.param.eventName + " already exist.");
+			$window.alert("Event "+ $scope.param.eventName + " already exist.");
+		}else{
+			console.log($scope.isEventExist($scope.param.eventName));
+			$scope.param.deadline =$scope.deadline.toISOString(); 
+			$scope.param.$save();
+			//save to user
+			var userTeamRefPath = "users/"+$scope.uid+"/teams/"+ eventid;
+			var userTeamRef = firebase.database().ref(userTeamRefPath);
+			adminData = $firebaseObject(userTeamRef);
+			adminData.role = {};
+			adminData.role = "admin";
+			adminData.$save();
+			// jump to admin page
+			//window.location.href= "admin.html?q="+eventid;
+		}
+	}
+
+	$scope.isEventExist = function(eventname, callback){
+		var ref = firebase.database().ref("event/");
+		var eventsList = $firebaseObject(ref);
+		var flag = false;
+		eventsList.$loaded(function(data) {
+				data.forEach(function(eventObj){
+					if (eventObj.admin.param.eventName == eventname){
+						flag = true;
+					}
+				})
+		}).then(function(){
+			if (flag) console.log("return true");
+				if (callback)callback(flag);
+				callback(true);
+			return flag;
+		});
 	}
 
 	//$scope.users is an array of users in firebase
@@ -126,7 +144,7 @@ angular.module('create-event-app', ['firebase'])
 		firebase.auth().signOut();
 	}
 
-//monitor if the user is logged in or not
+	//monitor if the user is logged in or not
 	firebase.auth().onAuthStateChanged(user => {
 		if(user){
 			console.log('logged in');
