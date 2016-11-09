@@ -8,7 +8,9 @@ app.controller("teamSubmit",
                     name:"",
                     intro:"",
                     holder:"",
-                    state:false
+                    state:false,
+                    teamleader:"",
+                    member:""
                 };
                 
                 var ref=firebase.database().ref("events");
@@ -20,12 +22,16 @@ app.controller("teamSubmit",
                         $scope.input.holder=1;
                         $scope.team = {
                               name:"",
-			intro:""									
+			intro:"",
+            			teamleader:"",
+                        openness:true	,
+                        member:""				
 			};
+                        $scope.team.teamleader=firebase.auth().currentUser.uid;
                               $scope.team.name=$scope.input.name;
                               $scope.team.intro=$scope.input.intro;
                               childRef=ref.child($scope.input.event);
-                              if(!firebase.auth().currentUser){
+                              if(firebase.auth().currentUser){
                                         ref.orderByChild("name").equalTo($scope.input.event).once("child_added",function(location){
                                                   location.child("Team").ref.push().set($scope.team);
                                         });
