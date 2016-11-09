@@ -35,6 +35,7 @@ function initalizeFirebase() {
     storageBucket: "teamform-b1af3.appspot.com",
     messagingSenderId: "96092400789"
   };
+
   firebase.initializeApp(config);
 }
 
