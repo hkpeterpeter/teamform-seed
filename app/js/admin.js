@@ -100,7 +100,8 @@ angular.module('teamform-admin-app', ['firebase'])
 		$scope.param.deadline =$scope.param.deadline.toISOString(); 
 		$scope.param.$save();
 		// Finally, go back to the front-end
-		window.location.href= "index.html";
+		$scope.edit = false;
+		//window.location.href= "index.html";
 	}
 
 	//$scope.users is an array of users in firebase

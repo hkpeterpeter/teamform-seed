@@ -52,8 +52,8 @@
                         <ul class="nav navbar-nav navbar-right" ng-show="loggedIn">
                             <li><a href="profile.html" ng-show="loggedIn">{{username}}</a></li>
                             <li>
-                              <a ng-click="logout()">
-                              <span class="glyphicon glyphicon-log-out" ng-show="loggedIn"></span> Log out
+                              <a ng-click="logout()" id="">
+                              <span class="glyphicon glyphicon-log-out" ng-show="loggedIn" style="cursor: pointer"> Logout</span>
                               </a>
                             </li>
                         </ul>
