@@ -42,13 +42,16 @@ angular.module('index-app', ['firebase'])
 	
 	//create new event
 	$scope.createNewEvent =function (eventname){
-		var val = $('#newEventName').val();
+		var val = $('#eventName').val();
 		if (val == '' ){
-			$window.alert("empty event name");//should be change to alert in the input textbox
-		}else if ( $scope.isEventExist(val) ) {//check if the event already exsist
-    		$window.alert("Event ", val , "already exist.");
+			var url = "createEvent.html?q=" + val;
+    		window.location.href= url ;
+    		return false;
+		//todo: check if the event already exsist
+		// }else if ( $scope.isEventExist(val) ) {
+    	// 	$window.alert("Event ", val , "already exist.");
     	}else{
-			var url = "admin.html?q=" + val;
+			var url = "createEvent.html?q=" + val;
     		window.location.href= url ;
     		return false;
 		}
