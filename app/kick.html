@@ -1,0 +1,16 @@
+<body ng-app="teamApp">
+         <h1>Edit Team</h1>
+         <div ng-controller="kick">
+         <form name="teamForm">          
+            Please select the event below: <br>
+        <select ng-model="selectedName" ng-options="x.name for x in event">
+        </select>
+        {{selectedName}}
+         <div ng-repeat="g in selectedName.Team" ng-if="idd == g.teamleader">
+             <h2>Team Name: {{g}}</h2> <br>Member Name: <br>
+             <input type="button" ng-click="kickk(selectedName,selectedt);"></input>
+         <div data-ng-repeat="q in g.member">
+         </div></div>
+          </form>
+         </div>
+</body>

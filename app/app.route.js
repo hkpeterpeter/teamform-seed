@@ -95,6 +95,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/editteaminfo',
             templateUrl: 'editteaminfo.html',
             controller: 'teamedit'
+            })
+
+             .state('kickmember', {
+            url: '/kickmember',
+            templateUrl: 'kick.html',
+            controller: 'kick'
             });
 
 });
