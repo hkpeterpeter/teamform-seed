@@ -1,12 +1,20 @@
+<!--
+Team name: {{teamName}}
+Team description: {{teamDescription}}
+Is a private team: {{privateTeam}} (true or false)
+Minimum number of team member: {{teamMin}}
+Maximum number of team member: {{teamMax}}
+-->
+
 <div class="container">
     <div class="row">
         <form>
-          <simple-field id="team_name" label="Team name"></simple-field>
-          <textarea-field id="team_description" label="Team description"></textarea-field>
+          <simple-field id="team_name" label="Team name" field-model="teamName"></simple-field>
+          <textarea-field id="team_description" label="Team description" field-model="teamDescription"></textarea-field>
           <image-upload label="Choose team image"></image-upload>
           <br>
           <div>
-              <input type="checkbox" class="filled-in" id="filled-in-box" />
+              <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="privateTeam"/>
               <label for="filled-in-box">Is a private team</label>
           </div>
           <br><br>

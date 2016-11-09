@@ -1,22 +1,16 @@
 
     
-    teamapp.controller('myCtrl', function($scope) {
-        
-    });
-
-    teamapp.controller('rangeNumberSpinnerController', ['$scope',
-        function($scope) {
-            //Use rangeValue anywhere required
-    }]);
-    
     teamapp.directive("simpleField",function(){
         return {
             restrict: "E",
             scope: {
                 id: '@',
-                label: '@'
+                label: '@', 
+                fieldModel: '='
             },
-            templateUrl: "component/simple_field.html"
+            templateUrl: "WU_YUNCHEN/component/simple_field.html", 
+            controller : function($scope,$element,$attrs,$rootScope) {
+            }
         };
     });
     
@@ -25,9 +19,12 @@
             restrict: "E",
             scope: {
                 id: '@',
-                label: '@'
+                label: '@',
+                fieldModel: '='
             },
-            templateUrl: "component/textarea_field.html"
+            templateUrl: "WU_YUNCHEN/component/textarea_field.html", 
+            controller : function($scope,$element,$attrs,$rootScope) {
+            }
         };
     });
     
@@ -38,7 +35,7 @@
                 id: '@',
                 label: '@'
             },
-            templateUrl: "component/image_upload.html"
+            templateUrl: "WU_YUNCHEN/component/image_upload.html"
         };
     });
     
@@ -152,13 +149,13 @@
     teamapp.directive("eventForm",function(){
         return {
             restrict: "E",
-            templateUrl: "component/event_form.html"
+            templateUrl: "WU_YUNCHEN/component/event_form.html"
         };
     });
     
     teamapp.directive("teamForm",function(){
         return {
             restrict: "E",
-            templateUrl: "component/team_form.html"
+            templateUrl: "WU_YUNCHEN/component/team_form.html"
         };
     });
