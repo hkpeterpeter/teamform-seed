@@ -43,7 +43,7 @@
                         <div id="searchSuggestion" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 noPadding">
                             <ul class="list-group">
                                 <a href="#" ng-repeat="suggestion in suggestions">
-                                    <li id="{{suggestion.id}}" class="list-group-item">{{suggestion.text}}</li>
+                                    <li class="list-group-item {{suggestion.class}}" ng-click="suggestion.action()">{{suggestion.text}}</li>
                                 </a>
                             </ul>
                         </div>
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <!--End Search Button-->
-                    {{debugMsg}}
+                    {{debugMsg}} {{debugMsg2}}
                 </div>
 
                 <!--Search Result-->
