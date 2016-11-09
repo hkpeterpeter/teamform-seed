@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Dashboard</title>
-    <!-- CSS IMPORTING -->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body ng-app="dashboard" ng-controller="dashboardController">
 
-<!-- JAVASCRIPT FILES -->
-<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyCQKYVkrCowDJXNreSNgcJ7cy9RLnlRNZc",
-        authDomain: "teamform-undefined.firebaseapp.com",
-        databaseURL: "https://teamform-undefined.firebaseio.com",
-        storageBucket: "teamform-undefined.appspot.com",
-        messagingSenderId: "640568930097"
-    };
-    firebase.initializeApp(config);
-</script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script><!--Angular Fire -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-<script src="./personal-dashboard-main.js"></script>
-
+<div ng-controller="dashboardController">
 <div class="container" style="padding-top: 20px">
     <button class="btn waves-effect waves-light" ng-click="facebookLogin()">Login
         <i class="material-icons right">send</i>
@@ -122,8 +93,5 @@
 
 
 
-
 </div>
-
-</body>
-</html>
+</div>
