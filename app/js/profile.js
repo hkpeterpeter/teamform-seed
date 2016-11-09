@@ -60,6 +60,7 @@ angular.module('profile-app', ['firebase'])
                     $scope.userData.gpa = currentUserData.gpa;
                     $scope.userData.team = currentUserData.team;
                     $scope.userData.language = currentUserData.language;
+                    $scope.username = currentUserData.name;
                     console.log('refreshed');
                    // $scope.$apply();
                 })
