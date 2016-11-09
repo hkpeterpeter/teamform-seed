@@ -35,11 +35,11 @@ export default class TeamService {
             return teamJoin.eventId == team.eventId;
         });
         for (let team of teams) {
-            for (let teamUser of team.users) {
+            for (let [key, teamUser] of Object.entries(team.users)) {
                 if (teamUser.id == user.uid) {
                     if (team.$id == id) {
                         return Promise.reject(new Error('You Already joined this team'));
-                    } else {
+                    } else if(!teamUser.pending) {
                         return Promise.reject(new Error('You Already joined other team'));
                     }
                 }
@@ -54,6 +54,7 @@ export default class TeamService {
                 };
                 if (teamJoin.invite) {
                     newTeamUser.pending = true;
+                    newTeamUser.confirmed = false;
                     return users.$add(newTeamUser);
                 } else {
                     teamUser.id = newTeamUser.id;
@@ -82,15 +83,21 @@ export default class TeamService {
     editTeam(team) {
         return team.$save();
     }
-    createTeam(team) {
-        return this.authService.checkAuth()
-            .then(user => {
-                team.createdBy = user.uid;
-                team.createdAt = Date.now();
-                return Promise.all([this.$firebaseArray(this.$database.ref('teams')).$add(team), this.eventService.joinEvent(team.eventId, true)]);
-            }).then(([team]) => {
-                return team;
-            });
+    async createTeam(team) {
+        let user = await this.authService.checkAuth();
+        team.createdBy = user.uid;
+        team.createdAt = Date.now();
+        let newTeamUsers = team.users;
+        team.users = null;
+        await this.eventService.joinEvent(team.eventId, true);
+        let teamRef = await this.$firebaseArray(this.$database.ref('teams')).$add(team);
+        let teamUsers = await this.$firebaseArray(teamRef.child('users')).$loaded();
+        for(let newTeamUser of newTeamUsers) {
+            newTeamUser.pending = true;
+            newTeamUser.accepted = false;
+            await teamUsers.$add(newTeamUser);
+        }
+        return teamRef;
     }
     static instance(...args) {
         return new TeamService(...args);
