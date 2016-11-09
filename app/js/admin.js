@@ -71,7 +71,7 @@ angular.module('teamform-admin-app', ['firebase'])
 		.catch(function(error) {
 			// Database connection error handling...
 			//console.error("Error:", error);
-		});	
+		});
 	
 	refPath = "event/"+ eventid + "/team";	
 	$scope.team = [];
