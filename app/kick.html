@@ -5,11 +5,10 @@
             Please select the event below: <br>
         <select ng-model="selectedName" ng-options="x.name for x in event">
         </select>
-        {{selectedName}}
-         <div ng-repeat="g in selectedName.Team" ng-if="idd == g.teamleader">
-             <h2>Team Name: {{g}}</h2> <br>Member Name: <br>
-             <input type="button" ng-click="kickk(selectedName,selectedt);"></input>
-         <div data-ng-repeat="q in g.member">
+         <div ng-repeat="(key1, g) in selectedName.Team" ng-if="idd == g.teamleader">
+             <h2>Team Name: {{g.name}}</h2> <br>Member Name: <br>
+         <div data-ng-repeat="(key, q) in g.member">
+            {{q.name}} <input type="button" ng-click="kickk(selectedName,key1,key,g);">Remove</input>
          </div></div>
           </form>
          </div>

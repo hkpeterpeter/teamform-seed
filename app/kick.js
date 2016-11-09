@@ -7,73 +7,33 @@ app.controller("kick",["$scope","$firebaseArray", "Auth","$rootScope",
                 $scope.event = $firebaseArray(ref);
 
 $scope.idd=firebase.auth().currentUser.uid;
-        $scope.kickk = function(eventid,teamid) {
-          
-          var path = "events" + "/" + eventid.$id + "/" + "Team" + "/" + teamid.$id+ "/";
-                    console.log(path);
-                    console.log(teamid.$id);
+        $scope.kickk = function(eventobj,teamid,memid,teamobj) {
+          if ((teamobj.teamleader!=$scope.idd)) {
 
+            window.alert("Please sign in first!");
+          }
+          else{
+          var path = "events" + "/" + eventobj.$id +"/Team/" +teamid+"/member/" +memid;
+          console.log(path);
+         var itemRef =firebase.database().ref(path);
+					if(itemRef.remove())
+          {
+            if ((teamobj.numberOfmember-1)==1)
+            window.alert("Each team must have at least 1 member!");
+            else {
+            itemRef.remove();
+        path = "events" + "/" + eventobj.$id + "/" + "Team" + "/" + teamid;
+         itemRef =firebase.database().ref(path);
+         itemRef.update({numberOfmember : teamobj.numberOfmember-1 });
+         console.log('done');
+            }
+          }
+          else
+           window.alert("There is an error! Please try again!");
+} 
+        
         }
                }
                
 ]);
                
-
-
-
-
-
-
-
-
-//                function($scope, $firebaseArray){
-                
-//                 $scope.input = {
-//                     event:"",
-//                     name:"",
-//                     intro:"",
-//                     holder:"",
-//                     state:false
-//                 };
-                
-//                 var ref=firebase.database().ref("events");
-                
-//                 $scope.teamedit = function() {
-                    
-//                     if($scope.input.name!==""&&$scope.input.intro!==""){
-//                         $scope.input.state=true;
-//                         $scope.input.holder=1;
-//                         $scope.team = {
-//                               name:"",
-//                               intro:""                  
-//       };
-
-//                               $scope.team.name=$scope.input.name;
-//                               $scope.team.intro=$scope.input.intro;
-//                               childRef=ref.child($scope.input.event);
-                              
-//                               if(!firebase.auth().currentUser){
-//                                         ref.orderByChild("name").equalTo($scope.input.event).{
-//                                                   location.child("Team").ref.update($scope.team);
-//                                         };
-//         }
-//                               else{
-//                                         window.alert("Please sign in first!");
-//                               }
-//                               $scope.input.event= "";
-//                               $scope.input.intro= "";
-//                               $scope.input.name= "";
-                                    
-
-                    
-//                     }
-                    
-                    
-                    
-//                 };
-                
-                
-//                }
-               
-               
-// );
