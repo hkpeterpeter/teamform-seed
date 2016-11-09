@@ -34,14 +34,7 @@ angular.module('create-event-app', ['firebase'])
 	$scope.param.$loaded()
 		.then( function(data) {
 			// // Fill in some initial values when the DB entry doesn't exist
-			if (typeof eventname == "undefined"){
-				$scope.param.eventName = "";
-			}else{
-				$scope.param.eventName = eventname;
-			}
-			if (typeof $scope.param.eventName == "undefined"){
-				$scope.param.eventName ="";
-			}
+			$scope.param.eventName = eventName;
 			if (typeof $scope.param.admin == "undefined"){
 				$scope.param.admin = $scope.uid;
 			}
@@ -113,9 +106,8 @@ angular.module('create-event-app', ['firebase'])
 	$scope.saveFunc = function() {
 		$scope.param.deadline =$scope.deadline.toISOString(); 
 		$scope.param.$save();
-		console.log("saved");
 		// Finally, go back to the front-end
-		window.location.href= "admin.html?="+eventid;
+		window.location.href= "admin.html?q="+eventid;
 	}
 
 	//$scope.users is an array of users in firebase
