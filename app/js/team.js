@@ -64,6 +64,7 @@ angular.module('teamform-team-app', ['firebase'])
 			//$scope.test += obj.$id + " " ;
 			
 			var userID = obj.$id;
+			var userSex = obj.sex;
 			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1 ) {
 				//$scope.test += userID + " " ;
 				
@@ -87,7 +88,35 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.param.currentTeamSize = newVal;
 		} 
 	}
-
+	
+	$scope.advertise = function() {
+		
+		
+		var adverID = $.trim( $scope.param.title );
+		
+		
+		if ( adverID !== '' && $scope.param.advertisement !== "") {
+									
+			var newData = {				
+				'content': $scope.param.advertisement
+			};
+			
+			var refPath = getURLParameter("q") + "/advertisement/" + adverID;	
+			var ref = firebase.database().ref(refPath);
+			
+			ref.set(newData, function(){
+				// complete call back
+				//alert("data pushed...");
+				
+				// Finally, go back to the front-end
+				window.location.href= "index.html";
+			});
+			
+			
+		
+					
+		}
+	}
 	$scope.saveFunc = function() {
 		
 		

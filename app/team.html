@@ -29,7 +29,7 @@
 	  	  
    </head>
    <body>
-
+	<div ng-include = "'navbar.html'"> </div>
     <a href="index.html"
    <button id="btn_admin" type="button" class="btn btn-primary" >
    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
@@ -90,8 +90,15 @@
 						  
 					   </span>
 				   </div>
-				   
-				   
+				   <div class = "row">
+				   <div class="col-md-8 col-xs-8">
+						<strong>Promote Your Group!</strong>
+						<input type="text" class="form-control" placeholder="Enter title!" ng-model="param.title"><div></div>
+						<input type="text" class="form-control" placeholder="Enter your requirement!" ng-model="param.advertisement">
+					</div>
+				   <div class="col-md-1 col-xs-1">
+						   <button type="button" class="btn btn-primary" ng-click="advertise();" >Promote!</button>
+					</div>
 
                   </form>
 
