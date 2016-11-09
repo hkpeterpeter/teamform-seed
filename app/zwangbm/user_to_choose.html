@@ -13,7 +13,6 @@
 
   <!-- AngularFire URL: https://github.com/firebase/angularfire -->
   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
-
 <script>
   // Initialize Firebase
   var config = {
@@ -25,8 +24,6 @@
   };
   firebase.initializeApp(config);
 </script>
-
-
 
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>invite interface</title>
@@ -47,50 +44,43 @@
     </head>
 
     <body>
+        
 <div class="container">
 <div class="col-md-12 col-xs-12">
     <div class="list-group" >
     <!--one user-->
-	<div ng-controller="clickCtrl">
-    <label ng-repeat="select in selected">
+    <div ng-controller="clickCtrl">
+    <label ng-repeat="(username, content) in users[0]">
       <div class="row">
     <div class="col-xs-12"> 
+      <!--button id="{{user.name}}" type="button" class="list-group-item" data-ng-click = "clickButton($event)"-->
         <div class="media">
           <div class="media-left">
-            <img class="media-object" src={{select.img}} width="50" height="50" alt="...">
-            
+
+            <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
+          
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{select.name}}</h4>
-            {{select.intro}}
+            <h4 class="media-heading">{{content.name}}</h4>
+            {{content.intro}}
           </div>
 
           <div class="media-right">
-            <span class="{{select.select}}" aria-hidden="true" id="{{select.name}}" data-ng-click = "clickButton($event)"></span>
-            
+            <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
           </div>
-
         </div>
       <!--/button-->
       
       </div>
       </div>
       </label>
-
-
     </div>
 
+    </div>
+</div> <!--end of to be chosen-->
 </div>
-</div> <!--end of chosed-->
-</div>
-
-
-
-
 
     </body>
-
-
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
