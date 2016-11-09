@@ -6,16 +6,15 @@ export default class LogoutCtrl {
         this.error = null;
         this.logout();
     }
-    logout() {
-        this.authService.signOut()
-            .then((result) => {
-                this.$state.go(this.$state.params.fromState, this.$state.params.fromParams);
-            })
-            .catch((error) => {
-                this.$timeout(() => {
-                    this.error = error;
-                });
+    async logout() {
+        try {
+            let result = await this.authService.signOut();
+            this.$state.go(this.$state.params.fromState, this.$state.params.fromParams);
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
             });
+        }
     }
 }
 

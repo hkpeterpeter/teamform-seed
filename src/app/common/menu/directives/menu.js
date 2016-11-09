@@ -15,14 +15,15 @@ export default class Menu {
         });
     }
 
-    updateAuth(scope) {
-        this.authService.checkAuth().then((user) => {
+    async updateAuth(scope) {
+        try {
+            let user = await this.authService.checkAuth();
             scope.user = user;
             scope.isAuth = true;
-        }).catch(() => {
+        } catch (error) {
             scope.user = {};
             scope.isAuth = false;
-        });
+        }
     }
 
     static instance(...args) {
