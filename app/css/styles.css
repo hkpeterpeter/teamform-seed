@@ -1,0 +1,77 @@
+.panel-default{
+    width:75%;  
+      float: right;
+      padding-right:10px;
+}
+.page-header {
+    margin-top: 0;
+}
+.panel-body {
+    padding-top: 0;
+}
+
+.featuredImg{
+    margin-bottom: 15px;
+}
+
+.list-group {
+    
+    padding-top: 100px;
+    
+    opacity: 0.6;
+    filter:Alpha(opacity=50); 
+    width:20%;  
+      float: left;
+      position:fixed;
+      padding-left:10px;    
+}
+
+.Event{
+    width: 100%;
+    margin-top: 50px;
+    padding-top: 100px;
+}
+
+.teamse{
+    padding-left: 30px;
+    margin-left: 30px;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+ .close-modal {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  background-color: transparent;
+  top: 25px;
+  right: 25px;
+  cursor: pointer;
+}
+.close-modal:hover {
+  opacity: 0.3;
+}
+ .close-modal .lr {
+  height: 75px;
+  width: 1px;
+  margin-left: 35px;
+  background-color: white;
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  /* IE 9 */
+  -webkit-transform: rotate(45deg);
+  /* Safari and Chrome */
+  z-index: 1051;
+ }
+  .close-modal .lr .rl {
+  height: 75px;
+  width: 1px;
+  background-color: white;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  /* IE 9 */
+  -webkit-transform: rotate(90deg);
+  /* Safari and Chrome */
+  z-index: 1052;
+}
+
