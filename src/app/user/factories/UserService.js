@@ -15,9 +15,16 @@ export default class UserService {
                 return users;
             });
     }
-    editUser(user) {
+    async editUser(user) {
         user.pending = null;
-        return user.$save();
+        let newUserSkills = user.skills;
+        user.skills = null;
+        let userRef = await user.$save();
+        let userSkills = this.$firebaseArray(userRef.child('skills'));
+        for(let newUserSkill of newUserSkills) {
+            await userSkills.$add(newUserSkill);
+        }
+        return userRef;
     }
     createEvent(event) {
         return this.authService.checkAuth()
