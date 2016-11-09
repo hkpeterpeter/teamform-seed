@@ -1,1 +1,12 @@
 <h1>Notifications:</h1>
+
+<ul>
+    <li ng-repeat="(eid, myEvent) in myEvents">
+    <ul>
+        <li ng-repeat="(nid,notification) in myEvent.notifications" >
+            {{notification.content}}
+    </li>
+        </ul>
+
+    </li>
+    </ul>
