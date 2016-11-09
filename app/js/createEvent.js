@@ -1,48 +1,45 @@
 $(document).ready(function(){
 	
 	$('#admin_page_controller').hide();
-	$('#text_event_name').text("Error: Invalid event id ");
-	var eventid = getURLParameter("q");
-	if (eventid != null && eventid !== '' ) {
-		$('#text_event_name').text("Event ID: " + eventid);
+	$('#text_event_name').text("Create New Event");
+	var eventName = getURLParameter("q");
+	console.log("eventName (inside ready):" + eventName)
+	if (eventName != null && eventName !== '' && eventName != "undefined"){
+		$('#text_event_name').text("Event name: " + eventName);
 	}
 });
 
-angular.module('teamform-admin-app', ['firebase'])
-.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
-	
+angular.module('create-event-app', ['firebase'])
+.controller('newEventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+	console.log("enter create-event-app");
 	// TODO: implementation of AdminCtrl
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
-	$scope.loggedIn = true;
-			
+	$scope.editDescription = false;
+
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();	
 	
-	var refPath, ref, eventid;
+	var refPath, ref, eventName;
 
-	eventid = getURLParameter("q");
-	console.log("event id : " + eventid)
-	refPath = "event/"+ eventid + "/admin/param";
+	eventName = getURLParameter("q");
+	console.log("eventName (inside app):" + eventName)
+	eventid = firebase.database().ref("event/").push().key;
+	refPath = "event/"+ eventid + "/admin/param";	
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
-	
 	$scope.param = $firebaseObject(ref);
 	$scope.param.$loaded()
 		.then( function(data) {
 			// // Fill in some initial values when the DB entry doesn't exist
-			console.log("loaded: " + $scope.param.eventName);
-			console.log("loaded: " + $scope.param);
-			if (typeof $scope.param.eventName == "undefined"){
-				$scope.param.eventName ="";
-			}
+			$scope.param.eventName = eventName;
 			if (typeof $scope.param.admin == "undefined"){
 				$scope.param.admin = $scope.uid;
 			}
 			if (typeof $scope.param.description == "undefined"){
-				$scope.param.description = "This is team form for " + $scope.param.eventName + ".";
+				$scope.param.description = "This is team form for " + eventName + ".";
 			}
 			if(typeof $scope.param.maxTeamSize == "undefined"){				
 				$scope.param.maxTeamSize = 10;
@@ -51,7 +48,8 @@ angular.module('teamform-admin-app', ['firebase'])
 				$scope.param.minTeamSize = 1;
 			}			
 			if (typeof $scope.param.deadline =="undefined"){
-				$scope.deadline = new Date(new Date().setDate(new Date().getDate()+30));//outside new Date: change string to date object, 2nd Date: create date, 3 rd Date: get today day
+				$scope.deadline = new Date(new Date().setDate(new Date().getDate()+30));
+				//outside new Date: change string to date object, 2nd Date: create date, 3 rd Date: get today day
 			}else{
 				$scope.deadline = new Date($scope.param.deadline);
 				console.log(new Date($scope.param.deadline ));
@@ -65,18 +63,17 @@ angular.module('teamform-admin-app', ['firebase'])
                     $scope.adminName = adminData.name;
                 })
 			// Enable the UI when the data is successfully loaded and synchornized
-			$('#text_event_name').text("Event Name: " + $scope.param.eventName);
-			$('#admin_page_controller').show();			
+			$('#admin_page_controller').show(); 				
 		}) 
 		.catch(function(error) {
 			// Database connection error handling...
-			//console.error("Error:", error);
-		});
+			console.error("Error:", error);
+		});	
 	
 	refPath = "event/"+ eventid + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-	
+
 	refPath = "event/"+ eventid + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
@@ -95,13 +92,22 @@ angular.module('teamform-admin-app', ['firebase'])
 		} 
 	}
 
+	$scope.changeTeamName = function(){
+		$('#text_event_name').text("Event name: " + $scope.param.eventName);
+		if ($scope.editDescription == false){
+			$scope.param.description = "This is team form for " + $scope.param.eventName + ".";
+		}
+	}
+
+	$scope.changeDescription = function(){
+		$scope.editDescription = true;
+	}
+
 	$scope.saveFunc = function() {
-		$scope.param.deadline =$scope.deadline.toISOString();
+		$scope.param.deadline =$scope.deadline.toISOString(); 
 		$scope.param.$save();
-		$('#text_event_name').text("Event Name: " + $scope.param.eventName);
-		$scope.edit = false;
-		//stay at admin page
-		//window.location.href= "index.html";
+		// Finally, go back to the front-end
+		window.location.href= "admin.html?q="+eventid;
 	}
 
 	//$scope.users is an array of users in firebase

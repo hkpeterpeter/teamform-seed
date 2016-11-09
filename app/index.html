@@ -81,12 +81,16 @@
 				<!--enter event name and join(just for testing)-->
 			 <!--create event and become admin-->
 			 <div class="text-center">
-				<input id="newEventName" type="text" class="input-lg" ng-model="newEventName">
-				<br>
-				<em>Enter a name to create an event</em>
-				<div>
-				   <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(newEventName)">Create new event</button>
-				</div>
+          <input id="eventName" type="text" class="input-lg" ng-model="newEventName">
+          <br>
+          <em>Enter a name to enter an event</em>
+          <div>
+            <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="enter(eventName)">enter event</button>
+          </div>
+          <div>
+            <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(eventName)">Create new event</button>
+          </div>
+          <!--create event without eventname-->
 			 </div>
 
 			 <br >
