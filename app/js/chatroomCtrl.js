@@ -1,6 +1,6 @@
 var app = angular.module("chatroomApp", ["firebase"]);
 
-app.controller("chatroomCtrl",
+app.controller("chatroomCtrl", 
 
     function($scope, $firebaseArray) {
         var ref = firebase.database().ref("chats");
@@ -15,21 +15,23 @@ app.controller("chatroomCtrl",
             };
         }
 
-        function createMsg(content, date) {
+        this.createMsg = function(content, date) {
             return {
                 "content": content,
                 "date": date
             };
         }
 
-        function hasChatRecord(memberlist) {
+       
+
+        this.hasChatRecord = function(memberlist) {
             //TODO check if the group is already exist, and check if there are old chat records
             //if yes, return the index of the array, else return -1
 
             return -1;
         }
 
-        function addChatRecord() {
+        this.addChatRecord = function() {
             //transform the memberlist string into array
             $scope.input.members = $scope.input.members.split(" ").join("").split(",");
 

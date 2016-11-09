@@ -12,7 +12,7 @@ module.exports = function(config) {
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',	  
 	  'js/*.js',
-      'unit_tests/*.js'	  
+      'unit_tests/*.js',	  
     ],
 	exclude: [
 	],
@@ -21,9 +21,9 @@ module.exports = function(config) {
 		 'js/index.js' : ['coverage'],
 		 'js/admin.js' : ['coverage'],
 		 'js/team.js' : ['coverage'],
-		 'js/chatroomCtrl.js' : ['coverage'],
-		 'js/searchBar_test.js' : ['coverage'],
-		 'js/member.js' : ['coverage']
+		 'js/member.js' : ['coverage'],
+		 'js/searchbar.js' : ['coverage'],
+		 'js/chatroomCtrl.js' : ['coverage']
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
