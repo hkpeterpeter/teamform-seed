@@ -57,7 +57,8 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 	$scope.getTeamMember = function(teamMembers) {
 		var result = [];
-		for(var idx = 0; idx < teamMembers.length; idx++) {
+		var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
+		for(var idx = 0; idx < length; idx++) {
 			for(var tmpIdx = 0; tmpIdx < $scope.users.length; tmpIdx++) {
 				console.log($scope.users);
 				if($scope.users[tmpIdx].$id === teamMembers[idx]) {

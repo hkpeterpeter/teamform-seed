@@ -20,6 +20,7 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.userName = "";	
 	$scope.teams = {};
 	$scope.userInfo = "";
+	$scope.memberInfo = "";
 	$scope.uid = "";
 	$scope.name = "";
 	$scope.teamStatus = "";
@@ -43,14 +44,9 @@ angular.module('teamform-member-app', ['firebase'])
 
 	$scope.loadFunc = function() {
 		var refPath = getURLParameter("q") + "/member/" + $scope.uid;
-		$scope.userInfo = $firebaseObject(firebase.database().ref(refPath));
+		$scope.userInfo = $firebaseObject(getUserWithId($scope.uid));
 		$scope.userInfo.$bindTo($scope, "data").then(function() {
-			if($scope.data.userid != null) {
-				$scope.userID = $scope.data.userid;
-			}
-			else {
-				$scope.userID = $scope.uid;
-			}
+			$scope.userID = $scope.data.$id;
 			if($scope.data.name != null) {
 				$scope.userName = $scope.data.name;
 			} else {
@@ -61,8 +57,11 @@ angular.module('teamform-member-app', ['firebase'])
 			} else {
 				$scope.selection = [];
 			}
-			if($scope.data.inTeam != null) {
-				$("#teamStatus").html("You have joined team " + $scope.data.inTeam);
+		});
+		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
+		$scope.memberInfo.$bindTo($scope, "memData").then(function() {
+			if($scope.memData.inTeam != null) {
+				$("#teamStatus").html("You have joined team " + $scope.memData.inTeam);
 			}
 			else {
 				$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
@@ -78,17 +77,18 @@ angular.module('teamform-member-app', ['firebase'])
 		
 		if(userID !== '' && userName !== '') {
 			var newData = {
-				'userid': userID,
-				'name': userName,
 				'selection': $scope.selection,
 				'weight': 0 
 			};
 			console.log(newData);
-			var refPath = getURLParameter("q") + "/member/" + $scope.uid;
+			var refPath = getURLParameter("q") + "/member/" + userID;
 			var ref = firebase.database().ref(refPath);
-			ref.set(newData, function() {
-				window.location.href= "index.html";
+			ref.update(newData, function() {
+				window.location.href = "index.html";
 			});
+			refPath = "user/" + userID;
+			ref = firebase.database().ref(refPath);
+			ref.update({ name: userName });
 		}
 	};
 	
