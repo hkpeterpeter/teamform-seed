@@ -8,7 +8,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
         detail: "Event Detail"
     };
 
-    $rootScope.hello="hello";
+   
     $scope.createflip = function() {
         if ($scope.event.name != "") {
             document.getElementById('myflipper').classList.toggle('flipped');
@@ -145,13 +145,14 @@ teamapp.directive('eventCard', function($compile) {
             $scope.goToEvent =function(){
                 
 
-                $firebaseObject($rootScope.event_ref.child($scope.eid)).$bindTo($rootScope,"clickedEvent");
-                console.log($rootScope.clickedEvent);
+                
+               
                 //Bind the event object into rootScope
-
+                $firebaseObject($rootScope.event_ref.child($scope.eid)).$bindTo($rootScope,"clickedEvent");
 
                 //Determine the relarion ship between the current user and the event
 
+                
                 //redirect to the correct page
 
 
