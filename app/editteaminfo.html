@@ -1,4 +1,4 @@
-<body ng-app="teamApp">
+<!-- <body ng-app="teamApp">
          <h1>Edit Team</h1>
          <div ng-controller="teamedit">
          <form name="teamForm">          
@@ -17,4 +17,41 @@
           </form>
          </div>
 </body>
-<script>
+ -->
+<body ng-app="teamApp">
+    <style>
+table,th, td {
+    border: 1px solid black;
+}
+</style>
+         <h1>Edit Team</h1>
+         <div ng-controller="teaminfo">
+           
+Please select the event below: <br>
+<select ng-model="selectedName" ng-options="x.name for x in event">
+</select>
+
+ <h3>List of Team: </h3><br>
+
+ <div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
+     <table width="1000"><tr align="center">
+     <td align="center"><b>Name:</b></td>
+     <td align="center"><b>Intro.</b></td>
+     </tr>
+
+
+         <tr data-ng-repeat="(key, g) in q.Team" ng-if="g.name.indexOf(searchText) > -1 || !searchText">
+         <td align="center">{{g.name}}</td>
+         <td align="center">{{g.intro}}</td>
+          <td align="center"><input name="newTeamIntro" ng-model="input.intro" required></td>
+         <td align="center"><input class="btn btn-primary" type="button" value="Update" ng-click="teamedit(selectedName.$id, key,input.intro);"></input></td>
+
+
+         </tr>
+        
+         </table>
+         </div>
+        
+         </div>
+         
+    </body>   
