@@ -2,7 +2,7 @@
 app.controller("notificationCtrl",
 
 	// Implementation the todoCtrl 
-	function($scope, Auth, $firebaseArray, $firebaseObject) {
+	function($scope, Auth, $firebaseArray, $firebaseObject,Helper) {
 
 		var my_event_list =[];
 
@@ -12,9 +12,10 @@ app.controller("notificationCtrl",
 			$scope.myEvents = $firebaseObject(ref);
 		});
 
+		$scope.changeState = function(eid,nid){
+			helper.changeReadState($scope.authData.uid,eid,nid);
 
-
-
+		}
 
 
 

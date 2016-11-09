@@ -335,6 +335,14 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
     }
 
+    helper.changeReadState = function(uid,eid,nid){
+
+        ref = firebase.database().ref("users/"+uid+"/writable/"+eid+"/notifications/"+nid)
+        ref.child("isRead").set(true);
+
+    }
+
+
 
 
     return helper;
