@@ -1,1 +1,35 @@
 <h1>Notifications:</h1>
+
+<h3>Unread Notifications</h3>
+
+<ul>
+    <li ng-repeat="(eid, myEvent) in myEvents">
+    <ul>
+        <li ng-repeat="(nid,notification) in myEvent.notifications" ng-show="!notification.isRead" >
+            {{notification.content}}
+
+            <span class="glyphicon glyphicon-ok" ng-show ="!notification.isRead" ng-click = "changeState(eid,nid)" aria-hidden="true"></span>
+
+
+        </li>
+        </ul>
+
+    </li>
+    </ul>
+
+<h3>Read Notifications</h3>
+
+<ul>
+    <li ng-repeat="(eid, myEvent) in myEvents">
+        <ul>
+            <li ng-repeat="(nid,notification) in myEvent.notifications" ng-show="notification.isRead" >
+                {{notification.content}}
+
+                <span class="glyphicon glyphicon-ok" ng-show ="!notification.isRead" ng-click = "changeState(eid,nid)" aria-hidden="true"></span>
+
+
+            </li>
+        </ul>
+
+    </li>
+</ul>
