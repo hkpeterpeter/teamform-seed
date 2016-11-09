@@ -8,7 +8,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
         detail: "Event Detail"
     };
 
-    $rootScope.hello="hello";
+   
     $scope.createflip = function() {
         if ($scope.event.name != "") {
             document.getElementById('myflipper').classList.toggle('flipped');
@@ -20,14 +20,8 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
     $scope.cancelEvent = function() {
         document.getElementById('myflipper').classList.toggle('flipped');
     };
-
-
     $scope.searchEvent = function() {
         if($scope.event.name!=""){
-
-
-            
-
             resultList=[];
             for(var i=0;i<$rootScope.events.length;i++){
              
@@ -63,9 +57,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
 
                   $("#searching").fadeOut(1000,function(){
                      $("#eventCardList").show(1000);
-                  });
-             
-
+                  });       
            });
        }else{
             Materialize.toast("Sorry We didn't find your event! You may create this event.", 3000);
@@ -87,6 +79,8 @@ teamapp.directive("imageBoard",function(){
         }
     }
 });
+
+
 
 
 teamapp.directive("footerPanel",function(){
@@ -136,18 +130,37 @@ teamapp.directive('eventCard', function($compile) {
             emaxSize: "@",
             edescription: "@",
             eSkill: "@",
-            etarget: "@"
+            etarget: "@",
+            eid:"="
         },
         restrict: 'E',
         templateUrl: 'zhuxinyu/js/components/eventCard/eventCard.html',
         replace: true,
-        controller: function ($rootScope,$scope, $element) {
+        controller: function ($rootScope,$scope, $element,$firebaseObject) {
             $rootScope.addEventCard = function (cardInfo) {
-                var el = $compile("<event-card etitle='"+cardInfo.eventName+"' epicture='"+cardInfo.epicture+"' eadmin='"+cardInfo.adminID+"' emin-size='"+cardInfo.minSize+"' emax-size='"+cardInfo.maxSize+"' edescription='"+cardInfo.description+"' e-skill='"+cardInfo.eSkill+"' etarget='"+cardInfo.etarget+"'></event-card>")($scope);
+                var el = $compile("<event-card eid='"+cardInfo.$id+"'etitle='"+cardInfo.eventName+"' epicture='"+cardInfo.epicture+"' eadmin='"+cardInfo.adminID+"' emin-size='"+cardInfo.minSize+"' emax-size='"+cardInfo.maxSize+"' edescription='"+cardInfo.description+"' e-skill='"+cardInfo.eSkill+"' etarget='"+cardInfo.etarget+"'></event-card>")($scope);
                 $("#eventCardList").prepend(el);
+
             };
+            $scope.goToEvent =function(){
+                
+
+                
+               
+                //Bind the event object into rootScope
+                $firebaseObject($rootScope.event_ref.child($scope.eid)).$bindTo($rootScope,"clickedEvent");
+
+                //Determine the relarion ship between the current user and the event
+
+                
+                //redirect to the correct page
+
+
+            }
         },
-        link: function($scope, iElm, iAttrs, controller) {}
+        link: function($scope, iElm, iAttrs, controller) {
+
+        }
     };
 });
 teamapp.directive("subcan", function() {
@@ -173,43 +186,5 @@ teamapp.directive("boardList",function(){
     }
 })
 
-
-/*By Wu Yun Qing*/
-teamapp.directive("simpleField", function() {
-    return {
-        restrict: "E",
-        scope: {
-            id: '@',
-            label: '@'
-        },
-        templateUrl: "zhuxinyu/js/components/simple_field.html"
-    };
-});
-teamapp.directive("textareaField", function() {
-    return {
-        restrict: "E",
-        scope: {
-            id: '@',
-            label: '@'
-        },
-        templateUrl: "zhuxinyu/js/components/textarea_field.html"
-    };
-});
-teamapp.directive("imageUpload", function() {
-    return {
-        restrict: "E",
-        scope: {
-            id: '@',
-            label: '@'
-        },
-        templateUrl: "zhuxinyu/js/components/image_upload.html"
-    };
-});
-teamapp.directive("eventForm", function() {
-    return {
-        restrict: "E",
-        templateUrl: "zhuxinyu/js/components/event_form.html"
-    };
-});
 
 

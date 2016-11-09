@@ -11,7 +11,8 @@
     "karma": "^1.2.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.1.1",
-    "karma-jasmine": "^1.0.2"
+    "karma-jasmine": "^1.0.2",
+    "webpack": "^1.13.3"
   },
   "scripts": {
     "prestart": "npm install",
