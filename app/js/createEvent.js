@@ -113,7 +113,7 @@ angular.module('create-event-app', ['firebase'])
 			adminData.role = "admin";
 			adminData.$save();
 			// jump to admin page
-			//window.location.href= "admin.html?q="+eventid;
+			window.location.href= "admin.html?q="+eventid;
 		}
 	}
 

@@ -8,19 +8,23 @@ $(document).ready(function(){
 	}
 });
 
+
+
 angular.module('teamform-admin-app', ['firebase'])
-.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$window', function($scope, $firebaseObject, $firebaseArray, $window) {
 	
 	// TODO: implementation of AdminCtrl
 	
 	// Initialize $scope.param as an empty JSON object
-	$scope.param = {};
+	$scope.param = {}; //event.{eventid}.admin.param
+	$scope.editable = false;
+
 	$scope.loggedIn = true;
 			
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();	
 	
-	var refPath, ref, eventid;
+	var refPath, ref, eventid; //ref for sqecified event
 
 	eventid = getURLParameter("q");
 	console.log("event id : " + eventid)
@@ -28,7 +32,6 @@ angular.module('teamform-admin-app', ['firebase'])
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
-	
 	$scope.param = $firebaseObject(ref);
 	$scope.param.$loaded()
 		.then( function(data) {
@@ -73,6 +76,17 @@ angular.module('teamform-admin-app', ['firebase'])
 			//console.error("Error:", error);
 		});
 	
+	$scope.edit_click = function(){
+		$scope.editable = true;
+    };
+
+	$scope.generate_click=function(){
+		//find team that member less than minTeamSize
+		//put user without team who have responding preference into above team
+		//random put remaining user into teams
+		$window.alert("TODO: waiting for teams ");
+	}
+
 	refPath = "event/"+ eventid + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
@@ -95,13 +109,13 @@ angular.module('teamform-admin-app', ['firebase'])
 		} 
 	}
 
+//TODO: move some code to here from createEvent so that check valid 
 	$scope.saveFunc = function() {
 		$scope.param.deadline =$scope.deadline.toISOString();
 		$scope.param.$save();
 		$('#text_event_name').text("Event Name: " + $scope.param.eventName);
-		$scope.edit = false;
+		$scope.editable = false;
 		//stay at admin page
-		//window.location.href= "index.html";
 	}
 
 	//$scope.users is an array of users in firebase
@@ -113,7 +127,7 @@ angular.module('teamform-admin-app', ['firebase'])
 		firebase.auth().signOut();
 	}
 
-//monitor if the user is logged in or not
+	//monitor if the user is logged in or not
 	firebase.auth().onAuthStateChanged(user => {
 		if(user){
 			console.log('logged in');

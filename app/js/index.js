@@ -57,7 +57,7 @@ angular.module('index-app', ['firebase'])
 		}
 	}
 
-	//check if event exist
+	//check if event exist//not work for new firebase
 	$scope.isEventExist = function(eventname){
 		var eventsRef = firebase.database().ref('events');
 		var eventList = $firebaseArray(eventsRef);
