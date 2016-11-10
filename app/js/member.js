@@ -58,13 +58,12 @@ angular.module('teamform-member-app', ['firebase'])
 		
 		var userID = $.trim( $scope.userID );
 		var userName = $.trim( $scope.userName );
-		var userSex = $.trim($scope.userSex);
+	
 		
-		if ( userID !== '' && userName !== '' && userSex!== '' ) {
+		if ( userID !== '' && userName !== ''  ) {
 									
 			var newData = {				
 				'name': userName,
-				'sex':userSex,
 				'selection': $scope.selection
 			};
 			
