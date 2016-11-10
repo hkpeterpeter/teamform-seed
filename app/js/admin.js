@@ -8,7 +8,10 @@ $(document).ready(function(){
 	}
 });
 
-
+//TODO:
+//join button in event?q=
+//then there will look for user that want to join but without team
+//to generate
 
 angular.module('teamform-admin-app', ['firebase'])
 .controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$window', function($scope, $firebaseObject, $firebaseArray, $window) {
@@ -18,7 +21,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {}; //event.{eventid}.admin.param
 	$scope.editable = false;
-
+	$scope.writingAnnouncement = false;
 	$scope.loggedIn = true;
 			
 	// Call Firebase initialization code defined in site.js
@@ -80,20 +83,72 @@ angular.module('teamform-admin-app', ['firebase'])
 		$scope.editable = true;
     };
 
-	$scope.generate_click=function(){
+	$scope.generate_click=function(){//TODO
 		//find team that member less than minTeamSize
 		//put user without team who have responding preference into above team
 		//random put remaining user into teams
 		$window.alert("TODO: waiting for teams ");
 	}
 
-	refPath = "events/"+ eventid + "/team";	
+	$scope.new_announcement_click=function(){
+		$scope.writingAnnouncement = true;
+	}
+
+	$scope.make_announcement=function(announcement_text){
+		if (announcement_text == ""|| announcement_text == null){
+			$window.alert("Announcement cannot be empty.");
+		}else{
+			console.log("Save Announcement to firebase");
+			var announcementRefPath = "events/"+eventid+"/announcements/";
+			console.log(announcementRefPath);
+			announcementRefPath=  announcementRefPath + firebase.database().ref(announcementRefPath).push().key;
+			//key of announcements = date & time
+			//val of Announcement = announcement text
+			announcementRef = $firebaseObject(firebase.database().ref(announcementRefPath));
+			announcementRef.text = announcement_text;
+			announcementRef.date = new Date().toISOString();
+			announcementRef.$save();
+			$scope.writingAnnouncement = false;
+		}
+	}
+
+	$scope.del_announcement_click=function(announcement_object){
+		console.log("Remove announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
+		$firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id)).$remove();
+	}
+
+	$scope.edit_announcement_click=function(announcement_object){
+		console.log("edit announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
+		var newText = prompt("Edit Announcement", announcement_object.text);
+		if (newText != null) {
+			console.log("edit announcement edited: "+ newText);
+			var tempObj = $firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id));
+			tempObj.$loaded().then(function(){
+				tempObj.text = newText;
+				tempObj.$save();
+			})
+		}else{
+			console.log("edit announcement canceled");
+		}
+	}
+
+	$scope.edit_done_announcement_click=function(announcement_object){
+		console.log("Remove announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
+		$firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id)).$remove();
+	}
+
+	refPath = "events/"+ eventid + "/teams";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
 	refPath = "events/"+ eventid + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
+
+	refPath = "events/"+ eventid + "/announcements";
+	$scope.announcements = [];
+	$scope.announcements = $firebaseArray(firebase.database().ref(refPath));
+
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
@@ -109,7 +164,6 @@ angular.module('teamform-admin-app', ['firebase'])
 		} 
 	}
 
-//TODO: move some code to here from createEvent so that check valid 
 	$scope.saveFunc = function() {
 		if ($scope.param.eventName == ""|| $scope.param.eventName == null){
 			$window.alert("Event Name cannot be empty");
@@ -136,10 +190,9 @@ angular.module('teamform-admin-app', ['firebase'])
 		var eventsList = $firebaseObject(ref);
 		var existflag = false;
 		eventsList.$loaded(function(data) {
-				data.forEach(function(eventObj){
-					console.log("eventObj: "+eventObj.admin.param.eventName);
-					console.log("eventname: "+ eventname);
-					if (eventObj.admin.param.eventName == eventname){
+				data.forEach(function(eventObj,key){
+					console.log("eventObj's key: "+key);
+					if ((eventObj.admin.param.eventName == eventname) && (eventid != key)){
 						console.log("callback true");
 						existflag = true;
 					}
