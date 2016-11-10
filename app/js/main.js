@@ -88,5 +88,13 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	}
 	//$rootScope.addUser(exampleNewUser);
 
+	$rootScope.$on('$viewContentLoaded', function() {
+        $(document).keyup(function(event){
+          if(event.which=='27'){
+            $('.cd-user-modal').removeClass('is-visible');
+        }
+    });
+    });
+
 }]);
 

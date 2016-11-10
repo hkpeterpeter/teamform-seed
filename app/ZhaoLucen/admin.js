@@ -1,5 +1,3 @@
-var teamapp = angular.module('teamapp', []);
-
 teamapp.controller('titleCtrl', function($scope) {
   $scope.event = {
   	name: 'newEvent',

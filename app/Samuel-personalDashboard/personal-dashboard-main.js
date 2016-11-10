@@ -2,7 +2,7 @@
  * Created by Samuel on 2/11/2016.
  */
 
-var teamapp = angular.module("dashboard", ['firebase']);
+
 teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
     $scope.username = "Samuel He";
