@@ -39,6 +39,11 @@ angular.module('index-app', ['firebase'])
 	$scope.loggedIn  = false;
 	$scope.displayEmail = '';
 	$scope.username='';
+	$scope.newEventname='';
+
+	//testing abt firebase
+	var ref = firebase.database().ref('events');
+    $scope.events = $firebaseArray(ref);
 	
 	//create new event
 	$scope.createNewEvent =function (eventname){
@@ -48,12 +53,13 @@ angular.module('index-app', ['firebase'])
     		window.location.href= url ;
     		return false;
 		//todo: check if the event already exsist
-		// }else if ( $scope.isEventExist(val) ) {
-    	// 	$window.alert("Event ", val , "already exist.");
+		}else if ( $scope.isEventExist(val) ) {
+    	 	$window.alert("Event ", val , "already exist.");
+			 return false;
     	}else{
 			var url = "createEvent.html?q=" + val;
-    		window.location.href= url ;
-    		return false;
+    		window.location.href = url;
+    		return true;
 		}
 	}
 

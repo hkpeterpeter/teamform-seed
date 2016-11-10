@@ -43,6 +43,7 @@
                   <span class="text-muted">A real-time online team forming app</span>
                </h2>
       </div>
+      
       <div class="container col-md-4 " id="login_box" >
         <form ng-hide="loggedIn"><!--Hide this when login-->
         <p class="login_heading">Login to teamform</p>
@@ -62,6 +63,8 @@
           <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
           <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
         </form>
+
+        
         <p ng-show="loggedIn">Hello! {{username}} </p><!--Show this when login-->
 		
 		
@@ -69,39 +72,37 @@
       <div id="page_home">
          <div ng-show="loggedIn"> <!--Show this when login-->
 
-			 <div class="text-center">
-				<h1>teamform</h1>
-				<p>A real-time online team forming app for any event</p>
-			 </div>
-			 <br >
-			 <!--enter event-->
+            <div class="text-center">
+              <h1>teamform</h1>
+              <p>A real-time online team forming app for any event</p>
+            </div>
+            <br >
+            <!--enter event-->
 
-				<!--filter/search event (if event not exsist, ask if user want to create one)-->
-				<!--event list-->
-				<!--enter event name and join(just for testing)-->
-			 <!--create event and become admin-->
-			 <div class="text-center">
-          <input id="eventName" type="text" class="input-lg" ng-model="newEventName">
-          <br>
-          <em>Enter a name to enter an event</em>
-          <div>
-            <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="enter(eventName)">enter event</button>
-          </div>
-          <div>
-            <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(eventName)">Create new event</button>
-          </div>
-          <!--create event without eventname-->
-			 </div>
-
-			 <br >
-
-			 <br >
-      
+            <!--filter/search event (if event not exsist, ask if user want to create one)-->
+            <!--event list-->
+            <!--enter event name and join(just for testing)-->
+            <!--create event and become admin-->
+            <div class="text-center">
+                <input id="eventName" type="text" class="input-lg" ng-model="newEventName">
+                <br>
+                <em>Enter a name to enter an event</em>
+                <div>
+                  <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="enter(newEventname)">enter event</button>
+                  
+                </div>
+                <div>
+                  <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(newEventname)">Create new event</button>
+                </div>
+            <!--create event without eventname-->
+            </div>
+            <br >
+            <br >
          </div>
       </div>
 			
 	  </div>
-      </section>
+    </section>
 
       <!-- Marketing messaging and featurettes
          ================================================== -->
