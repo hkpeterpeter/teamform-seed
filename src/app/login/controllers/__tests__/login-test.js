@@ -7,7 +7,7 @@ describe('LoginController', () => {
         });
     });
 
-    it('should resolve login', () => {
+    it('should resolve login', async () => {
         inject((_$rootScope_, _$q_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'auth').and.returnValue(deferred.promise);
@@ -19,7 +19,7 @@ describe('LoginController', () => {
         });
     });
 
-    it('should reject login', () => {
+    it('should reject login', async () => {
         inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'auth').and.returnValue(deferred.promise);
@@ -32,7 +32,7 @@ describe('LoginController', () => {
         });
     });
 
-    it('should resolve authenticate', () => {
+    it('should resolve authenticate', async () => {
         inject((_$rootScope_, _$q_, _$auth_) => {
             let deferred = _$q_.defer();
             spyOn(_$auth_, 'authenticate').and.returnValue(deferred.promise);
@@ -42,7 +42,7 @@ describe('LoginController', () => {
         });
     });
 
-    it('should reject authenticate', () => {
+    it('should reject authenticate', async () => {
         inject((_$rootScope_, _$q_, _$timeout_, _$auth_) => {
             let deferred = _$q_.defer();
             spyOn(_$auth_, 'authenticate').and.returnValue(deferred.promise);
