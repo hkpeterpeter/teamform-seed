@@ -107,6 +107,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/privatepublic',
             templateUrl: 'publicprivate.html',
             controller: 'openness'
+            })
+
+             .state('personal_information', {
+            url: '/personal_information',
+            templateUrl: 'personal_information.html',
+            controller: 'piCtrl'
             });
 
 });
