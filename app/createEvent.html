@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="teamform-admin-app">
+<html lang="en" ng-app="create-event-app">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,25 +28,23 @@
       <script src="js/site.js"></script>
 	  	  
    </head>
-   <body  ng-controller="AdminCtrl">
+   <body ng-controller="newEventCtrl">
      <div ng-include="'navbar.html'" id='navbarMenu'></div>
    <br>
 
    <div class="text-center">
-      <h1>Administrative Page</h1>
+      <h1>Create New Event</h1>
       <h2 id="text_event_name"></h2>
-      <!--<div id="admin_page_controller" ng-controller="AdminCtrl"> since header need controller-->
-      <div id="admin_page_controller" >
+      <div id="admin_page_controller">
          <div class="row">
-
             <div class="col-md-2 col-xs-2"></div>
             <div class="col-md-8 col-xs-8 text-left panel">
               <!--description for event-->
                 <strong>Event Name: </Strong>
-                <input ng-model="param.eventName"><br>
+                <input ng-model="param.eventName" ng-change="changeTeamName()"><br>
 
                 <strong>Description: </strong>
-                <input ng-model="param.description" type="textarea"><br>
+                <input ng-model="param.description" type="textarea" ng-change="changeDescription()"><br>
                 
                 <strong>Admin: </strong><a href="profile.html?q={{param.admin}}">{{adminName}}</a><br>
                 <strong>Minimum Team Size:</strong>  
@@ -73,43 +71,9 @@
              <div class="col-md-2 col-xs-2"></div>
 
          </div>
-     
 
          <hr>
 
-		 <div class="row">
-			 <div class="col-md-6 col-xs-6 text-right" >
-			 
-				<h3>All teams:</h3>
-				<ul ng-repeat="t in team">
-					<li>
-					
-						User ID: {{t.$id}}  <br>
-						Preferred team size: <span class="badge">{{t.size}}</span> <br>
-						Current team members: {{t.teamMembers}}
-					
-					</li>
-					
-				</ul>
-
-			 </div>
-			 
-			 <div class="col-md-6 col-xs-6 text-left">
-							
-			 
-			  <h3>All members:</h3>
-			  <ul ng-repeat="m in member">
-				
-				  <li>ID = {{m.$id}} <br> 
-				  Name = {{m.name}} <br>
-				  request to join the following teams: {{m.selection | json}}</li>
-			  </ul>
-
-			 </div>
-		 </div>
-
-
-      </div>
    </div>
 
 
@@ -123,7 +87,7 @@
    <script src="lib/firebase.js"></script>     
    <script src="lib/angularfire.min.js"></script>
 
-   <script src="js/admin.js"></script>
+   <script src="js/createEvent.js"></script>
 
    </body>
 </html>
