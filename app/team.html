@@ -82,6 +82,7 @@
 	            <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 	          </span>
 	        </div>
+<<<<<<< HEAD
 					<div class="row">
 						<u1>Tags (desired ability/traits for team members):</u1>
 						 <ul ng-repeat="tag in tags">
@@ -92,6 +93,18 @@
 							</div>
 						</u1>
 					</div>
+=======
+				<div class="row">
+					<ul>Tags (desired ability/traits for team members):</ul>
+					<ul ng-repeat="tag in tags">
+						<div class="checkbox">
+						<label><input type="checkbox" ng-checked="tagchecked(tag.$value);" ng-click="addtags(tag.$value);">
+							<li>{{tag.$value}}</li>
+						</label>
+						</div>
+					</ul>						
+				</div>
+>>>>>>> origin/master
 	      </form>
 	      
 	      
@@ -124,13 +137,12 @@
 		  
 <div class="col-sm-offset-3 col-sm-4 text-left">
 		<h3>All members:</h3>
+		<p>Click once to invite member.</p><div id = "invite"></div>
 			<ul ng-repeat="m in member">
-				<div class="checkbox">
-					<label><input type="checkbox" value="{{m.$id}}" 
-					ng-checked="selection.indexOf(m.$id) > -1"
-					ng-click="toggleSelection(m.$id)">
+				<div  class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" >
+					<label>
 					<li>
-					<!--ID = {{m.$id}} <br>-->
+					<!--ID = {{m.$id}}<br>-->
 					Name = {{retrieveNameFromID(m.$id)}} <br>
 					request to join the following teams: 
 					<p ng-repeat="s in m.selection">
@@ -140,9 +152,6 @@
 					</label>
 				</div>
 			</ul>
-				<div class="col-md-2 col-xs-2">
-					<button type="button" class="btn btn-primary" id="invite" ng-click="inviteFunc();">Invite</button>
-				</div>
 		</div>
 		  
 	    <div class="col-md-4 col-xs-4 text-left">
@@ -155,7 +164,7 @@
 					<p ng-repeat ="tag in t.tags">{{tag}}<p>
 					<p ng-show="!t.tags"> none </p>
 	    	  Current team members: 
-	    	  <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers)">
+	    	  <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
 	    	  {{ $index+1 }}. {{ member }}
 	    	  </p>
 	    	  <span ng-show="!t.teamMembers"> none </span>

@@ -14,8 +14,7 @@ angular.module('teamform-member-app', ['firebase'])
 .controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	// TODO: implementation of MemberCtrl	
-	
-	// Call Firebase initialization code defined in site.js
+
 	$scope.userID = "";
 	$scope.userName = "";	
 	$scope.teams = {};
@@ -45,28 +44,32 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.loadFunc = function() {
 		var refPath = getURLParameter("q") + "/member/" + $scope.uid;
 		$scope.userInfo = $firebaseObject(getUserWithId($scope.uid));
-		$scope.userInfo.$bindTo($scope, "data").then(function() {
-			$scope.userID = $scope.data.$id;
-			if($scope.data.name != null) {
-				$scope.userName = $scope.data.name;
+		$scope.userInfo.$loaded().then(function() {
+			$scope.userID = $scope.userInfo.$id;
+			if($scope.userInfo.name != null) {
+				$scope.userName = $scope.userInfo.name;
 			} else {
 				$scope.userName = $scope.name;
 			}
-			if($scope.data.selection != null) {
-				$scope.selection = $scope.data.selection;
+			if($scope.userInfo.selection != null) {
+				$scope.selection = $scope.userInfo.selection;
 			} else {
 				$scope.selection = [];
 			}
 		});
 		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
-		$scope.memberInfo.$bindTo($scope, "memData").then(function() {
-			if($scope.memData.inTeam != null) {
-				$("#teamStatus").html("You have joined team " + $scope.memData.inTeam);
+		$scope.memberInfo.$loaded().then(function() {			
+			if($scope.memberInfo.inTeam != null) {
+				$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam);
 			}
 			else {
 				$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
 				 the team or <a href=\"team.html?q=" + getURLParameter("q") + "\">Click here</a> to create\
 				  a team.");
+			}
+			//check for invitation
+			if($scope.memberInfo.invitedBy != null){
+				$("#inviteStatus").html("You are invited by team " + $scope.memberInfo.invitedBy);
 			}
 		});
 	};
@@ -80,15 +83,14 @@ angular.module('teamform-member-app', ['firebase'])
 				'selection': $scope.selection,
 				'weight': 0 
 			};
-			console.log(newData);
 			var refPath = getURLParameter("q") + "/member/" + userID;
 			var ref = firebase.database().ref(refPath);
-			ref.update(newData, function() {
-				window.location.href = "index.html";
-			});
+			ref.update(newData);
 			refPath = "user/" + userID;
 			ref = firebase.database().ref(refPath);
-			ref.update({ name: userName });
+			ref.update({ name: userName }, function() {
+				window.location.href = "index.html";
+			});
 		}
 	};
 	
@@ -111,6 +113,10 @@ angular.module('teamform-member-app', ['firebase'])
 		$scope.teams.$loaded()
 			.then(function(data) {}) 
 			.catch(function(error) {});
+	};
+	
+	$scope.atFunc = function() {
+		window.location.href = "abilitytest.html";
 	};
 
 	$scope.refreshTeams(); // call to refresh teams...
