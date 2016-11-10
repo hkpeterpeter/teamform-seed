@@ -43,7 +43,7 @@
           3. change to plain test rather than input<br>
           4. move to new html and ng-include that just like navbar<br>
           sample:<br>
-          <strong>Deadline: </strong>{{deadline | date:'dd/mm/yyyy'}}<br>
+          <strong>Deadline: </strong>{{deadline | date:'dd/MM/yyyy'}}<br>
           Date left: {{(deadline - today)/(1000*60*60*24) | number:0}}
           <br><br>
       </div>
@@ -96,11 +96,37 @@
                 </div>
             </div>
             <!--current announcement list-->
-            <div id="announcement_list"></div>
-        </div>
+            <div id="announcement_list">
+                  <h3>Announcements</h3><br>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Announcement</th>
+                        <th>Announcement date</th>
+                        <th></th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="a in announcements">
+                      <tr>
+                        <td>{{a.text}}</td>
+                        <td>{{a.date | date: 'dd/MM/yyyy'}}</td>
+                        <!--del announcement-->
+                        <td><button type="button" class="btn btn-default" ng-click="del_announcement_click(a)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete
+                        </button></td>
+                        <!--edit announcement *** date will not changed-->
+
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+            </div>
+        </div><br>
         <!--end of announcement div-->
-          <!--teams & member list-->
-          <div class="row">
+
+        <!--teams & member list-->
+        <div class="row">
             <div class="col-md-6 col-xs-6 text-right" >
               <h3>All teams:</h3>
               <ul ng-repeat="t in team">

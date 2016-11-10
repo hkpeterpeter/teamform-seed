@@ -109,6 +109,11 @@ angular.module('teamform-admin-app', ['firebase'])
 		}
 	}
 
+	$scope.del_announcement_click=function(announcement_object){
+		console.log("Remove announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
+		$firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id)).$remove();
+	}
+
 	refPath = "events/"+ eventid + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
@@ -116,6 +121,11 @@ angular.module('teamform-admin-app', ['firebase'])
 	refPath = "events/"+ eventid + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
+
+	refPath = "events/"+ eventid + "/announcements";
+	$scope.announcements = [];
+	$scope.announcements = $firebaseArray(firebase.database().ref(refPath));
+
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
