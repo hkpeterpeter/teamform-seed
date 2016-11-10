@@ -208,5 +208,17 @@ angular.module('teamform-team-app', ['firebase'])
 		var ref = firebase.database().ref(refPath);
 		ref.update({inTeam: null});
 	};
+	    
+	//invite function
+	$scope.sendInvite = function(m) {
+		//var index = $scope.param.teamMembers.indexOf(m);
+		//var index = retrieveNameFromID(m.$id);
+		var refPath = eventName + "/member/" + m;
+		var ref = firebase.database().ref(refPath);	
+		ref.update({
+			invitedBy: $scope.param.teamName
+		});
+		window.alert("Invitation sent!");
+	}
 
 }]);
