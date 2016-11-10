@@ -108,6 +108,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'publicprivate.html',
             controller: 'openness'
             })
+
+             .state('personal_information', {
+            url: '/personal_information',
+            templateUrl: 'personal_information.html',
+            controller: 'piCtrl'
+            })
              .state('requests', {
             url: '/handleRequests',
             templateUrl: 'handleRequests.html',

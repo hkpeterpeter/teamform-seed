@@ -24,7 +24,7 @@ app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($s
         Auth.$createUserWithEmailAndPassword($scope.user.email,$scope.user.password)
         .then(function(userData) {
             $scope.regMessage = "User " + userData.uid + " created successfully!";
-
+            
             return Auth.$signInWithEmailAndPassword($scope.user.email, $scope.user.password);
         }).then(function(authData) {
             console.log("Logged in as:", authData.uid);
