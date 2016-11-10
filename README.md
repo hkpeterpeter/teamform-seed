@@ -1,6 +1,7 @@
 # teamform-seed modified the 4th times....
 ## The seed project for the team forming web application
-
+  [![Coverage Status](https://coveralls.io/repos/github/hklsk/teamform-seed/badge.svg)](https://coveralls.io/github/hklsk/teamform-seed)
+  ![Build](https://travis-ci.org/hklsk/teamform-seed.svg)
 ### Pre-requisites
 
 Install git: [http://git-scm.com/](http://git-scm.com/).
