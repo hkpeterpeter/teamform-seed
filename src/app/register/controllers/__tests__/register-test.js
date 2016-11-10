@@ -7,7 +7,7 @@ describe('RegisterController', () => {
         });
     });
 
-    it('should resolve register', () => {
+    it('should resolve register', async () => {
         inject((_$rootScope_, _$q_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'register').and.returnValue(deferred.promise);
@@ -19,7 +19,7 @@ describe('RegisterController', () => {
         });
     });
 
-    it('should reject register', () => {
+    it('should reject register', async () => {
         inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'register').and.returnValue(deferred.promise);
