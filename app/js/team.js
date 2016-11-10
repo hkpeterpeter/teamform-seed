@@ -216,12 +216,12 @@ app.controller("MyAuthCtrl", ["$scope", "$firebaseAuth",
 			$scope.param.teamLeaderSize++;
 	}
 
-	$scope.addleader = function(member) {
+	$scope.addleader = function(uid) {
 		
 		if ($scope.param.teamLeaderSize <= currentTeamSize)
 		{
 			$scope.param.teamLeaderSize++;
-			$scope.param.teamLeader.push(member.uid);
+			$scope.param.teamLeader.push(uid);
 
 			$scope.saveFunc();
 		} 
