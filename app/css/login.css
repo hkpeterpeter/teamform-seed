@@ -1,0 +1,139 @@
+body {
+    padding-top: 90px;
+}
+
+.half {
+	width: 50%;
+}
+
+.panel-login {
+	border-color: #ccc;
+	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+}
+
+.panel-heading {
+	color: #00415d;
+	background-color: #fff;
+	border-color: #fff;
+	text-align:center;
+	padding-bottom: 0px;
+}
+.panel-heading li a {
+	color: #666;
+}
+.panel-heading li{
+	color: #666;
+	font-weight: bold;
+	font-size: 15px;
+	transition: all 0.1s linear;
+}
+.panel-heading li.active{
+	color: #029f5b;
+	font-size: 18px;
+}
+
+.panel-heading hr{
+	margin-top: 10px;
+	margin-bottom: 0px;
+	clear: both;
+	border: 0;
+	height: 1px;
+}
+
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+	height: 45px;
+	border: 1px solid #ddd;
+	font-size: 16px;
+	-webkit-transition: all 0.1s linear;
+	-moz-transition: all 0.1s linear;
+	transition: all 0.1s linear;
+}
+
+.panel-login input:hover,
+.panel-login input:focus {
+	outline:none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border-color: #ccc;
+}
+
+.btn-login {
+	background-color: #59B2E0;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #59B2E6;
+}
+
+.btn-login:hover,
+.btn-login:focus {
+	color: #fff;
+	background-color: #53A3CD;
+	border-color: #53A3CD;
+}
+
+.btn-signup {
+	background-color: #1CB94E;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-color: #1CB94A;
+}
+.btn-signup:hover,
+.btn-signup:focus {
+	color: #fff;
+	background-color: #1CA347;
+	border-color: #1CA347;
+}
+
+.facebook {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+	width: 200px;
+	height:40px;
+	padding-top: 10px;
+    border: 0px solid #178bb6;
+    border-radius: 8px;
+    background: #3b5998;
+    font-family: 'Open Sans', sans-serif;
+	font-weight:700;
+    color: #ffffff;
+    text-decoration: none;
+}
+.facebook:hover,
+.facebook:focus {
+    background: #37528c;
+    color: #ffffff;
+    text-decoration: none;
+}
+.facebook:active {
+    background: #1ca4d6;
+}
+
+.form-group input.ng-invalid.ng-touched {
+	border: 1px solid #FA787E;
+}
+
+.form-group input.ng-valid.ng-touched {
+	border: 1px solid #78FA89;
+}
+
+#hidePw {
+	float: right;
+	height: 45px;
+	width: 60px;
+}
+
+.alert {
+	margin-bottom: 10px;
+}
