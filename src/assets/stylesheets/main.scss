@@ -1,3 +1,11 @@
+@import './bootstrap';
 .panel-footer .pagination {
     margin: 0;
+}
+.row {
+
+}
+.skill {
+    composes: label label-success;
+    margin: 5px;
 }

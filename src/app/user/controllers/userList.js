@@ -8,16 +8,17 @@ export default class UserListCtrl {
         this.error = null;
         this.getUsers();
     }
-    getUsers() {
-        this.userService.getUsers().then((users) => {
+    async getUsers() {
+        try {
+            let users = await this.userService.getUsers();
             this.$timeout(() => {
                 this.users = users;
             });
-        }).catch((error) => {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
 }
 

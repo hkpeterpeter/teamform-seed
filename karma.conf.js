@@ -9,14 +9,19 @@ module.exports = function(config) {
         ],
         exclude: [],
         preprocessors: {
-            'src/test.webpack.js': ['webpack', 'eslint', 'sourcemap'],
+            'src/test.webpack.js': ['webpack', 'eslint', 'sourcemap']
         },
         webpack: require('./webpack.config.js'),
         reporters: ['progress', 'coverage'],
         coverageReporter: {
-            type: 'html',
             dir: 'coverage/',
-            subdir: '.'
+            reporters: [{
+                type: 'html',
+                subdir: '.'
+            }, {
+                type: 'lcov',
+                subdir: '.'
+            }]
         },
         port: 9876,
         colors: true,

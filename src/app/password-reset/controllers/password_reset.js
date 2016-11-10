@@ -7,20 +7,21 @@ export default class PasswordResetCtrl {
         this.error = null;
     }
 
-    sendPasswordResetEmail() {
-        this.authService.sendPasswordResetEmail(this.email)
-            .then((result) => {
-                this.$timeout(() => {
-                    this.error = {message: 'Reset Email Sent'};
-                    this.loading = false;
-                });
-            })
-            .catch((error) => {
-                this.$timeout(() => {
-                    this.error = error;
-                    this.loading = false;
-                });
+    async sendPasswordResetEmail() {
+        try {
+            let result = await this.authService.sendPasswordResetEmail(this.email);
+            this.$timeout(() => {
+                this.error = {
+                    message: 'Reset Email Sent'
+                };
+                this.loading = false;
             });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+                this.loading = false;
+            });
+        }
     }
 }
 

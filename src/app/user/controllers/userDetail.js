@@ -1,3 +1,4 @@
+import styles from '../../../assets/stylesheets/main.scss';
 export default class UserDetailCtrl {
     constructor($location, $state, $stateParams, $timeout, userService) {
         this.$location = $location;
@@ -7,25 +8,23 @@ export default class UserDetailCtrl {
         this.userService = userService;
         this.user = null;
         this.error = null;
+        this.styles = styles;
         this.getUser();
     }
-    getUser() {
-        this.userService.getUser(this.$stateParams.userId).then((user) => {
+    async getUser() {
+        try {
+            let user = await this.userService.getUser(this.$stateParams.userId);
             this.$timeout(() => {
                 if (user.$value === null) {
-                    return this.$timeout(() => {
-                        this.error = new Error('User not exist');
-                    });
+                    throw new Error('User not exist');
                 }
-                this.$timeout(() => {
-                    this.user = user;
-                });
+                this.user = user;
             });
-        }).catch((error) => {
+        } catch (err) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
 }
 

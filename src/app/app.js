@@ -19,21 +19,20 @@ import app from './common/app';
 angular.module('app', [uirouter, app, home, register, login, logout, passwordreset, event, user, team, chat, auth, ngprogress])
     .config(routes)
     .run(['$rootScope', '$state', 'ngProgressLite', 'AuthService', ($root, $state, ngProgressLite, authService) => {
-        $root.$on('$stateChangeStart', (e, toState, toParams, fromState, fromParams, options) => {
+        $root.$on('$stateChangeStart', async(e, toState, toParams, fromState, fromParams, options) => {
             ngProgressLite.inc();
             if (angular.isFunction(toState.auth) && !options.auth) {
                 e.preventDefault();
-                toState.auth(authService)
-                    .then(() => {
-                        options.auth = true;
-                        $state.go(toState.name, toParams, options);
-                    })
-                    .catch((user) => {
-                        $state.go('login', {
-                            toState: toState.name,
-                            toParams: toParams
-                        });
+                try {
+                    await toState.auth(authService);
+                    options.auth = true;
+                    $state.go(toState.name, toParams, options);
+                } catch (error) {
+                    $state.go('login', {
+                        toState: toState.name,
+                        toParams: toParams
                     });
+                }
             }
         });
         $root.$on('$stateChangeSuccess', () => {

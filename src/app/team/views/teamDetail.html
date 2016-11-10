@@ -28,6 +28,11 @@
                                     <td><a ui-sref="event.detail({eventId: teamDetail.team.event.$id})">{{teamDetail.team.event.name}}</a></td>
                                 </tr>
                                 <tr>
+                                    <th>Team Size</th>
+                                    <td ng-if="teamDetail.team.event.teamMin != teamDetail.team.event.teamMax">{{teamDetail.team.event.teamMin}} - {{teamDetail.team.event.teamMax}}</td>
+                                    <td ng-if="teamDetail.team.event.teamMin == teamDetail.team.event.teamMax">{{teamDetail.team.event.teamMin}}</td>
+                                </tr>
+                                <tr>
                                     <th>Created Date</th>
                                     <td>{{teamDetail.team.createdAt | date: 'medium'}}</td>
                                 </tr>
@@ -38,7 +43,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-block btn-info" ng-click="teamDetail.joinTeam()">Join Team</button>
+                    <button type="button" class="btn btn-block btn-info" ng-if="!teamDetail.team.private" ng-click="teamDetail.joinTeam()">Join Team</button>
                 </div>
             </div>
         </div>
@@ -60,7 +65,8 @@
                 </thead>
                 <tbody>
                     <tr dir-paginate="user in teamDetail.team.users | itemsPerPage: 5">
-                        <td><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
+                        <td ng-if="user.id != null"><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
+                        <td ng-if="user.id == null">Available {{user}}</td>
                         <td>{{user.role}}</td>
                         <td>
                             <span ng-repeat="skill in user.skills" class="label label-success">{{skill}}</span>
