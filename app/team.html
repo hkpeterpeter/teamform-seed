@@ -82,6 +82,17 @@
 	            <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 	          </span>
 	        </div>
+					<div class="row">
+							<u1>Tags (desired ability/traits for team members):</u1>
+							<ul ng-repeat="tag in tags">
+										<div class="checkbox">
+										<label><input type="checkbox"	ng-checked="tagchecked(tag.$value);"	 ng-click="addtags(tag.$value);">
+											<li>{{tag.$value}}</li>
+										</label>
+										</div>
+							</u1>
+							
+					</div>
 	      </form>
 	      
 	      
