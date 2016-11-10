@@ -3,7 +3,6 @@
 // Modules
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -55,7 +54,12 @@ module.exports = function makeWebpackConfig() {
             loader: isTest ? 'null' : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
         }, {
             test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
+            loaders: ['style', 'css', 'postcss', 'sass'],
+            include: /bootstrap/
+        }, {
+            test: /\.scss$/,
+            loaders: ['style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass'],
+            exclude: /bootstrap/
         }, {
             test: /\.woff$/,
             loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/assets/font/[hash].[ext]'
@@ -93,7 +97,7 @@ module.exports = function makeWebpackConfig() {
     }
 
     config.postcss = [
-        autoprefixer({
+        require('autoprefixer')({
             browsers: ['last 3 version']
         })
     ];
