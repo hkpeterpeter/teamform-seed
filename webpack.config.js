@@ -118,7 +118,7 @@ module.exports = function makeWebpackConfig() {
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
         ),
         new DefinePlugin({
-            ENV: JSON.stringify(require('./config.js'))
+            ENV: CONFIG
         })
     ];
 
