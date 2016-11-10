@@ -127,6 +127,10 @@ module.exports = function makeWebpackConfig() {
                 disable: !isProd
             })
         )
+    } else {
+        config.plugins.push(new DefinePlugin({
+            ENV: {}
+        }))
     }
 
     if (!isProd) {
