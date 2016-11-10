@@ -35,12 +35,24 @@
    <div class="text-center">
       <h1>Administrative Page</h1>
       <h2 id="text_event_name"></h2>
+      <button id="btn_event_edit" ng-click="edit_click()" ng-hide="editable">Edit</button>
+      <div id="admin_event_div" ng-hide="editable">
+          To be completed by christie<br>
+          1. copy contect of controller<br>
+          2. remove unnessary stuff<br>
+          3. change to plain test rather than input<br>
+          4. move to new html and ng-include that just like navbar<br>
+          sample:<br>
+          <strong>Deadline: </strong>{{deadline | date:'dd/mm/yyyy'}}<br>
+          Date left: {{(deadline - today)/(1000*60*60*24) | number:0}}
+          <br><br>
+      </div>
       <!--<div id="admin_page_controller" ng-controller="AdminCtrl"> since header need controller-->
-      <div id="admin_page_controller" >
-         <div class="row">
 
-            <div class="col-md-2 col-xs-2"></div>
-            <div class="col-md-8 col-xs-8 text-left panel">
+
+      <div id="admin_page_controller">
+         <div class="row">
+            <div class="col-md-8 col-xs-8 text-left panel" ng-show="editable">
               <!--description for event-->
                 <strong>Event Name: </Strong>
                 <input ng-model="param.eventName"><br>
@@ -53,30 +65,26 @@
                     <span class="badge">{{param.minTeamSize}}</span>
                 <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
                 <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
-            <br><br>
+                <br><br>
 
-             <strong>Maximum Team Size: </strong>  
-               <span class="badge">{{param.maxTeamSize}}</span>
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
-               <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
-               
-            <br><br>
+                <strong>Maximum Team Size: </strong>  
+                <span class="badge">{{param.maxTeamSize}}</span>
+                <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+                
+                <br><br>
                 <strong>Deadline: </strong>
                 <input type="date" ng-model="deadline" min="{{today | date:'yyyy-MM-dd'}}"/>
                 Date left: {{(deadline - today)/(1000*60*60*24) | number:0}}
-            <br><br>
-
-             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Done</button>
-
+                <br><br>
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Save</button>
             </div>
-            
-             <div class="col-md-2 col-xs-2"></div>
-
          </div>
-     
-
+         <!--smart generator-->
+         <button id="btn_smart_generater" type="button" class="btn btn-primary" ng-click="generate_click()" ng-hide="(deadline-today)>0" ng-disabled="editable">Generate teams</button>
          <hr>
 
+          <!--teams list-->
 		 <div class="row">
 			 <div class="col-md-6 col-xs-6 text-right" >
 			 

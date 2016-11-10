@@ -39,11 +39,61 @@ angular.module('index-app', ['firebase'])
 	$scope.loggedIn  = false;
 	$scope.displayEmail = '';
 	$scope.username='';
+
 	$scope.newEventname='';
 
 	//testing abt firebase
 	var ref = firebase.database().ref('events');
     $scope.events = $firebaseArray(ref);
+
+	//enter event
+	$scope.enterEvent =function(eventid){
+
+		var database = firebase.database();
+        var currentUser = firebase.auth().currentUser;
+		var refpath = "users/" + currentUser.uid + "/teams";
+        var ref = database.ref(refpath);
+        var teamList = $firebaseArray(ref);
+
+		teamList.$loaded()
+			.then(function(x){
+				console.log(teamList.$getRecord(eventid));
+				if (teamList.$getRecord(eventid) == null){
+				//the first time the user enters an event
+					var userTeamRefPath = refpath + '/' + eventid;
+					var userTeamRef = firebase.database().ref(userTeamRefPath);
+					adminData = $firebaseObject(userTeamRef);
+					adminData.role = {};
+					adminData.role = "null";
+					adminData.$save();
+
+					var url = "event.html?q=" + eventid;
+    				window.location.href = url;
+					return true;
+
+				}else if (teamList.$getRecord(eventid).role == "admin"){
+				//the user is the admin of the event
+					var url = "admin.html?q=" + eventid;
+    				window.location.href = url;
+					return true;
+				}else if (teamList.$getRecord(eventid).role == "leader"){
+				//the user is the one of the leaders of a team of the event
+					var url = "leader.html?q=" + eventid;
+    				window.location.href = url;
+					return true;
+				}else if (teamList.$getRecord(eventid).role == "member"){
+				//the user is the one of the members of a team of the event
+					var url = "member.html?q=" + eventid;
+    				window.location.href = url;
+					return true;
+				}else if (teamList.$getRecord(eventid).role == "null"){
+				//the user has not yet enter a team
+					var url = "event.html?q=" + eventid;
+    				window.location.href= url;
+					return true;
+				}
+			});
+	}
 	
 	//create new event
 	$scope.createNewEvent =function (eventname){
@@ -63,7 +113,7 @@ angular.module('index-app', ['firebase'])
 		}
 	}
 
-	//check if event exist
+	//check if event exist//not work for new firebase
 	$scope.isEventExist = function(eventname){
 		var eventsRef = firebase.database().ref('events');
 		var eventList = $firebaseArray(eventsRef);
