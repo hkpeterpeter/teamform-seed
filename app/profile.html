@@ -26,35 +26,74 @@
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 	  	  
+
+      <style>
+      .ng-invalid.ng-dirty {
+      border-color: #FA787E;
+      }
+        
+      .ng-valid.ng-dirty {
+      border-color: #78FA89;
+      }
+      </style>
+
+    
    </head>
    <body>
        
       <!--navbar-->
       <div ng-include="'navbar.html'" id='navbarMenu'></div>
-   
-       <h1>Profile</h1>
-       <div class="row">
-           <div class="col-md-12">
-               <ul>
-                    <li>Name:<input type="text" name="userName" ng-model="userData.name"></li>
-                    <li>Language:<input type="text" name="lan" ng-model="txtLanguage"><button class="btn btn-primary" ng-click="addLanguage()">Add</button></li>
-                    <li>Gpa:<input type="number" name="gpa" ng-model="userData.gpa"></li>
-                    <li>Description:</li>
-                    <textarea ng-model="userData.description"></textarea>
-                    <li>Language Added:</li>
-                    <ol>
-                        <div ng-repeat="lan in userData.language">
-                            <li>{{lan}}<button class="btn btn-primary btn-sm" ng-click="removeLanguage(lan)">Remove</button></li>
-                        </div>
-                    </ol>
-                    <li>CurrentTeam:{{userData.team}}</li>
-                    <li>Eventlist:{{userData.eventlist}}</li>
-                    <li>My User id: {{userData.userid}}</li>
-               </ul>
-               <!--button class="btn btn-primary" ng-click="testeventlist()">test event list</button-->
-               <button class="btn btn-primary" ng-click="submitUserData()">Submit</button>
-            </div>
-       </div>
+      
+      <div class="container">
+        <div class="page-header">
+  			<h1>Profile</h1>
+		</div>
+
+        <div class="row">
+            <form name="ProfileForm" class="css-form col-md-6"  novalidate>
+                <div class="form-group">
+                    <label>Name*:</label>
+                    <input class="form-control ng-dirty ng-invalid ng-valid" type="text" name="userName" placeholder="Please enter Username" ng-model="userData.name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Language:</label>
+                    <input class="form-control" type="text" name="lan" ng-model="txtLanguage">
+                    <button class="btn btn-primary" ng-click="addLanguage()">Add</button>
+                </div>
+
+                <div class="form-group">
+                    <label>GPA:</label>
+                    <input class="form-control ng-dirty ng-invalid ng-valid" type="number" name="gpa" ng-model="userData.gpa" placeholder="0 to 4.3" min=0 max=4.3 required>
+                </div>
+
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea class="form-control" ng-model="userData.description"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Submit" ng-click='submitUserData()'>
+                </div>
+            
+                <div class="row">
+                    <div class="form-group css-form col-md-8">
+                    Language Added:
+                            <ol>
+                                <li ng-repeat="lan in userData.language">{{lan}}<a class="pull-right" ng-click="removeLanguage(lan)">Remove</a></li>
+                            </ol>
+                    </div>
+                </div>
+                <div class="form-group">CurrentTeam:{{userData.team}}</div>
+                <div class="form-group">Eventlist:{{userData.eventlist}}</div>
+                <div class="form-group">My User id: {{userData.userid}}</div>
+                        
+                <!--button class="btn btn-primary" ng-click="testeventlist()">test event list</button-->        
+
+            </form>
+        </div>
+       
+        
        <h2>list of all users</h2>
        <div ng-repeat="u in users">
            <ul>
@@ -65,9 +104,9 @@
                <li>Description:{{u.description}}</li>
                <li>User Id: {{u.$id}}</li>
             </ul>
-        </div>
-           
+        </div>           
 
+       </div> <!--container /div-->
 
 
        <!-- Angular and Angular-route libraries (v1.5.7) -->
