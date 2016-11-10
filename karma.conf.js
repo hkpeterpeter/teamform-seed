@@ -12,7 +12,7 @@ module.exports = function(config) {
             'src/test.webpack.js': ['webpack', 'eslint', 'sourcemap']
         },
         webpack: require('./webpack.config.js'),
-        reporters: ['progress', 'coverage', 'coveralls'],
+        reporters: ['progress', 'coverage'],
         coverageReporter: {
             dir: 'coverage/',
             reporters: [{
@@ -33,8 +33,7 @@ module.exports = function(config) {
             'karma-coverage',
             'karma-webpack',
             'karma-sourcemap-loader',
-            'karma-eslint',
-            'karma-coveralls'
+            'karma-eslint'
         ],
         webpackMiddleware: {
             noInfo: 'errors-only'
