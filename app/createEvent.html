@@ -41,7 +41,7 @@
             <div class="col-md-8 col-xs-8 text-left panel">
               <!--description for event-->
                 <strong>Event Name: </Strong>
-                <input ng-model="param.eventName" ng-change="changeTeamName()"><br>
+                <input ng-model="param.eventName" ng-change="changeEventName()"><br>
 
                 <strong>Description: </strong>
                 <input ng-model="param.description" type="textarea" ng-change="changeDescription()"><br>
@@ -64,7 +64,7 @@
                 Date left: {{(deadline - today)/(1000*60*60*24) | number:0}}
             <br><br>
 
-             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Done</button>
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create Event</button>
 
             </div>
             

@@ -111,11 +111,42 @@ angular.module('teamform-admin-app', ['firebase'])
 
 //TODO: move some code to here from createEvent so that check valid 
 	$scope.saveFunc = function() {
-		$scope.param.deadline =$scope.deadline.toISOString();
-		$scope.param.$save();
-		$('#text_event_name').text("Event Name: " + $scope.param.eventName);
-		$scope.editable = false;
-		//stay at admin page
+		if ($scope.param.eventName == ""|| $scope.param.eventName == null){
+			$window.alert("Event Name cannot be empty");
+		}else{
+			console.log("eventname in saveFunc: "+$scope.param.eventName);
+			$scope.isEventExist($scope.param.eventName,function(result){
+				console.log("result:" + result);
+				if(result){
+					console.log("Event "+ $scope.param.eventName + " already exist.");
+					$window.alert("Event "+ $scope.param.eventName + " already exist.");
+				}else{
+					$scope.param.deadline =$scope.deadline.toISOString();
+					$scope.param.$save();
+					$('#text_event_name').text("Event Name: " + $scope.param.eventName);
+					$scope.editable = false;
+				}
+			})
+		}
+	}
+	
+	$scope.isEventExist = function(eventname, callback){
+		console.log("eventname: "+ eventname);
+		var ref = firebase.database().ref("event/");
+		var eventsList = $firebaseObject(ref);
+		var existflag = false;
+		eventsList.$loaded(function(data) {
+				data.forEach(function(eventObj){
+					console.log("eventObj: "+eventObj.admin.param.eventName);
+					console.log("eventname: "+ eventname);
+					if (eventObj.admin.param.eventName == eventname){
+						console.log("callback true");
+						existflag = true;
+					}
+				})
+		}).then(function(){
+			callback(existflag);
+		});
 	}
 
 	//$scope.users is an array of users in firebase
