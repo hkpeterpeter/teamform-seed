@@ -1,13 +1,11 @@
 $(document).ready(function(){
 	
 	$('#admin_page_controller').hide();
-	$('#text_event_name').text("Error: Invalid event name ");
-	var eventName = getURLParameter("q");
-	if (eventName != null && eventName !== '' ) {
-		$('#text_event_name').text("Event name: " + eventName);
-		
+	$('#text_event_name').text("Error: Invalid event id ");
+	var eventid = getURLParameter("q");
+	if (eventid != null && eventid !== '' ) {
+		$('#text_event_name').text("Event ID: " + eventid);
 	}
-
 });
 
 angular.module('teamform-admin-app', ['firebase'])
@@ -22,10 +20,11 @@ angular.module('teamform-admin-app', ['firebase'])
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();	
 	
-	var refPath, ref, eventName;
+	var refPath, ref, eventid;
 
-	eventName = getURLParameter("q");
-	refPath = "event/"+ eventName + "/admin/param";	
+	eventid = getURLParameter("q");
+	console.log("event id : " + eventid)
+	refPath = "event/"+ eventid + "/admin/param";
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
@@ -34,26 +33,27 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.param.$loaded()
 		.then( function(data) {
 			// // Fill in some initial values when the DB entry doesn't exist
+			console.log("loaded: " + $scope.param.eventName);
+			console.log("loaded: " + $scope.param);
+			if (typeof $scope.param.eventName == "undefined"){
+				$scope.param.eventName ="";
+			}
 			if (typeof $scope.param.admin == "undefined"){
 				$scope.param.admin = $scope.uid;
-				console.log("warning: change admin!");
 			}
 			if (typeof $scope.param.description == "undefined"){
-				$scope.param.description = "This is team form for " + eventName + ".";
-				console.log("warning: change admin!");
+				$scope.param.description = "This is team form for " + $scope.param.eventName + ".";
 			}
 			if(typeof $scope.param.maxTeamSize == "undefined"){				
 				$scope.param.maxTeamSize = 10;
-				console.log("warning: change teamsize!");
 			}			
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}			
 			if (typeof $scope.param.deadline =="undefined"){
-				$scope.param.deadline = new Date(new Date().setDate(new Date().getDate()+30));//outside new Date: change string to date object, 2nd Date: create date, 3 rd Date: get today day
-				console.log("warning: still changing date");
+				$scope.deadline = new Date(new Date().setDate(new Date().getDate()+30));//outside new Date: change string to date object, 2nd Date: create date, 3 rd Date: get today day
 			}else{
-				$scope.param.deadline = new Date($scope.param.deadline);
+				$scope.deadline = new Date($scope.param.deadline);
 				console.log(new Date($scope.param.deadline ));
 			}
 			$scope.today=new Date();
@@ -65,18 +65,19 @@ angular.module('teamform-admin-app', ['firebase'])
                     $scope.adminName = adminData.name;
                 })
 			// Enable the UI when the data is successfully loaded and synchornized
-			$('#admin_page_controller').show(); 				
+			$('#text_event_name').text("Event Name: " + $scope.param.eventName);
+			$('#admin_page_controller').show();			
 		}) 
 		.catch(function(error) {
 			// Database connection error handling...
 			//console.error("Error:", error);
-		});	
+		});
 	
-	refPath = "event/"+eventName + "/team";	
+	refPath = "event/"+ eventid + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
-	refPath = "event/"+eventName + "/member";
+	refPath = "event/"+ eventid + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 
@@ -85,7 +86,6 @@ angular.module('teamform-admin-app', ['firebase'])
 		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
 			$scope.param.minTeamSize = newVal;
 		} 
-		$scope.param.$save();
 	}
 
 	$scope.changeMaxTeamSize = function(delta) {
@@ -93,14 +93,14 @@ angular.module('teamform-admin-app', ['firebase'])
 		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
 			$scope.param.maxTeamSize = newVal;
 		} 
-		$scope.param.$save();
 	}
 
 	$scope.saveFunc = function() {
-		$scope.param.deadline =$scope.param.deadline.toISOString(); 
+		$scope.param.deadline =$scope.deadline.toISOString();
 		$scope.param.$save();
-		// Finally, go back to the front-end
+		$('#text_event_name').text("Event Name: " + $scope.param.eventName);
 		$scope.edit = false;
+		//stay at admin page
 		//window.location.href= "index.html";
 	}
 
