@@ -134,14 +134,18 @@ angular.module('index-app', ['firebase'])
 					if(usersArray.$getRecord(user.uid) == null){
 						console.log('it is null and i am setting new profile for it');
 						firebase.database().ref('users/'+user.uid).set({
-							name: 'default',
+							name: user.email,
 							language: ['C++'],
 							gpa: 3,
-							team: ['null']
+							team: ['null'],
+							test: 'never change'
 						});
+						$scope.username = user.email;
+					}else{
+						$scope.username = usersArray.$getRecord(user.uid).name;
 					}
 					// $scope.username = usersArray.$getRecord(user.uid).name;
-					$scope.username =  user.email;
+					// $scope.username =  user.email;
 				})
 				.catch(function(error){
 					console.log("Error:"+error);
