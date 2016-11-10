@@ -84,7 +84,7 @@ angular.module('create-event-app', ['firebase'])
 		} 
 	}
 
-	$scope.changeTeamName = function(){
+	$scope.changeEventName = function(){
 		$('#text_event_name').text("Event name: " + $scope.param.eventName);
 		if ($scope.editDescription == false){
 			$scope.param.description = "This is team form for " + $scope.param.eventName + ".";
@@ -98,40 +98,47 @@ angular.module('create-event-app', ['firebase'])
 	$scope.saveFunc = function() {
 		if ($scope.param.eventName == ""|| $scope.param.eventName == null){
 			$window.alert("Event Name cannot be empty");
-		}else if ($scope.isEventExist($scope.param.eventName)){
-			console.log("Event "+ $scope.param.eventName + " already exist.");
-			$window.alert("Event "+ $scope.param.eventName + " already exist.");
 		}else{
-			console.log($scope.isEventExist($scope.param.eventName));
-			$scope.param.deadline =$scope.deadline.toISOString(); 
-			$scope.param.$save();
-			//save to user
-			var userTeamRefPath = "users/"+$scope.uid+"/teams/"+ eventid;
-			var userTeamRef = firebase.database().ref(userTeamRefPath);
-			adminData = $firebaseObject(userTeamRef);
-			adminData.role = {};
-			adminData.role = "admin";
-			adminData.$save();
-			// jump to admin page
-			window.location.href= "admin.html?q="+eventid;
+			console.log("eventname in saveFunc: "+$scope.param.eventName);
+			$scope.isEventExist($scope.param.eventName,function(result){
+				console.log("result:" + result);
+				if(result){
+					console.log("Event "+ $scope.param.eventName + " already exist.");
+					$window.alert("Event "+ $scope.param.eventName + " already exist.");
+				}else{
+					console.log("event created");
+					$scope.param.deadline =$scope.deadline.toISOString(); 
+					$scope.param.$save();
+					//save to user
+					var userTeamRefPath = "users/"+$scope.uid+"/teams/"+ eventid;
+					var userTeamRef = firebase.database().ref(userTeamRefPath);
+					adminData = $firebaseObject(userTeamRef);
+					adminData.role = {};
+					adminData.role = "admin";
+					adminData.$save();
+					// jump to admin page
+					window.location.href= "admin.html?q="+eventid;
+				}
+			})
 		}
 	}
 
 	$scope.isEventExist = function(eventname, callback){
+		console.log("eventname: "+ eventname);
 		var ref = firebase.database().ref("event/");
 		var eventsList = $firebaseObject(ref);
-		var flag = false;
+		var existflag = false;
 		eventsList.$loaded(function(data) {
 				data.forEach(function(eventObj){
+					console.log("eventObj: "+eventObj.admin.param.eventName);
+					console.log("eventname: "+ eventname);
 					if (eventObj.admin.param.eventName == eventname){
-						flag = true;
+						console.log("callback true");
+						existflag = true;
 					}
 				})
 		}).then(function(){
-			if (flag) console.log("return true");
-				if (callback)callback(flag);
-				callback(true);
-			return flag;
+			callback(existflag);
 		});
 	}
 
