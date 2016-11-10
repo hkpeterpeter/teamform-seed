@@ -110,7 +110,10 @@
                         </div>
                     </ol>
                     <li>CurrentTeam:{{userData.team}}</li>
+                    <li>Eventlist:{{userData.eventlist}}</li>
+                    <li>My User id: {{userData.userid}}</li>
                </ul>
+               <!--button class="btn btn-primary" ng-click="testeventlist()">test event list</button-->
                <button class="btn btn-primary" ng-click="submitUserData()">Submit</button>
             </div>
        </div>
@@ -123,6 +126,7 @@
                <li>Language:{{u.language}}</li>
                <li>Team:{{u.team}}</li>
                <li>Description:{{u.description}}</li>
+               <li>User Id: {{u.$id}}</li>
             </ul>
         </div>           
 
