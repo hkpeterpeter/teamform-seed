@@ -84,13 +84,15 @@
           <input id="eventName" type="text" class="input-lg" ng-model="newEventName">
           <br>
           <em>Enter a name to enter an event</em>
+          <!--enter: jump to relative page-->
+          <!--enter: if eventName is niexsit, ask user if they want to create new event-->
           <div>
             <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="enter(eventName)">enter event</button>
           </div>
+          <!--create event with eventname(can be empty)-->
           <div>
             <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(eventName)">Create new event</button>
           </div>
-          <!--create event without eventname-->
 			 </div>
 
 			 <br >
