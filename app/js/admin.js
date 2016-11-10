@@ -26,13 +26,22 @@ angular.module('teamform-admin-app', ['firebase'])
 	// Link and sync a firebase object	
 	$scope.param = $firebaseObject(ref);
 	$scope.param.$loaded().then(function(data) {
-		if(typeof $scope.param.maxTeamSize == "undefined"){
+		if(typeof $scope.param.maxTeamSize == "undefined") {
 			$scope.param.maxTeamSize = 10;
 		}
-		if(typeof $scope.param.minTeamSize == "undefined"){
+		if(typeof $scope.param.minTeamSize == "undefined") {
 			$scope.param.minTeamSize = 1;
 		}
-		if($scope.param.eventAdmin !== firebase.auth().currentUser.uid) {
+		if(typeof $scope.param.eventAdmin == "undefined") {
+			console.log("no admin");
+			var user = firebase.auth().currentUser;
+			if(user) {
+				$scope.param.eventAdmin = user.uid;
+				$scope.param.$save();
+				alert("Created new event " + eventName);
+				location.reload();
+			}
+		} else if($scope.param.eventAdmin !== firebase.auth().currentUser.uid) {
 			$("#admin_page_controller button").hide();
 		}
 		$('#admin_page_controller').show();

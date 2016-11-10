@@ -82,17 +82,16 @@
 	            <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 	          </span>
 	        </div>
-					<div class="row">
-							<u1>Tags (desired ability/traits for team members):</u1>
-							<ul ng-repeat="tag in tags">
-										<div class="checkbox">
-										<label><input type="checkbox"	ng-checked="tagchecked(tag.$value);"	 ng-click="addtags(tag.$value);">
-											<li>{{tag.$value}}</li>
-										</label>
-										</div>
-							</u1>
-							
-					</div>
+				<div class="row">
+					<ul>Tags (desired ability/traits for team members):</ul>
+					<ul ng-repeat="tag in tags">
+						<div class="checkbox">
+						<label><input type="checkbox" ng-checked="tagchecked(tag.$value);" ng-click="addtags(tag.$value);">
+							<li>{{tag.$value}}</li>
+						</label>
+						</div>
+					</ul>						
+				</div>
 	      </form>
 	      
 	      
@@ -153,7 +152,7 @@
 	    	  User ID: {{t.$id}}  <br>
 	    	  Preferred team size: <span class="badge">{{t.size}}</span> <br>
 	    	  Current team members: 
-	    	  <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers)">
+	    	  <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
 	    	  {{ $index+1 }}. {{ member }}
 	    	  </p>
 	    	  <span ng-show="!t.teamMembers"> none </span>
