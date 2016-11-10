@@ -103,7 +103,7 @@ module.exports = function makeWebpackConfig() {
     ];
     let CONFIG;
     try {
-        CONFIG = JSON.stringify(require('./config.js'))
+        CONFIG = require('./config.js')
     } catch (error) {
         CONFIG = process.env;
     }
@@ -118,7 +118,7 @@ module.exports = function makeWebpackConfig() {
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
         ),
         new DefinePlugin({
-            ENV: CONFIG
+            ENV: JSON.stringify(CONFIG)
         })
     ];
 
