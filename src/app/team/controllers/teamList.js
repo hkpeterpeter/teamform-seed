@@ -8,16 +8,17 @@ export default class TeamListCtrl {
         this.error = null;
         this.getTeams();
     }
-    getTeams() {
-        this.teamService.getTeams().then((teams) => {
+    async getTeams() {
+        try {
+            let teams = await this.teamService.getTeams();
             this.$timeout(() => {
                 this.teams = teams;
             });
-        }).catch((error) => {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
 }
 

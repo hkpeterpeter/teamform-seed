@@ -1,7 +1,6 @@
 export default class AuthService {
-    constructor($rootScope, $q, $firebaseArray, $firebaseObject, $auth, $database) {
+    constructor($rootScope, $firebaseArray, $firebaseObject, $auth, $database) {
         this.$rootScope = $rootScope;
-        this.$q = $q;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$auth = $auth;
@@ -32,7 +31,7 @@ export default class AuthService {
         return result;
     }
     checkAuth() {
-        return this.$q((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             this.$auth.onAuthStateChanged((user) => {
                 if (user) {
                     return resolve(user);
@@ -43,7 +42,7 @@ export default class AuthService {
         });
     }
     checkRules(rules = {}) {
-        return this.$q((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             this.$auth.onAuthStateChanged((user) => {
                 if (rules.auth && !user) {
                     return reject(user);
@@ -55,18 +54,17 @@ export default class AuthService {
             });
         });
     }
-    sendPasswordResetEmail(email) {
-        return this.$auth.sendPasswordResetEmail(email);
+    async sendPasswordResetEmail(email) {
+        return await this.$auth.sendPasswordResetEmail(email);
     }
-    signOut() {
-        return this.$auth.signOut().then((result) => {
-            this.$rootScope.$broadcast('authChanged');
-            return result;
-        });
+    async signOut() {
+        let result = await this.$auth.signOut();
+        this.$rootScope.$broadcast('authChanged');
+        return result;
     }
     static instance(...args) {
         return new AuthService(...args);
     }
 }
 
-AuthService.instance.$inject = ['$rootScope', '$q', '$firebaseArray', '$firebaseObject', 'auth', 'database'];
+AuthService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', 'auth', 'database'];

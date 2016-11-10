@@ -1,74 +1,60 @@
 export default class EventService {
-    constructor($q, $firebaseArray, $firebaseObject, $database, authService, userService) {
-        this.$q = $q;
+    constructor($firebaseArray, $firebaseObject, $database, authService, userService) {
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
         this.authService = authService;
         this.userService = userService;
     }
-    getEvent(id) {
-        return this.$firebaseObject(this.$database.ref('events/' + id)).$loaded().then(event => {
-            return Promise.all([Promise.resolve(event), this.userService.getUser(event.createdBy), this.$firebaseArray(this.$database.ref('teams')).$loaded()]);
-        }).then(([event, user, teams]) => {
-            event.createdByUser = user;
-            event.teams = [];
-            event.users = event.users || {};
-            for(let team of teams) {
-                if(team.eventId == event.$id) {
-                    event.teams.push(team);
-                }
+    async getEvent(id) {
+        let event = await this.$firebaseObject(this.$database.ref('events/' + id)).$loaded();
+        event.createdByUser = await this.userService.getUser(event.createdBy);
+        event.teams = [];
+        let teams = await this.$firebaseArray(this.$database.ref('teams')).$loaded();
+        for(let team of teams) {
+            if(team.eventId == event.$id) {
+                event.teams.push(team);
             }
-            return Promise.all([Promise.resolve(event), ...Object.keys(event.users).map((userKey) => {
-                return this.userService.getUser(event.users[userKey].id).then((user) => {
-                    return Object.assign({}, event.users[userKey], user);
-                });
-            })]);
-        }).then(([event, ...users]) => {
-            event.users = users;
-            return event;
-        });
+        }
+        let eventUsers = await this.$firebaseArray(event.$ref().child('users')).$loaded();
+        for(let eventUser of eventUsers) {
+            Object.assign(eventUser, await this.userService.getUser(eventUser.id));
+        }
+        event.users = eventUsers;
+        return event;
     }
-    joinEvent(id, force) {
-        return this.authService.checkAuth()
-            .then(user => {
-                return Promise.all([Promise.resolve(user), this.$firebaseArray(this.$database.ref('events/' + id + '/users')).$loaded()]);
-            }).then(([user, eventUsers]) => {
-                let joined = false;
-                for (let eventUser of eventUsers) {
-                    if (eventUser.id == user.uid) {
-                        joined = true;
-                        break;
-                    }
-                }
-                if (!joined) {
-                    return eventUsers.$add({id: user.uid});
-                } else {
-                    if(!force) {
-                        return Promise.reject(new Error('You Already joined this event'));
-                    } else {
-                        return Promise.resolve(true);
-                    }
-                }
-            });
+    async joinEvent(id, force) {
+        let user = await this.authService.checkAuth();
+        let eventUsers = await this.$firebaseArray(this.$database.ref('events/' + id + '/users')).$loaded();
+        let joined = false;
+        for (let eventUser of eventUsers) {
+            if (eventUser.id == user.uid) {
+                joined = true;
+                break;
+            }
+        }
+        if (!joined) {
+            return eventUsers.$add({id: user.uid});
+        } else {
+            if(!force) {
+                return Promise.reject(new Error('You Already joined this event'));
+            } else {
+                return Promise.resolve(true);
+            }
+        }
     }
-    getEvents(options = {}) {
-        return this.$firebaseArray(this.$database.ref('events')).$loaded().then(events => {
-            return Promise.all(events.map(event => {
-                return this.userService.getUser(event.createdBy).then(user => {
-                    event.createdByUser = user;
-                    return event;
-                });
-            }));
-        });
+    async getEvents(options = {}) {
+        let events = await this.$firebaseArray(this.$database.ref('events')).$loaded();
+        for(let event of events) {
+            event.createdByUser = await this.userService.getUser(event.createdBy);
+        }
+        return events;
     }
-    createEvent(event) {
-        return this.authService.checkAuth()
-            .then(user => {
-                event.createdBy = user.uid;
-                event.createdAt = Date.now();
-                return this.$firebaseArray(this.$database.ref('events')).$add(event);
-            });
+    async createEvent(event) {
+        let user = await this.authService.checkAuth();
+        event.createdBy = user.uid;
+        event.createdAt = Date.now();
+        return this.$firebaseArray(this.$database.ref('events')).$add(event);
     }
     editEvent(event) {
         return event.$save();
@@ -78,4 +64,4 @@ export default class EventService {
     }
 }
 
-EventService.instance.$inject = ['$q', '$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService'];
+EventService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService'];

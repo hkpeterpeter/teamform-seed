@@ -65,7 +65,8 @@
                 </thead>
                 <tbody>
                     <tr dir-paginate="user in teamDetail.team.users | itemsPerPage: 5">
-                        <td><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
+                        <td ng-if="user.id != null"><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
+                        <td ng-if="user.id == null">Available {{user}}</td>
                         <td>{{user.role}}</td>
                         <td>
                             <span ng-repeat="skill in user.skills" class="label label-success">{{skill}}</span>

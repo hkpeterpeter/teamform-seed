@@ -12,28 +12,29 @@ export default class LoginCtrl {
         this.error = null;
     }
 
-    login(credential = this.credential) {
-        this.authService.auth(credential)
-            .then((result) => {
-                this.$state.go(this.$state.params.toState, this.$state.params.toParams);
-            })
-            .catch((error) => {
-                this.$timeout(() => {
-                    this.error = error;
-                    this.loading = false;
-                });
+    async login(credential = this.credential) {
+        try {
+            let result = await this.authService.auth(credential);
+            this.$state.go(this.$state.params.toState, this.$state.params.toParams);
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+                this.loading = false;
             });
+        }
     }
 
-    authenticate(provider) {
-        this.$auth.authenticate(provider)
-            .then((response) => {
-                this.login({token: response.data.token});
-            }).catch((error) => {
-                this.$timeout(() => {
-                    this.error = error;
-                });
+    async authenticate(provider) {
+        try {
+            let response = await this.$auth.authenticate(provider);
+            this.login({
+                token: response.data.token
             });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
     }
 }
 

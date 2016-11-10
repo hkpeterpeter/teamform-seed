@@ -1,6 +1,5 @@
 export default class TeamService {
-    constructor($q, $firebaseArray, $firebaseObject, $database, authService, userService, eventService) {
-        this.$q = $q;
+    constructor($firebaseArray, $firebaseObject, $database, authService, userService, eventService) {
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
@@ -8,23 +7,18 @@ export default class TeamService {
         this.userService = userService;
         this.eventService = eventService;
     }
-    getTeam(id) {
-        return this.$firebaseObject(this.$database.ref('teams/' + id)).$loaded().then(team => {
-            return Promise.all([Promise.resolve(team), this.userService.getUser(team.createdBy)]);
-        }).then(([team, user]) => {
-            team.createdByUser = user;
-            return Promise.all([Promise.resolve(team), ...Object.keys(team.users).map((userKey) => {
-                return this.userService.getUser(team.users[userKey].id).then((user) => {
-                    return Object.assign({}, team.users[userKey], user);
-                });
-            })]);
-        }).then(([team, ...users]) => {
-            team.users = users;
-            return Promise.all([Promise.resolve(team), this.eventService.getEvent(team.eventId)]);
-        }).then(([team, event]) => {
-            team.event = event;
-            return team;
-        });
+    async getTeam(id) {
+        let team = await this.$firebaseObject(this.$database.ref('teams/' + id)).$loaded();
+        team.createdByUser = await this.userService.getUser(team.createdBy);
+        let teamUsers = await this.$firebaseArray(team.$ref().child('users')).$loaded();
+        for (let teamUser of teamUsers) {
+            if (teamUser.id) {
+                Object.assign(teamUser, await this.userService.getUser(teamUser.id));
+            }
+        }
+        team.users = teamUsers;
+        team.event = await this.eventService.getEvent(team.eventId);
+        return team;
     }
     async joinTeam(id, role) {
         let user = await this.authService.checkAuth();
@@ -39,7 +33,7 @@ export default class TeamService {
                 if (teamUser.id == user.uid) {
                     if (team.$id == id) {
                         return Promise.reject(new Error('You Already joined this team'));
-                    } else if(!teamUser.pending) {
+                    } else if (!teamUser.pending) {
                         return Promise.reject(new Error('You Already joined other team'));
                     }
                 }
@@ -66,19 +60,12 @@ export default class TeamService {
         return Promise.reject(new Error('The team is full'));
     }
     async getTeams(options = {}) {
-        return this.$firebaseArray(this.$database.ref('teams')).$loaded().then(teams => {
-            return Promise.all(teams.map(team => {
-                return this.userService.getUser(team.createdBy).then(user => {
-                    team.createdByUser = user;
-                    return team;
-                }).then(team => {
-                    return this.eventService.getEvent(team.eventId).then(event => {
-                        team.event = event;
-                        return team;
-                    });
-                });
-            }));
-        });
+        let teams = await this.$firebaseArray(this.$database.ref('teams')).$loaded();
+        for (let team of teams) {
+            team.createdByUser = await this.userService.getUser(team.createdBy);
+            team.event = await this.eventService.getEvent(team.eventId);
+        }
+        return teams;
     }
     editTeam(team) {
         return team.$save();
@@ -92,7 +79,7 @@ export default class TeamService {
         await this.eventService.joinEvent(team.eventId, true);
         let teamRef = await this.$firebaseArray(this.$database.ref('teams')).$add(team);
         let teamUsers = await this.$firebaseArray(teamRef.child('users')).$loaded();
-        for(let newTeamUser of newTeamUsers) {
+        for (let newTeamUser of newTeamUsers) {
             newTeamUser.pending = true;
             newTeamUser.accepted = false;
             await teamUsers.$add(newTeamUser);
@@ -104,4 +91,4 @@ export default class TeamService {
     }
 }
 
-TeamService.instance.$inject = ['$q', '$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService', 'EventService'];
+TeamService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService', 'EventService'];
