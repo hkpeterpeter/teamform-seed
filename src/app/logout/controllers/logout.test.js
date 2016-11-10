@@ -7,7 +7,7 @@ describe('LogoutController', () => {
         });
     });
 
-    it('should resolve signOut', async () => {
+    it('should resolve signOut', () => {
         inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'signOut').and.returnValue(deferred.promise);
@@ -20,7 +20,7 @@ describe('LogoutController', () => {
         });
     });
 
-    it('should reject signOut', async () => {
+    it('should reject signOut', () => {
         inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'signOut').and.returnValue(deferred.promise);

@@ -7,7 +7,7 @@ describe('PasswordResetController', () => {
         });
     });
 
-    it('should resolve sendPasswordResetEmail', async () => {
+    it('should resolve sendPasswordResetEmail', () => {
         inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'sendPasswordResetEmail').and.returnValue(deferred.promise);
@@ -19,7 +19,7 @@ describe('PasswordResetController', () => {
         });
     });
 
-    it('should reject sendPasswordResetEmail', async () => {
+    it('should reject sendPasswordResetEmail', () => {
         inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
             let deferred = _$q_.defer();
             spyOn(AuthService, 'sendPasswordResetEmail').and.returnValue(deferred.promise);

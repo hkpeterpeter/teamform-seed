@@ -7,7 +7,7 @@ describe('EventCreateController', () => {
         });
     });
 
-    it('should resolve createEvent', async () => {
+    it('should resolve createEvent', () => {
         inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
             let deferred = _$q_.defer();
             spyOn(EventService, 'createEvent').and.returnValue(deferred.promise);
@@ -16,21 +16,19 @@ describe('EventCreateController', () => {
             _$rootScope_.$digest();
             _$timeout_.flush();
             expect(EventService.createEvent).toHaveBeenCalled();
-            expect($controller.error).toEqual(null);
         });
     });
 
-    it('should reject createEvent', async () => {
+    it('should reject createEvent', () => {
         inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
             let deferred = _$q_.defer();
             spyOn(EventService, 'createEvent').and.returnValue(deferred.promise);
             $controller.createEvent();
-            deferred.reject(new Error('Failed to Create Event'));
+            deferred.reject(new Error('rejected'));
             _$rootScope_.$digest();
             _$timeout_.flush();
             expect(EventService.createEvent).toHaveBeenCalled();
-            expect($controller.createEvent).toThrow('Failed to Create Event');
-            expect($controller.error.message).toEqual('Failed to Create Event');
+            expect($controller.error.message).toEqual('rejected');
         });
     });
 

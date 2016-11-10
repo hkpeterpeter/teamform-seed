@@ -79,7 +79,7 @@ module.exports = function makeWebpackConfig() {
             test: /\.js$/,
             exclude: [
                 /node_modules/,
-                /__tests__/,
+                /\.test\.js$/,
                 /test.webpack.js$/
             ],
             loader: 'isparta'
@@ -88,7 +88,7 @@ module.exports = function makeWebpackConfig() {
         config.module.preLoaders.push({
             test: /\.js$/,
             loader: 'eslint',
-            exclude: /(node_modules|bower_components|__tests__)/
+            exclude: /(node_modules|bower_components|\.test.js$)/
         });
     }
 
