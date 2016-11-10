@@ -8,7 +8,6 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
         detail: "Event Detail"
     };
 
-   
     $scope.createflip = function() {
         if ($scope.event.name != "") {
             document.getElementById('myflipper').classList.toggle('flipped');
@@ -20,6 +19,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
     $scope.cancelEvent = function() {
         document.getElementById('myflipper').classList.toggle('flipped');
     };
+
     $scope.searchEvent = function() {
         if($scope.event.name!=""){
             resultList=[];
@@ -57,6 +57,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope", function($rootScop
 
                   $("#searching").fadeOut(1000,function(){
                      $("#eventCardList").show(1000);
+
                   });       
            });
        }else{
@@ -130,6 +131,7 @@ teamapp.directive('eventCard', function($compile) {
             emaxSize: "@",
             edescription: "@",
             eSkill: "@",
+
             etarget: "@",
             eid:"="
         },

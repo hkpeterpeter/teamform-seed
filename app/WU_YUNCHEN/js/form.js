@@ -1,16 +1,17 @@
 
-    
     teamapp.directive("simpleField",function(){
         return {
             restrict: "E",
             scope: {
                 id: '@',
+
                 label: '@', 
                 fieldModel: '='
             },
             templateUrl: "WU_YUNCHEN/component/simple_field.html", 
             controller : function($scope,$element,$attrs,$rootScope) {
             }
+
         };
     });
     
@@ -19,12 +20,14 @@
             restrict: "E",
             scope: {
                 id: '@',
+
                 label: '@',
                 fieldModel: '='
             },
             templateUrl: "WU_YUNCHEN/component/textarea_field.html", 
             controller : function($scope,$element,$attrs,$rootScope) {
             }
+
         };
     });
     
@@ -35,7 +38,9 @@
                 id: '@',
                 label: '@'
             },
+
             templateUrl: "WU_YUNCHEN/component/image_upload.html"
+
         };
     });
     
@@ -149,13 +154,17 @@
     teamapp.directive("eventForm",function(){
         return {
             restrict: "E",
+
             templateUrl: "WU_YUNCHEN/component/event_form.html"
+
         };
     });
     
     teamapp.directive("teamForm",function(){
         return {
             restrict: "E",
+
             templateUrl: "WU_YUNCHEN/component/team_form.html"
+
         };
     });

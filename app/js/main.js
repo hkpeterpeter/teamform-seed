@@ -32,8 +32,6 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	$rootScope.events=$firebaseArray($rootScope.event_ref);
 	$rootScope.teams=$firebaseArray($rootScope.team_ref);
 
-
-
 	$rootScope.test=function(){
 		$rootScope.loginWithEmail($scope.useremail);
 		console.log($scope.useremail);
@@ -87,5 +85,14 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		$rootScope.events.$add(event);
 	}
 	//$rootScope.addUser(exampleNewUser);
+
+
+	$rootScope.$on('$viewContentLoaded', function() {
+        $(document).keyup(function(event){
+          if(event.which=='27'){
+            $('.cd-user-modal').removeClass('is-visible');
+        }
+    });
+    });
 
 }]);
