@@ -28,7 +28,7 @@ angular.module('teamform-admin-app', ['firebase'])
 
 	eventid = getURLParameter("q");
 	console.log("event id : " + eventid)
-	refPath = "event/"+ eventid + "/admin/param";
+	refPath = "events/"+ eventid + "/admin/param";
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
@@ -87,11 +87,11 @@ angular.module('teamform-admin-app', ['firebase'])
 		$window.alert("TODO: waiting for teams ");
 	}
 
-	refPath = "event/"+ eventid + "/team";	
+	refPath = "events/"+ eventid + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
-	refPath = "event/"+ eventid + "/member";
+	refPath = "events/"+ eventid + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 
@@ -132,7 +132,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 	$scope.isEventExist = function(eventname, callback){
 		console.log("eventname: "+ eventname);
-		var ref = firebase.database().ref("event/");
+		var ref = firebase.database().ref("events/");
 		var eventsList = $firebaseObject(ref);
 		var existflag = false;
 		eventsList.$loaded(function(data) {

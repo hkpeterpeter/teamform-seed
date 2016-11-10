@@ -25,8 +25,8 @@ angular.module('create-event-app', ['firebase'])
 
 	eventName = getURLParameter("q");
 	console.log("eventName (inside app):" + eventName)
-	eventid = firebase.database().ref("event/").push().key;
-	refPath = "event/"+ eventid + "/admin/param";	
+	eventid = firebase.database().ref("events/").push().key;
+	refPath = "events/"+ eventid + "/admin/param";	
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
@@ -125,7 +125,7 @@ angular.module('create-event-app', ['firebase'])
 
 	$scope.isEventExist = function(eventname, callback){
 		console.log("eventname: "+ eventname);
-		var ref = firebase.database().ref("event/");
+		var ref = firebase.database().ref("events/");
 		var eventsList = $firebaseObject(ref);
 		var existflag = false;
 		eventsList.$loaded(function(data) {
