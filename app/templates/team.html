@@ -43,41 +43,57 @@
   </div>
 
 
+<!-- Basic Team Information -->
   <div class="container-fluid">
   	<div class="row-fluid">
   		<div class="span12">
   			<h3>
-  				Teamname:  {{data.name}}
+  				Teamname:  {{teamdata.name}}
   			</h3>
   			<p>
-  				{{data.desc}}
+  				{{teamdata.desc}}
   			</p>
   			<form class="form-search">
   				<input class="input-medium search-query" type="text" /> <button type="submit" class="btn">Search</button>
   			</form>
   		</div>
   	</div>
+    <!-- Members -->
   	<div class="row-fluid">
   		<div class="span8">
         <div class="panel panel-primary">
           <div class="panel-heading">
-              <h3 class="panel-title">Members</h3>
+              <h3 class="panel-title">Members &nbsp; Max:{{teamdata.max}}, current:{{teamdata.currentSize}}</h3>
           </div>
           <div class="panel-body">
-            <ul ng-repeat="(key,value) in members">
-                <li>{{value}}</li>
+            <ul ng-repeat="(id,uid) in members">
+                 <li>{{users.$getRecord(uid).readOnly.name}}</li>
             </ul>
+          </div>
+          <div>
+            <h6>Team Leader: {{users.$getRecord(leader.$value).readOnly.name}}</h6>
           </div>
         </div>
   		</div>
+      <!-- Tags -->
   		<div class="span4">
         <div class="panel panel-primary">
           <div class="panel-heading">
               <h3 class="panel-title">Tags</h3>
           </div>
-          <div class="panel-body">
-            <ul ng-repeat="(key,value) in tags">
-                <li>{{key}} : {{value.num}}/{{value.need}}</li>
+          <div class="panel-body"> Skill Tags:
+            <ul ng-repeat="(name,value) in skilltags">
+                <li>{{name}} : {{value.num}}/{{value.need}}</li>
+            </ul>
+          </div>
+          <div class="panel-body"> Feature Tags:
+            <ul ng-repeat="(name,value) in featuretags">
+                <li>{{name}}</li>
+            </ul>
+          </div>
+          <div class="panel-body"> Language Tags:
+            <ul ng-repeat="(name,value) in languagetags">
+                <li>{{name}}</li>
             </ul>
           </div>
           <div class="panel-body">
@@ -95,7 +111,7 @@
           <div class="panel-body">
             <ul ng-repeat="x in applications">
               <li>
-                {{x.$id}} : {{x.$value}}
+                {{users.$getRecord(x.$id).readOnly.name}} : {{x.$value}}
                 <button type="button" class="btn btn-primary" ng-click="">Accept</button>
                 <button type="button" class="btn btn-primary" ng-click="">Reject</button>
               </li>
@@ -110,7 +126,7 @@
           </div>
           <div class="panel-body">
             <ul ng-repeat="x in invitations">
-              <li>{{x.$id}} : {{x.$value}}</li>
+              <li>{{users.$getRecord(x.$id).readOnly.name}} : {{x.$value}}</li>
             </ul>
           </div>
         </div>
