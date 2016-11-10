@@ -101,7 +101,12 @@ module.exports = function makeWebpackConfig() {
             browsers: ['last 3 version']
         })
     ];
-
+    let CONFIG;
+    try {
+        CONFIG = JSON.stringify(require('./config.js'))
+    } catch (error) {
+        CONFIG = process.env;
+    }
     config.plugins = [
         new ProvidePlugin({
             $: 'jquery',
@@ -111,14 +116,14 @@ module.exports = function makeWebpackConfig() {
         }),
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
-        )
+        ),
+        new DefinePlugin({
+            ENV: JSON.stringify(require('./config.js'))
+        })
     ];
 
     if (!isTest) {
-        config.plugins.push(
-            new DefinePlugin({
-                ENV: JSON.stringify(require('./config.js'))
-            }),
+        config.plugins.push(,
             new HtmlWebpackPlugin({
                 template: './src/public/index.html',
                 inject: 'body'
@@ -127,10 +132,6 @@ module.exports = function makeWebpackConfig() {
                 disable: !isProd
             })
         )
-    } else {
-        config.plugins.push(new DefinePlugin({
-            ENV: {}
-        }))
     }
 
     if (!isProd) {
