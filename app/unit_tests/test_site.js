@@ -11,6 +11,4 @@ describe('Test site.js', function() {
 	  });
 
    });
-
-
 });

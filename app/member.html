@@ -5,114 +5,112 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
       <title>teamform - member page</title>
-	  
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="css/font-awesome.min.css">
       <link rel="stylesheet" href="css/site.css" >
 
-
-      <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
-	  	  
    </head>
-   <body>
 
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+   <body ng-controller="MemberCtrl">
 
+   <nav class="navbar navbar-default">
+      <div class="container">
+         <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+            <li><a href="index.html">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            Back to the front-end</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown" id="fblogout">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                 <div>
+                 <span id="userName"></span>
+                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                 <img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
+                 </div>
+                 </a>
+                 <ul class="dropdown-menu">
+                   <li id="logout"><a href="#">Log out</a></li>
+                 </ul>
+              </li>
+              <li id="fblogin">
+                <button type="button" class="btn btn-primary"> Log In
+                </button>
+              </li>
+            </ul>
+         </div>
+      </div>
+   </nav>
    <br>
 
    <div class="text-center">
       <h1>Member Page</h1>
       <h2 id="text_event_name"></h2>
-       <div id="member_page_controller" ng-controller="MemberCtrl">
-
-
+      <br>
+       <div id="member_page_controller">
          <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
-
-            <div class="col-md-8 col-xs-8 panel">
-			
-
-               
-               <form class="form-horizontal">
-                  <div class="form-group">
-                     <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
-                     <div class="col-sm-5">
-                     <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
-                     </div>
-					 
-					 <div class="col-sm-4">
-					   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add/Modify</button>
-					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
-					  </div>
+            <div class="col-md-3 col-xs-2"></div>
+            <div class="col-md-6 col-xs-8 panel">
+               <form class="form-horizontal">                  
+                  <div class="col-xs-10">
+                    <div class="form-group">
+                      <label for="inputUserID" class="col-xs-3 control-label">User ID</label>
+                      <div class="col-xs-9">
+                        <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
+                      </div>
+                      </div>
+                      <div class="form-group">
+                      <label for="inputName" class="col-xs-3 control-label">Name</label>
+                        <div class="col-xs-9">
+                        <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
+                      </div>
+                    </div>
                   </div>
-
-                  <div class="form-group">
-                     <label for="inputName" class="col-sm-3 control-label">Name</label>
-                     <div class="col-sm-9">
-                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
-                     </div>
-                  </div>
-				  
-				  
-				 
-
-
-
+                  <div class="col-xs-2">
+                    <button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
+        					</div>                  
                </form>
-			   
-			     <div class="row text-left">
-			        
-				    <h3>Your team preference:</h3>
-			       <div ng-repeat="team in teams">
-					  					  
-					 <div class="checkbox">
-						<label><input type="checkbox" value="{{team.$id}}" 
-						  ng-checked="selection.indexOf(team.$id) > -1"
-						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}</label>
-					 </div>
-					  
-				  </div>
-				</div>
-
-               
-            </div>
-            <div class="col-md-2 col-xs-2"></div>
+               </div>
+               <div class="col-md-3 col-xs-2"></div>
          </div>
-
-
-
+	 <div class="row">
+           <button type="button" class="btn btn-primary" id="atbtn" ng-click="atFunc();" >ability test</button>
+         </div>
+         <div class="row">
+			       <div class="col-md-3 col-sm-2 col-xs-1"></div>
+  			     <div class="col-md-6 col-sm-8 col-xs-10 text-left">
+              <h4 class="text-center" id="teamStatus"></h4>
+				     <h4 class="text-center" id="inviteStatus"></h4>
+  				    <h3>Your team preference:</h3>
+    			       <div ng-repeat="team in teams">
+      					 <div class="checkbox">
+      						<label><input type="checkbox" value="{{team.$id}}" 
+      						  ng-checked="selection.indexOf(team.$id) > -1"
+      						  ng-click="toggleSelection(team.$id)">
+      						{{team.$id}}</label>
+      					 </div>
+    				    </div>
+  				    </div>
+            <div class="col-md-3 col-sm-2 col-xs-1"></div>
+         </div>
        </div>
    </div>
 
-
-   <!-- Angular and Angular-route libraries (v1.5.7) -->
    <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>        
+   <script src="lib/angular-route.min.js"></script>
      
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>     
+   <script src="lib/firebase.js"></script>
    <script src="lib/angularfire.min.js"></script>
 
-
-
-   <!-- JavaScript of this page -->
    <script src="js/member.js"></script>
 
    </body>
