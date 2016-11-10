@@ -123,7 +123,7 @@ module.exports = function makeWebpackConfig() {
     ];
 
     if (!isTest) {
-        config.plugins.push(,
+        config.plugins.push(
             new HtmlWebpackPlugin({
                 template: './src/public/index.html',
                 inject: 'body'
