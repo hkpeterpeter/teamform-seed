@@ -18,7 +18,6 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.param = {};
 	
 	var refPath, ref, eventName;
-	var expanded = false;
 
 	eventName = getURLParameter("q");
 	refPath = eventName + "/admin/param";
@@ -63,7 +62,13 @@ angular.module('teamform-admin-app', ['firebase'])
 			$scope.users.push($firebaseObject(getUserWithId(mem.$id)));
 		});
 	});
+
 	
+	$scope.expanded = false;
+	$scope.setExpanded = function() {
+		$scope.expanded = !$scope.expanded;
+		console.log("Now expaned: " + $scope.expanded);
+	};
 	
 	$scope.getTeamMember = function(teamMembers) {
 		var result = [];
@@ -81,7 +86,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	}
 	
 	$scope.hasTeam = function(member) {
-		return typeof member.inTeam != 'undefined';
+		return typeof member.inTeam !== 'undefined';
 	}
 	
 	$scope.getMemberName = function(uid) {
