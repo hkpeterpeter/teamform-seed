@@ -9,7 +9,8 @@ angular.module('profile-app', ['firebase'])
         gpa: 0,
         team: [],
         description: '',
-        eventlist:{}
+        eventlist:{},
+        userid: ''
     }
     $scope.txtLanguage = '';
     $scope.username ='';
@@ -18,6 +19,23 @@ angular.module('profile-app', ['firebase'])
     var ref = firebase.database().ref('users');
     $scope.users = $firebaseArray(ref);
 
+    //test eventlist
+    // $scope.testeventlist = function(){
+    //     var currentUser = firebase.auth().currentUser;
+    //     var database = firebase.database();
+    //     var ref = database.ref('users/'+currentUser.uid);
+    //     var currentUserData = $firebaseObject(ref);
+    //     currentUserData.$loaded()
+    //         .then(function(data){
+    //             console.log(data.eventlist);
+    //             data.eventlist.eventid3 = {name:'event3'};
+    //             console.log(data.eventlist);
+    //             data.$save();
+    //             })
+    //         .catch(function(error){
+    //             console.error("Error: "+error);
+    //         });
+    // }
 	
 	//logout function
 	$scope.logout = function(){
@@ -37,14 +55,33 @@ angular.module('profile-app', ['firebase'])
     }
 
     //Submit userData
+    //this will only submit name, language, gpa and description
     $scope.submitUserData = function(){
         var database = firebase.database();
         var currentUser = firebase.auth().currentUser;
         //add user data under users/currentUser.uid
-        database.ref('users/'+currentUser.uid).set($scope.userData);
+        //database.ref('users/'+currentUser.uid).set($scope.userData);
+        var ref = database.ref('users/'+currentUser.uid);
+        var currentUserData = $firebaseObject(ref);
+        currentUserData.$loaded()
+            .then(function(data){
+                data.name = $scope.userData.name;
+                data.language = $scope.userData.language;
+                data.gpa = $scope.userData.gpa;
+                data.description = $scope.userData.description;
+                data.$save()
+                    .then(function(s){
+                        console.log('saved');
+                        $scope.refreshInput();
+                    });
+                console.log('done');
+                })
+            .catch(function(error){
+                console.error("Error: "+error);
+            });
         console.log(currentUser.uid);
         console.log('Submitted');
-        $scope.refreshInput();
+       // $scope.refreshInput();
     }
 
     //refresh input box
@@ -60,7 +97,9 @@ angular.module('profile-app', ['firebase'])
                     $scope.userData.name = currentUserData.name;
                     $scope.userData.gpa = currentUserData.gpa;
                     $scope.userData.team = currentUserData.team;
+                    console.log(data.language);
                     $scope.userData.language = currentUserData.language;
+                    $scope.userData.eventlist = currentUserData.eventlist;
                     $scope.username = currentUserData.name;
                     console.log('refreshed');
                    // $scope.$apply();
@@ -86,9 +125,20 @@ angular.module('profile-app', ['firebase'])
                     $scope.userData.name = currentUserData.name;
                     $scope.userData.gpa = currentUserData.gpa;
                     $scope.userData.team = currentUserData.team;
-                    $scope.userData.description = currentUserData.description;
+                    // $scope.userData.description = currentUserData.description;
+                    if(currentUserData.description == null){
+                        $scope.userData.description = '';
+                    }else{
+                        $scope.userData.description = currentUserData.description;
+                    }
+                    if(currentUserData.eventlist == null){
+                        $scope.userData.eventlist = {};
+                    }else{
+                        $scope.userData.eventlist = currentUserData.eventlist;
+                    }
                     $scope.userData.language = currentUserData.language;
                     $scope.username = currentUserData.name;
+                    $scope.userData.userid = user.uid;
                 })
                 .catch(function(error){
                     console.error("Error: "+error);
