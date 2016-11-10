@@ -5,9 +5,9 @@
             Please select the event below: <br>
         <select ng-model="selectedName" ng-options="x.name for x in event">
         </select>
-         <div ng-repeat="(key1, g) in selectedName.Team" ng-if="idd == g.teamleader">
-             <h2>Team Name:</h2><br> {{g.name}} <input type="button" data-ng-if="g.openness == 'private'" ng-click="topublic(selectedName,key1);">toPublic</input>
-             <input type="button" data-ng-if="g.openness == 'public'" ng-click="toprivate(selectedName,key1);">toPrivate</input>
+         <div ng-repeat="(key1, g) in selectedName.Team"  ng-if="idd == g.teamleader">
+             <h2>Team Name:</h2><br> {{g.name}} <button type="button" data-ng-if="g.openness == false" ng-click="topublic(selectedName,key1);">toPublic</button>
+             <button type="button" data-ng-if="g.openness == true" ng-click="toprivate(selectedName,key1);">toPrivate</button>
          </div>
           </form>
          </div>

@@ -6,7 +6,6 @@ app.controller("openness",["$scope","$firebaseArray", "Auth","$rootScope",
                 var ref=firebase.database().ref("events");
                 $scope.event = $firebaseArray(ref);
 
-$scope.idd=firebase.auth().currentUser.uid;
         $scope.toprivate = function(eventobj,teamid) {
 
           var path = "events" + "/" + eventobj.$id +"/Team/" +teamid;
