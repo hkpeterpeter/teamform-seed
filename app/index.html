@@ -62,7 +62,7 @@
           <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
           <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
         </form>
-        <p ng-show="loggedIn">Hello! {{username}} </p><!--Show this when login-->
+        <p ng-show="loggedIn">Hello!    {{username}} </p><!--Show this when login-->
 		
 		
       <!-- A sample login page -->
@@ -140,6 +140,37 @@
             </div>
          </div>
          <hr class="featurette-divider">
+
+          <!-- Show the current event list  -->
+         <div class="row featurette" id="event_list">
+            <div class="col-md-12">
+               <h2 class="featurette-heading">Event List:
+                  <br>
+                  <span class="text-muted">Current events created by other users</span>
+               </h2>
+            </div>
+               <div class="row ng-repeat="oneEvent in currentEventList"">
+                  <div class="col-md-6 col-xs-6   ">
+                    <ul>
+                      <li>
+                        Event name: <br>
+                        <span class="badge">{{oneEvent.eventName}}</span> <br>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6 col-xs-6 text-right" >
+                    <ul>
+                      <li>
+                      Event Description: <br>
+                      <span class="badge">{{oneEvent.description}}</span> <br>
+                      </li>
+                    </ul>
+                  </div>
+               </div>
+         </div>
+
+
+
 
           <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_team">
