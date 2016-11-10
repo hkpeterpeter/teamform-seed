@@ -61,13 +61,19 @@ angular.module('teamform-member-app', ['firebase'])
 			} else {
 				$scope.selection = [];
 			}
-			if($scope.data.inTeam != null) {
-				$("#teamStatus").html("You have joined team " + $scope.data.inTeam);
+			$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
+		$scope.memberInfo.$loaded().then(function() {			
+			if($scope.memberInfo.inTeam != null) {
+				$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam);
 			}
 			else {
 				$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
 				 the team or <a href=\"team.html?q=" + getURLParameter("q") + "\">Click here</a> to create\
 				  a team.");
+			}
+			//check for invitation
+			if($scope.memberInfo.invitedBy != null){
+				$("#inviteStatus").html("You are invited by team " + $scope.memberInfo.invitedBy);
 			}
 		});
 	};
