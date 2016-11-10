@@ -83,15 +83,14 @@
 	          </span>
 	        </div>
 					<div class="row">
-							<u1>Tags (desired ability/traits for team members):</u1>
-							<ul ng-repeat="tag in tags">
-										<div class="checkbox">
-										<label><input type="checkbox"	ng-checked="tagchecked(tag.$value);"	 ng-click="addtags(tag.$value);">
-											<li>{{tag.$value}}</li>
-										</label>
-										</div>
-							</u1>
-							
+						<u1>Tags (desired ability/traits for team members):</u1>
+						 <ul ng-repeat="tag in tags">
+							<div class="checkbox">
+						  	<label><input type="checkbox"	ng-checked="tagChecked(tag.$value);"	 ng-click="addTags(tag.$value);">
+								<li>{{tag.$value}}</li>
+								</label>
+							</div>
+						</u1>
 					</div>
 	      </form>
 	      
@@ -150,13 +149,17 @@
 	    <h3>All teams:</h3>
 	    	<ul ng-repeat="t in team">
 	    	  <li>
-	    	  User ID: {{t.$id}}  <br>
+	    	 Team Name: {{t.$id}}  <br>
 	    	  Preferred team size: <span class="badge">{{t.size}}</span> <br>
+					Tags:
+					<p ng-repeat ="tag in t.tags">{{tag}}<p>
+					<p ng-show="!t.tags"> none </p>
 	    	  Current team members: 
 	    	  <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers)">
 	    	  {{ $index+1 }}. {{ member }}
 	    	  </p>
 	    	  <span ng-show="!t.teamMembers"> none </span>
+
 	    	  </li>
 	    	</ul>
 	    </div>

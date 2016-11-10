@@ -177,13 +177,13 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
-	$scope.tagchecked = function(tagval){
+	$scope.tagChecked = function(tagval){
 		for (var j =0; j <$scope.param.tags.length;j++){
 			if (tagval == $scope.param.tags[j]){return true;}
 		}
 		return false;
 	};
-	$scope.addtags = function(tagval){
+	$scope.addTags = function(tagval){
 		var addornot = true;
 		var k = 0;
 		for(;k<$scope.param.tags.length;k++){
