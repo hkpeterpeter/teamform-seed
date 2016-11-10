@@ -146,7 +146,7 @@ angular.module('index-app', ['firebase'])
 					}
 
 					// $scope.username = usersArray.$getRecord(user.uid).name;
-					// $scope.username =  user.email;
+					// $scope.username = user.email;
 
 				})
 				.catch(function(error){
@@ -160,12 +160,12 @@ angular.module('index-app', ['firebase'])
 	})
 
 	//show event list in the index.html when people login the homepage
-			var eventRef = firebase.database().ref('event');
-			var eventArray = $firebaseArray(eventRef);
-			var allParam;
-			for( eachEvent in eventArray){
-			allParam += eachEvent.admin.param;
-			}
-			$scope.currentEventList = allParam;
+			// var eventRef = firebase.database().ref('event');
+			// var eventArray = $firebaseArray(eventRef);
+			// var allParam = ;
+			// for( eachEvent in eventArray){
+			// allParam += eachEvent.admin.param;
+			// }
+			// $scope.currentEventList = allParam;
 
 }]);

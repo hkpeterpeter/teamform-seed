@@ -62,7 +62,7 @@
           <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
           <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
         </form>
-        <p ng-show="loggedIn">Hello!    {{username}} </p><!--Show this when login-->
+        <p ng-show="loggedIn">Hello! {{username}} </p><!--Show this when login-->
 		
 		
       <!-- A sample login page -->
@@ -103,12 +103,43 @@
 	  </div>
       </section>
 
-
-
       <!-- Marketing messaging and featurettes
          ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
       <div class="container marketing">
+
+                  <!-- Show the current event list  -->
+         <div class="row featurette" id="event_list">
+            <div class="col-md-12">
+               <h2 class="featurette-heading">Event List:
+                  <br>
+                  <span class="text-muted">Current events created by other users</span>
+               </h2>
+            </div>
+            <div class="col-md-12 ng-repeat="oneEvent in currentEventList"">
+              <div class="col-md-6 col-xs-6   ">
+                <ul>
+                  <li>
+                    Event name: <br>
+                    <span class="badge">{{oneEvent.eventName}}</span> <br>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-6 col-xs-6 text-left" >
+                <ul>
+                  <li>
+                  Event Description: <br>
+                  <span class="badge">{{oneEvent.description}}</span> <br>
+                  </li>
+                </ul>
+              </div>
+            </div>
+         </div>
+
+      <hr class="featurette-divider">
+
+
+
          <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_about">
             <div class="col-md-12">
@@ -145,35 +176,6 @@
          </div>
          <hr class="featurette-divider">
 
-          <!-- Show the current event list  -->
-         <div class="row featurette" id="event_list">
-            <div class="col-md-12">
-               <h2 class="featurette-heading">Event List:
-                  <br>
-                  <span class="text-muted">Current events created by other users</span>
-               </h2>
-            </div>
-               <div class="row ng-repeat="oneEvent in currentEventList"">
-                  <div class="col-md-6 col-xs-6   ">
-                    <ul>
-                      <li>
-                        Event name: <br>
-                        <span class="badge">{{oneEvent.eventName}}</span> <br>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col-md-6 col-xs-6 text-right" >
-                    <ul>
-                      <li>
-                      Event Description: <br>
-                      <span class="badge">{{oneEvent.description}}</span> <br>
-                      </li>
-                    </ul>
-                  </div>
-               </div>
-         </div>
-
-
 
 
           <!-- START THE FEATURETTES -->
@@ -209,7 +211,7 @@
               
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member3&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Cindy Ng</h4>
                      <p>myngad@connect.ust.hk</p>
@@ -218,7 +220,7 @@
                  </div> 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member4&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Eric Yu</h4>
                      <p>hyyuab@connect.ust.hk</p>
@@ -227,7 +229,7 @@
                  </div> 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member5&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Mike Wong</h4>
                      <p>mwongac@connect.ust.hk</p>
@@ -236,7 +238,7 @@
                  </div> 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member6&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Ronald Shum</h4>
                      <p>khshumab@connect.ust.hk</p>
@@ -245,7 +247,7 @@
                  </div> 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member7&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
                      <h4>Vivian Lee</h4>
                      <p>htleeab@connect.ust.hk</p>
