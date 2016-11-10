@@ -110,6 +110,10 @@ angular.module('teamform-member-app', ['firebase'])
 			.then(function(data) {}) 
 			.catch(function(error) {});
 	};
+	
+	$scope.atFunc = function() {
+		window.location.href = "abilitytest.html";
+	};
 
 	$scope.refreshTeams(); // call to refresh teams...
 }]);
