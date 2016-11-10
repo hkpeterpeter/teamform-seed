@@ -15,12 +15,14 @@ angular.module('teamform-team-app', ['firebase'])
 
 	var refPath = "";
 	var eventName = getURLParameter("q");
-	
+	$scope.tags = [];
+	$scope.tags = $firebaseArray(firebase.database().ref("tags"));
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
-		"teamMembers" : []
+		"teamMembers" : [],
+		"tags" : []
 	};
 	$scope.uid = "";
 	$scope.currentUser = [];
@@ -48,7 +50,7 @@ angular.module('teamform-team-app', ['firebase'])
 	refPath = eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-	
+
 	refPath = eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));	
@@ -111,7 +113,8 @@ angular.module('teamform-team-app', ['firebase'])
 		if(teamID !== '' && status === "Save") {
 			var newData = {
 				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers
+				'teamMembers': $scope.param.teamMembers,
+				'tags': $scope.param.tags
 			};
 			var refPath = getURLParameter("q") + "/team/" + teamID;
 			var ref = firebase.database().ref(refPath);
@@ -130,7 +133,8 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.param.teamMembers.push($scope.uid);
 			var newData = {
 				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers
+				'teamMembers': $scope.param.teamMembers,
+				'tags': $scope.param.tags
 			};
 			$.each($scope.param.teamMembers, function(i, obj) {
 				var rec = $scope.member.$getRecord(obj);
@@ -161,6 +165,9 @@ angular.module('teamform-team-app', ['firebase'])
 					if(data.child("teamMembers").val() != null) {
 						$scope.param.teamMembers = data.child("teamMembers").val();
 					}
+					if(data.child("tags").val() != null) {
+						$scope.param.tags = data.child("tags").val();
+					}
 					$scope.$apply(); // force to refresh
 				});
 			}
@@ -169,7 +176,26 @@ angular.module('teamform-team-app', ['firebase'])
 			}
 		});		
 	};
-	
+	//tagsfunctions
+	$scope.tagchecked = function(tagval){
+		for (var j =0; j <$scope.param.tags.length;j++){
+			if (tagval == $scope.param.tags[j]){return true;}
+		}
+		return false;
+	};
+	$scope.addtags = function(tagval){
+		var addornot = true;
+		var k = 0;
+		for(;k<$scope.param.tags.length;k++){
+			if(tagval == $scope.param.tags[k]){
+				addornot = false;
+				break;
+			}
+		}
+		if(addornot){$scope.param.tags.push(tagval);}
+		else{$scope.param.tags.splice(k,1);}
+	};
+	//tagsfunctionendshere
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;		
 		if($scope.param.teamMembers.indexOf(r) < 0 && 
