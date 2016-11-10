@@ -131,7 +131,6 @@ angular.module('teamform-admin-app', ['firebase'])
 		} 
 	}
 
-//TODO: move some code to here from createEvent so that check valid 
 	$scope.saveFunc = function() {
 		if ($scope.param.eventName == ""|| $scope.param.eventName == null){
 			$window.alert("Event Name cannot be empty");
@@ -158,10 +157,9 @@ angular.module('teamform-admin-app', ['firebase'])
 		var eventsList = $firebaseObject(ref);
 		var existflag = false;
 		eventsList.$loaded(function(data) {
-				data.forEach(function(eventObj){
-					console.log("eventObj: "+eventObj.admin.param.eventName);
-					console.log("eventname: "+ eventname);
-					if (eventObj.admin.param.eventName == eventname){
+				data.forEach(function(eventObj,key){
+					console.log("eventObj's key: "+key);
+					if ((eventObj.admin.param.eventName == eventname) && (eventid != key)){
 						console.log("callback true");
 						existflag = true;
 					}
