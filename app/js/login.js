@@ -108,6 +108,8 @@ $(document).ready(function(){
 
 });
 
+
+
 angular.module('teamform-login-app', ['firebase'])
 .controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$firebaseAuth', function($scope, $firebaseObject, $firebaseArray, $firebaseAuth) {
   // Call Firebase initialization code defined in site.js
@@ -119,7 +121,7 @@ angular.module('teamform-login-app', ['firebase'])
   $scope.auth = $firebaseAuth();
 
   $scope.loginValidation=function(){
-    if($scope.loginUser==null&&$scope.loginPW==null){
+    if($scope.username==null&&$scope.password==null){
       $scope.message = "Please fill in the email and password above";
       return false;
     }
@@ -130,8 +132,9 @@ angular.module('teamform-login-app', ['firebase'])
     if($scope.loginValidation()==false){
       return false;
     }
-    $scope.auth.$createUserWithEmailAndPassword($scope.loginUser, $scope.loginPW)
+    $scope.auth.$createUserWithEmailAndPassword($scope.username, $scope.password)
     .then(function(firebaseUser) {
+			$scope.firebaseUser=firebaseUser;
       $scope.message = "User created with uid: " + firebaseUser.uid;
     }).catch(function(error) {
       $scope.error = error;
@@ -139,8 +142,8 @@ angular.module('teamform-login-app', ['firebase'])
   };
 
   $scope.emailLogin=function(){
-    // console.log("$scope.loginUser,$scope.loginPW",$scope.loginUser,$scope.loginPW);
-    $scope.auth.$signInWithEmailAndPassword($scope.loginUser, $scope.loginPW)
+    // console.log("$scope.username,$scope.password",$scope.username,$scope.password);
+    $scope.auth.$signInWithEmailAndPassword($scope.username, $scope.password)
     .then(function(firebaseUser) {
       $scope.firebaseUser=firebaseUser;
       // console.log("Signed in as:", $scope.firebaseUser.uid);
