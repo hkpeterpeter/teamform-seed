@@ -67,6 +67,10 @@ angular.module('teamform-member-app', ['firebase'])
 				 the team or <a href=\"team.html?q=" + getURLParameter("q") + "\">Click here</a> to create\
 				  a team.");
 			}
+			//check for invitation
+			if($scope.memberInfo.invitedBy != null){
+				$("#inviteStatus").html("You are invited by team " + $scope.memberInfo.invitedBy);
+			}
 		});
 	};
 	
