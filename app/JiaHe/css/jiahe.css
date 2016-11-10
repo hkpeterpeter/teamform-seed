@@ -1,6 +1,6 @@
 /*Place your own CSS here*/
 .team-private-switch {
-  font-size: 15px;
+    font-size: 15px;
 }
 
 .team-badge {
@@ -20,9 +20,15 @@
 }
 
 .profile-image {
-  height: 190px;
+    height: 190px;
 }
 
 .card-reveal.transparent {
     opacity: 0.9;
+}
+
+.card .card-reveal .cancel {
+    display: inline;
+    font-size: 15px;
+    font-weight: 400;
 }
