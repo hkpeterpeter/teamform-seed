@@ -29,7 +29,7 @@
 	  	  
    </head>
    <body  ng-controller="AdminCtrl">
-     <div ng-include="'navbar.html'" id='navbarMenu'></div>
+   <div ng-include="'navbar.html'" id='navbarMenu'></div>
    <br>
 
    <div class="text-center">
@@ -47,8 +47,6 @@
           Date left: {{(deadline - today)/(1000*60*60*24) | number:0}}
           <br><br>
       </div>
-      <!--<div id="admin_page_controller" ng-controller="AdminCtrl"> since header need controller-->
-
 
       <div id="admin_page_controller">
          <div class="row">
@@ -79,46 +77,54 @@
                 <br><br>
              <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Save</button>
             </div>
-         </div>
+         </div> 
+        <!--end of edit panel-->
          <!--smart generator-->
          <button id="btn_smart_generater" type="button" class="btn btn-primary" ng-click="generate_click()" ng-hide="(deadline-today)>0" ng-disabled="editable">Generate teams</button>
+        <!--show if achieve deadline-->
          <hr>
 
-          <!--teams list-->
-		 <div class="row">
-			 <div class="col-md-6 col-xs-6 text-right" >
+        <!--announcement div-->
+        <div id="announcement_div">
+            <!--new announcement-->
+            <div id="new_announcement_div">
+                <button id="btn_new_announcement" type="button" class="btn btn-primary" ng-click="new_announcement_click()" ng-disabled="writingAnnouncement">new announcement</button>
+                <!--after click new new announcement button, it will show input text box and send button-->
+                <div id="input_announcement" ng-show="writingAnnouncement">
+                    Announcement: <input ng-model="announcement_text">
+                    <button id="btn_make_announcement" type="buttn" class="btn btn-primary" ng-click="make_announcement(announcement_text)">Make announcement<br>
+                </div>
+            </div>
+            <!--current announcement list-->
+            <div id="announcement_list"></div>
+        </div>
+        <!--end of announcement div-->
+          <!--teams & member list-->
+          <div class="row">
+            <div class="col-md-6 col-xs-6 text-right" >
+              <h3>All teams:</h3>
+              <ul ng-repeat="t in team">
+                <li>
+                  User ID: {{t.$id}}  <br>
+                  Preferred team size: <span class="badge">{{t.size}}</span> <br>
+                  Current team members: {{t.teamMembers}}					
+                </li>
+              </ul>
+            </div>
 			 
-				<h3>All teams:</h3>
-				<ul ng-repeat="t in team">
-					<li>
-					
-						User ID: {{t.$id}}  <br>
-						Preferred team size: <span class="badge">{{t.size}}</span> <br>
-						Current team members: {{t.teamMembers}}
-					
-					</li>
-					
-				</ul>
-
-			 </div>
-			 
-			 <div class="col-md-6 col-xs-6 text-left">
-							
-			 
-			  <h3>All members:</h3>
-			  <ul ng-repeat="m in member">
-				
-				  <li>ID = {{m.$id}} <br> 
-				  Name = {{m.name}} <br>
-				  request to join the following teams: {{m.selection | json}}</li>
-			  </ul>
-
-			 </div>
-		 </div>
-
-
+			      <div class="col-md-6 col-xs-6 text-left">
+                <h3>All members:</h3>
+                <ul ng-repeat="m in member">
+                  <li>ID = {{m.$id}} <br> 
+                  Name = {{m.name}} <br>
+                  request to join the following teams: {{m.selection | json}}</li>
+                </ul>
+            </div>
+          </div>
+          <!--end of teams & member list-->
       </div>
-   </div>
+   </div>   <!--end of admin_page_controller-->
+   
 
 
    <!-- JavaScript of this page -->

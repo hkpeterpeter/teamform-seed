@@ -18,7 +18,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {}; //event.{eventid}.admin.param
 	$scope.editable = false;
-
+	$scope.writingAnnouncement = false;
 	$scope.loggedIn = true;
 			
 	// Call Firebase initialization code defined in site.js
@@ -80,11 +80,33 @@ angular.module('teamform-admin-app', ['firebase'])
 		$scope.editable = true;
     };
 
-	$scope.generate_click=function(){
+	$scope.generate_click=function(){//TODO
 		//find team that member less than minTeamSize
 		//put user without team who have responding preference into above team
 		//random put remaining user into teams
 		$window.alert("TODO: waiting for teams ");
+	}
+
+	$scope.new_announcement_click=function(){
+		$scope.writingAnnouncement = true;
+	}
+
+	$scope.make_announcement=function(announcement_text){
+		if (announcement_text == ""|| announcement_text == null){
+			$window.alert("Announcement cannot be empty.");
+		}else{
+			console.log("Save Announcement to firebase");
+			var announcementRefPath = "events/"+eventid+"/announcements/";
+			console.log(announcementRefPath);
+			announcementRefPath=  announcementRefPath + firebase.database().ref(announcementRefPath).push().key;
+			//key of announcements = date & time
+			//val of Announcement = announcement text
+			announcementRef = $firebaseObject(firebase.database().ref(announcementRefPath));
+			announcementRef.text = announcement_text;
+			announcementRef.date = new Date().toISOString();
+			announcementRef.$save();
+			$scope.writingAnnouncement = false;
+		}
 	}
 
 	refPath = "events/"+ eventid + "/team";	
