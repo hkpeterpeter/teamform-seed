@@ -77,64 +77,6 @@ angular.module('teamform-event-app', ['firebase'])
 			//console.error("Error:", error);
 		});
 	
-	$scope.edit_click = function(){
-		$scope.editable = true;
-    };
-
-	$scope.generate_click=function(){//TODO
-		//find team that member less than minTeamSize
-		//put user without team who have responding preference into above team
-		//random put remaining user into teams
-		$window.alert("TODO: waiting for teams ");
-	}
-
-	$scope.new_announcement_click=function(){
-		$scope.writingAnnouncement = true;
-	}
-
-	$scope.make_announcement=function(announcement_text){
-		if (announcement_text == ""|| announcement_text == null){
-			$window.alert("Announcement cannot be empty.");
-		}else{
-			console.log("Save Announcement to firebase");
-			var announcementRefPath = "events/"+eventid+"/announcements/";
-			console.log(announcementRefPath);
-			announcementRefPath=  announcementRefPath + firebase.database().ref(announcementRefPath).push().key;
-			//key of announcements = date & time
-			//val of Announcement = announcement text
-			announcementRef = $firebaseObject(firebase.database().ref(announcementRefPath));
-			announcementRef.text = announcement_text;
-			announcementRef.date = new Date().toISOString();
-			announcementRef.$save();
-			$scope.writingAnnouncement = false;
-		}
-	}
-
-	$scope.del_announcement_click=function(announcement_object){
-		console.log("Remove announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
-		$firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id)).$remove();
-	}
-
-	$scope.edit_announcement_click=function(announcement_object){
-		console.log("edit announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
-		var newText = prompt("Edit Announcement", announcement_object.text);
-		if (newText != null) {
-			console.log("edit announcement edited: "+ newText);
-			var tempObj = $firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id));
-			tempObj.$loaded().then(function(){
-				tempObj.text = newText;
-				tempObj.$save();
-			})
-		}else{
-			console.log("edit announcement canceled");
-		}
-	}
-
-	$scope.edit_done_announcement_click=function(announcement_object){
-		console.log("Remove announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
-		$firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id)).$remove();
-	}
-
 	refPath = "events/"+ eventid + "/teams";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
@@ -146,60 +88,7 @@ angular.module('teamform-event-app', ['firebase'])
 	refPath = "events/"+ eventid + "/announcements";
 	$scope.announcements = [];
 	$scope.announcements = $firebaseArray(firebase.database().ref(refPath));
-
-
-	$scope.changeMinTeamSize = function(delta) {
-		var newVal = $scope.param.minTeamSize + delta;
-		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
-			$scope.param.minTeamSize = newVal;
-		} 
-	}
-
-	$scope.changeMaxTeamSize = function(delta) {
-		var newVal = $scope.param.maxTeamSize + delta;
-		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
-			$scope.param.maxTeamSize = newVal;
-		} 
-	}
-
-	$scope.saveFunc = function() {
-		if ($scope.param.eventName == ""|| $scope.param.eventName == null){
-			$window.alert("Event Name cannot be empty");
-		}else{
-			console.log("eventname in saveFunc: "+$scope.param.eventName);
-			$scope.isEventExist($scope.param.eventName,function(result){
-				console.log("result:" + result);
-				if(result){
-					console.log("Event "+ $scope.param.eventName + " already exist.");
-					$window.alert("Event "+ $scope.param.eventName + " already exist.");
-				}else{
-					$scope.param.deadline =$scope.deadline.toISOString();
-					$scope.param.$save();
-					$('#text_event_name').text("Event Name: " + $scope.param.eventName);
-					$scope.editable = false;
-				}
-			})
-		}
-	}
 	
-	$scope.isEventExist = function(eventname, callback){
-		console.log("eventname: "+ eventname);
-		var ref = firebase.database().ref("events/");
-		var eventsList = $firebaseObject(ref);
-		var existflag = false;
-		eventsList.$loaded(function(data) {
-				data.forEach(function(eventObj,key){
-					console.log("eventObj's key: "+key);
-					if ((eventObj.admin.param.eventName == eventname) && (eventid != key)){
-						console.log("callback true");
-						existflag = true;
-					}
-				})
-		}).then(function(){
-			callback(existflag);
-		});
-	}
-
 	//$scope.users is an array of users in firebase
     var usersRef = firebase.database().ref('users');
     $scope.users = $firebaseArray(usersRef);
