@@ -57,43 +57,38 @@
                 </div>
 
                 <div class="form-group">
-                <label>Language:</label>
-                <input class="form-control" type="text" name="lan" ng-model="txtLanguage">
-                <button class="btn btn-primary" ng-click="addLanguage()">Add</button>
-                </div>
-                <!--
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Remember me
-                    </label>
-                </div>
-                -->
-                
-
-                <div class="form-group">
                 <label>GPA:</label>
-                <input class="form-control ng-dirty ng-invalid ng-valid" type="number" name="gpa" ng-model="userData.gpa" placeholder="0 to 4.3" min=0 max=4.3>
+                <input class="form-control ng-dirty ng-invalid" type="number" name="gpa" ng-model="userData.gpa" placeholder="0 to 4.3" min=0 max=4.3>
                 </div>
 
                 <div class="form-group">
                 <label>Description:</label>
                 <textarea class="form-control" ng-model="userData.description"></textarea>
                 </div>
-
-                <div class="form-group">
-                Language Added:
-                        <ol>
-                            <div ng-repeat="lan in userData.language">
-                                <li>{{lan}}<button class="btn btn-primary btn-sm" ng-click="removeLanguage(lan)">Remove</button></li>
-                            </div>
-                        </ol>
-                        CurrentTeam:{{userData.team}}
-                </div>
                 
                 <br>
                 <input class="btn btn-primary" type="submit" value="Submit">
             
                 <div>{{ProfileForm.$valid}}</div>
+
+                <div class="form-group">
+                <label>Language:</label>
+                <input class="form-control" type="text" name="lan" ng-model="txtLanguage">
+                <button class="btn btn-primary" ng-click="addLanguage()">Add</button>
+                </div>
+
+                <div class="form-group">
+                Language Added:
+                        <ol>
+                            <div ng-repeat="lan in userData.language">
+                                <li>{{lan}}<a class="pull-right" ng-click="removeLanguage(lan)">Remove</a></li>
+                            </div>
+                        </ol>
+                        CurrentTeam:{{userData.team}}
+                </div>
+
+
+
             </form>
         </div>
        
