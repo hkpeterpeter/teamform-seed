@@ -111,14 +111,14 @@ module.exports = function makeWebpackConfig() {
         }),
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
-        ),
-        new DefinePlugin({
-            ENV: JSON.stringify(require('./config.js'))
-        })
+        )
     ];
 
     if (!isTest) {
         config.plugins.push(
+            new DefinePlugin({
+                ENV: JSON.stringify(require('./config.js'))
+            }),
             new HtmlWebpackPlugin({
                 template: './src/public/index.html',
                 inject: 'body'
