@@ -1,0 +1,102 @@
+<!--I am genius!!!-->
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - A real-time online team forming app</title>
+	  
+
+     <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+        
+    <!-- Custom styles for this template -->
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/style-responsive.css" rel="stylesheet">
+    
+     <!-- js placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+
+
+
+ <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <!--<script src="http://code.angularjs.org/1.2.13/angular.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+ 
+
+
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-messaging.js"></script>
+
+
+
+
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<!--<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>-->
+
+<script src="app.js"></script>
+<script src="app.route.js"></script>
+<script src="app.signup_and_login.js"></script>
+<script src="app.personal.js"></script>
+<script src="event.js"></script>
+<script src="search.js"></script>
+<script src="Teaminformation.js"></script>
+<script src="randomTeam.js"></script>
+<script src="terminate_event.js"></script>
+<script src="createTeam.js"></script>
+<script src="join.js"></script>
+<script src="joinevent.js"></script>
+<script src="teamedit.js"></script>
+<script src="kick.js"></script>
+
+  <script>
+
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+            authDomain: "comp3111-bb108.firebaseapp.com",
+            databaseURL: "https://comp3111-bb108.firebaseio.com",
+            storageBucket: "comp3111-bb108.appspot.com",
+            messagingSenderId: "554833059052"
+        };
+        firebase.initializeApp(config);
+</script>
+
+   </head>
+<body ng-app="teamApp">
+   
+<a ui-sref="home">home</a>
+<a ui-sref="login">login</a>
+<a ui-sref="register">register</a>
+<a ui-sref="personal">personal</a>
+<a ui-sref="event">event</a>
+<a ui-sref="search">Team_Search</a>
+<a ui-sref="Teaminformation">Teaminformation</a>
+<a ui-sref="randomTeam">randomTeam</a>
+<a ui-sref="Eventjoin">Join_Event</a>
+<a ui-sref="TerminateEvent">Terminate_Event</a>
+<a ui-sref="createTeam">Create Team</a>
+<a ui-sref="editteaminfo">Editteaminfo</a>
+<a ui-sref="kickmember">Kick_member</a>
+<a ui-sref="privatepublic">private/public</a>
+    <div ui-view></div>
+
+   </body>
+</html>
