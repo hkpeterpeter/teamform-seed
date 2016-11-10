@@ -4,7 +4,7 @@ app.controller("teamSubmit",
                function($scope, $firebaseArray){
                 
                 $scope.input = {
-		event:"",
+                    event:"",
                     name:"",
                     intro:"",
                     holder:"",
@@ -21,12 +21,17 @@ app.controller("teamSubmit",
                         $scope.input.state=true;
                         $scope.input.holder=1;
                         $scope.team = {
-                              name:"",
-			intro:"",
-            			teamleader:"",
-                        openness:true	,
-                        member:""				
-			};
+                            name:"",
+                            intro:"",
+                            teamleader:"",
+                            openness:true	,
+                            member:"",
+                            numberOfmember:0
+                        };
+                        
+                        var eventRef=firebase.database().ref("events");
+                        var memberNoTeamRef=firebase.database().ref("memberWithNoTeam");
+                        
                         $scope.team.teamleader=firebase.auth().currentUser.uid;
                               $scope.team.name=$scope.input.name;
                               $scope.team.intro=$scope.input.intro;
@@ -34,8 +39,25 @@ app.controller("teamSubmit",
                               if(firebase.auth().currentUser){
                                         ref.orderByChild("name").equalTo($scope.input.event).once("child_added",function(location){
                                                   location.child("Team").ref.push().set($scope.team);
+                                    
+////
+                                                  memberNoTeamRef.orderByChild("uid").equalTo(firebase.auth().currentUser.uid).once("child_added",
+                                                      function(oldLocation){
+                                                        movingMember=oldLocation.val();
+                                                        location.ref.child("Team").orderByChild("name").equalTo($scope.team.name).once("child_added",function(newLocation){
+                                                            newLocation.child("member").ref.push().set(movingMember);
+                                                            newLocation.ref.update({numberOfmember: newLocation.val().numberOfmember+1});
+                                                            oldLocation.ref.remove();
+                                                            window.alert("Create team success!");
+                                                          
+                                                        });
+                            
+                                                  });     
+////         
+                                                  
                                         });
-				}
+
+                              }
                               else{
                                         window.alert("Please sign in first!");
                               }
