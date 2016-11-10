@@ -101,7 +101,12 @@ module.exports = function makeWebpackConfig() {
             browsers: ['last 3 version']
         })
     ];
-
+    let CONFIG;
+    try {
+        CONFIG = require('./config.js')
+    } catch (error) {
+        CONFIG = process.env;
+    }
     config.plugins = [
         new ProvidePlugin({
             $: 'jquery',
@@ -113,7 +118,7 @@ module.exports = function makeWebpackConfig() {
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
         ),
         new DefinePlugin({
-            ENV: JSON.stringify(require('./config.js'))
+            ENV: JSON.stringify(CONFIG)
         })
     ];
 
