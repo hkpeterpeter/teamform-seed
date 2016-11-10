@@ -4,27 +4,37 @@ app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($s
    //new code
     var memberNoTeamRef=firebase.database().ref("memberWithNoTeam");
    //
-    $scope.newMember = {
-        name:"",
+
+    $scope.newMember[$scope.key] = {
+        username:"",
+        email:"",
         intro:"",
         team:"",
-        uid:""
+        uid:"",
+        gender: "",
+        phone:"",
+        birth: "",
+        position: "",
+        skill: "",
+        remark: ""
         };
     
     
     $scope.signUp = function() {
-        Auth.$createUserWithEmailAndPassword($scope.rInput.email,$scope.rInput.password)
+        Auth.$createUserWithEmailAndPassword($scope.user.email,$scope.user.password)
         .then(function(userData) {
             $scope.regMessage = "User " + userData.uid + " created successfully!";
 
-            return Auth.$signInWithEmailAndPassword($scope.rInput.email, $scope.rInput.password);
+            return Auth.$signInWithEmailAndPassword($scope.user.email, $scope.user.password);
         }).then(function(authData) {
             console.log("Logged in as:", authData.uid);
             $rootScope.id=authData.uid;
             $state.go('login');
             //new code
-            $scope.newMember.name=$scope.rInput.username;
+            $scope.newMember.position = position1 + "," + position2 + "," + position3;
             $scope.newMember.uid=authData.uid;
+            $scope.key = authData.uid;
+            $scope.newMember.email = $scope.user.email;
             memberNoTeamRef.push().set($scope.newMember);
             //
         }).catch(function(error) {

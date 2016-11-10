@@ -5,20 +5,55 @@
             <form name="registerForm" class="css-form col-md-4" novalidate>
                 <div class="form-group">
                     <label>Email: <span class="required " ng-show="registerForm.email.$error.required"></span> </label>
-                    <input class="form-control" type="text" name="rEmail" ng-model="rInput.email" required>
+                    <input class="form-control" type="text" name="Email" ng-model="user.email" required>
                 </div>
 
                 <div class="form-group">
                     <label>Username: <span class="required" ng-show="registerForm.username.$error.required"></span></label>
-                    <input class="form-control" type="text" name="rUsername" ng-model="rInput.username" required>
+                    <input class="form-control" type="text" name="Username" ng-model="newMember.username" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password: <span class="required" ng-show="registerForm.password.$error.required"></span></label>
-                    <input class="form-control" type="password" name="rPassword" ng-model="rInput.password" required>
+                    <input class="form-control" type="password" name="Password" ng-model="user.password" required>
                 </div>
 
-                <input class="btn btn-primary" type="button" value="Submit" ng-click="signUp()" ng-disabled="!rInput.email || !rInput.username || !rInput.password">
+                <div class="form-group">
+                    <label>Intro: </label>
+                    <textarea class="form-control" type="text" name="intro" ng-model="newMember.intro" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Gender: </label>
+                    <input type="radio" ng-model="newMember.gender" value="male"> Male <input type="radio" ng-model="newMember.gender" value="female"> Female <input type="radio" ng-model="newMember.gender" value="other"> Other
+                </div>
+
+                <div class="form-group">
+                    <label>Phone: </label>
+                    <input class="form-control" type="tel" name="phone" ng-model="newMember.phone">
+                </div>
+
+                <div class="form-group">
+                    <label>Birth Day: </label>
+                    <input class="form-control" type="date" name="birth" ng-model="newMember.birth" placeholder="yyyy-MM-dd">
+                </div>
+
+                <div class="form-group">
+                    <label>Position: </label>
+                    <input type="checkbox" ng-model="position1" ng-true-value="Designer" ng-false-value=""> Designer <input type="checkbox" ng-model="position2" ng-true-value="Promotion" ng-false-value=""> Promotion <input type="checkbox" ng-model="position3" ng-true-value="Developer" ng-false-value=""> Developer
+                </div>
+
+                <div class="form-group">
+                    <label>Skill: </label>
+                    <textarea class="form-control" type="text" name="skill" ng-model="newMember.skill"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Remark: </label>
+                    <textarea class="form-control" type="text" name="remark" ng-model="newMember.remark" required></textarea>
+                </div>
+
+                <input class="btn btn-primary" type="button" value="Submit" ng-click="signUp()" ng-disabled="!user.email || !newMember.username || !user.password">
             </form>
         </div>
         <span>{{regMessage}}</span>
