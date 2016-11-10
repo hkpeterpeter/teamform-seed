@@ -4,7 +4,7 @@
 var app = angular.module("search", ["firebase"]);
 
 app.controller("searchCtrl",
-    function($scope, $firebaseArray, $sce) {
+    function ($scope, $firebaseArray, $sce) {
         $scope.trustAsHtml = $sce.trustAsHtml;
 
         // Initialize Firebase
@@ -25,18 +25,27 @@ app.controller("searchCtrl",
         ref = firebase.database().ref("teams");
         $scope.teamData = $firebaseArray(ref);
 
+        //get search frequency
+        ref = firebase.database().ref("searchFreq/frequency");
+        $scope.searchFrequency = $firebaseArray(ref);
+        ref = firebase.database().ref("searchFreq/keyword_groups");
+        $scope.keywordGroups = $firebaseArray(ref);
+
         //for debugging
         $scope.debugMsg = "";
+        $scope.debugMsg2 = "";
 
-        //dummy data
+        //Data
+        $scope.searchInput = "";
         $scope.result = [];
+        $scope.suggestions = [];
         $scope.constraint = {
             tm: "0",
             t: [],
             m: ["-1"],
             tDis: false,
             mDis: false,
-            clear: function() {
+            clear: function () {
                 this.tm = "0";
                 for (var i = 0; i < this.t.length; i++)
                     this.t[i] = "-1";
@@ -47,9 +56,7 @@ app.controller("searchCtrl",
             }
         };
 
-        $scope.debugMsg = $scope.constraint.clear();
-
-        $scope.$watch("constraint.tm", function(newVal, oldVal) {
+        $scope.$watch("constraint.tm", function (newVal, oldVal) {
             if (newVal == "0") {
                 $scope.constraint.mDis = false;
                 $scope.constraint.tDis = false;
@@ -64,19 +71,27 @@ app.controller("searchCtrl",
             }
         });
 
-        $scope.suggestions = [{
-            "id": "suggestionID-1",
-            "text": "--suggestion1--"
-        }, {
-            "id": "suggestionID-2",
-            "text": "--suggestion2--"
-        }, {
-            "id": "suggestionID-3",
-            "text": "--suggestion3--"
-        }];
+        //helper functions
+        function addSearchHistory(keywords) {
+            for (var i = 0; i < $scope.keywordGroups.length; i++) {
+                var sc = getSimilarityScore($scope.keywordGroups[i], keywords.join(" "), "score",
+                    { "score-e": 100, "score-s": function (p) { return 0; } });
+                if (sc == 100) {
+                    var x = parseInt($scope.searchFrequency[i].$value) + 1;
+                    $scope.searchFrequency.$ref().child(i).set(x + "");
+                    break;
+                } else if (i == $scope.keywordGroups.length - 1) {
+                    $scope.keywordGroups.$ref().child(i + 1).set(keywords);
+                    $scope.searchFrequency.$ref().child(i + 1).set("1");
+                }
+            }
+        }
 
         //listen to the search text field changes, and give suggestions
-        $scope.$watch("searchInput", function(newVal, oldVal) {
+        $scope.$watch("searchInput", function (newVal, oldVal) {
+            //clear the previos suggestions
+            $scope.suggestions = [];
+
             if (typeof newVal != "string") {
                 $("#searchSuggestion").hide();
                 return;
@@ -85,16 +100,55 @@ app.controller("searchCtrl",
             //give suggestions if the input is meaningful
             if (normailizeText(newVal).length > 1 || normailizeText(newVal)[0] != "") {
 
-                //TODO
+                var freq = $scope.searchFrequency;
+                var keywordGroups = $scope.keywordGroups;
+                var suggestions = [];
+                var scores = [];
+                var keywords = normailizeText(newVal);
+
+                //calculate the similary score
+                for (var i = 0; i < keywordGroups.length; i++) {
+                    var kg = keywordGroups[i].join(" ");
+                    var score = getSimilarityScore(keywords, kg, "score", { "score-e": 100, "score-s": function (p) { return p * 100; } });
+                    suggestions.push(kg);
+                    scores.push(score * parseInt(freq[i].$value));
+                }
+
+                //sort by the similarity score
+                sortTwoArrays(scores, suggestions);
+
+                //screen suggestions
+                for (var i = 0; i < scores.length; i++)
+                    if (scores[i] > 0) {
+                        $scope.suggestions.push({
+                            "class": "suggestionElement",
+                            "text": suggestions[i],
+                            "action": function () {
+                                $scope.searchInput = this.text;
+                                $scope.search();
+
+                                //change layout
+                                $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
+                                $("#searchBtnContainer").hide();
+                                $("#smSearchBtnContainer").removeClass("hide");
+                                $("#searchTextField").parent().removeClass("col-xs-12 col-sm-12 col-md-12 col-lg-12").addClass("col-xs-11 col-sm-11 col-md-11  col-lg-11");
+                                var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
+                                $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
+                            }
+                        });
+                    }
+                    else
+                        break;
 
                 $("#searchSuggestion").show();
             }
             else    //do nothing if the input is not meaningful
                 $("#searchSuggestion").hide();
+
         });
 
         //Search function
-        $scope.search = function() {
+        $scope.search = function () {
             //create a local array to store result
             var teamsAndMembers = [];
 
@@ -114,11 +168,14 @@ app.controller("searchCtrl",
             $scope.result = [];
 
             //split keywords, transform to lowercase and remove symbols
-            var keywords = normailizeText($("#searchTextField").val());
+            var keywords = normailizeText($scope.searchInput);
 
             //when keywords contain only symbols or spaces, do nothing
             if (keywords.length == 1 && keywords[0] == "" || keywords.join("") == "")
                 return;
+
+            //Add Search History to Firebase
+            addSearchHistory(keywords);
 
             //calculate the similarity of each team data
             var teams = $scope.teamData;
@@ -126,17 +183,17 @@ app.controller("searchCtrl",
             // -e means equal, -s means similar
             var scoreList = {
                 "id-e": 100,
-                "id-s": function(dummy) { return 0 },
+                "id-s": function (dummy) { return 0 },
                 "name-e": 90,
-                "name-s": function(percentage) { return 90 * percentage },
+                "name-s": function (percentage) { return 90 * percentage },
                 "destination-e": 60,
-                "destination-s": function(percentage) { return 60 * percentage },
+                "destination-s": function (percentage) { return 60 * percentage },
                 "language-e": 30,
-                "language-s": function(dummy) { return 0 },
+                "language-s": function (dummy) { return 0 },
                 "tag-e": 70,
-                "tag-s": function(percentage) { return 70 * percentage },
+                "tag-s": function (percentage) { return 70 * percentage },
                 "description-e": 70,
-                "description-s": function(percentage) { return 70 * percentage },
+                "description-s": function (percentage) { return 70 * percentage },
             };
 
             //loop through the team list
@@ -190,17 +247,17 @@ app.controller("searchCtrl",
             //create similarity score list for members
             scoreList = {
                 "id-e": 100,
-                "id-s": function(dummy) { return 0 },
+                "id-s": function (dummy) { return 0 },
                 "name-e": 90,
-                "name-s": function(percentage) { return percentage * 90 },
+                "name-s": function (percentage) { return percentage * 90 },
                 "description-e": 60,
-                "description-s": function(percentage) { return percentage * 60 },
+                "description-s": function (percentage) { return percentage * 60 },
                 "email-e": 80,
-                "email-s": function(percentage) { return percentage * 60 },
+                "email-s": function (percentage) { return percentage * 60 },
                 "from-e": 60,
-                "from-s": function(percentage) { return percentage * 60 },
+                "from-s": function (percentage) { return percentage * 60 },
                 "language-e": 30,
-                "language-s": function(percentage) { return percentage * 30 }
+                "language-s": function (percentage) { return percentage * 30 }
             }
 
             //save the count value in order to make the element id number correct
@@ -266,26 +323,26 @@ app.controller("searchCtrl",
 );
 
 //layout stuffs
-$(document).ready(function() {
+$(document).ready(function () {
     //initialization
     $("#searchSuggestion").hide();
     $("#advancedSearchPanel").hide();
 
     //show and hide
-    $("#advancedSearchBtn").click(function() {
+    $("#advancedSearchBtn").click(function () {
         $("#advancedSearchPanel").toggle();
     });
 
-    $("#advancedSearchCancelBtn").click(function() {
+    $("#advancedSearchCancelBtn").click(function () {
         $("#advancedSearchPanel").hide();
     });
 
-    $("body").click(function() {
+    $("body").click(function () {
         $("#searchSuggestion").hide();
     });
 
     //layout changes
-    $("#searchBtnContainer input[type='button']").click(function() {
+    $("#searchBtnContainer input[type='button']").click(function () {
         var keywords = normailizeText($("#searchTextField").val());
         if (keywords.length == 1 && keywords[0] == "" || keywords.join("") == "")
             return;
@@ -299,7 +356,7 @@ $(document).ready(function() {
     });
 
     //keydown handling
-    $("#searchTextField").keydown(function(event) {
+    $("#searchTextField").keydown(function (event) {
         //keycode 13 is "enter"
         //keycode 27 is "esc"
         switch (event.which) {
@@ -343,7 +400,7 @@ function removeSymbols(text) {
 //Normalize the text (remove all symbols and transform the text to lowercase), return an array
 function normailizeText(text) {
     if (typeof text != "string")
-        return text;
+        return null;
 
     //remove symbols
     text = removeSymbols(text);
