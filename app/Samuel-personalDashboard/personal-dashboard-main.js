@@ -3,29 +3,35 @@
  */
 
 //var teamapp = angular.module("dashboard", ['firebase']);
+
 teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
     $scope.username = "Samuel He";
 
     $rootScope.currentUser = {};
 
+
     var userRef = firebase.database().ref('users/0');
+
     var obj = $firebaseObject(userRef);
     obj.$loaded().then(function () {
         console.log("loaded record:", obj.$id);
         angular.forEach(obj, function (value, key) {
             console.log(key, value);
         });
+
         obj.$bindTo($rootScope, "currentUser");
     });
 
 
     var skillsRef = firebase.database().ref('users/0/skills');
+
     $scope.skillsList = $firebaseArray(skillsRef);
     $scope.receiveNewSikll = function () {
         $scope.skillsList.$add($scope.newSkill);
         $scope.newSkill = '';
     };
+
 
 
     var eventsRef = firebase.database().ref('users/0/eventsManaging');
@@ -63,3 +69,4 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
 
 });
+

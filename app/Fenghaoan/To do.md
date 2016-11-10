@@ -9,4 +9,12 @@ Homepage
 *** 
 register
 1. upload profile image
-2. ...
+2. 
+
+***
+1. authentication from firebase:
+    * google 
+    * facebook
+    * twitter 
+    * github
+

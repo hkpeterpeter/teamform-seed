@@ -1,9 +1,12 @@
+
 teamapp.controller('admin_title_ctrl', function($scope) {
+
   $scope.event = {
   	name: 'newEvent',
   	admins: ['admin1', 'admin2', 'admin3']
 	};
 });
+
 
 teamapp.controller('admin_team_ctrl', function($scope) {
 	$scope.teams = [
@@ -36,6 +39,7 @@ teamapp.controller('admin_team_ctrl', function($scope) {
   		$scope.teams.splice(index, 1);     
 	};
 });
+
 
 teamapp.controller('admin_member_ctrl', function($scope) {
 	$scope.users = [

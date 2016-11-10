@@ -1,39 +1,93 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Comp3111H project title</title>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<div ng-controller="homeController">
 	<!-- css -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="./css/homeslide.css">
-	<link rel="stylesheet" href="./css/test.css">
-	<!-- js -->
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
-	<script type="text/javascript" src="./js/homepage.js"></script>
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<!-- <link rel="stylesheet" href="./css/homeslide.css"> -->
+	<!-- <link rel="stylesheet" href="./css/test.css"> -->
+  <!-- <link rel="stylesheet" href="./css/home.css"> -->
 
+	<!-- js -->
+<!-- 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script> -->
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
-<body>
-<div class="homepageWrapper"  ng-app="homepage">
-<!-- /Navigate bar -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script> -->
+	<!-- <script>
+  // Initialize Firebase
+  var config = {
+  	apiKey: "AIzaSyBo6qBEtKrrO5i18QTawlE-AuVRaG5Y0pw",
+  	authDomain: "authentest-b24d3.firebaseapp.com",
+  	databaseURL: "https://authentest-b24d3.firebaseio.com",
+  	storageBucket: "authentest-b24d3.appspot.com",
+  	messagingSenderId: "640784507450"
+  };
+  firebase.initializeApp(config);
+</script> -->
+<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 
-<!-- /Navigate bar -->
 
 <!-- LoginBox -->
-<div id="loginBox">
+<div class="cd-user-modal" ng-click="changeVisible(event)"> <!-- this is the entire modal form, including the background -->
+    <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
+      <ul class="cd-switcher" ng-click="switcher(event)">
+        <li><a href="#">Sign in</a></li>
+        <!-- <li><a href="#0">New account</a></li> -->
+      </ul>
 
+      <div id="cd-login"> <!-- log in form -->
+
+        <form class="cd-form">
+          <!-- <p class="fieldset">
+            <label class="image-replace cd-email" for="signin-email">E-mail</label>
+            <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+            <span class="cd-error-message">Error message here!</span>
+          </p>
+
+          <p class="fieldset">
+            <label class="image-replace cd-password" for="signin-password">Password</label>
+            <input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
+            <a href="#0" class="hide-password">Hide</a>
+            <span class="cd-error-message">Error message here!</span>
+          </p> -->
+
+          <!-- <p class="fieldset">
+            <input type="checkbox" id="remember-me" checked>
+            <label for="remember-me">Remember me</label>
+          </p> -->
+<!-- 
+          <p class="fieldset">
+            <input class="full-width" type="submit" value="Login">
+          </p> -->
+          <!-- <p class="fieldset">
+            <input class="full-width" type="button" value="Login">
+          </p>  -->
+          <a class="btn btn-block btn-social btn-google" ng-click="login('google')">
+            <span class="fa fa-google"></span> Sign in with Google
+          </a>
+          <a class="btn btn-block btn-social btn-facebook" ng-click="login('facebook')">
+            <span class="fa fa-facebook"></span> Sign in with Facebook
+          </a>
+          <a class="btn btn-block btn-social btn-twitter" ng-click="login('twitter')">
+            <span class="fa fa-twitter"></span> Sign in with Twitter
+          </a>
+          <a class="btn btn-block btn-social btn-github" ng-click="login('github')">
+            <span class="fa fa-github"></span> Sign in with Github
+          </a>
+        </form>
+
+      </div> <!-- cd-login -->
+      <a href="#0" class="cd-close-form">Close</a>
+    </div>
 </div>
 <!-- LoginBox -->
+<div class="homepageWrapper">
+<!-- /Navigate bar -->
+
+<!-- /Navigate bar -->
 
 <!-- Homebackground -->
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -44,22 +98,22 @@
       <div class="carousel-inner" role="listbox">
 
         <div class="item active">
-          <img class="first-slide" src="./images/home_background.jpg">
+          <img class="first-slide" src="./Fenghaoan/images/home_background.jpg"></img>
           <div class="container">
             <div class="carousel-caption">
               <h1>Project name goes here</h1>
               <p>Welcome to use our team-formation platform. The best platform you and your team ever met.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <p><a class="loginB btn btn-lg btn-primary" role="button" ng-click="login_selected()">Login / Register</a></p>
             </div>
           </div>
         </div>
         <div class="item">
-          <img class="second-slide" src="./images/home_background2.jpg">
+          <img class="second-slide" src="./Fenghaoan/images/home_background2.jpg"></img>
           <div class="container">
             <div class="carousel-caption">
               <h1>More info goes here</h1>
               <p>I do not know what to say. You can try it yourself. It depends on you. Keep smile face, even you are in bad mode.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+              <p><a class="loginB btn btn-lg btn-primary" role="button" ng-click="login_selected()">Login / Register</a></p>
             </div>
           </div>
         </div>
@@ -84,7 +138,7 @@
 
 <!-- Features -->
 <div id="features" class="container" >
-<feature data="'feature_name'"></feature>
+<!-- <feature data="'feature_name'"></feature> -->
 </div>
 <!-- /Features -->
 <br><br>
@@ -93,182 +147,14 @@
 
 <!-- DeveloperInfo -->
 <div id="developer_info" class="devinfo">
-<developerinfo data="'team_member_name'"></developerinfo>
+<!-- <developerinfo data="'team_member_name'"></developerinfo> -->
 </div>
 <!-- /DeveloperInfo -->
 
 </div>
 
 <!-- Footer -->
-<div id="footer" class="categories">
-	<div class="footerwrap">            
-		<div id="footer-menu">
-			<div class="top-footer-links">
-				<a href="http://stackoverflow.com/company/about">about us</a>
-				<a href="/tour">tour</a>
-				<a href="/help">help</a>
-				<a href="http://blog.stackoverflow.com?blb=1">blog</a>
-				<a href="http://chat.stackoverflow.com">chat</a>
-				<a href="http://data.stackexchange.com">data</a>
-				<a href="http://stackexchange.com/legal">legal</a>
-				<a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
-				<a href="http://stackoverflow.com/company/work-here">work here</a>
-				<a href="http://stackexchange.com/mediakit">advertising info</a>
-
-				<a onclick='StackExchange.switchMobile("on")'>mobile</a>
-				<b><a href="/contact">contact us</a></b>
-				<b><a href="http://meta.stackoverflow.com">feedback</a></b>
-
-			</div>
-			<div id="footer-sites">
-				<table>
-					<tr>
-						<th colspan=4>
-							Technology
-						</th>
-						<th colspan=2>
-							Life / Arts
-						</th>
-						<th colspan=2>
-							Culture / Recreation
-						</th>
-						<th colspan=2>
-							Science
-						</th>
-						<th >
-							Other
-						</th>
-					</tr>
-					<tr>
-						<td>
-							<ol>
-								<li><a href="//stackoverflow.com" title="professional and enthusiast programmers">Stack Overflow</a></li>
-								<li><a href="//serverfault.com" title="system and network administrators">Server Fault</a></li>
-								<li><a href="//superuser.com" title="computer enthusiasts and power users">Super User</a></li>
-								<li><a href="//webapps.stackexchange.com" title="power users of web applications">Web Applications</a></li>
-								<li><a href="//askubuntu.com" title="Ubuntu users and developers">Ask Ubuntu</a></li>
-								<li><a href="//webmasters.stackexchange.com" title="pro webmasters">Webmasters</a></li>
-								<li><a href="//gamedev.stackexchange.com" title="professional and independent game developers">Game Development</a></li>
-								<li><a href="//tex.stackexchange.com" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
-							</ol></td><td><ol>
-							<li><a href="//programmers.stackexchange.com" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
-							<li><a href="//unix.stackexchange.com" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
-							<li><a href="//apple.stackexchange.com" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
-							<li><a href="//wordpress.stackexchange.com" title="WordPress developers and administrators">WordPress Development</a></li>
-							<li><a href="//gis.stackexchange.com" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
-							<li><a href="//electronics.stackexchange.com" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
-							<li><a href="//android.stackexchange.com" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
-							<li><a href="//security.stackexchange.com" title="information security professionals">Information Security</a></li>
-						</ol></td><td><ol>
-						<li><a href="//dba.stackexchange.com" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
-						<li><a href="//drupal.stackexchange.com" title="Drupal developers and administrators">Drupal Answers</a></li>
-						<li><a href="//sharepoint.stackexchange.com" title="SharePoint enthusiasts">SharePoint</a></li>
-						<li><a href="//ux.stackexchange.com" title="user experience researchers and experts">User Experience</a></li>
-						<li><a href="//mathematica.stackexchange.com" title="users of Mathematica">Mathematica</a></li>
-						<li><a href="//salesforce.stackexchange.com" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
-						<li><a href="//expressionengine.stackexchange.com" title="administrators, end users, developers and designers for ExpressionEngine&#174; CMS">ExpressionEngine&#174; Answers</a></li>
-						<li><a href="//crypto.stackexchange.com" title="software developers, mathematicians and others interested in cryptography">Cryptography</a></li>
-					</ol></td><td><ol>
-					<li><a href="//codereview.stackexchange.com" title="peer programmer code reviews">Code Review</a></li>
-					<li><a href="//magento.stackexchange.com" title="users of the Magento e-Commerce platform">Magento</a></li>
-					<li><a href="//dsp.stackexchange.com" title="practitioners of the art and science of signal, image and video processing">Signal Processing</a></li>
-					<li><a href="//raspberrypi.stackexchange.com" title="users and developers of hardware and software for Raspberry Pi">Raspberry Pi</a></li>
-					<li><a href="//codegolf.stackexchange.com" title="programming puzzle enthusiasts and code golfers">Programming Puzzles &amp; Code Golf</a></li>
-
-					<li>
-						<a href="http://stackexchange.com/sites#technology" class="more">
-							more (7)
-						</a>
-					</li>
-				</ol>
-			</td>
-			<td>
-				<ol>
-					<li><a href="//photo.stackexchange.com" title="professional, enthusiast and amateur photographers">Photography</a></li>
-					<li><a href="//scifi.stackexchange.com" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
-					<li><a href="//graphicdesign.stackexchange.com" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
-					<li><a href="//movies.stackexchange.com" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
-					<li><a href="//music.stackexchange.com" title="musicians, students, and enthusiasts">Music: Practice &amp; Theory</a></li>
-					<li><a href="//cooking.stackexchange.com" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
-					<li><a href="//diy.stackexchange.com" title="contractors and serious DIYers">Home Improvement</a></li>
-					<li><a href="//money.stackexchange.com" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
-				</ol></td><td><ol>
-				<li><a href="//academia.stackexchange.com" title="academics and those enrolled in higher education">Academia</a></li>
-
-				<li>
-					<a href="http://stackexchange.com/sites#lifearts" class="more">
-						more (8)
-					</a>
-				</li>
-			</ol>
-		</td>
-		<td>
-			<ol>
-				<li><a href="//english.stackexchange.com" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
-				<li><a href="//skeptics.stackexchange.com" title="scientific skepticism">Skeptics</a></li>
-				<li><a href="//judaism.stackexchange.com" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
-				<li><a href="//travel.stackexchange.com" title="road warriors and seasoned travelers">Travel</a></li>
-				<li><a href="//christianity.stackexchange.com" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
-				<li><a href="//ell.stackexchange.com" title="speakers of other languages learning English">English Language Learners</a></li>
-				<li><a href="//japanese.stackexchange.com" title="students, teachers, and linguists wanting to discuss the finer points of the Japanese language">Japanese Language</a></li>
-				<li><a href="//gaming.stackexchange.com" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
-			</ol></td><td><ol>
-			<li><a href="//bicycles.stackexchange.com" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
-			<li><a href="//rpg.stackexchange.com" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
-			<li><a href="//anime.stackexchange.com" title="anime and manga fans">Anime &amp; Manga</a></li>
-
-			<li>
-				<a href="http://stackexchange.com/sites#culturerecreation" class="more">
-					more (18)
-				</a>
-			</li>
-		</ol>
-	</td>
-	<td>
-		<ol>
-			<li><a href="//math.stackexchange.com" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
-			<li><a href="//stats.stackexchange.com" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
-			<li><a href="//cstheory.stackexchange.com" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
-			<li><a href="//physics.stackexchange.com" title="active researchers, academics and students of physics">Physics</a></li>
-			<li><a href="//mathoverflow.net" title="professional mathematicians">MathOverflow</a></li>
-			<li><a href="//chemistry.stackexchange.com" title="scientists, academics, teachers and students">Chemistry</a></li>
-			<li><a href="//biology.stackexchange.com" title="biology researchers, academics, and students">Biology</a></li>
-			<li><a href="//cs.stackexchange.com" title="students, researchers and practitioners of computer science">Computer Science</a></li>
-		</ol></td><td><ol>
-		<li><a href="//philosophy.stackexchange.com" title="those interested in logical reasoning">Philosophy</a></li>
-
-		<li>
-			<a href="http://stackexchange.com/sites#science" class="more">
-				more (3)
-			</a>
-		</li>
-	</ol>
-</td>
-<td>
-	<ol>
-		<li><a href="//stackapps.com" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
-		<li><a href="//meta.stackexchange.com" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
-		<li><a href="//area51.stackexchange.com" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
-		<li><a href="//careers.stackoverflow.com">Stack Overflow Careers</a></li>
-
-	</ol>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div id="copyright">
-	site design / logo &#169; 2016 Stack Exchange Inc; user contributions licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
-	with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
-</div>
-<div id="svnrev">
-	rev 2016.10.13.4082
-</div>
-</div>
-</div>
 
 <!-- /Footer -->
 
-
-</body>
-</html>
+</div>
