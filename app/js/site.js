@@ -77,7 +77,7 @@ function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
 }
 
-function getUserWithId(id, callback) {
+function getUserWithId(id) {
 	var refPath = "user/" + id;
 	return firebase.database().ref(refPath);
 }
