@@ -1,11 +1,14 @@
-teamapp.controller('titleCtrl', function($scope) {
+
+teamapp.controller('admin_title_ctrl', function($scope) {
+
   $scope.event = {
   	name: 'newEvent',
   	admins: ['admin1', 'admin2', 'admin3']
 	};
 });
 
-teamapp.controller('teamCtrl', function($scope) {
+
+teamapp.controller('admin_team_ctrl', function($scope) {
 	$scope.teams = [
 		{
 			name: 'TeamOne',
@@ -37,7 +40,8 @@ teamapp.controller('teamCtrl', function($scope) {
 	};
 });
 
-teamapp.controller('memberCtrl', function($scope) {
+
+teamapp.controller('admin_member_ctrl', function($scope) {
 	$scope.users = [
 		{
 			name: "user1",

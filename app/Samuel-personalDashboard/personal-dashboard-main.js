@@ -2,24 +2,30 @@
  * Created by Samuel on 2/11/2016.
  */
 
+//var teamapp = angular.module("dashboard", ['firebase']);
 
 teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject, $firebaseAuth) {
 
     $scope.username = "Samuel He";
 
     $rootScope.currentUser = {};
-    var userRef = firebase.database().ref('users/-KVtEW8EVXIacwd9hsGx');
+
+
+    var userRef = firebase.database().ref('users/0');
+
     var obj = $firebaseObject(userRef);
     obj.$loaded().then(function () {
         console.log("loaded record:", obj.$id);
         angular.forEach(obj, function (value, key) {
             console.log(key, value);
         });
-        obj.$bindTo($rootScope,"currentUser");
+
+        obj.$bindTo($rootScope, "currentUser");
     });
 
 
-    var skillsRef = firebase.database().ref('users/-KVtEW8EVXIacwd9hsGx/skills');
+    var skillsRef = firebase.database().ref('users/0/skills');
+
     $scope.skillsList = $firebaseArray(skillsRef);
     $scope.receiveNewSikll = function () {
         $scope.skillsList.$add($scope.newSkill);
@@ -28,86 +34,39 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
 
 
+    var eventsRef = firebase.database().ref('users/0/eventsManaging');
+    $scope.eventsList = $firebaseArray(eventsRef);
 
-    /*
-     $scope.firebaseObj = {
-     "users": [{
-     "name": "samuel",
-     "id": 232794508173451340,
-     "skills": ["Angular", "design", "Nodejs"],
-     "teamsAsMember": [4455],
-     "teamsAsLeader": [3344],
-     "teamsApplying": [8899, 9977],
-     "eventsManaging": [666777],
-     "profilePic": "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872",
-     "notifs": [{
-     "sender": "xinyu",
-     "receiver": "samuel",
-     "type": "invitation",
-     "read": false,
-     "content": "You were indvited to join XXX team"
-     }]
-     }],
-     "events": [{
-     "eventID": 666777,
-     "adminID": 111194508173451340,
-     "allTeams": [3344, 6688],
-     "eventName": "3111h",
-     "description": "a course",
-     "maxSize": 8,
-     "minSize": 5
-     }],
-     "teams": [{
-     "teamID": 3344,
-     "leaderID": 232794508173451340,
-     "membersID": [445664508173451340, 232794508173451340],
-     "teamName": "Undefined",
-     "belongstoEvent": 666777,
-     "preferedSize": 8,
-     "pendingApplicants": [1433664508173451340],
-     "invitedPeople": [555564508173451340],
-     "desiredSkills": ["Angular", "Vue"]
-     }]
-     };
+    var applyingRef = firebase.database().ref('users/0/teamsApplying');
+    $scope.applyingList = $firebaseArray(applyingRef);
 
-     var dummyDataRef = firebase.database().ref();
-     dummyDataRef.set($scope.firebaseObj);
-     var syncObject = $firebaseObject(dummyDataRef);
-     syncObject.$bindTo($scope, "firebaseObj");
+    var leadingTeams = firebase.database().ref('users/0/teamsAsLeader');
+    $scope.leadingList = $firebaseArray(leadingTeams);
 
-     var auth = $firebaseAuth();
-     auth.$signInWithPopup("facebook").then(function(firebaseUser) {
-     console.log("Signed in as:", firebaseUser.uid);
-     }).catch(function(error) {
-     console.log("Authentication failed:", error);
-     });
+    var memberTeams = firebase.database().ref('users/0/teamsAsMember');
+    $scope.memberList = $firebaseArray(memberTeams);
+
+    $scope.unread = {"read": false};
+
+    var notifsRef = firebase.database().ref('users/0/notifs');
+    $scope.notifs = $firebaseArray(notifsRef);
+
+    $scope.notifsDisplay = [];
+    $scope.isInvitation = [];
+    $scope.$watch("notifs", function (newValue, oldValue) {
+        for (var i = 0; i< $scope.notifs.length; i++){
+            if ($scope.notifs[i].type === "normal"){
+                $scope.notifsDisplay[i] = $scope.notifs[i].content;
+                $scope.isInvitation[i] = false;
+            }
+            else if ($scope.notifs[i].type === "invitation"){
+                $scope.notifsDisplay[i] = "You were invited to join team "+ $scope.notifs[i].content.teamName + ' whose ID is '+ $scope.notifs[i].content.teamID;
+                $scope.isInvitation[i] = true;
+            }
+        }
+    }, true);
 
 
-     var newUser = {
-     "name": "Ace",
-     "id": 232794508173451340,
-     "skills": ["Angular", "design", "Nodejs"],
-     "teamsAsMember": [4455],
-     "teamsAsLeader": [3344],
-     "teamsApplying": [8899, 9977],
-     "eventsManaging": [666777],
-     "profilePic": "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872",
-     "notifs": [{
-     "sender": "xinyu",
-     "receiver": "samuel",
-     "type": "invitation",
-     "read": false,
-     "content": "You were invited to join XXX team"
-     }]
-     };
-
-     var usersRef = firebase.database().ref().child("users");
-     $scope.users = $firebaseArray(usersRef);
-     $scope.users.$add(newUser);
-     */
 
 });
-
-
-
 

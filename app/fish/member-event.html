@@ -1,42 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-  <title>Event View</title>
 
-  <!-- CSS  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-</head>
-<body>
-  <ul id="notifications" class="dropdown-content">
-    <li><a href="#!">wwwwwwwwwwwww</a></li>
-    <li><a href="#!">w</a></li>
-    <li class="divider"></li>
-    <li><a href="#!">Show All</a></li>
-  </ul>
-  <ul id="account" class="dropdown-content">
-
-    <li><a href="#!"><i class="material-icons left">person</i>Profile</a></li>
-    <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
-    <li class="divider"></li>
-    <li><a href="#!">Sign Out</a></li>
-  </ul>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">&nbsp;Undefined</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Events</a></li>
-        <li><a class="dropdown-button" href="#" data-activates="notifications" data-beloworigin="true" data-constrainwidth="false" data-alignment="right"><i class="material-icons left">notifications_none</i><span class="new badge">4</span></a></li>
-        
-        <!-- Dropdown Trigger -->
-        <li><a class="dropdown-button" href="#!" data-activates="account" data-beloworigin="true">glaceon@eev.ee<i class="material-icons right">arrow_drop_down</i></a></li>
-      </ul>
-    </div>
-  </nav>
+<div ng-controller="fishCtrl">
 
   <!-- Event Card -->
   <div id="index-banner" class="parallax-container">
@@ -44,10 +7,12 @@
       <div class="container">
         <br><br>
         <h1 class="header teal-text">Event Name</h1>
-        <h5 class="header ">Event discription.</h5>
+
+        <h5 class="header">Event discription.</h5>
       </div>
     </div>
-    <div class="parallax"><img src="image/bg.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="fish/image/bg.jpg" alt="Unsplashed background img 1"></div>
+
   </div>
 
   <div class="container">
@@ -59,12 +24,11 @@
 
           <div class="card horizontal">
             <div class="card-image">
-              <img src="image/team1.jpg" height='200'>
+              <img src="fish/image/team1.jpg" height='200'>
             </div>
             <div class="card-stacked">
               <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4">Team Name</span>
-
+                <span class="card-title activator grey-text text-darken-4">Team Eevee</span>
                 <span class="card-content"><p>Team Description </p></span>
               </div>
             </div>
@@ -76,12 +40,13 @@
         <div class="collapsible-body">
           <!-- Style same as hamster's -->
           <div class="card sticky-action blue-grey darken-1">
-            <div class="card-content white-text" ng-controller="eventCtrl">
+            <div class="card-content white-text">
               <span class="card-title activator">Team Leader</span>
               <div class="section">
                 <div class="card horizontal">
                   <div class="card-image">
-                    <img src="image/t1leader.PNG" height='200'>
+                    <img src="fish/image/t1leader.PNG" height='200'>
+
                   </div>
                   <div class="card-stacked">
                     <div class="card-content">
@@ -107,7 +72,7 @@
                   <div class="col s6">
                     <div class="card horizontal">
                       <div class="card-image">
-                        <img src="image/t1m1.PNG" height='200'>
+                        <img src="fish/image/t1m1.PNG" height='200'>
                       </div>
                       <div class="card-stacked">
                         <div class="card-content">
@@ -128,7 +93,7 @@
 
                     <div class="card horizontal">
                       <div class="card-image">
-                        <img src="image/t1m2.PNG" height='200'>
+                        <img src="fish/image/t1m2.PNG" height='200'>
                       </div>
                       <div class="card-stacked">
                         <div class="card-content">
@@ -157,7 +122,7 @@
         <div class="collapsible-header blue-grey darken-1">
           <div class="card horizontal">
             <div class="card-image">
-              <img src="image/team2.jpg" height='200'>
+              <img src="fish/image/team2.jpg" height='200'>
             </div>
             <div class="card-stacked">
               <div class="card-content">
@@ -172,12 +137,12 @@
         <div class="collapsible-body">
           <!-- Style same as hamster's -->
           <div class="card sticky-action blue-grey darken-1">
-            <div class="card-content white-text" ng-controller="eventCtrl">
-              <span class="card-title activator">Team Leader</span>
+            <div class="card-content white-text">
+              <span class="card-title activator">Team Frog</span>
               <div class="section">
                 <div class="card horizontal">
                   <div class="card-image">
-                    <img src="image/t2leader.jpg" height='200'>
+                    <img src="fish/image/t2leader.jpg" height='200'>
                   </div>
                   <div class="card-stacked">
                     <div class="card-content">
@@ -203,11 +168,11 @@
                   <div class="col s6">
                     <div class="card horizontal">
                       <div class="card-image">
-                        <img src="image/t2m1.png" height='200'>
+                        <img src="fish/image/t2m1.png" height='200'>
                       </div>
                       <div class="card-stacked">
                         <div class="card-content">
-                          <span class="card-title activator grey-text text-darken-3">Member Name</span>
+                          <span class="card-title activator grey-text text-darken-3">Monday</span>
                           <br/>
                           <span class="team-text-span grey-text text-darken-3">Skills:
                             <div class="chip focus teal lighten-1 white-text">Java</div>
@@ -224,11 +189,11 @@
 
                     <div class="card horizontal">
                       <div class="card-image">
-                        <img src="image/t2m2.png" height='200'>
+                        <img src="fish/image/t2m2.png" height='200'>
                       </div>
                       <div class="card-stacked">
                         <div class="card-content">
-                          <span class="card-title activator grey-text text-darken-3">Member Name</span>
+                          <span class="card-title activator grey-text text-darken-3">Tuesday</span>
                           <br/>
                           <span class="team-text-span grey-text text-darken-3">Skills:
                             <div class="chip focus teal lighten-1 white-text">Java</div>
@@ -248,11 +213,11 @@
                 <div class="col s6">
                   <div class="card horizontal">
                     <div class="card-image">
-                      <img src="image/t2m3.png" height='200'>
+                      <img src="fish/image/t2m3.png" height='200'>
                     </div>
                     <div class="card-stacked">
                       <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-3">Member Name</span>
+                        <span class="card-title activator grey-text text-darken-3">Wednesday</span>
                         <br/>
                         <span class="team-text-span grey-text text-darken-3">Skills:
                           <div class="chip focus teal lighten-1 white-text">Java</div>
@@ -269,11 +234,11 @@
 
                   <div class="card horizontal">
                     <div class="card-image">
-                      <img src="image/t2m4.png" height='200'>
+                      <img src="fish/image/t2m4.png" height='200'>
                     </div>
                     <div class="card-stacked">
                       <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-3">Member Name</span>
+                        <span class="card-title activator grey-text text-darken-3">Thursday</span>
                         <br/>
                         <span class="team-text-span grey-text text-darken-3">Skills:
                           <div class="chip focus teal lighten-1 white-text">Java</div>
@@ -293,11 +258,11 @@
               <div class="col s6">
                 <div class="card horizontal">
                   <div class="card-image">
-                    <img src="image/t2m5.png" height='200'>
+                    <img src="fish/image/t2m5.png" height='200'>
                   </div>
                   <div class="card-stacked">
                     <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-3">Member Name</span>
+                      <span class="card-title activator grey-text text-darken-3">Friday</span>
                       <br/>
                       <span class="team-text-span grey-text text-darken-3">Skills:
                         <div class="chip focus teal lighten-1 white-text">Java</div>
@@ -314,11 +279,11 @@
 
                 <div class="card horizontal">
                   <div class="card-image">
-                    <img src="image/t2m6.png" height='200'>
+                    <img src="fish/image/t2m6.png" height='200'>
                   </div>
                   <div class="card-stacked">
                     <div class="card-content">
-                      <span class="card-title activator grey-text text-darken-3">Member Name</span>
+                      <span class="card-title activator grey-text text-darken-3">Saturday</span>
                       <br/>
                       <span class="team-text-span grey-text text-darken-3">Skills:
                         <div class="chip focus teal lighten-1 white-text">Java</div>
@@ -338,11 +303,11 @@
             <div class="col s6">
               <div class="card horizontal">
                 <div class="card-image">
-                  <img src="image/t2m7.png" height='200'>
+                  <img src="fish/image/t2m7.png" height='200'>
                 </div>
                 <div class="card-stacked">
                   <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-3">Member Name</span>
+                    <span class="card-title activator grey-text text-darken-3">Sunday</span>
                     <br/>
                     <span class="team-text-span grey-text text-darken-3">Skills:
                       <div class="chip focus teal lighten-1 white-text">Java</div>
@@ -368,7 +333,7 @@
         <div class="collapsible-header blue-grey darken-1">
           <div class="card horizontal">
             <div class="card-image">
-              <img src="image/team3.jpg" height='200'>
+              <img src="fish/image/team3.jpg" height='200'>
             </div>
             <div class="card-stacked">
               <div class="card-content">
@@ -383,33 +348,7 @@
       </li>
     </ul>
   </div>
-
-
-
-  <footer class="page-footer">
-    <div class="container">
-
-      <div class="col l6 s12">
-        <h5 class="white-text">Teamform App</h5>
-        <p class="grey-text text-lighten-4">An elegant and easy to use teamfrom app brought to you by team Undefined.</p>
-      </div>
-
-
-    </div>
-    <div class="footer-copyright">
-      <div class="container">
-        © 2016 Copyright Undefined
-      </div>
-    </div>
-  </footer>
-
-
-
-
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-
-</body>
-</html>
+ 
+<event-footer>
+</event-footer>
+</div>

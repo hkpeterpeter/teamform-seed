@@ -1,34 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Dashboard</title>
-    <!-- CSS IMPORTING -->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-</head>
-<body ng-app="dashboard" ng-controller="dashboardController">
-
-<!-- JAVASCRIPT FILES -->
-<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyCQKYVkrCowDJXNreSNgcJ7cy9RLnlRNZc",
-        authDomain: "teamform-undefined.firebaseapp.com",
-        databaseURL: "https://teamform-undefined.firebaseio.com",
-        storageBucket: "teamform-undefined.appspot.com",
-        messagingSenderId: "640568930097"
-    };
-    firebase.initializeApp(config);
-</script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script><!--Angular Fire -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
-<script src="./personal-dashboard-main.js"></script>
-
+<div ng-controller="dashboardController">
 <div class="container" style="padding-top: 20px">
     <button class="btn waves-effect waves-light" ng-click="facebookLogin()">Login
         <i class="material-icons right">send</i>
@@ -39,7 +9,10 @@
         </div>
         <div class="col m6 s6">
             <h2>Username: {{currentUser.name}}</h2>
-            <h4>My ID: {{currentUser.id}}</h4>
+
+            <h4>My ID (email): {{currentUser.email}}</h4>
+            <p>{{currentUser}}</p>
+
         </div>
     </div>
     <div class="divider"></div>
@@ -61,6 +34,7 @@
         <div class="col m3" ng-repeat="skill in skillsList">
             <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skillsList.$remove(skill)">delete</i>{{skill.$value}}</a>
         </div>
+
     </div>
     <div class="divider"></div>
 
@@ -68,7 +42,7 @@
 
     <!-- NOTIFICATION CENTER -->
     <div class="row">
-        <h4>Notification Center</h4>
+        <h3>Notification Center</h3>
         <div class="row">
             <div class="col s12">
                 <ul class="tabs">
@@ -77,15 +51,19 @@
                 </ul>
             </div>
             <div id="unreadNotifs">
-                <h4>My unread notifications:</h4>
+                <h5>My unread notifications:</h5>
             </div>
             <div id="allNotifs">
-                <h4>All of my notifications:</h4>
-                <div ng-repeat="noti in currentUser.notifs">{{noti.content}}</div>
+                <h5>All of my notifications:</h5>
+                <div ng-repeat="noti in notifsDisplay track by $index">
+                    <p>{{noti}}<a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Accept</a> <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Turn down</a></p>
+
+                </div>
             </div>
         </div>
     </div>
     <div class="divider"></div>
+
 
 
     <!-- MANAGEMENT TABS -->
@@ -95,30 +73,28 @@
                 <li class="tab col s3"><a href="#eventsAsAdmin">Admin</a></li>
                 <li class="tab col s3"><a class="active" href="#teamsAsLeader">Leader</a></li>
                 <li class="tab col s3"><a href="#teamsAsMember">Member</a></li>
+                <li class="tab col s3"><a href="#teamsApplying">Applying</a></li>
             </ul>
         </div>
         <div id="eventsAsAdmin">
             <h4>Events administrating by me</h4>
+            <div ng-repeat="event in currentUser.eventsManaging">{{event}}</div>
         </div>
         <div id="teamsAsLeader">
             <h4>I am team leader</h4>
+            <div ng-repeat="team in leadingList">{{team.$value}}</div>
         </div>
         <div id="teamsAsMember">
             <h4>I am a member in these teams</h4>
+            <div ng-repeat="team in memberList">{{team.$value}}</div>
+        </div>
+        <div id="teamsApplying">
+            <h4>I have pending applications to these teams:</h4>
+            <div ng-repeat="pendingTeam in applyingList">{{pendingTeam.$value}}</div>
         </div>
     </div>
 
 
 
-
-    <!-- MY TEAMS/EVENTS -->
-
-
-
-
-
-
 </div>
-
-</body>
-</html>
+</div>

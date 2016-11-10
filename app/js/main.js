@@ -1,4 +1,4 @@
-const teamapp = angular.module('teamapp', ["ngRoute","firebase"]);
+var teamapp = angular.module('teamapp', ["ngRoute","firebase"]);
 
 
 
@@ -19,7 +19,7 @@ teamapp.config(function($routeProvider) {
     }).when("/team",{
     	templateUrl : "fish/member-event.html"
     }).otherwise({redirectTo:'/home'});
-   
+
 });
 
 
@@ -31,8 +31,6 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	$rootScope.users=$firebaseArray($rootScope.user_ref);
 	$rootScope.events=$firebaseArray($rootScope.event_ref);
 	$rootScope.teams=$firebaseArray($rootScope.team_ref);
-
-	
 
 	$rootScope.test=function(){
 		$rootScope.loginWithEmail($scope.useremail);
@@ -47,16 +45,16 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		console.log($rootScope.events);
 	}
 	$rootScope.loginWithEmail=function(email){
-		
+
 		for(var i=0;i<$rootScope.users.length;i++){
-			
+
 			if($rootScope.users[i].email==email){
 				$rootScope.currentUser=$rootScope.users[i];
-				
+
 			}
 		}
 	}
-	
+
 
 	var exampleNewUser={
 		eventsManaging:[],
@@ -88,6 +86,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	}
 	//$rootScope.addUser(exampleNewUser);
 
+
 	$rootScope.$on('$viewContentLoaded', function() {
         $(document).keyup(function(event){
           if(event.which=='27'){
@@ -97,4 +96,3 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
     });
 
 }]);
-
