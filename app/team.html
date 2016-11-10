@@ -98,7 +98,7 @@
 					<ul>Tags (desired ability/traits for team members):</ul>
 					<ul ng-repeat="tag in tags">
 						<div class="checkbox">
-						<label><input type="checkbox" ng-checked="tagchecked(tag.$value);" ng-click="addtags(tag.$value);">
+						<label><input type="checkbox" ng-checked="tagChecked(tag.$value);" ng-click="addTags(tag.$value);">
 							<li>{{tag.$value}}</li>
 						</label>
 						</div>
@@ -112,7 +112,6 @@
 	        <div class="col-sm-6">
 	          <h4>Team members</h4>
 	          <!-- TODO: Show the current team member list -->
-	        
 	          <div ng-repeat="member in param.teamMembers">
 	            <button type="button" class="btn" ng-click="removeMember(member);">
 	            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ retrieveNameFromID(member) }}
