@@ -5,7 +5,7 @@ app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($s
     var memberNoTeamRef=firebase.database().ref("memberWithNoTeam");
    //
 
-    $scope.newMember[$scope.key] = {
+    $scope.newMember = {
         username:"",
         email:"",
         intro:"",
@@ -31,11 +31,10 @@ app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($s
             $rootScope.id=authData.uid;
             $state.go('login');
             //new code
-            $scope.newMember.position = position1 + "," + position2 + "," + position3;
+            $scope.newMember.position = $scope.position1==true?"designer":"" + "," + $scope.position2==true?"promotion":"" + "," + $scope.position3==true?"developer":"";
             $scope.newMember.uid=authData.uid;
-            $scope.key = authData.uid;
             $scope.newMember.email = $scope.user.email;
-            memberNoTeamRef.push().set($scope.newMember);
+            memberNoTeamRef.child(authData.uid).set($scope.newMember);
             //
         }).catch(function(error) {
             console.error("Error: ", error);
