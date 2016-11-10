@@ -107,7 +107,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/privatepublic',
             templateUrl: 'publicprivate.html',
             controller: 'openness'
+            })
+             .state('requests', {
+            url: '/handleRequests',
+            templateUrl: 'handleRequests.html',
+            controller: 'handleRequests'
             });
-
 });
 

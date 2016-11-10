@@ -31,7 +31,7 @@ app.controller("teamSubmit",
                         
                         var eventRef=firebase.database().ref("events");
                         var memberNoTeamRef=firebase.database().ref("memberWithNoTeam");
-                        
+                        if(firebase.auth().currentUser)
                         $scope.team.teamleader=firebase.auth().currentUser.uid;
                               $scope.team.name=$scope.input.name;
                               $scope.team.intro=$scope.input.intro;
