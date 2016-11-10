@@ -101,6 +101,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/kickmember',
             templateUrl: 'kick.html',
             controller: 'kick'
+            })
+            
+             .state('privatepublic', {
+            url: '/privatepublic',
+            templateUrl: 'publicprivate.html',
+            controller: 'openness'
             });
 
 });
