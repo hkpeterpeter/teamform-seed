@@ -50,7 +50,7 @@
 		</div>
 
         <div class="row">
-            <form name="ProfileForm" class="css-form col-md-6" ng-submit="ProfileForm.$valid && submitUserData()" novalidate>
+            <form name="ProfileForm" class="css-form col-md-6"  novalidate>
                 <div class="form-group">
                     <label>Name*:</label>
                     <input class="form-control ng-dirty ng-invalid ng-valid" type="text" name="userName" placeholder="Please enter Username" ng-model="userData.name" required>
@@ -73,7 +73,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Submit">
+                    <input class="btn btn-primary" type="submit" value="Submit" ng-click='submitUserData()'>
                 </div>
             
                 <div class="row">

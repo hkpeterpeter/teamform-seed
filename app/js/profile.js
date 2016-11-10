@@ -61,10 +61,14 @@ angular.module('profile-app', ['firebase'])
 
     //check userdata(Name,language,gpa cannot be null)
     $scope.checkUserData = function(){
+        console.log('cehcking data');
+        console.log('name:'+$scope.userData.name);
+        console.log('language:' + $scope.userData.language);
+        console.log('gpa:'+$scope.userData.gpa);
         if($scope.userData.name == null){
             $window.alert('Name cannot be null');
             return false;
-        }else if($scope.userData.language == null){
+        }else if($scope.userData.language == null||$scope.userData.language ==''){
             $window.alert('Language cannot be null');
             return false;
         }else if($scope.userData.gpa == null){
@@ -80,6 +84,7 @@ angular.module('profile-app', ['firebase'])
     $scope.submitUserData = function(){
         if($scope.checkUserData() == false){
             $window.alert('Please correct your profile')
+            $scope.refreshInput();
             return;
         }
         var database = firebase.database();
