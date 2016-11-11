@@ -85,6 +85,13 @@ angular.module('teamform-admin-app', ['firebase'])
 		return result;
 	}
 	
+	$scope.terminateEvent = function() {
+		var eventName = getURLParameter("q");
+		var refPath = eventName;
+		firebase.database().ref(refPath).remove();
+		window.location.href= "index.html";
+	}
+	
 	$scope.hasTeam = function(member) {
 		return typeof member.inTeam !== 'undefined';
 	}
