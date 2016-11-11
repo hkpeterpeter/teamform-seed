@@ -73,7 +73,33 @@
                                 <div class="{{(constraint.tDis)?'hide':''}} well wellHalfTransparent">
                                     <label class="font-size-sm">Constraints on searching teams</label><br>
                                     <div class="indent">
-                                    </div>
+                                        <label>Destination:</label><br>
+                                        <select ng-model="constraint.t[0]">
+                                            <option value="-1" selected>--</option>
+                                        </select>
+                                    </div><br>
+                                    <div class="indent">
+                                        <label>Language for communication:</label><br>
+                                        <select ng-model="constraint.t[1]">
+                                            <option value="-1" selected>--</option>
+                                        </select>
+                                    </div><br>
+                                    <div class="indent">
+                                        <label>Preference:</label><br>
+                                        <select ng-model="constraint.t[2]">
+                                            <option value="-1" selected>--</option>
+                                            <option value="0" >Male</option>
+                                            <option value="1" >Female</option>
+                                        </select>
+                                    </div><br>
+                                    <div class="indent">
+                                        <label>Not yet full:</label><br>
+                                        <input ng-model="constraint.t[3]" type="checkbox" />
+                                    </div><br>
+                                    <div class="indent">
+                                        <label>Not yet departed:</label><br>
+                                        <input ng-model="constraint.t[4]" type="checkbox" />
+                                    </div><br>
                                 </div>
 
                                 <div class="{{(constraint.mDis)?'hide':''}} well wellHalfTransparent">
@@ -106,10 +132,12 @@
                                     </div><br>
                                     <div class="indent">
                                         <label>Available to travel:</label><br>
-                                        <input ng-model="constraint.m[4]" type="checkbox"/>
+                                        <input ng-model="constraint.m[4]" type="checkbox" />
                                     </div><br>
                                 </div>
-                                <br><b>DEBUG: </b>{{constraint|json}}
+                                <br><b>DEBUG: </b>
+                                {{constraint|json}}<br><b>Has Constraints: </b>
+                                {{constraint.hasConstraints()}}
                             </div>
                             <div class="pull-right">
                                 <div class="myBtn">

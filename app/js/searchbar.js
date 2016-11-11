@@ -41,24 +41,46 @@ app.controller("searchCtrl",
         $scope.suggestions = [];
         $scope.constraint = {
             tm: "0",
-            t: [],
+            t: ["-1", "-1", "-1", false, false],
             m: ["-1", "-1", "-1", "-1", false],
             tDis: false,
             mDis: false,
+            defaultTm: "0",
+            defaultT: ["-1", "-1", "-1", false, false],
+            defaultM: ["-1", "-1", "-1", "-1", false],
             clearT: function () {
-                for (var i = 0; i < this.t.length; i++)
-                    this.t[i] = "-1";
+                this.t = this.defaultT;
             },
             clearM: function () {
-                for (var i = 0; i < this.m.length; i++)
-                    this.m[i] = "-1";
+                this.m = this.defaultM;
             },
             clear: function () {
-                this.tm = "0";
+                this.tm = this.defaultTm;
                 this.clearT();
                 this.clearM();
                 this.tDis = false;
                 this.mDis = false;
+            },
+            hasConstraints: function () {
+                if (this.tm != this.defaultTm)
+                    return true;
+                if (this.hasTeamConstraints())
+                    return true;
+                if (this.hasMemberConstraints())
+                    return true;
+                return false;
+            },
+            hasTeamConstraints: function () {
+                for (var i = 0; i < this.t.length; i++)
+                    if (this.t[i] != this.defaultT[i])
+                        return true;
+                return false;
+            },
+            hasMemberConstraints: function () {
+                for (var i = 0; i < this.m.length; i++)
+                    if (this.m[i] != this.defaultM[i])
+                        return true;
+                return false;
             }
         };
 
@@ -77,6 +99,20 @@ app.controller("searchCtrl",
                 $scope.constraint.tDis = true;
                 $scope.constraint.clearT();
             }
+        });
+
+        $scope.$watchCollection("constraint.t", function (newVal, oldVal, scope) {
+            if (!$scope.constraint.hasTeamConstraints() && $scope.constraint.hasMemberConstraints())
+                $scope.constraint.tm = "2";
+            else if (!$scope.constraint.hasMemberConstraints() && $scope.constraint.hasTeamConstraints())
+                $scope.constraint.tm = "1";
+        });
+
+        $scope.$watchCollection("constraint.m", function (newVal, oldVal, scope) {
+            if (!$scope.constraint.hasTeamConstraints() && $scope.constraint.hasMemberConstraints())
+                $scope.constraint.tm = "2";
+            else if (!$scope.constraint.hasMemberConstraints() && $scope.constraint.hasTeamConstraints())
+                $scope.constraint.tm = "1";
         });
 
         //helper functions
@@ -172,136 +208,152 @@ app.controller("searchCtrl",
             var keywords = normailizeText($scope.searchInput);
 
             //when keywords contain only symbols or spaces, do nothing
-            if (keywords.length == 1 && keywords[0] == "" || keywords.join("") == "")
+            if (keywords.join("") == "" && !$scope.constraint.hasConstraints())
                 return;
+
+            //some layout changes
+            disableCentralize();
 
             //Add Search History to Firebase
             addSearchHistory(keywords);
 
-            //calculate the similarity of each team data
-            var teams = $scope.teamData;
+            //define local score array
             var scores = [];
-            // -e means equal, -s means similar
-            var scoreList = {
-                "id-e": 100,
-                "id-s": function (dummy) { return 0 },
-                "name-e": 90,
-                "name-s": function (percentage) { return 90 * percentage },
-                "destination-e": 60,
-                "destination-s": function (percentage) { return 60 * percentage },
-                "language-e": 30,
-                "language-s": function (dummy) { return 0 },
-                "tag-e": 70,
-                "tag-s": function (percentage) { return 70 * percentage },
-                "description-e": 70,
-                "description-s": function (percentage) { return 70 * percentage },
-            };
 
-            //loop through the team list
-            for (var i = 0; i < teams.length; i++) {
-                var id = teams[i].id;
-                var name = teams[i].name.toLowerCase();
-                var destination = teams[i].destination.toLowerCase();
-                var language = teams[i].language_for_communication.toLowerCase();
-                var tag = teams[i].tags;
-                for (var j = 0; j < tag.length; j++)
-                    tag[j] = tag[j].toLowerCase();
-                var description = teams[i].descriptions;
+            //calculate the similarity of each team data
 
-                var score = 0;
-                //match id
-                score += getSimilarityScore(keywords, id, "id", scoreList);
+            if ($scope.constraint.tm != 2) {
+                var teams = $scope.teamData;
+                // -e means equal, -s means similar
+                var scoreList = {
+                    "id-e": 100,
+                    "id-s": function (dummy) { return 0 },
+                    "name-e": 90,
+                    "name-s": function (percentage) { return 90 * percentage },
+                    "destination-e": 60,
+                    "destination-s": function (percentage) { return 60 * percentage },
+                    "language-e": 30,
+                    "language-s": function (dummy) { return 0 },
+                    "tag-e": 70,
+                    "tag-s": function (percentage) { return 70 * percentage },
+                    "description-e": 70,
+                    "description-s": function (percentage) { return 70 * percentage },
+                };
 
-                //match name
-                score += getSimilarityScore(keywords, name, "name", scoreList);
+                //loop through the team list
+                for (var i = 0; i < teams.length; i++) {
+                    //constraints
+                    // var num = parseInt($scope.constraint.t[0]);
+                    // $scope.debugMsg = num;
+                    // if (num != -1 && teams[i].destination.toLowerCase() != getCountryListItem(num).toLowerCase())
+                    //     continue;
 
-                //match destination
-                score += getSimilarityScore(keywords, destination, "destination", scoreList);
+                    var id = teams[i].id;
+                    var name = teams[i].name.toLowerCase();
+                    var destination = teams[i].destination.toLowerCase();
+                    var language = teams[i].language_for_communication.toLowerCase();
+                    var tag = teams[i].tags;
+                    for (var j = 0; j < tag.length; j++)
+                        tag[j] = tag[j].toLowerCase();
+                    var description = teams[i].descriptions;
 
-                //match language
-                score += getSimilarityScore(keywords, language, "language", scoreList);
+                    var score = 0;
+                    //match id
+                    score += getSimilarityScore(keywords, id, "id", scoreList);
 
-                //match tag
-                score += getSimilarityScore(keywords, tag.join(" "), "tag", scoreList);
+                    //match name
+                    score += getSimilarityScore(keywords, name, "name", scoreList);
 
-                //match description
-                score += getSimilarityScore(keywords, description, "description", scoreList);
+                    //match destination
+                    score += getSimilarityScore(keywords, destination, "destination", scoreList);
 
-                //update the result if score > 0
-                if (score > 0) {
-                    scores.push(score);
-                    var e1 = hightlight(teams[i].name, keywords);
-                    var e2 = hightlight(id, keywords);
-                    var e3 = hightlight(teams[i].descriptions, keywords);
-                    var e4 = hightlight(teams[i].language_for_communication, keywords);
-                    var e5 = hightlight(teams[i].destination, keywords);
-                    var e6 = hightlight(teams[i].tags.join(" * "), keywords).split(" * ");
-                    teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, ""));
+                    //match language
+                    score += getSimilarityScore(keywords, language, "language", scoreList);
+
+                    //match tag
+                    score += getSimilarityScore(keywords, tag.join(" "), "tag", scoreList);
+
+                    //match description
+                    score += getSimilarityScore(keywords, description, "description", scoreList);
+
+                    //update the result if score > 0
+                    if (score > 0) {
+                        scores.push(score);
+                        var e1 = hightlight(teams[i].name, keywords);
+                        var e2 = hightlight(id, keywords);
+                        var e3 = hightlight(teams[i].descriptions, keywords);
+                        var e4 = hightlight(teams[i].language_for_communication, keywords);
+                        var e5 = hightlight(teams[i].destination, keywords);
+                        var e6 = hightlight(teams[i].tags.join(" * "), keywords).split(" * ");
+                        teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, ""));
+                    }
                 }
             }
 
-            //do the same thing on member data
-            //calculate the similarity of each member data
-            var members = $scope.memberData;
-            //clear the scores used in searching teams
+            if ($scope.constraint.tm != 1) {
+                //do the same thing on member data
+                //calculate the similarity of each member data
+                var members = $scope.memberData;
+                //clear the scores used in searching teams
 
-            //create similarity score list for members
-            scoreList = {
-                "id-e": 100,
-                "id-s": function (dummy) { return 0 },
-                "name-e": 90,
-                "name-s": function (percentage) { return percentage * 90 },
-                "description-e": 60,
-                "description-s": function (percentage) { return percentage * 60 },
-                "email-e": 80,
-                "email-s": function (percentage) { return percentage * 60 },
-                "from-e": 60,
-                "from-s": function (percentage) { return percentage * 60 },
-                "language-e": 30,
-                "language-s": function (percentage) { return percentage * 30 }
-            }
+                //create similarity score list for members
+                scoreList = {
+                    "id-e": 100,
+                    "id-s": function (dummy) { return 0 },
+                    "name-e": 90,
+                    "name-s": function (percentage) { return percentage * 90 },
+                    "description-e": 60,
+                    "description-s": function (percentage) { return percentage * 60 },
+                    "email-e": 80,
+                    "email-s": function (percentage) { return percentage * 60 },
+                    "from-e": 60,
+                    "from-s": function (percentage) { return percentage * 60 },
+                    "language-e": 30,
+                    "language-s": function (percentage) { return percentage * 30 }
+                }
 
-            //save the count value in order to make the element id number correct
-            var resultCount = teamsAndMembers.length;
+                //save the count value in order to make the element id number correct
+                var resultCount = teamsAndMembers.length;
 
-            //loop through the whole member list
-            for (var i = 0; i < members.length; i++) {
-                id = members[i].id;
-                name = (members[i].first_name + " " + members[i].last_name).toLowerCase();
-                description = members[i].descriptions.toLowerCase();
-                var email = members[i].email.toLowerCase();
-                var from = members[i].from.toLowerCase();
-                language = members[i].language.join(" ").toLowerCase();
+                //loop through the whole member list
+                for (var i = 0; i < members.length; i++) {
+                    id = members[i].id;
+                    name = (members[i].first_name + " " + members[i].last_name).toLowerCase();
+                    description = members[i].descriptions.toLowerCase();
+                    var email = members[i].email.toLowerCase();
+                    var from = members[i].from.toLowerCase();
+                    language = members[i].language.join(" ").toLowerCase();
 
-                score = 0;
-                //match id
-                score += getSimilarityScore(keywords, id, "id", scoreList);
+                    score = 0;
+                    //match id
+                    score += getSimilarityScore(keywords, id, "id", scoreList);
 
-                //match name
-                score += getSimilarityScore(keywords, name, "name", scoreList);
+                    //match name
+                    score += getSimilarityScore(keywords, name, "name", scoreList);
 
-                //match description
-                score += getSimilarityScore(keywords, description, "description", scoreList);
+                    //match description
+                    score += getSimilarityScore(keywords, description, "description", scoreList);
 
-                //match email
-                score += getSimilarityScore(keywords, email, "email", scoreList);
+                    //match email
+                    score += getSimilarityScore(keywords, email, "email", scoreList);
 
-                //match the host country
-                score += getSimilarityScore(keywords, from, "from", scoreList);
+                    //match the host country
+                    score += getSimilarityScore(keywords, from, "from", scoreList);
 
-                //match language
-                score += getSimilarityScore(keywords, language, "language", scoreList);
+                    //match language
+                    score += getSimilarityScore(keywords, language, "language", scoreList);
 
-                //update the result if score > 0
-                if (score > 0) {
-                    scores.push(score);
-                    var e1 = hightlight(members[i].first_name + " " + members[i].last_name, keywords);
-                    var e2 = hightlight(id, keywords);
-                    var e3 = hightlight(members[i].descriptions, keywords);
-                    var e4 = hightlight(members[i].language.join(" * "), keywords).split(" * ").join(", ");
-                    var e5 = hightlight(members[i].from, keywords);
-                    var e6 = hightlight(members[i].email, keywords);
-                    teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6));
+                    //update the result if score > 0
+                    if (score > 0) {
+                        scores.push(score);
+                        var e1 = hightlight(members[i].first_name + " " + members[i].last_name, keywords);
+                        var e2 = hightlight(id, keywords);
+                        var e3 = hightlight(members[i].descriptions, keywords);
+                        var e4 = hightlight(members[i].language.join(" * "), keywords).split(" * ").join(", ");
+                        var e5 = hightlight(members[i].from, keywords);
+                        var e6 = hightlight(members[i].email, keywords);
+                        teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6));
+                    }
                 }
             }
 
@@ -323,7 +375,10 @@ app.controller("searchCtrl",
     }
 );
 
-//layout stuffs
+//global variables
+var countrylist;
+var languagelist;
+
 $(document).ready(function () {
     //initialization
     $("#searchSuggestion").hide();
@@ -344,32 +399,30 @@ $(document).ready(function () {
 
     //load the Json file to the html
     $.getJSON("https://gist.githubusercontent.com/timfb/551d3ed641435fd15c25b99ea9647922/raw/ce3b3d8459491d38fafe69020bd3535bfd11d334/countrylist.json", function (data) {
-        var countrylist = data.country_list;
+        countrylist = data.country_list;
         for (var i = 0; i < countrylist.length; i++)
-            $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
+            $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]'], select[ng-model='constraint.t[0]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
     });
-    $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/c2fe6aa4dc3b7c578ac6c1c7c17915dd78a2d475/languagelist.json", function (data) {
-        var languagelist = data.languages;
+    $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/116c838a8df916d72fed37c6a4123b2891f88eef/languagelist.json", function (data) {
+        languagelist = data.languages;
         languagelist = sortArray(languagelist, "English");
         for (var i = 0; i < languagelist.length; i++)
-            $("select[ng-model='constraint.m[3]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
-    })
-
-    // $("select [ng-model=constraint.m[1]]").append("<option value=")
+            $("select[ng-model='constraint.m[3]'], select[ng-model='constraint.t[1]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
+    });
 
     //layout changes
-    $("#searchBtnContainer input[type='button']").click(function () {
-        var keywords = normailizeText($("#searchTextField").val());
-        if (keywords.length == 1 && keywords[0] == "" || keywords.join("") == "")
-            return;
-        $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
-        $("#searchBtnContainer").hide();
-        $("#smSearchBtnContainer").removeClass("hide");
-        $("#searchTextField").parent().removeClass("col-xs-12 col-sm-12 col-md-12 col-lg-12").addClass("col-xs-11 col-sm-11 col-md-11  col-lg-11");
+    // $("#searchBtnContainer input[type='button']").click(function () {
+    //     var keywords = normailizeText($("#searchTextField").val());
+    //     if (keywords.join("") == "" && !$scope.constraint.hasConstraints())
+    //         return;
+    //     $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
+    //     $("#searchBtnContainer").hide();
+    //     $("#smSearchBtnContainer").removeClass("hide");
+    //     $("#searchTextField").parent().removeClass("col-xs-12 col-sm-12 col-md-12 col-lg-12").addClass("col-xs-11 col-sm-11 col-md-11  col-lg-11");
 
-        var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
-        $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
-    });
+    //     var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
+    //     $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
+    // });
 
     //keydown handling
     $("#searchTextField").keydown(function (event) {
@@ -403,9 +456,12 @@ function disableCentralize() {
     $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
 }
 
-//Compare two date
-function compareDate (d1,d2){
-    // if (new Date(d1).setUTCFullYear)
+//Compare two dates
+function compareDate(d1, d2) {
+    var day = new Date(d1).getUTCDay() - new Date(d2).getUTCDay();
+    var month = new Date(d1).getUTCMonth() - new Date(d2).getUTCMonth();
+    var year = new Date(d1).getUTCFullYear() - new Date(d2).getUTCFullYear();
+    return day + month * 30 + year * 365;
 }
 
 //remove symbols in text
@@ -535,4 +591,14 @@ function hightlight(text, keywords) {
         }
     }
     return result.join(" ");
+}
+
+//get country list item
+function getCountryListItem(index) {
+    return countrylist[index].name;
+}
+
+//get language list item
+function getLanguageListItem(index) {
+    return languagelist[index];
 }
