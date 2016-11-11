@@ -37,6 +37,7 @@
    <br>
 
    <div class="text-center">
+	
       <h1>Team Page</h1>
       <h2 id="text_event_name"></h2>
        <div id="team_page_controller" ng-controller="TeamCtrl">
@@ -54,7 +55,7 @@
                 <form class="form-horizontal text-left">
 				
                   <div class="form-group">
-				  
+						<button type="button" class="btn btn-primary" ng-click="autoadd()" >AutoAdd</button>
                      <label for="inputTeamName" class="control-label">Team Name</label>
 					 <br>
 					 
@@ -179,6 +180,7 @@
 
 
    <script src="js/team.js"></script>
+   <!-- <script src="js/autoadd.js"></script> -->
 
    </body>
 </html>

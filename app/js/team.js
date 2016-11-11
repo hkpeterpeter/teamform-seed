@@ -64,7 +64,7 @@ angular.module('teamform-team-app', ['firebase'])
 			//$scope.test += obj.$id + " " ;
 			
 			var userID = obj.$id;
-			var userSex = obj.sex;
+			// var userSex = obj.sex;
 			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1 ) {
 				//$scope.test += userID + " " ;
 				
@@ -215,11 +215,97 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 		
 	}
+
 	
-	
-	
-	
+	$scope.autoadd = function(){
+		
+
+
+		  var eventName = getURLParameter("q") +"/member/";
+		  console.log(eventName);
+		  var ref = firebase.database().ref(eventName);
+		  var event = $firebaseArray(ref);
+		  console.log(event);
+		  
+		  var teamPath = getURLParameter("q") + "/team/";
+		  var teams = firebase.database().ref(teamPath);
+		  var team = $firebaseArray(teams);
+
+
+		  
+	event.$loaded().then( function(data){
+			outerloop:
+		  for( var mem in event){
+			  
+			  console.log(mem);
+			  
+			  if(mem != null && typeof mem != "undefined"){
+				if ( typeof event[mem].selection != "undefined" && typeof event[mem].selection != "null"){
+				  console.log("Fuck Yeah!",typeof event[mem].selection,"id",event[mem]["$id"] );
+				 
+				  for(var cteam in team){
+					   if(cteam != null && typeof cteam != "undefined"){
+							if ( typeof team[cteam].teamMembers != "undefined" && typeof team[cteam].teamMembers != "null"){
+								console.log(team[cteam]["$id"]);
+								if( team[cteam].teamMembers.length < team[cteam].size){
+									console.log(team[cteam].teamMembers);
+								event[mem].selection =[];
+								firebase.database().ref(getURLParameter("q") +"/member/" + event[mem]["$id"] ).set({
+									name: event[mem]["name"] 
+								});
+
+								team[cteam].teamMembers.push(event[mem]["$id"]);
+								firebase.database().ref(getURLParameter("q") +"/team/" + team[cteam]["$id"] ).set({
+									size: team[cteam]["size"],
+									teamMembers: team[cteam].teamMembers
+								});
+								
+								continue outerloop;
+								}
+							}
+					   }
+					
+				    }
+				}
+				  
+			  }
+			  
+
+		  }
+
+		
+	});
+
+		  
+	  }
 	
 	
 		
 }]);
+	// ;
+// .controller("AutoAddCtrl", ["$scope", "$firebaseAuth",
+  // function($scope, $firebaseAuth) {
+   // //your code
+	  // $scope.autoadd = function(){
+		  // var eventName = getURLParameter("q");
+		  
+		  // var memPath = getURLParameter("q") + "/member";
+		  // var mems = firebase.database().ref(memPath);
+		  
+		  // var teamPath = getURLParameter("q") + "/team";
+		  // var teams = firebase.database().ref(teamPath);
+		  
+		  // for( var mem in mems){
+			  // if ( !mem.selection !==""){
+				  // for(var team in teams){
+					  // if( team.currentTeamSize < team.size){
+							// team.teamMembers.push(mem);
+							// team.currentTeamSize++;}
+					
+				  // }
+			  // }
+		  // }
+		  
+	  // }
+  // }
+// ]);
