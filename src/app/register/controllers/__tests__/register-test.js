@@ -21,7 +21,6 @@ describe('RegisterController', () => {
         });
         await $controller.register();
         $timeout.flush();
-        expect($controller.$state.current.name).toEqual('user.detail.edit');
         done();
     });
 
