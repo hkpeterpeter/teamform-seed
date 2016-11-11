@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/site.css">
-  
+		
     <script src="js/site.js"></script>
     
   </head>
@@ -82,7 +82,7 @@
 	            <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 	          </span>
 	        </div>
-<<<<<<< HEAD
+
   <div class="row">
 	 <u1>Tags (desired ability/traits for team members):</u1>
 	 <ul ng-repeat="tag in tags">
@@ -93,19 +93,19 @@
 		</div>
 	 </u1>
 	</div>
-=======
-	<div class="row">
-	<ul>Tags (desired ability/traits for team members):</ul>
-	<ul ng-repeat="tag in tags">
-	 <div class="checkbox">
-		<label><input type="checkbox" ng-checked="tagChecked(tag.$value);" ng-click="addTags(tag.$value);">
-		<li>{{tag.$value}}</li>
-	  </label>
-	 </div>
-	</ul>						
-	</div>
->>>>>>> origin/master
-	      </form>
+
+<div class="row">
+<button ng-click="openCategory();" class="dropbtn">Add Tags for Your Team</button>
+  <div id="myDropdown" class="dropdown-content">
+		<div ng-repeat="tt in tags">
+    <label><input type="checkbox"	ng-checked="tagChecked(tt.$value);"	 ng-click="addTags(tt.$value);">
+		<li>{{tt.$value}}</li>
+		</label>
+		</div>
+  </div>
+</div>
+
+</form>
 
 	      <div class="row">
 	        <div class="col-sm-6">

@@ -187,6 +187,9 @@ angular.module('teamform-team-app', ['firebase'])
 		if(addOrNot){$scope.param.tags.push(tagval);}
 		else{$scope.param.tags.splice(k,1);}
 	};
+	$scope.openCategory = function(){
+		document.getElementById("myDropdown").classList.toggle("show");
+	}
 	//tagsfunctionendshere
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;		
