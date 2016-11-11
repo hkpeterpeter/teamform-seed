@@ -34,29 +34,23 @@
 	</head>
 	
 	<body>
-		
-		
-		<div ng-submit="addMessage()">
-		<input type="text" ng-model="message" placeholder="Please enter your message..." >	
-		<input type="submit" value="Sent" >		
-		</form>
+		<div ng-controller="chatRoomCtrl">		
+			<div>
+			<input id="message" type="text" name="message" ng-model="input.message" placeholder="Please enter your message...">	
+			<input  type="button" value="Sent" ng-click="addMessage()">		
+			</form>
+			</div>
+			
+			
+			<div class="col-md-8">
+				<p>Messages:</p>
+				<ul ng-repeat="text in chatList">
+					{{text.message}} </br>
+					{{text.date}}
+				</ul>
+			</div>
 		</div>
-		
-		<div class="col-md-8">
-				<p>Debug:</p>
-				<pre>input = {{ message }}</pre>
-		</div>
-		
-		<div class="col-md-8">
-			<p>Messages:</p>
-			<ul ng-repeat="text in list">>
-				{{text.message}}
-			</ul>
-		</div>
-		
 		<!-- Controller -->
-		<script src="chatRoom.js"></script>
-
-		
+		<script src="js/chatRoom.js"></script>
 	</body>
 </html>
