@@ -1,18 +1,19 @@
 <!DOCTYPE html> 
 <html ng-app="adboard"> 
 <head>
+
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
  	<!-- Angular Library -->
  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
  
  	<!-- Firebase -->
- 	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+<!--  	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script> -->
  
  	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
  	<script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
  
-<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-<script>
+<!-- <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script> -->
+<!-- <script>
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
@@ -22,18 +23,30 @@
     messagingSenderId: "946291658553"
   };
   firebase.initializeApp(config);
+</script> -->
+
+<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBQx6O7A6c0YXgWdhfQPaIWjDAHuSwXe4Y",
+    authDomain: "comp3111-12136.firebaseapp.com",
+    databaseURL: "https://comp3111-12136.firebaseio.com",
+    storageBucket: "comp3111-12136.appspot.com",
+    messagingSenderId: "519493978618"
+  };
+  firebase.initializeApp(config);
 </script>
 <title> Add Advertisement Page</title>
 </head>
-<body ng-controller="adboardCtrl">
-
-			
-	<div class="container">
+<body> 
+<!-- for creating post -->
+ 	<div ng-controller="adboardCtrl" class="container">
 		<form role="form" name="postForm" ng-submit="createPost()" novalidate="">
 		<legend>Create trip plan advertisement</legend>
 		<div class ="row">
 		<!-- //\\<div class="col-md-5"> -->
-			<dic class="form-group">
+			<div class="form-group">
 			<label for="nametxt">User Name</label>
 			<Input type="text" name="nametxt" class="form-control" placeholder="Contact Person" ng-model="article.nametxt" required="">
 			</div>
@@ -49,6 +62,19 @@
 			</div>
 		</form>
 	</div>
-	<script src="js/addpost.js"></script>
+<!-- </div>
+ -->
+<!-- for showing posts -->
+ 	<div ng-controller="ViewCtrl" class="container">
+
+	<div class="row">
+		<div class="col-md-12">
+			<h1>{{article.name}}</h1>
+			<p>{{article.post}}</p>
+		</div>
+	</div>
+</div>
+
+		<script src="js/addpost.js"></script>
 </body>
 </html>
