@@ -9,7 +9,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
       
         teamref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
-        teamref.update({team:teamID}).then(function(){
+        return teamref.update({team:teamID}).then(function(){
             teamref.child("position").set(position).then(function(error){
                 eventref = firebase.database().ref("events/"+eventID);
                 tbaref = eventref.child("tba/"+uid);
@@ -17,6 +17,10 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                         var temp = {};
                         temp[uid] = uid;
                         eventref.child("/teams/"+teamID).child('members').update(temp);
+                        eventref.child("/teams/"+teamID).child('members').update(temp);
+                        $firebaseObject(eventref.child("/teams/"+teamID)).$loaded().then(function(team){
+                            eventref.child("/teams/"+teamID+"/currentSize").set(team.currentSize + 1);
+                        })
                 });
             });
         });
@@ -26,7 +30,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.deletePersonFromTeam = function(uid, eventID, teamID) {
 
         teamRef=firebase.database().ref("events/"+eventID+"/teams/"+teamID);
-        $firebaseObject(teamRef).$loaded().then(function(team){
+        return $firebaseObject(teamRef).$loaded().then(function(team){
             teamRef.child("currentSize").set(team.currentSize - 1).then(function(data){
                     teamRef.child("members").child(uid).remove().then(function(error){
                         uref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
@@ -43,7 +47,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.createTeam = function(uid, eventID, team) {
         ref = firebase.database().ref("events/"+eventID+"/teams");
         teams=$firebaseArray(ref);
-        teams.$add(team).then(function(ref){
+        return teams.$add(team).then(function(ref){
             teamID=ref.key;
             helper.addPersonToTeam(uid, eventID,teamID,"leader");
         })
@@ -53,7 +57,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.deleteTeam = function(eventID, teamID) {
         ref=firebase.database().ref("events/"+eventID+"/teams/"+teamID);
         team=$firebaseObject(ref);
-        team.$loaded().then(function(data){
+        return team.$loaded().then(function(data){
             for(key in team.members)
             {
                 id=team.members[key];
@@ -72,7 +76,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         //add event to events tree
         ref = firebase.database().ref("events");
         var events=$firebaseArray(ref);
-        events.$add(event).then(function(ref){
+        return events.$add(event).then(function(ref){
             var eventId = ref.key;
             //add event to users tree
 
@@ -99,7 +103,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
         console.log("notifications created");
 
-        notifications.$loaded().then(function(){
+        return notifications.$loaded().then(function(){
             notifications.$add({content: msg, isRead: false});
         });
     }
@@ -116,7 +120,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         uref=firebase.database().ref("users/"+toUid+"/writable/"+eventID+"/invitations");
         temp = {};
         temp[teamID] = teamID;
-        uref.update(temp);
+        return uref.update(temp).then(function(){});
     }
 
 
@@ -131,7 +135,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         uref=firebase.database().ref("users/"+uid+"/writable/"+eventID+"/applications");
         temp = {};
         temp[teamID] = teamID;
-        uref.update(temp);
+        return uref.update(temp).then(function(){});
     }
 
     //checked
@@ -153,7 +157,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
        //  });
         applicationList_ref.set("withdrawn");
 
-		team.$loaded().then(function(){
+		return team.$loaded().then(function(){
             user.$loaded().then(function(){
                 // send notification to leader
                 var msg = user.readOnly.name + " has withdrawn an application for your team " + team.name;
@@ -172,7 +176,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         //order of operation matters?
         //delete user from event record
         eref=firebase.database().ref("events/"+eventID+"/tba/"+uid);
-        eref.remove().then(function(data){
+        return eref.remove().then(function(data){
             //delete event from user record
             uref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
             uref.remove();
@@ -195,7 +199,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         var applicationList_ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID + "/invitations");
         // var applicationList = $firebaseObject(applicationList_ref);
 
-        event.$loaded().then(function(){
+        return event.$loaded().then(function(){
             team.$loaded().then(function(){
                 user.$loaded().then(function(){
 
@@ -257,7 +261,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
        //  });
         invitationList_ref.set("declined");
 
-		team.$loaded().then(function(){
+		return team.$loaded().then(function(){
             user.$loaded().then(function(){
                 // send notification to leader
                 var msg = user.readOnly.name + " has declined an invitation from your team " + team.name;
@@ -277,14 +281,14 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   			temp[uid] = "accepted";
   			ref.child('applications').update(temp);
         helper.addPersonToTeam(uid, eventID,teamID, "member");
-        helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
+        return helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
         var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
         var temp = {};
   			temp[uid] = "declined";
-  			ref.child('applications').update(temp);
+  			return ref.child('applications').update(temp).then(function(){});
     }
     helper.updateEvent = function(eventID) {
         //lby
@@ -301,13 +305,13 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.postEventAnnouncement = function(eventID, msg) {
         //lby
         ref=firebase.database().ref("events/"+eventID+"/eventInfo/announcements");
-        $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()});
+        return $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()}).then(function(){});
     }
     helper.postTeamAnnouncement = function(eventID, teamID, msg) {
         //wyz
         // DON'T NEED UID IN THIS CASE?
         ref=firebase.database().ref("events/"+eventID+"/teams/" + teamID  + "/announcements");
-        $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()});
+        return $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()}).then(function(){});
     }
     helper.setEventState= function(uid, eventID, state) {
         //lby
@@ -327,7 +331,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         memberRef = firebase.database().ref("users/" + fromuid + "/writable/" + eventID);
         memberRef.child("position").set("member");
 
-        helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
+        return helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
     }
 
     helper.getUsername  = function(uid){
@@ -340,7 +344,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
     helper.joinEvent = function(uid, eventID) {
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
-        ref.set({position:"tba"}).then(function(data){
+        return ref.set({position:"tba"}).then(function(data){
                 eventRef=firebase.database().ref("events/"+eventID+"/tba/"+uid);
                 eventRef.set(uid);
             });
@@ -350,7 +354,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.changeReadState = function(uid,eid,nid){
 
         ref = firebase.database().ref("users/"+uid+"/writable/"+eid+"/notifications/"+nid)
-        ref.child("isRead").set(true);
+        return ref.child("isRead").set(true).then(function(){});
 
     }
 
