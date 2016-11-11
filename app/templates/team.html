@@ -27,7 +27,7 @@
   			<p>
   				{{teamdata.desc}}
   			</p>
-        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='tba'" ng-click = "ApplyTeam()">Apply fot this team</button>
+        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='tba'" ng-click = "ApplyTeam()">Apply for this team</button>
   			<form class="form-search">
   				<input class="input-medium search-query" type="text" /> <button type="submit" class="btn">Search</button>
   			</form>
@@ -42,7 +42,9 @@
           </div>
           <div class="panel-body">
             <ul ng-repeat="(id,uid) in members">
-                 <li>{{users.$getRecord(uid).readOnly.name}}</li>
+                 <li>{{users.$getRecord(uid).readOnly.name}}
+                   <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader'" ng-click = "DeleteMember()">Reject</button>
+                 </li>
             </ul>
           </div>
           <div>
@@ -90,8 +92,8 @@
             <ul ng-repeat="x in applications">
               <li>
                 {{users.$getRecord(x.$id).readOnly.name}} : {{x.$value}}
-                <button type="button" class="btn btn-primary" ng-click="accept_Application(x.$id)" ng-if = "myEvents[eventID] | role)=='leader'">Accept</button>
-                <button type="button" class="btn btn-primary" ng-click="decline_Application(x.$id)" ng-if = "x.$value == 'pending' ">Reject</button>
+                <button type="button" class="btn btn-primary" ng-click="accept_Application(x.$id)" ng-if = "(myEvents[eventID] | role)=='leader' &&  x.$value == 'pending'">Accept</button>
+                <button type="button" class="btn btn-primary" ng-click="decline_Application(x.$id)" ng-if = "(myEvents[eventID] | role)=='leader' &&  x.$value == 'pending' ">Reject</button>
               </li>
             </ul>
           </div>
