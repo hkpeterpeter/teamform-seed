@@ -33,6 +33,9 @@ app.controller("teamCtrl",
 
 						ref=firebase.database().ref("users");
 						$scope.users=$firebaseArray(ref);
+
+						ref=firebase.database().ref("events/" + $scope.eventID + "/teams");
+						$scope.teams = $firebaseArray(ref);
 						//get role of user
 						ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable");
 						$scope.myEvents = $firebaseObject(ref);
@@ -51,7 +54,25 @@ app.controller("teamCtrl",
 						//         console.log($scope.obj[$scope.eventID]);
 						//     }
 						// })
-
+						eventref = firebase.database().ref("users/" + $scope.userData.uid + "/writable");
+						eventref.once('value', function (snapshot) {
+    					if (!snapshot.hasChild($scope.eventID)) {
+        				$scope.inthisteam = false;
+    				}
+						else{
+							teamref=firebase.database().ref("users/" + $scope.userData.uid + "/writable/" + $scope.eventID );
+							$scope.team_id = $firebaseObject(teamref);
+							$scope.team_id.$loaded().then(function(){
+								// console.log(team_id);
+								if($scope.team_id.team == $scope.teamID){
+									$scope.inthisteam = true;
+								}
+								else{
+									$scope.inthisteam = false;
+								}
+							})
+						}
+					});
 				} else console.log("signed out");
 		});
 		//
