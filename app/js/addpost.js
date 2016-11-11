@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module("adboard", ["firebase"]);
+var app = angular.module("adboard", ["firebase"]);
 
-.controller("adboardCtrl", ["$scope", "$firebaseArray", function($scope, $firebaseArray)
+// for creating post
+app.controller("adboardCtrl", ["$scope", "$firebaseArray", function($scope, $firebaseArray)
 {
 
 	var ref = firebase.database().ref().child('Articles');
@@ -21,6 +22,17 @@ angular.module("adboard", ["firebase"]);
 		});
 	};
 
+
+//for showing posts
+app.controller("ViewCtrl", ['$scope' , 'CommonProp' , '$firebaseArray' , function($scope,CommonProp,$firebaseArray){
+
+	// $scope.username = CommonProp.getUser();
+
+	var ref = firebase.database().ref().child('Articles');
+	$scope.articles = $firebaseArray(ref);
+
+
+}]);
 
 
 
