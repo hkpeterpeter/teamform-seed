@@ -1,13 +1,21 @@
 'use strict';
-
-var app = angular.module("adboard", ["firebase"]);
+angular.module("adboard", ["firebase"])
 
 // for creating post
-app.controller("adboardCtrl", ["$scope", "$firebaseArray", function($scope, $firebaseArray)
-{
+.controller("adboardCtrl", ["$scope", "$firebaseArray", function($scope, $firebaseArray)
+{	
+	        var config = {
+            apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+            authDomain: "comp3111-5fbe5.firebaseapp.com",
+            databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+            storageBucket: "comp3111-5fbe5.appspot.com",
+            messagingSenderId: "946291658553"
+        };
+        firebase.initializeApp(config);
 
-	var ref = firebase.database().ref().child('Articles');
+        	var ref = firebase.database().ref().child('articles');
 	$scope.articles = $firebaseArray(ref);
+
 
 	$scope.createPost = function(){
 		var name = $scope.article.nametxt;
@@ -15,24 +23,9 @@ app.controller("adboardCtrl", ["$scope", "$firebaseArray", function($scope, $fir
 		$scope.articles.$add({
 			name: name,
 			post: post
-		}) .then(function(ref){
-			console.log(ref);
-		}, function(error){
-			console.log(error);
 		});
 	};
 
-
-//for showing posts
-app.controller("ViewCtrl", ['$scope' , 'CommonProp' , '$firebaseArray' , function($scope,CommonProp,$firebaseArray){
-
-	// $scope.username = CommonProp.getUser();
-
-	var ref = firebase.database().ref().child('Articles');
-	$scope.articles = $firebaseArray(ref);
-
-
-}]);
 
 
 

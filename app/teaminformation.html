@@ -1,29 +1,15 @@
 <!DOCTYPE html>
 
 <html>
-    <!-- Angular Library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-
-        <!-- AngularFire URL: https://github.com/firebase/angularfire -->
-    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
 
-
-
-<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
-    authDomain: "comp3111-5fbe5.firebaseapp.com",
-    databaseURL: "https://comp3111-5fbe5.firebaseio.com",
-    storageBucket: "comp3111-5fbe5.appspot.com",
-    messagingSenderId: "946291658553"
-  };
-  firebase.initializeApp(config);
-</script>
 
 <head>
+  <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/teaminformation.js"></script>
+
 <style>
 table,th, td {
     border: 1px solid black;
@@ -36,10 +22,11 @@ th, td{
 </head>
 
 
-<!-- <body ng-app=""> -->
+<body ng-app="teaminfo" ng-controller="teaminfoCtrl">
 
          <h1>Team information</h1>
-         <div ng-controller="teaminfo">
+
+
 
      <table width="1000" ><tr align="center">
 
@@ -52,26 +39,27 @@ th, td{
      <td>Commu. Lang.</td>
      <td>Preference</td>
     <!--  //<td>Members</td> -->
-     <td>Max No. of member</td>
+     <td>Max No. of members</td>
      <td>Tags</td>
+     <td>Members List</td>
 
      </tr>
 
 
 
-     
-         <tr data-ng-repeat="(key, a) in a.teams" ng-if="">
-         <td align="center">{{a.departure_date}}</td>
-         <td align="center">{{a.return_date}}</td>
-         <td align="center">{{a.name}}</td>
-         <td align="center">{{a.description}}</td>
-         <td align="center">{{a.destination}}</td>
-         <td align="center">{{a.estimated_budget_per_person}}</td>
-         <td align="center">{{a.language_for_communication}}</td>
-         <td align="center">{{a.preference}}</td>
-         <td align="center">{{a.max}}</td>
-         <td align="center">{{a.tags}}</td>
 
+           <tr ng-repeat="team in teams">
+         <td align="center">{{team.departure_date}}</td>
+         <td align="center">{{team.return_date}}</td>
+         <td align="center">{{team.name}}</td>
+         <td align="center">{{team.descriptions}}</td>
+         <td align="center">{{team.destination}}</td>
+         <td align="center">{{team.estimated_budget_per_person}}</td>
+         <td align="center">{{team.language_for_communication}}</td>
+         <td align="center">{{team.preference}}</td>
+         <td align="center">{{team.max}}</td>
+         <td align="center">{{team.tags}}</td>
+         <td align="center">{{team.members}}</td>
 
 
 
