@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="teamform-event-app">
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" >
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
@@ -38,20 +38,20 @@
 
    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>     
      
    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
    <script src="assets/lib/firebase.js"></script>     
-
+   <script src="assets/lib/angular-route.min.js"></script>    
    <script src="assets/js/headroom.min.js"></script>
    <script src="assets/js/jQuery.headroom.min.js"></script>
    <script src="assets/js/template.js"></script>
 
+
    <script src="assets/js/site.js"></script>
    <script src="assets/js/login.js"></script>
-   <script src="assets/js/admin.js"></script>
+   <script src="assets/js/event.js"></script>
 
 
 </head>
@@ -79,51 +79,92 @@
 
 	<header id="head" class="secondary"></header>
 
+	 <div class="text-center">
+      <h1>Administrative Page</h1>
+	  
+	 
+					 
+      <h2 id="text_event_name"></h2>
 
-		<div class="container">
-			
-			<h3 class="text-center thin"><p>CREATE EVENT</p></h3>
-			
-			<div class="row">
-			<em>Enter a name to create a event</em>
-			<input id="input_text" type="text" >
-			<button id="btn_event" type="button" class="btn btn-primary btn-sm" >Create</button>
-			</div> <!-- /row  -->
-		</div>
-	
-		
-	</div>	<!-- /container -->
+      <div id="event_page_controller" ng-controller="EventCtrl">
+
+         <div class="row">
+
+            <div class="col-md-2 col-xs-2"></div>
+
+            <div class="col-md-8 col-xs-8 text-left panel">
+
+			 
+
+             <strong>Minimum Team Size:</strong>  
+
+               <span class="badge">
+                 {{param.minTeamSize}}</span>
+                
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+
+            <br><br>
+
+             <strong>Maximum Team Size: </strong>  
+
+               <span class="badge">
+                 {{param.maxTeamSize}}</span>
+                
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+
+            <br><br>
+
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
 
 
-	<!-- container -->
-	<div class="container">
 
-		
+            </div>
+            
+             <div class="col-md-2 col-xs-2"></div>
 
-		<div class="row">
-			
-			<!-- Article main content -->
-			<div class="jumbotron top-space parallax">
-		<div class="container">
-		
-		             
-		
-			
-			<h3 class="text-center thin name"><p>CURRENT EVENT</p></h3>
-			
-			<div class="row">
-			<div class="col-md-6 col-sm-6 highlight">
-				<p>//reserve for event .....</p>					
-				</div>
-				<div class="col-md-6 col-sm-6 highlight">
-					<button type="button" class="btn btn-primary btn-sm">modify</button>
+         </div>
+     
+
+         <hr>
+
+		 <div class="row">
+			 <div class="col-md-6 col-xs-6 text-right" >
+			 
+				<h3>All teams:</h3>
+				<ul ng-repeat="t in team">
+					<li>
 					
-				</div>
-				
-			</div> <!-- /row  -->
-		
-		</div>
+						User ID: {{t.$id}}  <br>
+						Preferred team size: <span class="badge">{{t.size}}</span> <br>
+						Current team members: {{t.teamMembers}}
+					
+					</li>
+					
+				</ul>
 
+			 </div>
+			 
+			 <div class="col-md-6 col-xs-6 text-left">
+							
+			 
+			  <h3>All members:</h3>
+			  <ul ng-repeat="m in member">
+				
+				  <li>ID = {{m.$id}} <br> 
+				  Name = {{m.name}} <br>
+				  request to join the following teams: {{m.selection | json}}</li>
+			  </ul>
+
+			 </div>
+		 </div>
+
+
+      </div>
+   </div>
 	
 	
 	<footer id="footer">

@@ -24,22 +24,21 @@
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 
-     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
 
       <!-- Angular Library -->
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
       <!-- Firebase -->
-      <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
 
       <!-- AngularFire URL: https://github.com/firebase/angularfire -->
-      <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
 
    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-   <script src="assets/lib/angular-route.min.js"></script>        
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>     
      
    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
    <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
@@ -51,7 +50,6 @@
 
    <script src="assets/js/site.js"></script>
    <script src="assets/js/login.js"></script>
-   <script src="assets/js/index.js"></script>
 
 
 
@@ -76,7 +74,8 @@
 					<li class="active"><a href="#">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
-					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
+					<li><a href="admin.html">ADMIN</a></li>
+					<li><a class="btn" ng-click="loginwithgoogle();">SIGN IN WITH GOOGLE</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -299,13 +298,13 @@
 			<div class="container">
 				<div class="row">
 					
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<p class="simplenav">
+					<div class="col-md-6 widget" >
+						<div class="widget-body" >
+							<p class="simplenav" ng-controller="LoginCtrl" ng-app="teamform-login-app">
 								<a href="#">Home</a> | 
 								<a href="#event">Event</a> |
 								<a href="#about">About us</a> |
-								<b><a href="loginwithgoogle()">Sign in</a></b>
+								<a ng-click="loginwithgoogle()">Sign in</a>
 							</p>
 						</div>
 					</div>
