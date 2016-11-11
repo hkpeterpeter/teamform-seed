@@ -1,4 +1,21 @@
+    teamapp.controller("formController", function ($rootScope, $scope) {
 
+        $scope.skillsList = new Array();
+        $scope.receiveNewSikll = function () {
+            if ($scope.skillsList.indexOf($scope.newSkill) < 0){
+                $scope.skillsList.push($scope.newSkill);
+            }
+            $scope.newSkill = '';
+        };
+        $scope.removeSkill = function (skill_remove) {
+            var index = $scope.skillsList.indexOf(skill_remove);
+            console.log(index);
+            if (index > -1) {
+                $scope.skillsList.splice(index, 1);
+            }
+        };
+    });
+    
     teamapp.directive("simpleField",function(){
         return {
             restrict: "E",
