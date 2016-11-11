@@ -197,7 +197,7 @@
                                 <div class="card-content">
                                     <span class="card-title grey-text text-darken-3">{{ applicant.name }}
                                         <i class="close material-icons right" ng-click="deleteApplicant(applicant)">close</i>
-                                        <i class="close material-icons right">add</i>
+                                        <i class="close material-icons right" ng-click="addApplicant(applicant)">add</i>
                                     </span>
                                     <br/>
                                     <span class="team-text-span grey-text text-darken-3">Skills:
@@ -221,7 +221,7 @@
                         {{ smartPick.preferedSize }}</p>
                     <form action="#">
                         <p class="range-field">
-                            <input type="range" id="test5" min="{{ event.minSize }}" max="{{ event.maxSize }}" ng-model="smartPick.preferedSize"/>
+                            <input type="range" id="test5" min="{{ members.length }}" max="{{ event.maxSize }}" ng-model="smartPick.preferedSize"/>
                         </p>
                     </form>
                     <span class="section">Required Skills:
@@ -237,7 +237,7 @@
                         </a>
                     </span>
                     <div class="card-action">
-                        <a>Smart add</a>
+                        <a class="card-title cancel" ng-click="smartAdd()">Smart add</a>
                     </div>
                 </div>
                 <!-- Smart pick end -->
