@@ -6,16 +6,16 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
     var provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
     break;
-    case 'twitter':
-    var provider = new firebase.auth.TwitterAuthProvider();
-    break;
+    // case 'twitter':
+    // var provider = new firebase.auth.TwitterAuthProvider();
+    // break;
     case 'facebook':
     var provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('user_friends');
     break;
-    case 'github':
-    var provider = new firebase.auth.GithubAuthProvider();
-    break;
+    // case 'github':
+    // var provider = new firebase.auth.GithubAuthProvider();
+    // break;
     default:
       // statements_def
       console.log('error login');
@@ -28,11 +28,14 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
   var token = result.credential.accessToken;
   // The signed-in user info.
   var user = result.user;
-  console.log(result);
 
   successFlag = true;
-  if (successFlag)
-      $('.loginB').toggle();
+
+  if (successFlag) {
+      // $('.loginB').toggle();
+      $('.cd-user-modal').removeClass('is-visible');
+      $('.loginB').css('display', 'none');
+    }
 }).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
@@ -79,11 +82,11 @@ $scope.switcher = function(event) {
   ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
 }
 
-$scope.changeVisible = function(event) {
+// $scope.changeVisible = function(event) {
 
-  if( $(event.target).is($('.cd-user-modal')) || $(event.target).is('.cd-close-form') ) {
-     $('.cd-user-modal').removeClass('is-visible');
-  }
-}
+//   if( $(event.target).is($('.cd-user-modal')) || $(event.target).is('.cd-close-form') ) {
+//      $('.cd-user-modal').removeClass('is-visible');
+//   }
+// }
 
 }]);
