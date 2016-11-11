@@ -44,8 +44,10 @@ app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($s
 	$scope.signIn = function() {
         Auth.$signInWithEmailAndPassword($scope.lInput.email, $scope.lInput.password)
 		.then(function(authData) {
+            console.log("Logged in as:", authData.uid);
 			$scope.LoginMessage = "Logged in as:" + authData.uid;
             $rootScope.id=authData.uid;
+            $state.go('home');
 		}).catch(function(error) {
 			LoginMessage = "Authentication failed:" + error;
 		});

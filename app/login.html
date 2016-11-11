@@ -33,14 +33,12 @@
    <div ng-controller="AuthCtrl" class="container">
       <div id="login-page">
         
-              <form class="form-login" action="index.html">
+              <form class="form-login">
                 <h2 class="form-login-heading">sign in now</h2>
                 <div class="login-wrap">
-                    <span class="required" ng-show="LoginForm.email.$error.required"></span>
                     <input class="form-control" type="text" name="lEmail" ng-model="lInput.email" required placeholder="Email" autofocus>
 
                     <br>
-                    <span class="required" ng-show="LoginForm.password.$error.required"></span>
                     <input class="form-control" type="password" name="lPassword" ng-model="lInput.password" required placeholder="Password">
   
                     <label class="checkbox">
@@ -51,7 +49,7 @@
                     </label>
 
 
-                    <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+                    <button class="btn btn-theme btn-block" type="submit" ng-click="signIn()"><i class="fa fa-lock"></i> SIGN IN</button>
                     <hr>
                     
                     <div class="login-social-link centered">
