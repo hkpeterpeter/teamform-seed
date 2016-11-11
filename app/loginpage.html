@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="teamform-login-app">
+<html lang="en" ng-app="teamform-app">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,13 +36,13 @@
             <div class="form-group">
                 <label for="username">Username(E-mail)</label>
                 <i class="fa fa-key"></i>
-                <input type="text" name="username" id="username" class="form-control" ng-model="username" required />
+                <input type="text" name="username" id="input_email" class="form-control" ng-model="username" required />
                 <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <i class="fa fa-lock"></i>
-                <input type="password" name="password" id="password" class="form-control" ng-model="password" required />
+                <input type="password" name="password" id="input_password" class="form-control" ng-model="password" required />
                 <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
             </div>
             <div class="form-actions">
