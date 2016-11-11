@@ -1,4 +1,4 @@
-describe('HeaderDirective', function() {
+describe('HeaderDirective', () => {
     let $compile,
         $rootScope;
 

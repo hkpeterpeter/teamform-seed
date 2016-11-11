@@ -15,7 +15,7 @@ export default class EventEditCtrl extends EventDetailCtrl {
             this.event.eventDate = this.event.eventDate.getTime();
         }
         try {
-            let result = await this.eventService.editEvent(this.event)
+            let result = await this.eventService.editEvent(this.event);
             this.$timeout(() => {
                 this.loading = false;
                 this.$state.go('event.detail', {

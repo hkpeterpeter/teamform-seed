@@ -1,4 +1,4 @@
-describe('FooterDirective', function() {
+describe('FooterDirective', () => {
     let $compile,
         $rootScope;
 

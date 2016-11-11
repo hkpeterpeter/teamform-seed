@@ -1,4 +1,4 @@
-describe('AlertDirective', function() {
+describe('AlertDirective', () => {
     let $compile,
         $rootScope;
 

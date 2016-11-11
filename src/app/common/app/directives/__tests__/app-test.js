@@ -1,4 +1,4 @@
-describe('AppDirective', function() {
+describe('AppDirective', () => {
     let $compile,
         $rootScope;
 
