@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="col-xs-6 text-left">
                         <div>
-                          <button id="btn_enter" type="button" class="btn btn-primary" ng-click="enterEventWithName(eventName)">Enter event(to be done)</button>
+                          <button id="btn_enterEvent" type="button" class="btn btn-primary" ng-click="enterEventWithName(eventName)">Enter event(to be done)</button>
                         </div>
                     </div>
                         <!--enter: jump to relative page-->
@@ -117,19 +117,21 @@
 
          <!-- Show the current event list  -->
          <div class="row featurette" id="event_list">
+
             <div class="col-md-12">
                <h2 class="featurette-heading" >Event List:
                   <br>
                   <span class="text-muted">Current events created by other users</span>
                </h2>
             </div>
-            <div class="col-md-12" ng-repeat="oneEvent in currentEventList">
-              <div ng-show="filter(oneEvent.admin.param.eventName)">
+
+            <div class="col-md-12" ng-repeat="event in events">
+              <div ng-show="filter(event.admin.param.eventName)">
                   <div class="col-md-6 col-xs-6">
                     <ul>
                       <li>
                         Event name: <br>
-                        <span class="badge">{{oneEvent.admin.param.eventName}}</span> <br>
+                        <span class="badge">{{event.admin.param.eventName}}</span> <br>
                       </li>
                     </ul>
                   </div>
@@ -137,12 +139,13 @@
                     <ul>
                       <li>
                       Event Description: <br>
-                      <span class="badge">{{oneEvent.admin.param.description}}</span> <br>
+                      <span class="badge">{{event.admin.param.description}}</span> <br>
                       </li>
                     </ul>
                   </div>
               </div>
             </div>
+
          </div>
 
       <hr class="featurette-divider">
