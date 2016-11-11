@@ -15,6 +15,7 @@
 		site.css: A customized css for our web application. Not from any web framework.
 	  -->
 
+       
       <script src="lib/jquery.min.js"></script>
       <script src="lib/bootstrap.min.js"></script>
 
@@ -23,40 +24,183 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
 
+       
+       <!--addedbyERIC-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+        <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto+Slab'>
+       
+             <style>
+      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background-color: Black;
+  font-family: "Roboto Slab", serif;
+  color: #FFD500;
+}
+
+.preload * {
+  transition: none !important;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  font-size: small;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  margin-bottom: 0.35em;
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%;
+  border: none;
+  padding: 0.5em;
+  border-radius: 2px;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+  outline: none;
+  box-shadow: inset -1px -1px 3px rgba(0, 0, 0, 0.3);
+}
+
+button {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+  border: none;
+  border-radius: 2px;
+  background-color: #FFD500;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+  color: white;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+small {
+  font-size: 1em;
+}
+
+.login--login-submit {
+  float: right;
+}
+
+.login--container {
+  width: 600px;
+  background-color: Black;
+  margin: 0 auto;
+  position: relative;
+  top: 25%;
+}
+
+.login--toggle-container {
+  position: absolute;
+  background-color: Black;
+  right: 0;
+  line-height: 2.5em;
+  width: 50%;
+  height: 120px;
+  text-align: right;
+  cursor: pointer;
+  transform: perspective(1000px) translateZ(1px);
+  transform-origin: 0% 0%;
+  transition: all 1s cubic-bezier(0.06, 0.63, 0, 1);
+  backface-visibility: hidden;
+}
+.login--toggle-container .js-toggle-login {
+  font-size: 4em;
+  text-decoration: underline;
+}
+.login--active .login--toggle-container {
+  transform: perspective(1000px) rotateY(180deg);
+  background-color: Black;
+}
+
+.login--username-container, .login--password-container {
+  float: left;
+  background-color: Black;
+  width: 50%;
+  height: 120px;
+  padding: 0.5em;
+}
+
+.login--username-container {
+  transform-origin: 100% 0%;
+  transform: perspective(1000px) rotateY(180deg);
+  transition: all 1s cubic-bezier(0.06, 0.63, 0, 1);
+  background-color: Black;
+  backface-visibility: hidden;
+}
+.login--active .login--username-container {
+  transform: perspective(1000px) rotateY(0deg);
+  background-color: Black;
+}
+
+footer {
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+}
+
+    </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+       
+   <!--addedbyEricEnd-->    
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 
    </head>
    <body>
+     
+       
+       
+   
+       
+        <div class='preload login--container'>
+  <div class='login--form'>
+    <div class='login--username-container'>
+        
     <div ng-include="'navbar.html'" ></div>
     <div class="row">
-      <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3" ng-controller="LoginCtrl">
+        
+        
+        
+      <div ng-controller="LoginCtrl">
         <div ng-if="message" class="alert alert-info">{{ message }}</div>
         <div ng-if="error" class="alert alert-danger">{{ error }}</div>
         <form name="form" ng-submit="emailLogin()" role="form">
             <div class="form-group">
                 <label for="username">Username(E-mail)</label>
                 <i class="fa fa-key"></i>
-                <input type="text" name="username" id="input_email" class="form-control" ng-model="username" required />
+                <input autofocus placeholder='Username' type="text" name="username" id="input_email" class="form-control" ng-model="username" required />
                 <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
                 <i class="fa fa-lock"></i>
-                <input type="password" name="password" id="input_password" class="form-control" ng-model="password" required />
+                <input  placeholder='Password' type="password" name="password" id="input_password" class="form-control" ng-model="password" required />
                 <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
             </div>
             <div class="form-actions">
-                <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary">Login</button>
-                <button ng-disabled="dataLoading" class="btn btn-primary" ng-click="fbLogin();">Facebook Login</button>
-                <button ng-disabled="form.$invalid || dataLoading" class="btn btn-warning" ng-click="emailAccCreate();">Create account</button>
+                <button class='js-toggle-login login--login-submit' type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary" style="color:Black;">Login</button>
+                <button ng-disabled="dataLoading" class="btn btn-primary" ng-click="fbLogin();" style="height:30px; width:120px">Facebook Login</button>
+                <button ng-disabled="form.$invalid || dataLoading" class="btn btn-warning" ng-click="emailAccCreate();" style="height:30px; width:120px" >Create Account</button>
                 <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
             </div>
         </form>
       </div>
     </div>
 
-
+</div>
+      </div>
   <br>
 
     <!-- <div class="text-center" >
@@ -79,25 +223,37 @@
 
       </div>
     </div> -->
-    <button id="btn_login_fb" type="button" class="btn btn-primary" >Facebook Login(JS)</button>
+  <!--  <button id="btn_login_fb" type="button" class="btn btn-primary" >Facebook Login(JS)</button>
     <button id="btn_create_email_acc" type="button" class="btn btn-primary" >create Email acc(JS)</button>
     <button id="btn_login_email" type="button" class="btn btn-primary" >Email Login(JS)</button>
     <button id="btn_login_out" type="button" class="btn btn-primary" >Logout(JS)</button>
     <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div class="container marketing">
-      <!-- FOOTER -->
-
-      <hr>
-      <footer>
-         <p class="pull-right"><a href="#">Back to top</a></p>
-         <p>&copy; 2017 COMP3111/H teaching team </p>
-         <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
-      </footer>
-   </div>
+   
+   
    <!-- /.container -->
 
    <!-- JavaScript of this page -->
    <!-- Angular and Angular-route libraries (v1.5.7) -->
+          
+            
+            
+            
+            
+            <!--addedbyeric--> 
+            
+  <div class='login--toggle-container'>
+    <small>Team Forming,</small>
+    <div class='js-toggle-login'>Login</div>
+    <small>already</small>
+  </div>
+</div>
+
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="js/loginpage.js"></script>
+       <!--addedbyEric-->
+       
+            
    <script src="lib/angular.min.js"></script>
    <script src="lib/angular-route.min.js"></script>
 
@@ -106,6 +262,7 @@
    <script src="lib/angularfire.min.js"></script>
    <script src="js/login.js"></script>
 
+            
 
   </body>
 </html>
