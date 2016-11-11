@@ -202,16 +202,16 @@ angular.module('teamform-team-app', ['firebase'])
 		var index = $scope.param.teamMembers.indexOf(member);
 		if(index > -1) {
 			$scope.param.teamMembers.splice(index, 1); // remove that item
-			$scope.saveFunc();
+			var refPath = eventName + "/member/" + member;
+			var ref = firebase.database().ref(refPath);
+			ref.update({inTeam: null});
 			if($scope.param.teamMembers.length == 0){
 				var refPath = eventName + "/team/" + $scope.param.teamName;
 				var ref = firebase.database().ref(refPath);
 				ref.remove();
 			}
-		}
-		var refPath = eventName + "/member/" + member;
-		var ref = firebase.database().ref(refPath);
-		ref.update({inTeam: null});
+			$scope.saveFunc();
+		}		
 	};
 	    
 	//invite function
