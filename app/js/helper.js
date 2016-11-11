@@ -25,13 +25,17 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     //checked
     helper.deletePersonFromTeam = function(uid, eventID, teamID) {
 
-        teamRef=firebase.database().ref("events/"+eventID+"/teams/"+teamID+"/members");
-        teamRef.child(uid).remove().then(function(error){
-            uref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
-            uref.child("position").set("tba");
-            uref.child("team").remove();
-            eref=firebase.database().ref("events/"+eventID+"/tba/"+uid);
-            eref.set(uid);
+        teamRef=firebase.database().ref("events/"+eventID+"/teams/"+teamID);
+        $firebaseObject(teamRef).$loaded().then(function(team){
+            teamRef.child("currentSize").set(team.currentSize - 1).then(function(data){
+                    teamRef.child("members").child(uid).remove().then(function(error){
+                        uref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
+                        uref.child("position").set("tba");
+                        uref.child("team").remove();
+                        eref=firebase.database().ref("events/"+eventID+"/tba/"+uid);
+                        eref.set(uid);
+                });
+            });
         });
     }
 
