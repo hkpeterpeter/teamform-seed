@@ -35,24 +35,29 @@
     <div ng-include = "'navbar.html'"> </div>
      <div class="container" ng-controller="profileinput">
 
-
-          <div class="thumbnail">
-            <img src="pic" alt="...">
-            <div class="caption">
-              <h3>Profile picture</h3>
-              <!-- <input id="myInput" type="file" style="visibility:hidden" />
-              <input type="button" value="Show Dialog" onclick="$('#myInput').click();" /> -->
-              <input type="file" id="file">
-              <button type="btn btn-primary" id="uploadButton" ng-click="uploadFile()" >SUBMIT</button>
-            </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-4">
+              <div class="thumbnail">
+                <img src={{profile.pic}} class="img-responsive img-circle" alt="Responsive image" >
+                <div class="caption">
+                  <h3>Profile picture</h3>
+                  <!-- <input id="myInput" type="file" style="visibility:hidden" />
+                  <input type="button" value="Show Dialog" onclick="$('#myInput').click();" /> -->
+                  <input type="file" id="file">
+                  <button type="btn btn-primary" id="uploadButton" ng-click="uploadFile()" >SUBMIT</button>
+                </div>
+              </div>
           </div>
+        </div>
 
         <div class="row">
           <div class="col-md-6">
-            <button class="btn btn-primary" type="button" ng-click="l.like = l.like+1; profile.$save(l);">
+            <button class="btn btn-primary" type="button" ng-click="likeFunction();">
     					<span class="glyphicon glyphicon-thumbs-up"></span> Likes
-    					<span class="badge"> {{l.like}}</span>
+    					<span class="badge"> {{profile.like.length}}</span>
+
     				</button>
+            {{profile.like|json}}
           </div>
           <div class="col-md-6">
 
@@ -69,6 +74,10 @@
 
            </div>
 
+        <!-- <div class="col-md-6">
+          <buttion class="bt"
+
+        </div> -->
 
            <div class="col-md-offset-6">
              <div class="panel panel-default" id="gender">
@@ -129,10 +138,13 @@
 
          </div>
        <div class="col-md-8">
-         <p>Debug:</p>
+         <p>{{pic}}</p>
          <pre>{{input|json}}</pre>
          <pre>{{ profile | json }}</pre>
        </div>
+
+
+
      </div>
 
 
