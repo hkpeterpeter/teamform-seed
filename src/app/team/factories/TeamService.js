@@ -9,6 +9,9 @@ export default class TeamService {
     }
     async getTeam(id) {
         let team = await this.$firebaseObject(this.$database.ref('teams/' + id)).$loaded();
+        if(team.$value === null) {
+            return Promise.reject(new Error('Team not exist'));
+        }
         team.createdByUser = await this.userService.getUser(team.createdBy);
         let teamUsers = await this.$firebaseArray(team.$ref().child('users')).$loaded();
         for (let teamUser of teamUsers) {
@@ -67,7 +70,7 @@ export default class TeamService {
         }
         return teams;
     }
-    editTeam(team) {
+    async editTeam(team) {
         return team.$save();
     }
     async createTeam(team) {

@@ -1,5 +1,5 @@
 describe('PasswordResetController', () => {
-    let $controller;
+    let $controller, $spys = [];
     beforeEach(() => {
         angular.mock.module('password-reset');
         inject((_$controller_) => {
@@ -7,29 +7,33 @@ describe('PasswordResetController', () => {
         });
     });
 
-    it('should resolve sendPasswordResetEmail', async () => {
-        inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
-            let deferred = _$q_.defer();
-            spyOn(AuthService, 'sendPasswordResetEmail').and.returnValue(deferred.promise);
-            $controller.sendPasswordResetEmail();
-            deferred.resolve();
-            _$rootScope_.$digest();
-            _$timeout_.flush();
-            expect(AuthService.sendPasswordResetEmail).toHaveBeenCalled();
-        });
+    afterEach(() => {
+        for (let spy of $spys) {
+            spy.and.callThrough();
+        }
     });
 
-    it('should reject sendPasswordResetEmail', async () => {
-        inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
-            let deferred = _$q_.defer();
-            spyOn(AuthService, 'sendPasswordResetEmail').and.returnValue(deferred.promise);
-            $controller.sendPasswordResetEmail();
-            deferred.reject(new Error('rejected'));
-            _$rootScope_.$digest();
-            _$timeout_.flush();
-            expect(AuthService.sendPasswordResetEmail).toHaveBeenCalled();
-            expect($controller.error.message).toEqual('rejected');
+    it('should resolve sendPasswordResetEmail', async(done) => {
+        let $timeout;
+        inject((_$timeout_, AuthService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(AuthService, 'sendPasswordResetEmail').and.returnValue(Promise.resolve({uid: 1})));
         });
+        await $controller.sendPasswordResetEmail();
+        $timeout.flush();
+        done();
+    });
+
+    it('should reject sendPasswordResetEmail', async(done) => {
+        let $timeout;
+        inject((_$timeout_, AuthService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(AuthService, 'sendPasswordResetEmail').and.returnValue(Promise.reject(new Error('Failed to send email'))));
+        });
+        await $controller.sendPasswordResetEmail();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Failed to send email');
+        done();
     });
 
 });

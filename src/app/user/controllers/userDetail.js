@@ -15,12 +15,9 @@ export default class UserDetailCtrl {
         try {
             let user = await this.userService.getUser(this.$stateParams.userId);
             this.$timeout(() => {
-                if (user.$value === null) {
-                    throw new Error('User not exist');
-                }
                 this.user = user;
             });
-        } catch (err) {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });

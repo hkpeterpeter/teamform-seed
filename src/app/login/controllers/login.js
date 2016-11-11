@@ -15,7 +15,9 @@ export default class LoginCtrl {
     async login(credential = this.credential) {
         try {
             let result = await this.authService.auth(credential);
-            this.$state.go(this.$state.params.toState, this.$state.params.toParams);
+            this.$timeout(() => {
+                this.$state.go(this.$state.params.toState, this.$state.params.toParams);
+            });
         } catch (error) {
             this.$timeout(() => {
                 this.error = error;

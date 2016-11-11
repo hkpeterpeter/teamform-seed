@@ -7,7 +7,6 @@ describe('HeaderDirective', function() {
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-
         });
     });
 

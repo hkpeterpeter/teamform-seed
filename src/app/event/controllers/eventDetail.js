@@ -9,34 +9,31 @@ export default class EventDetailCtrl {
         this.error = null;
         this.getEvent();
     }
-    getEvent() {
-        this.eventService.getEvent(this.$stateParams.eventId).then((event) => {
+    async getEvent() {
+        try {
+            let event = await this.eventService.getEvent(this.$stateParams.eventId);
             this.$timeout(() => {
-                if (event.$value === null) {
-                    return this.$timeout(() => {
-                        this.error = new Error('Event not exist');
-                    });
-                }
                 this.event = event;
             });
-        }).catch((error) => {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
-    joinEvent() {
-        this.eventService.joinEvent(this.$stateParams.eventId).then((eventUsers) => {
+    async joinEvent() {
+        try {
+            let eventUsers = await this.eventService.joinEvent(this.$stateParams.eventId);
             this.$timeout(() => {
                 console.log('success');
                 this.getEvent();
             });
-        }).catch((error) => {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
 }
 
-EventDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];
+EventDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService', 'UserService'];
