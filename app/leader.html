@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="index-app" ng-controller="LoginCtrl">
+<html lang="en" ng-app="leader-app" ng-controller="LeaderCtrl">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,7 +33,12 @@
    <body>
 
       <!--Menu bar-->
-      <div ng-include="'nav.html'" id='navbarMenu'></div>
+      <div ng-include="'navbar.html'" id='navbarMenu'></div>
+
+      <p>eventid: {{eventid}}</p>
+      <p>teamid: {{teamid}}</p>
+      <button type="button" class="btn btn-primary" ng-click="createTeam();" >Create Team</button>
+      
 
       <!-- /.container -->
 
@@ -47,7 +52,9 @@
 
 
       <!-- JavaScript of this page -->
-      <script src="js/index.js"></script>
+      <script src="js/leader.js"></script>
+
+      
 
 
    </body>

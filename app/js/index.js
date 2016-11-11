@@ -30,7 +30,8 @@ $(document).ready(function(){
 
 });
 
-angular.module('index-app', ['firebase'])
+angular
+.module('index-app', ['firebase'])
 .controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$window', function($scope, $firebaseObject, $firebaseArray,$window) {
 	//init firebase
 	initalizeFirebase();
@@ -39,6 +40,65 @@ angular.module('index-app', ['firebase'])
 	$scope.loggedIn  = false;
 	$scope.displayEmail = '';
 	$scope.username='';
+
+	$scope.eentname='';
+
+	//testing abt firebase
+	var ref = firebase.database().ref('events');
+    $scope.events = $firebaseArray(ref);
+	
+	//show event list in the index.html when people login the homepage
+	const eventRef = firebase.database().ref('events');
+	$scope.currentEventList = $firebaseArray(eventRef);
+
+	//enter event
+	$scope.enterEvent =function(eventid){
+
+		var database = firebase.database();
+        var currentUser = firebase.auth().currentUser;
+		var refpath = "users/" + currentUser.uid + "/teams";
+        var ref = database.ref(refpath);
+        var teamList = $firebaseArray(ref);
+
+		teamList.$loaded()
+			.then(function(x){
+				console.log(teamList.$getRecord(eventid));
+				if (teamList.$getRecord(eventid) == null){
+				//the first time the user enters an event
+					var userTeamRefPath = refpath + '/' + eventid;
+					var userTeamRef = firebase.database().ref(userTeamRefPath);
+					adminData = $firebaseObject(userTeamRef);
+					adminData.role = {};
+					adminData.role = "null";
+					adminData.$save();
+
+					var url = "event.html?q=" + eventid;
+    				window.location.href = url;
+					return true;
+
+				}else if (teamList.$getRecord(eventid).role == "admin"){
+				//the user is the admin of the event
+					var url = "admin.html?q=" + eventid;
+    				window.location.href = url;
+					return true;
+				}else if (teamList.$getRecord(eventid).role == "leader"){
+				//the user is the one of the leaders of a team of the event
+					var url = "leader.html?eventid=" + eventid + "&teamid=" + teamList.$getRecord(eventid).teamid;
+    				window.location.href = url;
+					return true;
+				}else if (teamList.$getRecord(eventid).role == "member"){
+				//the user is the one of the members of a team of the event
+					var url = "member.html?eventid=" + eventid + "$teamid=" + teamList.$getRecord(eventid).teamid;
+    				window.location.href = url;
+					return true;
+				}else if (teamList.$getRecord(eventid).role == "null"){
+				//the user has not yet enter a team
+					var url = "event.html?q=" + eventid;
+    				window.location.href= url;
+					return true;
+				}
+			});
+	}
 	
 	//create new event
 	$scope.createNewEvent =function (eventname){
@@ -47,27 +107,43 @@ angular.module('index-app', ['firebase'])
 			var url = "createEvent.html?q=" + val;
     		window.location.href= url ;
     		return false;
-		//todo: check if the event already exsist
-		// }else if ( $scope.isEventExist(val) ) {
-    	// 	$window.alert("Event ", val , "already exist.");
+		//user can enter create event page with existing event name,  it will warning when user create it
     	}else{
 			var url = "createEvent.html?q=" + val;
-    		window.location.href= url ;
-    		return false;
+    		window.location.href = url;
+    		return true;
 		}
 	}
 
-	//check if event exist//not work for new firebase
-	$scope.isEventExist = function(eventname){
-		var eventsRef = firebase.database().ref('events');
-		var eventList = $firebaseArray(eventsRef);
-		eventList.$loaded()
-			.then(function(x){
-				console.log(eventList.$getRecord(eventname));
-				if(eventList.$getRecord(eventname) == null){
-					return false;
-				}
-			});
+	$scope.enterEventWithName=function(eventName){
+		$scope.getEventid(eventName,function(result){
+			console.log("get event id:" + result);
+			if(result){
+				console.log("found event");
+				$scope.enterEvent(result);
+			}else{//result = null
+				//ask if user want to create new event
+			}
+		})
+	}
+	
+	$scope.getEventid = function(eventname, callback){
+		console.log("get event id by eventname");
+		console.log("eventname: "+ eventname);
+		var ref = firebase.database().ref("events/");
+		var eventsList = $firebaseObject(ref);
+		var eventid = null;
+		eventsList.$loaded(function(data) {
+				data.forEach(function(eventObj, key){
+					console.log("eventObj's key: "+key);
+					if ((eventObj.admin.param.eventName == eventname)){
+						console.log("found, callback eventid");
+						eventid = key;
+					}
+				})
+		}).then(function(){
+			callback(eventid);
+		});
 	}
 
 	//login function
@@ -158,14 +234,4 @@ angular.module('index-app', ['firebase'])
 			$scope.$apply();
 		}
 	})
-
-	//show event list in the index.html when people login the homepage
-			// var eventRef = firebase.database().ref('event');
-			// var eventArray = $firebaseArray(eventRef);
-			// var allParam = ;
-			// for( eachEvent in eventArray){
-			// allParam += eachEvent.admin.param;
-			// }
-			// $scope.currentEventList = allParam;
-
 }]);
