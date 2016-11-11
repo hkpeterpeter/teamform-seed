@@ -23,6 +23,8 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.uid = "";
 	$scope.name = "";
 	$scope.teamStatus = "";
+	$scope.tags = {};
+	$scope.tag = "";
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
@@ -56,7 +58,13 @@ angular.module('teamform-member-app', ['firebase'])
 			} else {
 				$scope.selection = [];
 			}
+			if($scope.userInfo.tags != null) {
+				$scope.selection = $scope.userInfo.tags;
+			} else {
+				$scope.tags = [];
+			}
 		});
+		
 		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
 		$scope.memberInfo.$loaded().then(function() {			
 			if($scope.memberInfo.inTeam != null) {
@@ -73,6 +81,26 @@ angular.module('teamform-member-app', ['firebase'])
 			}
 		});
 	};
+	
+	$scope.addTag = function() {
+		var userID = $.trim($scope.userID);
+		var refPath = getURLParameter("q") + "/member/" + userID;
+		var ref = firebase.database().ref(refPath);
+		$scope.tags = $firebaseArray(ref);
+			
+			if ( $scope.tag != "") {
+				// add a tag
+				$scope.tags.$add($scope.tag);
+			}
+		$scope.tags = $firebaseArray(ref);
+		$scope.tags.$loaded()
+			.then(function(data) {}) 
+			.catch(function(error) {});
+		
+		
+	}
+	
+
 	
 	$scope.saveFunc = function() {
 		var userID = $.trim($scope.userID);
