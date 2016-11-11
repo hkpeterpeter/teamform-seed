@@ -1,1 +1,10 @@
-/*This file is created for you in case you have your own javascript code, please write here*/
+
+teamapp.controller('fishCtrl', ['$scope', "$rootScope", function($scope,$rootScope) {}]);
+
+
+teamapp.directive("fishNavi", function() {
+    return {
+        restrict: "E",
+        templateUrl: "fish/fish-navi.html",
+    };
+});

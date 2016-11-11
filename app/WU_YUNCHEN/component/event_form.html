@@ -1,11 +1,54 @@
+
+<!--
+Event description: {{eventDescription}}
+Minimum number of team member: {{eventMin}}
+Maximum number of team member: {{eventMax}}
+-->
+
 <div class="container">
     <div class="row">
-        <form>
+        <form class="col s12">
           
-          <simple-field id="event_name" label="Event name"></simple-field>
-          <textarea-field id="event_description" label="Event description"></textarea-field>
-          <image-upload label="Choose event image"></image-upload>
+          <textarea-field id="event_description" label="Event description" field-model="eventDescription"></textarea-field>
+          <br>
+          <div class="row">
+            <div class="col s4">
+              <label>Minimum number of team member</label>
+              <div range-spinner
+                range-min="1" 
+                range-step="1"  
+                range-max="50" 
+                range-default-value="1"
+                range-decimal-precision="1"       
+                range-model="eventMin"
+                accept-decimal=false
+                name-of-field="event_min_number"
+                id-of-field="event_min_num">
+              </div>
+              <br><br><br><br>
+            </div>
+            <div class="col s8">
+              <label>Maximum number of team member</label>
+              <div range-spinner
+                range-min="1" 
+                range-step="1"  
+                range-max="50" 
+                range-default-value="1"
+                range-decimal-precision="1"       
+                range-model="eventMax"
+                accept-decimal=false
+                name-of-field="event_max_number"
+                id-of-field="event_max_num">
+              </div>
+              <br><br><br><br>
+            </div>
+          </div>
 
+          <button class="btn waves-effect waves-light" type="submit" name="action">Create
+            <i class="material-icons right">send</i>
+          </button>
+          <button class="btn waves-effect waves-light red" type="submit" >Cancel<i class="material-icons right">cancel</i>
+          </button>
         </form>
     </div>
 </div>
