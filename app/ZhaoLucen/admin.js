@@ -1,5 +1,5 @@
 
-teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject) {
+teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, filterFilter) {
   var event = $firebaseObject($rootScope.event_ref.child('0'));
   event.$loaded().then(function(){
   	console.log(event.adminID);
@@ -48,6 +48,39 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject) {
 			members: ['m11', 'm66', 'm25']
 		}
 	];
+	console.log($scope.adminTeamSearch);
+	
+	$scope.maxSize = 8;
+
+	//$scope.teams = $rootScope.eventTeams;
+	$scope.teamFilter = function(item) {
+		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == false) {
+			return false;
+		};
+		if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
+			if (item.size != $scope.maxSize) {
+				return false;
+			};
+		};
+		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
+			if (item.size == $scope.maxSize) {
+				return false;
+			};
+		};
+
+
+		if (!$scope.adminTeamSearch || (item.name.toLowerCase().indexOf($scope.adminTeamSearch.toLowerCase()) != -1) ) {
+			return true;
+		} else {
+			var skills = angular.toJson(item.skills);
+			if (skills.toLowerCase().indexOf($scope.adminTeamSearch.toLowerCase()) != -1) {
+				return true;
+			} else {
+				return false;
+			};
+		};
+	};
+
 
 	$scope.remove = function(team) { 
   		var index = $scope.teams.indexOf(team);
@@ -67,5 +100,32 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject) {
 			requests: ['TeamThree', 'TeamTwo']
 		}
 	];
+
+	$scope.userFilter = function(item) {
+		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == false) {
+			return false;
+		};
+		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
+			if (item.requests.length == 0) {
+				return false;
+			};
+		};
+		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
+			if (item.requests.length != 0) {
+				return false;
+			};
+		};
+
+		if (!$scope.adminUserSearch || (item.name.toLowerCase().indexOf($scope.adminUserSearch.toLowerCase()) != -1) ) {
+			return true;
+		} else {
+			var skills = angular.toJson(item.skills);
+			if (skills.toLowerCase().indexOf($scope.adminUserSearch.toLowerCase()) != -1) {
+				return true;
+			} else {
+				return false;
+			};
+		};
+	};
 
 });

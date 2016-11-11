@@ -24,8 +24,9 @@
 /* Filters */
 
 div.admin-filter {
-	margin-bottom: 10px;
+	margin-top: 10px !important;
 }
+
 div.admin-filter label {
 	font-size: 12px;
 }

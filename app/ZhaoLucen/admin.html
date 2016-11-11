@@ -57,33 +57,35 @@
     			<div class="divider"></div>
 
           <!-- Team Filter -->
-
-          <div class="input-field">
-            <input id="admin-team-search" type="text" class="validate"  ng-model="adminUserSearch">
-            <label for="admin-team-search">Search By Name Or Skill</label>
-          </div>
           <div class="admin-filter">
             <span>Full Or Not: </span>
             <div class="admin-one-filter">
-              <input type="checkbox" class="filled-in" id="admin-full-team" checked="checked" />
+              <input type="checkbox" class="filled-in" id="admin-full-team" checked="checked" ng-model="adminTeamFull"/>
               <label for="admin-full-team">No Quota</label>
             </div>
             <div class="admin-one-filter">
-              <input type="checkbox" class="filled-in" id="admin-unfull-team" checked="checked" />
+              <input type="checkbox" class="filled-in" id="admin-unfull-team" checked="checked" ng-model="adminTeamNotFull"/>
               <label for="admin-unfull-team">Quota Open</label>
             </div>
           </div>
+          <!--
           <div class="admin-filter">
             <span>Prefererence: </span>
             <div class="admin-one-filter" ng-repeat="i in getNumber(size) track by $index">
-              <input type="checkbox" class="filled-in" id="admin-team-size-{{$index+minSize}}" checked="checked"/>
+              <input type="checkbox" class="filled-in" id="admin-team-size-{{$index+minSize}}" checked="checked" ng-model="adminTeam{{$index+minSize}}"/>
               <label for="admin-team-size-{{$index+minSize}}">{{$index+minSize}}</label>
             </div>
           </div>
+          -->
+          <div class="input-field">
+            <input id="admin-team-search" type="text" class="validate"  ng-model="adminTeamSearch">
+            <label for="admin-team-search">Search By Name Or Skill</label>
+          </div>
+
 
           <!-- Team Filter Ends -->
     			<!-- A Single Card -->
-          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams">
+          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams | filter:teamFilter">
             <div class="card-content white-text">
               <span class="card-title activator">{{ team.name }}<i class="material-icons right">more_vert</i></span>
               <br/>
@@ -123,22 +125,22 @@
     			<div class="divider"></div>
 
           <!-- User Filter -->
-
+          <div class="admin-filter">
+            <span>Applied Or Not: </span>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-request-user" checked="checked" ng-model="adminUserRequest"/>
+              <label for="admin-request-user">Requested</label>
+            </div>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-unrequest-user" checked="checked" ng-model="adminUserNotRequest"/>
+              <label for="admin-unrequest-user">Not Requested</label>
+            </div>
+          </div>
           <div class="input-field">
             <input id="admin-user-search" type="text" class="validate" ng-model="adminUserSearch">
             <label for="admin-user-search">Search By Name Or Skill</label>
           </div>
-          <div class="admin-filter">
-            <span>Applied Or Not: </span>
-            <div class="admin-one-filter">
-              <input type="checkbox" class="filled-in" id="admin-request-user" checked="checked" />
-              <label for="admin-request-user">Requested</label>
-            </div>
-            <div class="admin-one-filter">
-              <input type="checkbox" class="filled-in" id="admin-unrequest-user" checked="checked" />
-              <label for="admin-unrequest-user">Not Requested</label>
-            </div>
-          </div>
+
 
           <!-- User Filter Ends -->
 
@@ -151,7 +153,7 @@
               });
           </script>
           <!-- Finish enabling Toolkit html -->
-    				<div class="card admin-user-card sticky-action" ng-repeat="user in users">
+    				<div class="card admin-user-card sticky-action" ng-repeat="user in users | filter:userFilter">
 							<div class="card-content">
 								<span class="card-title activator grey-text text-darken-4">{{ user.name }}<i class="material-icons right">more_vert</i></span>
 								<div>
