@@ -30,7 +30,8 @@ $(document).ready(function(){
 
 });
 
-angular.module('index-app', ['firebase'])
+angular
+.module('index-app', ['firebase'])
 .controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$window', function($scope, $firebaseObject, $firebaseArray,$window) {
 	//init firebase
 	initalizeFirebase();
@@ -160,12 +161,19 @@ angular.module('index-app', ['firebase'])
 	})
 
 	//show event list in the index.html when people login the homepage
-			// var eventRef = firebase.database().ref('event');
-			// var eventArray = $firebaseArray(eventRef);
-			// var allParam = ;
-			// for( eachEvent in eventArray){
-			// allParam += eachEvent.admin.param;
-			// }
-			// $scope.currentEventList = allParam;
+		     const rootEventRef = firebase.database().ref().child('teapot-576b6addclose');
+			 const eventRef = rootEventRef.child('event');
+		     $scope.currentEventList = $firebaseArray(eventRef);
+		//	 var eventArray = 
+			//  for( eachEvent in eventArray){
+			//   	allParam.eventName = eachEvent.admin.param.eventName;
+			// 	allParam.description = eachEvent.admin.param.description;
+			//  }
+		
 
+			// var values = {name: 'misko', gender: 'male'};
+			// var log = [];
+			// angular.forEach(values, function(value, key) {
+			// this.push(key + ': ' + value);
+			// }, log);
 }]);
