@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<body>
+
+
+  <div class="container"  ng-app="myApp" ng-controller="trial">
+
+
+
+  <h2>Modal Example</h2>
+  <!-- Trigger the modal with a button -->
+  <button  ng-repeat="x in questionList"type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal{{$index+1}}">modal{{$index+1}}</button>
+
+
+
+
+  <!-- Modal -->
+  <div ng-repeat = "x in questionList" class="modal fade" id="modal{{$index+1}}" role="dialog" >
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Question{{$index+1}} </h4>
+          <script> var temp = $index;</script>
+        </div>
+        <div class="modal-body">
+            <p>{{questionList[$index].title}}</p>
+
+          <div class="col-xs-12 col-md-12 ">
+            <div class="row">
+                <b class="col-xs-2 col-md-2">Question: </b>
+                <input class="col-xs-9 col-md-9" type="text" ng-model="questionList[$index].title">
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-12 ">
+                <p><b>Choice: </b></p>
+                <input class="col-xs-4 col-md-4 " type="text" ng-model="questionList[$index].choice.A">
+                <input class="col-xs-4 col-md-4 col-md-offset-1" type="text" ng-model="questionList[$index].choice.B">
+                <input class="col-xs-4 col-md-4 " type="text" ng-model="questionList[$index].choice.C">
+                <input class="col-xs-5 col-md-5 col-md-offset-1" type="text" ng-model="questionList[$index].choice.D">
+          </div>
+
+          <div class="col-xs-12 col-md-12 ">
+            <div class="row">
+                <b class="col-xs-12 col-md-12">Answer: </b>
+                <input class="col-xs-10 col-md-10 col-md-offset-1" type="text" ng-model="questionList[$index].answer">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <!-- paragraph is for the padding of button-->
+            <p class="col-xs-12 col-md-12"></p>
+            <p class="col-xs-12 col-md-12"></p>
+          <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+
+
+  </div>
+
+
+<script>
+
+var app = angular.module('myApp', []);
+
+<!-- question only as it is for saving single question-->
+app.service('backup', function() {
+  var question ;
+
+
+
+  var saveQuestion = function(newObj) {
+      question =jquery.extend(true,{},newObj);
+  };
+
+  var getQuestion = function(){
+      return question;
+  };
+
+  return {
+    saveQuestion: saveQuestion,
+    getQuestion: getQuestion
+  };
+
+});
+
+app.service('keeper', function() {
+  var questionList = [];
+  var counter = 0;
+
+  var increaseCounter = function()
+  {
+      counter = counter +1;
+  }
+
+  var decreaseCounter = function()
+  {
+      counter = counter -1;
+  }
+
+  var getCounter = function()
+  {
+     return counter;
+  }
+
+  var addQuestion = function(newObj) {
+      questionList.push(newObj);
+  };
+
+  var getQuestion = function(){
+      return questionList;
+  };
+
+  return {
+    addQuestion: addQuestion,
+    getQuestion: getQuestion,
+    getCounter: getCounter,
+    decreaseCounter: decreaseCounter,
+    increaseCounter: increaseCounter
+  };
+
+});
+
+
+
+app.controller('trial', function($scope, keeper, backup) {
+    $scope.questionList = [];
+    var question = {
+      title : "Can you feel my heart beat?",
+      type : "MC",
+      choice: {
+        "A" : "A",
+        "B" : "B",
+        "C" : "C",
+        "D" : "D",
+      },
+      answer: "A"
+    };
+    var question2 = {
+      title : "Can you feel my head beat?",
+      type : "MC",
+      choice: {
+        "A" : "A",
+        "B" : "B",
+        "C" : "C",
+        "D" : "D",
+      },
+      answer: "A"
+    };
+    var question3 = {
+      title : "Can you feel my hand beat?",
+      type : "MC",
+      choice: {
+        "A" : "A",
+        "B" : "B",
+        "C" : "C",
+        "D" : "D",
+      },
+      answer: "A"
+    };
+    $scope.questionList.push(question);
+    $scope.questionList.push(question2);
+    $scope.questionList.push(question3);
+
+    console.log($scope.questionList);
+
+    $scope.goBackup = function(x)
+    {
+      backup(questionList[x]);
+    };
+
+
+});
+
+app.controller('popup', function($scope, keeper) {
+   var temp = keeper.getQuestion();
+   $scope.arr=['','','',''];
+   $scope.text = temp.name;
+
+});
+</script>
+
+</body>
+</html>
