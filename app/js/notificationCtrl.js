@@ -10,6 +10,9 @@ app.controller("notificationCtrl",
 			$scope.authData = authData;
 			var ref = firebase.database().ref('users/' + authData.uid + '/writable');
 			$scope.myEvents = $firebaseObject(ref);
+            ref = firebase.database().ref('events');
+            $scope.events = $firebaseArray(ref);
+
 		});
 
 		$scope.changeState = function(eid,nid){
