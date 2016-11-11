@@ -217,19 +217,7 @@ angular
 	})
 
 	//show event list in the index.html when people login the homepage
-		     const rootEventRef = firebase.database().ref().child('teapot-576b6addclose');
-			 const eventRef = rootEventRef.child('event');
-		     $scope.currentEventList = $firebaseArray(eventRef);
-		//	 var eventArray = 
-			//  for( eachEvent in eventArray){
-			//   	allParam.eventName = eachEvent.admin.param.eventName;
-			// 	allParam.description = eachEvent.admin.param.description;
-			//  }
-		
+			const eventRef = firebase.database().ref('events');
+			$scope.currentEventList = $firebaseArray(eventRef);
 
-			// var values = {name: 'misko', gender: 'male'};
-			// var log = [];
-			// angular.forEach(values, function(value, key) {
-			// this.push(key + ': ' + value);
-			// }, log);
 }]);

@@ -138,12 +138,12 @@
                   <span class="text-muted">Current events created by other users</span>
                </h2>
             </div>
-            <div class="col-md-12 ng-repeat="oneEvent in currentEventList"">
-              <div class="col-md-6 col-xs-6   ">
+            <div class="col-md-12" ng-repeat="oneEvent in currentEventList">
+              <div class="col-md-6 col-xs-6">
                 <ul>
                   <li>
                     Event name: <br>
-                    <span class="badge">{{oneEvent.eventName}}</span> <br>
+                    <span class="badge">{{oneEvent.admin.param.eventName}}</span> <br>
                   </li>
                 </ul>
               </div>
@@ -151,7 +151,7 @@
                 <ul>
                   <li>
                   Event Description: <br>
-                  <span class="badge">{{oneEvent.description}}</span> <br>
+                  <span class="badge">{{oneEvent.admin.param.description}}</span> <br>
                   </li>
                 </ul>
               </div>
