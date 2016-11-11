@@ -28,6 +28,8 @@
   				{{teamdata.desc}}
   			</p>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='tba'" ng-click = "ApplyTeam()">Apply for this team</button>
+        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='member'" ng-click = "QuitTeam()">Quit this team</button>
+        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader'" ng-click = "Change_Leader()">Change team leader</button>
   			<form class="form-search">
   				<input class="input-medium search-query" type="text" /> <button type="submit" class="btn">Search</button>
   			</form>
@@ -43,12 +45,17 @@
           <div class="panel-body">
             <ul ng-repeat="(id,uid) in members">
                  <li>{{users.$getRecord(uid).readOnly.name}}
-                   <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader'" ng-click = "DeleteMember()">Reject</button>
+                   <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader'" ng-click = "DeleteMember(uid)">Reject</button>
+                   <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && leader_change" ng-click = "SetLeader(uid)">Select as new leader</button>
                  </li>
             </ul>
           </div>
           <div>
-            <h6>Team Leader: {{users.$getRecord(leader.$value).readOnly.name}}</h6>
+            <h6>Team Leader:</h6>
+            <ul ng-repeat="(id,uid) in leader">
+              <li>{{users.$getRecord(uid).readOnly.name}}
+              </li>
+            </ul>
           </div>
         </div>
   		</div>

@@ -7,7 +7,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.debug = {};
     //checked
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
-      
+
         teamref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
         teamref.update({team:teamID}).then(function(){
             teamref.child("position").set(position).then(function(error){
@@ -274,6 +274,11 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   			ref.child('applications').update(temp);
         helper.addPersonToTeam(uid, eventID,teamID, "member");
         helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
+
+        userref = firebase.database().ref("users/"+uid +"/writable/" + eventID);
+        appli_ref = userref.child("applications/"+teamID);
+        appli_ref.remove();
+
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
@@ -281,6 +286,10 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         var temp = {};
   			temp[uid] = "declined";
   			ref.child('applications').update(temp);
+
+        userref = firebase.database().ref("users/"+uid +"/writable/" + eventID);
+        appli_ref = userref.child("applications/"+teamID);
+        appli_ref.remove();
     }
     helper.updateEvent = function(eventID) {
         //lby
