@@ -37,16 +37,17 @@
 
       <!--Login interface-->
 
-      <section  style="background-image: url('img/img1.jpg');" class="login_box_section img-responsive" >
+      <section  style="background-image: url('img/img1.jpg');" class="login_box_section img-responsive" ng-hide="loggedIn">
       
-        <div class="intro col-md-3">
+        <div class="intro col-md-7">
                 <h2 class="featurette-heading" >What is teamform?
                     <br>
                     <span class="text-muted">A real-time online team forming app</span>
                 </h2>
+                 <div ng-include="'about.html'" id='aboutSite'></div>
         </div>
       
-      <div class="container col-md-4 col-md-offset-3" id="login_box" ng-hide="loggedIn">
+      <div class="container col-md-4 col-md-offset-3" id="login_box" >
         <form><!--Hide this when login-->
         <p class="login_heading">Login to teamform</p>
         <table class="table borderless" style="background-color: white; ">
@@ -162,41 +163,8 @@
 
 
 
-         <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="page_about">
-            <div class="col-md-12">
-       
-               <p class="lead"> The following roles are supported in teamform:
-               </p>
 
-               <div class="row">
-                  <div class="col-md-4">
-                     <h3 class="text-center">Administrator</h3>
-                     <ul>
-                        <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
-						<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
-                     </ul>
-                  </div>
-
-                  <div class="col-md-4">
-                     <h3 class="text-center">Team</h3>
-                     <ul>
-                        <li>Be able to add and remove requests made by members</li>
-						<li>Once a member joins the team, all his/her requests will be deleted</li>
-                     </ul>
-                  </div>
-
-                  <div class="col-md-4">
-                     <h3 class="text-center">Member</h3>
-                     <ul>
-                        <li>Be able to request to join multiple teams</li>
-                     </ul>
-                  </div>
-               </div>
-
-            </div>
-         </div>
-         <hr class="featurette-divider">
+   
 
 
 
