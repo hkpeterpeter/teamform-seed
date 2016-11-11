@@ -1,4 +1,4 @@
-describe('BodyDirective', function() {
+describe('BodyDirective', () => {
     let $compile,
         $rootScope;
 

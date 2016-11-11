@@ -1,4 +1,4 @@
-describe('HomeController', function() {
+describe('HomeController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
         angular.mock.module('home');

@@ -1,9 +1,9 @@
-describe('ChatController', () => {
+describe('ErrorController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('chat');
+        angular.mock.module('error');
         inject((_$controller_) => {
-            $controller = _$controller_('ChatCtrl');
+            $controller = _$controller_('ErrorCtrl');
         });
     });
 
@@ -12,7 +12,9 @@ describe('ChatController', () => {
             spy.and.callThrough();
         }
     });
-    it('Chat', () => {
+
+    it('Error', () => {
 
     });
+
 });
