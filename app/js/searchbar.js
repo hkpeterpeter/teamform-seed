@@ -42,15 +42,21 @@ app.controller("searchCtrl",
         $scope.constraint = {
             tm: "0",
             t: [],
-            m: ["-1"],
+            m: ["-1", "-1", "-1", "-1", false],
             tDis: false,
             mDis: false,
-            clear: function () {
-                this.tm = "0";
+            clearT: function () {
                 for (var i = 0; i < this.t.length; i++)
                     this.t[i] = "-1";
+            },
+            clearM: function () {
                 for (var i = 0; i < this.m.length; i++)
                     this.m[i] = "-1";
+            },
+            clear: function () {
+                this.tm = "0";
+                this.clearT();
+                this.clearM();
                 this.tDis = false;
                 this.mDis = false;
             }
@@ -64,10 +70,12 @@ app.controller("searchCtrl",
             else if (newVal == "1") {
                 $scope.constraint.mDis = true;
                 $scope.constraint.tDis = false;
+                $scope.constraint.clearM();
             }
             else if (newVal == "2") {
                 $scope.constraint.mDis = false;
                 $scope.constraint.tDis = true;
+                $scope.constraint.clearT();
             }
         });
 
@@ -125,15 +133,8 @@ app.controller("searchCtrl",
                             "text": suggestions[i],
                             "action": function () {
                                 $scope.searchInput = this.text;
+                                disableCentralize();
                                 $scope.search();
-
-                                //change layout
-                                $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
-                                $("#searchBtnContainer").hide();
-                                $("#smSearchBtnContainer").removeClass("hide");
-                                $("#searchTextField").parent().removeClass("col-xs-12 col-sm-12 col-md-12 col-lg-12").addClass("col-xs-11 col-sm-11 col-md-11  col-lg-11");
-                                var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
-                                $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
                             }
                         });
                     }
@@ -341,6 +342,21 @@ $(document).ready(function () {
         $("#searchSuggestion").hide();
     });
 
+    //load the Json file to the html
+    $.getJSON("https://gist.githubusercontent.com/timfb/551d3ed641435fd15c25b99ea9647922/raw/ce3b3d8459491d38fafe69020bd3535bfd11d334/countrylist.json", function (data) {
+        var countrylist = data.country_list;
+        for (var i = 0; i < countrylist.length; i++)
+            $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
+    });
+    $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/c2fe6aa4dc3b7c578ac6c1c7c17915dd78a2d475/languagelist.json", function (data) {
+        var languagelist = data.languages;
+        languagelist = sortArray(languagelist, "English");
+        for (var i = 0; i < languagelist.length; i++)
+            $("select[ng-model='constraint.m[3]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
+    })
+
+    // $("select [ng-model=constraint.m[1]]").append("<option value=")
+
     //layout changes
     $("#searchBtnContainer input[type='button']").click(function () {
         var keywords = normailizeText($("#searchTextField").val());
@@ -376,6 +392,21 @@ $(document).ready(function () {
 });
 
 //===some helper functions===
+
+//layout changesfunction disableCentralize() {
+function disableCentralize() {
+    $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
+    $("#searchBtnContainer").hide();
+    $("#smSearchBtnContainer").removeClass("hide");
+    $("#searchTextField").parent().removeClass("col-xs-12 col-sm-12 col-md-12 col-lg-12").addClass("col-xs-11 col-sm-11 col-md-11  col-lg-11");
+    var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
+    $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
+}
+
+//Compare two date
+function compareDate (d1,d2){
+    // if (new Date(d1).setUTCFullYear)
+}
 
 //remove symbols in text
 function removeSymbols(text) {
@@ -424,6 +455,30 @@ function getSimilarityScore(keywords, target, title, scoreList) {
         score += scoreList[title + "-s"](count / Math.max(keywords.length, target.split(" ").length));
     }
     return score;
+}
+
+//sort single array in ascending order
+function sortArray(indepent, elementName = null) {
+    if (elementName == null) {
+        for (var k = 0; k < indepent.length - 1; k++) {
+            var swapped = false;
+            for (var l = indepent.length - 1; l >= 1; l--)
+                if (indepent[l - 1] > indepent[l]) {
+                    var temp = indepent[l - 1];
+                    indepent[l - 1] = indepent[l];
+                    indepent[l] = temp;
+                    swapped = true;
+                }
+            if (!swapped)
+                break;
+        }
+        return indepent;
+    } else {
+        var temp = [];
+        for (var i = 0; i < indepent.length; i++)
+            temp.push(indepent[i][elementName]);
+        return sortArray(temp);
+    }
 }
 
 //sort the both arrays in descending order according to the indepent array
