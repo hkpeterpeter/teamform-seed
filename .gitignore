@@ -1,5 +1,5 @@
 !.gitkeep
-idea
+
 node_modules/
 bower_components/
 app/bower_components/
@@ -7,4 +7,3 @@ app/coverage/
 tmp
 .DS_Store
 *.log
-test
