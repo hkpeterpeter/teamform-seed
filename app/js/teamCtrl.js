@@ -58,6 +58,10 @@ app.controller("teamCtrl",
 		// var ref=firebase.database().ref("users");
 		// $scope.users = $firebaseArray(ref);
 
+		// $scope.IsteamLeader = function(){
+		// 	if ($scope.myEvents.team == $scope.teamID && $
+		// }
+
 		var main_ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 		$scope.teamdata = $firebaseObject(main_ref);
 

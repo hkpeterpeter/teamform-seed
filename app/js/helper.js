@@ -7,19 +7,18 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.debug = {};
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
 
-        ref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
-        ref.update({team:teamID}).then(function(){
-            ref.update({position:position}).then(function(){
-                ref = firebase.database().ref("events/"+eventID);
-                tbaref = ref.child("tba/"+uid);
+        teamref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
+        teamref.update({team:teamID}).then(function(){
+            teamref.child("position").set(position).then(function(error){
+                eventref = firebase.database().ref("events/"+eventID);
+                tbaref = eventref.child("tba/"+uid);
                 tbaref.remove().then(function(data){
                         var temp = {};
                         temp[uid] = uid;
-                        ref.child("/teams/"+teamID).child('members').update(temp);
+                        eventref.child("/teams/"+teamID).child('members').update(temp);
                 });
             });
         });
-
     }
     helper.deletePersonFromTeam = function(uid, eventID, teamID) {
 
@@ -31,7 +30,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             eref=firebase.database().ref("events/"+eventID+"/tba/"+uid);
             eref.set(uid);
         });
-
     }
     helper.createTeam = function(uid, eventID, team) {
         ref = firebase.database().ref("events/"+eventID+"/teams");
@@ -103,6 +101,11 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   			temp[uid] = "pending";
   			ref.child('applications').update(temp);
 
+
+        uref=firebase.database().ref("users/"+uid+"/writable/"+eventID+"/applications");
+        temp = {};
+        temp[teamID] = teamID;
+        uref.update(temp);
     }
     helper.withdrawApplication = function(uid, eventID, teamID) {
         //dht
