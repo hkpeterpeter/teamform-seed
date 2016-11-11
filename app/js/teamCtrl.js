@@ -7,6 +7,7 @@ app.controller("teamCtrl",
 		$scope.eventID = $stateParams.eid;
 		$scope.teamID = $stateParams.tid;
 
+		$scope.leader_change = false;
 		$scope.tagShowList = [
 			{name :"javascript", state: false},
 			{name :"html" , state: false},
@@ -90,8 +91,8 @@ app.controller("teamCtrl",
 
 
 //get leader
-		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/leader');
-		$scope.leader = $firebaseObject(ref);
+		var leaderref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/leader');
+		$scope.leader = $firebaseObject(leaderref);
 
 //member functions
 		// $scope.addMember = function(){
@@ -116,6 +117,26 @@ app.controller("teamCtrl",
 		// 	});
 		// 	$scope.members = memberdata;
 		// }
+
+		$scope.DeleteMember = function(uid){
+			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID);
+			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, helper.getUsername(uid) + " has been kicked off the team");
+		}
+
+		$scope.QuitTeam = function(){
+			// need change rule first: should let member access announcement
+			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, helper.getUsername($scope.userData.uid) + " has left the team");
+			Helper.deletePersonFromTeam($scope.userData.uid, $scope.eventID, $scope.teamID);
+		}
+
+		$scope.Change_Leader = function(){
+			$scope.leader_change = !$scope.leader_change;
+		}
+
+		$scope.SetLeader = function(uid){
+			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team leader change from " + helper.getUsername($scope.userData.uid) + " to " + helper.getUsername(uid));
+			Helper.changeLeader($scope.userData.uid, uid, $scope.eventID, $scope.teamID);
+		}
 //get skill tags
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags/SkillTags');
 		$scope.skilltags = $firebaseObject(ref);
