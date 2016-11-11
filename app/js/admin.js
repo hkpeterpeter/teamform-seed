@@ -133,6 +133,54 @@ angular.module('teamform-admin-app', ['firebase'])
 		}
 	}
 
+
+    //create team function for admin
+    $scope.eventid =eventid;
+    $scope.createTeam = function(teamName){
+
+        var teamNameVal = $('#teamName').val();
+		if(teamNameVal == undefined){
+			teamNameVal = teamName;
+		}
+     	console.log(teamNameVal);
+        console.log('creating team');
+        var ref = firebase.database().ref('events/'+$scope.eventid+'/teams/');
+        console.log($scope.eventid);
+        var teamkey = ref.push().key;
+        console.log(teamkey);
+        var event = $firebaseObject(ref);
+        event.$loaded()
+            .then(function(data){
+                //console.log(data);
+                var newteamRef = firebase.database().ref('events/'+$scope.eventid+'/teams/'+ teamkey);
+                var teamobject = $firebaseObject(newteamRef);
+                teamobject.teamName = teamNameVal; 
+                teamobject.$save();
+                console.log(teamobject);
+
+                var currentUser = firebase.auth().currentUser;
+                var currentUsersRef = firebase.database().ref('users/'+currentUser.uid+'/teams/'+teamkey);
+                var userNewTeamObject = $firebaseObject(currentUsersRef);
+               if(userNewTeamObject.role != 'admin'){
+				userNewTeamObject.role != 'leader'
+			   }
+                userNewTeamObject.$save();
+				console.log(userNewTeamObject);
+            });
+		if (teamNameVal == '' ){
+ 			var url = "team.html?teamid=" + teamkey+ "&eventid="+$scope.eventid;
+	    	//	window.location.href = url;
+    		return false;
+		//user will enter team page which is created by user who become leader
+    	}else{
+		//	var url = "team.html?teamid=" + teamkey+ "&eventid="+$scope.eventid;
+			var url = "leader.html?teamid=" + teamkey+ "&eventid="+$scope.eventid;
+    	//	window.location.href = url;
+    		return true;
+		}
+    }
+
+
 	refPath = "events/"+ eventid + "/teams";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));

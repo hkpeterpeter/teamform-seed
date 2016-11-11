@@ -123,27 +123,29 @@
                   <span class="text-muted">Current events created by other users</span>
                </h2>
             </div>
-            <div class="col-md-12" ng-repeat="event in events">
+          </div>
+            <div class="row" ng-repeat="event in events">
               <div class="col-md-6 col-xs-6">
                 <ul>
                   <li>
-                    Event name: <br>
-                    <span class="badge">{{event.admin.param.eventName}}</span> <br>
+                   <h4> Event name: <br></h4>
+                   <h4> <span class="text-muted btn" ng-click="enterEvent(event.$id)" > <strong>  {{event.admin.param.eventName}}  </strong> </span></h4>  
+                   <button id="btn_enterEvent" type="button" class="btn btn-primary" ng-click="enterEvent(event.$id)">Enter</button>
+                   <br>
                   </li>
                 </ul>
               </div>
               <div class="col-md-6 col-xs-6 text-left" >
                 <ul>
                   <li>
-                  Event Description: <br>
-                  <span class="badge">{{event.admin.param.description}}</span> <br>
-                  <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="enterEvent(event.$id)">Enter</button>
-
+                 <h4> Event Description:</h4>
+                  {{event.admin.param.description}}
+                  <br>
                   </li>
                 </ul>
               </div>
             </div>
-         </div>
+         
 
       <hr class="featurette-divider">
           <!-- START THE FEATURETTES -->
