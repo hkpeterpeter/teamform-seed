@@ -36,14 +36,15 @@
     position:relative;
     /*width:100%;*/
     /*top:50%;*/
-    -webkit-transform:translate(0, -40%);
-    -ms-transform:translate(0, -40%);
-    transform:translate(0, -40%);
+    -webkit-transform:translate(0, -20%);
+    -ms-transform:translate(0, -20%);
+    transform:translate(0, -20%);
     -webkit-transition:all .2s ease-out;
     -moz-transition:all .2s ease-out;
     transition:all .2s ease-out;
     z-index:100;
-    padding:30% 0px 0px 5%;
+    padding:13% 0px 0px 5%;
+    
 }
 
 #login_box{
