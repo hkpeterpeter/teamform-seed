@@ -117,31 +117,39 @@
 
          <!-- Show the current event list  -->
          <div class="row featurette" id="event_list">
+
             <div class="col-md-12">
                <h2 class="featurette-heading" >Event List:
                   <br>
                   <span class="text-muted">Current events created by other users</span>
                </h2>
             </div>
-            <div class="col-md-12" ng-repeat="oneEvent in currentEventList">
-              <div class="col-md-6 col-xs-6">
-                <ul>
-                  <li>
-                    Event name: <br>
-                    <span class="badge">{{oneEvent.admin.param.eventName}}</span> <br>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-xs-6 text-left" >
-                <ul>
-                  <li>
-                  Event Description: <br>
-                  <span class="badge">{{oneEvent.admin.param.description}}</span> <br>
-                  </li>
-                </ul>
-              </div>
+
+          </div>
+            <div class="row" ng-repeat="event in events">
+				<div ng-show="filter(event.admin.param.eventName)">
+				  <div class="col-md-6 col-xs-6">
+					<ul>
+					  <li>
+					   <h4> Event name: <br></h4>
+					   <h4> <span class="text-muted btn" ng-click="enterEvent(event.$id)" > <strong>  {{event.admin.param.eventName}}  </strong> </span></h4>  
+					   <button id="btn_enterEvent" type="button" class="btn btn-primary" ng-click="enterEvent(event.$id)">Enter</button>
+					   <br>
+					  </li>
+					</ul>
+				  </div>
+				  <div class="col-md-6 col-xs-6 text-left" >
+					<ul>
+					  <li>
+					 <h4> Event Description:</h4>
+					   {{event.admin.param.description}}
+					  <br>
+					  </li>
+					</ul>
+				  </div>
+				 </div>
             </div>
-         </div>
+         
 
       <hr class="featurette-divider">
           <!-- START THE FEATURETTES -->

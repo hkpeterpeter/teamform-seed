@@ -41,15 +41,13 @@ angular
 	$scope.displayEmail = '';
 	$scope.username='';
 
-	$scope.eentname='';
+	$scope.eventName='';
 
 	//testing abt firebase
 	var ref = firebase.database().ref('events');
     $scope.events = $firebaseArray(ref);
 	
-	//show event list in the index.html when people login the homepage
-	const eventRef = firebase.database().ref('events');
-	$scope.currentEventList = $firebaseArray(eventRef);
+	
 
 	//enter event
 	$scope.enterEvent =function(eventid){
@@ -96,9 +94,37 @@ angular
 					var url = "event.html?q=" + eventid;
     				window.location.href= url;
 					return true;
+				}else if (teamList.$getRecord(eventid).role == ""){
+				//the user has not yet enter a team
+					var url = "event.html?q=" + eventid;
+    				window.location.href= url;
+					return true;
 				}
 			});
 	}
+
+	//filter test for rule.*
+	// $scope.matchRuleShort = function(str, rule){
+	// 	var matchtest = new RegExp("^" + rule.split("*").join(".*") + "$").test(str);
+	// 	console.log("match: " + matchtest);
+	// 	return matchtest;
+	// }
+    //filter for *.rule and rule.*
+	$scope.matchRule = function(str, rule){
+		var matchtest = new RegExp(rule).test(str);
+		console.log("match: " + matchtest);
+		return matchtest;
+	}
+
+	$scope.filter = function(eventname){
+	//	var rulename = $scope.eventName + "*";
+	//	var reultRight=$scope.matchRuleShort(eventname, rulename);
+		var rulename = $scope.eventName ;
+		var reultLeft=$scope.matchRule(eventname, rulename);
+		return (reultLeft);
+	}
+
+	
 	
 	//create new event
 	$scope.createNewEvent =function (eventname){
