@@ -8,4 +8,3 @@ tmp
 *.log
 .idea
 app/dummy*.json
-chatroom.*
