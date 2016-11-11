@@ -79,12 +79,12 @@ angular
 					return true;
 				}else if (teamList.$getRecord(eventid).role == "leader"){
 				//the user is the one of the leaders of a team of the event
-					var url = "leader.html?q=" + eventid;
+					var url = "leader.html?eventid=" + eventid + "&teamid=" + teamList.$getRecord(eventid).teamid;
     				window.location.href = url;
 					return true;
 				}else if (teamList.$getRecord(eventid).role == "member"){
 				//the user is the one of the members of a team of the event
-					var url = "member.html?q=" + eventid;
+					var url = "member.html?eventid=" + eventid + "$teamid=" + teamList.$getRecord(eventid).teamid;
     				window.location.href = url;
 					return true;
 				}else if (teamList.$getRecord(eventid).role == "null"){
