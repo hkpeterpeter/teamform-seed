@@ -13,11 +13,6 @@ export default class TeamDetailCtrl {
         try {
             let team = await this.teamService.getTeam(this.$stateParams.teamId);
             this.$timeout(() => {
-                if (team.$value === null) {
-                    return this.$timeout(() => {
-                        this.error = new Error('Team not exist');
-                    });
-                }
                 this.team = team;
             });
         } catch (error) {

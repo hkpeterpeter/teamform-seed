@@ -6,8 +6,8 @@ export default class TeamEditCtrl extends TeamDetailCtrl {
     }
     async edit() {
         this.loading = true;
-        let result = await this.teamService.editTeam(this.team);
         try {
+            let result = await this.teamService.editTeam(this.team);
             this.$timeout(() => {
                 this.loading = false;
                 this.$state.go('team.detail', {

@@ -25,11 +25,13 @@ export default class TeamCreateCtrl {
     async setLeader() {
         try {
             let user = await this.authService.checkAuth();
-            this.team.users.unshift({
-                id: user.uid,
-                role: 'Leader'
+            this.$timeout(() => {
+                this.team.users.unshift({
+                    id: user.uid,
+                    role: 'Leader'
+                });
+                this.updateTeamUsers();
             });
-            this.updateTeamUsers();
         } catch (error) {
             this.$timeout(() => {
                 this.error = error;
@@ -97,8 +99,8 @@ export default class TeamCreateCtrl {
         if (this.selectedEvent) {
             this.$timeout(() => {
                 this.availablieUsers = Object.values(this.selectedEvent.users).filter((user) => {
-                    for(let tUser of this.team.users) {
-                        if(tUser.id == user.id) {
+                    for (let tUser of this.team.users) {
+                        if (tUser.id == user.id) {
                             return false;
                         }
                     }

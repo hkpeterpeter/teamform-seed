@@ -1,5 +1,5 @@
 describe('TeamCreateController', () => {
-    let $controller;
+    let $controller, $spys = [];
     beforeEach(() => {
         angular.mock.module('team');
         inject((_$controller_) => {
@@ -7,28 +7,115 @@ describe('TeamCreateController', () => {
         });
     });
 
-    it('should resolve getEvents', async () => {
-        inject((_$rootScope_, _$q_, EventService) => {
-            let deferred = _$q_.defer();
-            spyOn(EventService, 'getEvents').and.returnValue(deferred.promise);
-            $controller.getEvents();
-            deferred.resolve();
-            _$rootScope_.$digest();
-            expect(EventService.getEvents).toHaveBeenCalled();
-        });
+    afterEach(() => {
+        for(let spy of $spys) {
+            spy.and.callThrough();
+        }
     });
 
-    it('should reject getEvents', async () => {
-        inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
-            let deferred = _$q_.defer();
-            spyOn(EventService, 'getEvents').and.returnValue(deferred.promise);
-            $controller.getEvents();
-            deferred.reject(new Error('rejected'));
-            _$rootScope_.$digest();
-            _$timeout_.flush();
-            expect(EventService.getEvents).toHaveBeenCalled();
-            expect($controller.error.message).toEqual('rejected');
+    it('should resolve setLeader', async (done) => {
+        let $timeout;
+        inject((_$timeout_, AuthService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(AuthService, 'checkAuth').and.returnValue(Promise.resolve({uid: 1})));
         });
+        $controller.team = {users: []};
+        await $controller.setLeader();
+        $timeout.flush();
+        expect($controller.team.users[0].id).toEqual(1);
+        expect($controller.team.users[0].role).toEqual('Leader');
+        done();
+    });
+
+    it('should reject setLeader', async (done) => {
+        let $timeout;
+        inject((_$timeout_, AuthService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(AuthService, 'checkAuth').and.returnValue(Promise.reject(new Error('Failed to get user'))));
+        });
+        $controller.team = {users: []};
+        await $controller.setLeader();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Failed to get user');
+        done();
+    });
+
+    it('should resolve getEvents', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'getEvents').and.returnValue(Promise.resolve([{$id: 1}, {$id: 2}])));
+        });
+        $controller.$stateParams.eventId = 1;
+        await $controller.getEvents();
+        $timeout.flush();
+        expect($controller.events[0].$id).toEqual(1);
+        done();
+    });
+
+    it('should reject getEvents', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'getEvents').and.returnValue(Promise.reject(new Error('Failed to get events'))));
+        });
+        await $controller.getEvents();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Failed to get events');
+        done();
+    });
+
+    it('should resolve createTeam', async (done) => {
+        let $timeout;
+        inject((_$timeout_, TeamService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(TeamService, 'createTeam').and.returnValue(Promise.resolve({key: 1})));
+        });
+        await $controller.createTeam();
+        $timeout.flush();
+        expect($controller.$state.current.name).toEqual('team.detail');
+        expect($controller.$stateParams.teamId).toEqual('1');
+        done();
+    });
+
+    it('should reject createTeam', async (done) => {
+        let $timeout;
+        inject((_$timeout_, TeamService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(TeamService, 'createTeam').and.returnValue(Promise.reject(new Error('Failed to create team'))));
+        });
+        await $controller.createTeam();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Failed to create team');
+        done();
+    });
+
+    it('trigger onEventChange', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'getEvent').and.returnValue(Promise.resolve({$id: 1, users:[{id:1, role: 'Leader'}], teamMin: 1, teamMax: 5})));
+        });
+        await $controller.onEventChange({$id: 1});
+        expect($controller.selectedEvent.$id).toEqual(1);
+        $controller.updateTeamUsers();
+        $timeout.flush();
+        expect($controller.team.users.length).toEqual($controller.selectedEvent.teamMax);
+        $controller.team.users = [{id: 1, role: 'Leader'}];
+        $controller.updateAvailableUsers();
+        $timeout.flush();
+        expect($controller.availablieUsers.length).toEqual(0);
+        done();
+    });
+
+    it('trigger onTeamUserChange', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'getEvent').and.returnValue(Promise.resolve({$id: 1, users:[{id:1, role: 'Leader'}], teamMin: 1, teamMax: 5})));
+        });
+        $controller.onTeamUserChange();
+        done();
     });
 
 });

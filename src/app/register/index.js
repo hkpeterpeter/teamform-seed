@@ -6,9 +6,12 @@ import routes from './config/routes';
 import alert from '../common/alert';
 import firebase from '../common/firebase';
 import auth from '../common/auth';
+
+import user from '../user';
+
 import RegisterCtrl from './controllers/register';
 
-export default angular.module('register', [uirouter, angularfire, firebase, alert, auth])
+export default angular.module('register', [uirouter, angularfire, firebase, alert, user, auth])
     .config(routes)
     .controller('RegisterCtrl', RegisterCtrl)
     .name;
