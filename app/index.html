@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -20,45 +18,65 @@
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="assets/css/main.css">
 
-	<!-- Angular Library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-	<!-- Firebase -->
-	
-	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/login.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
-	
-
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+
+     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+      <!-- Angular Library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+      <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+      <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+   <script src="assets/lib/angular-route.min.js"></script>        
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+   <script src="assets/lib/firebase.js"></script>     
+
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
+
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/login.js"></script>
+   <script src="assets/js/index.js"></script>
+
+
+
+
+
+
+
+
 </head>
 
 <body class="home">
 	<!-- Fixed navbar -->
-
-	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
-		<div class="container" ng-app="teamformLoginApp" >
-
+	<div class="navbar navbar-inverse navbar-fixed-top headroom">
+		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
-			</div> 
-			<div class="navbar-collapse collapse" ng-controller="LoginCtrl">
-
+			</div>
+			<div class="navbar-collapse collapse" ng-controller="LoginCtrl" ng-app="teamform-login-app">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
-					<li><button class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</button></li>
+					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -68,9 +86,7 @@
 	<!-- Header -->
 	<header id="head">
 		<div class="container">
-
-			<h2 class="featurette-heading">
-
+			<h2 class="featurette-heading">What is teamform?
                   <br>
                   <span class="text-muted">A real-time online team forming app</span>
                </h2>
@@ -290,7 +306,6 @@
 								<a href="#event">Event</a> |
 								<a href="#about">About us</a> |
 								<b><a href="loginwithgoogle()">Sign in</a></b>
-
 							</p>
 						</div>
 					</div>
@@ -308,25 +323,5 @@
 		</div>
 
 	</footer>	
-		
-
-
-
-
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/lib/angular.min.js"></script>
-	   <script src="assets/lib/angular-route.min.js"></script>        
-     
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="assets/lib/firebase.js"></script>     
-   <script src="assets/lib/angularfire.min.js"></script>
-	<script src="assets/js/login.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
-
 </body>
 </html>
