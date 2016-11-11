@@ -3,8 +3,8 @@ app.controller("teamedit",["$scope","$firebaseArray", "Auth","$rootScope",
                
   function($scope, $firebaseArray,Auth,$rootscope){
                 
-                var ref=firebase.database().ref("events");
-                $scope.event = $firebaseArray(ref);
+        var ref=firebase.database().ref("events");
+        $scope.event = $firebaseArray(ref);
 
 
         $scope.teamedit = function(eventId, teamId,teamintro) {

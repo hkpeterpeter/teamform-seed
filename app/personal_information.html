@@ -1,4 +1,17 @@
 <div ng-controller="piCtrl">
-   <h1>Personal Infromation</h1>
-   <span>Fish{{id}}</span>
+   <h1>Personal Information</h1>
+   <table width="100%">
+    <thead>
+      <tr>
+      	<th>Id</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in data">
+      	<td ng-bind="obj.$id"></td>
+        <td ng-bind="obj.$value"></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
