@@ -41,11 +41,15 @@ angular
 	$scope.displayEmail = '';
 	$scope.username='';
 
-	$scope.newEventname='';
+	$scope.eentname='';
 
 	//testing abt firebase
 	var ref = firebase.database().ref('events');
     $scope.events = $firebaseArray(ref);
+	
+	//show event list in the index.html when people login the homepage
+	const eventRef = firebase.database().ref('events');
+	$scope.currentEventList = $firebaseArray(eventRef);
 
 	//enter event
 	$scope.enterEvent =function(eventid){
@@ -103,10 +107,7 @@ angular
 			var url = "createEvent.html?q=" + val;
     		window.location.href= url ;
     		return false;
-		//todo: check if the event already exsist
-		}else if ( $scope.isEventExist(val) ) {
-    	 	$window.alert("Event ", val , "already exist.");
-			 return false;
+		//user can enter create event page with existing event name,  it will warning when user create it
     	}else{
 			var url = "createEvent.html?q=" + val;
     		window.location.href = url;
@@ -114,17 +115,35 @@ angular
 		}
 	}
 
-	//check if event exist//not work for new firebase
-	$scope.isEventExist = function(eventname){
-		var eventsRef = firebase.database().ref('events');
-		var eventList = $firebaseArray(eventsRef);
-		eventList.$loaded()
-			.then(function(x){
-				console.log(eventList.$getRecord(eventname));
-				if(eventList.$getRecord(eventname) == null){
-					return false;
-				}
-			});
+	$scope.enterEventWithName=function(eventName){
+		$scope.getEventid(eventName,function(result){
+			console.log("get event id:" + result);
+			if(result){
+				console.log("found event");
+				$scope.enterEvent(result);
+			}else{//result = null
+				//ask if user want to create new event
+			}
+		})
+	}
+	
+	$scope.getEventid = function(eventname, callback){
+		console.log("get event id by eventname");
+		console.log("eventname: "+ eventname);
+		var ref = firebase.database().ref("events/");
+		var eventsList = $firebaseObject(ref);
+		var eventid = null;
+		eventsList.$loaded(function(data) {
+				data.forEach(function(eventObj, key){
+					console.log("eventObj's key: "+key);
+					if ((eventObj.admin.param.eventName == eventname)){
+						console.log("found, callback eventid");
+						eventid = key;
+					}
+				})
+		}).then(function(){
+			callback(eventid);
+		});
 	}
 
 	//login function
@@ -215,9 +234,4 @@ angular
 			$scope.$apply();
 		}
 	})
-
-	//show event list in the index.html when people login the homepage
-			const eventRef = firebase.database().ref('events');
-			$scope.currentEventList = $firebaseArray(eventRef);
-
 }]);
