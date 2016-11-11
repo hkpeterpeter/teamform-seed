@@ -3,45 +3,18 @@
   Maxsize: {{data.max}}
   Current Size: {{data.currentSize}}
   Desc: {{data.desc}} -->
-<!-- Modal -->
-<div class = "modal fade" id = "myModal" role = "dialog">
-    <div class = "modal-dialog">
-      <!-- Modal content-->
-      <div class = "modal-content">
-        <div class = "modal-header">
-          <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
-          <h4 class = "modal-title">Please fill the information</h4>
-        </div>
-        <div class = "modal-body">
-          <form class = "form-inline">
-            <div class = "form-group">
-                <label for = "name">tag name:</label>
-                <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.tagname" >
-                <input type = "text" placeholder = "1" ng-model = "form.tagneed" >
-                <input type = "text" placeholder = "0" ng-model = "form.tagnum">
-                {{form.tagname}} {{form.tagneed}} {{form.tagnum}}
-                <button class = "btn btn-primary" ng-click = "addTag(form.tagname,form.tagneed,form.tagnum)" data-dismiss = "modal">Submit</button>
-            </div>
-          </form>
-        </div>
+  <!-- <div class = "form-group">
+      <div class="btn-group">
+        <ul ng-repeat="tag in tagShowList">
+          <li><input type = "checkbox" ng-click = "tag.state = !tag.state"> {{tag.name}}</li>
+        </ul>
       </div>
-    </div>
-  </div>
-
-
-  <div class="btn-group">
-    <ul ng-repeat="tag in tagShowList">
-      <li><input type = "checkbox" ng-click = "tag.state = !tag.state"> {{tag.name}}</li>
-    </ul>
-  </div>
-
-
-  <div class="btn-group">
-    <ul ng-repeat="tag in tagShowList" ng-if="tag.state">
-        <li> {{tag.name}}</li>
-    </ul>
-  </div>
-
+      <div class="btn-group">
+        <ul ng-repeat="tag in tagShowList" ng-if="tag.state">
+            <li> {{tag.name}}</li>
+        </ul>
+      </div>
+  </div> -->
 
 <!-- Basic Team Information -->
   <div class="container-fluid">
@@ -50,9 +23,11 @@
   			<h3>
   				Teamname:  {{teamdata.name}}
   			</h3>
+        <h3>{{myEvents[eventID] | role}}</h3>
   			<p>
   				{{teamdata.desc}}
   			</p>
+        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='tba'" ng-click = "ApplyTeam()">Apply fot this team</button>
   			<form class="form-search">
   				<input class="input-medium search-query" type="text" /> <button type="submit" class="btn">Search</button>
   			</form>
@@ -97,13 +72,16 @@
             </ul>
           </div>
           <div class="panel-body">
-              <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a tag</button>
+              <!-- <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a skill tag</button> -->
+              <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal3"  ng-if="(myEvents[eventID] | role)=='leader'">add a feature tag</button>
+              <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal4"  ng-if="(myEvents[eventID] | role)=='leader'">add a language tag</button>
           </div>
         </div>
   		</div>
   	</div>
   	<div class="row-fluid">
-      <div class="span4">
+      <!-- Applications -->
+      <div class="span4"  ng-if="(myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member'">
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Applications</h3>
@@ -112,14 +90,15 @@
             <ul ng-repeat="x in applications">
               <li>
                 {{users.$getRecord(x.$id).readOnly.name}} : {{x.$value}}
-                <button type="button" class="btn btn-primary" ng-click="">Accept</button>
-                <button type="button" class="btn btn-primary" ng-click="">Reject</button>
+                <button type="button" class="btn btn-primary" ng-click="accept_Application(x.$id)" ng-if = "myEvents[eventID] | role)=='leader'">Accept</button>
+                <button type="button" class="btn btn-primary" ng-click="decline_Application(x.$id)" ng-if = "x.$value == 'pending' ">Reject</button>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="span4">
+      <!-- Invittions -->
+      <div class="span4" ng-if="(myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member' " >
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Invitation List</h3>
@@ -131,21 +110,117 @@
           </div>
         </div>
       </div>
+      <!-- Announcements -->
       <div class="span4">
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title"> Notification Board</h3>
           </div>
           <div class="panel-body">
+            <!-- {{applicationid}} -->
             <ul ng-repeat="x in announcements">
               <li>
                 {{x.content}} &nbsp; Date : {{x.timeStamp}}
+                <button type="button" class="btn btn-default" ng-click="deleteAnnouncement(x.$id)"  ng-if="(myEvents[eventID] | role)=='leader'">Delete</button>
               </li>
             </ul>
+            <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal2"  ng-if="(myEvents[eventID] | role)=='leader'">post an announcement</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+  <!-- Modal For add skill tag-->
+  <!-- <div class = "modal fade" id = "myModal" role = "dialog">
+      <div class = "modal-dialog">
+        <! Modal content-->
+        <!-- <div class = "modal-content">
+          <div class = "modal-header">
+            <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+            <h4 class = "modal-title">Choose from the following options</h4>
+          </div>
+          <div class = "modal-body">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {{tagList[form.tagid]}} <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="(key,value) in tagList" ng-click = "form.tagid = key">{{value}}</li>
+              </ul>
+            </div>
+            <label for="price">Number needed: </label>
+              <input type="text" class="form-control" style="width:100px" ng-model="form.neednum">
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Modal for add announcements-->
+    <div class = "modal fade" id = "myModal2" role = "dialog">
+        <div class = "modal-dialog">
+          <!-- Modal content-->
+          <div class = "modal-content">
+            <div class = "modal-header">
+              <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+              <h4 class = "modal-title">Please write the message</h4>
+            </div>
+            <div class = "modal-body">
+              <form class = "form-inline">
+                <div class = "form-group">
+                    <label for = "name">Message to be anncounced:</label>
+                    <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.announcementmsg" >
+                    <button class = "btn btn-primary" ng-click = "addAnnouncement(form.announcementmsg)" data-dismiss = "modal">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!--  Add a feature tag-->
+      <div class = "modal fade" id = "myModal3" role = "dialog">
+          <div class = "modal-dialog">
+            <!-- Modal content-->
+            <div class = "modal-content">
+              <div class = "modal-header">
+                <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+                <h4 class = "modal-title">Input the tag content</h4>
+              </div>
+              <div class = "modal-body">
+                <form class = "form-inline">
+                  <div class = "form-group">
+                      <label for = "name">New feature tag:</label>
+                      <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.featuretag" >
+                      <button class = "btn btn-primary" ng-click = "addFeatureTag(form.featuretag)" data-dismiss = "modal">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--  Add a Language tag-->
+              <div class = "modal fade" id = "myModal4" role = "dialog">
+                  <div class = "modal-dialog">
+                    <!-- Modal content-->
+                    <div class = "modal-content">
+                      <div class = "modal-header">
+                        <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+                        <h4 class = "modal-title">Input the tag content</h4>
+                      </div>
+                      <div class = "modal-body">
+                        <form class = "form-inline">
+                          <div class = "form-group">
+                              <label for = "name">New Language tag:</label>
+                              <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.languagetag" >
+                              <button class = "btn btn-primary" ng-click = "addLanguageTag(form.languagetag)" data-dismiss = "modal">Submit</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
 </div>
