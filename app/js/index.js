@@ -47,9 +47,7 @@ angular
 	var ref = firebase.database().ref('events');
     $scope.events = $firebaseArray(ref);
 	
-	//show event list in the index.html when people login the homepage
-	const eventRef = firebase.database().ref('events');
-	$scope.currentEventList = $firebaseArray(eventRef);
+	
 
 	//enter event
 	$scope.enterEvent =function(eventid){
@@ -92,6 +90,11 @@ angular
     				window.location.href = url;
 					return true;
 				}else if (teamList.$getRecord(eventid).role == "null"){
+				//the user has not yet enter a team
+					var url = "event.html?q=" + eventid;
+    				window.location.href= url;
+					return true;
+				}else if (teamList.$getRecord(eventid).role == ""){
 				//the user has not yet enter a team
 					var url = "event.html?q=" + eventid;
     				window.location.href= url;

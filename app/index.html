@@ -96,7 +96,7 @@
                         <!--enter: if eventName is niexsit, ask user if they want to create new event-->
                     <div class="col-xs-6 text-right"> 
                         <div>
-                          <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(eventName)">Create new event</button>
+                          <button id="btn_enterEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(eventName)">Create new event</button>
                           <!--create event with eventname(can be empty)-->
                         </div>
                     </div>
@@ -123,12 +123,12 @@
                   <span class="text-muted">Current events created by other users</span>
                </h2>
             </div>
-            <div class="col-md-12" ng-repeat="oneEvent in currentEventList">
+            <div class="col-md-12" ng-repeat="event in events">
               <div class="col-md-6 col-xs-6">
                 <ul>
                   <li>
                     Event name: <br>
-                    <span class="badge">{{oneEvent.admin.param.eventName}}</span> <br>
+                    <span class="badge">{{event.admin.param.eventName}}</span> <br>
                   </li>
                 </ul>
               </div>
@@ -136,7 +136,9 @@
                 <ul>
                   <li>
                   Event Description: <br>
-                  <span class="badge">{{oneEvent.admin.param.description}}</span> <br>
+                  <span class="badge">{{event.admin.param.description}}</span> <br>
+                  <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="enterEvent(event.$id)">Enter</button>
+
                   </li>
                 </ul>
               </div>
