@@ -1,13 +1,16 @@
 <h1>{{eventObj.eventInfo.name}}</h1>
-<h3>{{myEvents[eventID] | role}}</h3>
-<h1>{{eventObj.eventInfo.desc}}</h1>
-<!-- <h1 ng-if="(myEvents[eventID] | role)=='admin'">testing</h1> -->
-<div ng-if="!(myEvents[eventID]===undefined)">
-    <button class="btn btn-primary" ng-click="manage()" ng-if="myEvents[eventID].position=='admin'">Manage</button>
+<h3>{{myEvent | role}}</h3>
+<h1 ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</h1>
+<textarea ng-model="eventObj.eventInfo.desc" ng-if="editingInfo" ng-value="eventObj.eventInfo.desc"></textarea>
+<input class="btn btn-primary" ng-click="editInfo()" ng-if="myEvent.position=='admin'" ng-value="editButton">
+
+<!-- <h1 ng-if="(myEvent | role)=='admin'">testing</h1> -->
+<div ng-if="!(myEvent===undefined)">
+    <button class="btn btn-primary" ng-click="manage()" ng-if="myEvent.position=='admin'">Manage</button>
 </div>
 <br>
-<div ng-if=" (myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member' ">
-    <h3>My team: <a ng-href="#/dashboard/event/{{eventID}}/team/{{myEvents[eventID].team}}">{{eventObj.teams[myEvents[eventID].team].name}}</a><h3>
+<div ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' ">
+    <h3>My team: <a ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">{{eventObj.teams[myEvent.team].name}}</a><h3>
 </div>
 <br>
 <div class="panel panel-default">
@@ -28,7 +31,7 @@
         <div ng-repeat="(key, name) in eventObj.tba">
             {{users[name].readOnly.name}}
             <button class="btn btn-primary"  ng-click="addToTeam(name)" ng-if="isManaging">addToTeam</button>
-            <button class="btn btn-primary"  ng-click="invite(name)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(name)">invite</button>
+            <button class="btn btn-primary"  ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)">invite</button>
         </div>
     </div>
 <div/>
@@ -40,10 +43,10 @@
         </div>
     </div>
 <div/>
-<button class="btn btn-primary" ng-click="createTeamDialogue()" ng-if="(myEvents[eventID] | role)=='tba'">createTeam</button>
-<button class="btn btn-primary" ng-click="quit()" ng-if="(myEvents[eventID] | role)=='tba'">Quit Event</button>
-<button class="btn btn-primary" ng-click="createAnnouncementDialogue()" ng-if="(myEvents[eventID] | role)=='admin'">post an announcement</button>
-<button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join Event</button>
+<button class="btn btn-primary" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">createTeam</button>
+<button class="btn btn-primary" ng-click="quit()" ng-if="(myEvent | role)=='tba'">Quit Event</button>
+<button class="btn btn-primary" ng-click="createAnnouncementDialogue()" ng-if="(myEvent | role)=='admin'">post an announcement</button>
+<button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvent | role)=='visitor'">Join Event</button>
 <br><br><br><br>
 <!--<h1>Debug</h1>-->
 <!--<button class="btn btn-primary" ng-click="createEventList(userData)">createEventList</button>-->
