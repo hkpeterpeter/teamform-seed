@@ -1,5 +1,6 @@
 app.controller("piCtrl", ["$scope", "$rootScope", function($scope, $rootScope) {
-	$scope.id = $rootScope == ""?"1":"0";
+	console.log("Fish" + $rootScope.id);
+	$scope.id = $rootScope.id;
 }]);
 
 

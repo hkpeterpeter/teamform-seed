@@ -112,12 +112,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
              .state('personal_information', {
             url: '/personal_information',
             templateUrl: 'personal_information.html',
+            authRequired: true,
             controller: 'piCtrl'
             })
+             
              .state('requests', {
             url: '/handleRequests',
             templateUrl: 'handleRequests.html',
-            controller: 'handleRequests'
+            controller: 'handleRequests',
             });
 });
 
