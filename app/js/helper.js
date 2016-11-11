@@ -157,7 +157,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
        //  });
         applicationList_ref.set("withdrawn");
 
-		return team.$loaded().then(function(){
+		team.$loaded().then(function(){
             user.$loaded().then(function(){
                 // send notification to leader
                 var msg = user.readOnly.name + " has withdrawn an application for your team " + team.name;
@@ -261,7 +261,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
        //  });
         invitationList_ref.set("declined");
 
-		return team.$loaded().then(function(){
+		team.$loaded().then(function(){
             user.$loaded().then(function(){
                 // send notification to leader
                 var msg = user.readOnly.name + " has declined an invitation from your team " + team.name;
@@ -280,8 +280,9 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         var temp = {};
   			temp[uid] = "accepted";
   			ref.child('applications').update(temp);
-        helper.addPersonToTeam(uid, eventID,teamID, "member");
-        return helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
+        helper.addPersonToTeam(uid, eventID,teamID, "member").then(function(){
+            helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
+        });
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
