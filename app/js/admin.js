@@ -132,12 +132,9 @@ angular.module('teamform-admin-app', ['firebase'])
 			console.log("edit announcement canceled");
 		}
 	}
-
-
     
    //create team function 
     $scope.createTeam = function(teamName){
-
         var teamNameVal = $('#teamName').val();
 		if(teamNameVal == undefined){
 			teamNameVal = teamName;
@@ -275,11 +272,19 @@ angular.module('teamform-admin-app', ['firebase'])
                 });
             $scope.loggedIn = true;
 			$scope.uid = user.uid;
-			if($scope.param.admin != user.uid){//check if user is admin of this event
-				console.log('not admin');
-				$window.alert("Permission Denied. \n You are not admin of this event")
-				$window.location.href = '/index.html';
-			}
+			eventid = getURLParameter("q");
+			refPath = "events/"+ eventid + "/admin/param";
+			ref = firebase.database().ref(refPath);	
+			$scope.param = $firebaseObject(ref);
+			$scope.param.$loaded().then(function(data){
+				if($scope.param.admin != user.uid){//check if user is admin of this event
+					console.log('admin: '+$scope.param.admin+', user: '+user.uid);
+					console.log('not admin');
+					$window.alert("Permission Denied. \n You are not admin of this event")
+					$window.location.href = '/index.html';
+				}
+			})
+
         }else{
 			console.log('not log in');
             $window.location.href = '/index.html';
