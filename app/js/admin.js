@@ -62,7 +62,13 @@ angular.module('teamform-admin-app', ['firebase'])
 			$scope.users.push($firebaseObject(getUserWithId(mem.$id)));
 		});
 	});
+
 	
+	$scope.expanded = false;
+	$scope.setExpanded = function() {
+		$scope.expanded = !$scope.expanded;
+		console.log("Now expaned: " + $scope.expanded);
+	};
 	
 	$scope.getTeamMember = function(teamMembers) {
 		var result = [];
@@ -77,6 +83,17 @@ angular.module('teamform-admin-app', ['firebase'])
 			}
 		}
 		return result;
+	}
+	
+	$scope.terminateEvent = function() {
+		var eventName = getURLParameter("q");
+		var refPath = eventName;
+		firebase.database().ref(refPath).remove();
+		window.location.href= "index.html";
+	}
+	
+	$scope.hasTeam = function(member) {
+		return typeof member.inTeam !== 'undefined';
 	}
 	
 	$scope.getMemberName = function(uid) {

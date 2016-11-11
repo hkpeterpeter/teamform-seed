@@ -169,22 +169,22 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
-	$scope.tagchecked = function(tagval){
+	$scope.tagChecked = function(tagval){
 		for (var j =0; j <$scope.param.tags.length;j++){
 			if (tagval == $scope.param.tags[j]){return true;}
 		}
 		return false;
 	};
-	$scope.addtags = function(tagval){
-		var addornot = true;
+	$scope.addTags = function(tagval){
+		var addOrNot = true;
 		var k = 0;
 		for(;k<$scope.param.tags.length;k++){
 			if(tagval == $scope.param.tags[k]){
-				addornot = false;
+				addOrNot = false;
 				break;
 			}
 		}
-		if(addornot){$scope.param.tags.push(tagval);}
+		if(addOrNot){$scope.param.tags.push(tagval);}
 		else{$scope.param.tags.splice(k,1);}
 	};
 	//tagsfunctionendshere
@@ -202,11 +202,16 @@ angular.module('teamform-team-app', ['firebase'])
 		var index = $scope.param.teamMembers.indexOf(member);
 		if(index > -1) {
 			$scope.param.teamMembers.splice(index, 1); // remove that item
+			var refPath = eventName + "/member/" + member;
+			var ref = firebase.database().ref(refPath);
+			ref.update({inTeam: null});
+			if($scope.param.teamMembers.length == 0){
+				var refPath = eventName + "/team/" + $scope.param.teamName;
+				var ref = firebase.database().ref(refPath);
+				ref.remove();
+			}
 			$scope.saveFunc();
-		}
-		var refPath = eventName + "/member/" + member;
-		var ref = firebase.database().ref(refPath);
-		ref.update({inTeam: null});
+		}		
 	};
 	    
 	//invite function
