@@ -52,8 +52,8 @@ $(document).ready(function(){
     });
 
     $("#btn_create_email_acc").click(function(){
-      var email = "vivtony00@yahoo.com.hk";
-      var password = "abcd1234";
+      var email = $('#input_email').val();
+      var password = $('#input_password').val();
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -78,8 +78,8 @@ $(document).ready(function(){
       });
     });
     $("#btn_login_email").click(function(){
-      var email = "vivtony00@yahoo.com.hk";
-      var password = "abcd1234";
+      var email = $('#input_email').val();
+      var password = $('#input_password').val();
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -110,7 +110,7 @@ $(document).ready(function(){
 
 
 
-angular.module('teamform-login-app', ['firebase'])
+angular.module('teamform-app', ['firebase'])
 .controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$firebaseAuth', function($scope, $firebaseObject, $firebaseArray, $firebaseAuth) {
   // Call Firebase initialization code defined in site.js
   initalizeFirebase();
@@ -144,11 +144,11 @@ angular.module('teamform-login-app', ['firebase'])
   $scope.emailLogin=function(){
     // console.log("$scope.username,$scope.password",$scope.username,$scope.password);
     $scope.auth.$signInWithEmailAndPassword($scope.username, $scope.password)
-    .then(function(firebaseUser) {
-      $scope.firebaseUser=firebaseUser;
-      // console.log("Signed in as:", $scope.firebaseUser.uid);
-    }).catch(function(error) {
-      $scope.error = error;
+    // .then(function(firebaseUser) {
+    //   $scope.firebaseUser=firebaseUser;
+    //   // console.log("Signed in as:", $scope.firebaseUser.uid);
+    .catch(function(error) {
+      $scope.error = error.message;
       console.error("email Login failed(ng):", error);
     });
   };
@@ -159,7 +159,7 @@ angular.module('teamform-login-app', ['firebase'])
       $scope.firebaseUser = firebaseUser;
       // console.log("FB Login successfully(ng)",user);
     }).catch(function(error) {
-      $scope.error = error;
+      $scope.error = error.message;
       console.error("FB Login fail(ng)",error);
     });
   };
@@ -173,7 +173,7 @@ angular.module('teamform-login-app', ['firebase'])
       $scope.message = "Signed in as:"+ firebaseUser.uid;
       console.log("Signed in as:", firebaseUser.uid);
     } else {
-      $scope.message = null;
+      $scope.message = "Signed out";
       console.log("Signed out");
     }
   });
