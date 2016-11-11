@@ -1,11 +1,12 @@
 <div ng-controller="homeController">
 
 <!-- LoginBox -->
-<div class="cd-user-modal" ng-click="changeVisible(event)"> <!-- this is the entire modal form, including the background -->
+<div class="cd-user-modal" > <!-- this is the entire modal form, including the background --> 
+<!-- ng-click="changeVisible(event)" -->
     <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
       <ul class="cd-switcher" ng-click="switcher(event)">
         <li><a>Sign in</a></li>
-        <li><a href="#0">New account</a></li>
+        <li><a>New account</a></li>
       </ul>
 
       <div id="cd-login"> <!-- log in form -->
@@ -35,24 +36,23 @@
           <!-- <p class="fieldset">
             <input class="full-width" type="button" value="Login">
           </p>  -->
-          <a class="btn btn-block btn-social btn-google" ng-click="login('google')">
+          <a class="btn btn-block btn-social btn-google" ng-click="login('google')" >
             <span class="fa fa-google"></span> Sign in with Google
           </a>
           <a class="btn btn-block btn-social btn-facebook" ng-click="login('facebook')">
             <span class="fa fa-facebook"></span> Sign in with Facebook
           </a>
-          <a class="btn btn-block btn-social btn-twitter" ng-click="login('twitter')">
+          <!-- <a class="btn btn-block btn-social btn-twitter" ng-click="login('twitter')">
             <span class="fa fa-twitter"></span> Sign in with Twitter
           </a>
           <a class="btn btn-block btn-social btn-github" ng-click="login('github')">
-            <span class="fa fa-github"></span> Sign in with Github
-          </a>
-          <!-- <a href="#0" class="cd-close-form">Close</a> -->
+            <span class="fa fa-github"></span> Sign in with Github 
+          </a> -->
         </form>
 
       </div> <!-- /cd-login -->
 
-      <a href="#0" class="cd-close-form">Close</a>
+      <a class="cd-close-form" href="#0" onclick="javascript: event.preventDefault(); $('.cd-user-modal').removeClass('is-visible');">Close</a>
     </div>
 </div>
 <!-- /LoginBox -->
