@@ -1,6 +1,5 @@
+
 $(document).ready(function(){
-
-
     $("#btn_admin").click(function(){
     	var val = $('#input_text').val();
     	if ( val !== '' ) {
@@ -30,3 +29,10 @@ $(document).ready(function(){
 
 
 });
+
+angular.module('teamform-index-app', ['firebase', 'login', 'search'])
+.controller('indexCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+
+
+
+}]);
