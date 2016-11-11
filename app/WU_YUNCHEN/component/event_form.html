@@ -11,37 +11,43 @@ Maximum number of team member: {{eventMax}}
           
           <textarea-field id="event_description" label="Event description" field-model="eventDescription"></textarea-field>
           <br>
-          <label>Minimum number of team member</label>
           <div class="row">
-            <div range-spinner
-              range-min="1" 
-              range-step="1"  
-              range-max="50" 
-              range-default-value="1"
-              range-decimal-precision="1"       
-              range-model="eventMin"
-              accept-decimal=false
-              name-of-field="event_min_number"
-              id-of-field="event_min_num">
+            <div class="col s4">
+              <label>Minimum number of team member</label>
+              <div range-spinner
+                range-min="1" 
+                range-step="1"  
+                range-max="50" 
+                range-default-value="1"
+                range-decimal-precision="1"       
+                range-model="eventMin"
+                accept-decimal=false
+                name-of-field="event_min_number"
+                id-of-field="event_min_num">
+              </div>
+              <br><br><br><br>
             </div>
-            <br><br><br><br>
-            <label>Maximum number of team member</label>
-            <div range-spinner
-              range-min="1" 
-              range-step="1"  
-              range-max="50" 
-              range-default-value="1"
-              range-decimal-precision="1"       
-              range-model="eventMax"
-              accept-decimal=false
-              name-of-field="event_max_number"
-              id-of-field="event_max_num">
+            <div class="col s8">
+              <label>Maximum number of team member</label>
+              <div range-spinner
+                range-min="1" 
+                range-step="1"  
+                range-max="50" 
+                range-default-value="1"
+                range-decimal-precision="1"       
+                range-model="eventMax"
+                accept-decimal=false
+                name-of-field="event_max_number"
+                id-of-field="event_max_num">
+              </div>
+              <br><br><br><br>
             </div>
-            <br><br><br><br>
           </div>
 
           <button class="btn waves-effect waves-light" type="submit" name="action">Create
             <i class="material-icons right">send</i>
+          </button>
+          <button class="btn waves-effect waves-light red" type="submit" >Cancel<i class="material-icons right">cancel</i>
           </button>
         </form>
     </div>
