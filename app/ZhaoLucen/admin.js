@@ -1,14 +1,29 @@
 
-teamapp.controller('admin_title_ctrl', function($scope) {
+teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject) {
+  var event = $firebaseObject($rootScope.event_ref.child('0'));
+  event.$loaded().then(function(){
+  	console.log(event.adminID);
+  	$rootScope.eventTeams = event.allTeams;
+  	$rootScope.eventUsers = event.waitingUsers;
+  	$scope.minSize = event.minSize;
+  	$scope.maxSize = event.maxSize;
+  	$scope.size = $scope.maxSize - $scope.minSize + 1;
+  	console.log($scope.size);
+  	var admin = $firebaseObject($rootScope.user_ref.child('0'));
+  	admin.$loaded().then(function(){
+  		$scope.event = {
+  			name: event.eventName,
+  			admin: admin.name
+  		};
+  	});
+  	console.log($rootScope.eventTeams);
+  });
 
-  $scope.event = {
-  	name: 'newEvent',
-  	admins: ['admin1', 'admin2', 'admin3']
-	};
-});
+  $scope.getNumber = function(num) {
+    return new Array(num);   
+	}
 
-
-teamapp.controller('admin_team_ctrl', function($scope) {
+	console.log($rootScope.eventTeams);
 	$scope.teams = [
 		{
 			name: 'TeamOne',
@@ -38,10 +53,7 @@ teamapp.controller('admin_team_ctrl', function($scope) {
   		var index = $scope.teams.indexOf(team);
   		$scope.teams.splice(index, 1);     
 	};
-});
 
-
-teamapp.controller('admin_member_ctrl', function($scope) {
 	$scope.users = [
 		{
 			name: "user1",
@@ -55,4 +67,5 @@ teamapp.controller('admin_member_ctrl', function($scope) {
 			requests: ['TeamThree', 'TeamTwo']
 		}
 	];
+
 });

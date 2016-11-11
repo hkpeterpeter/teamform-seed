@@ -16,13 +16,13 @@
   <script type="text/javascript" src="../lib/materialize/js/materialize.min.js"></script>
   <script src="adminAnimate.js"></script>
 -->
-  <div>
+  <div ng-controller="admin_ctrl">
     <div class="container">
     	<!-- Admin Page Title -->
-    	<div class="section admin-title" ng-controller="admin_title_ctrl">
+    	<div class="section admin-title">
     		<div class="grey lighten-4">
     			<h1>{{ event.name }}</h1>
-    			<h5>Administrator: <span ng-repeat="admin in event.admins">{{ admin }} </span></h5>
+    			<h5>Administrator: {{ event.admin }}</h5>
     		</div>
     	</div>
     	<!-- Admin Page Title Ends -->
@@ -51,11 +51,37 @@
     	<div class="row admin-lists">
     	<!-- Teams List -->
 
-    		<div class="col s12 m6" ng-controller="admin_team_ctrl">
+    		<div class="col s12 m6">
 
     			<h2>Formed Teams</h2>
     			<div class="divider"></div>
 
+          <!-- Team Filter -->
+
+          <div class="input-field">
+            <input id="admin-team-search" type="text" class="validate"  ng-model="adminUserSearch">
+            <label for="admin-team-search">Search By Name Or Skill</label>
+          </div>
+          <div class="admin-filter">
+            <span>Full Or Not: </span>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-full-team" checked="checked" />
+              <label for="admin-full-team">No Quota</label>
+            </div>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-unfull-team" checked="checked" />
+              <label for="admin-unfull-team">Quota Open</label>
+            </div>
+          </div>
+          <div class="admin-filter">
+            <span>Prefererence: </span>
+            <div class="admin-one-filter" ng-repeat="i in getNumber(size) track by $index">
+              <input type="checkbox" class="filled-in" id="admin-team-size-{{$index+minSize}}" checked="checked"/>
+              <label for="admin-team-size-{{$index+minSize}}">{{$index+minSize}}</label>
+            </div>
+          </div>
+
+          <!-- Team Filter Ends -->
     			<!-- A Single Card -->
           <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams">
             <div class="card-content white-text">
@@ -91,10 +117,30 @@
     	<!-- Team List Ends -->
 
     	<!-- Participant List -->
-    		<div class="col s12 m6" ng-controller="admin_member_ctrl">
+    		<div class="col s12 m6">
 
     			<h2>Waiting Participants</h2>
     			<div class="divider"></div>
+
+          <!-- User Filter -->
+
+          <div class="input-field">
+            <input id="admin-user-search" type="text" class="validate" ng-model="adminUserSearch">
+            <label for="admin-user-search">Search By Name Or Skill</label>
+          </div>
+          <div class="admin-filter">
+            <span>Applied Or Not: </span>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-request-user" checked="checked" />
+              <label for="admin-request-user">Requested</label>
+            </div>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-unrequest-user" checked="checked" />
+              <label for="admin-unrequest-user">Not Requested</label>
+            </div>
+          </div>
+
+          <!-- User Filter Ends -->
 
     			<!-- A Single Card -->
 
@@ -147,6 +193,9 @@
     	</div>
     </div>
     <event-footer></event-footer>
+    <script type="text/javascript">
+      $('.collapsible').collapsible();
+    </script>
   </div>
 <!--    
 </body>
