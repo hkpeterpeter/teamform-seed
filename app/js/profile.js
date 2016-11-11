@@ -2,7 +2,8 @@
 
 
 angular.module('teamform-profile-app', ['firebase'])
-.controller('profileinput', ['$firebaseAuth','$scope', '$firebaseObject', '$firebaseArray', function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
+.controller('profileinput', ['$firebaseAuth','$scope', '$firebaseObject', '$firebaseArray', 
+function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
 	// Implementation the todoCtrl
     $scope.uid = null;

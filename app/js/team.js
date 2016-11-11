@@ -11,12 +11,23 @@ $(document).ready(function(){
 });
 
 angular.module('teamform-team-app', ['firebase'])
-.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
-    function($scope, $firebaseObject, $firebaseArray) {
+.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$firebaseAuth',
+    function($scope, $firebaseObject, $firebaseArray, $firebaseAuth) {
 		
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
 
+	$scope.auth=$firebaseAuth();
+	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
+		if (firebaseUser) {
+			$scope.uid = firebaseUser.uid;
+		} else {
+			console.log("Signed out");
+		}
+	});
+
+	
+	
 	var refPath = "";
 	var eventName = getURLParameter("q");	
 	
@@ -24,8 +35,14 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
-		"teamMembers" : []
+		"teamMembers" : [],
+		"teamLeader": [],
+		"teamLeaderSize" : 0,
+		"skills":[],
+		"personality":'',
+		"star":''
 	};
+	
 		
 	
 
@@ -126,7 +143,13 @@ angular.module('teamform-team-app', ['firebase'])
 			
 			var newData = {				
 				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers
+				'teamMembers': $scope.param.teamMembers,
+				'score': 0,
+				'teamLeaders': [$scope.uid],
+				'teamLeaderSize': 1,
+				'skills': $scope.param.skills,
+				'personality': $scope.param.personality,
+				'star': $scope.param.star
 			};		
 			
 			var refPath = getURLParameter("q") + "/team/" + teamID;	
@@ -233,55 +256,60 @@ angular.module('teamform-team-app', ['firebase'])
 
 
 		  
-	event.$loaded().then( function(data){
+		event.$loaded().then( function(data){
 			outerloop:
 		  for( var mem in event){
 			  
 			  console.log(mem);
 			  
 			  if(mem != null && typeof mem != "undefined"){
-				if ( typeof event[mem].selection != "undefined" && typeof event[mem].selection != "null"){
-				  console.log("Fuck Yeah!",typeof event[mem].selection,"id",event[mem]["$id"] );
-				 
-				  for(var cteam in team){
-					   if(cteam != null && typeof cteam != "undefined"){
-							if ( typeof team[cteam].teamMembers != "undefined" && typeof team[cteam].teamMembers != "null"){
-								console.log(team[cteam]["$id"]);
-								if( team[cteam].teamMembers.length < team[cteam].size){
-									console.log(team[cteam].teamMembers);
-								event[mem].selection =[];
-								firebase.database().ref(getURLParameter("q") +"/member/" + event[mem]["$id"] ).set({
-									name: event[mem]["name"] 
-								});
+					if ( typeof event[mem].selection != "undefined" && typeof event[mem].selection != "null"){
+					  console.log("Fuck Yeah!",typeof event[mem].selection,"id",event[mem]["$id"] );
+					 
+					  for(var cteam in team){
+						  console.log(team[cteam]["$id"]);
+						   if(typeof team[cteam]["$id"] != "undefined"){
+							   console.log(typeof team[cteam].teamMembers);
+								 if ( typeof team[cteam].teamMembers != "undefined" && typeof team[cteam].teamMembers != "null"){
+									console.log(team[cteam]["$id"]);
+									if( team[cteam].teamMembers.length < team[cteam].size){
+										console.log(team[cteam].teamMembers);
+										event[mem].selection =[];
+										firebase.database().ref(getURLParameter("q") +"/member/" + event[mem]["$id"] ).child('selection').set(null);
 
-								team[cteam].teamMembers.push(event[mem]["$id"]);
-								firebase.database().ref(getURLParameter("q") +"/team/" + team[cteam]["$id"] ).set({
-									size: team[cteam]["size"],
-									teamMembers: team[cteam].teamMembers
-								});
-								
-								continue outerloop;
+										team[cteam].teamMembers.push(event[mem]["$id"]);
+										firebase.database().ref(getURLParameter("q") +"/team/" + team[cteam]["$id"] ).child('teamMembers').set(
+										team[cteam].teamMembers);
+									
+										continue outerloop;
+									}
+								 }
+								else{
+									event[mem].selection =[];
+									firebase.database().ref(getURLParameter("q") +"/member/" + event[mem]["$id"] ).child('selection').set(null);
+									team[cteam].teamMembers=[];
+									team[cteam].teamMembers.push(event[mem]["$id"]);
+									firebase.database().ref(getURLParameter("q") +"/team/" + team[cteam]["$id"] ).child('teamMembers').set(
+										team[cteam].teamMembers);
+									
 								}
+									  
 							}
-					   }
-					
-				    }
+						}
+						
+					}
 				}
 				  
-			  }
-			  
-
-		  }
-
-		
-	});
+			}
+		})
+	};
 
 		  
-	  }
+	  
 	
 	
 		
-}]);
+	}]);
 	// ;
 // .controller("AutoAddCtrl", ["$scope", "$firebaseAuth",
   // function($scope, $firebaseAuth) {
