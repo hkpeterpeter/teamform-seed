@@ -11,18 +11,19 @@ angular.module('leader-app', ['firebase'])
     $scope.eventid = getURLParameter("eventid");
     $scope.teamid = getURLParameter("teamid");
 
-    //create team function
-    // $scope.createTeam = function(){
-    //     console.log('creating team');
-    //     var ref = firebase.database().ref("events/"+$scope.eventid);
-    //     console.log(ref);
-    //     var teamkey = ref.push().key;
-    //     console.log(teamkey);
+    
+   //create team function
+    //  $scope.createTeam = function(){
+    //      console.log('creating team');
+    //      var ref = firebase.database().ref("events/"+$scope.eventid+"/teams");
+    //      console.log(ref);
+    //      var teamkey = ref.push().key;
+    //      console.log(teamkey);
     //     var event = $firebaseObject(ref);
     //     event.$loaded()
     //         .then(function(data){
     //             console.log(data);
-    //             var newteamRef = firebase.database().ref('events/'+$scope.eventid+'/'+teamkey);
+    //             var newteamRef = firebase.database().ref('events/'+$scope.eventid+'/teams/'+teamkey);
     //             var teamobject = $firebaseObject(newteamRef);
     //             teamobject.teamName = "test name";
     //             teamobject.$save();
