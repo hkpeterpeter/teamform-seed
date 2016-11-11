@@ -149,6 +149,13 @@ angular
 				$scope.enterEvent(result);
 			}else{//result = null
 				//ask if user want to create new event
+				console.log("cannot found event, ask user if they want to create new event");
+				if (confirm(eventName+" is not existed. \n Do you want to create new event?")==true){
+					console.log("create event "+ eventName);
+					$scope.createNewEvent(eventName);
+				}else{
+					console.log("Canceled");
+				}
 			}
 		})
 	}
