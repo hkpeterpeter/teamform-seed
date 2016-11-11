@@ -82,24 +82,35 @@
 	            <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
 	          </span>
 	        </div>
-				<div class="row">
-					<ul>Tags (desired ability/traits for team members):</ul>
-					<ul ng-repeat="tag in tags">
-						<div class="checkbox">
-						<label><input type="checkbox" ng-checked="tagchecked(tag.$value);" ng-click="addtags(tag.$value);">
-							<li>{{tag.$value}}</li>
-						</label>
-						</div>
-					</ul>						
-				</div>
+<<<<<<< HEAD
+  <div class="row">
+	 <u1>Tags (desired ability/traits for team members):</u1>
+	 <ul ng-repeat="tag in tags">
+		<div class="checkbox">
+	  <label><input type="checkbox"	ng-checked="tagChecked(tag.$value);"	 ng-click="addTags(tag.$value);">
+		<li>{{tag.$value}}</li>
+		</label>
+		</div>
+	 </u1>
+	</div>
+=======
+	<div class="row">
+	<ul>Tags (desired ability/traits for team members):</ul>
+	<ul ng-repeat="tag in tags">
+	 <div class="checkbox">
+		<label><input type="checkbox" ng-checked="tagChecked(tag.$value);" ng-click="addTags(tag.$value);">
+		<li>{{tag.$value}}</li>
+	  </label>
+	 </div>
+	</ul>						
+	</div>
+>>>>>>> origin/master
 	      </form>
-	      
-	      
+
 	      <div class="row">
 	        <div class="col-sm-6">
 	          <h4>Team members</h4>
 	          <!-- TODO: Show the current team member list -->
-	        
 	          <div ng-repeat="member in param.teamMembers">
 	            <button type="button" class="btn" ng-click="removeMember(member);">
 	            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ retrieveNameFromID(member) }}
@@ -123,41 +134,45 @@
 
 		  
 <div class="col-sm-offset-3 col-sm-4 text-left">
-		<h3>All members:</h3>
-		<p>Click once to invite member.</p><div id = "invite"></div>
-			<ul ng-repeat="m in member">
-				<div  class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" >
-					<label>
-					<li>
+ <h3>All members:</h3>
+ 	<p>Click once to invite member.</p><div id = "invite"></div>
+   <ul ng-repeat="m in member">
+	  <div  class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" >
+		 <label>
+		  <li>
 					<!--ID = {{m.$id}}<br>-->
-					Name = {{retrieveNameFromID(m.$id)}} <br>
-					request to join the following teams: 
-					<p ng-repeat="s in m.selection">
-					{{ $index+1 }}. {{s}}
-					</p>
-					</li>
-					</label>
-				</div>
-			</ul>
-		</div>
-		  
-	    <div class="col-md-4 col-xs-4 text-left">
-	    <h3>All teams:</h3>
-	    	<ul ng-repeat="t in team">
-	    	  <li>
-	    	  User ID: {{t.$id}}  <br>
-	    	  Preferred team size: <span class="badge">{{t.size}}</span> <br>
-	    	  Current team members: 
-	    	  <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
-	    	  {{ $index+1 }}. {{ member }}
-	    	  </p>
-	    	  <span ng-show="!t.teamMembers"> none </span>
-	    	  </li>
-	    	</ul>
-	    </div>
+			Name = {{retrieveNameFromID(m.$id)}} <br>
+			request to join the following teams: 
+			 <p ng-repeat="s in m.selection">
+			 {{ $index+1 }}. {{s}}
+			 </p>
+			</li>
+		 </label>
 	  </div>
-  	</div>
+	 </ul>
+	</div>
+		  
+	<div class="col-md-4 col-xs-4 text-left">
+	 <h3>All teams:</h3>
+	  <ul ng-repeat="t in team">
+	   <li>
+	   Team Name: {{t.$id}}  <br>
+	   Preferred team size: <span class="badge">{{t.size}}</span> <br>
+		 Tags:
+		 <p ng-repeat ="tag in t.tags">{{tag}}<p>
+		 <p ng-show="!t.tags"> none </p>
+	   Current team members: 
+	   <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
+	   {{ $index+1 }}. {{ member }}
+	   </p>
+	   <span ng-show="!t.teamMembers"> none </span>
+
+	  </li>
+	  </ul>
+   </div>
   </div>
+ </div>
+</div>
   
   <script src="lib/angular.min.js"></script>
   <script src="lib/angular-route.min.js"></script>
