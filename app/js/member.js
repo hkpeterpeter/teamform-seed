@@ -23,8 +23,9 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.uid = "";
 	$scope.name = "";
 	$scope.teamStatus = "";
-	$scope.tags = {};
 	$scope.tag = "";
+	$scope.tags =[];
+	
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
@@ -39,6 +40,7 @@ angular.module('teamform-member-app', ['firebase'])
       	$scope.uid = "";
       	$scope.name = "";
       	$scope.selection = [];
+		$scope.tags = [];
       	$("input").prop("disabled", true);
       }
     });
@@ -59,7 +61,7 @@ angular.module('teamform-member-app', ['firebase'])
 				$scope.selection = [];
 			}
 			if($scope.userInfo.tags != null) {
-				$scope.selection = $scope.userInfo.tags;
+				$scope.tags = $scope.userInfo.tags;
 			} else {
 				$scope.tags = [];
 			}
@@ -84,23 +86,27 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	$scope.addTag = function() {
 		var userID = $.trim($scope.userID);
+		var userName = $.trim($scope.userName);
+		var tag = $.trim($scope.tag);
 		var refPath = getURLParameter("q") + "/member/" + userID;
 		var ref = firebase.database().ref(refPath);
-		$scope.tags = $firebaseArray(ref);
+		
+		if(userID !== '' && userName !== '' && tag !== '') {
+			$scope.tags.push(tag);
+			var newData = {
+				'tags' : $scope.tags,
+				'selection': $scope.selection,
+				'weight': 0 
+			};
 			
-			if ( $scope.tag != "") {
-				// add a tag
-				$scope.tags.$add($scope.tag);
-			}
-		$scope.tags = $firebaseArray(ref);
-		$scope.tags.$loaded()
-			.then(function(data) {}) 
-			.catch(function(error) {});
-		
-		
-	}
-	
-
+			ref.update(newData);
+			refPath = "user/" + userID;
+			//ref = firebase.database().ref(refPath);
+			ref.update({ name: userName }, function() {
+				//window.location.href = "index.html";
+			});
+		}
+	};
 	
 	$scope.saveFunc = function() {
 		var userID = $.trim($scope.userID);
@@ -108,7 +114,7 @@ angular.module('teamform-member-app', ['firebase'])
 		
 		if(userID !== '' && userName !== '') {
 			var newData = {
-				'selection': $scope.selection,
+				'selections': $scope.selection,
 				'weight': 0 
 			};
 			var refPath = getURLParameter("q") + "/member/" + userID;
@@ -117,7 +123,7 @@ angular.module('teamform-member-app', ['firebase'])
 			refPath = "user/" + userID;
 			ref = firebase.database().ref(refPath);
 			ref.update({ name: userName }, function() {
-				window.location.href = "index.html";
+				//window.location.href = "index.html";
 			});
 		}
 	};
