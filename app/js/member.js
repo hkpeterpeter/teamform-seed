@@ -11,17 +11,25 @@ $(document).ready(function(){
 });
 
 angular.module('teamform-member-app', ['firebase'])
-.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+.controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$firebaseAuth',function($scope, $firebaseObject, $firebaseArray, $firebaseAuth) {
 	
-	// TODO: implementation of MemberCtrl
-	
+
+
 	
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
+		// TODO: implementation of MemberCtrl
+	$scope.auth=$firebaseAuth();
+	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
+	if (firebaseUser) {
+		$scope.uid = firebaseUser.uid;
+	} else {
+		console.log("Signed out");
+	}
+});
 	
 	$scope.userID = "";
 	$scope.userName = "";
-	$scope.sex = ""
 	$scope.teams = {};
 	
 	
@@ -148,7 +156,9 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	$scope.largerthan = function(val){
     return function(item){
-      return item.size - item.teamMembers.length  >= val;
+		if ( typeof item.teamMembers != "undefined" && typeof item.teamMembers != "null")
+		{return item.size - item.teamMembers.length -1 >= val;}
+		else return (item.size - 1 >= val);
     }
 }
 		
