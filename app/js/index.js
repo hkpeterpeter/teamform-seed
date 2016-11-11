@@ -109,7 +109,7 @@ angular
 	}
 
 	$scope.filter = function(eventname){
-		console.log("entered filter(eventname)");
+		//console.log("entered filter(eventname)");
 		var rulename = $scope.eventName + "*";
 		return $scope.matchRuleShort(eventname, rulename)
 	}
