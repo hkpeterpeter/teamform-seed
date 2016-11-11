@@ -8,11 +8,6 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
     $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser));
     $firebaseObject(firebase.database().ref('teams/' + $rootScope.currentTeam)).$bindTo($scope, "team");
 
-    $scope.smartPick = {
-        preferedSize: angular.copy($scope.team.preferedSize),
-        desiredSkills: angular.copy($scope.team.desiredSkills),
-        newSkill: ""
-    }
     $scope.invite = {
         desiredSkills: [],
         newSkill: ""
@@ -64,6 +59,12 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
 
     $scope.init = function() {
         if (!flag) {
+            $scope.smartPick = {
+                preferedSize: angular.copy($scope.team.preferedSize),
+                desiredSkills: angular.copy($scope.team.desiredSkills),
+                newSkill: ""
+            }
+
             $scope.members = [];
             $scope.applicants = [];
             $scope.invitedPeople = [];
