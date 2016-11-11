@@ -49,13 +49,9 @@
   <body>
     <div id="firechat-wrapper"></div>
     <script type="text/javascript">
+    
       // Initialize Firebase SDK
-      /*var config = {
-        apiKey: "AIzaSyDFlsisAa2yeDhRjSPdoC6Ez0UjOrSf9sc",
-        authDomain: "firechat-demo-app.firebaseapp.com",
-        databaseURL: "https://firechat-demo-app.firebaseio.com"
-      };*/
-
+      
  	 var config = {
   	 	apiKey: "AIzaSyAquft9UUOycldBxHWyG2toWPEsUgbOW34",
    	 	authDomain: "team-long-time-no-name.firebaseapp.com",
@@ -67,7 +63,7 @@
       firebase.initializeApp(config);
 
       // Get a reference to the Firebase Realtime Database
-      var chatRef = firebase.database().ref();
+      var chatRef = firebase.database().ref('chatroom');
 
       // Create an instance of Firechat
       var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
@@ -75,8 +71,33 @@
       // Listen for authentication state changes
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          // If the user is logged in, set them as the Firechat user
-          chat.setUser(user.uid, "Anonymous" + user.uid.substr(10, 8));
+          // If the user is logged in, set them as the name they use in profile
+          
+          //get the latest name in 'profile'
+          var userDataRef = firebase.database().ref("profile/" + user.uid+ "/name");
+          
+          //get the username used last time in chatroom
+          var lastUsernameInChatroomPath = firebase.database().ref("chatroom/users/" + user.uid+ "/name");
+          var lastUsernameInChatroom;
+          lastUsernameInChatroomPath.once("value").then(function(snapshot){
+          	lastUsernameInChatroom = snapshot.val();
+          });
+          
+          userDataRef.on("value", function(snapshot){
+          	//automatically change user name in chatroom database whenever the name is changed on 'profile'
+          	//or when user first time uses chatroom
+          	
+          	//if username is changed, change the name in chatroom database
+          	if(snapshot.val() != lastUsernameInChatroom)
+          	{
+          		firebase.database().ref("chatroom/users/" + user.uid).set({
+          			name: snapshot.val()
+          		});
+          	}
+          	//set up user for entering chatroom with latest name
+          	chat.setUser(user.uid, snapshot.val());
+          });
+          //chat.setUser(user.uid, userDataRef.child("name")); //"Anonymous" + user.uid.substr(10, 8)); //user.name);//
         } else {
           // If the user is not logged in, sign them in anonymously
           firebase.auth().signInAnonymously().catch(function(error) {

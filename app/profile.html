@@ -52,10 +52,12 @@
 
         <div class="row">
           <div class="col-md-6">
-            <button class="btn btn-primary" type="button" ng-click="l.like = l.like+1; profile.$save(l);">
+            <button class="btn btn-primary" type="button" ng-click="likeFunction();">
     					<span class="glyphicon glyphicon-thumbs-up"></span> Likes
-    					<span class="badge"> {{l.like}}</span>
+    					<span class="badge"> {{profile.like.length}}</span>
+
     				</button>
+            {{profile.like|json}}
           </div>
           <div class="col-md-6">
 
@@ -140,6 +142,9 @@
          <pre>{{input|json}}</pre>
          <pre>{{ profile | json }}</pre>
        </div>
+
+
+
      </div>
 
 
