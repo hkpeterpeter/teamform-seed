@@ -41,7 +41,7 @@ angular
 	$scope.displayEmail = '';
 	$scope.username='';
 
-	$scope.eentname='';
+	$scope.eventName='';
 
 	//testing abt firebase
 	var ref = firebase.database().ref('events');
@@ -99,6 +99,22 @@ angular
 				}
 			});
 	}
+
+	//filter test
+	$scope.matchRuleShort = function(str, rule){
+		var matchtest = new RegExp("^" + rule.split("*").join(".*") + "$").test(str);
+		console.log("match: " + matchtest);
+		
+		return matchtest;
+	}
+
+	$scope.filter = function(eventname){
+		console.log("entered filter(eventname)");
+		var rulename = $scope.eventName + "*";
+		return $scope.matchRuleShort(eventname, rulename)
+	}
+
+	
 	
 	//create new event
 	$scope.createNewEvent =function (eventname){

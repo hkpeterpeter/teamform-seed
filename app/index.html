@@ -124,21 +124,23 @@
                </h2>
             </div>
             <div class="col-md-12" ng-repeat="oneEvent in currentEventList">
-              <div class="col-md-6 col-xs-6">
-                <ul>
-                  <li>
-                    Event name: <br>
-                    <span class="badge">{{oneEvent.admin.param.eventName}}</span> <br>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-6 col-xs-6 text-left" >
-                <ul>
-                  <li>
-                  Event Description: <br>
-                  <span class="badge">{{oneEvent.admin.param.description}}</span> <br>
-                  </li>
-                </ul>
+              <div ng-show="filter(oneEvent.admin.param.eventName)">
+                  <div class="col-md-6 col-xs-6">
+                    <ul>
+                      <li>
+                        Event name: <br>
+                        <span class="badge">{{oneEvent.admin.param.eventName}}</span> <br>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6 col-xs-6 text-left" >
+                    <ul>
+                      <li>
+                      Event Description: <br>
+                      <span class="badge">{{oneEvent.admin.param.description}}</span> <br>
+                      </li>
+                    </ul>
+                  </div>
               </div>
             </div>
          </div>
