@@ -131,15 +131,15 @@ angular.module('teamform-member-app', ['firebase'])
   	
 
 	$scope.skillsmatch = function() {
-	$scope.teams = [
+/*	$scope.teams = [
 	{ "name": "team1", "personality": "sad", "skills":["skill1", "skill2"], "star":"dllm", "score":0}, 
 	{ "name": "team2", "personality": "happy", "skills":["skill3"], "star":"on9", "score":0}
 	];
 	$scope.profile ={ "personality": "sad", "skills": ["skill3","skill4"], "star":"on9"};
-    if ($scope.profile.skills != ""){
+  */  if ($scope.profile.skills != ""){
       var refPath = getURLParameter("q")+"/team/";
       var ref = firebase.database().ref(refPath);
-    //  $scope.teams = $firebaseArray(ref);
+      $scope.teams = $firebaseArray(ref);
 
  		for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
  		{	
@@ -192,16 +192,16 @@ angular.module('teamform-member-app', ['firebase'])
 // personality match
 
   $scope.personalitymatch = function() {
-  	$scope.teams = [
+ /* 	$scope.teams = [
 	{ "name": "team1", "personality": "sad", "skills":["skill1", "skill2"], "star":"dllm", "score":0}, 
 	{ "name": "team2", "personality": "happy", "skills":["skill3"], "star":"on9", "score":0}
 	];
 	$scope.profile ={ "personality": "sad", "skills": ["skill3","skill4"], "star":"on9"};
-
+*/
     if ($scope.profile.personality != ""){
       var refPath = getURLParameter("q")+"/team/";
       var ref = firebase.database().ref(refPath);
-    //  $scope.teams = $firebaseArray(ref);
+      $scope.teams = $firebaseArray(ref);
 
     for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
  		{	
@@ -235,16 +235,16 @@ angular.module('teamform-member-app', ['firebase'])
 // star match
 	
   $scope.starmatch = function() {
-  	$scope.teams = [
+ /* 	$scope.teams = [
 	{ "name": "team1", "personality": "sad", "skills":["skill1", "skill2"], "star":"dllm", "score":0}, 
 	{ "name": "team2", "personality": "happy", "skills":["skill3"], "star":"on9", "score":0}
 	];
 	$scope.profile ={ "personality": "sad", "skills": ["skill3","skill4"], "star":"on9"};
-
+*/
     if ($scope.profile.star != ""){
     	var refPath = getURLParameter("q")+"/team/";
      	var ref = firebase.database().ref(refPath);
-      	//$scope.teams = $firebaseArray(ref);
+  		$scope.teams = $firebaseArray(ref);
 
     for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
  		{	
