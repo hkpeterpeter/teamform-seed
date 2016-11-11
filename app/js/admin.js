@@ -275,6 +275,11 @@ angular.module('teamform-admin-app', ['firebase'])
                 });
             $scope.loggedIn = true;
 			$scope.uid = user.uid;
+			if($scope.param.admin != user.uid){//check if user is admin of this event
+				console.log('not admin');
+				$window.alert("Permission Denied. \n You are not admin of this event")
+				$window.location.href = '/index.html';
+			}
         }else{
 			console.log('not log in');
             $window.location.href = '/index.html';
