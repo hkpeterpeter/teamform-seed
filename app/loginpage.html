@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="teamform-app">
+<html lang="en" ng-app="teamform-login-app">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,10 +29,11 @@
    </head>
    <body>
     <div ng-include="'navbar.html'" ></div>
-    <div class="col-xs-12 col-md-12" ng-controller="LoginCtrl">
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3" ng-controller="LoginCtrl">
         <div ng-if="message" class="alert alert-info">{{ message }}</div>
         <div ng-if="error" class="alert alert-danger">{{ error }}</div>
-        <form name="form" ng-submit="emailLogin()" role="form"  class="col-xs-12 col-md-8 center-block">
+        <form name="form" ng-submit="emailLogin()" role="form">
             <div class="form-group">
                 <label for="username">Username(E-mail)</label>
                 <i class="fa fa-key"></i>
@@ -53,6 +54,7 @@
             </div>
         </form>
       </div>
+    </div>
 
 
   <br>
