@@ -53,6 +53,7 @@ app.controller("eventDCtrl",
         //functions
         $scope.manage = function() {
             $scope.isManaging = !$scope.isManaging;
+            $scope.selectTeam = false;
         };
 
 

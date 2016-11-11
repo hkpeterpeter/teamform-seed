@@ -6,14 +6,18 @@
     <button class="btn btn-primary" ng-click="manage()" ng-if="myEvents[eventID].position=='admin'">Manage</button>
 </div>
 <br>
+<div ng-if=" (myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member' ">
+    <h3>My team: <a ng-href="#/dashboard/event/{{eventID}}/team/{{myEvents[eventID].team}}">{{eventObj.teams[myEvents[eventID].team].name}}</a><h3>
+</div>
+<br>
 <div class="panel panel-default">
     <div class="panel-heading"><h2 class="panel-title">Teams</h2></div>
     <div class="panel-body">
         <div ng-repeat="(key, team) in eventObj.teams">
-            <a ng-href="/#/dashboard/event/{{eventID}}/team/{{key}}">{{team.name}}</a>
+            <a ng-href="#/dashboard/event/{{eventID}}/team/{{key}}">{{team.name}}</a>
             <span class="text-right">{{team.currentSize}}/{{team.max}}</span>
             <button class="btn btn-primary" ng-click="deleteTeam(key)" ng-if="isManaging">delete</button>
-            <button class="btn btn-primary" ng-click="toTeam(key)" ng-if="selectTeam">addTo</button>
+            <button class="btn btn-primary" ng-click="toTeam(key)" ng-if="isManaging && selectTeam">addTo</button>
         </div>
     </div>
 <div/>
