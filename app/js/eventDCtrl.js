@@ -11,6 +11,8 @@ app.controller("eventDCtrl",
         $scope.selectTeam = false;
         $scope.eventID = $stateParams.eid;
         personToBeAdded="";
+        $scope.editingInfo=false;
+        $scope.editButton="Edit";
         this.Object=Object;
         Auth.$onAuthStateChanged(function(authData) {
             // console.log($scope.obj);
@@ -20,8 +22,8 @@ app.controller("eventDCtrl",
                 ref=firebase.database().ref("users");
                 $scope.users=$firebaseObject(ref);
                 //get role of user
-                ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable");
-                $scope.myEvents = $firebaseObject(ref);
+                ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable/"+$scope.eventID);
+                $scope.myEvent = $firebaseObject(ref);
                 // $scope.myEvents.$loaded().then(function(){
                 //     //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
                 //     invref = firebase.database().ref('events/' + $scope.eventID + "/teams/" + $filter('teamId')($scope.myEvents[$scope.eventID]) + "/invitations");
@@ -53,6 +55,7 @@ app.controller("eventDCtrl",
         //functions
         $scope.manage = function() {
             $scope.isManaging = !$scope.isManaging;
+            $scope.selectTeam = false;
         };
 
 
@@ -71,7 +74,7 @@ app.controller("eventDCtrl",
             console.log(key);
         }
         $scope.invite=function(uid){
-            Helper.sendInvitationTo(uid,$scope.eventID,$filter('teamId')($scope.myEvents[$scope.eventID]));
+            Helper.sendInvitationTo(uid,$scope.eventID,$filter('teamId')($scope.myEvent));
         }
         $scope.quit=function(){
             Helper.quitEvent($scope.userData.uid,$scope.eventID);
@@ -131,10 +134,10 @@ app.controller("eventDCtrl",
         }
         $scope.validInvite = function(uid){
             // console.log($scope.inv, ' ' , uid);
-            if ($filter('teamId')($scope.myEvents[$scope.eventID]) != null) {
-                for (key in $scope.eventObj.teams[$filter('teamId')($scope.myEvents[$scope.eventID])].invitations){
+            if ($filter('teamId')($scope.myEvent) != null) {
+                for (key in $scope.eventObj.teams[$filter('teamId')($scope.myEvent)].invitations){
                     // console.log($scope.eventObj.teams[].key);
-                    if (key == uid && $scope.eventObj.teams[$filter('teamId')($scope.myEvents[$scope.eventID])].invitations[key] =='pending') return false;
+                    if (key == uid && $scope.eventObj.teams[$filter('teamId')($scope.myEvent)].invitations[key] =='pending') return false;
                 }
                 return true;
             }
@@ -142,6 +145,18 @@ app.controller("eventDCtrl",
 
         };
         console.log({position:"tba",team:null});
+        $scope.editInfo=function(){
+            if($scope.editButton=="Edit")
+            {
+                $scope.editButton="Save";
+                $scope.editingInfo=true;
+            }
+            else{
+                $scope.editButton="Edit";
+                $scope.editingInfo=false;
+                $scope.eventObj.$save();
+            }
+        }
 
     }
 );
