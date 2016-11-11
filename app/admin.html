@@ -119,7 +119,6 @@
                         <td><button type="button" class="btn btn-default" ng-click="del_announcement_click(a)">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button></td>
-
                       </tr>
                     </tbody>
                   </table>
@@ -132,13 +131,24 @@
         <div class="row">
             <div class="col-md-6 col-xs-6 text-right" >
               <h3>All teams:</h3>
-              <ul ng-repeat="t in team">
-                <li>
-                  User ID: {{t.$id}}  <br>
-                  Preferred team size: <span class="badge">{{t.size}}</span> <br>
-                  Current team members: {{t.teamMembers}}					
-                </li>
-              </ul>
+              <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Team Name</th>
+                      <th>Team Leader</th>
+                      <th>Team members</th>
+                      <th>Preference</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="t in team">
+                    <tr>
+                      <td>{{t.teamName}}</td>
+                      <td>{{t.teamLeader}}</td>
+                      <td>{{t.teamMembers}}</td>
+                      <td>{{t.preference}}</td>
+                    </tr>
+                  </tbody>
+              </table>
             </div>
 			 
 			      <div class="col-md-6 col-xs-6 text-left">
@@ -165,7 +175,6 @@
    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
    <script src="lib/firebase.js"></script>     
    <script src="lib/angularfire.min.js"></script>
-   <script src="lib/angular-material.min.js"></script>
 
    <script src="js/admin.js"></script>
 

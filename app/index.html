@@ -36,7 +36,6 @@
       <div ng-include="'navbar.html'" id='navbarMenu'></div>
 
       <!--Login interface-->
-
       <section  style="background-image: url('img/img1.jpg');" class="login_box_section img-responsive" ng-hide="loggedIn">
       
         <div class="intro col-md-7">
@@ -47,92 +46,76 @@
                  <div class="col-md-11" ng-include="'about.html'" id='aboutSite'></div>
         </div>
       
-      <div class="container col-md-4" id="login_box" >
-        <form><!--Hide this when login-->
-        <p class="login_heading">Login to teamform</p>
-        <table class="table borderless" style="background-color: white; ">
-          <tbody>
-            <tr>
-              <td width="15%" class="login_label text-center vertical-center" ><label ><span class="glyphicon glyphicon-envelope" ></span></label></td>
-              <td width="85%"><input ng-model="txtEmail"  type="email" placeholder="E-mail"></td>
-            </tr>
-            <tr >
-              <td class="login_label text-center "><label  ><span class="glyphicon glyphicon-lock" ></span></label></td>
-              <td><input ng-model="txtPassword" type="password" placeholder="Password"></td>
-            </tr>
-  
-          </tbody>
-        </table>
-          <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
-          <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
-        </form>
-      </div>
-        
-      <div class="container col-md-1">
+        <div class="container col-md-4" id="login_box" ng-hide="loggedIn">
+          <!-- A sample login page -->
+          <form><!--Hide this when login-->
+          <p class="login_heading">Login to teamform</p>
+          <table class="table borderless" style="background-color: white; ">
+            <tbody>
+              <tr>
+                <td width="15%" class="login_label text-center vertical-center" ><label ><span class="glyphicon glyphicon-envelope" ></span></label></td>
+                <td width="85%"><input ng-model="txtEmail"  type="email" placeholder="E-mail"></td>
+              </tr>
+              <tr >
+                <td class="login_label text-center "><label  ><span class="glyphicon glyphicon-lock" ></span></label></td>
+                <td><input ng-model="txtPassword" type="password" placeholder="Password"></td>
+              </tr>
+    
+            </tbody>
+          </table>
+            <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
+            <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
+          </form>
         </div>
-            <form name="Eventform" class="css-form col-md-6">
-                    <p ng-show="loggedIn">Hello! {{username}} </p><!--Show this when login-->
-                    <!-- A sample login page -->
-                    <div id="page_home">
-                      <div ng-show="loggedIn"> <!--Show this when login-->
+          
+    </section>
 
-                    <div class="text-center">
-                      <h1>teamform</h1>
-                      <p>A real-time online team forming app for any event</p>
-                    </div>
-                    <br>
-                    <!--enter event-->
+    <form name="Eventform" class="css-form col-md-6" ng-show="loggedIn"><!--Show this when login-->
+        <div id="page_home">
+            <!--<div class="text-center">
+              <h1>teamform</h1>
+              <p>A real-time online team forming app for any event</p>
+            </div>-->
+            <!--enter event-->
 
-                      <!--filter/search event (if event not exsist, ask if user want to create one)-->
-                      <!--event list-->
-                      <!--enter event name and join(just for testing)-->
-                    <!--create event and become admin-->
-                    <div class="text-center">
-                        <label>Create a New Event or Choose an existing Event</label>
+            <!--filter/search event (if event not exsist, ask if user want to create one)-->
+            <!--event list-->
+            <!--enter event name and join(just for testing)-->
+            <!--create event and become admin-->
+            <div class="text-center">
+                <label>Search an existing Event or Create new Event</label>
+                <br>(this input should also filter the below list)<br>
+                <input id="eventName" type="text" class="input-lg" ng-model="eventName">
+                <div class="row">
+                    <div class="col-xs-6 text-left">
                         <div>
-                          <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent('')">Create new event</button>
+                          <button id="btn_enter" type="button" class="btn btn-primary" ng-click="enterEventWithName(eventName)">Enter event(to be done)</button>
                         </div>
-                        <br>
-
-                          <div ng-repeat="event in events">
-                            <br>
-                            <div class="row">
-                              Event Name: {{event.admin.param.eventName}}
-                            </div>
-                            <div class="row">
-                              Event Description: {{event.admin.param.description}}
-                            </div>
-                            <div class="row">
-                              <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="enterEvent(event.$id)">Enter</button>
-                            </div>
-                          </div>
-
-
-                        
+                    </div>
                         <!--enter: jump to relative page-->
                         <!--enter: if eventName is niexsit, ask user if they want to create new event-->
-
-                        <!--create event with eventname(can be empty)-->
-                        
+                    <div class="col-xs-6 text-right"> 
+                        <div>
+                          <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent(eventName)">Create new event</button>
+                          <!--create event with eventname(can be empty)-->
+                        </div>
                     </div>
+                </div>
+                <br>
+            </div>
 
-                    <br >
+            <br>
 
-                    <br >
-
-                      </div>
-                    </div>
-            </form>
-
-	  
-    </section>
+            <br>
+        </div>
+      </form>
 
       <!-- Marketing messaging and featurettes
          ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
       <div class="container marketing">
 
-                  <!-- Show the current event list  -->
+         <!-- Show the current event list  -->
          <div class="row featurette" id="event_list">
             <div class="col-md-12">
                <h2 class="featurette-heading" >Event List:
@@ -161,14 +144,6 @@
          </div>
 
       <hr class="featurette-divider">
-
-
-
-
-   
-
-
-
           <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_team">
             <div class="col-md-12">

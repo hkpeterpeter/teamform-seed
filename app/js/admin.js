@@ -125,16 +125,12 @@ angular.module('teamform-admin-app', ['firebase'])
 			var tempObj = $firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id));
 			tempObj.$loaded().then(function(){
 				tempObj.text = newText;
+				tempObj.date = new Date().toISOString();
 				tempObj.$save();
 			})
 		}else{
 			console.log("edit announcement canceled");
 		}
-	}
-
-	$scope.edit_done_announcement_click=function(announcement_object){
-		console.log("Remove announcement \n announcement: "+announcement_object.text+"\n announcement_object.id: "+announcement_object.$id);
-		$firebaseObject(firebase.database().ref("events/"+eventid+"/announcements/"+announcement_object.$id)).$remove();
 	}
 
 	refPath = "events/"+ eventid + "/teams";	
