@@ -44,7 +44,12 @@ angular.module('profile-app', ['firebase'])
 
     //Add language
     $scope.addLanguage = function(){
-        $scope.userData.language.push($scope.txtLanguage);
+        if($scope.userData.language==null){
+            $scope.userData.language = [];
+            $scope.userData.language.push($scope.txtLanguage);
+        }else{
+            $scope.userData.language.push($scope.txtLanguage);
+        }
         $scope.txtLanguage = '';
     }
 
@@ -54,9 +59,34 @@ angular.module('profile-app', ['firebase'])
         $scope.userData.language.splice($scope.userData.language.indexOf(lan),1);
     }
 
-    //Submit userData
+    //check userdata(Name,language,gpa cannot be null)
+    $scope.checkUserData = function(){
+        console.log('cehcking data');
+        console.log('name:'+$scope.userData.name);
+        console.log('language:' + $scope.userData.language);
+        console.log('gpa:'+$scope.userData.gpa);
+        if($scope.userData.name == null){
+            $window.alert('Name cannot be null');
+            return false;
+        }else if($scope.userData.language == null||$scope.userData.language ==''){
+            $window.alert('Language cannot be null');
+            return false;
+        }else if($scope.userData.gpa == null){
+            $window.alert('gpa cannot be null');
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    //Submit u-fixserData
     //this will only submit name, language, gpa and description
     $scope.submitUserData = function(){
+        if($scope.checkUserData() == false){
+            $window.alert('Please correct your profile')
+            $scope.refreshInput();
+            return;
+        }
         var database = firebase.database();
         var currentUser = firebase.auth().currentUser;
         //add user data under users/currentUser.uid
@@ -72,8 +102,10 @@ angular.module('profile-app', ['firebase'])
                 data.$save()
                     .then(function(s){
                         console.log('saved');
+                        $window.alert('You have submitted your profile');
                         $scope.refreshInput();
-                    });
+                    })
+                    .catch(e=>console.log(e));
                 console.log('done');
                 })
             .catch(function(error){
