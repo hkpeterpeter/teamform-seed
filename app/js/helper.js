@@ -7,6 +7,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.debug = {};
     //checked
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
+      
         teamref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
         teamref.update({team:teamID}).then(function(){
             teamref.child("position").set(position).then(function(error){
@@ -348,7 +349,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref.child("isRead").set(true);
 
     }
-
 
 
     return helper;
