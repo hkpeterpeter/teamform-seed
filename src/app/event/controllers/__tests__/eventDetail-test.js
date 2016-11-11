@@ -1,5 +1,5 @@
 describe('EventDetailController', () => {
-    let $controller;
+    let $controller, $spys = [];
     beforeEach(() => {
         angular.mock.module('event');
         inject((_$controller_) => {
@@ -7,29 +7,61 @@ describe('EventDetailController', () => {
         });
     });
 
-    it('should resolve getEvent', async () => {
-        inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
-            let deferred = _$q_.defer();
-            spyOn(EventService, 'getEvent').and.returnValue(deferred.promise);
-            $controller.getEvent();
-            deferred.resolve({$value: 0});
-            _$rootScope_.$digest();
-            _$timeout_.flush();
-            expect(EventService.getEvent).toHaveBeenCalled();
-        });
+    afterEach(() => {
+        for(let spy of $spys) {
+            spy.and.callThrough();
+        }
     });
 
-    it('should reject getEvent', async () => {
-        inject((_$rootScope_, _$q_, _$timeout_, EventService) => {
-            let deferred = _$q_.defer();
-            spyOn(EventService, 'getEvent').and.returnValue(deferred.promise);
-            $controller.getEvent();
-            deferred.reject(new Error('rejected'));
-            _$rootScope_.$digest();
-            _$timeout_.flush();
-            expect(EventService.getEvent).toHaveBeenCalled();
-            expect($controller.error.message).toEqual('rejected');
+    it('should resolve getEvent', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'getEvent').and.returnValue(Promise.resolve({id: 1})));
         });
+        $controller.$stateParams.eventId = 1;
+        await $controller.getEvent();
+        $timeout.flush();
+        expect($controller.event.id).toEqual(1);
+        done();
+    });
+
+    it('should reject getEvent', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'getEvent').and.returnValue(Promise.reject(new Error('Event not exist'))));
+        });
+        $controller.$stateParams.eventId = 1;
+        await $controller.getEvent();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Event not exist');
+        done();
+    });
+
+    it('should resolve joinEvent', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'joinEvent').and.returnValue(Promise.resolve({id: 1})));
+        });
+        $controller.$stateParams.eventId = '1';
+        await $controller.joinEvent();
+        $timeout.flush();
+        done();
+    });
+
+    it('should reject joinEvent', async (done) => {
+        let $timeout;
+        inject((_$timeout_, EventService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(EventService, 'joinEvent').and.returnValue(Promise.reject(new Error('Fail to Join Event'))));
+        });
+        $controller.$stateParams.eventId = '1';
+        await $controller.joinEvent();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Fail to Join Event');
+        done();
     });
 
 });

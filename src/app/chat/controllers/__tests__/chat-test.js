@@ -1,9 +1,9 @@
-describe('HomeController', function() {
+describe('ChatController', function() {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('home');
+        angular.mock.module('chat');
         inject((_$controller_) => {
-            $controller = _$controller_('HomeCtrl');
+            $controller = _$controller_('ChatCtrl');
         });
     });
 
@@ -12,8 +12,7 @@ describe('HomeController', function() {
             spy.and.callThrough();
         }
     });
-
-    it('Home', () => {
-
+    it('Chat', () => {
+        
     });
 });

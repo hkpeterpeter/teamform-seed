@@ -8,6 +8,9 @@ export default class EventService {
     }
     async getEvent(id) {
         let event = await this.$firebaseObject(this.$database.ref('events/' + id)).$loaded();
+        if (event.$value === null) {
+            return Promise.reject(new Error('Event not exist'));
+        }
         event.createdByUser = await this.userService.getUser(event.createdBy);
         event.teams = [];
         let teams = await this.$firebaseArray(this.$database.ref('teams')).$loaded();

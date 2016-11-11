@@ -14,10 +14,12 @@ export default class RegisterCtrl {
     async register() {
         try {
             let result = await this.authService.register(this.credential);
-            this.$state.go('user.detail.edit', {
-                userId: result.uid,
-                toState: this.$state.params.toState,
-                toParams: this.$state.params.toParams
+            this.$timeout(() => {
+                this.$state.go('user.detail.edit', {
+                    userId: result.uid,
+                    toState: this.$state.params.toState,
+                    toParams: this.$state.params.toParams
+                });
             });
         } catch (error) {
             this.$timeout(() => {

@@ -7,7 +7,12 @@ export default class UserService {
         this.authService = authService;
     }
     getUser(id) {
-        return this.$firebaseObject(this.$database.ref('users/' + id)).$loaded();
+        return this.$firebaseObject(this.$database.ref('users/' + id)).$loaded().then((user) => {
+            if (user.$value === null) {
+                return Promise.reject('User not exist');
+            }
+            return Promise.resolve(user);
+        });
     }
     getUsers(options = {}) {
         return this.$firebaseArray(this.$database.ref('users')).$loaded()
@@ -21,7 +26,7 @@ export default class UserService {
         user.skills = null;
         let userRef = await user.$save();
         let userSkills = this.$firebaseArray(userRef.child('skills'));
-        for(let newUserSkill of newUserSkills) {
+        for (let newUserSkill of newUserSkills) {
             await userSkills.$add(newUserSkill);
         }
         return userRef;

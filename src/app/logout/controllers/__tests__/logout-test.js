@@ -1,36 +1,42 @@
 describe('LogoutController', () => {
-    let $controller;
+    let $controller, $spys = [];
     beforeEach(() => {
+        angular.mock.module('home');
         angular.mock.module('logout');
         inject((_$controller_) => {
             $controller = _$controller_('LogoutCtrl');
         });
     });
 
-    it('should resolve signOut', async () => {
-        inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
-            let deferred = _$q_.defer();
-            spyOn(AuthService, 'signOut').and.returnValue(deferred.promise);
-            $controller.logout();
-            $controller.$state.params.fromState = 'logout';
-            deferred.resolve();
-            _$rootScope_.$digest();
-            _$timeout_.flush();
-            expect(AuthService.signOut).toHaveBeenCalled();
-        });
+    afterEach(() => {
+        for (let spy of $spys) {
+            spy.and.callThrough();
+        }
     });
 
-    it('should reject signOut', async () => {
-        inject((_$rootScope_, _$q_, _$timeout_, AuthService) => {
-            let deferred = _$q_.defer();
-            spyOn(AuthService, 'signOut').and.returnValue(deferred.promise);
-            $controller.logout();
-            deferred.reject(new Error('rejected'));
-            _$rootScope_.$digest();
-            _$timeout_.flush();
-            expect(AuthService.signOut).toHaveBeenCalled();
-            expect($controller.error.message).toEqual('rejected');
+    it('should resolve signOut', async(done) => {
+        let $timeout;
+        inject((_$timeout_, AuthService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(AuthService, 'signOut').and.returnValue(Promise.resolve()));
         });
+        $controller.$state.params = {fromState: 'home', fromParams: {}};
+        await $controller.logout();
+        $timeout.flush();
+        expect($controller.$state.current.name).toEqual('home');
+        done();
+    });
+
+    it('should reject signOut', async(done) => {
+        let $timeout;
+        inject((_$timeout_, AuthService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(AuthService, 'signOut').and.returnValue(Promise.reject(new Error('Fail to Logout'))));
+        });
+        await $controller.logout();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Fail to Logout');
+        done();
     });
 
 });
