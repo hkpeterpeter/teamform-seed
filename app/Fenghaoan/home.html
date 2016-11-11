@@ -1,41 +1,11 @@
 <div ng-controller="homeController">
-	<!-- css -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-	<!-- <link rel="stylesheet" href="./css/homeslide.css"> -->
-	<!-- <link rel="stylesheet" href="./css/test.css"> -->
-  <!-- <link rel="stylesheet" href="./css/home.css"> -->
-
-	<!-- js -->
-<!-- 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script> -->
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script> -->
-	<!-- <script>
-  // Initialize Firebase
-  var config = {
-  	apiKey: "AIzaSyBo6qBEtKrrO5i18QTawlE-AuVRaG5Y0pw",
-  	authDomain: "authentest-b24d3.firebaseapp.com",
-  	databaseURL: "https://authentest-b24d3.firebaseio.com",
-  	storageBucket: "authentest-b24d3.appspot.com",
-  	messagingSenderId: "640784507450"
-  };
-  firebase.initializeApp(config);
-</script> -->
-<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
-
 
 <!-- LoginBox -->
 <div class="cd-user-modal" ng-click="changeVisible(event)"> <!-- this is the entire modal form, including the background -->
     <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
       <ul class="cd-switcher" ng-click="switcher(event)">
-        <li><a href="#">Sign in</a></li>
-        <!-- <li><a href="#0">New account</a></li> -->
+        <li><a>Sign in</a></li>
+        <li><a href="#0">New account</a></li>
       </ul>
 
       <div id="cd-login"> <!-- log in form -->
@@ -77,9 +47,11 @@
           <a class="btn btn-block btn-social btn-github" ng-click="login('github')">
             <span class="fa fa-github"></span> Sign in with Github
           </a>
+          <!-- <a href="#0" class="cd-close-form">Close</a> -->
         </form>
 
-      </div> <!-- cd-login -->
+      </div> <!-- /cd-login -->
+
       <a href="#0" class="cd-close-form">Close</a>
     </div>
 </div>
