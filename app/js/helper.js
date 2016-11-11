@@ -7,23 +7,19 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.debug = {};
     //checked
     helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {
-
-        ref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
-        return ref.update({team:teamID}).then(function(){
-            ref.update({position:position}).then(function(){
-                ref = firebase.database().ref("events/"+eventID);
-                tbaref = ref.child("tba/"+uid);
+      
+        teamref = firebase.database().ref("users/"+uid+"/writable/"+eventID);
+        teamref.update({team:teamID}).then(function(){
+            teamref.child("position").set(position).then(function(error){
+                eventref = firebase.database().ref("events/"+eventID);
+                tbaref = eventref.child("tba/"+uid);
                 tbaref.remove().then(function(data){
                         var temp = {};
                         temp[uid] = uid;
-                        ref.child("/teams/"+teamID).child('members').update(temp);
-                        $firebaseObject(ref.child("/teams/"+teamID)).$loaded().then(function(team){
-                            ref.child("/teams/"+teamID+"/currentSize").set(team.currentSize + 1);
-                        })
+                        eventref.child("/teams/"+teamID).child('members').update(temp);
                 });
             });
         });
-
     }
 
     //checked
@@ -37,7 +33,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             eref=firebase.database().ref("events/"+eventID+"/tba/"+uid);
             eref.set(uid);
         });
-
     }
 
     //checked
@@ -91,7 +86,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             });
 
         }
-  
+
     //violating rules
     helper.pushNotificationTo = function(toUid, eventID, msg) {
         //dht
@@ -128,6 +123,11 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   			temp[uid] = "pending";
   			ref.child('applications').update(temp);
 
+
+        uref=firebase.database().ref("users/"+uid+"/writable/"+eventID+"/applications");
+        temp = {};
+        temp[teamID] = teamID;
+        uref.update(temp);
     }
 
     //checked
@@ -143,15 +143,15 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
        //  var applicationList = $firebaseObject(applicationList_ref)
 
        //  applicationList.$loaded().then(function(){
-       //          // modify application in target team 
+       //          // modify application in target team
 			    // applicationList[uid] = "withdrawn";
 			    // applicationList.$save();
        //  });
         applicationList_ref.set("withdrawn");
 
-		team.$loaded().then(function(){ 
+		team.$loaded().then(function(){
             user.$loaded().then(function(){
-                // send notification to leader 
+                // send notification to leader
                 var msg = user.readOnly.name + " has withdrawn an application for your team " + team.name;
                 helper.pushNotificationTo(team.leader, eventID, msg);
 
@@ -159,7 +159,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                 // delete user.writable[eventID]["applications"][teamID];
                 // user.$save();
                 user_ref.child("writable/" + eventID + "/applications/" + teamID).remove();
-            });			
+            });
 		});
     }
 
@@ -203,7 +203,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 				        alert("Invalid operation! The event has already been closed.");
 				        return;
 			        }
-                   
+
                     //check team size
             		if (team.currentSize >= team.max){
 				        alert("Invalid operation! The team has reached its maximum capacity.");
@@ -247,7 +247,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
        //  var invitationList = $firebaseObject(invitationList_ref);
 
        //  invitationList.$loaded().then(function(){
-       //          // modify invitation in target team 
+       //          // modify invitation in target team
 			    // invitationList[uid] = "declined";
 			    // invitationList.$save();
        //  });
@@ -255,7 +255,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
 		team.$loaded().then(function(){
             user.$loaded().then(function(){
-                // send notification to leader 
+                // send notification to leader
                 var msg = user.readOnly.name + " has declined an invitation from your team " + team.name;
                 helper.pushNotificationTo(team.leader, eventID, msg);
 
@@ -263,7 +263,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                 // delete user.writable[eventID]["invitations"][teamID];
                 // user.$save();
                 user_ref.child("writable/" + eventID + "/invitations/" + teamID).remove();
-            });			
+            });
 		});
     }
     helper.acceptApplication = function(uid, eventID, teamID) {
@@ -273,7 +273,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   			temp[uid] = "accepted";
   			ref.child('applications').update(temp);
         helper.addPersonToTeam(uid, eventID,teamID, "member");
-
+        helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
@@ -322,9 +322,17 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         leaderRef.child(fromuid).remove();
         memberRef = firebase.database().ref("users/" + fromuid + "/writable/" + eventID);
         memberRef.child("position").set("member");
+
+        helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
     }
 
+    helper.getUsername  = function(uid){
 
+      return users.$getRecord(uid).readOnly.name;
+    }
+
+    var ref=firebase.database().ref("users");
+    var users = $firebaseArray(ref);
 
     helper.joinEvent = function(uid, eventID) {
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
@@ -341,8 +349,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref.child("isRead").set(true);
 
     }
-
-
 
 
     return helper;
