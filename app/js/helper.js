@@ -273,7 +273,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   			temp[uid] = "accepted";
   			ref.child('applications').update(temp);
         helper.addPersonToTeam(uid, eventID,teamID, "member");
-
+        helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
@@ -322,9 +322,17 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         leaderRef.child(fromuid).remove();
         memberRef = firebase.database().ref("users/" + fromuid + "/writable/" + eventID);
         memberRef.child("position").set("member");
+
+        helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
     }
 
+    helper.getUsername  = function(uid){
 
+      return users.$getRecord(uid).readOnly.name;
+    }
+
+    var ref=firebase.database().ref("users");
+    var users = $firebaseArray(ref);
 
     helper.joinEvent = function(uid, eventID) {
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
