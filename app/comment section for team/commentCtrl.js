@@ -1,3 +1,13 @@
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDRwTjOiH_DUPfAHdwTMPTLjB9qn7iKMS4",
+    authDomain: "light-of-wisdom-7d1ea.firebaseapp.com",
+    databaseURL: "https://light-of-wisdom-7d1ea.firebaseio.com",
+    storageBucket: "light-of-wisdom-7d1ea.appspot.com",
+    messagingSenderId: "411144932773"
+};
+firebase.initializeApp(config);
+
 // inject firebase service
 var app = angular.module("comment", ["firebase"]); 
 
@@ -8,7 +18,7 @@ app.controller("commentCtrl",
 
 		$scope.input = {
 			title: "",
-			desc: "",
+			comment: "",
 			date: "",
 			likes: 0
 		}
@@ -19,7 +29,7 @@ app.controller("commentCtrl",
 		$scope.addComment = function() {
 			
 			// update the date
-			if ( $scope.input.title != "" && $scope.input.desc != "" ) {
+			if ( /*$scope.input.title != "" && */$scope.input.comment != "" ) {
 				$scope.input.date = new Date().toString();
 				$scope.input.likes = 0;
 				// add a comment
