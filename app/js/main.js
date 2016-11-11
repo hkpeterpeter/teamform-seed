@@ -87,7 +87,23 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	//$rootScope.addUser(exampleNewUser);
 
 
+	$rootScope.carousel_flag_fha = true;
+
 	$rootScope.$on('$viewContentLoaded', function() {
+		// Don't touch these lines 
+
+		// $('.carousel').carousel();
+		$('.carousel.carousel-slider').carousel({full_width: true});
+
+		
+		setInterval(()=> { 
+			if ($rootScope.carousel_flag_fha) {
+				$('.carousel').carousel('next'); 
+			}
+		}, 3000);
+		$('.carousel').on('mouseover', ()=> { $rootScope.carousel_flag_fha = false; });
+		$('.carousel').on('mouseleave', ()=> { $rootScope.carousel_flag_fha = true; });
+
         $(document).keyup(function(event){
           if(event.which=='27'){
             $('.cd-user-modal').removeClass('is-visible');
