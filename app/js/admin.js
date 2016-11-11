@@ -134,8 +134,8 @@ angular.module('teamform-admin-app', ['firebase'])
 	}
 
 
-    //create team function for admin
-    $scope.eventid =eventid;
+    
+   //create team function 
     $scope.createTeam = function(teamName){
 
         var teamNameVal = $('#teamName').val();
@@ -155,6 +155,7 @@ angular.module('teamform-admin-app', ['firebase'])
                 var newteamRef = firebase.database().ref('events/'+$scope.eventid+'/teams/'+ teamkey);
                 var teamobject = $firebaseObject(newteamRef);
                 teamobject.teamName = teamNameVal; 
+				teamobject.teamLeader = $scope.uid;
                 teamobject.$save();
                 console.log(teamobject);
 
@@ -162,8 +163,9 @@ angular.module('teamform-admin-app', ['firebase'])
                 var currentUsersRef = firebase.database().ref('users/'+currentUser.uid+'/teams/'+teamkey);
                 var userNewTeamObject = $firebaseObject(currentUsersRef);
                if(userNewTeamObject.role != 'admin'){
-				userNewTeamObject.role != 'leader'
+				userNewTeamObject.role = 'leader';
 			   }
+			   userNewTeamObject.teamid = teamkey;
                 userNewTeamObject.$save();
 				console.log(userNewTeamObject);
             });
@@ -175,10 +177,12 @@ angular.module('teamform-admin-app', ['firebase'])
     	}else{
 		//	var url = "team.html?teamid=" + teamkey+ "&eventid="+$scope.eventid;
 			var url = "leader.html?teamid=" + teamkey+ "&eventid="+$scope.eventid;
-    	//	window.location.href = url;
+    		window.location.href = url;
     		return true;
 		}
     }
+
+
 
 
 	refPath = "events/"+ eventid + "/teams";	

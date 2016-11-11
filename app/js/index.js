@@ -103,18 +103,25 @@ angular
 			});
 	}
 
-	//filter test
-	$scope.matchRuleShort = function(str, rule){
-		var matchtest = new RegExp("^" + rule.split("*").join(".*") + "$").test(str);
+	//filter test for rule.*
+	// $scope.matchRuleShort = function(str, rule){
+	// 	var matchtest = new RegExp("^" + rule.split("*").join(".*") + "$").test(str);
+	// 	console.log("match: " + matchtest);
+	// 	return matchtest;
+	// }
+    //filter for *.rule and rule.*
+	$scope.matchRule = function(str, rule){
+		var matchtest = new RegExp(rule).test(str);
 		console.log("match: " + matchtest);
-		
 		return matchtest;
 	}
 
 	$scope.filter = function(eventname){
-		//console.log("entered filter(eventname)");
-		var rulename = $scope.eventName + "*";
-		return $scope.matchRuleShort(eventname, rulename)
+	//	var rulename = $scope.eventName + "*";
+	//	var reultRight=$scope.matchRuleShort(eventname, rulename);
+		var rulename = $scope.eventName ;
+		var reultLeft=$scope.matchRule(eventname, rulename);
+		return (reultLeft);
 	}
 
 	
