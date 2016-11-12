@@ -1,67 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
-	
-	<title>LIGHT OF WISDOM</title>
+<html lang="en" >
+   <head>
+		<meta charset="utf-8">
+		<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+		
+		<title>LIGHT OF WISDOM</title>
 
-	<link rel="shortcut icon" href="assets/images/logo.png">
-	
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+		<link rel="shortcut icon" href="images/logo.png">
+		
+		<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-	<!-- Custom styles for our template -->
-	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="assets/css/main.css">
-	<!-- Angular Library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-	<!-- Firebase -->
-	
-	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/login.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
-	
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
-</head>
+		<script src="lib/jquery.min.js"></script>      
+		<script src="lib/bootstrap.min.js"></script>      
+      	  
+		<!-- Custom styles for our template -->
+		<link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
+		<link rel="stylesheet" href="css/main.css">
 
-<body class="home">
-	<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
-		<div class="container" ng-app="teamformLoginApp" >
+		 <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+		  <!-- Angular Library -->
+		  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+		  <!-- Firebase -->
+		  <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+		  <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+		  <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+
+	   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	   <script src="lib/angular-route.min.js"></script>        
+		 
+	   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+	   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+	   <script src="lib/firebase.js"></script>     
+
+	   <script src="js/headroom.min.js"></script>
+	   <script src="js/jQuery.headroom.min.js"></script>
+	   <script src="js/template.js"></script>
+
+	   <script src="js/site.js"></script>
+	   <script src="js/login.js"></script>
+	   <script src="js/index.js"></script>
+
+
+
+
+
+
+
+
+	</head>
+	
+   <body>
+   
+   
+  
+   
+   
+      <!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom">
+		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
-			</div> 
-			<div class="navbar-collapse collapse" ng-controller="LoginCtrl">
+				<a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
+			</div>
+			<div class="navbar-collapse collapse" ng-controller="LoginCtrl" ng-app="teamform-login-app">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
-					<li><button class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</button></li>
+					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
 	<!-- /.navbar -->
-
-	<!-- Header -->
+	
+    <!-- Header -->
 	<header id="head">
 		<div class="container">
-			<h2 class="featurette-heading">
+			<h2 class="featurette-heading">What is teamform?
                   <br>
                   <span class="text-muted">A real-time online team forming app</span>
                </h2>
@@ -94,59 +120,98 @@
 		</div>
 	</header>
 	<!-- /Header -->
+	
+	<!-- Search -->
+      
+         <div class="row">
+            <div class="col-md-12">
+               <div class="row">
+                  <div class="col-md-12">
+                     
+                     <div class="text-center">
+						<br>
+                        <h1 class="thin">Teamform</h1>
+                        <p>A real-time online team forming app for any event</p>
+                     </div>
+					<div class="jumbotron top-space">
+                     <div class="text-center">
 
-	<!-- Intro -->
-	<div class="container text-center" id="event">
-		<br> <br>
-		<h2 class="thin">Current Events</h2>
+                        <input id="input_text" type="text" class="input-lg">
+                        <br>
+                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
+                        <br>
+                        <br>
+
+                        <div>
+                           
+                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
+                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
+                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
+                          
+
+
+                        </div>
+                     </div>
+					 </div>
+                  </div>
+               </div>
+               <hr >
+            </div>
+         </div>
+      
+	  <!-- /Search -->
+	  
+      	<!-- Intro -->
+	<div class="container text-center">
+		<br>
+		<h2 class="thin id="event"">Current Events</h2>
 	</div>
 	<!-- /Intro-->
 	
 	<!-- Highlights - jumbotron -->
 	<div class="jumbotron top-space parallax">
 		<div class="container">
-			
-			<h3 class="text-center thin">Reasons to use this template</h3>
-			
-			<div class="row">
-				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Bootstrap-powered</h4></div>
-					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur. Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor quam iusto assumenda hic reprehenderit?</p>
-					</div>
+			<div class="row text-center">
+				<div class="col-md-4 col-sm-6 highlight">
+					<div class="h-caption"><h4><b>EVENT NAME</b></h4></div>
 				</div>
-				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Fat-free</h4></div>
-					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam quibusdam rerum repellendus laboriosam reprehenderit! </p>
-					</div>
+				<div class="col-md-4 col-sm-6 highlight">
+					<div class="h-caption"><h4><b>NUMBER OF MEMBERS</b></h4></div>
 				</div>
-				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>Creative Commons</h4></div>
-					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis, perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum reprehenderit dolorem dicta nesciunt corporis?</p>
-					</div>
+				<div class="col-md-4 col-sm-6 highlight">
+					<div class="h-caption"><h4><b>DUE DATE</b></h4></div>
 				</div>
-				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Author's support</h4></div>
-					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio sequi atque temporibus facere corporis eos expedita? </p>
-					</div>
+				<hr >
+			</div>
+			<div id="admin_page_controller" ng-app="teamform-admin-app" ng-controller="AdminCtrl">
+			<div class="row text-center">
+				<div class="col-md-4 col-sm-6 highlight">
+					<ul ng-repeat="a in admin">
+						<li>
+							User ID: {{a.$id}}  <br>
+							{{a.name}}
+					
+						</li>
+					</ul>
 				</div>
-			</div> <!-- /row  -->
-		
+				<div class="col-md-4 col-sm-3 highlight list">
+					NUM
+				</div>
+				<div class="col-md-4 col-sm-3 highlight list">
+					DATE
+				</div>
+			</div>
+		</div>
 		</div>
 	</div>
 	<!-- /Highlights -->
 	<p class="pull-right"><a href="#">Back to top</a></p>
-	
-	<!-- container -->
-	<div class="container" id="about">
-	
-	<!-- Intro -->
+	  
+	<div class="container">
+    <!-- Intro -->
 	<div class="container text-center">
-		<br> <br>
-		<h2 class="thin">Development Team</h2>
+		<br>
+		<h2 class="thin" id="about">Development Team</h2>
 	</div>
 	<!-- /Intro-->
 		
@@ -154,62 +219,61 @@
 		<div class="jumbotron top-space parallax">
 			<div class="container text-center">
 			
-			<h3 class="text-center thin">We are the team Light of Wisdom.</h3>
+			<h3 class="text-center thin"><b>We are the team Light of Wisdom.</b></h3>
 			
 			<div class="row">
 				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Henry</h4></div>
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Henry</h3></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur. Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor quam iusto assumenda hic reprehenderit?</p>
+						<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur. Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor quam iusto assumenda hic reprehenderit?</strong></p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Anderson</h4></div>
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Anderson</h3></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam quibusdam rerum repellendus laboriosam reprehenderit! </p>
+						<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam quibusdam rerum repellendus laboriosam reprehenderit!</strong></p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Wyman</h4></div>
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Wyman</h3></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis, perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum reprehenderit dolorem dicta nesciunt corporis?</p>
+						<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis, perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum reprehenderit dolorem dicta nesciunt corporis?</strong></p>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Chung</h4></div>
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Chung</h3></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio sequi atque temporibus facere corporis eos expedita? </p>
+						<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, excepturi, maiores, dolorem quasi reprehenderit illo accusamus nulla minima repudiandae quas ducimus reiciendis odio sequi atque temporibus facere corporis eos expedita?</strong></p>
 					</div>
 				</div>
 			</div> <!-- /row  -->
 			
 			<div class="row">
 				<div class="col-md-4 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Lydia</h4></div>
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Lydia</h3></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur. Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor quam iusto assumenda hic reprehenderit?</p>
+						<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque aliquid adipisci aspernatur. Soluta quisquam dignissimos earum quasi voluptate. Amet, dignissimos, tenetur vitae dolor quam iusto assumenda hic reprehenderit?</strong></p>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Lickie</h4></div>
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Lickie</h3></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam quibusdam rerum repellendus laboriosam reprehenderit! </p>
+						<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores, commodi, sequi quis ad fugit omnis cumque a libero error nesciunt molestiae repellat quos perferendis numquam quibusdam rerum repellendus laboriosam reprehenderit!</strong></p>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-6 highlight">
-					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Victoria</h4></div>
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Victoria</h3></div>
 					<div class="h-body text-center">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis, perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum reprehenderit dolorem dicta nesciunt corporis?</p>
+						<p><strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem, vitae, perferendis, perspiciatis nobis voluptate quod illum soluta minima ipsam ratione quia numquam eveniet eum reprehenderit dolorem dicta nesciunt corporis?</strong></p>
 					</div>
 				</div>
 			</div> <!-- /row  -->
 		
 		</div>
   		</div>
-
-</div>	<!-- /container -->
-	
-	<p class="pull-right"><a href="#">Back to top</a></p>
+	</div>
+		
+        <p class="pull-right"><a href="#">Back to top</a></p>
 	
 	<!-- Social links. @TODO: replace by link/instructions in template -->
 	<section id="social">
@@ -274,14 +338,13 @@
 			<div class="container">
 				<div class="row">
 					
-					
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="simplenav">
 								<a href="#">Home</a> | 
 								<a href="#event">Event</a> |
 								<a href="#about">About us</a> |
-								<b><a >Sign in</a></b>
+								<b><a href="loginwithgoogle()">Sign in</a></b>
 							</p>
 						</div>
 					</div>
@@ -299,12 +362,7 @@
 		</div>
 
 	</footer>	
-		
 
 
-
-
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	
-</body>
+   </body>
 </html>

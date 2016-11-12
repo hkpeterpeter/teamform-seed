@@ -26,9 +26,10 @@
 .highlight { margin-top:40px; }
 	.h-caption { text-align: center; } 
 	.h-caption i { display:block; font-size: 54px; color:#382526; margin-bottom:36px; }
-	.h-caption h4 { color:#382526; font-size: 16px; font-weight: bold; margin-bottom:20px; }
+	.h-caption h4 { color:#382526; font-size: 16px; font-weight: bold; margin-bottom:5px; }
 	.h-body { }
 
+.list{color:#382526; font-size: 12px; font-weight: bold; margin-bottom:5px;}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 { font-family:"Open sans", Helvetica, Arial; }
@@ -111,3 +112,9 @@ img.pull-left { margin-right: 10px; }
     background-repeat: no-repeat;
     background-size: cover;
 }	
+
+
+p {
+  
+  color:#2C3E50;
+}
