@@ -77,12 +77,13 @@
                   </div>
                   <div class="col-xs-2">
                     <button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
-        					</div>                  
+        					</div>
+                
                </form>
                </div>
                <div class="col-md-3 col-xs-2"></div>
          </div>
-	 <div class="row">
+   <div class="row">
            <button type="button" class="btn btn-primary" id="atbtn" ng-click="atFunc();" >ability test</button>
          </div>
          <div class="row">
@@ -112,6 +113,30 @@
    <script src="lib/angularfire.min.js"></script>
 
    <script src="js/member.js"></script>
+   <!-- new -->
+
+		
+		<div class="form">
+			<form name="form" class="css-form col-md-4" novalidate>
+		 		<div class="form-group">
+					<label>Tags: </label>
+					<input class="form-control" type="text" name="title" ng-model="tag" placeholder="Tags for your traits">
+				</div>
+
+
+				   <div class="row">
+           <button type="button" class="btn btn-primary" id="addbtn" ng-click="addTag();" >Add</button>
+         </div>
+			
+			</form>
+
+
+		<div class="panel panel-success" ng-repeat="t in tags" >
+
+			<div class="panel-body">{{t}}</div>			
+
+		</div>
+	</div>
 
    </body>
 </html>
