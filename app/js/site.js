@@ -82,3 +82,21 @@ function getUserWithId(id) {
 	return firebase.database().ref(refPath);
 }
 
+function getUserName(id, users) {
+	for(var tmpIdx = 0; tmpIdx < users.length; tmpIdx++) {
+		if(users[tmpIdx].$id == id) {
+			return users[tmpIdx].name;
+		}
+	}
+	return "null";
+}
+
+function getTeamMembersName(teamMembers, users) {
+	var result = [];
+	var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
+	for(var idx = 0; idx < length; idx++) {
+		result.push(getUserName(teamMembers[idx], users));
+	}
+	return result;
+}
+
