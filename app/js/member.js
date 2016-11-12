@@ -70,7 +70,7 @@ angular.module('teamform-member-app', ['firebase'])
 		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
 		$scope.memberInfo.$loaded().then(function() {			
 			if($scope.memberInfo.inTeam != null) {
-				$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam);
+				$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam + ".");
 			}
 			else {
 				$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
@@ -79,7 +79,7 @@ angular.module('teamform-member-app', ['firebase'])
 			}
 			//check for invitation
 			if($scope.memberInfo.invitedBy != null){
-				$("#inviteStatus").html("You are invited by team " + $scope.memberInfo.invitedBy);
+				$("#inviteStatus").html("You are invited by team " + $scope.memberInfo.invitedBy + " in the event " + getURLParameter("q") + ".");
 			}
 		});
 	};

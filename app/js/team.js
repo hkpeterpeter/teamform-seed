@@ -226,17 +226,37 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 		$scope.saveFunc();
 		}
-	};    
+	};
+	
+	 $scope.param = {
+		"invitedBy":[]
+	};
+	//$scope.inviteList = [];
 	//invite function
 	$scope.sendInvite = function(m) {
-		//var index = $scope.param.teamMembers.indexOf(m);
-		//var index = retrieveNameFromID(m.$id);
-		var refPath = eventName + "/member/" + m;
-		var ref = firebase.database().ref(refPath);	
-		ref.update({
-			invitedBy: $scope.param.teamName
-		});
-		window.alert("Invitation sent!");
-	}
+		if ($scope.param.teamName == ""){
+			window.alert("Enter a team name first!");
+		}
+		//DOES NOT WORK
+		else if (firebase.database().ref(getURLParameter("q") + "/member/" + m).inTeam != null){
+			window.alert("User is already in a team!");
+		}		
+		else{
+			//$scope.inviteList = [];
+			$scope.param.invitedBy = [];
+			
+			//$scope.inviteList = $firebaseArray(firebase.database().ref(getURLParameter("q") + "/member/" + m + "invitedBy"));
+			//for (var i=0; i < $scope.inviteList.length; i++){
+				//$scope.param.invitedBy.push($scope.inviteList);
+			//}	
+			
+			$scope.param.invitedBy.push($scope.param.teamName);			
+			var refPath = getURLParameter("q") + "/member/" + m;
+			var ref = firebase.database().ref(refPath);			
+			ref.update({
+				invitedBy: $scope.param.invitedBy
+			})
+			window.alert("Invitation sent!");
+		}
 
 }]);
