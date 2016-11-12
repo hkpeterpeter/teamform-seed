@@ -23,7 +23,15 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.userName = "";	
 	$scope.teams = [];
 	
-	
+	$scope.auth=$firebaseAuth();
+	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
+  		if (firebaseUser) {
+    		$scope.uid = firebaseUser.uid;
+  		} 
+  		else {
+    		console.log("Signed out");
+  		}
+    });
 	
 	$scope.loadFunc = function() {
 		var userID = $scope.userID;
@@ -117,15 +125,7 @@ angular.module('teamform-member-app', ['firebase'])
 //.controller('matchCtrl', ["$scope", "$firebaseAuth"],
  // function($scope, $firebaseAuth) {
 
-  $scope.auth=$firebaseAuth();
-	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
-  		if (firebaseUser) {
-    		$scope.uid = firebaseUser.uid;
-  		} 
-  		else {
-    		console.log("Signed out");
-  		}
-    });
+  
 
 // skills match	
   	
