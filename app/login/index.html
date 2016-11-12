@@ -38,17 +38,19 @@
   		Password: <input type="text" name="pword" ng-model="input.password"><br>
   		Display Name: <input type="text" name="dname" ng-model="input.displayname"><br><br>
 
-
+    <br>
+    <br>
+    <br>
     </div>
     <div ng-controller="Question">
-    <form>
-      {{q.question}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "a"> {{q.a}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "b"> {{q.b}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "c"> {{q.c}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "d"> {{q.d}}<br>
-    </form>
-    <button type="button" ng-click="sumitans()">answer</button>
+      E-Q: <input type="text" name="mail" ng-model="questions.Question"><br>
+      YO: <input type="text" name="pword" ng-model="questions.YOYO"><br>
+      <button type="button" ng-click="DOIT()" >DO IT</button>
+
+      <div ng-repeat="q in question">
+      {{q.Question}} <br>
+      {{q.YOYO}}
+      </div>
 
 
     </div>
