@@ -11,8 +11,18 @@ $(document).ready(function(){
 });
 
 angular.module('teamform-team-app', ['firebase'])
-.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
-    function($scope, $firebaseObject, $firebaseArray) {
+app.controller("MyAuthCtrl", ["$scope", "$firebaseAuth",
+  function($scope, $firebaseAuth) {
+   //your code
+ 	$scope.auth=$firebaseAuth();
+	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
+ 	if (firebaseUser) {
+    	$scope.uid = firebaseUser.uid;
+  	} else {
+    	console.log("Signed out");
+  	}
+	});
+
 		
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
@@ -24,7 +34,12 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
-		"teamMembers" : []
+		"teamMembers" : [],
+		"teamLeader" : [],
+		"teamLeaderSize" : 0
+		"skills":[];
+		"personality":'';
+		"star": '';
 	};
 		
 	
@@ -76,11 +91,7 @@ angular.module('teamform-team-app', ['firebase'])
 	}
 	
 	
-	
-	
-	
-	
-
+	// set team size
 	$scope.changeCurrentTeamSize = function(delta) {
 		var newVal = $scope.param.currentTeamSize + delta;
 		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
@@ -98,6 +109,7 @@ angular.module('teamform-team-app', ['firebase'])
 			var newData = {				
 				'size': $scope.param.currentTeamSize,
 				'teamMembers': $scope.param.teamMembers
+				'teamLeader': $scope.addleader();
 			};		
 			
 			var refPath = getURLParameter("q") + "/team/" + teamID;	
@@ -134,7 +146,6 @@ angular.module('teamform-team-app', ['firebase'])
 		
 		
 	}
-	
 	$scope.loadFunc = function() {
 		
 		var teamID = $.trim( $scope.param.teamName );		
@@ -187,10 +198,35 @@ angular.module('teamform-team-app', ['firebase'])
 		
 	}
 	
-	
-	
-	
-	
-	
+	$scope.changeleader = function(uid1, uid2) {
+			if (uid1.indexOf($scope.param.teamLeader)> != -1 && uid2.indexOf($scope.param.teamLeader) == -1)
+			$scope.param.teamLeader.splice(uid1);
+			$scope.param.teamLeader.push(uid2);
+			$scope.param.teamMembers.push(uid1);
+			$scope.param.teamMembers.splice(uid2); 
+
+			$scope.saveFunc();
 		
-}]);
+	}
+
+	$scope.addleader = function() {
+		if ($scope.param.teamLeaderSize == 0)
+		{
+			$scope.param.teamLeader.push($scope.uid);
+			$scope.param.teamLeaderSize++;
+	}
+
+	$scope.addleader = function(uid) {
+		
+		if ($scope.param.teamLeaderSize <= currentTeamSize)
+		{
+			$scope.param.teamLeaderSize++;
+			$scope.param.teamLeader.push(uid);
+
+			$scope.saveFunc();
+		} 
+	}
+	
+	}]);
+ }
+]);
