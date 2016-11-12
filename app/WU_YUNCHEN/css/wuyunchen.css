@@ -6,7 +6,7 @@
     height: 35px;
     text-align: center;
     width: 80px;
-  border-radius:2px !important;
+    border-radius:2px !important;
 }
 
 .rangespinner input[type="text"]:focus{
@@ -33,4 +33,8 @@
 .rangespinner input:focus,
 .rangespinner button:focus {
   outline: none;
+}
+
+.skillbutton {
+    padding-bottom: 15px !important;
 }

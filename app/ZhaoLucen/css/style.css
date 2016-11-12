@@ -21,6 +21,25 @@
 	font-size: 24px;
 }
 
+/* Filters */
+
+div.admin-filter {
+	margin-top: 10px !important;
+}
+
+div.admin-filter label {
+	font-size: 12px;
+}
+div.admin-filter > div.admin-one-filter {
+	margin-right: 30px;
+	display: inline-block;
+}
+div.admin-filter > span {
+	font-size: 12px;
+	font-weight: 600;
+	color: gray;
+	margin-right: 10px;
+}
 
 /* A Card in Team List */
 	/* general */
