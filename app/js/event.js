@@ -102,10 +102,11 @@ angular.module('teamform-event-app', ['firebase'])
                 console.log(teamobject);
 
                 var currentUser = firebase.auth().currentUser;
-                var currentUsersRef = firebase.database().ref('users/'+currentUser.uid+'/teams/'+teamkey);
+                var currentUsersRef = firebase.database().ref('users/'+currentUser.uid+'/teams/'+$scope.eventid);
                 var userNewTeamObject = $firebaseObject(currentUsersRef);
                if(userNewTeamObject.role != 'admin'){
 				userNewTeamObject.role = 'leader';
+				userNewTeamObject.teamid = teamkey;
 			   }
 			   userNewTeamObject.teamid = teamkey;
                 userNewTeamObject.$save();
