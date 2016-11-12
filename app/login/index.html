@@ -27,6 +27,7 @@
 
 <script src="SampleCtrl.js"></script>
 <script src="save.js"></script>
+<script src="Question.js"></script>
 
 </head>
   <body>
@@ -37,7 +38,22 @@
   		Password: <input type="text" name="pword" ng-model="input.password"><br>
   		Display Name: <input type="text" name="dname" ng-model="input.displayname"><br><br>
 
+
     </div>
+    <div ng-controller="Question">
+    <form>
+      {{q.question}}<br>
+      <input type="radio" name="location" ng-model="Qinput" value = "a"> {{q.a}}<br>
+      <input type="radio" name="location" ng-model="Qinput" value = "b"> {{q.b}}<br>
+      <input type="radio" name="location" ng-model="Qinput" value = "c"> {{q.c}}<br>
+      <input type="radio" name="location" ng-model="Qinput" value = "d"> {{q.d}}<br>
+    </form>
+    <button type="button" ng-click="sumitans()">answer</button>
+
+
+    </div>
+    
+
 
 
   </body>
