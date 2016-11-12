@@ -29,7 +29,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	initalizeFirebase();
 	$scope.input_text;
 	var refPath, ref, eventName;
-	
+
 	eventName = getURLParameter("q");
 	refPath = eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
