@@ -55,7 +55,10 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		}
 	}
 
-
+	$rootScope.currentUser={
+        id:"-KVtEW8EVXIacwd9hsGx"
+    }
+                
 	var exampleNewUser={
 		eventsManaging:[],
 		email:"abcde@connect.ust.hk",
