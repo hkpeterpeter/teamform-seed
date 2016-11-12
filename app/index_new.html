@@ -11,6 +11,7 @@
 
     <!-- Customized libraries shared by pages -->
     <script src="js/site.js"></script>
+
     <!-- Press Start 2P Font -->
     <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&subset=cyrillic,greek,latin-ext" rel="stylesheet">
 
@@ -61,16 +62,17 @@
         </div>
     </div>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="LoginCtrl">
         <div class="triangle">
             <i class="fa fa-angle-double-down" aria-hidden="true"></i>
         </div>
         <div class="header-top clearfix">
             <div class="container">
-                <!-- <ul class="list-inline social-links">
-                    <li>
+                <ul class="list-inline social-links">
+                    <!-- <li>
                         <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
-                    </li><li class="hidden-xs">
+                    </li>
+                    <li class="hidden-xs">
                         <a href="#" title="Skype"><i class="fa fa-skype"></i></a>
                     </li><li class="hidden-xxs">
                         <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
@@ -78,10 +80,11 @@
                         <a href="#" title="Google +"><i class="fa fa-google-plus"></i></a>
                     </li><li>
                         <a href="#" title="Youtube"><i class="fa fa-youtube-play"></i></a>
-                    </li><li>
-                        <a href="#" title="Facebook"><i class="fa fa-facebook"></i></a>
+                    </li> -->
+                    <li>
+                        <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
                     </li>
-                </ul> -->
+                </ul>
                 <div class="header-top-dropdown">
                     <div class="btn-group dropdown">
                         <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
@@ -98,13 +101,14 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="btn-group dropdown">
+                    <div class="btn-group dropdown" ng-hide="logedin">
                         <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
                             <span class="text"><i class="fa fa-user"></i> Login</span>
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-right">
+                        <ul class="dropdown-menu dropdown-menu-right" >
                             <li>
-                                <form class="login-form" ng-controller="LoginCtrl" ng-submit="emailLogin()">
+                                <form class="login-form" ng-submit="emailLogin();">
+                                  {{uid}}{{logedin}}
                                   <div ng-if="message" class="alert alert-info">{{ message }}</div>
                                   <div ng-if="error" class="alert alert-danger">{{ error }}</div>
                                     <div class="form-group has-feedback">
@@ -132,6 +136,17 @@
                                         </li>
                                     </ul>
                                 </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-show="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> {{message}}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <li>
+                              <a href="myevent.html">(TODO)My event</a>
+                              <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
                             </li>
                         </ul>
                     </div>
@@ -164,100 +179,25 @@
                         <a href="#about">
                             <span class="main-link">About</span>
                             <span class="additional-info-link bracket">
-                                who we are
+                                what it is
                             </span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="main-link">Blog <b class="caret"></b></span>
+                        <a href="#flow">
+                            <span class="main-link">Getting started</span>
                             <span class="additional-info-link bracket">
-                                recents posts
+                                how to use
                             </span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#blog">Blog section</a>
-                            </li>
-                            <li>
-                                <a class="single-page" href="blog-list.html">List page</a>
-                            </li>
-                            <li>
-                                <a class="single-page" href="blog-item.html">Single page</a>
-                            </li>
-                        </ul>
                     </li>
                     <li>
-                        <a href="#portfolio">
-                            <span class="main-link">Portfolio</span>
+                        <a href="#team">
+                            <span class="main-link">Team</span>
                             <span class="additional-info-link bracket">
                                 our works
                             </span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="main-link">Details <b class="caret"></b></span>
-                            <span class="additional-info-link bracket">
-                                extended info
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#flow">Getting started</a>
-                            </li>
-                            <li>
-                                <a href="#team">Team</a>
-                            </li>
-                            <li>
-                                <a href="#pricing">Pricing</a>
-                            </li>
-                            <li>
-                                <a href="#testimonials">Testimonials</a>
-                            </li>
-                            <li>
-                                <a href="#faq">FAQ</a>
-                            </li>
-                            <li>
-                                <a href="#timeline">Timeline</a>
-                            </li>
-                            <li>
-                                <a href="#counter">Counter</a>
-                            </li>
-                            <li>
-                                <a href="#requirements">Requirements</a>
-                            </li>
-                            <li>
-                                <a href="#charts">Charts</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#partners">
-                            <span class="main-link">Partners</span>
-                            <span class="additional-info-link bracket">
-                                business friends
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="main-link">Contact <b class="caret"></b></span>
-                            <span class="additional-info-link bracket">
-                                stay in touch
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#contact-details">Contact details</a>
-                            </li>
-                            <li>
-                                <a href="#map">Map</a>
-                            </li>
-                            <li>
-                                <a href="#send-us-message">Send us message</a>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </div>
@@ -276,9 +216,12 @@
                 <h1 class="system-header">A real-time online team forming app</h1>
                 <p style="margin-bottom: 0px;">Enter a event name</p>
                   <div class="row" style="margin-bottom: 10px;"><div class="col-xs-12 col-md-6 "><input id="input_text" type="text" class="form-control col-xs-12 col-md-6 col-md-offset-6"></div></div>
-                <a href="#" class="btn btn-border btn-default" title="Search" data-toggle="modal" data-target="#order-modal">
+                  <a href="#" id="btn_member" class="btn btn-border btn-default" title="Search">
+                      <span><i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search</span>
+                  </a>
+                <!-- <a href="#" class="btn btn-border btn-default" title="Search" data-toggle="modal" data-target="#order-modal">
                     <span><i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search</span>
-                </a>
+                </a> -->
             </div>
         </div>
         <div class="home-bg"></div>
@@ -287,48 +230,31 @@
     <div class="standard-section section-about" id="about">
         <div class="container">
             <div class="text-center">
-                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">who we are</h3>
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">what it is</h3>
                 <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">About</h2>
             </div>
             <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
                 <div class="hex-shape"><i class="fa fa-info"></i></div>
             </div>
-            <p class="text-center lead">GameR is an ideal template for game-related websites (gaming, communities, clans, guilds, news and entertainment content) but also for technology, music, movies, CV or personal pages. Smart and compact. It's able to completely meet your needs. Many advanced customizable sections will help you get your own website fast and easy. Unique design will increase the value of your page!</p>
+            <p class="text-center lead">A real-time online team forming app for any event</p>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="feature-box text-center">
                         <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
                             <ul>
-                                <li><span>6 years of experience</span></li>
-                                <li><span>5 years of studies</span></li>
-                                <li><span>32 projects done</span></li>
+                                <li><span>creating an event</span></li>
+                                <li><span>minimum team size</span></li>
+                                <li><span>maximum team size</span></li>
                             </ul>
                         ">
                             <span class="icon-circle-inner">
-                                <span class="glyphicon glyphicon-book"></span>
+                                <span class="glyphicon glyphicon-eye-open"></span>
                             </span>
                         </span>
-                        <h3 class="standard-subheader bracket">Knowledge</h3>
-                        <p>Duis porta ipsum nec felis imperdiet sollicitudin. Vivamus et posuere lectus, vitae scelerisque libero. Cras vulputate condimentum elit, eu tempor nunc imperdiet eget. Praesent hendrerit enim eu dolor ornare, vel fermentum magna sodales.</p>
-                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">Use our <strong>experience</strong>!</p>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="feature-box text-center">
-                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
-                            <ul>
-                                <li><span>Programming</span></li>
-                                <li><span>Graphic design</span></li>
-                                <li><span>Marketing</span></li>
-                            </ul>
-                        ">
-                            <span class="icon-circle-inner">
-                                <span class="glyphicon glyphicon-tower"></span>
-                            </span>
-                        </span>
-                        <h3 class="standard-subheader bracket">Skills</h3>
-                        <p>Suspendisse pretium, lacus accumsan posuere volutpat, nibh orci cursus dui, a ullamcorper purus magna vel quam. Donec tincidunt semper justo, ac sodales mauris tempor sit amet. Vivamus sed erat iaculis, pellentesque neque ut, auctor metus.</p>
-                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">We <strong>can</strong> do it!</p>
+                        <h3 class="standard-subheader bracket">Administrator</h3>
+                        <p>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</p>
+                        <p>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">Menage your event<strong> easy</strong>!</p>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -341,19 +267,38 @@
                             </ul>
                         ">
                             <span class="icon-circle-inner">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                                <i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
                             </span>
                         </span>
-                        <h3 class="standard-subheader bracket">Initiative</h3>
-                        <p>Aenean mi magna, quis facilisis elit hendrerit in. Integer sed metus consectetur tortor accumsan aliquam nec vel tellus. In commodo venenatis lectus, ullamcorper tristique felis pellentesque id. Nulla facilisi. Fusce a magna vel velit rutrum ornare.</p>
-                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">You will be <strong>satisfied</strong>!</p>
+                        <h3 class="standard-subheader bracket">Team leader</h3>
+                        <p>Be able to add and remove requests made by members</p>
+                        <p>Once a member joins the team, all his/her requests will be deleted</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">I <strong>leading</strong> the world!</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
+                            <ul>
+                                <li><span>Programming</span></li>
+                                <li><span>Graphic design</span></li>
+                                <li><span>Perfect</span></li>
+                            </ul>
+                        ">
+                            <span class="icon-circle-inner">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Member</h3>
+                        <p>Be able to request to join multiple teams</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">We <strong>can</strong> do it!</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="standard-section section-promo section-buy" id="buy">
+    <!-- <div class="standard-section section-promo section-buy" id="buy">
         <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </div>
@@ -387,9 +332,9 @@
                 <a href="#" title="Order now!" class="btn btn-transparent btn-lg no-margin" data-100p-top="transform[swing]:translateY(20px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1" data-toggle="modal" data-target="#order-modal"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Order now!</a>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="standard-section section-gray section-blog" id="blog">
+    <!-- <div class="standard-section section-gray section-blog" id="blog">
         <div class="container">
             <div class="text-center">
                 <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">recent posts</h3>
@@ -468,9 +413,9 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="standard-section section-portfolio" id="portfolio">
+    <!-- <div class="standard-section section-portfolio" id="portfolio">
         <div class="container">
             <div class="text-center">
                 <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">our works</h3>
@@ -672,7 +617,7 @@
             </div>
         </div>
     </div>
-
+ -->
     <div class="standard-section section-promo section-flow" id="flow">
         <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
             <i class="fa fa-plus" aria-hidden="true"></i>
@@ -739,7 +684,7 @@
             <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
                 <div class="hex-shape"><i class="fa fa-users" aria-hidden="true"></i></div>
             </div>
-            <p class="text-center lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis mi eu purus bibendum aliquam ac sit amet mi. Donec lacinia consectetur convallis. Cras fermentum gravida luctus. Etiam imperdiet lacus in ante placerat, quis posuere tellus mollis. Sed porttitor, ante at semper placerat, libero diam convallis nunc, eu aliquam dui arcu quis est.</p>
+            <p class="text-center lead">Team Long Time No name</p>
             <div class="row">
                 <div class="col-sm-4">
                     <div class="team-item" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
@@ -772,7 +717,7 @@
         </div>
     </div>
 
-    <div class="standard-section section-gray section-pricing" id="pricing">
+    <!-- <div class="standard-section section-gray section-pricing" id="pricing">
         <div class="container">
             <div class="text-center">
                 <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">our people</h3>
@@ -1621,27 +1566,15 @@
             </form>
         </div>
     </div>
-
+ -->
     <footer class="footer text-center" id="follow-us">
         <div class="container">
             <ul class="list-inline">
                 <li>
-                    <a href="#" title="Facebook"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li>
-                    <a href="#" title="Dribble"><i class="fa fa-dribbble"></i></a>
-                </li>
-                <li>
-                    <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
-                </li>
-                <li>
-                    <a href="#" title="RSS"><i class="fa fa-rss"></i></a>
+                    <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
                 </li>
             </ul>
-            <p> &copy; 2016 <a href="http://jakubkwarcinski.pl" title="Jakub Kwarciński - Frontend Developer">Jakub Kwarciński</a></p>
+            <p> &copy; 2016 <a href="http://jakubkwarcinski.pl" title="Team Long Time No name">Team Long Time No name</a></p>
             <p class="text-center"><small>*Photos courtesy of and copyright Free Range Stock, <a href="http://www.freerangestock.com">www.freerangestock.com</a></small></p>
         </div>
     </footer>
@@ -1704,15 +1637,10 @@
         </div>
     </div>
 
+
     <!-- jQuery -->
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
-    <!-- Angular and Angular-route libraries (v1.5.7) -->
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/angular-route.min.js"></script>
 
-    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-    <script src="lib/firebase.js"></script>
-    <script src="lib/angularfire.min.js"></script>
 
     <!-- Bootstrap -->
     <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -1746,10 +1674,15 @@
 
     <!-- Main page javascript -->
     <script type="text/javascript" src="js/main.min.js"></script>
-    <!-- Log in control -->
-   <script src="js/login.js"></script>
-    <!-- Google maps -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEspZc-GBwxrJtw4vS3GjhAzIv7gHVbXw&callback=initMap"></script>
 
+    <!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <!-- Log in control -->
+    <script src="js/login.js"></script>
 </body>
 </html>
