@@ -28,21 +28,22 @@ app.controller("chatroomCtrl",
         $scope.addChatRecord = function () {
             //$scope.input.members = $scope.input.members.split(" ").join("").split(",");
 
-             var index = $scope.hasChatRecord();
+            var index = $scope.hasChatRecord();
 
-             var inner = firebase.database().ref("chats/" + index + "/msgs");
-             $scope.message = $firebaseArray(inner);
+            //for testing, dummy data
+            index = 1;  //assume the records exist, and it is located at index 1
+            var currentMemberList = ["g0001"];
 
             if (index >= 0) {
-                $scope.message.$ref().child(1).set({ // 1 for testing only as $scope.message.length doesn't work
-                     "content": $scope.tempcontent,
-                     "date": new Date().toString()
+                $scope.chatrooms.$ref().child(index).child("msgs").child($scope.chatrooms[index].msgs.length).set({
+                    "content": $scope.tempcontent,
+                    "date": new Date().toString()
                 });
-            } 
-            else{
+            }
+            else {
                 $scope.chatrooms.$ref().child($scope.chatrooms.length).set({
-                     "members": ["g111","g111","g111"],
-                     "msgs": [{"content": $scope.tempcontent,"date": new Date().toString()}]
+                    "members": ["g111", "g111", "g111"],
+                    "msgs": [{ "content": $scope.tempcontent, "date": new Date().toString() }]
                 });
             }
 
@@ -50,7 +51,7 @@ app.controller("chatroomCtrl",
 
 
         $scope.addNewMessage = function () {
-            if ($scope.tempcontent != "") {     
+            if ($scope.tempcontent != "") {
                 $scope.addChatRecord();
             }
         }
