@@ -22,8 +22,14 @@ app.controller("eventDCtrl",
                 ref=firebase.database().ref("users");
                 $scope.users=$firebaseObject(ref);
                 //get role of user
+                ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable");
+                $scope.myEvents = $firebaseObject(ref);
                 ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable/"+$scope.eventID);
                 $scope.myEvent = $firebaseObject(ref);
+                $scope.myEvent.$loaded().then(function(data){
+                    console.log("Test");
+                    console.log(data);
+                });
                 // $scope.myEvents.$loaded().then(function(){
                 //     //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
                 //     invref = firebase.database().ref('events/' + $scope.eventID + "/teams/" + $filter('teamId')($scope.myEvents[$scope.eventID]) + "/invitations");
@@ -172,11 +178,11 @@ app.filter('numKeys', function() {
 
 app.filter('role', function(){
     return function(obj) {
-        if (obj == undefined){
+        if (obj === undefined){
             return 'visitor';
         }
         else
-            return obj.position;
+            return obj.position;     
     }
 });
 

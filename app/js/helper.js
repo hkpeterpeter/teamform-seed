@@ -31,6 +31,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
         teamRef=firebase.database().ref("events/"+eventID+"/teams/"+teamID);
         return $firebaseObject(teamRef).$loaded().then(function(team){
+            console.log(team);
             teamRef.child("currentSize").set(team.currentSize - 1).then(function(data){
                     teamRef.child("members").child(uid).remove().then(function(error){
                         uref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
@@ -64,8 +65,12 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                 if(id!=team.leader)
                 helper.deletePersonFromTeam(id,eventID,teamID);
             }
-            helper.deletePersonFromTeam(team.leader,eventID,teamID);
-            team.$remove();
+            
+            
+        }).then(function(){
+            helper.deletePersonFromTeam(team.leader,eventID,teamID).then(function(){
+                team.$remove();
+            });
         });
     }
 

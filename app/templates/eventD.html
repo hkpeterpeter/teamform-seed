@@ -1,5 +1,5 @@
 <h1>{{eventObj.eventInfo.name}}</h1>
-<h3>{{myEvent | role}}</h3>
+<h3>{{myEvents[eventID] | role}}</h3>
 <h1 ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</h1>
 <textarea ng-model="eventObj.eventInfo.desc" ng-if="editingInfo" ng-value="eventObj.eventInfo.desc"></textarea>
 <input class="btn btn-primary" ng-click="editInfo()" ng-if="myEvent.position=='admin'" ng-value="editButton">
@@ -46,7 +46,7 @@
 <button class="btn btn-primary" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">createTeam</button>
 <button class="btn btn-primary" ng-click="quit()" ng-if="(myEvent | role)=='tba'">Quit Event</button>
 <button class="btn btn-primary" ng-click="createAnnouncementDialogue()" ng-if="(myEvent | role)=='admin'">post an announcement</button>
-<button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvent | role)=='visitor'">Join Event</button>
+<button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join Event</button>
 <br><br><br><br>
 <!--<h1>Debug</h1>-->
 <!--<button class="btn btn-primary" ng-click="createEventList(userData)">createEventList</button>-->
