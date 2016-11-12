@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-member-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>LIGHT OF WISDOM - search member page</title>
+	  <link rel="shortcut icon" href="images/logo.png">
+
+   <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+   <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+   <!-- Custom styles for our template -->
+   <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+   <link rel="stylesheet" href="assets/css/main.css">
+
+   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+   <!--[if lt IE 9]>
+   <script src="assets/js/html5shiv.js"></script>
+   <script src="assets/js/respond.min.js"></script>
+   <![endif]-->
+
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+      <!-- Angular Library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+   <script src="assets/lib/firebase.js"></script>     
+
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
+
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/login.js"></script>
+   <script src="assets/js/admin.js"></script>
+	  	  
+   </head>
+   <body>
+<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="index.html">HOME</a></li>
+					<li><a href="#out">SIGN OUT</a></li>
+					
+					
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+   
+<br>
+   <br><br>
+<br>
+   
+  
+
+   <div class="text-center">
+      <h1><p>Search Member Page</p></h1>
+	  
+	  <div class="jumbotron top-space parallax">	 
+				<div class="container">
+      <h2 id="text_event_name"></h2>
+       <div id="member_page_controller" ng-controller="MemberCtrl">
+
+
+         <div class="row">
+
+            <div class="col-md-2 col-xs-2"></div>
+
+            <div class="col-md-8 col-xs-8 ">
+			
+
+               
+               <form class="form-horizontal">
+                  <div class="form-group">
+                     <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
+                     <div class="col-sm-5">
+                     <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
+                     </div>
+					 
+					 <div class="col-sm-4">
+					   
+					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Search</button>
+					  </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label for="inputName" class="col-sm-3 control-label">Name</label>
+                     <div class="col-sm-9">
+                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
+                     </div>
+                  </div>
+				  
+				  
+				 
+
+
+
+               </form>
+			   
+			     
+
+               
+            </div>
+            <div class="col-md-2 col-xs-2"></div>
+         </div>
+
+<div class="row">
+				  <p> """display member's tag"""</p>
+				  </div>
+
+       </div>
+   </div>
+</div>
+</div>
+   </body>
+   <footer>
+   <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+
+   
+   </footer>
+</html>
+
