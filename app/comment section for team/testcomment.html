@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<!-- Angular Library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+
+	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div ng-controller="commentCtrl" ng-app="comment" class="container">
+		<div class="page-header">
+  			<h1>Comment section for team</h1>
+		</div>
+		
+		<div class="row">
+			<form name="form" class="css-form col-md-12" novalidate>
+		 		<!-- 
+				##In case useful for changing it to get Team Name or get Member Name from db##
+				## all "title" are hided including those in commentCtrl.js ##
+				<div class="form-group">
+					<label>Thread: <span class="required " ng-show="form.title.$error.required">*required</span> </label>
+					<input class="form-control" type="text" name="title" ng-model="input.title" placeholder="Thread title" required>
+				</div>
+				-->
+
+				<div class="form-group">
+					<label>Comment: <span class="required" ng-show="form.comment.$error.required">*required</span></label>
+					<textarea class="form-control" name="comment" ng-model="input.comment" placeholder="Enter your comment ..." required></textarea>
+					<br>
+					<input class="btn btn-primary" type="button" value="Send" ng-click="addComment()" ng-disabled="!input.comment <!--|| !input.title-->">
+				</div>
+			</form>
+		</div>
+		
+		<h1>All comments:</h1>
+		<div class="panel panel-success" ng-repeat="c in comment" >
+		<!--
+			<div class="panel-heading">{{c.title}}
+				<span class="glyphicon glyphicon-remove pull-right" ng-click="comment.$remove(c);"></span>
+			</div>
+		-->
+			<div class="panel-body">{{c.comment}}</div>			
+			<div class="panel-footer">
+				<button class="btn btn-primary" type="button" ng-click="c.likes = c.likes+1; comment.$save(q);">
+					<span class="glyphicon glyphicon-thumbs-up"></span> Likes
+					<span class="badge"> {{c.likes}}</span> 
+				</button>
+			 	<span>Commented on: {{c.date}}</span>
+			 </div>
+		</div>
+	</div>
+
+	<!-- Comment Controller --> 
+	<script src="commentCtrl.js"></script>
+
+</body>
+</html>
