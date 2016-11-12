@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" >
    <head>
-		<meta charset="utf-8">
-		<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="">
-		<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
-		
-		<title>LIGHT OF WISDOM</title>
+<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>LIGHT OF WISDOM</title>
 
-		<link rel="shortcut icon" href="images/logo.png">
-		
-		<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-		
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="shortcut icon" href="assets/images/logo.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
-		<script src="lib/jquery.min.js"></script>      
-		<script src="lib/bootstrap.min.js"></script>      
-      	  
-		<!-- Custom styles for our template -->
-		<link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
-		<link rel="stylesheet" href="css/main.css">
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
 
-		 <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
 
-		  <!-- Angular Library -->
-		  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
 
-		  <!-- Firebase -->
-		  <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+      <!-- Angular Library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
-		  <!-- AngularFire URL: https://github.com/firebase/angularfire -->
-		  <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+      <!-- Firebase -->
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
 
-	   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	   <script src="lib/angular-route.min.js"></script>        
-		 
-	   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-	   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
-	   <script src="lib/firebase.js"></script>     
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>        
 
-	   <script src="js/headroom.min.js"></script>
-	   <script src="js/jQuery.headroom.min.js"></script>
-	   <script src="js/template.js"></script>
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
 
-	   <script src="js/site.js"></script>
-	   <script src="js/login.js"></script>
-	   <script src="js/index.js"></script>
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/login.js"></script>
 
 
 
@@ -70,13 +68,14 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse" ng-controller="LoginCtrl" ng-app="teamform-login-app">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
+					<li><a href="admin.html">ADMIN(FOR TEST)</a></li>
 					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
