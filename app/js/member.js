@@ -93,27 +93,13 @@ angular.module('teamform-member-app', ['firebase'])
 	};
 	
 	$scope.addTag = function() {
-		var userID = $.trim($scope.userID);
-		var userName = $.trim($scope.userName);
-		var tag = $.trim($scope.tag);
-		var refPath = getURLParameter("q") + "/member/" + userID;
-		var ref = firebase.database().ref(refPath);
-		
-		if(userID !== '' && userName !== '' && tag !== '') {
+		 var tag = $.trim($scope.tag);
+				
+		if(tag !== '' && $scope.tags.indexOf(tag) == -1) {
 			$scope.tags.push(tag);
-			var newData = {
-				'tags' : $scope.tags,
-				'selection': $scope.selection,
-				'weight': 0 
-			};
-			
-			ref.update(newData);
-			refPath = "user/" + userID;
-			//ref = firebase.database().ref(refPath);
-			ref.update({ name: userName }, function() {
-				//window.location.href = "index.html";
-			});
-		}
+			$scope.tag = "";
+			}
+		$scope.tag = "";
 	};
 	
 	$scope.saveFunc = function() {
@@ -122,6 +108,7 @@ angular.module('teamform-member-app', ['firebase'])
 		
 		if(userID !== '' && userName !== '') {
 			var newData = {
+				'tags' : $scope.tags,
 				'selection': $scope.selection,
 				'weight': 0 
 			};
