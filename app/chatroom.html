@@ -13,16 +13,16 @@
 	 <script src="lib/jquery.min.js"></script>
  
  	<script>
-  	// Initialize Firebase
- 	var config = {
-     apiKey: "AIzaSyAjSwkuqVhX249KogPKC04riNIzOTJTQGk",
-    authDomain: "comp3111-fc3c0.firebaseapp.com",
-    databaseURL: "https://comp3111-fc3c0.firebaseio.com",
-     storageBucket: "comp3111-fc3c0.appspot.com",
-     messagingSenderId: "863597722858"
-   	};
-  	firebase.initializeApp(config);
- 	</script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+    authDomain: "comp3111-5fbe5.firebaseapp.com",
+    databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+    storageBucket: "comp3111-5fbe5.appspot.com",
+    messagingSenderId: "946291658553"
+  };
+  firebase.initializeApp(config);
+</script>
  
  	<style>
  	.css-form .required{color: red;}
@@ -39,7 +39,6 @@
  <body>
 	 
  	<div ng-controller="chatroomCtrl" class="container">
-		 <input type="button" ng-click="addChatRecord()" value="test"></button>
  		<div class="page-header">
   			<center><h1>Chatroom </h1></center>
 		</div>
@@ -52,14 +51,11 @@
  
  			<form name="form" class="css-form col-md" novalidate>
  				<div class="form-group">
- 					<textarea class="form-control" name="content" ng-model="input.msgs.content" placeholder="Type a message" style="font size:20; height: 40px; resize: none;" required></textarea>
+ 					<textarea class="form-control" name="tempcontent" ng-model="tempcontent" placeholder="Type a message" style="font size:20; height: 40px; resize: none;" required></textarea>
  					<br>
- 				<input class="button" type="button" value="Enter" ng-click="addChatRecord()" ng-disabled="!input.msgs.content">
+ 				<input class="button" type="button" value="Enter" ng-click="addNewMessage()" ng-disabled="!tempcontent">
  				</div>
 				 <div class="col-md-8">
-				<p>Debug:</p>
-				<pre>input = {{ input | json }}</pre>
-				<pre>questions = {{ questions | json }}</pre>
 			</div>
  			
  			</form>
