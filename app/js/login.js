@@ -110,7 +110,7 @@ angular.module('teamform-app', ['firebase'])
   $scope.error = null;
   $scope.uid = null;
   $scope.logedin =false;
-
+  $scope.profile= null;
   $scope.auth = $firebaseAuth();
 
   // firebase.auth().onAuthStateChanged(function(user) {
@@ -179,13 +179,26 @@ angular.module('teamform-app', ['firebase'])
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
     if (firebaseUser) {
       $scope.message = "Signed in as:"+ firebaseUser.uid;
-      console.log("Signed in as:", firebaseUser.uid);
-       $scope.logedin =true;
+      $scope.logedin =true;
+      $scope.uid = firebaseUser.uid;
+      $scope.profile = getProfile(firebaseUser.uid);
+       console.log("Signed in as:", firebaseUser.uid);
     } else {
-       $scope.logedin =false;
+      $scope.logedin =false;
       $scope.message = "Signed out";
       console.log("Signed out");
     }
   });
 
+  var getProfile = function(uid){
+    var path= "profile/"+uid;
+    var ref = firebase.database().ref(path);
+    var profile = $firebaseObject(ref);
+    profile.$loaded()
+      .catch(function(error) {
+        $scope.error = error.message;
+        console.error("Error:", error);
+      });
+    return profile;
+  }
 }]);

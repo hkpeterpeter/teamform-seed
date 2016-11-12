@@ -141,13 +141,19 @@
                     </div>
                     <div class="btn-group dropdown" ng-show="logedin">
                         <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                            <span class="text"><i class="fa fa-user"></i> {{message}}</span>
+                            <span class="text"><i class="fa fa-user"></i> {{profile.name}}</span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right" >
-                            <li>
-                              <a href="myevent.html">(TODO)My event</a>
-                              <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
-                            </li>
+                            <a href="profile.html"><img src="{{profile.pic}}" class="img-responsive img-circle " alt="profile picture"></a>
+                          <li>
+                            <a href="profile.html">Profile</a>
+                          </li>
+                          <li>
+                            <a href="myevent.html">(TODO)My event</a>
+                          </li>
+                          <li>
+                            <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
+                          </li>
                         </ul>
                     </div>
                 </div>
