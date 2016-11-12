@@ -6,8 +6,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="keywords" content="teamform, team">
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>LIGHT OF WISDOM - team page</title>
-	  <link rel="shortcut icon" href="images/logo.png">
+      <title>teamform - team page</title>
+	  
       <!-- libraries and CSS 	  
 		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
 		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
@@ -21,8 +21,7 @@
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="css/main.css">
+      <link rel="stylesheet" href="css/site.css" >
 
 
       <!-- Customized libraries shared by pages -->
@@ -30,36 +29,15 @@
 	  	  
    </head>
    <body>
-<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
-		<div class="container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="index.html">HOME</a></li>
-					
-					<li><a href="#out">SIGN OUT</a></li>
-					
-					
-				</ul>
-			</div><!--/.nav-collapse -->
-		</div>
-	</div> 
-	<!-- /.navbar -->
-   
-   
-    
-   <br><br>
-<br><br>
+
+    <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >
+   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+   Back</button></a>
+   <br>
+
    <div class="text-center">
-      <h1><p>Team Page</p></h1>
-	  
-	  <div class="jumbotron top-space parallax">	 
-				<div class="container">
+      <h1>Team Page</h1>
       <h2 id="text_event_name"></h2>
        <div id="team_page_controller" ng-controller="TeamCtrl">
 
@@ -67,7 +45,7 @@
 
             <div class="col-md-2 col-xs-2"></div>
 
-            <div class="col-md-6 col-xs-6 text-left ">
+            <div class="col-md-6 col-xs-6 text-left panel">
 			
 			 
 
@@ -85,10 +63,13 @@
 							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">													
 						 </div>
 						
-						<div class="col-md-2 col-xs-2">
-						   <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
+						<div class="col-md-1 col-xs-1">
+						   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
 						 </div>
 						 
+						 <div class="col-md-1 col-xs-1">
+							<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
+						</div>
 					</div>
 					
 										 
@@ -109,14 +90,7 @@
 						  
 					   </span>
 				   </div>
-				   <br>
-				   <div class="row">
-					  <strong>Choose your team tag(s): </strong> 
-					</div>  
 				   
-				   <div class="row">
-							<button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
-						</div>
 				   
 
                   </form>
@@ -148,9 +122,7 @@
 					 
                   </div>
 				</div>
-				  <div class="row">
-						 <button id="btn_search" type="button" class="btn btn-primary" >Search Member</button>
-						 </div>
+				  
 				  
 
                   				  
@@ -186,8 +158,6 @@
 
        </div>
    </div>
-   </div>
-   </div>
 
 
    <!-- JavaScript of this page -->
@@ -204,12 +174,5 @@
    <script src="js/team.js"></script>
 
    </body>
-   
-   <footer>
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >
-   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-   Back</button></a>
-   </footer>
 </html>
 

@@ -13,10 +13,6 @@ $(document).ready(function(){
 });
 
 
-
-
-
-
 angular.module('teamform-admin-app', ['firebase'])
 .controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
