@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/site.css">
-  
+		
     <script src="js/site.js"></script>
     
   </head>
@@ -73,30 +73,29 @@
 	            </div>
 	          </div>
 	        </div>
-	      </form>
-	        
-        <div class="row">
-          <strong>Preferred Team Size: </strong>
-          <span>
-            <span class="badge">{{param.currentTeamSize}}</span>
-            <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-            <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-          </span>
-        </div> 
+   <div class="row">
+	  <strong>Preferred Team Size: </strong>
+	   <span>
+	    <span class="badge">{{param.currentTeamSize}}</span>
+	    <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+	    <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+	   </span>
+	  </div>
 
-				<div class="row">
-				  <ul>Tags (desired ability/traits for team members):</ul>
-				  <ul ng-repeat="tag in tags">
-				   <div class="checkbox">
-				  	<label><input type="checkbox" ng-checked="tagChecked(tag.$value);" ng-click="addTags(tag.$value);">
-				  	<li>{{tag.$value}}</li>
-				    </label>
-				   </div>
-				  </ul>
-				</div>
-
+  
+ <div class="row">
+ <button ng-click="openCategory();" class="dropbtn">Add Tags for Your Team</button>
+  <div id="myDropdown" class="dropdown-content">
+		<div ng-repeat="tt in tags">
+    <label><input type="checkbox"	ng-checked="tagChecked(tt.$value);"	 ng-click="addTags(tt.$value);">
+		<span>{{tt.$value}}</span>
+		</label>
+		</div>
+  </div>
+ </div>
+</form>
 	      <div class="row">
-	        <div class="col-sm-6">
+	        <div class="col-sm-4">
 	          <h4>Team members</h4>
 	          <!-- TODO: Show the current team member list -->
 	          <div ng-repeat="member in param.teamMembers">
@@ -105,8 +104,15 @@
 	            </button>
 	          </div>
 	        </div>
-	        
-	        <div class="col-sm-6">
+	        <div class="col-sm-4">
+						 <h4>Tags</h4>
+						 <div ng-repeat="ttt in param.tags">
+							 <button type="button" class="btn" ng-click="addTags(ttt);">
+							 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
+							 </button>
+							</div>
+					</div>
+	        <div class="col-sm-4">
 	        <h4>Requests received:</h4>
 	        <!--TODO: Show the requests -->	        
 	          <div ng-repeat="r in requests">
