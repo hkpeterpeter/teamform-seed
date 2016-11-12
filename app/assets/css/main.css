@@ -138,12 +138,17 @@ p {
     background-size: cover;
 	padding-top: 70px;
     padding-bottom: 70px;
+	color: #fff;
 }
 .container-fluid{
-    background-color: #1abc9c;
-    padding-top: 70px;
-    padding-bottom: 70px;
+    background-color:#9DC209;
+    padding-top: 40px;
+    padding-bottom: 40px;
+	font-size: 12px; 
+	color: #fff;
 }
+
+
 
 .container-fluidspace{
    
