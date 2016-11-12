@@ -1,0 +1,9 @@
+     // to take an action after the data loads, use the $loaded() promise
+     question.$loaded().then(function() {
+        $scope.q.question = obj.q1;
+        $scope.q.a = obj.a;
+        $scope.q.b = obj.b;
+        $scope.q.c = obj.c;
+        $scope.q.d = obj.d;
+        $scope.q.ans = obj.correct;
+    });
