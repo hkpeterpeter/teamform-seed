@@ -6,7 +6,7 @@ angular.module('teamform-profile-app', ['firebase'])
 
 	// Implementation the todoCtrl
     $scope.uid = null;
-
+    $scope.picdefault = "https://firebasestorage.googleapis.com/v0/b/team-long-time-no-name.appspot.com/o/user.jpg?alt=media&token=c071e226-b03d-49a8-8f1f-2d3c6c9565c7"
     initalizeFirebase();
 
 
@@ -14,14 +14,14 @@ angular.module('teamform-profile-app', ['firebase'])
       name: "",
       gender: "",
 			uid: "",
-			pic: "",
 			birth: "",
 			star: "",
-      personality:"",
       location:"".toLowerCase(),
       description:""
 
 		};
+    $scope.personality = "";
+    $scope.pic = "";
     $scope.like = [];
     $scope.check = false;
 
@@ -57,13 +57,17 @@ angular.module('teamform-profile-app', ['firebase'])
         .then( function(data) {
           for (var key in $scope.input) {
             if (typeof $scope.profile[key]=="undefined") {
-              $scope.profile[key]= $scope.input[key];
+              $scope.profile[key] = $scope.input[key];
+
             }
           }
           if(typeof $scope.profile["like"]=="undefined"){$scope.profile["like"]=$scope.like;}
-
+          if(typeof $scope.profile["pic"]=="undefined"){$scope.profile["pic"]=$scope.picdefault;}
+          if(typeof $scope.profile["personality"]=="undefined"){$scope.profile["personality"]=$scope.personality;}
           // console.log(data);
           $scope.checkifuser();
+          $(".Profileview").show();
+          $(".updateProfileview").hide();
         })
         .catch(function(error) {
           // Database connection error handling...
@@ -74,15 +78,18 @@ angular.module('teamform-profile-app', ['firebase'])
     }
 
     $scope.saveProfile = function() {
-      if ( $scope.input.name != "" && $scope.input.gender != "" && $scope.input.birth != "" && $scope.input.star != "" && $scope.input.location != "" && $scope.input.description != ""  ) {
+
+      if ( $scope.input.name != "" && $scope.input.gender!="" && $scope.input.birth != "" && $scope.input.star != "" && $scope.input.location != "" && $scope.input.description != ""  ) {
         // $scope.input.date = new Date().toString();
         // $scope.input.likes = 0;
         // add an input question
+
         for (var key in $scope.input) {
 
             $scope.profile[key] = $scope.input[key];
 
         }
+        console.log("saveprofile");
         // $scope.profile.name = $scope.input.name;
         // $scope.profile.gender = $scope.input.gender;
         // $scope.profile.birth = $scope.input.birth;
@@ -93,6 +100,16 @@ angular.module('teamform-profile-app', ['firebase'])
         $scope.profile.$save();
       }
     }
+    $scope.showProfile = function(){
+      $(".updateProfileview").hide();
+      $(".Profileview").show();
+
+    }
+    $scope.editProfile = function(){
+      $(".updateProfileview").show();
+      $(".Profileview").hide();
+    }
+
     $scope.SkillTemp = "";
     $scope.addSkill = function(){
         if(typeof $scope.profile["skills"]=="undefined"){$scope.profile["skills"]=[];}
@@ -100,16 +117,31 @@ angular.module('teamform-profile-app', ['firebase'])
         $scope.profile.$save();
 
     }
+    $scope.removeSkill = function(e){
+        var i = $scope.profile.skills.indexOf(e);
+        if (i != -1){
+          $scope.profile.skills.splice(i,1);
+          $scope.profile.$save();
+        }
+
+    }
 
     $("#file").on("change", function(event){
       selectedFile = event.target.files[0];
       $("#uploadButton").show();
+      var tmppath = URL.createObjectURL(event.target.files[0]);
+      $("img").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+
+      console.log(tmppath);
+
 
     });
+
 
     $scope.uploadFile = function(){
       var filename = selectedFile.name;
       var storageRef = firebase.storage().ref('/profilepic' + filename);
+
       var uploadTask = storageRef.put(selectedFile);
 
       uploadTask.on('state_changed', function(snapshot){
@@ -117,11 +149,23 @@ angular.module('teamform-profile-app', ['firebase'])
 
 
       },function(){
-        $scope.profile.pic = uploadTask.snapshot.downloadURL.toString();
-        $scope.profile.$save();
+
+          $scope.profile.pic = uploadTask.snapshot.downloadURL.toString();
+          $scope.profile.$save();
+
+
         console.log($scope.profile.pic);
       });
     }
+
+    $scope.removeFile = function(){
+      if ($scope.profile.pic != $scope.picdefault){
+        $scope.profile.pic = $scope.picdefault;
+        $scope.profile.$save();
+      }
+
+    }
+
     // $scope.test1 = true;
     // $scope.test2 = true;
     // $scope.testform1 = function(){
@@ -191,7 +235,7 @@ angular.module('teamform-profile-app', ['firebase'])
 
               $scope.ShowQ = function(){
                 $("#finish").hide();
-
+                $(".all").hide();
                 for(var a=0;a<$scope.questions.length;a++){
                   if ($scope.count == a){
 
@@ -229,8 +273,11 @@ angular.module('teamform-profile-app', ['firebase'])
                     $scope.profile.personality = $scope.presetpersonality[c];
                     $scope.profile.$save();
                     $("#test").hide();
+
                   }
                 }
+                $(".all").show();
+                $(".updateProfileview").show();
               }
 
 
