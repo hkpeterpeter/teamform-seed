@@ -35,19 +35,21 @@ angular.module('teamform-event-app', ['firebase'])
 
 	$scope.param.$loaded()
 		.then( function(data) {
-			
 			// Fill in some initial values when the DB entry doesn't exist			
-			if(typeof $scope.param.maxTeamSize == "undefined"){				
-				$scope.param.maxTeamSize = 10;
-			}			
-			if(typeof $scope.param.minTeamSize == "undefined"){				
-				$scope.param.minTeamSize = 1;
+			if(typeof $scope.param.TeamSize == "undefined"){				
+				$scope.param.TeamSize = 3;
 			}
 
-			var user = firebase.auth().currentUser;
-			$scope.param.eventadmin = user.uid;
+			if(typeof $scope.param.MaxTeam == "undefined"){				
+				$scope.param.MaxTeam = 12;
+			}
 			// Enable the UI when the data is successfully loaded and synchornized
-			$('#admin_page_controller').show(); 				
+			$('#event_page_controller').show(); 
+
+			var user = firebase.auth().currentUser;
+			$scope.param.EventAdmin = user.displayName;
+			$scope.param.EventName = eventName;
+			$scope.param.No_of_Team = 0;		
 		}) 
 		.catch(function(error) {
 			// Database connection error handling...
@@ -66,27 +68,21 @@ angular.module('teamform-event-app', ['firebase'])
 	
 	
 
-	$scope.changeMinTeamSize = function(delta) {
-		var newVal = $scope.param.minTeamSize + delta;
-		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
-			$scope.param.minTeamSize = newVal;
-		} 
-		
+	$scope.changeTeamSize = function(delta) {
+		var newVal = delta;
+		$scope.param.TeamSize = newVal;
 		$scope.param.$save();
-
-		
 	}
 
-	$scope.changeMaxTeamSize = function(delta) {
-		var newVal = $scope.param.maxTeamSize + delta;
-		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
-			$scope.param.maxTeamSize = newVal;
+	$scope.changeMaxTeams = function(delta) {
+
+		var newVal = $scope.param.MaxTeam + delta;
+		if (newVal < 10 && newVal > 0 ) {
+			$scope.param.MaxTeam = newVal;
 		} 
-		
 		$scope.param.$save();
-		
-		
 	}
+
 
 	$scope.saveFunc = function() {
 		$scope.param.$save();

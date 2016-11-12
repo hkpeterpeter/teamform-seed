@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="teamform-event-app">
+<html lang="en" ng-app="teamform-event-app" id="event_page_controller" ng-controller="EventCtrl">
 <head>
 	<meta charset="utf-8" >
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Contact us - Progressus Bootstrap template</title>
+	<title >LIGHT OF WISDOM - Managing {{param.EventName}} Event </title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -51,7 +51,7 @@
 
    <script src="assets/js/site.js"></script>
    <script src="assets/js/login.js"></script>
-   <script src="assets/js/event.js"></script>
+   <script src="assets/js/manage_event.js"></script>
 
 
 </head>
@@ -86,7 +86,7 @@
 					 
       <h2 id="text_event_name"></h2>
 
-      <div id="event_page_controller" ng-controller="EventCtrl">
+      <div >
 
          <div class="row">
 
@@ -94,30 +94,26 @@
 
             <div class="col-md-8 col-xs-8 text-left panel">
 
-			 
+             <strong>Team Size:</strong>  
 
-             <strong>Minimum Team Size:</strong>  
-
-               <span class="badge">
-                 {{param.minTeamSize}}</span>
+               <span class="badge">{{param.TeamSize}}</span> 
                 
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeTeamSize(5);"></span></button>
 
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeTeamSize(3);"></span></button>
 
             <br><br>
 
-             <strong>Maximum Team Size: </strong>  
+            <strong>Max Number of Team :</strong>  
 
                <span class="badge">
-                 {{param.maxTeamSize}}</span>
+                 {{param.MaxTeam}}</span>
                 
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeams(1);"></span></button>
 
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeams(-1);"></span></button>
 
-            <br><br>
-
+                	 <br><br>
              <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
 
 
@@ -137,7 +133,6 @@
 				<h3>All teams:</h3>
 				<ul ng-repeat="t in team">
 					<li>
-					
 						User ID: {{t.$id}}  <br>
 						Preferred team size: <span class="badge">{{t.size}}</span> <br>
 						Current team members: {{t.teamMembers}}
