@@ -52,22 +52,20 @@
         <br>
         <div class="text-center">
            <h1>Ability Test</h1>
-           <div ng-repeat="q in quiz">
+           <div ng-repeat="question in quiz">
              <div class = "row">
-               <!-- <div class = "col-xs-8 col-xs-offset-2" -->
-                {{q.question}}
+                {{question.question}}
                 <br>
-                <div ng-repeat = "option in q">
-                  <div ng-repeat = "o in option">
-                    {{o}}
+                <div ng-repeat = "options in question">
+                  <div ng-repeat = "option in options">
+                    {{option}}
                   </div>
                 </div>
                 <br>
-               <!-- </div> -->
              </div>
            </div>
            <div class="col-xs-2 col-xs-offset-5">
-             <button type="button" class="btn btn-primary">Submit</button>
+             <button type="button" class="btn btn-primary" ng-click="submitFunc();">Submit</button>
           </div>
         </div>
 

@@ -116,7 +116,8 @@ angular.module('teamform-member-app', ['firebase'])
 	};
 	
 	$scope.atFunc = function() {
-		window.location.href = "abilitytest.html";
+		var url = "abilitytest.html?q=" + getURLParameter("q");
+		window.location.href= url
 	};
 
 	$scope.refreshTeams(); // call to refresh teams...
