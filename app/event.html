@@ -75,13 +75,31 @@
         <div class="row">
             <div class="col-md-6 col-xs-6 text-right" >
               <h3>All teams:</h3>
-              <ul ng-repeat="t in team">
-                <li>
-                  User ID: {{t.$id}}  <br>
-                  Preferred team size: <span class="badge">{{t.size}}</span> <br>
-                  Current team members: {{t.teamMembers}}					
-                </li>
-              </ul>
+              <!--<div ng-include="'teamList.html'" id="teamList"></div>-->
+              <table id="teamsList" class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Team Name</th>
+                        <th>Team Leader</th>
+                        <th>Team members</th>
+                        <th>Preference</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="t in teams" ng-init="getUserNameInTeam(t)">
+                      <tr>
+                        <td>{{t.teamName}}</td>
+                        <td>{{t.teamLeaderName}}</td>
+                        <td>
+                          <span ng-repeat="member in t.members">
+                            <a href="profile.html?q={{member.memberID}}">{{member.memberName}}</a>{{$last ? '' : ', '}}
+                          </span>
+                        </td>
+                        <td>{{t.preference}}</td>
+                        <td><button>(do be done)</button></td>
+                      </tr>
+                    </tbody>
+                </table>
             </div>
 			 
 			      <div class="col-md-6 col-xs-6 text-left">

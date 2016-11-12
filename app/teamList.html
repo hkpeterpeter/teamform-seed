@@ -1,0 +1,26 @@
+    
+      <script src="js/site.js"></script>
+   <script src="js/admin.js"></script>
+
+    <table id="teamsList" class="table table-hover">
+        <thead>
+          <tr>
+            <th>Team Name</th>
+            <th>Team Leader</th>
+            <th>Team members</th>
+            <th>Preference</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="t in teams" ng-init="getUserNameInTeam(t)">
+          <tr>
+            <td>{{t.teamName}}</td>
+            <td>{{t.teamLeaderName}}</td>
+            <td>
+              <span ng-repeat="member in t.members">
+                <a href="profile.html?q={{member.memberID}}">{{member.memberName}}</a>{{$last ? '' : ', '}}
+              </span>
+            </td>
+            <td>{{t.preference}}</td>
+          </tr>
+        </tbody>
+    </table>

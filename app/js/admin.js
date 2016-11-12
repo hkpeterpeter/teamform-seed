@@ -8,6 +8,8 @@ $(document).ready(function(){
 	}
 });
 
+
+
 //TODO:
 //join button in event?q=
 //then there will look for user that want to join but without team
@@ -63,13 +65,11 @@ angular.module('teamform-admin-app', ['firebase'])
 				console.log(new Date($scope.param.deadline ));
 			}
 			$scope.today=new Date();
-			var database = firebase.database();
-            var adminRef = database.ref('users/'+$scope.param.admin);
-            var adminData = $firebaseObject(adminRef);
-            adminData.$loaded()
-                .then(function(data){
-                    $scope.adminName = adminData.name;
-                })
+			$scope.getUserNameByID($scope.param.admin,function(resultFromCallback){
+				$scope.adminName = resultFromCallback;
+				console.log("resultFromCallback: "+ $scope.adminName);
+			})
+			// $scope.adminName=$scope.getUserNameByID($scope.param.admin);
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#text_event_name').text("Event Name: " + $scope.param.eventName);
 			$('#admin_page_controller').show();			
@@ -78,6 +78,54 @@ angular.module('teamform-admin-app', ['firebase'])
 			// Database connection error handling...
 			//console.error("Error:", error);
 		});
+
+
+
+	refPath = "events/"+ eventid + "/teams";	
+	$scope.teams = [];
+	$scope.teams = $firebaseArray(firebase.database().ref(refPath));
+	
+	refPath = "events/"+ eventid + "/member";
+	$scope.member = [];
+	$scope.member = $firebaseArray(firebase.database().ref(refPath));
+
+	refPath = "events/"+ eventid + "/announcements";
+	$scope.announcements = [];
+	$scope.announcements = $firebaseArray(firebase.database().ref(refPath));
+
+	$scope.getUserNameInTeam = function(team){
+		var resultName;
+		console.log("getUserNameInTeam for team"+team);
+		$scope.getUserNameByID(team.teamLeader,function(resultFromCallback){
+			resultName = resultFromCallback;
+			console.log("Leader: getMemberNameByID: "+ resultName);
+			team.teamLeaderName = resultName;
+		})
+		angular.forEach(team.members,function(member,key){
+			$scope.getUserNameByID(member.memberID,function(resultFromCallback){
+				resultName = resultFromCallback;
+				//console.log("Member: getMemberNameByID: "+ resultName);
+				member.memberName = resultName;
+				console.log("member: "+member.memberID+"\nmember: "+member.memberName);
+				team.memberNames=[];
+				team.memberNames.push(resultName);
+			})
+			console.log("team.members: "+team.members);
+			console.log("team.memberNames: "+team.memberNames);
+		})
+	}
+
+	$scope.getUserNameByID = function(userid,callback){
+		var foundName;
+		var userDatabase = firebase.database();
+		var userRef = userDatabase.ref('users/'+userid+'/name');
+		var userData = $firebaseObject(userRef);
+		userData.$loaded()
+			.then(function(data){
+				//console.log("getUserNameByID: "+userData.$value);
+				callback(userData.$value);
+			})
+	}
 	
 	$scope.edit_click = function(){
 		$scope.editable = true;
@@ -132,12 +180,9 @@ angular.module('teamform-admin-app', ['firebase'])
 			console.log("edit announcement canceled");
 		}
 	}
-
-
     
    //create team function 
     $scope.createTeam = function(teamName){
-
         var teamNameVal = $('#teamName').val();
 		if(teamNameVal == undefined){
 			teamNameVal = teamName;
@@ -182,20 +227,6 @@ angular.module('teamform-admin-app', ['firebase'])
 		}
     }
 
-
-
-
-	refPath = "events/"+ eventid + "/teams";	
-	$scope.team = [];
-	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-	
-	refPath = "events/"+ eventid + "/member";
-	$scope.member = [];
-	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-
-	refPath = "events/"+ eventid + "/announcements";
-	$scope.announcements = [];
-	$scope.announcements = $firebaseArray(firebase.database().ref(refPath));
 
 
 	$scope.changeMinTeamSize = function(delta) {
@@ -275,6 +306,19 @@ angular.module('teamform-admin-app', ['firebase'])
                 });
             $scope.loggedIn = true;
 			$scope.uid = user.uid;
+			eventid = getURLParameter("q");
+			refPath = "events/"+ eventid + "/admin/param";
+			ref = firebase.database().ref(refPath);	
+			$scope.param = $firebaseObject(ref);
+			$scope.param.$loaded().then(function(data){
+				if($scope.param.admin != user.uid){//check if user is admin of this event
+					console.log('admin: '+$scope.param.admin+', user: '+user.uid);
+					console.log('not admin');
+					$window.alert("Permission Denied. \n You are not admin of this event")
+					$window.location.href = '/index.html';
+				}
+			})
+
         }else{
 			console.log('not log in');
             $window.location.href = '/index.html';
