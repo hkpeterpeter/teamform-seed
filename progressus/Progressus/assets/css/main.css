@@ -1,5 +1,5 @@
 /* Header */
-#head { background:#181015 url( ../images/bg_header.jpg) no-repeat; background-size: cover; min-height:560px; text-align: center; padding-top:240px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
+#head { background:#181015 url( ../images/bg_header.jpg) no-repeat; background-size: cover; min-height:520px; text-align: center; padding-top:240px; color:white; font-family:"Open sans", Helvetica, Arial; font-weight:300; }
 #head.secondary { height:100px; min-height: 100px; padding-top:0px; }
 	#head .lead { font-family:"Open sans", Helvetica, Arial; font-size:44px; margin-bottom:6px; color:white; line-height:1.15em; } 
 	#head .tagline { color:rgba(255,255,255,0.75); margin-bottom:25px; }
@@ -26,10 +26,9 @@
 .highlight { margin-top:40px; }
 	.h-caption { text-align: center; } 
 	.h-caption i { display:block; font-size: 54px; color:#382526; margin-bottom:36px; }
-	.h-caption h4 { color:#382526; font-size: 16px; font-weight: bold; margin-bottom:5px; }
+	.h-caption h4 { color:#382526; font-size: 16px; font-weight: bold; margin-bottom:20px; }
 	.h-body { }
 
-.list{color:#382526; font-size: 12px; font-weight: bold; margin-bottom:5px;}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 { font-family:"Open sans", Helvetica, Arial; }
@@ -87,10 +86,11 @@ img.pull-left { margin-right: 10px; }
 
 .parallax { 
     /* The image used */
-    background-image: url( ../images/bg.jpg);
+    background-image: url( ../images/bg_header.jpg);
 
     /* Full height */
     height: 100%; 
+
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
@@ -113,32 +113,6 @@ img.pull-left { margin-right: 10px; }
     background-size: cover;
 }	
 
-
-p {
-<<<<<<< HEAD:app/assets/css/main.css
-  color:#2A19AE;
-=======
-  
-  color:#2C3E50;
->>>>>>> e63921abcef2d8b9af8421840b7637d166734de3:app/css/main.css
-}
-
-
-.parallax-football { 
-    /* The image used */
-    background-image: url( ../images/football.jpg);
-
-    /* Full height */
-    height: 100%; 
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-	padding-top: 70px;
-    padding-bottom: 70px;
-}
 .container-fluid{
     background-color: #1abc9c;
     padding-top: 70px;
@@ -147,7 +121,8 @@ p {
 
 .container-fluidspace{
    
-    padding:70px;
+    padding-top: 70px;
+    padding-bottom: 70px;
 }
 
 
