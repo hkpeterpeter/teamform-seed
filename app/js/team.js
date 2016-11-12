@@ -7,6 +7,17 @@ $(document).ready(function(){
 		$('#text_event_name').text("Event name: " + eventName);
 		
 	}
+	
+	$("#btn_search").click(function(){
+      	var val = $(eventName).val();
+      	if ( val !== '' ) {
+      		var url = "search_member.html?q=" + eventName;
+ 			
+      		window.location.href= url ;
+      		return false;
+      	}
+     });
+	
 
 });
 

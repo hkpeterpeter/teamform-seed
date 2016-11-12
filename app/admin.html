@@ -1,188 +1,169 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="">
-	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
-	
-	<title>Contact us - Progressus Bootstrap template</title>
+<html lang="en" ng-app="teamform-admin-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>LIGHT OF WISDOM - admin page</title>
+	  <link rel="shortcut icon" href="images/logo.png">
+      <!-- libraries and CSS 	  
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)		
+		site.css: A customized css for our web application. Not from any web framework. 
+	  -->
+	        
+      <script src="lib/jquery.min.js"></script>      
+      <script src="lib/bootstrap.min.js"></script>      
+      	  
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+      	<link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="css/main.css">
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
-	
-	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 
-	<!-- Custom styles for our template -->
-	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="assets/css/main.css">
-
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="assets/js/html5shiv.js"></script>
-	<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
-</head>
-
-<body>
-	<!-- Fixed navbar -->
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+	  	  
+   </head>
+   <body>
+<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="index.html">HOME</a></li>
-					<li><a href="#event">EVENTS</a></li>
-					<li><a href="#about">ABOUT US</a></li>
+					<li><a href="#out">SIGN OUT</a></li>
+					
 					
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</div> 
 	<!-- /.navbar -->
+   
+<br>
+   <br><br>
+<br>
+   <div class="text-center">
+      <h1><p>Administrative Page</p></h1>
+	  
+	 
+				<div class="jumbotron top-space parallax">	 
+				<div class="container">
+      <h2 id="text_event_name"></h2>
 
-	<header id="head" class="secondary"></header>
+      <div id="admin_page_controller" ng-controller="AdminCtrl">
 
-	<!-- container -->
-	<div class="container">
+         <div class="row">
 
-		
+            <div class="col-md-2 col-xs-2"></div>
 
-		<div class="row">
-			
-			<!-- Article main content -->
-			<div class="jumbotron top-space parallax">
-		<div class="container">
-		
-		             
-		
-			
-			<h3 class="text-center thin name"><p>CURRENT EVENT</p></h3>
-			
-			<div class="row">
-			<div class="col-md-6 col-sm-6 highlight">
-				<p>//reserve for event .....</p>					
-				</div>
-				<div class="col-md-6 col-sm-6 highlight">
-					<button type="button" class="btn btn-primary btn-sm">modify</button>
+            <div class="col-md-8 col-xs-8 text-left ">
+
+			 
+
+             <strong>Minimum Team Size:</strong>  
+
+               <span class="badge">
+                 {{param.minTeamSize}}</span>
+                
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+
+            <br><br>
+
+             <strong>Maximum Team Size: </strong>  
+
+               <span class="badge">
+                 {{param.maxTeamSize}}</span>
+                
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+
+            <br><br>
+
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
+
+
+
+            </div>
+            
+             <div class="col-md-2 col-xs-2"></div>
+
+         </div>
+     
+
+         <hr>
+
+		 <div class="row">
+			 <div class="col-md-6 col-xs-6 text-right" >
+			 
+				<h3>All teams:</h3>
+				<ul ng-repeat="t in team">
+					<li>
 					
-				</div>
+						User ID: {{t.$id}}  <br>
+						Preferred team size: <span class="badge">{{t.size}}</span> <br>
+						Current team members: {{t.teamMembers}}
+					
+					</li>
+					
+				</ul>
+
+			 </div>
+			 
+			 <div class="col-md-6 col-xs-6 text-left">
+							
+			 
+			  <h3>All members:</h3>
+			  <ul ng-repeat="m in member">
 				
-			</div> <!-- /row  -->
-		
-		</div>
-		<div class="container">
-			
-			<h3 class="text-center thin"><p>CREATE EVENT</p></h3>
-			
-			<div class="row">
-				//reserve
-				<br>
-				//for
-				<br>
-				// event
-				<br>
-				//.....
-			</div> <!-- /row  -->
-		
-		</div>
-	
-		
-		
-		
-	</div>	<!-- /container -->
-	
-	
-	<footer id="footer">
+				  <li>ID = {{m.$id}} <br> 
+				  Name = {{m.name}} <br>
+				  request to join the following teams: {{m.selection | json}}</li>
+			  </ul>
 
-		<div class="footer1">
-			<div class="container">
-				<div class="row">
-					
-					<div class="col-md-3 widget">
-						<h3 class="widget-title">Contact</h3>
-						<div class="widget-body">
-							<p>+234 23 9873237<br>
-								<a href="mailto:#">some.email@somewhere.com</a><br>
-								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
-							</p>	
-						</div>
-					</div>
+			 </div>
+		 </div>
+		 
+		 <div class="row" >
+		 <button type="button" class="btn btn-primary">Combine Team </button>
+		 </div>
 
-					<div class="col-md-3 widget">
-						<h3 class="widget-title">Follow me</h3>
-						<div class="widget-body">
-							<p class="follow-me-icons clearfix">
-								<a href=""><i class="fa fa-twitter fa-2"></i></a>
-								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
-								<a href=""><i class="fa fa-github fa-2"></i></a>
-								<a href=""><i class="fa fa-facebook fa-2"></i></a>
-							</p>	
-						</div>
-					</div>
+</div>
+      </div>
+   </div>
+</div>
 
-					<div class="col-md-6 widget">
-						<h3 class="widget-title">Text widget</h3>
-						<div class="widget-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
-						</div>
-					</div>
+   <!-- JavaScript of this page -->
 
-				</div> <!-- /row of widgets -->
-			</div>
-		</div>
+   <!-- Angular and Angular-route libraries (v1.5.7) -->
+   <script src="lib/angular.min.js"></script>
+   <script src="lib/angular-route.min.js"></script>        
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="lib/firebase.js"></script>     
+   <script src="lib/angularfire.min.js"></script>
 
-		<div class="footer2">
-			<div class="container">
-				<div class="row">
-					
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<p class="simplenav">
-								<a href="#">Home</a> | 
-								<a href="about.html">About</a> |
-								<a href="sidebar-right.html">Sidebar</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Sign up</a></b>
-							</p>
-						</div>
-					</div>
+   <script src="js/admin.js"></script>
 
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<p class="text-right">
-								Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
-							</p>
-						</div>
-					</div>
-
-				</div> <!-- /row of widgets -->
-			</div>
-		</div>
-	</footer>	
-		
-
-
-
-
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
-	
-	<!-- Google Maps -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=&amp;sensor=false&amp;extension=.js"></script> 
-	<script src="assets/js/google-map.js"></script>
-	
-
-</body>
+   </body>
+   <footer>
+   <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >
+   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+   Back</button></a>
+   </footer>
 </html>
+

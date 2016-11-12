@@ -6,8 +6,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="keywords" content="teamform, team">
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>teamform - member page</title>
-	  <link rel="shortcut icon" href="assets/images/gt_favicon.png">
+      <title>LIGHT OF WISDOM - search member page</title>
+	  <link rel="shortcut icon" href="images/logo.png">
       <!-- libraries and CSS 	  
 		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
 		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
@@ -21,8 +21,8 @@
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-       <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="assets/css/main.css">
+      <link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="css/main.css">
 
 
       <!-- Customized libraries shared by pages -->
@@ -30,14 +30,37 @@
 	  	  
    </head>
    <body>
-
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
-
-   <br>
+<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="index.html">HOME</a></li>
+					<li><a href="#out">SIGN OUT</a></li>
+					
+					
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+   
+<br>
+   <br><br>
+<br>
+   
+  
 
    <div class="text-center">
-      <h1>Member Page</h1>
+      <h1><p>Search Member Page</p></h1>
+	  
+	  <div class="jumbotron top-space parallax">	 
+				<div class="container">
       <h2 id="text_event_name"></h2>
        <div id="member_page_controller" ng-controller="MemberCtrl">
 
@@ -46,7 +69,7 @@
 
             <div class="col-md-2 col-xs-2"></div>
 
-            <div class="col-md-8 col-xs-8 panel">
+            <div class="col-md-8 col-xs-8 ">
 			
 
                
@@ -58,8 +81,8 @@
                      </div>
 					 
 					 <div class="col-sm-4">
-					   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add/Modify</button>
-					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
+					   
+					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Search</button>
 					  </div>
                   </div>
 
@@ -77,31 +100,21 @@
 
                </form>
 			   
-			     <div class="row text-left">
-			        
-				    <h3>Your team preference:</h3>
-			       <div ng-repeat="team in teams">
-					  					  
-					 <div class="checkbox">
-						<label><input type="checkbox" value="{{team.$id}}" 
-						  ng-checked="selection.indexOf(team.$id) > -1"
-						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}</label>
-					 </div>
-					  
-				  </div>
-				</div>
+			     
 
                
             </div>
             <div class="col-md-2 col-xs-2"></div>
          </div>
 
-
+<div class="row">
+				  <p> """display member's tag"""</p>
+				  </div>
 
        </div>
    </div>
-
+</div>
+</div>
 
    <!-- Angular and Angular-route libraries (v1.5.7) -->
    <script src="lib/angular.min.js"></script>
@@ -114,8 +127,14 @@
 
 
    <!-- JavaScript of this page -->
-   <script src="js/member.js"></script>
+   <script src="js/search_member.js"></script>
 
    </body>
+   <footer>
+   <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+
+   
+   </footer>
 </html>
 
