@@ -1,14 +1,29 @@
 
-teamapp.controller('admin_title_ctrl', function($scope) {
+teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, filterFilter) {
+  var event = $firebaseObject($rootScope.event_ref.child('0'));
+  event.$loaded().then(function(){
+  	console.log(event.adminID);
+  	$rootScope.eventTeams = event.allTeams;
+  	$rootScope.eventUsers = event.waitingUsers;
+  	$scope.minSize = event.minSize;
+  	$scope.maxSize = event.maxSize;
+  	$scope.size = $scope.maxSize - $scope.minSize + 1;
+  	console.log($scope.size);
+  	var admin = $firebaseObject($rootScope.user_ref.child('0'));
+  	admin.$loaded().then(function(){
+  		$scope.event = {
+  			name: event.eventName,
+  			admin: admin.name
+  		};
+  	});
+  	console.log($rootScope.eventTeams);
+  });
 
-  $scope.event = {
-  	name: 'newEvent',
-  	admins: ['admin1', 'admin2', 'admin3']
-	};
-});
+  $scope.getNumber = function(num) {
+    return new Array(num);   
+	}
 
-
-teamapp.controller('admin_team_ctrl', function($scope) {
+	console.log($rootScope.eventTeams);
 	$scope.teams = [
 		{
 			name: 'TeamOne',
@@ -33,15 +48,45 @@ teamapp.controller('admin_team_ctrl', function($scope) {
 			members: ['m11', 'm66', 'm25']
 		}
 	];
+	console.log($scope.adminTeamSearch);
+	
+	$scope.maxSize = 8;
+
+	//$scope.teams = $rootScope.eventTeams;
+	$scope.teamFilter = function(item) {
+		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == false) {
+			return false;
+		};
+		if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
+			if (item.size != $scope.maxSize) {
+				return false;
+			};
+		};
+		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
+			if (item.size == $scope.maxSize) {
+				return false;
+			};
+		};
+
+
+		if (!$scope.adminTeamSearch || (item.name.toLowerCase().indexOf($scope.adminTeamSearch.toLowerCase()) != -1) ) {
+			return true;
+		} else {
+			var skills = angular.toJson(item.skills);
+			if (skills.toLowerCase().indexOf($scope.adminTeamSearch.toLowerCase()) != -1) {
+				return true;
+			} else {
+				return false;
+			};
+		};
+	};
+
 
 	$scope.remove = function(team) { 
   		var index = $scope.teams.indexOf(team);
   		$scope.teams.splice(index, 1);     
 	};
-});
 
-
-teamapp.controller('admin_member_ctrl', function($scope) {
 	$scope.users = [
 		{
 			name: "user1",
@@ -55,4 +100,32 @@ teamapp.controller('admin_member_ctrl', function($scope) {
 			requests: ['TeamThree', 'TeamTwo']
 		}
 	];
+
+	$scope.userFilter = function(item) {
+		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == false) {
+			return false;
+		};
+		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
+			if (item.requests.length == 0) {
+				return false;
+			};
+		};
+		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
+			if (item.requests.length != 0) {
+				return false;
+			};
+		};
+
+		if (!$scope.adminUserSearch || (item.name.toLowerCase().indexOf($scope.adminUserSearch.toLowerCase()) != -1) ) {
+			return true;
+		} else {
+			var skills = angular.toJson(item.skills);
+			if (skills.toLowerCase().indexOf($scope.adminUserSearch.toLowerCase()) != -1) {
+				return true;
+			} else {
+				return false;
+			};
+		};
+	};
+
 });
