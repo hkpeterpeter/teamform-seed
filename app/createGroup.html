@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="createGroupApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+
+   	<title>teamform - A real-time online team forming app</title>
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+
+</head>
+
+<body>
+	<div class="createGroup" ng-controller="createGroupCtrl">
+
+		<div class="teamName">
+            <strong>Team name:</strong>
+			<input type="text" ng-model="tempTeam.name" placeholder="Type in your team name">
+            <span class="debug">{{tempTeam.name}}</span>            
+		</div>
+
+        <div clasa="max">
+            <strong>Maximun number of groupmates</strong>
+            <span>
+                <span class="badge">{{tempTeam.max}}</span>
+                <button><span class="glyphicon glyphicon-plus" ng-click="setMaxTeamMember(1);"></span></button>
+                <button><span class="glyphicon glyphicon-minus" ng-click="setMaxTeamMember(-1);"></span></button>                
+            </span>
+
+        </div>
+
+        <div class="sexPreference">
+            <strong>Sex Preference</strong>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('M')";> Male only</button>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('F')";> Female only</button>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('N')";> No preference</button>
+            <span class="debug">{{tempTeam.preference}}</span>            
+        </div>
+
+		<div class="creatGroupButton">
+			<button type="button" class="btn btn-primary" ng-click="createGroup();"> create group </button>
+		</div>
+	</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+    <!-- JavaScript of this page -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="js/createGroup.js"></script>
+</body>
+
+</html>
