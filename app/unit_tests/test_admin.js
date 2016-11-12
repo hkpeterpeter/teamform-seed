@@ -30,8 +30,8 @@ describe('Test admin.js', function() {
 				{ $id: "123", "name": "world" },
 				{ $id: "wsdw45", "name": "bye" }
 			];
-			expect($scope.getTeamMember(team1)).toEqual("[ 'world', 'hello' ]");
-			expect($scope.getTeamMember(team2)).toEqual("[ 'bye' ]");
+			expect($scope.getTeamMember(team1)).toEqual([ 'world', 'hello' ]);
+			expect($scope.getTeamMember(team2)).toEqual([ 'bye' ]);
 		})
 	});
 	

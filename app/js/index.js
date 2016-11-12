@@ -38,3 +38,11 @@ $(document).ready(function() {
     });
 
 });
+
+angular.module('teamform-app', [])
+.directive('login', function() {
+    return {
+        restrict: 'A',
+        templateUrl: 'login.html'
+    };
+});

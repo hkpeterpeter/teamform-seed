@@ -10,6 +10,12 @@ $(document).ready(function(){
 });
 
 angular.module('teamform-team-app', ['firebase'])
+.directive('login', function() {
+    return {
+        restrict: 'A',
+        templateUrl: 'login.html'
+    };
+})
 .controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
     function($scope, $firebaseObject, $firebaseArray) {
 
@@ -131,13 +137,16 @@ angular.module('teamform-team-app', ['firebase'])
 			var rec = $scope.member.$getRecord(obj);
 			if(rec != null) {
 				rec.selection = [];
+				rec.invitedBy = [];
 				rec.inTeam = teamID;
 				$scope.member.$save(rec);	
 			}
 		});
+		if(newData.teamMembers.length !== 0){
 		ref.set(newData, function() {
 			location.reload();
-		});
+		})}
+		location.reload();
 	};
 	
 	$scope.loadFunc = function() {
@@ -169,24 +178,31 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
-	$scope.tagchecked = function(tagval){
-		for (var j =0; j <$scope.param.tags.length;j++){
-			if (tagval == $scope.param.tags[j]){return true;}
+	$scope.tagChecked = function(tagval){
+		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+		for(var j =0; j < length; j++){
+			if(tagval == $scope.param.tags[j]) {
+				return true;
+			}
 		}
 		return false;
 	};
-	$scope.addtags = function(tagval){
-		var addornot = true;
+	$scope.addTags = function(tagval){
+		var addOrNot = true;
 		var k = 0;
-		for(;k<$scope.param.tags.length;k++){
+		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+		for(; k < length; k++){
 			if(tagval == $scope.param.tags[k]){
-				addornot = false;
+				addOrNot = false;
 				break;
 			}
 		}
-		if(addornot){$scope.param.tags.push(tagval);}
+		if(addOrNot){$scope.param.tags.push(tagval);}
 		else{$scope.param.tags.splice(k,1);}
 	};
+	$scope.openCategory = function(){
+		document.getElementById("myDropdown").classList.toggle("show");
+	}
 	//tagsfunctionendshere
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;		
@@ -199,26 +215,60 @@ angular.module('teamform-team-app', ['firebase'])
 	};
 	
 	$scope.removeMember = function(member) {
+		var x;
+		if ($scope.param.teamMembers.length > 1){
+			x = confirm("Are you sure to remove this team member?");
+		}
+		else {
+			x = confirm("Are you sure to remove the last team member? Doing this will remove the team.");
+		}
+		if (x){
 		var index = $scope.param.teamMembers.indexOf(member);
 		if(index > -1) {
 			$scope.param.teamMembers.splice(index, 1); // remove that item
-			$scope.saveFunc();
+			var refPath = eventName + "/member/" + member;
+			var ref = firebase.database().ref(refPath);
+			ref.update({inTeam: null});
+			if($scope.param.teamMembers.length == 0){
+				var refPath1 = eventName + "/team/" + $scope.param.teamName;
+				var ref1 = firebase.database().ref(refPath1);
+				ref1.remove();
+			}
 		}
-		var refPath = eventName + "/member/" + member;
-		var ref = firebase.database().ref(refPath);
-		ref.update({inTeam: null});
+		$scope.saveFunc();
+		}
 	};
-	    
+	
+	 $scope.param = {
+		"invitedBy":[]
+	};
+	//$scope.inviteList = [];
 	//invite function
 	$scope.sendInvite = function(m) {
-		//var index = $scope.param.teamMembers.indexOf(m);
-		//var index = retrieveNameFromID(m.$id);
-		var refPath = eventName + "/member/" + m;
-		var ref = firebase.database().ref(refPath);	
-		ref.update({
-			invitedBy: $scope.param.teamName
-		});
-		window.alert("Invitation sent!");
-	}
+		if ($scope.param.teamName == ""){
+			window.alert("Enter a team name first!");
+		}
+		//DOES NOT WORK
+		else if (firebase.database().ref(getURLParameter("q") + "/member/" + m).inTeam != null){
+			window.alert("User is already in a team!");
+		}		
+		else{
+			//$scope.inviteList = [];
+			$scope.param.invitedBy = [];
+			
+			//$scope.inviteList = $firebaseArray(firebase.database().ref(getURLParameter("q") + "/member/" + m + "invitedBy"));
+			//for (var i=0; i < $scope.inviteList.length; i++){
+				//$scope.param.invitedBy.push($scope.inviteList);
+			//}	
+			
+			$scope.param.invitedBy.push($scope.param.teamName);			
+			var refPath = getURLParameter("q") + "/member/" + m;
+			var ref = firebase.database().ref(refPath);			
+			ref.update({
+				invitedBy: $scope.param.invitedBy
+			})
+			window.alert("Invitation sent!");
+		}
+	};
 
 }]);

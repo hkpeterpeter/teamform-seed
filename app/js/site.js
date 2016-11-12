@@ -1,14 +1,14 @@
 $(document).ready(function() {
-  $("#fblogin").hide();
-  $("#fblogout").hide();
+  $("#blogin").hide();
+  $("#blogout").hide();
 
   initalizeFirebase();
 
-  $("#fblogin").click(function() {
-     window.location.href = "login.html";  
+  $("#blogin").click(function() {
+     // window.location.href = "login.html";  
   });
 
-  $("#logout").click(function(){
+  $("#blogout").click(function(){
       firebase.auth().signOut().then(function() {
         location.reload();
       });
@@ -17,16 +17,16 @@ $(document).ready(function() {
   firebase.auth().onAuthStateChanged(function(firebaseUser) {
     if(firebaseUser) {
       var user = firebase.auth().currentUser;
-      $("#fblogout").show();
-      $("#fblogin").hide();
+      $("#blogout").show();
+      $("#blogin").hide();
       $("#userName").text(user.displayName);
       if(user.photoURL) {
         $("#fbicon").attr("src", user.photoURL); 
       }
     }
     else {
-      $("#fblogout").hide();
-      $("#fblogin").show();
+      $("#blogout").hide();
+      $("#blogin").show();
     }
   });
 
@@ -77,7 +77,7 @@ function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
 }
 
-function getUserWithId(id, callback) {
+function getUserWithId(id) {
 	var refPath = "user/" + id;
 	return firebase.database().ref(refPath);
 }
