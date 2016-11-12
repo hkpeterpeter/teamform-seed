@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 });
 
-angular.module('teamform-app', ['firebase'])
+angular.module('teamform-team-app', ['firebase'])
 .directive('login', function() {
     return {
         restrict: 'A',
