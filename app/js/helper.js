@@ -283,8 +283,8 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         //wyz
         var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
         var temp = {};
-  			temp[uid] = "accepted";
-  			ref.child('applications').update(temp);
+  		temp[uid] = "accepted";
+  		ref.child('applications').update(temp);
 
         helper.addPersonToTeam(uid, eventID,teamID, "member");
         helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
@@ -340,13 +340,13 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.changeLeader = function(fromuid, touid, eventID, teamID){
         //wyz
         var ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID );
-        var temp = {};
-        temp[touid] = touid;
-        ref.child("leader").update(temp);
+        // var temp = {};
+        // temp[touid] = touid;
+        ref.child("leader").set(touid);
         memberRef = firebase.database().ref("users/" + touid + "/writable/" + eventID);
         memberRef.child("position").set("leader");
-        leaderRef = firebase.database().ref("events/" + eventID + "/teams/" + teamID + "/leader");
-        leaderRef.child(fromuid).remove();
+        // leaderRef = firebase.database().ref("events/" + eventID + "/teams/" + teamID + "/leader");
+        // leaderRef.child(fromuid).remove();
         memberRef = firebase.database().ref("users/" + fromuid + "/writable/" + eventID);
         memberRef.child("position").set("member");
         //
