@@ -13,35 +13,48 @@ $(document).ready(function(){
 angular.module('ability-test-app', ['firebase'])
 .controller('AbilityTestCtrl', ['$scope', '$firebaseObject', '$firebaseArray',
 	function($scope, $firebaseObject, $firebaseArray) {
-	
-	firebase.auth().onAuthStateChanged(function(firebaseUser) {
-		if(firebaseUser) {
-			var user = firebase.auth().currentUser;
-	        	$scope.uid = user.uid;
-		}
-	});
-	
-	$scope.quiz = [];
-  	$scope.quiz = $firebaseArray(firebase.database().ref("quiz/java"));
-		
-	$scope.param = {
-		"answer" : []
-	};
-		
-	$scope.addanswer = function(option){
-		$scope.param.answer.push(option);
-	};
+		firebase.auth().onAuthStateChanged(function(firebaseUser) {
+	      if(firebaseUser) {
+	      	var user = firebase.auth().currentUser;
+	        $scope.uid = user.uid;
+	      }
+	    });
 
-	$scope.submitFunc = function() {
-		var userID = $.trim($scope.uid);
-		var newData = {
-			'answers': $scope.param.answers
+
+    $scope.quiz = [];
+  	$scope.quiz = $firebaseArray(firebase.database().ref("quiz/java"));
+
+		$scope.param = {
+			"answer" : []
 		};
-		var refPath = getURLParameter("q") +"/member/" + userID;
-		var ref = firebase.database().ref(refPath);
-		ref.update({answer: $scope.param.answer})
-		window.location.href = "index.html";
-	};
-		
-	
+
+		$scope.addanswer = function(option){
+			$scope.param.answer.push(option);
+		};
+
+		$scope.modelanswer = [];
+
+			$scope.quiz.$loaded(function(list){
+			var i = 0
+			for (; i < $scope.quiz.length; i++){
+				$scope.modelanswer.push($scope.quiz[i].answer)
+			}
+
+			$scope.submitFunc = function() {
+				var correctness = 0
+				var userID = $.trim($scope.uid);
+				for (var j = 0; j < $scope.modelanswer.length; j++){
+					if ($scope.modelanswer[j] == $scope.param.answer[j]){
+						correctness += 1
+						}
+					}
+				var mark = correctness / $scope.quiz.length * 100
+				var refPath = getURLParameter("q") +"/member/" + userID;
+				var ref = firebase.database().ref(refPath);
+				ref.update({marks: mark})
+				// ref.update({answers:$scope.param.answer})
+				var url = "member.html?q=" + getURLParameter("q");
+				window.location.href= url
+			};
+		})
 }]);
