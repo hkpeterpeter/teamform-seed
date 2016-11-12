@@ -3,7 +3,7 @@ $(document).ready(function(){
     $("#btn_event").click(function(){
     	var val = $('#input_text').val();
     	if ( val !== '' ) {
-    		var url = "event.html?q=" + val;
+    		var url = "edit_event.html?q=" + val;
 			var event_name = $('#input_text').val();
     		window.location.href = url ;
     		return false;
