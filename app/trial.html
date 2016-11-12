@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 <body>
 
 
@@ -13,7 +15,7 @@
 
   <h2>Modal Example</h2>
   <!-- Trigger the modal with a button -->
-  <button  ng-repeat="x in questionList"type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal{{$index+1}}">modal{{$index+1}}</button>
+  <button ng-click="goBackup($index)" ng-repeat="x in questionList"type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal{{$index+1}}">modal{{$index+1}}</button>
 
 
 
@@ -27,30 +29,29 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Question{{$index+1}} </h4>
-          <script> var temp = $index;</script>
         </div>
         <div class="modal-body">
-            <p>{{questionList[$index].title}}</p>
+            <p>{{questionList[$index+1].title}}</p>
 
           <div class="col-xs-12 col-md-12 ">
             <div class="row">
                 <b class="col-xs-2 col-md-2">Question: </b>
-                <input class="col-xs-9 col-md-9" type="text" ng-model="questionList[$index].title">
+                <input class="col-xs-9 col-md-9" type="text" ng-model="tempQuestion.title">
             </div>
           </div>
 
           <div class="col-xs-12 col-md-12 ">
                 <p><b>Choice: </b></p>
-                <input class="col-xs-4 col-md-4 " type="text" ng-model="questionList[$index].choice.A">
-                <input class="col-xs-4 col-md-4 col-md-offset-1" type="text" ng-model="questionList[$index].choice.B">
-                <input class="col-xs-4 col-md-4 " type="text" ng-model="questionList[$index].choice.C">
-                <input class="col-xs-5 col-md-5 col-md-offset-1" type="text" ng-model="questionList[$index].choice.D">
+                <input class="col-xs-4 col-md-4 " type="text" ng-model="tempQuestion.choice.A">
+                <input class="col-xs-4 col-md-4 col-md-offset-1" type="text" ng-model="tempQuestion.choice.B">
+                <input class="col-xs-4 col-md-4 " type="text" ng-model="tempQuestion.choice.C">
+                <input class="col-xs-5 col-md-5 col-md-offset-1" type="text" ng-model="tempQuestion.choice.D">
           </div>
 
           <div class="col-xs-12 col-md-12 ">
             <div class="row">
                 <b class="col-xs-12 col-md-12">Answer: </b>
-                <input class="col-xs-10 col-md-10 col-md-offset-1" type="text" ng-model="questionList[$index].answer">
+                <input class="col-xs-10 col-md-10 col-md-offset-1" type="text" ng-model="tempQuestion.answer">
             </div>
           </div>
         </div>
@@ -80,14 +81,22 @@ var app = angular.module('myApp', []);
 <!-- question only as it is for saving single question-->
 app.service('backup', function() {
   var question ;
+  console.log('in the backup');
 
 
 
   var saveQuestion = function(newObj) {
-      question =jquery.extend(true,{},newObj);
+      question =jQuery.extend(true,{},newObj);
+      console.log('see see the obj');
+      console.log(newObj);
+      console.log('see see the question');
+      console.log(question);
   };
 
   var getQuestion = function(){
+    console.log('getQuestion called');
+    console.log('question return');
+    console.log(question);
       return question;
   };
 
@@ -98,6 +107,7 @@ app.service('backup', function() {
 
 });
 
+<!--it is just some left behind and will be deleted on final version-->
 app.service('keeper', function() {
   var questionList = [];
   var counter = 0;
@@ -139,6 +149,7 @@ app.service('keeper', function() {
 
 app.controller('trial', function($scope, keeper, backup) {
     $scope.questionList = [];
+    $scope.tempQuestion;
     var question = {
       title : "Can you feel my heart beat?",
       type : "MC",
@@ -178,10 +189,23 @@ app.controller('trial', function($scope, keeper, backup) {
 
     console.log($scope.questionList);
 
-    $scope.goBackup = function(x)
+    $scope.goBackup = function(questionNo)
     {
-      backup(questionList[x]);
+      console.log('goBackup called');
+      console.log($scope.questionList[questionNo]);
+      backup.saveQuestion($scope.questionList[questionNo]);
+      $scope.tempQuestion = backup.getQuestion();
     };
+
+    $scope.getBackup = function()
+    {
+      $scope.tempQuestion = backup.getQuestion();
+      console.log('temp Question setted');
+      console.log($scope.tempQuestion);
+      return backup.getQuestion();
+    };
+
+
 
 
 });
