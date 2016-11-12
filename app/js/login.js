@@ -4,6 +4,14 @@ $(document).ready(function() {
 
 	$(".alert.alert-danger").hide();
 
+	var modal = document.getElementById('login-form');
+
+	window.onclick = function(event) {
+    	if(event.target == modal) {
+        	modal.style.display = "none";
+    	}
+	};
+
 	$(".facebook").click(function() {
 		var provider = new firebase.auth.FacebookAuthProvider();
 		firebase.auth().signInWithPopup(provider).then(function(result) {
