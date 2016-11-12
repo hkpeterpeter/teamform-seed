@@ -22,13 +22,15 @@
   		<div class="span12">
   			<h3>
   				Teamname:  {{teamdata.name}}
-  			</h3>
+<button class="btn btn-primary" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && inthisteam">Change Team info</button>
+        </h3>
         <!-- <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='leader') && inthisteam">{{myEvents[eventID] | role}} in this team</h3> -->
-        <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='leader')">{{myEvents[eventID] | role}} of team {{teams.$getRecord(team_id.team).name}} </h3>
+        <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member')">{{myEvents[eventID] | role}} of team {{teams.$getRecord(team_id.team).name}} </h3>
         <h3 ng-if="(myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor'">{{myEvents[eventID] | role}}</h3>
 
   			<p>
   				{{teamdata.desc}}
+          <!-- {{memberlist}} -->
   			</p>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='tba'" ng-click = "ApplyTeam()">Apply for this team</button>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='member' && inthisteam" ng-click = "QuitTeam()">Quit this team</button>
@@ -182,7 +184,7 @@
               <form class = "form-inline">
                 <div class = "form-group">
                     <label for = "name">Message to be anncounced:</label>
-                    <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.announcementmsg" >
+                    <input type = "text" name = "name"  ng-model = "form.announcementmsg" >
                     <button class = "btn btn-primary" ng-click = "addAnnouncement(form.announcementmsg)" data-dismiss = "modal">Submit</button>
                 </div>
               </form>
@@ -191,7 +193,7 @@
         </div>
       </div>
 
-<!--  Add a feature tag-->
+<!--  Add a manner tag-->
       <div class = "modal fade" id = "myModal3" role = "dialog">
           <div class = "modal-dialog">
             <!-- Modal content-->
@@ -203,8 +205,8 @@
               <div class = "modal-body">
                 <form class = "form-inline">
                   <div class = "form-group">
-                      <label for = "name">New feature tag:</label>
-                      <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.featuretag" >
+                      <label for = "name">New manner tag:</label>
+                      <input type = "text" name = "name" placeholder = "e.g. Cool" ng-model = "form.featuretag" >
                       <button class = "btn btn-primary" ng-click = "addFeatureTag(form.featuretag)" data-dismiss = "modal">Submit</button>
                   </div>
                 </form>
@@ -226,7 +228,7 @@
                         <form class = "form-inline">
                           <div class = "form-group">
                               <label for = "name">New Language tag:</label>
-                              <input type = "text" name = "name" placeholder = "e.g. html" ng-model = "form.languagetag" >
+                              <input type = "text" name = "name" placeholder = "e.g. Englishß" ng-model = "form.languagetag" >
                               <button class = "btn btn-primary" ng-click = "addLanguageTag(form.languagetag)" data-dismiss = "modal">Submit</button>
                           </div>
                         </form>
@@ -234,5 +236,6 @@
                     </div>
                   </div>
                 </div>
+
 
 </div>
