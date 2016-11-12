@@ -1,12 +1,6 @@
-angular.module('loginapp', [])
-.controller('loginCtrl', ['$scope', function($scope) {
-
-
-}]);
-
 $(document).ready(function() {
 
-	initalizeFirebase();
+	// initalizeFirebase();
 
 	$(".alert.alert-danger").hide();
 
@@ -139,13 +133,13 @@ $(document).ready(function() {
 
 });
 
-function initalizeFirebase() {
-  var config = {
-    apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
-    authDomain: "team-anonymous-team-forming.firebaseapp.com",
-    databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
-    storageBucket: "team-anonymous-team-forming.appspot.com",
-    messagingSenderId: "903294276428"
-  };
-  firebase.initializeApp(config);
-}
+// function initalizeFirebase() {
+//   var config = {
+//     apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
+//     authDomain: "team-anonymous-team-forming.firebaseapp.com",
+//     databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
+//     storageBucket: "team-anonymous-team-forming.appspot.com",
+//     messagingSenderId: "903294276428"
+//   };
+//   firebase.initializeApp(config);
+// }

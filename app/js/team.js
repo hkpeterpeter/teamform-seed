@@ -9,7 +9,13 @@ $(document).ready(function(){
 
 });
 
-angular.module('teamform-team-app', ['firebase'])
+angular.module('teamform-app', ['firebase'])
+.directive('login', function() {
+    return {
+        restrict: 'A',
+        templateUrl: 'login.html'
+    };
+})
 .controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
     function($scope, $firebaseObject, $firebaseArray) {
 
@@ -131,6 +137,7 @@ angular.module('teamform-team-app', ['firebase'])
 			var rec = $scope.member.$getRecord(obj);
 			if(rec != null) {
 				rec.selection = [];
+				rec.invitedBy = [];
 				rec.inTeam = teamID;
 				$scope.member.$save(rec);	
 			}
@@ -172,15 +179,19 @@ angular.module('teamform-team-app', ['firebase'])
 	};
 	//tagsfunctions
 	$scope.tagChecked = function(tagval){
-		for (var j =0; j <$scope.param.tags.length;j++){
-			if (tagval == $scope.param.tags[j]){return true;}
+		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+		for(var j =0; j < length; j++){
+			if(tagval == $scope.param.tags[j]) {
+				return true;
+			}
 		}
 		return false;
 	};
 	$scope.addTags = function(tagval){
 		var addOrNot = true;
 		var k = 0;
-		for(;k<$scope.param.tags.length;k++){
+		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+		for(; k < length; k++){
 			if(tagval == $scope.param.tags[k]){
 				addOrNot = false;
 				break;
@@ -258,5 +269,6 @@ angular.module('teamform-team-app', ['firebase'])
 			})
 			window.alert("Invitation sent!");
 		}
+	};
 
 }]);

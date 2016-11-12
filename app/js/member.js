@@ -10,7 +10,13 @@ $(document).ready(function(){
 
 });
 
-angular.module('teamform-member-app', ['firebase'])
+angular.module('teamform-app', ['firebase'])
+.directive('login', function() {
+    return {
+        restrict: 'A',
+        templateUrl: 'login.html'
+    };
+})
 .controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	// TODO: implementation of MemberCtrl	
@@ -47,7 +53,8 @@ angular.module('teamform-member-app', ['firebase'])
 
 	$scope.loadFunc = function() {
 		var refPath = getURLParameter("q") + "/member/" + $scope.uid;
-		$scope.userInfo = $firebaseObject(getUserWithId($scope.uid));
+		console.log(refPath);
+		$scope.userInfo = $firebaseObject(firebase.database().ref(refPath));
 		$scope.userInfo.$loaded().then(function() {
 			$scope.userID = $scope.userInfo.$id;
 			if($scope.userInfo.name != null) {
@@ -57,6 +64,7 @@ angular.module('teamform-member-app', ['firebase'])
 			}
 			if($scope.userInfo.selection != null) {
 				$scope.selection = $scope.userInfo.selection;
+				console.log($scope.selection);
 			} else {
 				$scope.selection = [];
 			}
@@ -114,7 +122,7 @@ angular.module('teamform-member-app', ['firebase'])
 		
 		if(userID !== '' && userName !== '') {
 			var newData = {
-				'selections': $scope.selection,
+				'selection': $scope.selection,
 				'weight': 0 
 			};
 			var refPath = getURLParameter("q") + "/member/" + userID;
@@ -123,7 +131,7 @@ angular.module('teamform-member-app', ['firebase'])
 			refPath = "user/" + userID;
 			ref = firebase.database().ref(refPath);
 			ref.update({ name: userName }, function() {
-				//window.location.href = "index.html";
+				window.location.href = "index.html";
 			});
 		}
 	};
