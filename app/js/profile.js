@@ -23,6 +23,7 @@ angular.module('teamform-profile-app', ['firebase'])
 
 		};
     $scope.like = [];
+    $scope.check = false;
 
 
     $scope.auth=$firebaseAuth();
@@ -33,13 +34,14 @@ angular.module('teamform-profile-app', ['firebase'])
         console.log("Signed in as:", firebaseUser.uid);
         var profileID = getURLParameter("uid");
 
-        if(profileID!=null|profileID!=undefined){
+        if(profileID!=null && profileID!=undefined){
           console.log("profileID",profileID);
           $scope.profile=getProfile(profileID);
-
         }else{
           $scope.profile=getProfile($scope.uid);
+
         }
+
       } else {
         console.log("Signed out");
       }
@@ -60,7 +62,8 @@ angular.module('teamform-profile-app', ['firebase'])
           }
           if(typeof $scope.profile["like"]=="undefined"){$scope.profile["like"]=$scope.like;}
 
-          console.log(data);
+          // console.log(data);
+          $scope.checkifuser();
         })
         .catch(function(error) {
           // Database connection error handling...
@@ -119,8 +122,143 @@ angular.module('teamform-profile-app', ['firebase'])
         console.log($scope.profile.pic);
       });
     }
+    // $scope.test1 = true;
+    // $scope.test2 = true;
+    // $scope.testform1 = function(){
+    //
+    //   if($scope.test2 == true && $scope.test1 == false){
+    //     console.log("fuck");
+    //     $scope.test1 = true;
+    //     $scope.test2 = false;
+    //   }
+    //
+    // }
 
-    
+
+          $scope.questions = [{
+              question: "Question1",
+              choices: [2, 5, 10, 1],
+
+              }, {
+              question: "Question2",
+              choices: [3, 6, 9, 2],
+
+              }, {
+              question: "Question3",
+              choices: [72, 99, 108, 3],
+
+              }, {
+              question: "Question4",
+              choices: [4, 5, 6, 4],
+
+              }, {
+              question: "Question5",
+              choices: [20, 30, 40, 5],
+
+              }, {
+              question: "Question6",
+              choices: [20, 30, 40, 5],
+
+              },{
+              question: "Question7",
+              choices: [20, 30, 40, 5],
+
+              },{
+              question: "Question8",
+              choices: [20, 30, 40, 5],
+
+              },{
+              question: "Question9",
+              choices: [20, 30, 40, 5],
+
+              },{
+              question: "Question10",
+              choices: [20, 30, 40, 5],
+
+              }];
+
+              $scope.presetpersonality = ["Pawn", "Bishop", "Knight", "Rook", "Queen", "King"];
+
+
+              $scope.count = 0;
+              $scope.q = "";
+              $scope.option1 = "";
+              $scope.option2 = "";
+              $scope.option3 = "";
+              $scope.option4 = "";
+              $scope.ans = "";
+              $scope.answer = [];
+
+              $scope.ShowQ = function(){
+                $("#finish").hide();
+
+                for(var a=0;a<$scope.questions.length;a++){
+                  if ($scope.count == a){
+
+                      $scope.q = $scope.questions[a].question;
+                      for(var b=0;b<$scope.questions[a].choices.length;b++){
+                        $scope["option"+(b+1)] = $scope.questions[a].choices[b];
+                      }
+                  }
+                }
+              }
+
+              $scope.nextQ = function(){
+
+                $scope.count++;
+                $scope.answer.push($scope.ans);
+                $scope.ShowQ();
+                if ($scope.count == ($scope.questions.length-1)){
+                  $("#next").hide();
+                  $("#finish").show();
+                }
+              }
+
+              var score = 0;
+              $scope.showAns = function(){
+                for (var a=0;a<$scope.answer.length;a++){
+                  for (var b=1;b<=$scope.questions[a].choices.length;b++){
+
+                    if ($scope.answer[a] == ("option"+b)){
+                      score+=b;
+                    }
+                  }
+                }
+                for (var c=0;c<$scope.presetpersonality.length;c++){
+                  if (score%$scope.presetpersonality.length == c){
+                    $scope.profile.personality = $scope.presetpersonality[c];
+                    $scope.profile.$save();
+                    $("#test").hide();
+                  }
+                }
+              }
+
+
+          $scope.likeFunction = function(){
+              var count = -1;
+
+              for (var a=0;a<=$scope.profile.like.length;a++){
+                if ($scope.uid != $scope.profile.like[a] && $scope.uid != $scope.profile.uid){
+                  count++;
+                }
+              }
+              if (count == ($scope.profile.like.length)){
+                $scope.profile.like.push($scope.uid);
+                $scope.profile.$save();
+              }
+
+          }
+
+          $scope.checkifuser = function(){
+            console.log($scope.profile.uid);
+            if($scope.uid != $scope.profile.uid){
+
+              $scope.check = true;
+            }else{
+              $scope.check = false;
+            }
+
+          }
 
 
 
