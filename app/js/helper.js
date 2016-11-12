@@ -349,8 +349,8 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         leaderRef.child(fromuid).remove();
         memberRef = firebase.database().ref("users/" + fromuid + "/writable/" + eventID);
         memberRef.child("position").set("member");
-
-        return helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
+        //
+        // return helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
     }
 
     helper.getUsername  = function(uid){
