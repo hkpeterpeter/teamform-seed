@@ -23,6 +23,9 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.uid = "";
 	$scope.name = "";
 	$scope.teamStatus = "";
+	$scope.tag = "";
+	$scope.tags =[];
+	
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
@@ -37,6 +40,7 @@ angular.module('teamform-member-app', ['firebase'])
       	$scope.uid = "";
       	$scope.name = "";
       	$scope.selection = [];
+		$scope.tags = [];
       	$("input").prop("disabled", true);
       }
     });
@@ -56,7 +60,13 @@ angular.module('teamform-member-app', ['firebase'])
 			} else {
 				$scope.selection = [];
 			}
+			if($scope.userInfo.tags != null) {
+				$scope.tags = $scope.userInfo.tags;
+			} else {
+				$scope.tags = [];
+			}
 		});
+		
 		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
 		$scope.memberInfo.$loaded().then(function() {			
 			if($scope.memberInfo.inTeam != null) {
@@ -74,13 +84,37 @@ angular.module('teamform-member-app', ['firebase'])
 		});
 	};
 	
+	$scope.addTag = function() {
+		var userID = $.trim($scope.userID);
+		var userName = $.trim($scope.userName);
+		var tag = $.trim($scope.tag);
+		var refPath = getURLParameter("q") + "/member/" + userID;
+		var ref = firebase.database().ref(refPath);
+		
+		if(userID !== '' && userName !== '' && tag !== '') {
+			$scope.tags.push(tag);
+			var newData = {
+				'tags' : $scope.tags,
+				'selection': $scope.selection,
+				'weight': 0 
+			};
+			
+			ref.update(newData);
+			refPath = "user/" + userID;
+			//ref = firebase.database().ref(refPath);
+			ref.update({ name: userName }, function() {
+				//window.location.href = "index.html";
+			});
+		}
+	};
+	
 	$scope.saveFunc = function() {
 		var userID = $.trim($scope.userID);
 		var userName = $.trim($scope.userName);
 		
 		if(userID !== '' && userName !== '') {
 			var newData = {
-				'selection': $scope.selection,
+				'selections': $scope.selection,
 				'weight': 0 
 			};
 			var refPath = getURLParameter("q") + "/member/" + userID;
@@ -89,7 +123,7 @@ angular.module('teamform-member-app', ['firebase'])
 			refPath = "user/" + userID;
 			ref = firebase.database().ref(refPath);
 			ref.update({ name: userName }, function() {
-				window.location.href = "index.html";
+				//window.location.href = "index.html";
 			});
 		}
 	};
