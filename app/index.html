@@ -1,10 +1,8 @@
-
+﻿
 <!-- Hello World!-->
-<fb:login-button scope="public_profile" onlogin="checkLoginState();">
-</fb:login-button>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="teamform-index-app">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -125,23 +123,22 @@
 
                      <br >
 
-                     <div class="text-center">
-
-                        <input id="input_text" type="text" class="input-lg">
+                     <div class="text-center" ng-controller="IndexCtrl">
+                        <input type="text" class="form-control" id="inputEventID" ng-model="eventID" placeholder="Enter event ID">
                         <br>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
+                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event {{eventID}}</em>
                         <br>
                         <br>
 
                         <div>
                            
-                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
+                           <button type="button" class="btn btn-primary" ng-click="btn_admin();">Administrator</button>
                           
 
 
-                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
+                           <button type="button" class="btn btn-primary" ng-click="btn_leader();">Team Leader</button>
                           
-                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
+                           <button type="button" class="btn btn-primary" ng-click="btn_member();">Member</button>
                           
 
 
@@ -278,6 +275,13 @@
          </footer>
       </div>
       <!-- /.container -->
+       <!-- Angular and Angular-route libraries (v1.5.7) -->
+       <script src="lib/angular.min.js"></script>
+       <script src="lib/angular-route.min.js"></script>
+
+       <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+       <script src="lib/firebase.js"></script>
+       <script src="lib/angularfire.min.js"></script>
 
       <!-- JavaScript of this page -->
       <script src="js/index.js"></script>
