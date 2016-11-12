@@ -61,30 +61,8 @@
 			<br>
 			<div class="col-md-3 col-xs-2"></div>
 			<div class="col-md-6 col-xs-8 panel">
-				<form class="form-horizontal">                  
-					<div class="col-xs-10">
-						<div class="form-group">
-							<label for="inputUserID" class="col-xs-3 control-label">User ID</label>
-							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
-							</div>
-						</div>						
-						<div class="form-group">
-							<label for="inputName" class="col-xs-3 control-label">Name</label>
-							<div class="col-xs-9">
-								<input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
-							</div>
-						</div>						
-					</div>
-					<div class="col-xs-2">
-						<div>
-							<button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
-						</div>
-						<div>
-							<button type="button" class="btn btn-primary" id="atbtn" ng-click="atFunc();" >ability test</button>
-						</div>
-					</div>					
-				</form>
+				<button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
+				<button type="button" class="btn btn-primary" id="atbtn" ng-click="atFunc();" >Ability test</button>
 			</div>
 			<div class="col-md-3 col-xs-2"></div>
 		</div>
@@ -99,12 +77,10 @@
 					<div ng-repeat="team in teams">
 						<div class="checkbox">							
 							<input type="checkbox" value="{{team.$id}}" ng-checked="selection.indexOf(team.$id) > -1"	ng-click="toggleSelection(team.$id)">
-							<label>
-							{{team.$id}}</label>
+							<label>{{team.$id}}</label>
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-3"></div>
 			</div>
 			<div class="col-md-3 col-xs-2"></div>
 		</div>
