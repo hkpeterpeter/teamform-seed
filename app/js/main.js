@@ -56,7 +56,8 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	}
 
 	$rootScope.currentUser={
-        id:"-KVtEW8EVXIacwd9hsGx"
+        id:"0",
+        profilePic:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiWGXo4U6CCvNItlDYFgEQz4d3T-YjLj13nqUZ-crpAr3qMPx-"
     }
                 
 	var exampleNewUser={
