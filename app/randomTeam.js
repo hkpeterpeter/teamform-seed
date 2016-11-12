@@ -12,6 +12,10 @@ app.controller("random_Team",["$scope","$firebaseArray", "Auth","$rootScope",
 			var eventRef= firebase.database().ref(path);
 			$scope.teamOfChosenEvent= $firebaseArray(eventRef);			
 		}
+		$scope.random = function(){
+			return 0.5 - Math.random();
+		};
+		//shuffle(teamOfChosenEvent);
 		
 		//var eventId=$("#selectedName").val();
 		//var path= "events" + "/" + eventID + "/" + "Team" ;
