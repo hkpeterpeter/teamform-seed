@@ -71,7 +71,7 @@ h1 {
   text-align: center;
   color: #ffffff;
   font-weight: 300;
-  margin: 0 0 40px;
+  margin: 0 0 60px;
 }
 
 label {
@@ -125,6 +125,23 @@ input:focus, textarea:focus {
 ;
 }
 
+.myCheckbox input {
+    // display: none;
+    // Better than display: none for accessibility reasons
+    position: relative;
+    z-index: -9999;
+}
+
+.myCheckbox span {
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: url("link_to_image");
+}
+
+.myCheckbox input:checked + span {
+    background: url("link_to_another_image");
+}
 textarea {
   border: 2px solid #a0b3b0;
   resize: vertical;
