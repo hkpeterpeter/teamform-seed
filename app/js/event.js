@@ -127,8 +127,8 @@ angular.module('teamform-event-app', ['firebase'])
 
 
 	refPath = "events/"+ eventid + "/teams";	
-	$scope.team = [];
-	$scope.team = $firebaseArray(firebase.database().ref(refPath));
+	$scope.teams = [];
+	$scope.teams = $firebaseArray(firebase.database().ref(refPath));
 	
 	refPath = "events/"+ eventid + "/member";
 	$scope.member = [];
@@ -141,7 +141,41 @@ angular.module('teamform-event-app', ['firebase'])
 	//$scope.users is an array of users in firebase
     var usersRef = firebase.database().ref('users');
     $scope.users = $firebaseArray(usersRef);
-	
+
+	$scope.getUserNameInTeam = function(team){
+		var resultName;
+		console.log("getUserNameInTeam for team"+team);
+		$scope.getUserNameByID(team.teamLeader,function(resultFromCallback){
+			resultName = resultFromCallback;
+			console.log("Leader: getMemberNameByID: "+ resultName);
+			team.teamLeaderName = resultName;
+		})
+		angular.forEach(team.members,function(member,key){
+			$scope.getUserNameByID(member.memberID,function(resultFromCallback){
+				resultName = resultFromCallback;
+				//console.log("Member: getMemberNameByID: "+ resultName);
+				member.memberName = resultName;
+				console.log("member: "+member.memberID+"\nmember: "+member.memberName);
+				team.memberNames=[];
+				team.memberNames.push(resultName);
+			})
+			console.log("team.members: "+team.members);
+			console.log("team.memberNames: "+team.memberNames);
+		})
+	}
+
+	$scope.getUserNameByID = function(userid,callback){
+		var foundName;
+		var userDatabase = firebase.database();
+		var userRef = userDatabase.ref('users/'+userid+'/name');
+		var userData = $firebaseObject(userRef);
+		userData.$loaded()
+			.then(function(data){
+				//console.log("getUserNameByID: "+userData.$value);
+				callback(userData.$value);
+			})
+	}
+
 	//logout function
 	$scope.logout = function(){
 		firebase.auth().signOut();
