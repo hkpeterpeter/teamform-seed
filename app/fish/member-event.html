@@ -1,5 +1,6 @@
 
-<div ng-controller="fishCtrl">
+
+<div ng-controller='fishCtrl'>
 
   <!-- Event Card -->
   <div id="index-banner" class="parallax-container">
@@ -11,9 +12,120 @@
         <h5 class="header">Event discription.</h5>
       </div>
     </div>
-    <div class="parallax"><img src="fish/image/bg.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="fish/image/bg.jpg" alt="Unsplashed background img 1" style="display: block;" height="200"></div>
 
   </div>
+  
+
+
+<div class="container">
+  <!--   Collapsible structure -->
+  <ul class="collapsible blue-grey darken-2" data-collapsible="expandable">
+    <div ng-repeat="t in allTeams">
+      <li>
+        <!--       Team Card -->
+        <div class="collapsible-header active blue-grey darken-1" ng-click="showBody(t.teamID);">
+
+          <div class="card horizontal">
+            <div class="card-image">
+              <img src="{{mscr}}" height='200'>
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">Team {{t.teamName}}</span>
+                <span class="card-content"><p></p></span>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="collapsible-body-{{t.teamID}}">
+          <div class="card sticky-action blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title activator">Team Leader</span>
+              <div class="section">
+                <div class="card horizontal">
+                  <div class="card-image">
+                    <img src="fish/image/t1leader.PNG" height='200'>
+
+                  </div>
+                  <div class="card-stacked">
+                    <div class="card-content">
+                      <span class="card-title activator grey-text text-darken-3">{{t.teamLeader.name}}</span>
+                      <br/>
+                      <span class="team-text-span grey-text text-darken-3">Skills:
+                        <div class="chip focus teal lighten-1 white-text">Tackle</div>
+                        <div class="chip focus teal lighten-1 white-text">Body Slam</div>
+                        <div class="chip focus teal lighten-1 white-text">Swift</div>
+                      </span>
+                    </div>
+                    <div class="card-action">
+                      <a href="#">This is a link to personal profile</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="card-title activator">Team Members</span>
+
+              <div class="section">
+
+                <div class="row">
+                  <div class="col s6">
+                    <div class="card horizontal">
+                      <div class="card-image">
+                        <img src="fish/image/t1m1.PNG" height='200'>
+                      </div>
+                      <div class="card-stacked">
+                        <div class="card-content">
+                          <span class="card-title activator grey-text text-darken-3">Glaceon (Me)</span>
+                          <br/>
+                          <span class="team-text-span grey-text text-darken-3">Skills:
+                            <div class="chip focus teal lighten-1 white-text">Ice Beam</div>
+                            <div class="chip focus teal lighten-1 white-text">Blizzard</div>
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <a href="#">This is a link to personal profile</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s6">
+
+                    <div class="card horizontal">
+                      <div class="card-image">
+                        <img src="fish/image/t1m2.PNG" height='200'>
+                      </div>
+                      <div class="card-stacked">
+                        <div class="card-content">
+                          <span class="card-title activator grey-text text-darken-3">Sylveon</span>
+                          <br/>
+                          <span class="team-text-span grey-text text-darken-3">Skills:
+                            <div class="chip focus teal lighten-1 white-text">Moonblast</div>
+                            <div class="chip focus teal lighten-1 white-text">Hyper Beam</div>
+                          </span>
+                        </div>
+                        <div class="card-action">
+                          <a href="#">This is a link to personal profile</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        
+      </li>
+    </div>
+  </ul>
+</div>
+
 
   <div class="container">
     <!--   Collapsible structure -->
@@ -351,4 +463,8 @@
  
 <event-footer>
 </event-footer>
+</div>
+</li>
+</ul>
+</div>
 </div>
