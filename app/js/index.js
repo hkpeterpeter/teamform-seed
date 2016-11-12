@@ -190,7 +190,7 @@ angular
 		auth.signInWithEmailAndPassword(email,pass)
 			.then(user =>{
 				console.log('promise is done');
-				$window.alert("You have successfully loggedin");
+				$window.alert("You have successfully logged in");
 			}).catch(e => {
 				console.log(e.message);
 				$window.alert(e.message);
