@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	
-	$('#admin_page_controller').hide();
+
 	$('#text_event_name').text("Error: Invalid event name ");
 	var eventName = getURLParameter("q");
 	if (eventName != null && eventName !== '' ) {
@@ -10,8 +10,8 @@ $(document).ready(function(){
 
 });
 
-angular.module('teamform-admin-app', ['firebase'])
-.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+angular.module('teamform-event-app', ['firebase'])
+.controller('EventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	// TODO: implementation of AdminCtrl
 	
@@ -22,14 +22,17 @@ angular.module('teamform-admin-app', ['firebase'])
 	initalizeFirebase();
 	
 	var refPath, ref, eventName;
-	
+
 	eventName = getURLParameter("q");
-	refPath = eventName + "/admin/param";	
+	refPath = "/event/" + eventName + "/param";	
 	ref = firebase.database().ref(refPath);
-		
+	
 	// Link and sync a firebase object
 	
 	$scope.param = $firebaseObject(ref);
+
+
+
 	$scope.param.$loaded()
 		.then( function(data) {
 			
@@ -40,7 +43,9 @@ angular.module('teamform-admin-app', ['firebase'])
 			if(typeof $scope.param.minTeamSize == "undefined"){				
 				$scope.param.minTeamSize = 1;
 			}
-			
+
+			var user = firebase.auth().currentUser;
+			$scope.param.eventadmin = user.uid;
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show(); 				
 		}) 
@@ -50,12 +55,12 @@ angular.module('teamform-admin-app', ['firebase'])
 		});
 		
 	
-	refPath = eventName + "/team";	
+	refPath = "/event/"+ eventName + "/team";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
 	
-	refPath = eventName + "/member";
+	refPath = "/event/"+ eventName + "/team/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
@@ -84,7 +89,6 @@ angular.module('teamform-admin-app', ['firebase'])
 	}
 
 	$scope.saveFunc = function() {
-
 		$scope.param.$save();
 		
 		// Finally, go back to the front-end

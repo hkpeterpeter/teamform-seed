@@ -13,7 +13,7 @@ teamformapp.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArra
     var token = result.credential.accessToken;
      // The signed-in user info.
     var user = firebase.auth().currentUser;
-    console.log("Logged in as:", result.uid);
+    console.log("Logged in as:", user.displayName);
 
             var usersRef = firebase.database().ref('users');
             var usersArray = $firebaseArray(usersRef);
