@@ -31,7 +31,7 @@ app.controller("createGroupCtrl",
 		//departure_date: "",
 		//return_date: "",
 		preference: "N",
-		//estimated_budget_per_person: "",
+		estimatedBudgetPerPerson: 100,
 		//descriptions: "",
 		//language_for_communication: "",
 		//members: [],
@@ -75,6 +75,24 @@ app.controller("createGroupCtrl",
 	// set sex perference: M = Male, F = Female, N = No perference
 	$scope.setSexPreference = function(sexPreference){
 		$scope.tempTeam.preference = sexPreference;
+	};
+
+	// set budget per person
+	/**************************************************************************
+		1. In US dollars
+		2. $100 <= budget <= $100000
+	***************************************************************************/
+	$scope.setEstimateBudgetPerPerson = function(){
+		if($scope.tempTeam.estimatedBudgetPerPerson < 100){
+			$scope.tempTeam.estimatedBudgetPerPerson = 100;
+			alert("Budget should not be less than $100.");
+			return;
+		} else if($scope.tempTeam.estimatedBudgetPerPerson > 100000){
+			$scope.tempTeam.estimatedBudgetPerPerson = 100;			
+			alert("Budget should not be larger than 100000.");
+			return;
+		}
+
 	};
 
 	// add group into firebase

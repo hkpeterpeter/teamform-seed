@@ -49,6 +49,12 @@
             <span class="debug">{{tempTeam.preference}}</span>            
         </div>
 
+        <div class="budget">
+            <strong>Budget per groupmates</strong>
+            <input type="number" ng-model="tempTeam.estimatedBudgetPerPerson" placeholder="Budget in usd and must be larger than $100">
+            <span class="debug">{{tempTeam.estimatedBudgetPerPerson}}</span>
+        </div>
+
 		<div class="creatGroupButton">
 			<button type="button" class="btn btn-primary" ng-click="createGroup();"> create group </button>
 		</div>
