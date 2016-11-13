@@ -28,7 +28,7 @@
       <script src="js/site.js"></script>
 	  	  
    </head>
-   <body>
+   <body ng-controller="TeamCtrl"> 
 
   <div ng-include="'navbar.html'" id='navbarMenu'></div>
    <br>
@@ -36,25 +36,24 @@
    <div class="text-center">
       <h1>Team Page</h1>
       <h2 id="text_event_name"></h2>
-       <div id="team_page_controller" ng-controller="TeamCtrl">
+       <div id="team_page_controller" >
 
-         <div class="row">
+          <div class="row">
 
             <div class="col-md-2 col-xs-2"></div>
 
-            <div class="col-md-6 col-xs-6 text-left panel">
-			
-			 
-
-
+              <div class="col-md-6 col-xs-6 text-left panel">
                <!-- Controls go here.. -->
                 <form class="form-horizontal text-left">
 				
                   <div class="form-group">
 				  
                      <label for="inputTeamName" class="control-label">Team Name</label>
-					 <br>
-					 
+				        	<br>
+                  </div>
+              </div>
+           </div>
+
 					 <div class="row">
 						 <div class="col-md-8 col-xs-8">
 							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">													
@@ -68,12 +67,7 @@
 							<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
 						</div>
 					</div>
-					
-										 
-					 
-                  </div>
-
-                
+					              
 				  <div class="row">
 					  <strong>Preferred Team Size: </strong> 					  
 					  <span>
@@ -90,71 +84,52 @@
 				   
 				   
 
-                  </form>
+            
 
 
-				<div class="row">
-                  <div class="col-sm-6">
-                     <h4>Team members</h4>
-                     <!-- TODO: Show the current team member list -->
-					 
-					 <div ng-repeat="member in param.teamMembers">
-						<button type="button" class="btn" ng-click="removeMember(member);">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
-						</button>
-					 </div>
-					 
-                  </div>
+            <div class="row">
+                      <div class="col-sm-6">
+                        <h4>Team members</h4>
+                        <!-- TODO: Show the current team member list -->
+              
+                            <div ng-repeat="member in param.teamMembers">
+                              <button type="button" class="btn" ng-click="removeMember(member);">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
+                              </button>
+                            </div>
+              
+                      </div>
 
-                  <div class="col-sm-6">
-                     <h4>Requests received:</h4>
+                      <div class="col-sm-6">
+                        <h4>Requests received:</h4>
 
-                     <!--TODO: Show the requests -->
-					 
-					 <div ng-repeat="r in requests">
-						<button type="button" class="btn" ng-click="processRequest(r);">
-							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
-						</button>
-					 </div>
-					 
-                  </div>
-				</div>
-				  
-				  
+                        <!--TODO: Show the requests -->
+              
+                          <div ng-repeat="r in requests">
+                            <button type="button" class="btn" ng-click="processRequest(r);">
+                              <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
+                            </button>
+                          </div>
+              
+                      </div>
+      
+        </div>
+   </div>           
+                <div class="col-md-4 col-xs-4 text-left">
+                  <h3>All teams:</h3>
+                  <ul ng-repeat="t in team">
+                    <li>
+                    
+                      User ID: {{t.$id}}  <br>
+                      Preferred team size: <span class="badge">{{t.size}}</span> <br>
+                      Current team members: {{t.teamMembers}}
+                    
+                    </li>
+                    
+                  </ul>			
+              </div>
+        </div>
 
-                  				  
-					
-                   
-                  
-
-
-            </div>
-
-
-
-
-            <div class="col-md-4 col-xs-4 text-left">
-			
-					
-			 
-					<h3>All teams:</h3>
-					<ul ng-repeat="t in team">
-						<li>
-						
-							User ID: {{t.$id}}  <br>
-							Preferred team size: <span class="badge">{{t.size}}</span> <br>
-							Current team members: {{t.teamMembers}}
-						
-						</li>
-						
-					</ul>			
-			
-			</div>
-         </div>
-
-
-       </div>
-   </div>
 
 
    <!-- JavaScript of this page -->

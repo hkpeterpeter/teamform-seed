@@ -77,7 +77,20 @@ angular.module('teamform-event-app', ['firebase'])
 			//console.error("Error:", error);
 		});
 	
-   //create team function 
+	//enter the team page 
+ 	$scope.enterTeam = function(currentTeamid){
+		if (currentTeamid == '' ){
+    		return false;
+		//user will enter team page which is created by user who become leader
+    	}else{
+		 console.log(currentTeamid);
+			var url = "team.html?teamid=" + currentTeamid+ "&eventid="+$scope.eventid;
+    		window.location.href = url;
+    		return true;
+		}
+	 }
+
+    //create team function 
     $scope.createTeam = function(teamName){
 
         var teamNameVal = $('#teamName').val();
@@ -113,8 +126,6 @@ angular.module('teamform-event-app', ['firebase'])
 				console.log(userNewTeamObject);
             });
 		if (teamNameVal == '' ){
- 			var url = "team.html?teamid=" + teamkey+ "&eventid="+$scope.eventid;
-	    	//	window.location.href = url;
     		return false;
 		//user will enter team page which is created by user who become leader
     	}else{

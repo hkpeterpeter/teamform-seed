@@ -1,12 +1,16 @@
 $(document).ready(function(){
-
 	$('#team_page_controller').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
-	var eventName = getURLParameter("q");
-	if (eventName != null && eventName !== '' ) {
-		$('#text_event_name').text("Event name: " + eventName);
+
+
+
+	var eventid = getURLParameter("eventid");
+		 console.log(eventid);
+	if (eventid != null && eventid !== '' ) {
+		$('#text_event_name').text("Event id: " + eventid);
 		
 	}
+
 
 });
 
@@ -17,9 +21,16 @@ angular.module('teamform-team-app', ['firebase'])
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
 
-	var refPath = "";
-	var eventName = getURLParameter("q");	
-	
+
+	var teamid = getURLParameter("teamid");
+	var teamRef = firebase.database().ref('events/'+eventid+'/teams/'+teamid);
+	var teamObject = $firebaseObject(teamRef);
+
+	var eventid = getURLParameter("eventid");
+	var eventRef = firebase.database().ref('events/'+eventid+'/admin/param');
+	var eventObject = $firebaseObject(eventRef);
+
+
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		"teamName" : '',
@@ -29,9 +40,9 @@ angular.module('teamform-team-app', ['firebase'])
 		
 	
 
-	refPath =  eventName + "/admin";
+	refPath =  "events/"+ eventid + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {	
-
+		console.log(data.child("param").val());
 		if ( data.child("param").val() != null ) {
 			$scope.range = data.child("param").val();
 			$scope.param.currentTeamSize = parseInt(($scope.range.minTeamSize + $scope.range.maxTeamSize)/2);
@@ -42,12 +53,12 @@ angular.module('teamform-team-app', ['firebase'])
 	});
 	
 	
-	refPath = eventName + "/member";	
+	refPath = "events/"+ eventid + "/teams/"+ teamid +"teamMembers";	
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
 	
-	refPath = eventName + "/team";	
+	refPath = "events/"+ eventid + "/teams";	
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
@@ -75,12 +86,6 @@ angular.module('teamform-team-app', ['firebase'])
 		
 	}
 	
-	
-	
-	
-	
-	
-
 	$scope.changeCurrentTeamSize = function(delta) {
 		var newVal = $scope.param.currentTeamSize + delta;
 		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
@@ -138,8 +143,8 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.loadFunc = function() {
 		
 		var teamID = $.trim( $scope.param.teamName );		
-		var eventName = getURLParameter("q");
-		var refPath = eventName + "/team/" + teamID ;
+		var eventid = getURLParameter("q");
+		var refPath = eventid + "/team/" + teamID ;
 		retrieveOnceFirebase(firebase, refPath, function(data) {	
 
 			if ( data.child("size").val() != null ) {
@@ -189,6 +194,45 @@ angular.module('teamform-team-app', ['firebase'])
 	
 	
 	
+	//logout function
+	$scope.logout = function(){
+		firebase.auth().signOut();
+	}
+
+	//monitor if the user is logged in or not
+	firebase.auth().onAuthStateChanged(user => {
+		if(user){
+			console.log('logged in');
+            var database = firebase.database();
+            var usersRef = database.ref('users/'+user.uid);
+            var currentUserData = $firebaseObject(usersRef);
+            currentUserData.$loaded()
+                .then(function(data){
+                    $scope.username = currentUserData.name;
+                })
+                .catch(function(error){
+                    console.error("Error: "+error);
+                });
+            $scope.loggedIn = true;
+			$scope.uid = user.uid;
+			eventid = getURLParameter("q");
+			refPath = "events/"+ eventid + "/admin/param";
+			ref = firebase.database().ref(refPath);	
+			$scope.param = $firebaseObject(ref);
+			$scope.param.$loaded().then(function(data){
+				// if($scope.param.admin != user.uid){//check if user is admin of this event
+				// 	console.log('admin: '+$scope.param.admin+', user: '+user.uid);
+				// 	console.log('not admin');
+				// 	$window.alert("Permission Denied. \n You are not admin of this event")
+				// 	$window.location.href = '/index.html';
+				// }
+			})
+
+        }else{
+			console.log('not log in');
+            $window.location.href = '/index.html';
+		}
+	})
 	
 	
 	
