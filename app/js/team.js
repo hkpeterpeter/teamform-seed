@@ -14,7 +14,7 @@ angular.module('teamform-team-app', ['firebase'])
 function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 {
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	// initalizeFirebase();
    //your code
 
 	$scope.auth=$firebaseAuth();
