@@ -24,7 +24,7 @@ teamapp.controller('fishCtrl', ['$scope', "$rootScope", "$firebaseObject", "$fir
     $scope.processData=function(allData, currentEventID, currentTeamID, currentUserID){
     	var events = allData.events;
 
-    	var curEvent = {eventName: events[currentEventID].eventName, cventDescription: events[currentEventID].description,
+    	var curEvent = {eventName: events[currentEventID].eventName, eventDescription: events[currentEventID].description,
     					eventBG: events[currentEventID].imageURL};
 
     	var teamsCurEvent = [];
@@ -49,22 +49,25 @@ teamapp.controller('fishCtrl', ['$scope', "$rootScope", "$firebaseObject", "$fir
     		}
     	}
 
-    	
+    	return {event: curEvent, team: teamsCurEvent};
 
-    };
-
-
+    }
 
 
+    allData.$loaded().then(function(data){
+    	console.log(data.$resolved);
+    	$scope.readyData = $scope.processData(allData, $rootScope.currentEvent, $rootScope.currentTeam, $rootScope.currentUser);
+    })
 
-    $scope.currentEvent = $firebaseObject(firebase.database().ref('events/' + $rootScope.currentEvent));
-    $rootScope.currentUser = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser));
-    $scope.currentTeam = $firebaseObject(firebase.database().ref('teams/' + $rootScope.currentTeam));
-   // console.log($scope.currentEvent);
+
+
+
 
 	$scope.showBody=function(id){
 				$(".collapsible-body-"+id).slideToggle(100);
-			};
+	};
+
+
 }]);
 
 

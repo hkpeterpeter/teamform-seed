@@ -7,9 +7,9 @@
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
-        <h1 class="header teal-text">Event Name</h1>
+        <h1 class="header teal-text">{{readyData.event.eventName}}</h1>
 
-        <h5 class="header">Event discription.</h5>
+        <h5 class="header">{{readyData.event.eventDescription}}</h5>
       </div>
     </div>
     <div class="parallax"><img src="fish/image/bg.jpg" alt="Unsplashed background img 1" style="display: block;" height="200"></div>
@@ -21,14 +21,14 @@
 <div class="container">
   <!--   Collapsible structure -->
   <ul class="collapsible blue-grey darken-2" data-collapsible="expandable">
-    <div ng-repeat="t in allTeams">
+    <div ng-repeat="t in readyData.team">
       <li>
         <!--       Team Card -->
         <div class="collapsible-header active blue-grey darken-1" ng-click="showBody(t.teamID);">
 
           <div class="card horizontal">
             <div class="card-image">
-              <img src="{{mscr}}" height='200'>
+              <img src="t.imageUrl" height='200'>
             </div>
             <div class="card-stacked">
               <div class="card-content">
