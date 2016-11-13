@@ -22,7 +22,7 @@ app.controller("indexCtrl",
       }
       if (loginUser !== undefined) {
         $cookies.put("username",loginUser);
-        gotoURL("/profile.html", [{key:"username",value:$cookies.get("username")}], $window);
+        gotoURL("../TXR/index.html", [], $window);
       }
     };
 
