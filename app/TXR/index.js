@@ -25,9 +25,36 @@ app.controller("searchController",function($scope){
  };
 });
 
-app.controller("paramCtrl", function($scope, $routeParams){
-$scope.param = $routeParams.p;
+
+app.controller("EventController",function($scope,$routeParams){
+        //   $scope.param = $routeParams.p;
+            $scope.IsVisibleCOMP3111 = false;
+            $scope.IsVisibleCOMP3511 = false;
+            $scope.IsVisibleCOMP2012 = false;
+  //          $scope.show=function(a){
+        //       $scope.IsVisibleCOMP3111 = angular.equals($scope.param, a);
+      //      }
+          $scope.IsVisibleCOMP3111 = angular.equals($routeParams.p, 'COMP3111');
+          $scope.IsVisibleCOMP3511 = angular.equals($routeParams.p, 'COMP3511');
+          $scope.IsVisibleCOMP2012 = angular.equals($routeParams.p, 'COMP2012');
+
+
 });
+app.controller("ConversationController",function($scope,$routeParams){
+        //   $scope.param = $routeParams.p;
+            $scope.IsVisiblePeter = false;
+            $scope.IsVisibleJason = false;
+            $scope.IsVisibleKevin = false;
+  //          $scope.show=function(a){
+        //       $scope.IsVisibleCOMP3111 = angular.equals($scope.param, a);
+      //      }
+         $scope.IsVisiblePeter = angular.equals($routeParams.p, 'Peter');
+          $scope.IsVisibleJason = angular.equals($routeParams.p, 'Jason');
+          $scope.IsVisibleKevin = angular.equals($routeParams.p, 'Kevin');
+
+
+});
+
 
 app.controller("NotificationController", function($scope){
 			$scope.userList=[
