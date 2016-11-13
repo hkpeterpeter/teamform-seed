@@ -1,7 +1,7 @@
 "use strict";
 
 // inject firebase service
-var app = angular.module("search", ["firebase"]);
+var app = angular.module("search", ["firebase", "clock"]);
 
 app.controller("searchCtrl",
     function ($scope, $firebaseArray, $sce) {
@@ -49,10 +49,12 @@ app.controller("searchCtrl",
             defaultT: ["-1", "-1", "-1", false, false],
             defaultM: ["-1", "-1", "-1", "-1", false],
             clearT: function () {
-                this.t = this.defaultT;
+                for (var i = 0; i < this.defaultT.length; i++)
+                    this.t[i] = this.defaultT[i];
             },
             clearM: function () {
-                this.m = this.defaultM;
+                for (var i = 0; i < this.defaultM.length; i++)
+                    this.m[i] = this.defaultM[i];
             },
             clear: function () {
                 this.tm = this.defaultTm;
@@ -99,20 +101,6 @@ app.controller("searchCtrl",
                 $scope.constraint.tDis = true;
                 $scope.constraint.clearT();
             }
-        });
-
-        $scope.$watchCollection("constraint.t", function (newVal, oldVal, scope) {
-            if (!$scope.constraint.hasTeamConstraints() && $scope.constraint.hasMemberConstraints())
-                $scope.constraint.tm = "2";
-            else if (!$scope.constraint.hasMemberConstraints() && $scope.constraint.hasTeamConstraints())
-                $scope.constraint.tm = "1";
-        });
-
-        $scope.$watchCollection("constraint.m", function (newVal, oldVal, scope) {
-            if (!$scope.constraint.hasTeamConstraints() && $scope.constraint.hasMemberConstraints())
-                $scope.constraint.tm = "2";
-            else if (!$scope.constraint.hasMemberConstraints() && $scope.constraint.hasTeamConstraints())
-                $scope.constraint.tm = "1";
         });
 
         //helper functions
@@ -190,7 +178,7 @@ app.controller("searchCtrl",
             var teamsAndMembers = [];
 
             //local helper function for creating result elements
-            function resultElement(_id, _name, _description, _eid, _language, _country, _tags, _email) {
+            function resultElement(_id, _name, _description, _eid, _language, _country, _tags, _email, _gender, _full, _depart, _desireToGo) {
                 this.name = _name;
                 this.id = _id;
                 this.description = _description;
@@ -199,6 +187,10 @@ app.controller("searchCtrl",
                 this.country = _country;
                 this.tags = _tags;
                 this.email = _email;
+                this.gender = _gender;
+                this.full = _full;
+                this.depart = _depart;
+                this.desireToGo = _desireToGo;
             }
 
             //clear the previos search results
@@ -227,26 +219,96 @@ app.controller("searchCtrl",
                 // -e means equal, -s means similar
                 var scoreList = {
                     "id-e": 100,
-                    "id-s": function (dummy) { return 0 },
+                    "id-s": function (dummy) { return 0; },
                     "name-e": 90,
-                    "name-s": function (percentage) { return 90 * percentage },
+                    "name-s": function (percentage) { return 90 * percentage; },
                     "destination-e": 60,
-                    "destination-s": function (percentage) { return 60 * percentage },
+                    "destination-s": function (percentage) { return 60 * percentage; },
                     "language-e": 30,
-                    "language-s": function (dummy) { return 0 },
+                    "language-s": function (dummy) { return 0; },
                     "tag-e": 70,
-                    "tag-s": function (percentage) { return 70 * percentage },
+                    "tag-s": function (percentage) { return 70 * percentage; },
                     "description-e": 70,
-                    "description-s": function (percentage) { return 70 * percentage },
+                    "description-s": function (percentage) { return 70 * percentage; },
+                    "preference-e": 70,
+                    "preference-s": function (dummy) { return 0; },
                 };
 
                 //loop through the team list
                 for (var i = 0; i < teams.length; i++) {
                     //constraints
-                    // var num = parseInt($scope.constraint.t[0]);
-                    // $scope.debugMsg = num;
-                    // if (num != -1 && teams[i].destination.toLowerCase() != getCountryListItem(num).toLowerCase())
-                    //     continue;
+                    if (keywords.join("") == "" && $scope.constraint.tm == 1) {
+                        teamsAndMembers.push(new resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                            teams[i].language_for_communication, teams[i].destination, teams[i].tags, "", teams[i].preference,
+                            teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : ""),
+                            new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay(), ""));
+                        continue;
+                    }
+
+                    if (!$scope.constraint.hasTeamConstraints() && keywords.join("") == "")
+                        continue;
+
+                    if ($scope.constraint.hasTeamConstraints()) {
+                        var dest = teams[i].destination;
+                        var lang = teams[i].language_for_communication;
+                        var pref = teams[i].preference;
+                        var full = teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : "");
+                        var depart = new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay();
+
+                        //constraint on destination
+                        var num = parseInt($scope.constraint.t[0]);
+                        if (num != -1)
+                            if (dest.toLowerCase() == getCountryListItem(num).toLowerCase())
+                                dest = simpleHighlight(dest);
+                            else {
+                                if (teams.length - 1 == i)
+                                    $scope.constraint.clearT();
+                                continue;
+                            }
+
+                        //constraint on language
+                        num = parseInt($scope.constraint.t[1]);
+                        if (num != -1)
+                            if (lang.toLowerCase() == getLanguageListItem(num).toLowerCase())
+                                lang = simpleHighlight(lang);
+                            else {
+                                if (teams.length - 1 == i)
+                                    $scope.constraint.clearT();
+                                continue;
+                            }
+
+                        // constraint on preference
+                        num = parseInt($scope.constraint.t[2]);
+                        if (num != -1)
+                            if (pref.toLowerCase() == (num == 0 ? "both" : (num = 1) ? "male" : "female"))
+                                pref = simpleHighlight(pref);
+                            else {
+                                if (teams.length - 1 == i)
+                                    $scope.constraint.clearT();
+                                continue;
+                            }
+
+                        // constraint on full
+                        num = $scope.constraint.t[3];
+                        if (num && teams[i].members.length >= teams[i].max) {
+                            if (teams.length - 1 == i)
+                                $scope.constraint.clearT();
+                            continue;
+                        }
+                        // constraint on depart
+                        num = $scope.constraint.t[4];
+                        if (num && compareDate(new Date().toUTCString(), teams[i].departure_date) > 0) {
+                            if (teams.length - 1 == i)
+                                $scope.constraint.clearT();
+                            continue;
+                        }
+
+                        teamsAndMembers.push(new resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                            lang, dest, teams[i].tags, "", pref, full, depart, ""));
+                        if (teams.length - 1 == i)
+                            $scope.constraint.clearT();
+                        continue;
+                    }
 
                     var id = teams[i].id;
                     var name = teams[i].name.toLowerCase();
@@ -255,7 +317,8 @@ app.controller("searchCtrl",
                     var tag = teams[i].tags;
                     for (var j = 0; j < tag.length; j++)
                         tag[j] = tag[j].toLowerCase();
-                    var description = teams[i].descriptions;
+                    var description = teams[i].descriptions.toLowerCase();
+                    var preference = teams[i].preference.toLowerCase();
 
                     var score = 0;
                     //match id
@@ -276,6 +339,9 @@ app.controller("searchCtrl",
                     //match description
                     score += getSimilarityScore(keywords, description, "description", scoreList);
 
+                    //match preference
+                    score += getSimilarityScore(keywords, preference, "preference", scoreList);
+
                     //update the result if score > 0
                     if (score > 0) {
                         scores.push(score);
@@ -285,7 +351,10 @@ app.controller("searchCtrl",
                         var e4 = hightlight(teams[i].language_for_communication, keywords);
                         var e5 = hightlight(teams[i].destination, keywords);
                         var e6 = hightlight(teams[i].tags.join(" * "), keywords).split(" * ");
-                        teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, ""));
+                        var e7 = hightlight(teams[i].preference, keywords);
+                        var e8 = teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : "");
+                        var e9 = new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay();
+                        teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
                     }
                 }
             }
@@ -299,17 +368,21 @@ app.controller("searchCtrl",
                 //create similarity score list for members
                 scoreList = {
                     "id-e": 100,
-                    "id-s": function (dummy) { return 0 },
+                    "id-s": function (dummy) { return 0; },
                     "name-e": 90,
-                    "name-s": function (percentage) { return percentage * 90 },
+                    "name-s": function (percentage) { return percentage * 90; },
                     "description-e": 60,
-                    "description-s": function (percentage) { return percentage * 60 },
+                    "description-s": function (percentage) { return percentage * 60; },
                     "email-e": 80,
-                    "email-s": function (percentage) { return percentage * 60 },
+                    "email-s": function (percentage) { return percentage * 60; },
                     "from-e": 60,
-                    "from-s": function (percentage) { return percentage * 60 },
+                    "from-s": function (percentage) { return percentage * 60; },
                     "language-e": 30,
-                    "language-s": function (percentage) { return percentage * 30 }
+                    "language-s": function (percentage) { return percentage * 30; },
+                    "gender-e": 70,
+                    "gender-s": function (dummy) { return 0; },
+                    "desire-e": 70,
+                    "desire-s": function (percentage) { return percentage * 70; }
                 }
 
                 //save the count value in order to make the element id number correct
@@ -317,12 +390,111 @@ app.controller("searchCtrl",
 
                 //loop through the whole member list
                 for (var i = 0; i < members.length; i++) {
+                    //constraint
+                    if (keywords.join("") == "" && $scope.constraint.tm == 2) {
+                        teamsAndMembers.push(new resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                            "searchResultElement-" + (i + resultCount), members[i].language.join(", "), members[i].from, "", members[i].email, members[i].gender, "", "", members[i].want_to_travel.join(", ")));
+                        continue;
+                    }
+
+                    if (!$scope.constraint.hasMemberConstraints() && keywords.join("") == "")
+                        continue;
+
+                    if ($scope.constraint.hasMemberConstraints()) {
+                        var gender = members[i].gender;
+                        var country = members[i].from;
+                        var desireToGo = members[i].want_to_travel.join(", ");
+                        var desireToGo2 = [];
+                        for (var g = 0; g < members[i].want_to_travel.length; g++)
+                            desireToGo2.push(members[i].want_to_travel[g]);
+                        var lang = members[i].language.join(", ");
+                        var lang2 = [];
+                        for (var g = 0; g < members[i].language.length; g++)
+                            lang2.push(members[i].language[g]);
+                        var avail = (members[i].available_for_traveling == "true" ? true : false);
+
+                        //constraint on gender
+                        var num = parseInt($scope.constraint.m[0]);
+                        if (num != -1)
+                            if (gender.toLowerCase() == ((num == 0) ? "male" : "female"))
+                                gender = simpleHighlight(gender);
+                            else {
+                                if (members.length - 1 == i)
+                                    $scope.constraint.clearM();
+                                continue;
+                            }
+
+                        //constraint on home country
+                        num = parseInt($scope.constraint.m[1]);
+                        if (num != -1)
+                            if (country.toLowerCase() == getCountryListItem(num).toLowerCase())
+                                country = simpleHighlight(country);
+                            else {
+                                if (members.length - 1 == i)
+                                    $scope.constraint.clearM();
+                                continue;
+                            }
+
+                        // constraint on desirable country
+                        num = parseInt($scope.constraint.m[2]);
+                        if (num != -1) {
+                            var atLeastOneChange = false;
+                            for (var t = 0; t < desireToGo2.length; t++)
+                                if (desireToGo2[t].toLowerCase() == getCountryListItem(num).toLowerCase()) {
+                                    desireToGo2[t] = simpleHighlight(desireToGo2[t]);
+                                    atLeastOneChange = true;
+                                }
+                            if (atLeastOneChange)
+                                desireToGo = desireToGo2.join(", ");
+                            else {
+                                if (members.length - 1 == i)
+                                    $scope.constraint.clearM();
+                                continue;
+                            }
+                        }
+
+                        // constraint on language
+                        num = parseInt($scope.constraint.m[3]);
+                        if (num != -1) {
+                            var atLeastOneChange = false;
+                            for (var t = 0; t < lang2.length; t++)
+                                if (lang2[t].toLowerCase() == getLanguageListItem(num).toLowerCase()) {
+                                    lang2[t] = simpleHighlight(lang2[t]);
+                                    atLeastOneChange = true;
+                                }
+                            if (atLeastOneChange)
+                                lang = lang2.join(", ");
+                            else {
+                                if (members.length - 1 == i)
+                                    $scope.constraint.clearM();
+                                continue;
+                            }
+                        }
+
+                        // constraint on availability of traveling
+                        num = $scope.constraint.m[4];
+                        if (num && !avail) {
+                            if (members.length - 1 == i)
+                                $scope.constraint.clearM();
+                            continue;
+                        }
+
+                        teamsAndMembers.push(new resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                            "searchResultElement-" + (i + resultCount), lang, country, "", members[i].email, gender, "", "", desireToGo));
+                        if (members.length - 1 == i)
+                            $scope.constraint.clearM();
+                        continue;
+                    }
+
+
                     id = members[i].id;
                     name = (members[i].first_name + " " + members[i].last_name).toLowerCase();
                     description = members[i].descriptions.toLowerCase();
                     var email = members[i].email.toLowerCase();
                     var from = members[i].from.toLowerCase();
                     language = members[i].language.join(" ").toLowerCase();
+                    var gender = members[i].gender.toLowerCase();
+                    var desire = members[i].want_to_travel.join(" ").toLowerCase();
 
                     score = 0;
                     //match id
@@ -343,6 +515,12 @@ app.controller("searchCtrl",
                     //match language
                     score += getSimilarityScore(keywords, language, "language", scoreList);
 
+                    //match gender
+                    score += getSimilarityScore(keywords, gender, "gender", scoreList);
+
+                    //match desirable countries
+                    score += getSimilarityScore(keywords, desire, "desire", scoreList);
+
                     //update the result if score > 0
                     if (score > 0) {
                         scores.push(score);
@@ -352,7 +530,9 @@ app.controller("searchCtrl",
                         var e4 = hightlight(members[i].language.join(" * "), keywords).split(" * ").join(", ");
                         var e5 = hightlight(members[i].from, keywords);
                         var e6 = hightlight(members[i].email, keywords);
-                        teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6));
+                        var e7 = hightlight(members[i].gender, keywords);
+                        var e8 = hightlight(members[i].want_to_travel.join(" * "), keywords).split(" * ").join(", ");
+                        teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
                     }
                 }
             }
@@ -410,20 +590,6 @@ $(document).ready(function () {
             $("select[ng-model='constraint.m[3]'], select[ng-model='constraint.t[1]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
     });
 
-    //layout changes
-    // $("#searchBtnContainer input[type='button']").click(function () {
-    //     var keywords = normailizeText($("#searchTextField").val());
-    //     if (keywords.join("") == "" && !$scope.constraint.hasConstraints())
-    //         return;
-    //     $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
-    //     $("#searchBtnContainer").hide();
-    //     $("#smSearchBtnContainer").removeClass("hide");
-    //     $("#searchTextField").parent().removeClass("col-xs-12 col-sm-12 col-md-12 col-lg-12").addClass("col-xs-11 col-sm-11 col-md-11  col-lg-11");
-
-    //     var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
-    //     $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
-    // });
-
     //keydown handling
     $("#searchTextField").keydown(function (event) {
         //keycode 13 is "enter"
@@ -461,7 +627,7 @@ function compareDate(d1, d2) {
     var day = new Date(d1).getUTCDay() - new Date(d2).getUTCDay();
     var month = new Date(d1).getUTCMonth() - new Date(d2).getUTCMonth();
     var year = new Date(d1).getUTCFullYear() - new Date(d2).getUTCFullYear();
-    return day + month * 30 + year * 365;
+    return day + (month * 30) + (year * 365);
 }
 
 //remove symbols in text
@@ -554,6 +720,11 @@ function sortTwoArrays(indepent, dependent) {
         if (!swapped)
             break;
     }
+}
+
+//simply highlight the text
+function simpleHighlight(text) {
+    return "<span class = \"highlightText\">" + text + "</span>";
 }
 
 //highlight keywords in search result

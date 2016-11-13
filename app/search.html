@@ -10,6 +10,7 @@
     <script src="lib/angular.min.js"></script>
     <script src="lib/angularfire.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/clock.js"></script>
     <script src="js/searchbar.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -17,10 +18,12 @@
     <link href="css/searchBar.css" type="text/css" rel="stylesheet" />
 </head>
 
-<body>
+<body ng-app="search">
+    <div ng-controller="clockCtrl">
+        <div id="ut" class="panel">{{clock}}</div>
+    </div>
 
-
-    <div ng-app="search" ng-controller="searchCtrl">
+    <div ng-controller="searchCtrl">
         <div class="fullscreen centralize">
             <div id="searchModule" class="container">
 
@@ -88,8 +91,9 @@
                                         <label>Preference:</label><br>
                                         <select ng-model="constraint.t[2]">
                                             <option value="-1" selected>--</option>
-                                            <option value="0" >Male</option>
-                                            <option value="1" >Female</option>
+                                            <option value="0" >Both male and female</option>
+                                            <option value="1" >Male</option>
+                                            <option value="2" >Female</option>
                                         </select>
                                     </div><br>
                                     <div class="indent">
@@ -135,9 +139,6 @@
                                         <input ng-model="constraint.m[4]" type="checkbox" />
                                     </div><br>
                                 </div>
-                                <br><b>DEBUG: </b>
-                                {{constraint|json}}<br><b>Has Constraints: </b>
-                                {{constraint.hasConstraints()}}
                             </div>
                             <div class="pull-right">
                                 <div class="myBtn">
@@ -172,12 +173,28 @@
                             <span class="badge id-badge" ng-bind-html="trustAsHtml(r.id)"></span>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <span class="font-size-xs">{{(r.email==""?"Preference: ":"Gender: ")}}</span>
+                            <span class="font-size-xs" ng-bind-html="trustAsHtml(r.gender)"></span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <span class="font-size-xs">{{(r.email==""?"No. of members/Max: ":"")}}</span>
+                            <span class="font-size-xs" ng-bind-html="trustAsHtml(r.full)"></span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <span class="font-size-xs">{{(r.email==""?"Departure date: ":"")}}</span>
+                            <span class="font-size-xs" ng-bind-html="trustAsHtml(r.depart)"></span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <span class="font-size-xs">{{(r.email==""?"Language for communication: ":"Language abilities: ")}}</span>
                             <span class="font-size-xs" ng-bind-html="trustAsHtml(r.language)"></span>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <span class="font-size-xs">{{(r.email==""?"Destination: ":"Desire to visit: ")}}</span>
+                            <span class="font-size-xs">{{(r.email==""?"Destination: ":"Home country: ")}}</span>
                             <span class="font-size-xs" ng-bind-html="trustAsHtml(r.country)"></span>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <span class="font-size-xs">{{(r.email==""?"":"Desirable country: ")}}</span>
+                            <span class="font-size-xs" ng-bind-html="trustAsHtml(r.desireToGo)"></span>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <span class="font-size-xs">{{(r.email!="")?"Email: ":""}}</span>
