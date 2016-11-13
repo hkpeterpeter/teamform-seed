@@ -1,19 +1,57 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>Team leader view</title>
-</head>
+<html ng-app="clickApp">  
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Angular Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
-<script type="text/javascript">
-// Popup window code
-function newPopup(url) {
-	popupWindow = window.open(
-		url,'popUpWindow','height=600,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-}
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+  <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>invite interface</title>
+    
+    <script src="./js/btnclick.js" ></script>
+    <script src="./fonts/glyphicons-halflings-regular.woff" ></script>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script type="text/javascript">
+      function setColor(obj,color){
+        obj.style.color = color;
+      }
+    </script>
+    <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCI2oKMFJECxHD11aRCxzVNG5M-Uvm8X20",
+    authDomain: "teamform-ad42e.firebaseapp.com",
+    databaseURL: "https://teamform-ad42e.firebaseio.com",
+    storageBucket: "teamform-ad42e.appspot.com",
+    messagingSenderId: "609768855060"
+  };
+  firebase.initializeApp(config);
 </script>
-<p><a href="JavaScript:newPopup('invite.html');">Invite some users</a></p>
+  </head>
+
 
 <body>
+<div ng-controller="clickCtrl">
    <!--invite users with pop up window-->
             <div class="container">
               <div class="row clearfix">
@@ -23,47 +61,75 @@ function newPopup(url) {
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                          <h4 class="modal-title" id="myModalLabel">
-                            <!--search-->
-                            <br>
-                            <div class = "container">
-                              <div class="col-md-3 col-xs-3">
-                                <input type="text" class="form-control" placeholder="Search by tag...">
-                              </div>
-
+                        <!--tag-->
+                           <div class = "row filter-bar">
+                            <div class="col-sm-3 ">
+                              <h5>Add tags to filter users: </h5>
                             </div>
-                          </h4>
+                            <div class = "col-sm-9  " id = "predefineTag"   >
+                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x.$value}}</div>
+                              
+                            </div>
+                          </div>
+                          
+                          <hr/>
+                          
+                          <div class = "row filter-bar">
+                            <div class = "col-sm-3 ">
+                              <h5>Current tags: </h5>
+                            </div>
+                            <div class = "col-sm-9" id = "searchTag" >
+                              <div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
+                                {{y.$value}}
+                                <span>&nbsp&nbsp</span>
+                                <span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
+
                         <div class="modal-body">
                           <!--main body-->
                           <div class = "container">
                           <!--user list + add button + chosen list-->
                           <div class="row">
                           <!--to be chosen-->
-                          <div class="col-md-5 col-xs-5">
+                          <div class="col-md-6 col-xs-6">
                           <h2>Users</h2>
                           <iframe src="../zwangbm/user_to_choose.html" width="100%" height="200" align="right">
                           </iframe>
                           </div>
                           <!--chosed-->
-                          <div class="col-md-5 col-xs-5">
+                          <div class="col-md-6 col-xs-6">
                           <h2>Selected</h2>
                           <iframe src="../zwangbm/user_chosen.html" width="100%" height="200" align="right">
-                   
-   
+                          </iframe>
+                           </div>
+                           </div>
+                           <!--invite button-->
+                            <br>
+                            <div class="row">
+                              <!--invited button-->
+                                <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary">
+                                  Invite
+                                </button>
+                              </div>
+                            </div>
+                            </div>
+                           </div>
+                           </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>   
+</div>       
 </body>
-
-<!--
-<frameset cols="25%,50%,25%">
-   <frame name="center" />
-   <frame name="center" src="invite.html" />
-   <frame name="center"/>
-   <noframes>
-   <body>
-      Your browser does not support frames.
-   </body>
-   </noframes>
-</frameset>
--->
 </html>
