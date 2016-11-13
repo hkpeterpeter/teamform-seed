@@ -27,6 +27,26 @@
 
       <script src="js/site.js"></script>	  	  
 
+	  <style>
+	  .rotate{
+	   -webkit-transition-duration:0.8s;
+	   -moz-transition-duration:0.8s;
+	   -o-transition-duration:0.8s;
+	   transition-duration:0.8s;
+	   -webkit-transition-property:-webkit-transform;
+	   -moz-transition-property:-moz-transform;
+	   -o-transition-property:-o-transform;
+	   transition-property:transform;
+	   overflow:hidden;
+	   }
+	   
+	   .rotate:hover{
+	   -webkit-transform:rotate(360deg);
+	   -moz-transform:rotate(360deg);
+	   -o-transform:rotate(360deg);
+	   }
+	  </style>
+	  
    </head>
 
 
@@ -53,29 +73,28 @@
         <table class="table borderless" style="background-color: white; ">
           <tbody>
             <tr>
-              <td width="15%" class="login_label text-center vertical-center" ><label ><span class="glyphicon glyphicon-envelope" ></span></label></td>
+              <td width="15%" class="login_label text-center vertical-center" ><label><span class="glyphicon glyphicon-envelope" ></span></label></td>
               <td width="85%"><input ng-model="txtEmail"  type="email" placeholder="E-mail"></td>
             </tr>
-            <tr >
-              <td class="login_label text-center "><label  ><span class="glyphicon glyphicon-lock" ></span></label></td>
+            <tr>
+              <td class="login_label text-center "><label><span class="glyphicon glyphicon-lock" ></span></label></td>
               <td><input ng-model="txtPassword" type="password" placeholder="Password"></td>
             </tr>
   
           </tbody>
         </table>
-          <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login </button>
+          <button id="btnLogin" class="btn btn-primary pull-right" ng-click="login()">Login</button>
           <button id="btnSignUp" class="btn btn-primary " ng-click="signup()">Sign Up</button>
         </form>
       </div>
-         </section>
+      </section>
       <div class="container col-md-1">
         </div>
+		
         <div ng-show="loggedIn"><!--Show this when login-->
         <img src="img/teamform_banner.jpg" alt="teamform_banner" style="width:100%;">
             <form name="Eventform" class="css-form ">
-              
-                    <p class="col-md-12">Hello! {{username}} </p>
-                    
+
                     <!-- A sample login page -->
                     <div id="page_home">
                       <div > 
@@ -87,9 +106,11 @@
                           <!--enter event name and join(just for testing)-->
                         <!--create event and become admin-->
                         <div class="text-center">
-                            <label>Create a New Event or Choose an existing Event</label>
+                            <label><font size="5"><b>Create a New Event&nbsp;</b></font> 
+							  <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent('')">+ New</button>
+							</label>
                             <div>
-                              <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent('')">Create new event</button>
+                              <font size="5"><b>...or Choose an Existing Event Below:</b></font>
                             </div>
                             <br>
 
@@ -99,7 +120,9 @@
                                 </div>
                                 <button class="event_item col-md-10" ng-click="enterEvent(event.$id)">
                                   <div class="event_item_name row text-left">
-                                    {{event.admin.param.eventName}}
+                                    <font size="3"><i><b>{{event.admin.param.eventName}}</i></b>
+									&nbsp;&nbsp;&nbsp;
+									({{event.admin.param.deadline | date:'dd/MM/yyyy'}})</font>
                                   </div>
                                   <div class="event_item_description row text-left">
                                     {{event.admin.param.description}}
@@ -119,9 +142,9 @@
                             
                         </div>
 
-                        <br >
+                        <br>
 
-                        <br >
+                        <br>
 
                       </div>
                     </div>
@@ -136,16 +159,17 @@
       <div class="container marketing">
 
          <!-- Show the current event list  -->
+		 <!--
          <div class="row featurette" id="event_list">
 
-            <div class="col-md-12">
-               <h2 class="featurette-heading" >Current Event List
-                  <br>
+            <div class="col-md-12"><br><hr>
+               <h1 class="featurette-heading"><u>Current Event List
+                  </u></h1><h2>
                   <span class="text-muted">Events created by other users. Join us now!</span>
                </h2>
             </div>
 
-          </div>
+         </div>
             <div class="row" ng-repeat="event in events">
 				<div ng-show="filter(event.admin.param.eventName)">
 				  <div class="col-md-6 col-xs-6">
@@ -169,15 +193,16 @@
 				  </div>
 				 </div>
             </div>
-         
+        -->
 
       <hr class="featurette-divider">
           <!-- START THE FEATURETTES -->
          <div class="row featurette" id="pageTeam">
             <div class="col-md-12">
-               <h2 class="featurette-heading">Development Team
-                  <br>
-                  <span class="text-muted">Created by 418 I'm a teapot</span>
+			   <br>
+               <h1 class="featurette-heading"><u>Development Team
+                  </u></h1><h2>
+                  <span class="text-muted">by 418 I'm a Teapot</span>
                </h2>
 
                <div class="row">
@@ -185,69 +210,74 @@
             
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
+                    <img class="img-circle img-responsive rotate" src="img/dev_team/bryan.jpg" width="150" height="150">
                     <div class="caption">
                      <h4>Bryan Keung</h4>
-                     <p>bkeung@connect.ust.hk</p>
+                     <p><a href="mailto:bkeung@connect.ust.hk">bkeung@connect.ust.hk</a></p>
                     </div>
                   </div>
                  </div> 
 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img class="img-circle img-responsive rotate" src="img/dev_team/christie.jpg" width="150" height="150">
                     <div class="caption">
                      <h4>Christie Tse</h4>
-                     <p>tyctse@connect.ust.hk</p>
+                     <p><a href="mailto:tyctse@connect.ust.hk">tyctse@connect.ust.hk</a></p>
                     </div>
                   </div>
                  </div> 
               
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member3&w=150&h=150" class="img-circle img-responsive">
+                    <img class="img-circle img-responsive rotate" src="img/dev_team/cindy.jpg" width="150" height="150">
                     <div class="caption">
                      <h4>Cindy Ng</h4>
-                     <p>myngad@connect.ust.hk</p>
+                     <p><a href="mailto:myngad@connect.ust.hk">myngad@connect.ust.hk</a></p>
                     </div>
                   </div>
                  </div> 
+				 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member4&w=150&h=150" class="img-circle img-responsive">
+                    <img class="img-circle img-responsive rotate" src="img/dev_team/eric.jpg" width="150" height="150">
                     <div class="caption">
                      <h4>Eric Yu</h4>
-                     <p>hyyuab@connect.ust.hk</p>
+                     <p><a href="mailto:hyyuab@connect.ust.hk">hyyuab@connect.ust.hk</a></p>
                     </div>
                   </div>
                  </div> 
+				 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member5&w=150&h=150" class="img-circle img-responsive">
+                    <img class="img-circle img-responsive rotate" src="img/dev_team/mike.jpg" width="150" height="150">
                     <div class="caption">
                      <h4>Mike Wong</h4>
-                     <p>mwongac@connect.ust.hk</p>
+                     <p><a href="mailto:mwongac@connect.ust.hk">mwongac@connect.ust.hk</a></p>
                     </div>
                   </div>
                  </div> 
+				 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member6&w=150&h=150" class="img-circle img-responsive">
+                    <img class="img-circle img-responsive rotate" src="img/dev_team/ronald.jpg" width="150" height="150">
                     <div class="caption">
                      <h4>Ronald Shum</h4>
-                     <p>khshumab@connect.ust.hk</p>
+                     <p><a href="mailto:khshumab@connect.ust.hk">khshumab@connect.ust.hk</a></p>
                     </div>
                   </div>
                  </div> 
+				 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member7&w=150&h=150" class="img-circle img-responsive">
-                    <div class="caption">
-                     <h4>Vivian Lee</h4>
-                     <p>htleeab@connect.ust.hk</p>
+                    <img class="img-circle img-responsive rotate" src="img/dev_team/vivian.jpg" width="150" height="150">
+					<div class="caption">
+					 <h4>Vivian Lee</h4>
+                     <p><a href="mailto:htleeab@connect.ust.hk">htleeab@connect.ust.hk</a></p>
                     </div>
                   </div>
                  </div> 
+				 
                </div>
 
              </div>
