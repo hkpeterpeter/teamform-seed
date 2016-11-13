@@ -1,0 +1,75 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/addpost.js"></script>
+    <title> Advertisement Board</title>
+
+</head>
+
+<body ng-app="adboard" ng-controller="adboardCtrl">
+
+    <form role="form" name="postForm" ng-submit="add()" novalidate="">
+
+    <legend>Leave your trip plan advertisement</legend>
+            
+
+            <div class="form-group">
+            <label for="titletxt"> <p align="center">Post Title</label></p>
+            <Input type="text" class="form-control" name="titletxt" ng-model="titletxt"  placeholder="Title" required="">
+            </div>
+
+
+                 <div class="form-group">
+                <label for="posttxt"> <p align="center"> Post Content</label></p>
+                <textarea rows="8" cols="100" class="form-control" name="contenttxt"  ng-model="contenttxt"  placeholder="Your Trip Plan" required="">
+                </textarea>
+                </div>
+
+
+                    <div class="form-group">
+                    <label for="persontxt"> <p align="center"> Contact Person</label></p>
+                    <Input type="text" class="form-control" name="persontxt" ng-model="persontxt"  placeholder="Contact Person" required="">
+                    </div>
+
+    </form>
+
+     <br><br>
+    <input type="button" value="Post your trip plan" ng-click="add()">
+
+    <br><br>
+
+    <style>
+table,th, td {
+    border: 1px solid black;
+    border-collapse:  collapse;
+}
+th, td{
+    padding:20x;
+}
+</style>
+
+<!--     <p>Checkout the latest trip plan!!!!</p> -->
+ <h1>Checkout the latest trip plan!!!!</h1>
+
+     <table width="1000" ><tr align="center">
+
+     <td>Post Title</td>
+     <td>Post Content</td>
+     <td>Contact Person</td>
+     </tr>
+
+         <tr ng-repeat="ad in ads">
+         <td align="left">{{ad.title}}</td>
+         <td align="left">{{ad.content}}</td>
+         <td align="left">{{ad.person}}</td>
+</tr>
+</table>
+
+
+</body>
+
+</html>
