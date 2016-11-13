@@ -47,7 +47,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-block btn-info" ng-if="!teamDetail.team.private" ng-click="teamDetail.joinTeam()">Join Team</button>
                 </div>
             </div>
         </div>
@@ -68,11 +67,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="user in teamDetail.team.users | filter:{id: '!!', pending: '!'} | itemsPerPage: 5">
-                        <td><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
-                        <td>{{user.role}}</td>
+                    <tr dir-paginate="teamUser in teamDetail.team.users | filter:teamDetail.filterJoined | itemsPerPage: 5">
+                        <td><a ui-sref="user.detail({userId: teamUser.user.id})">{{teamUser.user.name}}</a></td>
+                        <td>{{teamUser.role}}</td>
                         <td>
-                            <span ng-repeat="skill in user.skills" class="label label-success">{{skill}}</span>
+                            <span ng-repeat="skill in teamUser.user.skills" class="label label-success">{{skill}}</span>
                         </td>
                     </tr>
                 </tbody>
@@ -96,17 +95,19 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>User</th>
                         <th>Role</th>
                         <th>Skills</th>
+                        <th ng-if="!teamDetail.team.private"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="user in teamDetail.team.users | filter:{id: '!'} | itemsPerPage: 5">
-                        <td>Available {{user}}</td>
-                        <td>{{user.role}}</td>
+                    <tr dir-paginate="teamUser in teamDetail.team.users | filter:teamDetail.filterAvailable | itemsPerPage: 5">
+                        <td>{{teamUser.role}}</td>
                         <td>
-                            <span ng-repeat="skill in user.skills" class="label label-success">{{skill}}</span>
+                            <span ng-repeat="skill in teamUser.user.skills" class="label label-success">{{skill}}</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-success" ng-if="!teamDetail.team.private" ng-click="teamDetail.joinTeam(teamUser.$id)">Join</button>
                         </td>
                     </tr>
                 </tbody>
@@ -132,14 +133,18 @@
                         <th>User</th>
                         <th>Role</th>
                         <th>Skills</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="user in teamDetail.team.users | filter:{pending: true} | itemsPerPage: 5">
-                        <td>{{user.name}}</td>
-                        <td>{{user.role}}</td>
+                    <tr dir-paginate="teamUser in teamDetail.team.users | filter:teamDetail.filterWaitingList | itemsPerPage: 5">
+                        <td><a ui-sref="user.detail({userId: teamUser.user.id})">{{teamUser.user.name}}</a></td>
+                        <td>{{teamUser.role}}</td>
                         <td>
-                            <span ng-repeat="skill in user.skills" class="label label-success">{{skill}}</span>
+                            <span ng-repeat="skill in teamUser.user.skills" class="label label-success">{{skill}}</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.confirmTeamPosition(teamUser.$id)">Accept</button>
                         </td>
                     </tr>
                 </tbody>

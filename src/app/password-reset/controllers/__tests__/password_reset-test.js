@@ -1,7 +1,8 @@
+import password_reset from '../../';
 describe('PasswordResetController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('password-reset');
+        angular.mock.module(password_reset);
         inject((_$controller_) => {
             $controller = _$controller_('PasswordResetCtrl');
         });

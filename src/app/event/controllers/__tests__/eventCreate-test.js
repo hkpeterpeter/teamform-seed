@@ -1,7 +1,8 @@
+import event from '../../';
 describe('EventCreateController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('event');
+        angular.mock.module(event);
         inject((_$controller_) => {
             $controller = _$controller_('EventCreateCtrl');
         });

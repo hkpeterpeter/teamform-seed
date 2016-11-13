@@ -1,9 +1,10 @@
 export default class TeamDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, teamService) {
+    constructor($location, $state, $stateParams, $timeout, authService, teamService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
+        this.authService = authService;
         this.teamService = teamService;
         this.team = null;
         this.error = null;
@@ -21,12 +22,11 @@ export default class TeamDetailCtrl {
             });
         }
     }
-    async joinTeam() {
+    async joinTeam(positionId) {
         try {
-            let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId);
+            let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
                 console.log('success');
-                this.getTeam();
             });
         } catch (error) {
             this.$timeout(() => {
@@ -34,6 +34,31 @@ export default class TeamDetailCtrl {
             });
         }
     }
+    async confirmTeamPosition(positionId) {
+        try {
+            let teamUsers = await this.teamService.confirmTeamPosition(this.$stateParams.teamId, positionId);
+            this.$timeout(() => {
+                console.log('success');
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
+    canManage() {
+        let user = this.authService.getUser();
+        return user && user.uid == this.team.createdBy;
+    }
+    filterJoined(user) {
+        return user.id != null && user.pending !== true && user.confirmed !== false;
+    }
+    filterAvailable(user) {
+        return user.id == null;
+    }
+    filterWaitingList(user) {
+        return user.pending === true && (user.confirmed === false || user.accepted === false);
+    }
 }
 
-TeamDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'TeamService'];
+TeamDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'AuthService', 'TeamService'];
