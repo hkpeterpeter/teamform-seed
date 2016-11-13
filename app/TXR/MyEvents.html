@@ -1,14 +1,12 @@
-
-   
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="COMP3111"> 
-   <h1 class="page-header">Event Information</h1>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="COMP3111" hidden="hidden"> 
+          <h1 class="page-header">Event Information</h1>
 
           <div class="row placeholders">
             <div class="container">
               <div class="row">
                 <div class="col-sm-2 col-md-2">
                   <br><br><br>
-                   <img src= "http://20dollarlogo.com/wp-content/uploads/2016/08/Logo_TV_2015.png"/>
+                   <img src="http://20dollarlogo.com/wp-content/uploads/2016/08/Logo_TV_2015.png" />
                 </div>
         <div class="col-sm-4 col-md-4">
           <br><br><br>
@@ -24,7 +22,14 @@
       <br>
      
 
+      <h2 align="left">Skills:
+        <hr>
+      <div align="left">
+    <div class="hero-unit">
+        <span class="label label-default">COMP1004<span class="glyphicon glyphicon-remove"></span></span>
+        <span class="label label-warning">COMP2011<span class="glyphicon glyphicon-remove"></span></span>
 
+         <br></h2>
          <br>
          <br>
          <br>
@@ -39,6 +44,8 @@
 
    
     </div>
+
+
 
     <h1 class="page-header">Team Information
       
@@ -82,8 +89,71 @@
     
           <h2 align="left">Team Members
             <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete Team</button>
-            <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite User</button>
-            <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Quit Team</button>
+
+            <!--invite users with pop up window-->
+            <div class="container">
+              <div class="row clearfix">
+                <div class="col-md-12 column">
+                   <a id="modal-666695" href="#modal-container-666695" role="button" class="btn" data-toggle="modal">Invite Users</a>
+                  <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                          <h4 class="modal-title" id="myModalLabel">
+                            <!--search-->
+                            <br>
+                            <div class = "container">
+                              <div class="col-md-3 col-xs-3">
+                                <input type="text" class="form-control" placeholder="Search by tag...">
+                              </div>
+
+                            </div>
+                          </h4>
+                        </div>
+                        <div class="modal-body">
+                          <!--main body-->
+                          <div class = "container">
+                          <!--user list + add button + chosen list-->
+                          <div class="row">
+                          <!--to be chosen-->
+                          <div class="col-md-5 col-xs-5">
+                          <h2>Users</h2>
+                          <iframe src="../zwangbm/user_to_choose.html" width="100%" height="200" align="right">
+                          </iframe>
+                          </div>
+                          <!--chosed-->
+                          <div class="col-md-5 col-xs-5">
+                          <h2>Selected</h2>
+                          <iframe src="../zwangbm/user_chosen.html" width="100%" height="200" align="right">
+                          </iframe>
+                          </div>
+
+                          </div>
+                          <!--invite button-->
+                          <br>
+                          <div class="row">
+                            <!--invited button-->
+                              <div class="col-md-9 col-xs-9"></div>
+                              <div class="col-md-3 col-xs-3 ">
+                              <button class="btn btn-primary">
+                                Invite
+                              </button>
+                            </div>
+                          </div>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                           
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </h2>
            <hr>
           <div class="row">
@@ -177,7 +247,6 @@
     </div>
     </div>
 
-    
 
 
     
