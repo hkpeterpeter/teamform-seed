@@ -7,8 +7,8 @@ app.config(function($routeProvider){
 
      .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
-     .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"paramCtrl"})
-     .when("/MyConversation/:p",{templateUrl:"MyConversations.html", controller:"paramCtrl"});
+     .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"EventController"})
+     .when("/MyConversation/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
 
 });
 
