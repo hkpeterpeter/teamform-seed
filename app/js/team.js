@@ -238,33 +238,67 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 	};
 	
-	//$scope.inviteList = [];
+
+	$scope.checkTeam = function(){
+		//check if teamName exist
+			$scope.teamList = [];
+			$scope.teamList = $scope.team;
+			console.log("$scope.team ", $scope.team);
+			if (typeof $scope.teamList != 'undefined'){
+				for(var i=0; i< $scope.teamList.length; i++){
+					if ($scope.param.teamName ==$scope.teamList[i].$id){
+						return true;
+					}
+				}
+			}
+			return false;
+	}
+		
 	//invite function
-	$scope.sendInvite = function(m) {
-		if ($scope.param.teamName == ""){
+	$scope.sendInvite = function(id){
+		if (typeof $scope.param.teamName == 'undefined' || $scope.param.teamName == ""){
 			window.alert("Enter a team name first!");
+			return;
 		}
-		//DOES NOT WORK
-		else if (firebase.database().ref(getURLParameter("q") + "/member/" + m).inTeam != null){
-			window.alert("User is already in a team!");
+		if ($scope.checkTeam() != true){
+			window.alert("Team \"" + $scope.param.teamName + "\" does not exist!");
+			return;
 		}		
-		else{
-			//$scope.inviteList = [];
-			$scope.param.invitedBy = [];
-			
-			//$scope.inviteList = $firebaseArray(firebase.database().ref(getURLParameter("q") + "/member/" + m + "invitedBy"));
-			//for (var i=0; i < $scope.inviteList.length; i++){
-				//$scope.param.invitedBy.push($scope.inviteList);
-			//}	
-			
-			$scope.param.invitedBy.push($scope.param.teamName);
-			var refPath = getURLParameter("q") + "/member/" + m;
-			var ref = firebase.database().ref(refPath);			
-			ref.update({
-				invitedBy: $scope.param.invitedBy
-			})
-			window.alert("Invitation sent!");
-		}
-	};
+		//check if user in a team, if not invite user
+		var refPath = getURLParameter("q") + "/member/" + id;
+		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
+		$scope.memberInfo.$loaded(function(data){
+			console.log("Data: ", data);
+			if(typeof data.inTeam != 'undefined'){
+				window.alert("User is already in a team!");
+			}else{
+				$scope.inviteList = [];
+				$scope.invitedBy = [];				
+				$scope.inviteList = data.invitedBy;
+				
+				if (typeof $scope.inviteList != 'undefined'){
+					for(var i=0; i< $scope.inviteList.length; i++){
+						//check if team has send invitation to this user before.
+						if ($scope.param.teamName == $scope.inviteList[i]){
+							window.alert("Invitation sent before.");
+							return;
+						}
+						//push
+						else{
+							$scope.invitedBy.push($scope.inviteList[i]);
+						}
+					}
+				}
+				$scope.invitedBy.push($scope.param.teamName);
+				console.log("invitedBy: ", $scope.invitedBy);
+				var refPath = getURLParameter("q") + "/member/" + id;
+				var ref = firebase.database().ref(refPath);
+				ref.update({
+					invitedBy: $scope.invitedBy
+				});
+				window.alert("Invitation sent!");
+			}
+		});
+	}
 
 }]);
