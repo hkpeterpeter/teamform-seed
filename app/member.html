@@ -30,30 +30,18 @@
    </head>
    <body>
 
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
-
-   <br>
-
    <div class="text-center">
-      <h1>Member Page</h1>
-      <h2 id="text_event_name"></h2>
+      <h1>Create New Member</h1>
        <div id="member_page_controller" ng-controller="MemberCtrl">
-
-
          <div class="row">
-
             <div class="col-md-2 col-xs-2"></div>
-
             <div class="col-md-8 col-xs-8 panel">
-			
-
                
                <form class="form-horizontal">
                   <div class="form-group">
                      <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
                      <div class="col-sm-5">
-                     <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
+                     <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter a new User ID">
                      </div>
 					 
 					 <div class="col-sm-4">
@@ -63,45 +51,43 @@
                   </div>
 
                   <div class="form-group">
-                     <label for="inputName" class="col-sm-3 control-label">Name</label>
+                     <label for="inputUserName" class="col-sm-3 control-label">Name</label>
                      <div class="col-sm-9">
-                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
+                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Enter your name">
                      </div>
                   </div>
-				  
-				  
-				 
 
+                  <div class="form-group">
+                     <label for="eventName" class="col-sm-3 control-label">Name</label>
+                     <div class="col-sm-9">
+                        <input type="select" class="form-control" id="eventName" ng-model="eventName" placeholder="Enter an event">
+                     </div>
+                  </div>
 
+                  <div class="form-group">
+
+                     <h4>Your team preference:</h4>
+                     <div ng-repeat="team in teams">
+
+                        <div class="checkbox">
+                           <label><input type="checkbox" value="{{team.$id}}"
+                                         ng-checked="selection.indexOf(team.$id) > -1"
+                                         ng-click="toggleSelection(team.$id)">
+                              {{team.$id}}</label>
+                        </div>
+
+                     </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Create Member</button>
 
                </form>
-			   
-			     <div class="row text-left">
-			        
-				    <h3>Your team preference:</h3>
-			       <div ng-repeat="team in teams">
-					  					  
-					 <div class="checkbox">
-						<label><input type="checkbox" value="{{team.$id}}" 
-						  ng-checked="selection.indexOf(team.$id) > -1"
-						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}</label>
-					 </div>
-					  
-				  </div>
-				</div>
-
                
             </div>
-            <div class="col-md-2 col-xs-2"></div>
          </div>
-
-
-
        </div>
    </div>
-
-
+   
    <!-- Angular and Angular-route libraries (v1.5.7) -->
    <script src="lib/angular.min.js"></script>
    <script src="lib/angular-route.min.js"></script>        
