@@ -56,8 +56,21 @@ app.controller("teamCtrl",
 						// })
 						eventref = firebase.database().ref('users/' + $scope.userData.uid + '/writable');
 
+// get the team id of team that user is in
+						teamref=firebase.database().ref('users/' + $scope.userData.uid + '/writable/' + $scope.eventID );
+						 			$scope.user_teamdata = $firebaseObject(teamref);
 
 
+							//check whether user has already applied for a team
+							var user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid  + '/writable/' + $scope.eventID + '/applications');
+									user_appli_ref.once('value', function (snapshot) {
+									   if (snapshot.hasChild($scope.teamID)) {
+												$scope.alreadyApplied = true;
+									  	}
+												$scope.alreadyApplied = false;
+											}
+										}
+								)
 						// eventref.once('value', function (snapshot) {
 	    	// 				if (!snapshot.hasChild($scope.eventID)) {
 		    //     				$scope.inthisteam = false;
@@ -157,15 +170,6 @@ app.controller("teamCtrl",
 		}
 
 
-		$scope.aleardyApplied = function(){
-			user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid + '/writable/' + $scope.eventID + 'applications');
-			user_appli_ref.once('value', function (snapshot) {
-  				if (snapshot.hasChild($scope.teamID)) {
-      				return true;
-  				}
-					return false;
-				}
-		)};
 		//
 		// $scope.updateMember = function(id,content){
 		// 	memref.child(id).update({

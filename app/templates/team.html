@@ -25,15 +25,16 @@
 <button class="btn btn-primary" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change Team info</button>
         </h3>
         <!-- <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='leader') && (myEvents[eventID] | teamId)==teamID">{{myEvents[eventID] | role}} in this team</h3> -->
-        <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member')">{{myEvents[eventID] | role}} of team {{teams.$getRecord(team_id ).name}} </h3>
+        <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member')">{{myEvents[eventID] | role}} of team {{teams.$getRecord(user_teamdata.team ).name}} </h3>
         <h3 ng-if="(myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor'">{{myEvents[eventID] | role}}</h3>
 
   			<p>
   				{{teamdata.desc}}
           <!-- {{memberlist}} -->
   			</p>
-        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='tba' && !aleardyApplied()" ng-click = "ApplyTeam()">Apply for this team</button>
-        <button type = "button" class = "btn btn-primary" disabled="disabled" ng-if="(myEvents[eventID] | role)=='tba' && aleardyApplied() " ng-click = "ApplyTeam()">Apply for this team</button>
+        {{alreadyApplied}}
+        <button type = "button" class = "btn btn-primary" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied" ng-click = "ApplyTeam()">Apply for this team</button>
+        <button type = "button" class = "btn btn-primary" disabled="disabled" ng-if="((myEvents[eventID] | role)=='tba' ) && alreadyApplied " ng-click = "ApplyTeam()">Aleady Applied</button>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID" ng-click = "QuitTeam()">Quit this team</button>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" ng-click = "Change_Leader()">Change team leader</button>
   			<form class="form-search">
