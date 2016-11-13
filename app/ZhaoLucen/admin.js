@@ -74,7 +74,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 
 	$scope.remove = function(team) { 
   		var index = $scope.teams.indexOf(team);
-  		$scope.teams.splice(index, 1);     
+  		$scope.teams.splice(index, 1); 
+  		$rootScope.team_ref.child(team.$id.toString()).remove();    
 	};
 
 	$scope.users = [];
@@ -145,19 +146,16 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 				console.log(curUserOut);
 				for (var key in curUserOut.teamsApplying) {
 					console.log(curUserOut.teamsApplying.teamID);
-					if (curUserOut.teamsApplying[key].teamID == request.teamID) {
+					if (curUserOut.teamsApplying[key].eventID == event.$id) {
 						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
-						break;
 					}
 				};
 			});
 
 
 			//curUserOutList.$remove(request);
-			for (var i = $scope.users.length - 1; i >= 0; i--) {
-				if ($scope.users[i] == user.$id)
-					$scope.users.splice(i, 1);
-			};
+			var index = $scope.users.indexOf(user);
+  		$scope.users.splice(index, 1);  
 			// Remove waiting user from database-event
 			for (var key in event.waitingUsers) {
 				if(event.waitingUsers[key] == user.$id) {
@@ -197,13 +195,23 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			var curUserIn = curUser.child("teamsAsMember");
 			var curUserInList = $firebaseArray(curUserIn);
 			curUserInList.$add(teamID);
-		
+			
+			//Delete all requests of this event from teamsApplying
+			var curUserOut = $firebaseObject(curUser);
+			curUserOut.$loaded().then(function(){
+				console.log(curUserOut);
+				for (var key in curUserOut.teamsApplying) {
+					console.log(curUserOut.teamsApplying.teamID);
+					if (curUserOut.teamsApplying[key].eventID == event.$id) {
+						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
+					}
+				};
+			});		
 
 			//curUserOutList.$remove(request);
-			for (var i = $scope.users.length - 1; i >= 0; i--) {
-				if ($scope.users[i] == user.$id)
-					$scope.users.splice(i, 1);
-			};
+
+			var index = $scope.users.indexOf(user);
+  		$scope.users.splice(index, 1);  
 			// Remove waiting user from database-event
 			for (var key in event.waitingUsers) {
 				if(event.waitingUsers[key] == user.$id) {
