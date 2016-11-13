@@ -13,11 +13,13 @@
 
 
 
-  <h2>Modal Example</h2>
+
   <!-- Trigger the modal with a button -->
-  <button ng-click="goBackup($index)" ng-repeat="x in questionList"type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal{{$index+1}}">modal{{$index+1}}</button>
-
-
+  <div ng-repeat="x in questionList" class="well">
+    <span class="col-xs-10 col-md-10" >{{questionList[$index].title}}</span>
+    <button ng-click="goBackup($index)" type="button" class="btn btn-info btn-lg pull-right'" data-toggle="modal" data-target="#modal{{$index+1}}"><span class="glyphicon glyphicon-pencil" aria-hidden="false" aria-label="Edit"></span></button>
+    <button ng-click="deleteExistQuestion($index)" class="btn btn-lg pull-right'" ><span class="glyphicon glyphicon-trash" aria-hidden="false" aria-label="Delete"></span></button>
+  </div>
 
 
   <!-- Modal -->
@@ -36,22 +38,22 @@
           <div class="col-xs-12 col-md-12 ">
             <div class="row">
                 <b class="col-xs-2 col-md-2">Question: </b>
-                <input class="col-xs-9 col-md-9" type="text" ng-model="tempQuestion.title">
+                <input class="col-xs-9 col-md-9 form-control" type="text" ng-model="tempQuestion.title">
             </div>
           </div>
 
           <div class="col-xs-12 col-md-12 ">
                 <p><b>Choice: </b></p>
-                <input class="col-xs-4 col-md-4 " type="text" ng-model="tempQuestion.choice.A">
-                <input class="col-xs-4 col-md-4 col-md-offset-1" type="text" ng-model="tempQuestion.choice.B">
-                <input class="col-xs-4 col-md-4 " type="text" ng-model="tempQuestion.choice.C">
-                <input class="col-xs-5 col-md-5 col-md-offset-1" type="text" ng-model="tempQuestion.choice.D">
+                <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.A">
+                <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.B">
+                <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.C">
+                <input class="col-xs-5 col-md-5 form-control" type="text" ng-model="tempQuestion.choice.D">
           </div>
 
           <div class="col-xs-12 col-md-12 ">
             <div class="row">
                 <b class="col-xs-12 col-md-12">Answer: </b>
-                <input class="col-xs-10 col-md-10 col-md-offset-1" type="text" ng-model="tempQuestion.answer">
+                <input class="col-xs-10 col-md-10 form-control " type="text" ng-model="tempQuestion.answer">
             </div>
           </div>
         </div>
@@ -214,6 +216,12 @@ app.controller('trial', function($scope, keeper, backup) {
     {
 
       $scope.questionList[questionNo] = $scope.tempQuestion;
+    };
+
+    $scope.deleteExistQuestion = function(number)
+    {
+      console.log('deleteQuestion called');
+      $scope.questionList.splice(number,1);
     };
 
 
