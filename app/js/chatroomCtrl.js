@@ -18,22 +18,28 @@ app.controller("chatroomCtrl",
 
         $scope.hasChatRecord = function (currentMemberList) {
             
-            var checking = true;
-       // for(var t=0;t<$scope.chatrooms.length;t++){
-             for(var i=0;i<$scope.chatrooms[0].members.length;i++){
+        var checking = true;
+
+        for(var t=0;t<$scope.chatrooms.length;t++){
+             for(var i=0;i<$scope.chatrooms[t].members.length && checking ==true;i++){
+                 if($scope.chatrooms[t].members.length==1 && $scope.chatrooms[t].members[0]!=currentMemberList[0]){
+                     break;
+                    }
+
                  for(var j=0;j<currentMemberList.length;j++){
-                    if($scope.chatrooms[0].members[i]==currentMemberList[j]){
+                    if($scope.chatrooms[t].members[i]==currentMemberList[j]){
                         break;
                     }
-                    if($scope.chatrooms[0].members[i]!=currentMemberList[j] && j==(currentMemberList.length-1)){
-                        checking=false;
-                        return -1;
+
+                    if($scope.chatrooms[t].members[i]!=currentMemberList[j] && (j == (currentMemberList.length-1))){
+                        checking =false;
+                        break;
                     }
-                }
-                if(i==($scope.chatrooms[0].members.length-1)){
-                    return 0;}
             }
-        //}
+            if(i==($scope.chatrooms[t].members.length-1)){
+                    return t;}
+            }
+        }
             return -1;
         }
 
