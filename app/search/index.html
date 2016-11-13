@@ -48,7 +48,8 @@
 	<script>
 	
 		var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
-
+		
+		
 		function setColor(obj,color){
 			obj.style.color = color;
 		}
@@ -119,6 +120,7 @@
 			$scope.clear = function(){
 				$scope.new = "";
 				$scope.currentTag = [];
+				$scope.resultTag = [];
 			}
 			
 			$scope.autocomplete = function(){
@@ -133,7 +135,7 @@
 				}
 				$scope.currentTag = [];
 				var reg = $scope.new;
-				//reg.x.replace(' ','');
+				reg.replace(' ','');
 				if(reg != ""){
 					for(var i = 0;i < tag.length;i++){
 						var k = 0;
@@ -158,6 +160,8 @@
 							$scope.currentTag.push(tag[i]);
 						}	
 					}
+				}else{
+					$scope.resultTag = [];
 				}
 			};
 			
@@ -323,7 +327,7 @@
 				</div>
 				
 							<div class="row ">
-								<div class="col-sm-6 col-md-3  team-list ">
+								<div class="col-sm-6 col-md-3  team-list " ng-repeat = "">
 									<div class="row">
 										<img  class = "col-sm-5" style = "width:150px;height:120px" src="peter.jpg" alt="teamname">
 										
