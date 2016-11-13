@@ -110,6 +110,8 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
             sendName: $scope.leader.name,
             type: type
         };
+        if (newNotif.type == "invitation" )
+            newNotif.acceptedOrNot = "undecided";
         $firebaseArray(firebase.database().ref('users/' + userID + '/notifs')).$add(newNotif);
     }
 
