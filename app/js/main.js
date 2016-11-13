@@ -11,6 +11,9 @@
             $stateProvider.state('landing', {
                 url: '/',
                 templateUrl: 'app/partials/landing.html'
+            }).state('about_us', {
+                url: '/about_us',
+                templateUrl: 'app/partials/about_us.html'
             });
     }]);
 }(angular));
