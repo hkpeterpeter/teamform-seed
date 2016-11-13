@@ -15,12 +15,12 @@
 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
     <!-- Angular Library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
     <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,59 +48,13 @@
 	 <!--temporary css of search tag-->
 	 <link rel="stylesheet" href="index.css">
 	 <script src="index.js"></script>
+	 <!-- <script src="../zwangbm/js/btnclick.js"></script> -->
+	 <script src="../search/search-page.js"></script>
 
   </head>
   <body ng-app="mainApp">
-       <nav class="navbar navbar-inverse navbar-fixed-top" >
-      <div class="container-fluid">
-        <div class="navbar-header">
-			<a class="navbar-brand" href="#" >
-				<div>
-					<!--use firebase to get the user picture and user name-->
-					<img alt="Brand" style = "height:30px;width:30px" src="http://home.cse.ust.hk/~hunkim/images/Sungkim2.png"/> <span>Kim Sung     </span>
-
-					<!--not yet dicided-->
-					<button type="button" class="btn btn-default btn-xs">Logout</button>
-				</div>
-			</a>
-        </div>
-
-        <div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<!-- not yet decided -->
-					<!-- get personal data and count the number of notifications in notification json-->
-					<!-- ng-click to go to notification section?-->
-					<a href="#"><img src = "https://raw.githubusercontent.com/o3n/teamform-seed/master/app/search/images.png" style = "width:20px;height:20px"/> <span class="badge">42<!--use angular js--></span></a>
-				</li>
-			</ul>
-
-
-			<form class="navbar-form navbar-right">
-				<label for = "search">
-					<div class="dropdown" ng-controller = "searchController">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
-								{{searchType}}
-							<span class="caret"></span>
-						</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li><a href="#" ng-click = "setSearchT()">Search Team</a></li>
-						<li><a href="#" ng-click = "setSearchP()">Search Person</a></li>
-						<li><a href="#" ng-click = "setSearchE()">Search Event</a></li>
-					</ul>
-					</div>
-				</label>
-            <input name = "search" type="text" class="form-control" placeholder="Search...">
-
-			<!-- use ng-click to call the search function here -->
-			<button type="button" class="btn btn-default" aria-label="Left Align">
-				<span class="glyphicon glyphicon-search" aria-hidden="true">
-			</button>
-          </form>
-
-		</div>
-      </div>
-    </nav>
+       <div ng-controller="searchPage">
+       	<div ng-include="'../search/navbar.html'"></div>
 
     <div class="container-fluid">
       <div class="row">
@@ -130,8 +84,11 @@
           </ul>
         </div>
 
-    	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ng-view"></div>
-    </div></div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"   ng-hide = "startSearch">
+        <div ng-include="'../search/search_body.html'"></div>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ng-view" ng-show="startSearch"></div>
+    </div></div></div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
