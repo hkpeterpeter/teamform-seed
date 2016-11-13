@@ -17,13 +17,13 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   event.$loaded().then(function(){
   	
   	//$rootScope.eventTeams = event.allTeams;
-  	$rootScope.minSize = event.minSize;
-  	$rootScope.maxSize = event.maxSize;
-  	$rootScope.size = $scope.maxSize - $scope.minSize + 1;
+  	$scope.minSize = event.minSize;
+  	$scope.maxSize = event.maxSize;
+  	$scope.size = $scope.maxSize - $scope.minSize + 1;
   	
   	var admin = $firebaseObject($rootScope.user_ref.child(event.adminID));
   	admin.$loaded().then(function(){
-  		$rootScope.eventInfo = {
+  		$scope.eventInfo = {
   			name: event.eventName,
   			admin: admin.name
   		};
@@ -45,12 +45,12 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 				return false;
 			};
 			if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
-				if ((item.membersID.length+1) != $rootScope.maxSize) {
+				if ((item.membersID.length+1) != $scope.maxSize) {
 					return false;
 				};
 			};
 			if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
-				if ((item.membersID.length+1) == $rootScope.maxSize) {
+				if ((item.membersID.length+1) == $scope.maxSize) {
 					return false;
 				};
 			};
@@ -160,7 +160,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
 		console.log(curTeamMember);
 		console.log(curTeamMember.length);
-		if (curTeamMember.length < parseInt($rootScope.maxSize)-1) {
+		if (curTeamMember.length < parseInt($scope.maxSize)-1) {
 			//Add user to team member
 			curTeamMember.$add(user.$id.toString());
 
@@ -217,7 +217,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
 		console.log(curTeamMember);
 		console.log(curTeamMember.length);
-		if (curTeamMember.length < parseInt($rootScope.maxSize)-1) {
+		if (curTeamMember.length < parseInt($scope.maxSize)-1) {
 			//Add user to team member
 			curTeamMember.$add(user.$id.toString());
 
