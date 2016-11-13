@@ -56,11 +56,13 @@
              <div class = "row">
                 {{question.question}}
                 <br>
-                <div ng-repeat = "options in question">
-                  <div ng-repeat = "option in options">
-                    {{option}}
+                  <div ng-repeat = "option in question.option">
+                    <div class="checkbox">
+							  <label><input type="checkbox" ng-click="addanswer(option);">
+									<li>{{option}}</li>
+                       </label>
+                     </div>
                   </div>
-                </div>
                 <br>
              </div>
            </div>
