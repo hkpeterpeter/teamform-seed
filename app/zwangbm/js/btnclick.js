@@ -1,47 +1,70 @@
 var app = angular.module("clickApp", ["firebase"]); 
 	app.controller("clickCtrl", 
 			
-		function($scope, $firebaseArray) {
-
+		function($scope, $firebaseObject, $firebaseArray) {
 			// Implementation the todoCtrl 
-			// sync with firebaseArray
+			//alert("adsadsads");
 			var ref = firebase.database().ref("users");
+			
 			$scope.users = $firebaseObject(ref); //before: $firebaseArray
+			/*
+			$scope.users.ikari1={"name":"ikari1","intro":"My hands stuck to my face again!","img":"./img/ikari.jpg","select":"glyphicon glyphicon-unchecked","tag":["c++","java"]};
+			$scope.users.shinji={"name":"shinji","intro":"I am not a pussy","img":"./img/shinji.jpg","select":"glyphicon glyphicon-unchecked","tag":["angular"]};
+			$scope.users.ikari2={"name":"ikari2","intro":"someone make me my sandwich!","img":"./img/ikari.jpg","select":"glyphicon glyphicon-unchecked","tag":["firebase","sql"]};
+			$scope.users.$save();
+			*/
 			var ref2 = firebase.database().ref("selected");
+			
 			$scope.selected = $firebaseObject(ref2);		// .selected[0]: selected
-			//initialize the users store in firebase once
 			
-			var storage = {
-			"ikari1":{"name":"ikari1","intro":"My hands stuck to my face again!","img":"./img/ikari.jpg"},
-			"shinji":{"name":"shinji","intro":"I am not a pussy","img":"./img/shinji.jpg"},
-			"ikari2":{"name":"ikari2","intro":"someone make me my sandwich!","img":"./img/ikari.jpg"}
-			};
+			var ref3 = firebase.database().ref("filtered");
+			//initialize $scope.filtered
+			$scope.filtered = $firebaseObject(ref3);
+			//$scope.filtered.aa = {};
+			//$scope.filtered.$save();
+			/*
+			forEach($scope.users, function(value, key){
+				alert(key);
+				//$scope.filtered[key] = $scope.users[key]; // .key => ["key"]  !=  [key] 
+			});
+			*/
 			
-			var key;
-			for (key in storage) {
-				storage[key]["select"]="glyphicon glyphicon-unchecked";
-			}
-			
-			//$scope.users.$add($scope.storage);	//users[0]: all users
-			//$scope.users = storage;
-			$scope.users.$add(storage);
 
+			$scope.filterUser = function(tag) {   
+				var result = {};
+				for (key in $scope.users) {
+				    if (tag in $scope.users[key].tag) {
+				       result.key = $scope.users.key;
+				    }
+				}
+				    
+				return $scope.results;
+			};	
 
 
 			$scope.clickButton = function(event) {
-				alert(event.target.id);
-				if ($scope.users[0][event.target.id].select == "glyphicon glyphicon-check"){
-					alert('che');
-			      	$scope.users[0][event.target.id].select = "glyphicon glyphicon-unchecked";
-			      	delete $scope.selected[0][event.target.id];
+				var username = event.target.id;
+				//alert(event.target.id);
+				if ($scope.users[username].select == "glyphicon glyphicon-check"){
+					//alert(event.target.id+' before: check');
+			      	
+			      	$scope.users[username].select = "glyphicon glyphicon-unchecked";
+			      	$scope.users.$save();
+
+			      	delete $scope.selected[username];
+			      	alert("change to uncheck");			      	
+				    $scope.selected.$save();
 			    }
-			    else if ($scope.users[0][event.target.id].select == "glyphicon glyphicon-unchecked"){
-			      	alert('uncheck');
-			      	$scope.users[0][event.target.id].select = "glyphicon glyphicon-check";
-			      	$scope.selected[0][event.target.id]=$scope.users[0][event.target.id];
+			    else if ($scope.users[username].select == "glyphicon glyphicon-unchecked"){
+			      	//alert(event.target.id+' before: uncheck');
+			      	$scope.users[username].select = "glyphicon glyphicon-check";
+			      	$scope.users.$save();
+
+			      	$scope.selected[username]=$scope.users[username];
+			      	alert("change to check");
+				    $scope.selected.$save();
 			    }
-			    $scope.users.$save(0);
-			    $scope.selected.$save(0);
+			    
 		
 			}; 
 			
