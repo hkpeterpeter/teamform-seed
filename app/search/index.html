@@ -43,21 +43,42 @@
 	<!--angular js library-->
 	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 	 
-	 <!-- filter-tag.js -->
-	 <script>
+	
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+	<script>
+	
+		var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
+
 		function setColor(obj,color){
 			obj.style.color = color;
 		}
 		
-		function deleteTag(obj){
-			var currentTag = obj.parentNode;
-			currentTag.parentNode.removeChild(currentTag);
-		}
-	 </script>
-	 <!--sample angular js module and controller-->
-	 <script>
-		angular.module("searchToggle",[])
-		.controller("searchController",function($scope){
+		//central angular app		
+		var app = angular.module("profile",[]);
+		
+		//shared data among controllers,toggle sidebar and search page
+		app.service('divToggle', function() {
+			// private variable
+			var _dataObj = {search:true,sidebar:false};
+
+			// public API
+			this.dataObj = _dataObj;
+		});
+		
+		//controll navigation bar and search page
+		app.controller("searchPage",function($scope,divToggle){
+			$scope.currentTag = [];
+			$scope.resultTag = [];
+			$scope.new;
+			$scope.startSearch = divToggle.dataObj.search;
+			$scope.sidebar = divToggle.dataObj.sidebar;
+			/*for(key in tag){
+				$scope.currentTag.push(key);
+			};*/
+			$scope.start = function(){
+				$scope.startSearch = false;
+				$scope.sidebar = true;
+			};
 			$scope.searchType = "Search Team";
 			$scope.setSearchT = function(){
 				$scope.searchType = "Search Team";
@@ -68,28 +89,84 @@
 			$scope.setSearchE = function(){
 				$scope.searchType = "Search Event";
 			};
-		});
-		
-		angular.module("filterToggle",[])
-		.controller("filterController",function($scope){
+			$scope.reset = function(index){
+				var key;
+				$scope.resultTag.push($scope.currentTag[index]);
+				var temp = $scope.currentTag;
+				$scope.currentTag = [];
+				for(var i = 0;i < temp.length;i++){
+					if(i != index){
+						$scope.currentTag.push(temp[i]);
+					}
+				}
+			};
 			
+			$scope.delete = function(index){
+				var temp = $scope.resultTag;
+				
+				$scope.resultTag = [];
+				for(var i = 0;i < temp.length;i++){
+					if(i != index){
+						$scope.resultTag.push(temp[i]);
+					}
+					else{
+						$scope.currentTag.push(temp[i]);
+					}
+				};
+				
+			};
+			
+			$scope.clear = function(){
+				$scope.new = "";
+				$scope.currentTag = [];
+			}
+			
+			$scope.autocomplete = function(){
+				var iChars = "~`!@#$%^&*+=-[]\\\';,/{}|\":<>?";
+				for (var i = 0; i < $scope.new.length; i++){
+					if (iChars.indexOf($scope.new.charAt(i)) != -1){
+						alert ("File name has special characters ~`!@#$%^&*+=-[]\\\';,/{}|\":<>? \nThese are not allowed\n");
+						$scope.new = "";
+						break;
+					}
+						
+				}
+				$scope.currentTag = [];
+				var reg = $scope.new;
+				//reg.x.replace(' ','');
+				if(reg != ""){
+					for(var i = 0;i < tag.length;i++){
+						var k = 0;
+						var valid = true;
+						for(var j = 0;j < reg.length;j++){
+						
+							while(k < tag[i].length){
+								if(tag[i].charAt(k)==reg.charAt(j)){
+									k++;
+									break;
+								}else{
+									k++;
+								}
+								
+							}
+							if(k >= tag[i].length && j+1 < reg.length){
+								valid = false;
+								break;
+							}
+						}
+						if(valid){
+							$scope.currentTag.push(tag[i]);
+						}	
+					}
+				}
+			};
+			
+			$scope.test = function(){
+				$scope.currentTag.push("java");
+			};
 		});
-		
-		angular.module("listTeams",[])
-		.controller("listTeamController",function($scope){
-			$scope.teams = [
-				
-				
-					{name:"0.0"},
-					{name:">.<"},
-				
-					{name:"^_^"},
-					{name:"\^o^/"}
-				
-			];
-		});
-	 </script>
-	 <!--temporary css of search tag-->
+	</script>
+	<!--temporary css of search tag-->
 	 <style>
 		.filter-tag{
 			margin-right:10px;
@@ -100,11 +177,15 @@
 		}
 		
 	 </style>
+	 
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+
   </head>
 
-  <body >
+  <body ng-app = "profile" ng-controller = "searchPage">
 	
-    <nav class="navbar navbar-inverse navbar-fixed-top" ng-app = "searchToggle">
+    <nav class="navbar navbar-inverse navbar-fixed-top" >
       <div class="container-fluid">
         <div class="navbar-header">
 			<a class="navbar-brand" href="#" >
@@ -131,7 +212,7 @@
 			
 			<form class="navbar-form navbar-right">
 				<label for = "search">
-					<div class="dropdown" ng-controller = "searchController">
+					<div class="dropdown"  >
 						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
 								{{searchType}}
 							<span class="caret"></span>
@@ -139,11 +220,10 @@
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 						<li><a href="#" ng-click = "setSearchT()">Search Team</a></li>
 						<li><a href="#" ng-click = "setSearchP()">Search Person</a></li>
-						<li><a href="#" ng-click = "setSearchE()">Search Event</a></li>
 					</ul>
 					</div>
 				</label>
-            <input name = "search" type="text" class="form-control" placeholder="Search...">
+            <input name = "search" type="text" class="form-control" ng-focus = "start()" placeholder="Search...">
 			<button type="button" class="btn btn-default" aria-label="Left Align">
 				<span class="glyphicon glyphicon-search" aria-hidden="true">
 			</button>
@@ -177,20 +257,20 @@
           </ul>
         </div>
 		
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" >
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"   ng-hide = "startSearch">
 			<div class = "row filter-bar">
 				<div class = "col-sm-3">
 					<h5>Enter the tags that you want to search: </h5>
 					
 				</div>
 				<div class = "col-sm-2">
-					<input type="text" class="form-control" placeholder="case ignored"/>
+					<input type="text" class="form-control" ng-model = "new" ng-change = "autocomplete()" placeholder="case ignored"/>
 				</div>
 				<div class = "col-sm-1">
-					<button class="btn btn-primary" type="submit">Add</button>
+					<button class="btn btn-primary" type="submit" ng-click = "clear()">Clear</button>
 				</div>
 				<div class = "col-sm-6">
-					<p class="text-danger">Please don`t use any special character like 'space','@','#'.'$'.'%','^'.........</p>
+					<p class="text-danger">Please don`t use any special character like '@','#'.'$'.'%','^'.........</p>
 				</div>
 			</div>
 			
@@ -200,16 +280,9 @@
 				<div class="col-sm-3 ">
 					<h5>Choose the tags that you want to search: </h5>
 				</div>
-				<div class = "col-sm-9  ">
-					<div class="btn btn-default filter-tag" >java</div>
-					<div class="btn btn-default filter-tag" >html</div>
-					<div class="btn btn-default filter-tag" >cpp</div>
-					<div class="btn btn-default filter-tag" >angularjs</div>
-					<div class="btn btn-default filter-tag" >CSS</div>
-					<div class="btn btn-default filter-tag" >JavaScript</div>
-					<div class="btn btn-default filter-tag" >C#</div>
-					<div class="btn btn-default filter-tag" >SQL</div>
-					<div class="btn btn-default filter-tag" >PHP</div>
+				<div class = "col-sm-9  " id = "predefineTag"   >
+					<div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
+					
 				</div>
 			</div>
 			
@@ -219,26 +292,18 @@
 				<div class = "col-sm-3 ">
 					<h5>Current filter tags: </h5>
 				</div>
-				<div class = "col-sm-9">
-					<div class="btn btn-default filter-tag" >
-						XML
+				<div class = "col-sm-9" id = "searchTag" >
+					<div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
+						{{y}}
 						<span>&nbsp&nbsp</span>
-						<span id = "xml" onmouseenter = "setColor(this,'red')" onmouseleave = "setColor(this,'black')" onclick = "deleteTag(this)" style = "font-weight:bold">&times;</span>
-					</div>
-					<div class="btn btn-default filter-tag" >
-						JQuery
-						<span>&nbsp&nbsp</span>
-						<span id = "xml" onmouseenter = "setColor(this,'red')" onmouseleave = "setColor(this,'black')" onclick = "deleteTag(this)" style = "font-weight:bold">&times;</span>
-					</div>
-					<div class="btn btn-default filter-tag" >
-						Bootstrap
-						<span>&nbsp&nbsp</span>
-						<span id = "xml" onmouseenter = "setColor(this,'red')" onmouseleave = "setColor(this,'black')" onclick = "deleteTag(this)" style = "font-weight:bold">&times;</span>
+						<span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
 					</div>
 				</div>
 			</div>
 			
 			<hr/>
+			
+			
 			
 			<div class = "row filter-bar">
 				<div class="col-sm-3 ">
@@ -250,7 +315,7 @@
 			
 			<hr/>
 			
-			<div class = "row" ng-app = "listTeams" ng-controller = "listTeamController">
+			<div class = "row">
 				<div class = "row">
 					<div class = "col-sm-3">
 						<h3>Search Result:</h3>
@@ -268,195 +333,18 @@
 											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
 										</div>
 									</div>
-								</div>
-							
-								<div class="col-sm-6 col-md-3  team-list">
-									<div class="row">
-										<img  class = "col-sm-5" style = "width:150px;height:120px" src="peter.jpg" alt="teamname">
-										<div class="caption col-sm-7">
-											<h3>Team Dark</h3>
-											<p>...</p>
-											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
-										</div>
-									</div>
-								</div>
-								<div class="col-sm-6 col-md-3  team-list">
-									<div class="row">
-										<img  class = "col-sm-5" style = "width:150px;height:120px" src="peter.jpg" alt="teamname">
-										<div class="caption col-sm-7">
-											<h3>SK Telecom</h3>
-											<p>...</p>
-											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
-										</div>
-									</div>
-								</div>
-								
+								</div>		
 							</div>
 						
-				</table>
+				
 			</div>
+			
+			
+			
+			
 		</div>
-		<!--
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
 
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
-		<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-		-->
+		
       </div>
 	  
     </div>
