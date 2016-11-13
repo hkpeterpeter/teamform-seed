@@ -62,14 +62,15 @@ export default class AuthService {
     }
     checkRules(rules = {}) {
         let user = this.getUser();
-        if (rules.userId && (!this.user || this.user.uid != rules.userId)) {
-            return Promise.reject('PERMISSION_DENIED');
-        }
+        console.log(user);
         if (this.user && rules.signOut) {
             return Promise.reject('GUEST_REQUIRED');
         }
-        if (!this.user && rules.signIn) {
+        if (!this.user && (rules.signIn || rules.userId)) {
             return Promise.reject('AUTH_REQUIRED');
+        }
+        if (rules.userId && (!this.user || this.user.uid != rules.userId)) {
+            return Promise.reject('PERMISSION_DENIED');
         }
         return Promise.resolve();
     }

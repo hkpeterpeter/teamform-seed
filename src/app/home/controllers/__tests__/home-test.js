@@ -1,7 +1,8 @@
+import home from '../../';
 describe('HomeController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('home');
+        angular.mock.module(home);
         inject((_$controller_) => {
             $controller = _$controller_('HomeCtrl');
         });

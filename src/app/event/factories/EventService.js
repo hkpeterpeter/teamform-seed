@@ -11,31 +11,36 @@ export default class EventService {
         if (event.$value === null) {
             return Promise.reject(new Error('Event not exist'));
         }
-        event.createdByUser = await this.userService.getUser(event.createdBy);
-        event.teams = [];
-        let teams = await this.$firebaseArray(this.$database.ref('teams')).$loaded();
-        for(let team of teams) {
-            if(team.eventId == event.$id) {
-                event.teams.push(team);
+        let init = (async () => {
+            event.createdByUser = await this.userService.getUser(event.createdBy);
+            event.teams = await this.$firebaseArray(this.$database.ref('teams').orderByChild('eventId').equalTo(id)).$loaded();
+            let eventUsers = await this.$firebaseArray(event.$ref().child('users')).$loaded();
+            for(let eventUser of eventUsers) {
+                eventUser.user = await this.userService.getUser(eventUser.id);
+                eventUser.hasTeam = false;
+                for(let team of event.teams) {
+                    for(let [teamUserKey, teamUser] of Object.entries(team.users)) {
+                        if(eventUser.id == teamUser.id) {
+                            eventUser.hasTeam = true;
+                            break;
+                        }
+                    }
+                    if(eventUser.hasTeam) {
+                        break;
+                    }
+                }
             }
-        }
-        let eventUsers = await this.$firebaseArray(event.$ref().child('users')).$loaded();
-        for(let eventUser of eventUsers) {
-            Object.assign(eventUser, await this.userService.getUser(eventUser.id));
-        }
-        event.users = eventUsers;
+            event.users = eventUsers;
+            return Promise.resolve();
+        });
+        await init();
+        event.$$updated = await init;
         return event;
     }
     async joinEvent(id, force) {
-        let user = await this.authService.checkAuth();
-        let eventUsers = await this.$firebaseArray(this.$database.ref('events/' + id + '/users')).$loaded();
-        let joined = false;
-        for (let eventUser of eventUsers) {
-            if (eventUser.id == user.uid) {
-                joined = true;
-                break;
-            }
-        }
+        let user = this.authService.getUser();
+        let eventUsers = await this.$firebaseArray(this.$database.ref('events/' + id + '/users').orderByChild('id').equalTo(user.uid)).$loaded();
+        let joined = eventUsers.length > 0;
         if (!joined) {
             return eventUsers.$add({id: user.uid});
         } else {
@@ -54,7 +59,7 @@ export default class EventService {
         return events;
     }
     async createEvent(event) {
-        let user = await this.authService.checkAuth();
+        let user = this.authService.getUser();
         event.createdBy = user.uid;
         event.createdAt = Date.now();
         return this.$firebaseArray(this.$database.ref('events')).$add(event);

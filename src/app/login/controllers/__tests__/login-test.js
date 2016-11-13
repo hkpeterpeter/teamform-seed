@@ -1,8 +1,10 @@
+import home from '../../../home';
+import login from '../../';
 describe('LoginController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('home');
-        angular.mock.module('login');
+        angular.mock.module(home);
+        angular.mock.module(login);
         inject((_$controller_) => {
             $controller = _$controller_('LoginCtrl');
         });

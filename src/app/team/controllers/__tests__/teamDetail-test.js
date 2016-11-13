@@ -1,7 +1,8 @@
+import team from '../../';
 describe('TeamDetailController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('team');
+        angular.mock.module(team);
         inject((_$controller_) => {
             $controller = _$controller_('TeamDetailCtrl');
         });

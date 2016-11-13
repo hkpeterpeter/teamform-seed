@@ -1,9 +1,10 @@
+import alert from '../..';
 describe('AlertDirective', () => {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.alert')
+        angular.mock.module(alert);
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;

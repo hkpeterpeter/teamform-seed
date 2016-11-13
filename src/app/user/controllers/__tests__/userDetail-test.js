@@ -1,7 +1,8 @@
+import user from '../../';
 describe('UserDetailController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('user');
+        angular.mock.module(user);
         inject((_$controller_) => {
             $controller = _$controller_('UserDetailCtrl');
         });
@@ -25,7 +26,7 @@ describe('UserDetailController', () => {
         expect($controller.user.id).toEqual(1);
         done();
     });
-    
+
     it('should reject getUser', async (done) => {
         let $timeout;
         inject((_$timeout_, UserService) => {

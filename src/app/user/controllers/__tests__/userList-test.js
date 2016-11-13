@@ -1,7 +1,8 @@
+import user from '../../';
 describe('UserListController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('user');
+        angular.mock.module(user);
         inject((_$controller_) => {
             $controller = _$controller_('UserListCtrl');
         });

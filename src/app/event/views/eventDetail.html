@@ -91,7 +91,14 @@
 
     <div class="panel panel-warning">
         <div class="panel-heading">
-            <h3 class="panel-title">User Joined</h3>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3 class="panel-title text-left">User Joined</h3>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><a class="label label-warning" ng-click="eventDetail.autoFormTeam()">Auto FormTeam</a></div>
+                </div>
+            </div>
         </div>
 
         <div class="table-responsive">
@@ -102,8 +109,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="user in eventDetail.event.users | itemsPerPage: 5" pagination-id="users">
-                        <td><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
+                    <tr dir-paginate="eventUser in eventDetail.event.users | itemsPerPage: 5" pagination-id="users">
+                        <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{eventUser.user.name}}</a></td>
                     </tr>
                 </tbody>
             </table>

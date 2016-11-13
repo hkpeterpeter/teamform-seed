@@ -26,7 +26,6 @@ export default class EventDetailCtrl {
             let eventUsers = await this.eventService.joinEvent(this.$stateParams.eventId);
             this.$timeout(() => {
                 console.log('success');
-                this.getEvent();
             });
         } catch (error) {
             this.$timeout(() => {
@@ -34,6 +33,28 @@ export default class EventDetailCtrl {
             });
         }
     }
+    autoFormTeam() {
+        let teams = [];
+        let users = _.chain(this.event.users).filter({hasTeam: false}).shuffle().value();
+        while (users.length > 0) {
+            let rand = _.random(this.event.teamMin, this.event.teamMax);
+            if (rand > users.length) {
+                rand = users.length;
+            }
+            teams.push(_.pullAt(users, _.range(rand)));
+        }
+        let lastTeam = teams[teams.length - 1];
+        if (lastTeam.length < this.event.teamMin) {
+            for (let i = 0; i < teams.length && lastTeam.length > 0; i++) {
+                let team = teams[i];
+                for (let j = team.length; j < this.event.teamMax && lastTeam.length > 0; j++) {
+                    team.push(_.pullAt(lastTeam, [0]));
+                }
+            }
+            _.pull(teams, lastTeam);
+        }
+        console.log(teams);
+    }
 }
 
-EventDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService', 'UserService'];
+EventDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];

@@ -1,9 +1,10 @@
+import header from '../../';
 describe('HeaderDirective', () => {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.header');
+        angular.mock.module(header);
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;

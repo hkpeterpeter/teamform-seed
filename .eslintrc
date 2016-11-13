@@ -36,6 +36,7 @@
     ],
     "globals": {
         "ENV": true,
+        "_": true
     },
     "rules": {
         "no-unused-vars": ["warn", {"args": "all"}],
