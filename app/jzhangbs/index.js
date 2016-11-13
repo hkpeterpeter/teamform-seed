@@ -5,42 +5,52 @@
 var app = angular.module("indexApp", ["firebase", "ngCookies"]);
 
 app.controller("indexCtrl",
-  function($scope, $firebaseArray, $timeout, $cookies, $window) {
+  function($scope, $firebaseArray, $firebaseObject, $timeout, $cookies, $window) {
 
     if (checkLogin($cookies))
-      gotoURL("/profile.html", [{key:"username",value:$cookies.get("username")}], $window);
+      gotoURL("/TXR/index.html", [], $window);
 
     initalizeFirebase();
-    var ref = firebase.database().ref("accounts");
-    accounts = $firebaseArray(ref);
+    var ref = firebase.database().ref("users");
+    accounts = $firebaseObject(ref);
+
+    $scope.scopeUser = accounts;
 
     $scope.login = function() {
       var loginUser;
-      for (i = 0; i < accounts.length; i++) {
-        if ($scope.inputEmail == accounts[i].username && $scope.inputPassword == accounts[i].password)
-          loginUser = $scope.inputEmail;
-      }
+      if ( accounts[$scope.inputUsername] !== undefined && accounts[$scope.inputUsername].password == $scope.inputPassword )
+        loginUser = $scope.inputUsername;
       if (loginUser !== undefined) {
-        $cookies.put("username",loginUser);
-        gotoURL("../TXR/index.html", [], $window);
+        $cookies.put("username",loginUser,{path:"/"});
+        gotoURL("/TXR/index.html", [], $window);
       }
     };
 
-    $scope.rememberMe = false;
+    //$scope.rememberMe = false;
 
     var addUser = function(user) {
-      for (i = 0; i < accounts.length; i++)
-        if (user.username == accounts[i].username) return;
-      accounts.$add(user);
+      if (accounts[user.username] === undefined){
+        var userTemplate = {
+          password: "",
+          intro: "",
+          img: "",
+          tags: "",
+          member: {},
+          notif: []
+        };
+        userTemplate.password = user.password;
+        accounts[user.username] = userTemplate;
+        accounts.$save().then(function(ref){},function(e){console.log(e);});
+      }
     };
 
     $scope.reg = function() {
-      if ($scope.inputEmailReg !== undefined && $scope.inputEmailReg !== "" &&
+      if ($scope.inputUsernameReg !== undefined && $scope.inputUsernameReg !== "" &&
           $scope.inputPasswordReg !== undefined && $scope.inputPasswordReg !== "" &&
           $scope.inputConfirmPasswordReg !== undefined && $scope.inputConfirmPasswordReg !== "" &&
           $scope.inputConfirmPasswordReg == $scope.inputPasswordReg) {
 
-        newAcc = {username: $scope.inputEmailReg, password: $scope.inputPasswordReg};
+        newAcc = {username: $scope.inputUsernameReg, password: $scope.inputPasswordReg};
         addUser(newAcc);
       }
     };
@@ -49,14 +59,14 @@ app.controller("indexCtrl",
       FB.getLoginStatus(function(response) {
         if (response.status == "connected") {
           addUser({username:response.authResponse.userID, password:"facebook"});
-          $cookies.put("username", response.authResponse.userID);
-          gotoURL("/profile.html", [{key:"username",value:response.authResponse.userID}], $window);
+          $cookies.put("username", response.authResponse.userID,{path:"/"});
+          gotoURL("/TXR/index.html", [], $window);
         }
         else FB.login(function(response){
           if (response.status == "connected") {
             addUser({username:response.authResponse.userID, password:"facebook"});
-            $cookies.put("username", response.authResponse.userID);
-            gotoURL("/profile.html", [{key:"username",value:response.authResponse.userID}], $window);
+            $cookies.put("username", response.authResponse.userID,{path:"/"});
+            gotoURL("/TXR/index.html",[], $window);
           }
         });
       });

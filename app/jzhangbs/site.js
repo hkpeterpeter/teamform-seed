@@ -30,12 +30,12 @@ function initalizeFirebase() {
 
   // Initialize Firebase
   var config = {
-   apiKey: "AIzaSyDkK5LLCEJbheah07bk6P4-f3hX-9XYOlw",
-   authDomain: "teamform-c3719.firebaseapp.com",
-   databaseURL: "https://teamform-c3719.firebaseio.com",
-   storageBucket: "teamform-c3719.appspot.com",
-   messagingSenderId: "1082916794036"
- };
+    apiKey: "AIzaSyCI2oKMFJECxHD11aRCxzVNG5M-Uvm8X20",
+    authDomain: "teamform-ad42e.firebaseapp.com",
+    databaseURL: "https://teamform-ad42e.firebaseio.com",
+    storageBucket: "teamform-ad42e.appspot.com",
+    messagingSenderId: "609768855060"
+  };
   firebase.initializeApp(config);
 
 }
@@ -62,7 +62,7 @@ function gotoURL(path, params, $window) {
 }
 
 function checkLogin($cookies) {
-  username = $cookies.get("username");
+  username = $cookies.get("username",{path:"/"});
   if (username !== undefined) return true;
   else return false;
 }

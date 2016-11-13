@@ -20,7 +20,13 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		});
 
 		//controll navigation bar and search page
-		app.controller("searchPage",function($scope,divToggle){
+		app.controller("searchPage",function($scope,divToggle,$cookies,$window){
+
+			$scope.logout = function() {
+				$cookies.remove("username",{path:"/"});
+				gotoURL("/jzhangbs/index.html",[],$window);
+			};
+
 			$scope.currentTag = ["java"];
 			$scope.resultTag = [];
 			//$scope.new;
