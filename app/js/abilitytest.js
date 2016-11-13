@@ -49,7 +49,7 @@ angular.module('ability-test-app', ['firebase'])
 						}
 					}
 				var mark = correctness / $scope.quiz.length * 100
-				var refPath = getURLParameter("q") +"/member/" + userID;
+				var refPath = getURLParameter("q") +"/member/" + userID + "/ability/Java";
 				var ref = firebase.database().ref(refPath);
 				ref.update({marks: mark})
 				var url = "member.html?q=" + getURLParameter("q");
