@@ -47,7 +47,7 @@ export default class EventDetailCtrl {
         if (lastTeam.length < this.event.teamMin) {
             for(let i=0; i<teams.length && lastTeam.length > 0; i++) {
                 let team = teams[i];
-                for(let j=team.length; j<this.event.teamMax; j++) {
+                for(let j=team.length; j<this.event.teamMax && lastTeam.length > 0; j++) {
                     team.push(_.pullAt(lastTeam, [0]));
                 }
             }
