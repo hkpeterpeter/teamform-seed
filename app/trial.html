@@ -31,7 +31,7 @@
           <h4 class="modal-title">Question{{$index+1}} </h4>
         </div>
         <div class="modal-body">
-            <p>{{questionList[$index+1].title}}</p>
+            <p>{{questionList[$index].title}}</p>
 
           <div class="col-xs-12 col-md-12 ">
             <div class="row">
@@ -60,8 +60,8 @@
             <!-- paragraph is for the padding of button-->
             <p class="col-xs-12 col-md-12"></p>
             <p class="col-xs-12 col-md-12"></p>
-          <button type="button" class="btn btn-success" data-dismiss="modal">Save</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button ng-click="saveEditedQuestion($index)" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+          <button ng-click="cancelEditedQuestion()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
           </div>
         </div>
@@ -205,6 +205,16 @@ app.controller('trial', function($scope, keeper, backup) {
       return backup.getQuestion();
     };
 
+    $scope.cancelEditedQuestion = function()
+    {
+      <!--did nothing as cancel did not need to perform any operation right now-->
+    };
+
+    $scope.saveEditedQuestion = function(questionNo)
+    {
+
+      $scope.questionList[questionNo] = $scope.tempQuestion;
+    };
 
 
 
