@@ -78,6 +78,38 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   		$rootScope.team_ref.child(team.$id.toString()).remove();    
 	};
 
+	$scope.adminMergeTeam = function(team) {
+		var teamName = team.adminMerge;
+		var mergedTeam;
+		console.log(teamName);
+		for (var key in $scope.teams) {
+			if ($scope.teams[key].teamName == teamName) {
+				mergedTeam = $scope.teams[key];
+			};
+		};
+
+		if (mergedTeam == null) {
+			console.log("No Such Team");
+			return;
+		};
+
+		console.log(team);
+		console.log(mergedTeam);
+		var newMembers = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("membersID"));
+		newMembers.$add(team.leaderID);
+		for (var key in team.membersID) {
+			newMembers.$add(team.membersID[key]);
+		};
+
+		var newInvites = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("invitedPeople"));
+		for (var key in team.invitedPeople) {
+			newInvites.$add(team.invitedPeople[key]);
+		};
+
+		$scope.remove(team);
+
+	};
+
 	$scope.users = [];
 	console.log(event.waitingUsers);
 	for (var key in event.waitingUsers) {
