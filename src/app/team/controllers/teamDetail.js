@@ -21,9 +21,9 @@ export default class TeamDetailCtrl {
             });
         }
     }
-    async joinTeam() {
+    async joinTeam(positionId) {
         try {
-            let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId);
+            let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
                 console.log('success');
                 this.getTeam();
@@ -33,6 +33,15 @@ export default class TeamDetailCtrl {
                 this.error = error;
             });
         }
+    }
+    filterJoined(user) {
+        return user.id != null && user.pending !== true && user.confirmed !== false;
+    }
+    filterAvailable(user) {
+        return user.id == null;
+    }
+    filterWaitingList(user) {
+        return user.pending === true && (user.confirmed === false || user.accepted === false);
     }
 }
 
