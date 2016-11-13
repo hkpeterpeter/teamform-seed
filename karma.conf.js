@@ -1,4 +1,3 @@
-//jshint strict: false
 module.exports = function (config) {
 	config.set({
 
@@ -12,7 +11,7 @@ module.exports = function (config) {
 			'lib/firebase.js',
 			'lib/angularfire.min.js',
 			'js/*.js',
-			'unit_tests/*.js'
+			'unit_tests/*.js',
 		],
 		exclude: [
 		],
@@ -22,7 +21,10 @@ module.exports = function (config) {
 			'js/admin.js': ['coverage'],
 			'js/team.js': ['coverage'],
 			'js/member.js': ['coverage'],
+			'js/createGroup.js': ['coverage'],
 			'js/searchbar.js': ['coverage']
+			//'js/searchbar.js' : ['coverage'],
+			//'js/chatroomCtrl.js' : ['coverage']
 		},
 		reporters: ['progress', 'coverage'],
 		coverageReporter: {
