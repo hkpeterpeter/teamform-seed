@@ -1,28 +1,20 @@
-$(document).ready(function () {
-    $("#btn_admin").click(function () {
-        var val = $('#input_text').val();
-        if (val !== '') {
-            var url = "admin.html?q=" + val;
-            window.location.href = url;
-            return false;
-        }
-    });
+angular.module('teamform')
+        .controller(
+        'LoginCtrl',
+        ['$scope', '$firebaseObject', '$firebaseArray', '$state',
+            function($scope, $firebaseObject, $firebaseArray, $state) {
+                $scope.goToAdmin = function() {
+                    $state.go("admin", {event: $scope.event});
+                };
 
-    $("#btn_leader").click(function () {
-        var val = $('#input_text').val();
-        if (val !== '') {
-            var url = "team.html?q=" + val;
-            window.location.href = url;
-            return false;
-        }
-    });
+                $scope.goToLeader = function() {
+                    $state.go("leader", {event: $scope.event});
+                };
 
-    $("#btn_member").click(function () {
-        var val = $('#input_text').val();
-        if (val !== '') {
-            var url = "member.html?q=" + val;
-            window.location.href = url;
-            return false;
-        }
-    });
-});
+                $scope.goToMember = function() {
+                    $state.go("member", {event: $scope.event});
+                };
+
+            }
+        ]
+);
