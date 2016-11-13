@@ -1,15 +1,17 @@
 
 teamapp.controller('fishCtrl', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($scope,$rootScope, $firebaseObject, $firebaseArray) {
 
+//FAKE $rootScope.clickedEvent
+$scope.currentEvent = 0;
 
-//keep consistent with Hamster...
-$rootScope.currentEvent = 0;
-$rootScope.currentTeam = 0;
-$rootScope.currentUser = 0;
-
+$scope.currentUser = $rootScope.currentUser.id;
 $scope.events = $rootScope.events;
 $scope.users = $rootScope.users;
 $scope.teams = $rootScope.teams;
+
+
+
+
 
 
 var allData = $firebaseObject(firebase.database().ref("/"));
@@ -58,7 +60,15 @@ $scope.processData=function(allData, currentEventID, currentTeamID, currentUserI
     };
 
     allData.$loaded().then(function(data){
-    	$scope.readyData = $scope.processData(allData, $rootScope.currentEvent, $rootScope.currentTeam, $rootScope.currentUser);
+
+        for (var candidate in allData.users[$scope.currentUser].teamsAsMember){
+            if (allData.teams[candidate].belongstoEvent == $scope.currentEvent){
+                $scope.currentTeam = candidate;
+                break;
+            }
+        }
+
+        $scope.readyData = $scope.processData(allData, $scope.currentEvent, $scope.currentTeam, $scope.currentUser);
     });
 
 
