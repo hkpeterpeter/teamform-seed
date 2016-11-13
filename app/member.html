@@ -51,7 +51,7 @@
 			</div>
 		</div>
 	</nav>
-
+	
 	<div login id="login-form" class="modal"></div>
 		<br>
 
@@ -66,6 +66,23 @@
 			</div>
 			<div class="col-md-3 col-xs-2"></div>
 		</div>
+		
+		<div class="col-sm-8 col-sm-offset-2">
+		<form name="form" class="css-form col-sm-8" novalidate>			
+			<div class="form-group col-xs-10">	
+				<div class="row">		
+					<label class="col-xs-2">Tags: </label>	
+				</div>
+				<div class="col-xs-4"><input class="form-control" type="text" name="title" ng-model="tag" placeholder="Tags for your traits"></div>
+				<button type="button" class="btn btn-primary btn-s col-xs-1" id="addbtn" ng-click="addTag();" >Add</button>
+			</div>
+		</form>
+		<div class="col-md-12 col-md-12 panel"> 
+			<div ng-repeat="t in tags track by $index">
+				<button type="button" class="btn btn-default btn-xs col-xs-1" id="delbtn" ng-click="tags.splice(tags.indexOf(t), 1);" >{{t}}</button>
+    		</div>
+		</form>
+	</div>
 
 		<div class="row">
 			<div class="col-md-3 col-xs-2"></div>
@@ -85,20 +102,7 @@
 			<div class="col-md-3 col-xs-2"></div>
 		</div>
 	
-	<!-- new -->
-	<br>
-	<div class="col-sm-8 col-sm-offset-2">
-		<form name="form" class="css-form col-sm-8" novalidate>			
-			<div class="form-group col-xs-10">			
-				<label class="col-xs-2">Tags: </label>	
-				<div class="col-xs-10"><input class="form-control" type="text" name="title" ng-model="tag" placeholder="Tags for your traits"></div>
-			</div>	
-			<button type="button" class="btn btn-primary col-xs-2" id="addbtn" ng-click="addTag();" >Add</button>
-		</form>
-		<div class="panel panel-success col-sm-4" ng-repeat="t in tags">
-			<div class="panel-body">{{t}}</div>
-		</div>
-	</div>
+	
 
 	<script src="lib/angular.min.js"></script>
 	<script src="lib/angular-route.min.js"></script>
