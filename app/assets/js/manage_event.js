@@ -88,7 +88,7 @@ angular.module('teamform-event-app', ['firebase'])
 		$scope.param.$save();
 		
 		// Finally, go back to the front-end
-		window.location.href= "index.html";
+		window.location.href= "event.html?q=" +eventName;
 	}
 	
 		

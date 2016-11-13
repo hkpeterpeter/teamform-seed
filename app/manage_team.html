@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="teamform-manage_team-app" id="manage_team_page_controller" ng-controller="ManageTeamCtrl">
 <head>
-	<meta charset="utf-8">
+	<meta charset="utf-8" >
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>Right Sidebar template - Progressus Bootstrap template</title>
+		<title >LIGHT OF WISDOM - Managing {{EventName}} Event - {{TeamName}} Team</title>
 
 	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
@@ -23,6 +23,37 @@
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+      <!-- Angular Library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>     
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+   <script src="assets/lib/firebase.js"></script>     
+   <script src="assets/lib/angular-route.min.js"></script>    
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
+
+
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/login.js"></script>
+   <script src="assets/js/manage_team.js"></script>
+
+
 </head>
 
 <body>
@@ -34,7 +65,7 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
 			</div>
-			<div class="navbar-collapse collapse">
+			<div class="navbar-collapse collapse" >
 				<ul class="nav navbar-nav pull-right">
 					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li>
@@ -46,7 +77,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.html">SIGN IN / SIGN UP</a></li>
+					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -62,7 +93,7 @@
 			<li><a href="index.html">Home</a></li>
 			<li class="active">About</li>
 		</ol>
-        <h2 style="text-align:center" >Manage Team</h2>
+      <h2 style="text-align:center" >Managing {{EventName}} Event - {{TeamName}} Team</h2>
 		</div>
 	<div class="container-fluidspace">
 
@@ -127,7 +158,7 @@
                 <div class="row" >
                     <div class="col-sm-12">
                         <p>Team Name</p>
-                        <input class="form-control" type="text" placeholder="Original Team Name">
+                         <h3 style="text-align:center" > {{TeamName}} Team</h2>
                     </div>
                   
                    
@@ -136,7 +167,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <p>Team Description</p>
-                        <textarea placeholder="Original Team Description" class="form-control" rows="9"></textarea>
+                        <textarea  ng-model="input.description" placeholder="Original Team Description" class="form-control" rows="9"></textarea>
                     </div>
                 </div>
                 <br>
@@ -145,7 +176,7 @@
                         <label class="checkbox"><input type="checkbox"> xxxxxxxx</label>
                     </div>
                     <div class="col-sm-6 text-right">
-                        <input class="btn btn-action" type="submit" value="Edit">
+                        <input class="btn btn-action" type="submit" value="Edit" ng-click="saveFunc()">
                     </div>
                 </div>
             </form>
