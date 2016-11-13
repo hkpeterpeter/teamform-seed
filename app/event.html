@@ -28,47 +28,41 @@
       <script src="js/site.js"></script>
 	  	  
    </head>
+   
+   <style>
+	h1 {
+	font-weight: bold;
+	font-size: 40px;
+   }
+   </style>
+   
    <body  ng-controller="EventCtrl">
    <div ng-include="'navbar.html'" id='navbarMenu'></div>
    <br>
 
    <div class="text-center">
-      <h1>Event Page</h1>
-      <h2 id="text_event_name"></h2>
-      This part should be shared the event description that completed by christie with ng-include
+      <h1><u>Event Page</u></h1>
       <div id="event_description_div">
+	    <div ng-include="'description.html'"></div>
       </div>
 
+	  <hr>
+	  
       <div id="event_page_controller">
-        <h3>Announcements<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#announcement_div">
+	    <u><font size="6px" align="middle"><b>Announcements</b></font></u>&nbsp;&nbsp;
+		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#announcement_div">
             <span class="glyphicon glyphicon-collapse-up"></span>
-        </button></h3>
-        <!--announcement div--><br>
-        <div id="announcement_div" class="collapse in">
-            <!--current announcement list-->
-            <div id="announcement_list">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Announcement</th>
-                        <th>Announcement date</th>
-                      </tr>
-                    </thead>
-                    <tbody ng-repeat="a in announcements">
-                      <tr>
-                        <td>{{a.text}}</td>
-                        <td>{{a.date | date: 'dd/MM/yyyy'}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <br>
-            </div>
-        </div><br>
+        </button>
+		<br><br>
+        <!--announcement div-->
+        <div id="announcement_div">
+		    <div ng-include="'readAnn.html'"></div>
+		</div>     
         <!--end of announcement div-->
-
-
+        <br><hr>
+		<br>
         <!-- create team button -->
-        <button id="btn_createTeam" type="button" class="btn btn-primary" ng-click="createTeam('default')">Create team</button>
+        <button id="btn_createTeam" type="button" class="btn btn-primary" ng-click="createTeam('default')">Create teams</button>
 
 
         <!--teams & member list-->
