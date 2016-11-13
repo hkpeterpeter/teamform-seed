@@ -314,6 +314,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 		
 		//get 'profile' ref 
         var userDataRef = firebase.database().ref("profile");
+        //load gender using uid from profile
         userDataRef.once("value").then(function(snapshot)
         {
 			for(int i = 0; i < $scope.param.teamMembers.length; i++)
