@@ -60,7 +60,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: 3px 3px 5px #ccc;
+    
     /*top: 50%;*/
     margin: 100px 0px 20px 0px;
 
@@ -75,4 +75,24 @@ input[type=email],input[type=password], select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.event_item{
+    background-color: white;
+    border: 3px solid #f1f1f1;
+    padding: 5px 25px;
+    min-height: 70px;
+    box-shadow: 3px 3px 5px #ccc;
+}
+
+.event_item:hover{
+    box-shadow: 0px 0px 0px #ccc;
+}
+
+.event_item_name{
+    font-size: 17px;
+}
+
+.event_item_description{
+    color: #777;
 }
