@@ -10,6 +10,12 @@ $(document).ready(function(){
 });
 
 angular.module('teamform-admin-app', ['firebase'])
+.directive('login', function() {
+    return {
+        restrict: 'A',
+        templateUrl: 'login.html'
+    };
+})
 .controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	// TODO: implementation of AdminCtrl

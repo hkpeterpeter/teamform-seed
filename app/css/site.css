@@ -18,14 +18,14 @@
 	padding: 10px;
 }
 
-#fblogin .btn {
+#blogin {
 	background: #4080ff;
 	margin-top: 8px;
 	color: white;
 	font-weight: bold;
 }
 
-#fblogout div {
+#blogout div {
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -41,8 +41,8 @@
 }
 
 #savebtn {
-	margin-top: 20px;
-	margin-bottom: 20px;
+    margin-top: 2px;
+	margin-bottom: 10px;
 }
 
 p {

@@ -1,37 +1,21 @@
 <html ng-app="chatRoom">
 	<head>
-	<!-- Boostrap -->
-		<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	
-	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-	
-	<!-- FireBase -->
-	<script>
-	// Initialize Firebase
-		var config = {
-		apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
-		authDomain: "team-anonymous-team-forming.firebaseapp.com",
-		databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
-		storageBucket: "team-anonymous-team-forming.appspot.com",
-		messagingSenderId: "903294276428"
-	};
-	firebase.initializeApp(config);
+	<meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
 
-	
-	</script>
-	
-	<!-- AngularJS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-	
-	<!-- AngularFire -->
-	<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+      <title>teamform - member page</title>
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+      
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+      <link rel="stylesheet" href="css/font-awesome.min.css">
+      <link rel="stylesheet" href="css/site.css" >
+
+      <script src="js/site.js"></script>
 	
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="css/chatRoom.css">
@@ -74,6 +58,7 @@
 			<div class="list-messages" id="listMessages">
 				<p>Messages:</p>
 				<ul ng-repeat="text in chatList">
+					{{text.userName}}:
 					{{text.message}} </br>
 					{{text.date}}
 				</ul>
@@ -85,6 +70,13 @@
 			</div>
 		</div>
 		<!-- Controller -->
+		<script src="lib/angular.min.js"></script>
+		<script src="lib/angular-route.min.js"></script>
+			
+		<script src="lib/firebase.js"></script>
+		<script src="lib/angularfire.min.js"></script>
+		
+		<script src="js/member.js"></script>
 		<script src="js/chatRoom.js"></script>
 	</body>
 </html>

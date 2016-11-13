@@ -1,179 +1,180 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="teamform-team-app">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="teamform, team">
-    
-    <title>teamform - team page</title>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="teamform, team">
+
+	<title>teamform - team page</title>
 	
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
 	
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/site.css">
-		
-    <script src="js/site.js"></script>
-    
-  </head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/site.css">
+	<link rel="stylesheet" href="css/login.css"> 
 
-  <body>
-  
-  	<nav class="navbar navbar-default">
-      <div class="container">
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li><a href="index.html">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            Back</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown" id="fblogout">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                <div>
-                <span id="userName"></span>
-                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-                <img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
-                </div>
-                </a>
-                <ul class="dropdown-menu">
-                  <li id="logout"><a href="#">Log out</a></li>
-                </ul>
-              </li>
-              <li id="fblogin">
-                <button type="button" class="btn btn-primary"> Log In
-                </button>
-              </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  
-	<div class="text-center">
-  	<h1>Team Page</h1>
-  	<h2 id="text_event_name"></h2>
-  	<div id="team_page_controller" ng-controller="TeamCtrl">
-  	
-	  <div class="row">
-	    <div class="col-md-3 col-xs-3"></div>
-	    <div class="col-md-6 col-xs-6 text-left panel">
-	      <form class="form-horizontal text-left">
-	        <div class="form-group">
-	          <label for="inputTeamName" class="control-label">Team Name</label>
-	          <br>
-	          <div class="row">
-	            <div class="col-md-8 col-xs-8">
-	            <input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
-	            </div>
-	            <div class="col-md-2 col-xs-2">
-	            <button type="button" class="btn btn-primary" id="add" ng-click="saveFunc();">Add</button>
-	            </div>
-	          </div>
-	        </div>
-   <div class="row">
-	  <strong>Preferred Team Size: </strong>
-	   <span>
-	    <span class="badge">{{param.currentTeamSize}}</span>
-	    <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-	    <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-	   </span>
-	  </div>
+	<script src="js/site.js"></script>
 
-  
- <div class="row">
- <button ng-click="openCategory();" class="dropbtn">Add Tags for Your Team</button>
-  <div id="myDropdown" class="dropdown-content">
-		<div ng-repeat="tt in tags">
-    <label><input type="checkbox"	ng-checked="tagChecked(tt.$value);"	 ng-click="addTags(tt.$value);">
-		<span>{{tt.$value}}</span>
-		</label>
-		</div>
-  </div>
- </div>
-</form>
-	      <div class="row">
-	        <div class="col-sm-4">
-	          <h4>Team members</h4>
-	          <!-- TODO: Show the current team member list -->
-	          <div ng-repeat="member in param.teamMembers">
-	            <button type="button" class="btn" ng-click="removeMember(member);">
-	            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ retrieveNameFromID(member) }}
-	            </button>
-	          </div>
-	        </div>
-	        <div class="col-sm-4">
-						 <h4>Tags</h4>
-						 <div ng-repeat="ttt in param.tags">
-							 <button type="button" class="btn" ng-click="addTags(ttt);">
-							 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
-							 </button>
-							</div>
-					</div>
-	        <div class="col-sm-4">
-	        <h4>Requests received:</h4>
-	        <!--TODO: Show the requests -->	        
-	          <div ng-repeat="r in requests">
-	            <button type="button" class="btn" ng-click="processRequest(r);">
-	            <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{ retrieveNameFromID(r) }}
-	            </button>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
+</head>
 
-		  
-				<div class="col-sm-offset-3 col-sm-4 text-left">
-			 		<h3>All members:</h3>
-			 		<p>Click once to invite member.</p><div id = "invite"></div>
-			   	<ul ng-repeat="m in member">
-				  <div class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" >
-						<label>
-						  <li>
-							Name = {{retrieveNameFromID(m.$id)}} <br>
-							request to join the following teams: 
-							 <p ng-repeat="s in m.selection">
-							 {{ $index+1 }}. {{s}}
-							 </p>
-							</li>
-					 	</label>
-				  </div>
+<body>
+
+	<nav class="navbar navbar-default">
+		<div class="container">
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li><a href="index.html">
+						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						Back</a></li>
 					</ul>
+					<ul class="nav navbar-nav navbar-right">
+        		  <li class="dropdown" id="blogout">
+           		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
+           		  <div>
+           			<span id="userName"></span>
+           			<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+           			<img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
+           		  </div>
+           		  </a>
+           		  <ul class="dropdown-menu">
+             		<li id="logOut"><a href="#">Log out</a></li>
+           		  </ul>
+       			  </li>               
+       			  <li>
+          		  <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
+          		  </button>
+       			  </li>
+    			</ul>
 				</div>
-		  
-				<div class="col-md-4 col-xs-4 text-left">
-				 <h3>All teams:</h3>
-				  <ul ng-repeat="t in team">
-				   <li>
-				   Team Name: {{t.$id}}  <br>
-				   Preferred team size: <span class="badge">{{t.size}}</span> <br>
-					 Tags:
-					 <p ng-repeat ="tag in t.tags">{{tag}}<p>
-					 <p ng-show="!t.tags"> none </p>
-				   Current team members: 
-				   <p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
-				   {{ $index+1 }}. {{ member }}
-				   </p>
-				   <span ng-show="!t.teamMembers"> none </span>
-		  		</li>
-		  	</ul>
+			</div>
+		</nav>
+
+		<div login id="login-form" class="modal"></div>
+
+		<div class="text-center">
+			<h1>Team Page</h1>
+			<h2 id="text_event_name"></h2>
+			<div id="team_page_controller" ng-controller="TeamCtrl">
+
+				<div class="row">
+					<div class="col-md-3 col-xs-3"></div>
+					<div class="col-md-6 col-xs-6 text-left panel">
+						<form class="form-horizontal text-left">
+							<div class="form-group">
+								<label for="inputTeamName" class="control-label">Team Name</label>
+								<br>
+								<div class="row">
+									<div class="col-md-8 col-xs-8">
+										<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
+									</div>
+									<div class="col-md-2 col-xs-2">
+										<button type="button" class="btn btn-primary" id="add" ng-click="saveFunc();">Add</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<strong>Preferred Team Size: </strong>
+								<span>
+									<span class="badge">{{param.currentTeamSize}}</span>
+									<button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
+									<button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
+								</span>
+							</div> 
+
+							<div class="row">
+								<button ng-click="openCategory();" class="dropbtn">Add Tags for Your Team</button>
+								<div id="myDropdown" class="dropdown-content">
+									<div ng-repeat="tt in tags">
+										<label><input type="checkbox"	ng-checked="tagChecked(tt.$value);"	 ng-click="addTags(tt.$value);">
+											<span>{{tt.$value}}</span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</form>
+						<div class="row">
+							<div class="col-sm-4">
+								<h4>Team members</h4>
+								<!-- TODO: Show the current team member list -->
+								<div ng-repeat="member in param.teamMembers">
+									<button type="button" class="btn" ng-click="removeMember(member);">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ retrieveNameFromID(member) }}
+									</button>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<h4>Tags</h4>
+								<div ng-repeat="ttt in param.tags">
+									<button type="button" class="btn" ng-click="addTags(ttt);">
+										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
+									</button>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<h4>Requests received:</h4>
+								<!--TODO: Show the requests -->	        
+								<div ng-repeat="r in requests">
+									<button type="button" class="btn" ng-click="processRequest(r);">
+										<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{ retrieveNameFromID(r) }}
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-sm-offset-3 col-sm-4 text-left">
+						<h3>All members:</h3>
+						<p>Click once to invite member.</p><div id = "invite"></div>
+						<ul ng-repeat="m in member">
+							<div class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" >
+								<label>
+									<li>
+										Name = {{retrieveNameFromID(m.$id)}} <br>
+										request to join the following teams: 
+										<p ng-repeat="s in m.selection">
+											{{ $index+1 }}. {{s}}
+										</p>
+									</li>
+								</label>
+							</div>
+						</ul>
+					</div>
+
+					<div class="col-md-4 col-xs-4 text-left">
+						<h3>All teams:</h3>
+						<ul ng-repeat="t in team">
+							<li>
+								Team Name: {{t.$id}}  <br>
+								Preferred team size: <span class="badge">{{t.size}}</span> <br>
+								Tags:
+								<p ng-repeat ="tag in t.tags">{{tag}}<p>
+									<p ng-show="!t.tags"> none </p>
+									Current team members: 
+									<p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
+										{{ $index+1 }}. {{ member }}
+									</p>
+									<span ng-show="!t.teamMembers"> none </span>
+								</li>
+							</ul>
+						</div>
+
+					</div>
 				</div>
+			</div>
 
-		</div>
-		</div>
-	</div>
-  
-<script src="lib/angular.min.js"></script>
-<script src="lib/angular-route.min.js"></script>
+			<script src="lib/angular.min.js"></script>
+			<script src="lib/angular-route.min.js"></script>
 
-<script src="lib/firebase.js"></script>
-<script src="lib/angularfire.min.js"></script>
+			<script src="lib/firebase.js"></script>
+			<script src="lib/angularfire.min.js"></script>
+			
+			<script src="js/team.js"></script>
 
-
-<script src="js/team.js"></script>
-  
-  </body>
-</html>
+		</body>
+		</html>
 

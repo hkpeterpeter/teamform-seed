@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="teamform-app">
 
 <head>
 	<meta charset="utf-8">
@@ -15,9 +15,10 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/site.css" >
+	<link rel="stylesheet" href="css/site.css">
+	<link rel="stylesheet" href="css/login.css">   	
 
-	<script src="js/site.js"></script>
+   	<script src="js/site.js"></script>
 
 </head>
 
@@ -50,7 +51,7 @@
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
-        		  <li class="dropdown" id="fblogout">
+        		  <li class="dropdown" id="blogout">
            		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
            		  <div>
            			<span id="userName"></span>
@@ -59,17 +60,19 @@
            		  </div>
            		  </a>
            		  <ul class="dropdown-menu">
-             		<li id="logout"><a href="#">Log out</a></li>
+             		<li id="logOut"><a href="#">Log out</a></li>
            		  </ul>
        			  </li>               
-       			  <li id="fblogin">
-          		  <button type="button" class="btn btn-primary"> Log In
+       			  <li>
+          		  <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
           		  </button>
        			  </li>
     			</ul>
 			</div>
 		</div>
 	</nav>
+
+	<div login id="login-form" class="modal"></div>
 
 	<div class="container" id="page_home">
 		<div class="row">
@@ -174,14 +177,13 @@
 		</footer>
 	</div>
 
-   	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular.min.js"></script>
    	<script src="lib/angular-route.min.js"></script>        
      
    	<script src="lib/firebase.js"></script>     
    	<script src="lib/angularfire.min.js"></script>
 
 	<script src="js/index.js"></script>
-
 
 </body>
 

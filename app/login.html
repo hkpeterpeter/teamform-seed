@@ -1,32 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="loginapp">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="teamform, team">
-
-	<title>teamform - A real-time online team forming app</title>
-
-	<script src="lib/jquery.min.js"></script>
-	<script src="lib/bootstrap.min.js"></script>
-	<script src="lib/angular.min.js"></script>
-	<script src="lib/firebase.js"></script>     
-  <script src="lib/angularfire.min.js"></script>
-
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/login.css">
-
-	<script src="js/login.js"></script>
-</head>
-<body ng-controller="loginCtrl">
-	<div class="container">
+<script src="js/login.js"></script>
+<div class="container animate modal-content">
+	<span onclick="document.getElementById('login-form').style.display='none'" class="close" title="Close Modal">&times;</span>
 	<div class="text-center"><h1>Login to teamform</h1><br><br>
 	</div>
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
+		<div class="col-md-10 col-md-offset-1">
 			<div class="panel-heading">
 				<div class="row">
 					<ul class="nav nav-tabs">
@@ -109,6 +87,4 @@
 			</div>
 		</div>
 	</div>
-	</div>
-</body>
-</html>
+</div>
