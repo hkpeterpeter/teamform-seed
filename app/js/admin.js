@@ -59,7 +59,7 @@ angular.module('teamform-admin-app', ['firebase'])
 				$scope.param.minTeamSize = 1;
 			}			
 			if (typeof $scope.param.deadline =="undefined"){
-				$scope.deadline = new Date(new Date().setDate(new Date().getDate()+30));//outside new Date: change string to date object, 2nd Date: create date, 3 rd Date: get today day
+				$scope.deadline = new Date(new Date().setDate(new Date().getDate()+30));//outside new Date: change string to date object, 2nd Date: create date, 3rd Date: get today day
 			}else{
 				$scope.deadline = new Date($scope.param.deadline);
 				console.log(new Date($scope.param.deadline ));
