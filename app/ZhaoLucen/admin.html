@@ -16,13 +16,13 @@
   <script type="text/javascript" src="../lib/materialize/js/materialize.min.js"></script>
   <script src="adminAnimate.js"></script>
 -->
-  <div>
+  <div ng-controller="admin_ctrl">
     <div class="container">
     	<!-- Admin Page Title -->
-    	<div class="section admin-title" ng-controller="admin_title_ctrl">
+    	<div class="section admin-title">
     		<div class="grey lighten-4">
-    			<h1>{{ event.name }}</h1>
-    			<h5>Administrator: <span ng-repeat="admin in event.admins">{{ admin }} </span></h5>
+    			<h1>{{ eventInfo.name }}</h1>
+    			<h5>Administrator: {{ eventInfo.admin }}</h5>
     		</div>
     	</div>
     	<!-- Admin Page Title Ends -->
@@ -51,27 +51,55 @@
     	<div class="row admin-lists">
     	<!-- Teams List -->
 
-    		<div class="col s12 m6" ng-controller="admin_team_ctrl">
+    		<div class="col s12 m6">
 
     			<h2>Formed Teams</h2>
     			<div class="divider"></div>
 
+          <!-- Team Filter -->
+          <div class="admin-filter">
+            <span>Full Or Not: </span>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-full-team" checked="checked" ng-model="adminTeamFull"/>
+              <label for="admin-full-team">No Quota</label>
+            </div>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-unfull-team" checked="checked" ng-model="adminTeamNotFull"/>
+              <label for="admin-unfull-team">Quota Open</label>
+            </div>
+          </div>
+          <!--
+          <div class="admin-filter">
+            <span>Prefererence: </span>
+            <div class="admin-one-filter" ng-repeat="i in getNumber(size) track by $index">
+              <input type="checkbox" class="filled-in" id="admin-team-size-{{$index+minSize}}" checked="checked" ng-model="adminTeam{{$index+minSize}}"/>
+              <label for="admin-team-size-{{$index+minSize}}">{{$index+minSize}}</label>
+            </div>
+          </div>
+          -->
+          <div class="input-field">
+            <input id="admin-team-search" type="text" class="validate"  ng-model="adminTeamSearch">
+            <label for="admin-team-search">Search By Name Or Skill</label>
+          </div>
+
+
+          <!-- Team Filter Ends -->
     			<!-- A Single Card -->
-          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams">
+          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams | filter:teamFilter">
             <div class="card-content white-text">
-              <span class="card-title activator">{{ team.name }}<i class="material-icons right">more_vert</i></span>
+              <span class="card-title activator">{{ team.teamName }}<i class="material-icons right">more_vert</i></span>
               <br/>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Team Size:</span>
-                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members">{{ team.size }}</span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members" ng-bind="getLength(team)"></span>
               </div>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Preferred Size:</span>
-                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members">{{ team.maxSize }}</span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members">{{ team.preferedSize }}</span>
               </div>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Required Skills:</span>
-                <span class="new badge white-text admin-skill-badge" data-badge-caption="" ng-repeat="skill in team.skills">{{ skill }}</span>
+                <span class="new badge white-text admin-skill-badge" data-badge-caption="" ng-repeat="skill in team.desiredSkills">{{ skill }}</span>
               </div>
             </div>
             <div class="card-action">
@@ -81,7 +109,7 @@
 
             <div class="card-reveal blue-grey darken-1 white-text">
             	<span class="card-title">Team Name<i class="material-icons right">close</i></span>
-            	<p>Team Members: <span ng-repeat="member in team.members">{{ member }} </span></p>
+            	<p>Team Members: <span ng-repeat="member in team.membersID">{{ member }} </span></p>
             	<p>Other infomation about this team.</p>
             </div>
           </div>
@@ -91,10 +119,30 @@
     	<!-- Team List Ends -->
 
     	<!-- Participant List -->
-    		<div class="col s12 m6" ng-controller="admin_member_ctrl">
+    		<div class="col s12 m6">
 
     			<h2>Waiting Participants</h2>
     			<div class="divider"></div>
+
+          <!-- User Filter -->
+          <div class="admin-filter">
+            <span>Applied Or Not: </span>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-request-user" checked="checked" ng-model="adminUserRequest"/>
+              <label for="admin-request-user">Requested</label>
+            </div>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-unrequest-user" checked="checked" ng-model="adminUserNotRequest"/>
+              <label for="admin-unrequest-user">Not Requested</label>
+            </div>
+          </div>
+          <div class="input-field">
+            <input id="admin-user-search" type="text" class="validate" ng-model="adminUserSearch">
+            <label for="admin-user-search">Search By Name Or Skill</label>
+          </div>
+
+
+          <!-- User Filter Ends -->
 
     			<!-- A Single Card -->
 
@@ -105,28 +153,29 @@
               });
           </script>
           <!-- Finish enabling Toolkit html -->
-    				<div class="card admin-user-card sticky-action" ng-repeat="user in users">
+    				<div class="card admin-user-card sticky-action" ng-repeat="user in users | filter:userFilter">
 							<div class="card-content">
 								<span class="card-title activator grey-text text-darken-4">{{ user.name }}<i class="material-icons right">more_vert</i></span>
+                <p class="grey-text">{{ user.email }}</p>
 								<div>
 									<div class="chip admin-card-chip" ng-repeat="skill in user.skills">{{ skill }}</div>
 								</div>
-          			<p>{{ user.intro }}</p>
+          			
         			</div>
        				<div class="card-action">
-         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn tooltipped" data-tooltip="Current size: 5<br>Preferred size: 6-7<br>Required skills: JavaScript" ng-repeat="request in user.requests">{{ request }}</a>
-                <a class="btn waves-effect waves-teal admin-card-btn">Other</a>
-         				<!--
+         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn tooltipped" data-tooltip="Current size: 5<br>Preferred size: 6-7<br>Required skills: JavaScript" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)">{{ request.teamName }}</a>
+                <!--<a class="btn waves-effect waves-teal admin-card-btn">Other</a>-->
+         				
                 <div class="divider admin-incard-divider"></div>
                 
          				<div class="row">
          					<div class="input-field col s8">
-          					<input id="team_name" type="text" class="validate">
+          					<input id="team_name" type="text" class="validate" ng-model="user.adminAdd">
           					<label for="team_name">Name of Another Team</label>
         					</div>
-        					<button class="btn waves-effect waves-teal admin-card-btn admin-add-btn">Add</button>
+        					<button class="btn waves-effect waves-teal admin-card-btn admin-add-btn" ng-click="adminAddUserToOtherTeam(user)">Add</button>
         				</div>
-                -->
+                
        				</div>
        				<div class="card-reveal">
        					<div class="col s3 admin-profile-photo">
@@ -140,13 +189,32 @@
        					</div>
        				</div>
     				</div>
+
+            <!-- AdminJoinTeam Modal -->
+            <!--
+            <div id="adminJoinTeam" class="modal">
+              <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+              </div>
+              <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+              </div>
+            </div>
+            -->
+            <!-- AdminJoinTeam Modal Ends -->
   			<!-- A Single Card Ends -->
+
+
 
     		</div>
     	<!-- Participant List Ends -->
     	</div>
     </div>
     <event-footer></event-footer>
+    <script type="text/javascript">
+      $('.collapsible').collapsible();
+    </script>
   </div>
 <!--    
 </body>
