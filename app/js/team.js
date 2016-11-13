@@ -212,7 +212,7 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 		if ( index > -1 ) 
 		{
 			$scope.param.teamMembers.splice(index, 1); // remove that item
-			$scope.param.currentTeamSize --;
+		
 			$scope.saveFunc();
 		}
 	}
@@ -311,20 +311,26 @@ function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
 	$scope.calculateNumPrettyGirls = function()
 	{
 		int count = 0;
-		for(int i = 0; i < $scope.param.teamMembers.length; i++)
-		{
-			if($scope.param.teamMembers[i].gender == 'F' || $scope.param.teamMembers[i].gender == 'f')
-			{
-				count ++; 
+		
+		//get 'profile' ref 
+        var userDataRef = firebase.database().ref("profile");
+        userDataRef.once("value").then(function(snapshot)
+        {
+			for(int i = 0; i < $scope.param.teamMembers.length; i++)
+			{	
+				if(snapshot.val().teamMembers[i].gender == 'F' || snapshot.val().teamMembers[i].gender == 'f')
+				{
+					count ++; 
+				}
 			}
-		}
-		for(int i = 0; i < $scope.param.teamLeaders.length; i++)
-		{
-			if($scope.param.teamLeaders[i].gender == 'F' || $scope.param.teamLeaders[i].gender == 'f')
+			for(int i = 0; i < $scope.param.teamLeaders.length; i++)
 			{
-				count ++; 
+				if(snapshot.val().teamLeaders[i].gender == 'F' || $scope.param.teamLeaders[i].gender == 'f')
+				{
+					count ++; 
+				}
 			}
-		}
+		});
 		$scope.param.numPrettyGirls = count;
 		$scope.saveFunc();
 	} 
