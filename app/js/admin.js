@@ -182,6 +182,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	}
     
    //create team function 
+    $scope.eventid = eventid;
     $scope.createTeam = function(teamName){
         var teamNameVal = $('#teamName').val();
 		if(teamNameVal == undefined){
