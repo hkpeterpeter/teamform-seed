@@ -1,4 +1,4 @@
-var app = angular.module("mainApp", ["ngRoute"]);
+var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
 
 app.config(function($routeProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html"})
