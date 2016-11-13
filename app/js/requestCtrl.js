@@ -25,6 +25,20 @@ app.controller("requestCtrl",
 		});
 
 
+
+		$scope.search_model = "all";
+
+		$scope.filterEvent = function(items, filter_model) {
+    		var result = {};
+    		angular.forEach(items, function(value, key) {
+        		if (key == filter_model || filter_model == "all") {
+            		result[key] = value;
+        		}
+    		});
+    		return result;
+		}
+
+
 		$scope.withdrawApp = function(eid, tid){
 			Helper.withdrawApplication($scope.authData.uid, eid, tid);
 		}
