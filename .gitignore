@@ -6,3 +6,4 @@ app/coverage/
 tmp
 .DS_Store
 *.log
+/app/Project-42f40ea33812.json

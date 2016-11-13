@@ -133,14 +133,16 @@
 
                         <div>
                            
-                           <button type="button" class="btn btn-primary" ng-click="btn_admin();">Administrator</button>
-                          
-                           <button type="button" class="btn btn-primary" ng-click="btn_fb();">Login with Facebook</button>
-
-                           <button type="button" class="btn btn-primary" ng-click="btn_leader();">Team Leader</button>
-                          
-                           <button type="button" class="btn btn-primary" ng-click="btn_member();">Member</button>
-                          
+                           
+                            <div ng-show="!logined">
+                                <button type="button" class="btn btn-primary" ng-click="btn_fb();">Login with Facebook</button>
+                            </div>
+                             <div ng-show="logined">
+                                 <button type="button" class="btn btn-primary" ng-click="btn_admin();">Administrator</button>
+                                 <button type="button" class="btn btn-primary" ng-click="btn_leader();">Team Leader</button>
+                                    
+                                 <button type="button" class="btn btn-primary" ng-click="btn_member();">Member</button>
+                             </div>
 
 
                         </div>
