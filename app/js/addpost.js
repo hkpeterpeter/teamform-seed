@@ -1,10 +1,10 @@
 'use strict';
-angular.module("adboard", ["firebase"])
 
-// for creating post
-.controller("adboardCtrl", ["$scope", "$firebaseArray", function($scope, $firebaseArray)
-{	
-	        var config = {
+
+angular.module("adboard", ["firebase"])
+    .controller("adboardCtrl", function ($scope, $firebaseArray) {
+        // Initialize Firebase
+        var config = {
             apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
             authDomain: "comp3111-5fbe5.firebaseapp.com",
             databaseURL: "https://comp3111-5fbe5.firebaseio.com",
@@ -13,20 +13,19 @@ angular.module("adboard", ["firebase"])
         };
         firebase.initializeApp(config);
 
-        	var ref = firebase.database().ref().child('articles');
-	$scope.articles = $firebaseArray(ref);
+        var ref = firebase.database().ref("advertisement");
+        $scope.ads = $firebaseArray(ref);
 
 
-	$scope.createPost = function(){
-		var name = $scope.article.nametxt;
-		var post = $scope.article.posttxt;
-		$scope.articles.$add({
-			name: name,
-			post: post
-		});
-	};
+        $scope.add = function(){
+            $scope.ads.$ref().child($scope.ads.length).set({
+                "title": $scope.titletxt ,
+                "content": $scope.contenttxt ,
+                "person": $scope.persontxt
 
 
 
-
-} ]);
+            });
+        };
+    });
+    
