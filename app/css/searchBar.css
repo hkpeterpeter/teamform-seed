@@ -10,7 +10,6 @@
     justify-content: flex-start;
 }
 
-
 .fullscreen {
     width: 100vw;
     height: 100vh;
@@ -128,4 +127,18 @@ body{
 #advancedSearchPanel{
     height: 40vh;
     overflow: auto;
+}
+
+#ut{
+    position: fixed;
+    right: 0;
+    top:0;
+    font-weight: bold;
+    font-size: small;
+    z-index: 1500;
+}
+
+#ut::before{
+    content: "Universal Time: ";
+    font-weight: bold;
 }
