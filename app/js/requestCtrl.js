@@ -1,7 +1,7 @@
 //requestCtrl
-app.controller("requestCtrl", 
+app.controller("requestCtrl",
 
-	// Implementation the todoCtrl 
+	// Implementation the todoCtrl
 	function($scope, Auth, $firebaseArray, $firebaseObject, Helper) {
 		console.log("request");
 
@@ -11,12 +11,12 @@ app.controller("requestCtrl",
 				console.log(authData);
 
 				/** */
-				var ref = firebase.database().ref("users/" + authData.uid + "/writable");
+				var ref = firebase.database().ref("users/" + $scope.authData.uid + "/writable");
 				$scope.myEventList=$firebaseObject(ref);
 
 				var ref2 = firebase.database().ref("events");
 				$scope.allEvents=$firebaseArray(ref2);
-				
+
 			}
 			else {
 				console.log("signed out");
@@ -52,8 +52,8 @@ app.controller("requestCtrl",
 		}
 
 
-		
+
 	}
 
-	
+
 );

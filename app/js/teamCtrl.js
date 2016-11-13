@@ -55,6 +55,9 @@ app.controller("teamCtrl",
 						//     }
 						// })
 						eventref = firebase.database().ref('users/' + $scope.userData.uid + '/writable');
+
+
+
 						// eventref.once('value', function (snapshot) {
 	    	// 				if (!snapshot.hasChild($scope.eventID)) {
 		    //     				$scope.inthisteam = false;
@@ -87,6 +90,11 @@ app.controller("teamCtrl",
 		var main_ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 		$scope.teamdata = $firebaseObject(main_ref);
 
+		$scope.teamdata.$loaded().then(function(){
+ 			$scope.memberlist = $scope.teamdata.members;
+ 			$scope.leader = $scope.teamdata.leader;
+ 			console.log($scope.memberlist);
+ 		})
 		// $scope.teamdata.$loaded().then(function(){
 		// 	$scope.teamdata.members = $scope.teamdata.members;
 		// 	$scope.teamdata.leader = $scope.teamdata.leader;
@@ -143,10 +151,21 @@ app.controller("teamCtrl",
 			Helper.sendApplicationTo($scope.userData.uid, $scope.eventID, $scope.teamID);
 			window.alert("Your application is received");
 
-
-			Helper.pushNotificationTo($scope.teamdata.leader, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
-			
+			for (leaderuid in $scope.leader){
+				Helper.pushNotificationTo(leaderuid, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
+			}
 		}
+
+
+		$scope.aleardyApplied = function(){
+			user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid + '/writable/' + $scope.eventID + 'applications');
+			user_appli_ref.once('value', function (snapshot) {
+  				if (snapshot.hasChild($scope.teamID)) {
+      				return true;
+  				}
+					return false;
+				}
+		)};
 		//
 		// $scope.updateMember = function(id,content){
 		// 	memref.child(id).update({
@@ -158,7 +177,7 @@ app.controller("teamCtrl",
 		$scope.DeleteMember = function(uid){
 			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID);
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, Helper.getUsername(uid) + " has been kicked off the team");
-			for (memberuid in uid){
+			for (memberuid in $scope.memberlist){
 					Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has been kicked off the team.");
 			}
 		}
@@ -167,7 +186,7 @@ app.controller("teamCtrl",
 			// need change rule first: should let member access announcement
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, Helper.getUsername($scope.userData.uid) + " has left the team");
 			Helper.deletePersonFromTeam($scope.userData.uid, $scope.eventID, $scope.teamID);
-			for (memberuid in $scope.teamdata.members){
+			for (memberuid in $scope.memberlist){
 					Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername($scope.userData.uid) +  " has left the team.");
 			}
 		}
@@ -179,7 +198,7 @@ app.controller("teamCtrl",
 		$scope.SetLeader = function(uid){
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team leader has changed from " + Helper.getUsername($scope.userData.uid) + " to " + Helper.getUsername(uid));
 			Helper.changeLeader($scope.userData.uid, uid, $scope.eventID, $scope.teamID);
-			for (uid in $scope.teamdata.members){
+			for (uid in $scope.memberlist){
 				Helper.pushNotificationTo(uid, $scope.eventID, "Your team's leader has changed from " + Helper.getUsername($scope.userData.uid) + " to " + Helper.getUsername(uid))
 			}
 		}
@@ -187,13 +206,13 @@ app.controller("teamCtrl",
 		$scope.ChangeTeamName = function(newname){
 
 
-
+$scope.test = $scope.teamdata.members;
 
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('name').set(newname);
 
 							Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team name has changed to " + newname);
-							for (uid in $scope.teamdata.members){
+							for (uid in  $scope.memberlist){
 								Helper.pushNotificationTo(uid, $scope.eventID, "Your team's name has changed to " + newname)
 							}
 		}
@@ -206,7 +225,7 @@ app.controller("teamCtrl",
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('desc').set(newdesc);
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team intro has changed to \"" + newdesc + "\"");
-			for (uid in $scope.teamdata.members){
+			for (uid in  $scope.memberlist){
 				Helper.pushNotificationTo(uid, $scope.eventID, "Your team's intro has changed to \"" + newdesc + "\"")
 			}
 		}
@@ -220,7 +239,7 @@ app.controller("teamCtrl",
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('max').set(newmax);
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team max size has changed to " + newmax );
-			for (uid in $scope.teamdata.members){
+			for (uid in  $scope.memberlist){
 				Helper.pushNotificationTo(uid, $scope.eventID, "Your team's max size has changed to " + newmax);
 			}
 		}
@@ -251,13 +270,13 @@ app.controller("teamCtrl",
 		console.log($scope.newTeaminfo);
 		$scope.changeTeamInfo=function(){
 
-			// $scope.teamdata.$loaded().then(function(){
+			 $scope.teamdata.$loaded().then(function(){
 				// $scope.teamdata.members = $scope.teamdata.members;
 				$scope.teamname = $scope.teamdata.name;
 				$scope.teamdesc = $scope.teamdata.desc;
 				$scope.teammax = $scope.teamdata.max;
 				// console.log($scope.teamdata.members);
-			// })
+			 })
 
 				$scope.newTeaminfo.max=parseInt($scope.newTeaminfo.max);
 				console.log($scope.newTeaminfo);
@@ -307,7 +326,7 @@ app.controller("teamCtrl",
 		var ftref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags/MannerTags');
 		$scope.mannertags = $firebaseObject(ftref);
 
-//feature tag functions
+//manner tag functions
 
 		$scope.addMannerTag = function(name){
 			var temp = {};
@@ -354,7 +373,7 @@ app.controller("teamCtrl",
 //announcement functions
 		$scope.addAnnouncement = function(msg){
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, msg);
-			for (memberuid in $scope.teamdata.members){
+			for (memberuid in  $scope.memberlist){
 					Helper.pushNotificationTo(memberuid, $scope.eventID, "Team leader has post a new message:\"" + msg + "\"" );
 			}
 		}
@@ -417,7 +436,7 @@ app.controller("teamCtrl",
 					Helper.acceptApplication(uid, $scope.eventID, $scope.teamID);
 
 					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teams.$getRecord($scope.teamID).name +  " has been accepted.");
-					for (memberuid in $scope.teamdata.members){
+					for (memberuid in  $scope.memberlist){
 							Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has joined the team.");
 					}
 				}
