@@ -10,9 +10,9 @@ $(document).ready(function()
 });
 
 angular.module('teamform-team-app', ['firebase'])
-app.controller("MyAuthCtrl", ["$scope", "$firebaseAuth",
-  function($scope, $firebaseAuth) 
-  {
+.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$firebaseAuth"
+function($scope, $firebaseObject, $firebaseArray, $firebaseAuth)
+{
    //your code
  	$scope.auth=$firebaseAuth();
 	$scope.auth.$onAuthStateChanged(function(firebaseUser) 
