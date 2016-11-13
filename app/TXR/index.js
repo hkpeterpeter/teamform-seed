@@ -30,7 +30,7 @@ $scope.param = $routeParams.p;
 app.controller("NotificationController", function($scope){
 			$scope.userList=[
       				{ Name: "O(n^3) is not that slow", type: "Invitation", Info: ""},
-      				{ Name: "Andy", type: "Application", Info: ""}, 
+      				{ Name: "Andy", type: "Application", Info: ""},
       				{ Name: "Your team", type: "Information", Info: ""}
        ];
       var i;
@@ -45,10 +45,8 @@ app.controller("NotificationController", function($scope){
       		$scope.userList[i].Info="He left the team.";
       	}
       }
-      
+
       $scope.removeuser=function(user){
        			$scope.userList.splice(user,1);
       }
   });
-   
-
