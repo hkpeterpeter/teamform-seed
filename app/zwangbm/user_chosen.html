@@ -52,21 +52,21 @@
     <div class="list-group" >
     <!--one user-->
 	<div ng-controller="clickCtrl">
-    <label ng-repeat="select in selected">
+    <label  ng-repeat="(username,content) in selected">
       <div class="row">
     <div class="col-xs-12"> 
         <div class="media">
           <div class="media-left">
-            <img class="media-object" src={{select.img}} width="50" height="50" alt="...">
+            <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
             
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{select.name}}</h4>
-            {{select.intro}}
+            <h4 class="media-heading">{{content.name}}</h4>
+            {{content.intro}}
           </div>
 
           <div class="media-right">
-            <span class="{{select.select}}" aria-hidden="true" id="{{select.name}}" data-ng-click = "clickButton($event)"></span>
+            <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
             
           </div>
 
@@ -77,7 +77,7 @@
       </div>
       </label>
 
-
+      <!--pre>{{users[0]|json}}</pre-->
     </div>
 
 </div>
