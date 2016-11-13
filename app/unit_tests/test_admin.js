@@ -3,29 +3,38 @@ describe('Test admin.js', function() {
     var $scope, $controller, $window;
 
     beforeEach(function(){
-        module('teamform-admin-app');
-        // inject(function(_$rootScope_, $controller, _$firebaseObject_, _$firebaseArray_, _$window_){
-        inject(function(_$rootScope_, $controller, _$window_){
+        module('teamform-admin-app','firebase');
+        // inject(function(_$rootScope_, $controller, _$firebaseObject_, _$firebaseArray_){
+        inject(function(_$rootScope_, _$controller_){
             $scope = _$rootScope_.$new();
         //     // $firebaseObject=_$firebaseObject_;
         //     // $firebaseArray=_$firebaseArray_;
         //     $window=_$window_;
 
-            $controller('AdminCtrl',{$scope: $scope});
+            //$controller('AdminCtrl',{$scope: $scope});
+            $controller=_$controller_;
 
         })
     });
    
-   describe('getRandomIntInclusive Coverage Test', function() {
+   describe('editable Coverage Test', function() {
 
-	  it('value within 1 to 3', function() {
-	  	var value = getRandomIntInclusive(1, 3);
-	  	expect( value>=1 && value <= 3 ).toEqual(true);
-	  });
+    beforeEach(function(){
+        // inject(function(_$rootScope_, $controller, _$firebaseObject_, _$firebaseArray_){
+        inject(function(_$rootScope_, _$controller_){
+            //$scope = _$rootScope_.$new();
+        //     // $firebaseObject=_$firebaseObject_;
+        //     // $firebaseArray=_$firebaseArray_;
+        //     $window=_$window_;
+
+            $controller('AdminCtrl',{$scope: $scope});
+            
+        })
+    });
 
       it('editable',function(){
           $scope.new_announcement_click();
-          expect($scope.writingAnnouncement.toBe(true));
+          expect($scope.writingAnnouncement).toBe(true);
       })
 
    });
