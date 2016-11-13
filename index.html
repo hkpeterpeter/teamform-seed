@@ -9,20 +9,20 @@
     <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>teamform - A real-time online team forming app</title>
 
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
+    <script src="app/lib/jquery.min.js"></script>
+    <script src="app/lib/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
     <!-- Customized CSS file shared by pages -->
-    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="app/css/site.css">
 
     <!-- Customized libraries shared by pages -->
-    <script src="js/site.js"></script>
+    <script src="app/js/site.js"></script>
 </head>
-<body>
+<body ng-app="teamform">
 <div class="navbar-wrapper">
     <div class="container">
         <nav class="navbar navbar-static-top navbar-default">
@@ -62,7 +62,7 @@
    ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
 <div class="container marketing">
-    <div ng-app="teamform">
+    <div ui-view>
     </div>
 
     <hr>
@@ -75,16 +75,16 @@
 </div>
 
 <!-- Angular and Angular-route libraries (v1.5.7) -->
-<script src="lib/angular.min.js"></script>
-<script src="lib/angular-route.min.js"></script>
+<script src="app/lib/angular.min.js"></script>
+<script src="app/lib/angular-route.min.js"></script>
 
 <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-<script src="lib/firebase.js"></script>
-<script src="lib/angularfire.min.js"></script>
+<script src="app/lib/firebase.js"></script>
+<script src="app/lib/angularfire.min.js"></script>
+<script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-
-<script src="js/index.js"></script>
-<script src="js/main.js"></script>
+<script src="app/js/index.js"></script>
+<script src="app/js/main.js"></script>
 
 </body>
 </html>
