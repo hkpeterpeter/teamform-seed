@@ -19,6 +19,7 @@ export default class EventService {
                 eventUser.user = await this.userService.getUser(eventUser.id);
             }
             event.users = eventUsers;
+            return Promise.resolve();
         });
         await init();
         event.$$updated = await init;

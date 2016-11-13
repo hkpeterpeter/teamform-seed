@@ -16,6 +16,7 @@ export default class TeamService {
             team.createdByUser = await this.userService.getUser(team.createdBy);
             team.users = await this.getTeamUsers(id);
             team.event = await this.eventService.getEvent(team.eventId);
+            return Promise.resolve();
         };
         await init();
         team.$$updated = await init;
@@ -71,6 +72,7 @@ export default class TeamService {
             teams = await Promise.all(teams.map(async(team) => {
                 return await this.getTeam(team.$id);
             }));
+            return Promise.resolve();
         };
         await init();
         teams.$$updated = await init;
