@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
 
 	$('#member_page_controller').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
@@ -8,48 +8,51 @@ $(document).ready(function(){
 		$('#member_page_controller').show();
 	}
 
-});
+});*/
 
 angular.module('teamform-member-app', ['firebase'])
 .controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	// TODO: implementation of MemberCtrl
+  
+    var ref = firebase.database().ref("members");
+	$scope.members = $firebaseArray(ref);
 	
 	
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
 	
-	$scope.userID = "";
-	$scope.userName = "";	
-	$scope.teams = {};
+	$scope.first_name = "";
+	//$scope.userName = "";	
+	//$scope.teams = {};
 	
 	
 	
 	$scope.loadFunc = function() {
-		var userID = $scope.userID;
-		if ( userID !== '' ) {
+		var first_name = $scope.first_name;
+		if ( first_name !== '' ) {
 			
-			var refPath = getURLParameter("q") + "/member/" + userID;
+			var refPath = getURLParameter("q") + "/members/" + first_name;
 			retrieveOnceFirebase(firebase, refPath, function(data) {
 								
-				if ( data.child("name").val() != null ) {
-					$scope.userName = data.child("name").val();
+				if ( data.child("first_name").val() != null ) {
+					$scope.first_name = data.child("first_name").val();
 				} else {
-					$scope.userName = "";
+					$scope.first_name = "";
 				}
 				
-				
+				/*
 				if (data.child("selection").val() != null ) {
 					$scope.selection = data.child("selection").val();
 				}
 				else {
 					$scope.selection = [];
-				}
+				}*/
 				$scope.$apply();
 			});
 		}
 	}
-	
+	/*
 	$scope.saveFunc = function() {
 		
 		
@@ -110,7 +113,7 @@ angular.module('teamform-member-app', ['firebase'])
 			});
 			
 		
-	}
+	}*/
 	
 	
 	$scope.refreshTeams(); // call to refresh teams...
