@@ -1,1 +1,5 @@
 /* This is where all of the common css code will go. */
+
+
+/* Code to center the tutorial video */
+div.center iframe{display: block; margin-left: auto;margin-right: auto;}
