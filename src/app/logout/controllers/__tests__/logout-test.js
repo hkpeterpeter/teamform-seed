@@ -1,8 +1,10 @@
+import home from '../../../home';
+import logout from '../../';
 describe('LogoutController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('home');
-        angular.mock.module('logout');
+        angular.mock.module(home);
+        angular.mock.module(logout);
         inject((_$controller_) => {
             $controller = _$controller_('LogoutCtrl');
         });

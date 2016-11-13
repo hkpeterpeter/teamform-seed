@@ -1,7 +1,8 @@
+import register from '../../';
 describe('RegisterController', () => {
     let $controller, $spys = [];
     beforeEach(() => {
-        angular.mock.module('register');
+        angular.mock.module(register);
         inject((_$controller_) => {
             $controller = _$controller_('RegisterCtrl');
         });

@@ -1,9 +1,10 @@
+import footer from '../../';
 describe('FooterDirective', () => {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.footer');
+        angular.mock.module(footer);
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;

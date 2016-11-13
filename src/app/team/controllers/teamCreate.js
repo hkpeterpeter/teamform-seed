@@ -22,14 +22,14 @@ export default class TeamCreateCtrl {
         this.setLeader();
         this.getEvents();
     }
-    async setLeader() {
-        this.$timeout(() => {
-            this.team.users.unshift({
-                id: this.authService.getUser().uid,
-                role: 'Leader'
+    setLeader() {
+        let user = this.authService.getUser();
+        if (user) {
+            this.$timeout(() => {
+                this.team.users.unshift({id: user.uid, role: 'Leader'});
+                this.updateTeamUsers();
             });
-            this.updateTeamUsers();
-        });
+        }
     }
     async getEvents() {
         try {
@@ -63,9 +63,7 @@ export default class TeamCreateCtrl {
             let result = await this.teamService.createTeam(this.team);
             this.$timeout(() => {
                 this.loading = false;
-                this.$state.go('team.detail', {
-                    teamId: result.key
-                });
+                this.$state.go('team.detail', {teamId: result.key});
             });
         } catch (error) {
             this.$timeout(() => {
@@ -86,10 +84,7 @@ export default class TeamCreateCtrl {
         if (this.selectedEvent) {
             this.$timeout(() => {
                 for (let i = 0; i < this.selectedEvent.teamMax; i++) {
-                    this.team.users.push({
-                        id: null,
-                        role: 'Any'
-                    });
+                    this.team.users.push({id: null, role: 'Any'});
                 }
                 this.team.users = this.team.users.slice(0, this.selectedEvent.teamMax);
             });
@@ -111,4 +106,13 @@ export default class TeamCreateCtrl {
     }
 }
 
-TeamCreateCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'TeamService', 'EventService', 'AuthService', 'UserService'];
+TeamCreateCtrl.$inject = [
+    '$location',
+    '$state',
+    '$stateParams',
+    '$timeout',
+    'TeamService',
+    'EventService',
+    'AuthService',
+    'UserService'
+];

@@ -9,7 +9,7 @@ module.exports = function(config) {
         ],
         exclude: [],
         preprocessors: {
-            'src/test.webpack.js': ['webpack', 'eslint', 'sourcemap']
+            'src/test.webpack.js': ['webpack', 'sourcemap']
         },
         webpack: require('./webpack.config.js'),
         reporters: ['progress', 'coverage'],
@@ -36,7 +36,7 @@ module.exports = function(config) {
             'karma-eslint'
         ],
         webpackMiddleware: {
-            noInfo: 'errors-only'
+            noInfo: true
         }
     });
 };

@@ -1,9 +1,10 @@
+import app from '../../';
 describe('AppDirective', () => {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.app');
+        angular.mock.module(app);
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;

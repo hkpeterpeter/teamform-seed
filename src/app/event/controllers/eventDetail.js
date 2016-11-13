@@ -1,11 +1,10 @@
 export default class EventDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, eventService, teamService) {
+    constructor($location, $state, $stateParams, $timeout, eventService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
         this.eventService = eventService;
-        this.teamService = teamService;
         this.event = null;
         this.error = null;
         this.getEvent();
@@ -63,6 +62,5 @@ EventDetailCtrl.$inject = [
     '$state',
     '$stateParams',
     '$timeout',
-    'EventService',
-    'TeamService'
+    'EventService'
 ];

@@ -1,9 +1,10 @@
+import body from '../../';
 describe('BodyDirective', () => {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.body');
+        angular.mock.module(body);
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
