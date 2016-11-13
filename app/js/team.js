@@ -290,7 +290,7 @@ angular.module('teamform-team-app', ['firebase'])
 							  //  console.log(typeof team[cteam].teamMembers);
 								 if ( typeof team[cteam].teamMembers != "undefined" && typeof team[cteam].teamMembers != "null"){
 									// console.log(team[cteam]["$id"]);
-									if( team[cteam].teamMembers.length < team[cteam].size){
+									if( team[cteam].teamMembers.length + team[cteam].teamLeaderSize < team[cteam].size){
 										// console.log(team[cteam].teamMembers);
 										event[mem].selection =[];
 										firebase.database().ref(getURLParameter("q") +"/member/" + event[mem]["$id"] ).child('selection').set(null);
