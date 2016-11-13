@@ -13,6 +13,7 @@ teamformapp.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArra
     var token = result.credential.accessToken;
      // The signed-in user info.
     var user = firebase.auth().currentUser;
+
     console.log("Logged in as:", user.displayName);
 
             var usersRef = firebase.database().ref('users');
@@ -25,7 +26,7 @@ teamformapp.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArra
                 email: user.email
 
             }).then(function() {
-                window.location.href= "index.html";
+                
             });
 
 
@@ -41,6 +42,12 @@ teamformapp.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArra
     console.error("Authentication failed:", error);
     // ...
     });
+ };
+
+
+
+
+
 
     //Logout
     $scope.logout = function(){
@@ -51,19 +58,7 @@ teamformapp.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArra
      // An error happened.
     console.log("Sign-out unsuccessful");
     });
-
-
-
-
-
-
-};
-
-
-
-
-
-
- };
+        };
+ 
 
 }]);

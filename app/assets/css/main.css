@@ -122,3 +122,64 @@ p {
   color:#2C3E50;
 >>>>>>> e63921abcef2d8b9af8421840b7637d166734de3:app/css/main.css
 }
+
+
+.parallax-football { 
+    /* The image used */
+    background-image: url( ../images/football.jpg);
+
+    /* Full height */
+    height: 100%; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	padding-top: 70px;
+    padding-bottom: 70px;
+	color: #fff;
+}
+.container-fluid{
+    background-color:#9DC209;
+    padding-top: 40px;
+    padding-bottom: 40px;
+	font-size: 12px; 
+	color: #fff;
+}
+
+
+
+.container-fluidspace{
+   
+    padding:70px;
+}
+
+
+.container-fluid1{
+    background-color: rgba(255,255,255,.5);
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+
+imgtrans {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+.container-dd { 
+    /* The image used */
+    background-image: url( ../images/bg_header.jpg);
+    background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;
+      padding-top: 70px;
+    padding-bottom: 70px;
+   
+    /* Full height */
+   
+
+    /* Create the parallax scrolling effect */
+    
+}	
