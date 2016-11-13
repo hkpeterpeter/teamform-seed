@@ -179,6 +179,10 @@ angular
 		});
 	}
 
+	$scope.scrollToTop=function(){
+		$window.scrollTo(0, 0);
+	}
+
 	//login function
 	$scope.login = function(){
 		const email = $scope.txtEmail;

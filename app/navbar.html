@@ -4,7 +4,7 @@
       <div class="navbar-wrapper">
          <div class="container">
             <nav class="navbar navbar-static-top navbar-default">
-               <div class="container"  style='margin-left = 10000px'>
+               <div class="container-fuild" style='margin-left = 10000px'>
                   <div class="navbar-header">
                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                      <span class="sr-only">Toggle navigation</span>
@@ -67,7 +67,7 @@
                         </li>
                         </ul>
                     <!--navbar right side->account control / sign up-->
-                    <ul class="nav navbar-nav navbar-right" ng-show="loggedIn">
+                    <ul class="nav navbar-nav navbar-right" ng-show="loggedIn" style="padding-right= 20px">
                         <li><a href="profile.html" ng-show="loggedIn">{{username}}</a></li>
                         <li>
                           <a ng-click="logout()" id="">
