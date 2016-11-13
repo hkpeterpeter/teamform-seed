@@ -61,8 +61,8 @@
 
                 .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
-                .when("/MyEvents/:p",{templateUrl:function($routeParams){return ("MyEvents"+$routeParams.p+".html")}, controller:"paramCtrl"})
-                .when("/MyConversation/:p",{templateUrl:function($routeParams){return ("MyConversations"+$routeParams.p+".html")}, controller:"paramCtrl"});
+                .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"paramCtrl"})
+                .when("/MyConversation/:p",{templateUrl:"MyConversations", controller:"paramCtrl"});
   
                 
                 
