@@ -1,3 +1,4 @@
+//jshint strict: false
 module.exports = function(config) {
   config.set({
 
@@ -21,10 +22,11 @@ module.exports = function(config) {
 		 'js/admin.js' : ['coverage'],
 		 'js/team.js' : ['coverage'],
 		 'js/member.js' : ['coverage'],
-		 'js/createGroup.js' : ['coverage'],
-		 'js/searchbar.js' : ['coverage']
+		 'js/createGroup.js' : ['coverage']
+		 //'js/searchbar.js' : ['coverage'],
 		 //'js/chatroomCtrl.js' : ['coverage']
-	},
+		 ,'js/searchbar.js' : ['coverage']
+},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
 			type: 'html',
