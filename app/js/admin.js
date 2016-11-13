@@ -90,6 +90,19 @@ angular.module('teamform-admin-app', ['firebase'])
 		// Finally, go back to the front-end
 		window.location.href= "index.html";
 	}
-	
-		
+    
+    // Delete Event Functionality**
+    $scope.deleteFunc = function() {
+	if (confirm("Are you sure you want to delete this event from the database? \n \nWARNING- this cannot be undone!")){
+	    //remove the event from firebase, including all child nodes
+	    eventName = getURLParameter("q");
+	    refPath = eventName;
+	    ref = firebase.database().ref(refPath);
+	    ref.remove();
+	    //if deleted return to the index page
+	    window.location.href= "index.html";
+	}
+    }
+    
+    
 }]);
