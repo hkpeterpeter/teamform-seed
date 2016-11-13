@@ -108,53 +108,38 @@
       </div>
       <!-- A sample login page -->
       <div class="container" id="page_home">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="row">
-                  <div class="col-md-12">
-                     
-                     <div class="text-center">
-                        <h1>teamform</h1>
-                        <p>A real-time online team forming app for any event</p>
-                     </div>
-
-                     <br >
-
-                     <div class="text-center" ng-controller="IndexCtrl">
-                        <input type="text" class="form-control" id="inputEventID" ng-model="eventID" placeholder="Enter event ID" style="text-align: center;">
-                        <br>
-                        <p ng-show="logined">Logined as {{currentUser.displayName}}</p>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-                        <br>
-                        <br>
-
-                        <div>
-                           
-                           
-                            <div ng-show="!logined">
-                                <button type="button" class="btn btn-primary" ng-click="btn_fb();">Login with Facebook</button>
-                            </div>
-                             <div ng-show="logined">
-                                 <button type="button" class="btn btn-primary" ng-click="btn_admin();">Administrator</button>
-                                 <button type="button" class="btn btn-primary" ng-click="btn_leader();">Team Leader</button>
-                                    
-                                 <button type="button" class="btn btn-primary" ng-click="btn_member();">Member</button>
-                             </div>
-
-
-                        </div>
-                     </div>
-                     <br >
-					 
-																 
-					
-					 
-                     <br >
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-12">
+                <div ng-show="!logined">
+                  <div class="text-center">
+                    <h1>Welcome to Teamform!</h1>
+                    <p>Please first login with Facebook</p>
+                    <button type="button" class="btn btn-primary" ng-click="btn_fb();">Login with Facebook</button>
                   </div>
-               </div>
-               <hr >
+                </div>
+
+                <div class="text-center" ng-show="logined">
+                  <h1>Teamform</h1>
+                  <p>A real-time online team forming app for any event</p>
+                  <div class="text-center" ng-controller="IndexCtrl">
+                    <input type="text" class="form-control" id="inputEventID" ng-model="eventID" placeholder="Enter event ID" style="text-align: center;">
+                    <br>
+                    <p ng-show="logined">Logined as {{currentUser.displayName}}</p>
+                    <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
+                    <button type="button" class="btn btn-primary" ng-click="btn_admin();">Administrator</button>
+                    <button type="button" class="btn btn-primary" ng-click="btn_leader();">Team Leader</button>
+                    <button type="button" class="btn btn-primary" ng-click="btn_member();">Member</button>
+                  </div>
+                </div>
+                <br>
+                <br>
+              </div>
             </div>
-         </div>
+            <hr>
+          </div>
+        </div>
       </div>
       <!-- Marketing messaging and featurettes
          ================================================== -->
