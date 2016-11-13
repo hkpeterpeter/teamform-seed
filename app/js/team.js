@@ -25,10 +25,11 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.tags = $firebaseArray(firebase.database().ref("tags"));
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
-		"teamName" : '',
-		"currentTeamSize" : 0,
-		"teamMembers" : [],
-		"tags" : []
+		teamName : '',
+		currentTeamSize : 0,
+		teamMembers : [],
+		tags : [],
+		invitedBy: []
 	};
 	$scope.uid = "";
 	$scope.currentUser = [];
@@ -142,11 +143,9 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.member.$save(rec);	
 			}
 		});
-		if(newData.teamMembers.length !== 0){
 		ref.set(newData, function() {
 			location.reload();
-		})}
-		location.reload();
+		});
 	};
 	
 	$scope.loadFunc = function() {
@@ -239,9 +238,6 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 	};
 	
-	 $scope.param = {
-		"invitedBy":[]
-	};
 	//$scope.inviteList = [];
 	//invite function
 	$scope.sendInvite = function(m) {
@@ -261,7 +257,7 @@ angular.module('teamform-team-app', ['firebase'])
 				//$scope.param.invitedBy.push($scope.inviteList);
 			//}	
 			
-			$scope.param.invitedBy.push($scope.param.teamName);			
+			$scope.param.invitedBy.push($scope.param.teamName);
 			var refPath = getURLParameter("q") + "/member/" + m;
 			var ref = firebase.database().ref(refPath);			
 			ref.update({
