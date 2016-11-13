@@ -7,14 +7,13 @@ angular.module('teamform')
                     $state.go("admin", {event: $scope.event});
                 };
 
-                $scope.goToLeader = function() {
-                    $state.go("leader", {event: $scope.event});
+                $scope.goToTeam = function() {
+                    $state.go("team", {event: $scope.event});
                 };
 
                 $scope.goToMember = function() {
                     $state.go("member", {event: $scope.event});
                 };
-
             }
         ]
 );

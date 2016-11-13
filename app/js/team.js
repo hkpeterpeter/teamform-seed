@@ -7,7 +7,8 @@ angular.module('teamform')
 
 	var refPath = "";
 	var eventName = $stateParams.event;
-	
+	$scope.event = eventName;
+
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		"teamName" : '',
