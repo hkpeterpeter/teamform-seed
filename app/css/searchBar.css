@@ -4,12 +4,6 @@
     justify-content: center;
 }
 
-.leftAlignVerticalCenter {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
 .fullscreen {
     width: 100vw;
     height: 100vh;

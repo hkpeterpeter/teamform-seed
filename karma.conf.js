@@ -25,7 +25,8 @@ module.exports = function(config) {
 		 'js/createGroup.js' : ['coverage']
 		 //'js/searchbar.js' : ['coverage'],
 		 //'js/chatroomCtrl.js' : ['coverage']
-	},
+		 ,'js/searchbar.js' : ['coverage']
+},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
 			type: 'html',
