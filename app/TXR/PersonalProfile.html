@@ -13,6 +13,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Angular Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+
+    <script src="./route.js"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
@@ -160,7 +166,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="javascript:show('MyProfile');hide('COMP3111');hide('COMP3511');hide('COMP2012');hide('MyNotification');hide('MyConversationPeter');hide('MyConversationKen');hide('MyConversationJason');">My Profile <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="javascript:show('MyProfile');hide('COMP3111');hide('COMP3511');hide('COMP2012');hide('MyNotification');hide('MyConversationPeter');hide('MyConversationKen');hide('MyConversationJason');">My Profile </a></li>
             		<li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">My Events</a>
                     <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
                     <li><a href="javascript:show('COMP3111');hide('MyProfile');hide('COMP3511');hide('COMP2012');hide('MyNotification');hide('MyConversationKen');hide('MyConversationJason');hide('MyConversationPeter');">COMP3111</a></li>
@@ -205,7 +211,7 @@
           <p>Sung Kim</p>
           <p>Edit photo</p>
           <p> Email: <a href="mailto:someone@example.com?Subject=Hello%20again", target="_top">hunkim@cse.ust.hk</a></p>
-          <p> Personal website: <a href="http://home.cse.ust.hk/~hunkim/</">http://home.cse.ust.hk/~hunkim/</a></p>
+          <p> Personal website: <a href="hhhh.com">http://home.cse.ust.hk/~hunkim/</a></p>
         </div>
 </div>
           </div>
@@ -594,8 +600,19 @@
   <div class="container-fluid">
     <div class="navbar-header">         
       <div class="col-md-1 col-lg-8">
-        <h3 class="text-center">Peter</h3>
+        <h3 align="left">Peter invites you to join <strong>O(n^3) is not that slow</strong>
+   
+
+        </h3>
 </div>
+                     
+
+<br>
+<div align="right">
+
+                         <button type="button" class="btn btn-md btn-primary">Accept</button>
+                        <button type="button" class="btn btn-md btn-danger">Reject</button>
+                      </div>
 </div>
 	  </div>
 </nav>
@@ -632,8 +649,19 @@
   <div class="container-fluid">
     <div class="navbar-header">         
       <div class="col-md-1 col-lg-8">
-        <h3 class="text-center">Jason</h3>
+        <h3 align="left">Jason invites you to join <strong>O(n^3) is not that slow</strong>
+   
+
+        </h3>
 </div>
+                     
+
+<br>
+<div align="right">
+
+                         <button type="button" class="btn btn-md btn-primary">Accept</button>
+                        <button type="button" class="btn btn-md btn-danger">Reject</button>
+                      </div>
 </div>
 	  </div>
 </nav>
@@ -652,7 +680,7 @@
     </div>
     <div class="col-lg-11">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Message Jason">
+      <input type="text" class="form-control" placeholder="Message Peter">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Send</button>
       </span>
@@ -670,8 +698,19 @@
   <div class="container-fluid">
     <div class="navbar-header">         
       <div class="col-md-1 col-lg-8">
-        <h3 class="text-center">Kevin</h3>
+        <h3 align="left">Ken invites you to join <strong>O(n^3) is not that slow</strong>
+   
+
+        </h3>
 </div>
+                     
+
+<br>
+<div align="right">
+
+                         <button type="button" class="btn btn-md btn-primary">Accept</button>
+                        <button type="button" class="btn btn-md btn-danger">Reject</button>
+                      </div>
 </div>
 	  </div>
 </nav>
@@ -690,7 +729,7 @@
     </div>
     <div class="col-lg-11">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Message Ken">
+      <input type="text" class="form-control" placeholder="Message Peter">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Send</button>
       </span>
