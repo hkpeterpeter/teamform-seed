@@ -33,7 +33,7 @@ angular.module('teamform-member-app', ['firebase'])
 		var userID = $scope.userID;
 		if ( userID !== '' ) {
 
-			var refPath = getURLParameter("q") + "/member/" + userID;
+			var refPath = "/events/"+ getURLParameter("q") + "/member/" + userID;
 			retrieveOnceFirebase(firebase, refPath, function(data) {
 
 				if ( data.child("name").val() != null ) {
@@ -66,7 +66,7 @@ angular.module('teamform-member-app', ['firebase'])
 				'selection': $scope.selection
 			};
 
-			var refPath = getURLParameter("q") + "/member/" + userID;
+			var refPath = "/events/"+ getURLParameter("q") + "/member/" + userID;
 			var ref = firebase.database().ref(refPath);
 
 			ref.set(newData, function(){
@@ -76,7 +76,7 @@ angular.module('teamform-member-app', ['firebase'])
 	}
 
 	$scope.refreshAds = function() {
-		var refPath = getURLParameter("q") + "/advertisement";
+		var refPath = "/events/"+ getURLParameter("q") + "/advertisement";
 		var ref = firebase.database().ref(refPath);
 
 		$scope.advertisements = $firebaseArray(ref);
@@ -100,7 +100,7 @@ angular.module('teamform-member-app', ['firebase'])
 
 		$scope.selection=[];
 		$scope.team=[];
-		var refPath = getURLParameter("q") + "/team/";
+		var refPath = "/events/"+ getURLParameter("q") + "/team/";
 		$scope.team = $firebaseArray(firebase.database().ref(refPath));
 		$scope.team.$loaded().then( function(data){
 
@@ -120,7 +120,7 @@ angular.module('teamform-member-app', ['firebase'])
 					'selection': $scope.selection
 				};
 
-				var refPath = getURLParameter("q") + "/member/" + userID;
+				var refPath = "/events/"+ getURLParameter("q") + "/member/" + userID;
 				var ref = firebase.database().ref(refPath);
 
 				ref.set(newData, function(){
@@ -131,7 +131,7 @@ angular.module('teamform-member-app', ['firebase'])
 	}
 
 	$scope.refreshTeams = function() {
-		var refPath = getURLParameter("q") + "/team";
+		var refPath = "/events/"+ getURLParameter("q") + "/team";
 		var ref = firebase.database().ref(refPath);
 
 		// Link and sync a firebase object
@@ -145,7 +145,9 @@ angular.module('teamform-member-app', ['firebase'])
 				$scope.selection.push(item);
 			}
 		}
+
 		$scope.teams = $firebaseArray(ref);
+		console.log($scope.teams);
 		$scope.teams.$loaded()
 			.then( function(data) {
 			})
@@ -274,10 +276,15 @@ $scope.starmatch = function() {
 $scope.sizeText = 0;
 
 $scope.largerthan = function(val){
+
 	return function(item){
+		console.log(item.teamMembers, item.currentTeamSize);
 	if ( typeof item.teamMembers != "undefined" && typeof item.teamMembers != "null")
-	{return item.size - item.teamMembers.length - item.teamLeaderSize >= val;}
-	else return (item.size - item.teamLeaderSize >= val);
+	{console.log("inside If",item.currentTeamSize , item.teamMembers.length , item.teamLeaderSize);
+		return item.currentTeamSize - item.teamMembers.length - item.currentTeamLeaderSize >= val;}
+	else {console.log("Else",item.currentTeamSize , item.teamLeaderSize);
+		return (item.currentTeamSize - item.currentTeamLeaderSize >= val);
+	}
 	}
 }
 

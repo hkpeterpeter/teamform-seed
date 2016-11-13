@@ -98,7 +98,7 @@
 						<label><input type="checkbox" value="{{team.$id}}"
 						  ng-checked="selection.indexOf(team.$id) > -1"
 						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}:{{team.size-team.teamMembers.length-1}}
+						{{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
 						<!-- {{team.teamMembers}} -->
 						</label>
 					 </div>
