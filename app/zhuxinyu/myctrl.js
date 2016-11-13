@@ -310,4 +310,85 @@ teamapp.directive("boardList",function(){
 })
 
 
+teamapp.directive("zhuNavi", function() {
+    return {
+        restrict: "E",
+        templateUrl: "zhuxinyu/js/components/fish-navi.html",
+         controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+           
+             
+
+            $firebaseObject($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs")).$bindTo($scope,"allNotif");
+
+            $scope.shownotify=function(){
+                $scope.ntList=[];
+
+
+                $scope.invite_ntList=[];
+
+                $.each($scope.allNotif, function(i,n) {
+
+                    if(n!=null&&n.content!=null&&n.read==false){
+
+                        if(n.type=="invitation"){
+
+                             $scope.invite_ntList.push(n);
+                          
+                        }else{
+
+                             $scope.ntList.push(n);
+                            
+
+                        }
+                        //n.read=true;
+                       
+                    }
+                });
+              
+            }
+
+             
+          
+     
+       }
+         
+    };
+});
+
+
+
+teamapp.directive("notifyBar",function(){
+    return {
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/notifyBar/notifyBar.html",
+        scope:{
+            cpic:"@",
+            type:"@"
+            
+        },
+        transclude:true
+    }
+});
+
+teamapp.directive("invitationBar",function(){
+    return {
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/invitationBar/invitationBar.html",
+        scope:{
+            cpic:"@",
+            type:"@",
+            from:"@",
+            event:"@",
+            team:"@"
+            
+        },
+        transclude:true,
+        controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+            $scope.accept=function(){
+                console.log("User:"+$rootScope.currentUser.id+" should be added to team "+$scope.team);
+            }
+        }
+    }
+});
+
 

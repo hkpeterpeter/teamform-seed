@@ -1,5 +1,5 @@
 <!-- Compiled and minified CSS -->
-
+<!--TODO: accept or turn down an invitation; go to manage a team; go to manage an event; quit a team.-->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
@@ -10,9 +10,6 @@
 
 <div ng-controller="dashboardController">
 <div class="container" style="padding-top: 20px">
-    <button class="btn waves-effect waves-light" ng-click="facebookLogin()">Login
-        <i class="material-icons right">send</i>
-    </button>
     <div class="row" id="infoDisplay">
         <div class="col m6 s6">
             <img src="{{currentUser.profilePic}}" style="height: 100%; width: 100%">
@@ -20,6 +17,7 @@
         <div class="col m6 s6">
             <h4 width="100%">Username: {{currentUser.name}}</h4>
             <h6 width="100%">My ID (email): {{currentUser.email}}</h6>
+            <p>{{currentUser}}</p>
         </div>
     </div>
     <!--<p width="100%">{{currentUser}}</p>-->
@@ -60,15 +58,18 @@
             </div>
             <div id="unreadNotifs">
                 <h5>My unread notifications:</h5>
+                <div ng-repeat="noti in notifsDisplay | filter: false">
+                    <p>{{noti}}  <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Accept</a> <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Turn down</a></p>
+                </div>
             </div>
             <div id="allNotifs">
                 <h5>All of my notifications:</h5>
                 <div ng-repeat="noti in notifsDisplay track by $index">
-                    <p>{{noti}}<a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Accept</a> <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Turn down</a></p>
-
+                    <p>{{noti}}  <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Accept</a> <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Turn down</a></p>
                 </div>
             </div>
         </div>
+        {{notifs}}
     </div>
     <div class="divider"></div>
 
@@ -98,10 +99,10 @@
         </div>
         <div id="teamsApplying">
             <h4>I have pending applications to these teams:</h4>
-            <div ng-repeat="pendingTeam in applyingList">{{pendingTeam.$value}}</div>
+            <div ng-repeat="pendingTeam in applyingList">{{pendingTeam.$value}}  <a class="waves-effect waves-light btn">WITHDRAW</a></div>
         </div>
     </div>
-
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 
