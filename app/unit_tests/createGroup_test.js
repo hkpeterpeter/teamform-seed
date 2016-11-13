@@ -58,6 +58,21 @@ describe('createGroupCtrl', function(){
 		expect($scope.tempTeam.preference).toEqual("N");				
 	});
 
+	it('setEstimateBudgetPerPerson allow user type in their budget between 100 and 100000', function(){
+		spyOn(window, 'alert');
+
+		$scope.tempTeam.estimatedBudgetPerPerson = 50;
+		$scope.setEstimateBudgetPerPerson();
+		expect(window.alert).toHaveBeenCalledWith("Budget should not be less than $100.");
+		expect($scope.tempTeam.estimatedBudgetPerPerson).toEqual(100);
+
+
+		$scope.tempTeam.estimatedBudgetPerPerson = 10000000;
+		$scope.setEstimateBudgetPerPerson();
+		expect(window.alert).toHaveBeenCalledWith("Budget should not be larger than 100000.");
+		expect($scope.tempTeam.estimatedBudgetPerPerson).toEqual(100);		
+	});
+
 	it('createGroup() create a right team object', function(){
 		expect($scope.team.id).toEqual("");
 	});
