@@ -12,12 +12,13 @@ import chat from './chat';
 import user from './user';
 import team from './team';
 import error from './error';
+import message from './message';
 import passwordreset from './password-reset';
 
 import auth from './common/auth';
 import app from './common/app';
 
-angular.module('app', [uirouter, app, home, register, login, logout, passwordreset, event, user, team, chat, error, auth, ngprogress])
+angular.module('app', [uirouter, app, home, register, login, logout, passwordreset, event, user, team, chat, message, error, auth, ngprogress])
     .config(routes)
     .run(['$rootScope', '$state', 'ngProgressLite', 'AuthService', ($root, $state, ngProgressLite, authService) => {
         $root.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {

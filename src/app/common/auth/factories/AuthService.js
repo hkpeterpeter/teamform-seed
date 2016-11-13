@@ -62,6 +62,7 @@ export default class AuthService {
     }
     checkRules(rules = {}) {
         let user = this.getUser();
+        console.log(user);
         if (this.user && rules.signOut) {
             return Promise.reject('GUEST_REQUIRED');
         }

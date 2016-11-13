@@ -20,6 +20,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="!isAuth"><a ui-sref="register">Register</a></li>
                 <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="!isAuth"><a ui-sref="login">Login</a></li>
+                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth"><a ui-sref="message">Message</a></li>
                 <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth"><a ui-sref="user.detail({userId: user.uid})">My Profile</a></li>
                 <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth"><a ui-sref="logout({fromState: $state.current.name, fromParams: $state.params})">Logout</a></li>
             </ul>
