@@ -17,6 +17,18 @@ export default class EventService {
             let eventUsers = await this.$firebaseArray(event.$ref().child('users')).$loaded();
             for(let eventUser of eventUsers) {
                 eventUser.user = await this.userService.getUser(eventUser.id);
+                eventUser.hasTeam = false;
+                for(let team of event.teams) {
+                    for(let [teamUserKey, teamUser] of Object.entries(team.users)) {
+                        if(eventUser.id == teamUser.id) {
+                            eventUser.hasTeam = true;
+                            break;
+                        }
+                    }
+                    if(eventUser.hasTeam) {
+                        break;
+                    }
+                }
             }
             event.users = eventUsers;
             return Promise.resolve();

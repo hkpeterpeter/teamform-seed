@@ -52,7 +52,8 @@ export default class TeamService {
             if (teamUser.id == null && teamUser.$id == positionId) {
                 let newTeamUser = {
                     id: user.uid,
-                    role: teamUser.role
+                    role: teamUser.role,
+                    refId: positionId
                 };
                 if (teamJoin.invite) {
                     newTeamUser.pending = true;
@@ -106,6 +107,8 @@ export default class TeamService {
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.confirmed = null;
+        let oldTeamUser = await this.getTeamPositionUser(id, teamUser.refId);
+        await oldTeamUser.$remove();
         return teamUser.$save();
     }
     async acceptTeamPosition(id, positionId) {
