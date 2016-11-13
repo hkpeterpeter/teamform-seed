@@ -65,7 +65,7 @@ export default class TeamService {
         }
         return Promise.reject(new Error('The team is full'));
     }
-    async getTeams(options = {}) {
+    async getTeams() {
         let teams = await this.$firebaseArray(this.$database.ref('teams')).$loaded();
         let init = async() => {
             teams = await Promise.all(teams.map(async(team) => {
@@ -92,6 +92,25 @@ export default class TeamService {
             await teamUsers.$add(newTeamUser);
         }
         return teamRef;
+    }
+    async getTeamPositionUser(id, positionId) {
+        let teamUser = await this.$firebaseObject(this.$database.ref('teams/'+id+'/users/'+positionId)).$loaded();
+        if(teamUser.$value === null) {
+            return Promise.reject(new Error('Position not exist'));
+        }
+        return teamUser;
+    }
+    async confirmTeamPosition(id, positionId) {
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        teamUser.pending = null;
+        teamUser.confirmed = null;
+        return teamUser.$save();
+    }
+    async acceptTeamPosition(id, positionId) {
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        teamUser.pending = null;
+        teamUser.accepted = null;
+        return teamUser.$save();
     }
     static instance(...args) {
         return new TeamService(...args);

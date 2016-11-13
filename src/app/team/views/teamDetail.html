@@ -144,7 +144,7 @@
                             <span ng-repeat="skill in teamUser.user.skills" class="label label-success">{{skill}}</span>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false">Accept</button>
+                            <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.confirmTeamPosition(teamUser.$id)">Accept</button>
                         </td>
                     </tr>
                 </tbody>

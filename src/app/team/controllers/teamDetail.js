@@ -27,7 +27,18 @@ export default class TeamDetailCtrl {
             let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
                 console.log('success');
-                this.getTeam();
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
+    async confirmTeamPosition(positionId) {
+        try {
+            let teamUsers = await this.teamService.confirmTeamPosition(this.$stateParams.teamId, positionId);
+            this.$timeout(() => {
+                console.log('success');
             });
         } catch (error) {
             this.$timeout(() => {
