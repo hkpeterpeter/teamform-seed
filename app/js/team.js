@@ -324,7 +324,7 @@ angular.module('teamform-team-app', ['firebase'])
 	};
 
 	$scope.changeleader = function(uid1, uid2) {
-			if (uid1.indexOf($scope.param.teamLeader)> != -1 && uid2.indexOf($scope.param.teamLeader) == -1)
+			if (uid1.indexOf($scope.param.teamLeader) != -1 && uid2.indexOf($scope.param.teamLeader) == -1)
 			$scope.param.teamLeader.splice(uid1);
 			$scope.param.teamLeader.push(uid2);
 			$scope.param.teamMembers.push(uid1);
@@ -339,7 +339,7 @@ angular.module('teamform-team-app', ['firebase'])
 		{
 			$scope.param.teamLeader.push($scope.uid);
 			$scope.param.teamLeaderSize++;
-	}
+	}}
 
 	$scope.addleader = function(uid) {
 
@@ -350,7 +350,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 			$scope.saveFunc();
 		}
-}
+		}
 
 
 
