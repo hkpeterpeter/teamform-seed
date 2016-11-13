@@ -52,7 +52,6 @@ angular.module('ability-test-app', ['firebase'])
 				var refPath = getURLParameter("q") +"/member/" + userID;
 				var ref = firebase.database().ref(refPath);
 				ref.update({marks: mark})
-				// ref.update({answers:$scope.param.answer})
 				var url = "member.html?q=" + getURLParameter("q");
 				window.location.href= url
 			};
