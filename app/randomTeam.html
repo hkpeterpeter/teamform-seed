@@ -20,6 +20,7 @@
 			<div ng-switch-when="rrand">
 				<h3>List of Team(Really random): </h3><br>
 				<div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
+
 					<table width="400">
 						<tr align="center">
 							<td align="center"><b>Name:</b></td>
@@ -37,6 +38,13 @@
 							</td>
 						</tr>
 					</table>
+					<br><br><br>
+					Feel free to try again if you still have no idea.
+					<button ng-click="" ng-init="">
+					  Try again!!!
+					</button>
+
+
 				</div>
 			</div>
 			<!--<div ng-switch-when="full">
@@ -84,7 +92,6 @@
 		</div>
 		
 
-		
 
         
 	</div>
