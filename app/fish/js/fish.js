@@ -49,7 +49,7 @@ teamapp.controller('fishCtrl', ['$scope', "$rootScope", "$firebaseObject", "$fir
     		}
     	}
 
-    	return {event: curEvent, team: teamsCurEvent};
+    	return {event: curEvent, team: teamsCurEvent, user: allData.users};
 
     }
 
