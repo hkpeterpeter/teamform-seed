@@ -128,10 +128,6 @@ angular.module('teamform-team-app', ['firebase'])
 				// Finally, go back to the front-end
 				window.location.href= "index.html";
 			});
-
-
-
-
 		}
 	}
 
@@ -140,18 +136,21 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.member.map(function(e){return e.$id;}).indexOf($scope.uid)
 		);
 		console.log($scope.member);
-		if($scope.member.map(function(e){return e.$id;}).indexOf($scope.uid) <= -1){
-		var newData = {
-			'name': "will be found in profile",
-		};
 
-		var refPath = getURLParameter("q") + "/member/" + $scope.uid;
+		var refPath = getURLParameter("q") + "/member/"+ $scope.uid;
 		var ref = firebase.database().ref(refPath);
 
-		ref.set(newData, function(){});
-		$scope.saveFunc();
-		}
+		$scope.profile = getProfile($scope.uid);
+		$scope.profile.$loaded().then(function(data){
+			if($scope.member.map(function(e){return e.$id;}).indexOf($scope.uid) <= -1){
+			var newData = {
+				'name': $scope.profile["name"],
+			};
 
+			ref.set(newData, function(){});
+			$scope.saveFunc();
+			}
+		});
 	}
 
 
@@ -351,6 +350,18 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.saveFunc();
 		}
 		}
+
+		var getProfile = function(uid){
+    var path= "profile/"+uid;
+    var ref = firebase.database().ref(path);
+    var profile = $firebaseObject(ref);
+    profile.$loaded()
+      .catch(function(error) {
+        $scope.error = error.message;
+        console.error("Error:", error);
+      });
+    return profile;
+  }
 
 
 

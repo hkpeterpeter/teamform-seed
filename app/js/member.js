@@ -15,18 +15,19 @@ angular.module('teamform-member-app', ['firebase'])
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
 		// TODO: implementation of MemberCtrl
-	$scope.auth=$firebaseAuth();
-	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
-	if (firebaseUser) {
-		$scope.uid = firebaseUser.uid;
-	} else {
-		console.log("Signed out");
-	}
-});
-
 	$scope.userID = "";
 	$scope.userName = "";
 	$scope.teams = [];
+
+	$scope.auth=$firebaseAuth();
+	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
+  		if (firebaseUser) {
+    		$scope.uid = firebaseUser.uid;
+  		}
+  		else {
+    		console.log("Signed out");
+  		}
+    });
 
 	$scope.loadFunc = function() {
 		var userID = $scope.userID;
@@ -158,174 +159,126 @@ angular.module('teamform-member-app', ['firebase'])
 //.controller('matchCtrl', ["$scope", "$firebaseAuth"],
  // function($scope, $firebaseAuth) {
 
-  $scope.auth=$firebaseAuth();
-	$scope.auth.$onAuthStateChanged(function(firebaseUser) {
-  		if (firebaseUser) {
-    		$scope.uid = firebaseUser.uid;
-  		}
-  		else {
-    		console.log("Signed out");
-  		}
-    });
 
 // skills match
+	var getProfile = function(uid){
+      var path= "profile/"+uid;
+      var ref = firebase.database().ref(path);
+      $scope.profile = $firebaseObject(ref);
+      $scope.profile.$loaded()
+        .catch(function(error) {
+          // Database connection error handling...
+          console.error("Error:", error);
+        });
+        return $scope.profile;
+    }
 
 
 	$scope.skillsmatch = function() {
-/*	$scope.teams = [
-	{ "name": "team1", "personality": "sad", "skills":["skill1", "skill2"], "star":"dllm", "score":0},
-	{ "name": "team2", "personality": "happy", "skills":["skill3"], "star":"on9", "score":0}
-	];
-	$scope.profile ={ "personality": "sad", "skills": ["skill3","skill4"], "star":"on9"};
-  */  if ($scope.profile.skills != ""){
-      var refPath = getURLParameter("q")+"/team/";
-      var ref = firebase.database().ref(refPath);
-      $scope.teams = $firebaseArray(ref);
 
- 		for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
- 		{
-      		console.log("team copied");
- 			var team = new Array();
- 			team[teamindex] = $scope.teams[teamindex];
- 			team[teamindex].score = 0;
- //
- 			for (skillsindex=0; skillsindex< $scope.profile.skills.length; skillsindex++) {
+	$scope.profile = getProfile($scope.userID);
+      $scope.profile.$loaded()
+      	.then(function(data){
+		    if ($scope.profile.skills != ""){
+	      		console.log("profile =",$scope.profile);
 
-        	if (team[teamindex].skills){
-        		console.log("skills exists");
-        	if(team[teamindex].skills.indexOf($scope.profile.skills[skillsindex]) > -1) {
-        		console.log("if they are the same");
-        		team[teamindex].score++;}
-        	}
-        }
-        	 console.log("team:",team);
-  	  	}
-      	$scope.teams = orderBy($scope.teams,'score',true);
-      	console.log("skillsmatch output",$scope.teams);
-      	/*  for(var team in $scope.teams){
-		var team.score =0;
-     	console.log("ran");
-     	for(var skill in $scope.profile.skills){
-     	if(team.skills.indexOf(skill) > -1) {
-       		console.log("ran");
-     		team.score++;}
-		}
-		console.log("team:",team);
-      	var searchteam = orderBy($scope.teams,'score',true);
-      	console.log("skillsmatch output",searchteam);
-      	return $scope.searchteam;
-*///  	}
-
-      // for(index = 0; index < $scope.profile.skills.length; index++){
-      //     skillsCollection.$ref().orderByKey("skills").equalTo($scope.profile.skills[index]).once("value", function(dataSnapshot){
-      //     var teamfound = dataSnapshot.val();
-      //     if(dataSnapshot.exists()){
-      //       console.log("Found", teamfound);
-      //     }
-      //     else {
-      //       console.warn("Not found.");
-      //     }
-      //   });
-      // }
-    }
-  };
-
+	 			for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
+	 			{
+		      		console.log("team copied");
+		 			var team = new Array();
+		 			team[teamindex] = $scope.teams[teamindex];
+		 			team[teamindex].score = 0;
+					console.log("team_skills",$scope.teams[teamindex].skills);
+		 			for (skillsindex=0; skillsindex< $scope.profile.skills.length; skillsindex++) {
+			        	if (team[teamindex].skills){
+			        		console.log("skills exists");
+				        	if(team[teamindex].skills.indexOf($scope.profile.skills[skillsindex]) > -1) {
+				        		console.log("if they are the same");
+				        		team[teamindex].score++;}
+			        	}
+	        		}
+	        	 console.log("team:",team);
+		  	  	}
+		      	$scope.teams = orderBy($scope.teams,'score',true);
+		      	console.log("skillsmatch output",$scope.teams);
+    		}
+      	});
+	};
 // personality match
 
   $scope.personalitymatch = function() {
- /* 	$scope.teams = [
-	{ "name": "team1", "personality": "sad", "skills":["skill1", "skill2"], "star":"dllm", "score":0},
-	{ "name": "team2", "personality": "happy", "skills":["skill3"], "star":"on9", "score":0}
-	];
-	$scope.profile ={ "personality": "sad", "skills": ["skill3","skill4"], "star":"on9"};
-*/
-    if ($scope.profile.personality != ""){
-      var refPath = getURLParameter("q")+"/team/";
-      var ref = firebase.database().ref(refPath);
-      $scope.teams = $firebaseArray(ref);
 
-    for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
- 		{
-      		console.log("team copied");
- 			var team = new Array();
- 			team[teamindex] = $scope.teams[teamindex];
- 			team[teamindex].score = 0;
-        	if (team[teamindex].personality){
-        		console.log("personality exists");
-        	if(team[teamindex].personality.indexOf($scope.profile.personality) > -1) {
-        		console.log("if they are the same");
-        		team[teamindex].score++;}
-        	}
-        	 console.log("team:",team);
-  	  	}
-      	$scope.teams = orderBy($scope.teams,'score',true);
-      	console.log("personalitymatch output",$scope.teams);
+	$scope.profile = getProfile($scope.userID);
+      $scope.profile.$loaded()
+      	.then(function(data){
 
-	/*  $scope.teams.$ref().orderByKey("personality").equalTo($scope.profile.personality).once("value", function(dataSnapshot){
-        var teamfound = dataSnapshot.val();
-        if(dataSnapshot.exists()){
-          console.log("Found", teamfound);
-        }
-        else {
-          console.warn("Not found.");
-        }
-      });
-   */ }
-  };
+			if ($scope.profile.personality != ""){
+				for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
+	 			{
+	      			console.log("team copied");
+
+	 				var team = new Array();
+	 				team[teamindex] = $scope.teams[teamindex];
+	 				team[teamindex].score = 0;
+
+	        		if (team[teamindex].personality){
+	        			console.log("personality exists");
+
+	        			if(team[teamindex].personality.indexOf($scope.profile.personality) > -1) {
+	        				console.log("if they are the same");
+	        				team[teamindex].score++;
+	        			}
+	        		}
+	        		console.log("team:",team);
+	  	  		}
+	      		$scope.teams = orderBy($scope.teams,'score',true);
+	      		console.log("personalitymatch output",$scope.teams);
+	    	}
+	    });
+};
 
 // star match
 
-  $scope.starmatch = function() {
- /* 	$scope.teams = [
-	{ "name": "team1", "personality": "sad", "skills":["skill1", "skill2"], "star":"dllm", "score":0},
-	{ "name": "team2", "personality": "happy", "skills":["skill3"], "star":"on9", "score":0}
-	];
-	$scope.profile ={ "personality": "sad", "skills": ["skill3","skill4"], "star":"on9"};
-*/
-    if ($scope.profile.star != ""){
-    	var refPath = getURLParameter("q")+"/team/";
-     	var ref = firebase.database().ref(refPath);
-  		$scope.teams = $firebaseArray(ref);
+$scope.starmatch = function() {
 
-    for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
- 		{
-      		console.log("team copied");
- 			var team = new Array();
- 			team[teamindex] = $scope.teams[teamindex];
- 			team[teamindex].score = 0;
-        	if (team[teamindex].star){
-        		console.log("star exists");
-        	if(team[teamindex].star.indexOf($scope.profile.star) > -1) {
-        		console.log("if they are the same");
-        		team[teamindex].score++;}
-        	}
-        	 console.log("team:",team);
-  	  	}
-      	$scope.teams = orderBy($scope.teams,'score',true);
-      	console.log("starmatch output",$scope.teams);
- /*	$scope.teams.$ref().orderByKey("star").equalTo($scope.profile.star).once("value", function(dataSnapshot){
-        var teamfound = dataSnapshot.val();
-        if(dataSnapshot.exists()){
-          console.log("Found", teamfound);
-        }
-        else {
-          console.warn("Not found.");
-        }
-      });*/
-    }
-  };
+  	$scope.profile = getProfile($scope.userID);
+      $scope.profile.$loaded()
+      	.then(function(data){
 
-		$scope.sizeText = 0;
+			if ($scope.profile.star != ""){
 
-		$scope.largerthan = function(val){
-	    return function(item){
-			if ( typeof item.teamMembers != "undefined" && typeof item.teamMembers != "null")
-			{return item.size - item.teamMembers.length - item.teamLeaderSize >= val;}
-			else return (item.size - item.teamLeaderSize >= val);
-	    }
-		}
+    			for (teamindex=0; teamindex<$scope.teams.length; teamindex++)
+ 				{
+		      		console.log("team copied");
+		 			var team = new Array();
+		 			team[teamindex] = $scope.teams[teamindex];
+		 			team[teamindex].score = 0;
 
-	// }]);
+		        		if (team[teamindex].star){
+		        			console.log("star exists");
 
-}])
-;
+		        			if(team[teamindex].star.indexOf($scope.profile.star) > -1) {
+		        				console.log("if they are the same");
+		        				team[teamindex].score++;
+		        			}
+		        		}
+		        	console.log("team:",team);
+		  	  	}
+
+      			$scope.teams = orderBy($scope.teams,'score',true);
+      			console.log("starmatch output",$scope.teams);
+    		}
+	    });
+};
+
+$scope.sizeText = 0;
+
+$scope.largerthan = function(val){
+	return function(item){
+	if ( typeof item.teamMembers != "undefined" && typeof item.teamMembers != "null")
+	{return item.size - item.teamMembers.length - item.teamLeaderSize >= val;}
+	else return (item.size - item.teamLeaderSize >= val);
+	}
+}
+
+}]);

@@ -12,13 +12,13 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
 
     $scope.input = {
-      name: "",
-      gender: "",
+      name: "Username",
+      gender: "Male",
 			uid: "",
-			birth: "",
-			star: "",
-      location:"".toLowerCase(),
-      description:""
+			birth: "1-1-1996",
+			star: "Virgo",
+      location:"Tsuen Wan".toLowerCase(),
+      description:"Hello world"
 
 		};
     $scope.personality = "";
@@ -65,6 +65,8 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
           if(typeof $scope.profile["like"]=="undefined"){$scope.profile["like"]=$scope.like;}
           if(typeof $scope.profile["pic"]=="undefined"){$scope.profile["pic"]=$scope.picdefault;}
           if(typeof $scope.profile["personality"]=="undefined"){$scope.profile["personality"]=$scope.personality;}
+          console.log("HI");
+          $scope.profile.$save();
           // console.log(data);
           $scope.checkifuser();
           $(".Profileview").show();
@@ -80,7 +82,7 @@ function($firebaseAuth, $scope, $firebaseObject, $firebaseArray){
 
     $scope.saveProfile = function() {
 
-      if ( $scope.input.name != "" && $scope.input.gender!="" && $scope.input.birth != "" && $scope.input.star != "" && $scope.input.location != "" && $scope.input.description != ""  ) {
+      if ( $scope.input.name !="" && $scope.input.gender!="" && $scope.input.birth !="" && $scope.input.star !="" && $scope.input.location !="" && $scope.input.description !=""  ) {
         // $scope.input.date = new Date().toString();
         // $scope.input.likes = 0;
         // add an input question
