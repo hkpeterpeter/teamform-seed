@@ -7,28 +7,29 @@
       <meta name="keywords" content="teamform, team">
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>teamform - member page</title>
-	  
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+
+      <!-- libraries and CSS
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
 		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
+		Font-awesome: More icons for the web development (v4.6.3 is used)
+		site.css: A customized css for our web application. Not from any web framework.
 	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
       <link rel="stylesheet" href="css/site.css" >
 
 
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
-	  	  
+
    </head>
    <body>
+   <div ng-include = "'navbar.html'"> </div>
 
    <a href="index.html"
    <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
@@ -46,16 +47,16 @@
             <div class="col-md-2 col-xs-2"></div>
 
             <div class="col-md-8 col-xs-8 panel">
-			
 
-               
+
+
                <form class="form-horizontal">
                   <div class="form-group">
                      <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
                      <div class="col-sm-5">
                      <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
                      </div>
-					 
+
 					 <div class="col-sm-4">
 					   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add/Modify</button>
 					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
@@ -68,30 +69,46 @@
                      <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
                      </div>
                   </div>
-				  
-				  
-				 
+
+<!-- 				   <div class="form-group">
+                     <label for="inputSex" class="col-sm-3 control-label">Sex</label>
+                     <div class="col-sm-9">
+                     <input type="text" class="form-control" id="inputUserName" ng-model="userSex" placeholder="Type in your sex">
+                     </div>
+                  </div> -->
+
+
+
 
 
 
                </form>
-			   
+
 			     <div class="row text-left">
-			        
-				    <h3>Your team preference:</h3>
-			       <div ng-repeat="team in teams">
-					  					  
+			        <label>Search: <input ng-model="searchText"></label>
+					<label>Size: <input ng-model="sizeText" type="number"></label>
+					<h3>Recruiting:</h3>
+					<div ng-repeat="advertisement in advertisements">
+						{{advertisement.$id}}:{{advertisement.content}}
+					</div>
+					<button type="button" class="btn btn-primary" ng-click="selectall();" >iDon'tCare</button>
+				    <h3>Your team preference(s):</h3>
+					<div ng-repeat="team in teams | filter :{$id: searchText}|filter : largerthan(sizeText)">
 					 <div class="checkbox">
-						<label><input type="checkbox" value="{{team.$id}}" 
+						<label><input type="checkbox" value="{{team.$id}}"
 						  ng-checked="selection.indexOf(team.$id) > -1"
 						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}</label>
+						{{team.$id}}:{{team.currentTeamSize-team.teamMembers.length-team.currentTeamLeaderSize}}
+						<!-- {{team.teamMembers}} -->
+						</label>
 					 </div>
-					  
+
 				  </div>
+
+				  <!-- <div ng-show="!(teams| filter:searchText).length">No Such Team</div> -->
 				</div>
 
-               
+
             </div>
             <div class="col-md-2 col-xs-2"></div>
          </div>
@@ -104,17 +121,16 @@
 
    <!-- Angular and Angular-route libraries (v1.5.7) -->
    <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>        
-     
+   <script src="lib/angular-route.min.js"></script>
+
    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>     
+   <script src="lib/firebase.js"></script>
    <script src="lib/angularfire.min.js"></script>
 
 
-
-   <!-- JavaScript of this page -->
    <script src="js/member.js"></script>
 
    </body>
 </html>
 
+   <!-- JavaScript of this page -->
