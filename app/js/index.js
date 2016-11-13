@@ -6,16 +6,17 @@ angular.module('teamform-index-app', ['firebase'])
 
     // Call Firebase initialization code defined in site.js
     initalizeFirebase();
-
     $scope.eventID = "";
-
+    $scope.currentUser = firebase.auth().currentUser;
+    $scope.logined = $scope.currentUser !== null;
     $scope.btn_fb = function () {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
             // This gives you a Facebook Access Token. You can use it to access the Facebook API.
             var token = result.credential.accessToken;
             // The signed-in user info.
-            var user = result.user;
+            $scope.currentUser = result.user;
+            $scope.logined = true;
             // ...
         }).catch(function (error) {
             // Handle Errors here.

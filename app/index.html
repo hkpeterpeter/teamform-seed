@@ -126,7 +126,8 @@
                      <div class="text-center" ng-controller="IndexCtrl">
                         <input type="text" class="form-control" id="inputEventID" ng-model="eventID" placeholder="Enter event ID">
                         <br>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event {{eventID}}</em>
+                        <p ng-show="logined">Logined as {{currentUser.displayName}}</p>
+                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
                         <br>
                         <br>
 
