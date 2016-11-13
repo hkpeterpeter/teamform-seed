@@ -1,5 +1,27 @@
-/* This is where all of the common css code will go. */
+/* This is where all of the common or global css code will go. */
 
+.box-shadow-bottom-only {
+    -webkit-box-shadow: 0 8px 6px -6px dodgerblue;
+    -moz-box-shadow: 0 8px 6px -6px dodgerblue;
+    box-shadow: 0 8px 6px -6px dodgerblue;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.flex-row-label {
+    -webkit-flex: 1 0 0;
+    flex: 1 0 0;
+}
+.flex-row-content {
+    -webkit-flex: 4 0 0;
+    flex: 4 0 0;
+}
 
 /* Code to center the tutorial video */
-div.center iframe{display: block; margin-left: auto;margin-right: auto;}
+div.center iframe{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
