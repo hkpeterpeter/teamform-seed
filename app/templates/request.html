@@ -19,12 +19,12 @@
                 <div ng-show="myEvent.applications == null && myEvent.invitations == null">No requests!</div>
                 <ul>
                     <li ng-repeat="(teamKey, tid) in myEvent.applications">
-                        You are currently applying for the team <span><a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a></span>. 
+                        You are currently applying for the team <span><a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a></span>.
                         <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="withdrawApp(eid, tid)"></span>
                     </li>
 
                     <li ng-repeat="(teamKey, tid) in myEvent.invitations">
-                        Team <span><a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a></span> has sent you an invitation. 
+                        Team <span><a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a></span> has sent you an invitation.
                         <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-click="acceptInvi(eid, tid)"></span>
                         <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="declineInvi(eid, tid)"></span>
                     </li>

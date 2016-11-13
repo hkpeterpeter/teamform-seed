@@ -25,14 +25,16 @@
 <button class="btn btn-primary" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change Team info</button>
         </h3>
         <!-- <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='leader') && (myEvents[eventID] | teamId)==teamID">{{myEvents[eventID] | role}} in this team</h3> -->
-        <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member')">{{myEvents[eventID] | role}} of team {{teams.$getRecord(team_id.team).name}} </h3>
+        <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member')">{{myEvents[eventID] | role}} of team {{teams.$getRecord(user_teamdata.team ).name}} </h3>
         <h3 ng-if="(myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor'">{{myEvents[eventID] | role}}</h3>
 
   			<p>
   				{{teamdata.desc}}
           <!-- {{memberlist}} -->
   			</p>
-        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='tba'" ng-click = "ApplyTeam()">Apply for this team</button>
+        {{alreadyApplied}}
+        <button type = "button" class = "btn btn-primary" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied" ng-click = "ApplyTeam()">Apply for this team</button>
+        <button type = "button" class = "btn btn-primary" disabled="disabled" ng-if="((myEvents[eventID] | role)=='tba' ) && alreadyApplied " ng-click = "ApplyTeam()">Aleady Applied</button>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID" ng-click = "QuitTeam()">Quit this team</button>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" ng-click = "Change_Leader()">Change team leader</button>
   			<form class="form-search">
@@ -56,11 +58,12 @@
             </ul>
           </div>
           <div>
-            <h6>Team Leader:</h6> {{users.$getRecord(teamdata.leader).readOnly.name}}
-            <!-- <ul ng-repeat="(id,uid) in leader">
+            <h6>Team Leader:</h6>
+            <!-- {{users.$getRecord(teamdata.leader).readOnly.name}} -->
+            <ul ng-repeat="(id,uid) in leader">
               <li>{{users.$getRecord(uid).readOnly.name}}
               </li>
-            </ul> -->
+            </ul>
           </div>
         </div>
   		</div>
@@ -104,8 +107,8 @@
             <ul ng-repeat="(uid,status) in applications">
               <li>
                 {{users.$getRecord(uid).readOnly.name}} : {{status}}
-                <button type="button" class="btn btn-primary" ng-click="accept_Application(x.$id)" ng-if = "(myEvents[eventID] | role)=='leader' &&  x.$value == 'pending'  && (myEvents[eventID] | teamId)==teamID">Accept</button>
-                <button type="button" class="btn btn-primary" ng-click="decline_Application(x.$id)" ng-if = "(myEvents[eventID] | role)=='leader' &&  x.$value == 'pending'  && (myEvents[eventID] | teamId)==teamID">Reject</button>
+                <button type="button" class="btn btn-primary" ng-click="accept_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID">Accept</button>
+                <button type="button" class="btn btn-primary" ng-click="decline_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID">Reject</button>
               </li>
             </ul>
           </div>
