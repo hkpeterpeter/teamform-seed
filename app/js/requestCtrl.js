@@ -25,6 +25,9 @@ app.controller("requestCtrl",
 		});
 
 
+
+		$scope.search_model = "all";
+
 		$scope.filterEvent = function(items, filter_model) {
     		var result = {};
     		angular.forEach(items, function(value, key) {
