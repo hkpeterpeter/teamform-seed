@@ -1,5 +1,3 @@
-google.charts.load('current', {'packages':['corechart']});
-
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
 
@@ -20,3 +18,5 @@ function drawChart() {
   chart1.draw(data, options);
   chart2.draw(data, options);
 }
+
+google.charts.load('current', {'packages':['corechart']}); //put this in controller of MyEvent.

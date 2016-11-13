@@ -11,7 +11,7 @@ app.controller("indexCtrl",
       gotoURL("/TXR/index.html", [], $window);
 
     initalizeFirebase();
-    var ref = firebase.database().ref("users");
+    var ref = firebase.database().ref("usersx");
     accounts = $firebaseObject(ref);
 
     $scope.scopeUser = accounts;

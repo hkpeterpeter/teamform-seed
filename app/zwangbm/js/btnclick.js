@@ -1,14 +1,14 @@
-var app = angular.module("clickApp", ["firebase"]); 
-	app.controller("clickCtrl", 
-			
+var app1 = angular.module("clickApp", ["firebase"]);
+app1.controller("clickCtrl",
+
 		function($scope, $firebaseObject, $firebaseArray) {
-			// Implementation the todoCtrl 
+			// Implementation the todoCtrl
 			//alert("adsadsads");
 			$scope.new;
 			var list_users=["ikari1","ikari2","shinji","van","andyw"];
-		
+
 			$scope.users = $firebaseObject(firebase.database().ref("users")); //before: $firebaseArray
-			
+
 			/*
 			$scope.users.ikari1={"name":"ikari","intro":"My hands stuck to my face again!","img":"./img/ikari.jpg","select":"glyphicon glyphicon-unchecked","tag":["cpp","java","sql"]};
 			$scope.users.shinji={"name":"shinji","intro":"I am not a pussy","img":"./img/shinji.jpg","select":"glyphicon glyphicon-unchecked","tag":["angularjs","html","css","sql"]};
@@ -19,10 +19,10 @@ var app = angular.module("clickApp", ["firebase"]);
 			*/
 
 			$scope.selected = $firebaseObject(firebase.database().ref("selected"));		// .selected[0]: selected
-			
+
 			//var medium=$scope.users;
 			//$scope.filtered = medium;
-			
+
 			//tag: users/teams
 			$scope.tag = $firebaseObject(firebase.database().ref("tag"));
 
@@ -41,17 +41,17 @@ var app = angular.module("clickApp", ["firebase"]);
 			/*
 			var tags = ["javascript","angularjs","html","css","java","cpp","sql"];
 			for (var i=0; i<tags.length; i++){
-				$scope.currentTag.$add(tags[i]);	
+				$scope.currentTag.$add(tags[i]);
 			}
 			*/
 
-						
+
 			$scope.resultTag = [];
 
 
 			//users filtered by the tags, initialized with $scope.users
 			$scope.filtered = $firebaseObject(firebase.database().ref("filtered"));
-			
+
 			/*for (var i=0; i<list_users.length; i++){
 				$scope.filtered[list_users[i]] = $scope.users[list_users[i]];
 				alert($scope.users.abcd.name);
@@ -63,10 +63,10 @@ var app = angular.module("clickApp", ["firebase"]);
 			$scope.filtered.van={"name":"van","intro":"ddf","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["html","sql"]};
 			$scope.filtered.andyw={"name":"andy","intro":"boxing","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["javascript","sql"]};
 			$scope.filtered.$save();
-			
 
 
-			
+
+
 
 
 
@@ -104,7 +104,7 @@ var app = angular.module("clickApp", ["firebase"]);
 			//delete from chosen tag and move to current tag
 			$scope.delete = function(index){
 				var temp = $scope.resultTag;
-				
+
 				$scope.resultTag = [];
 				for(var i = 0;i < temp.length;i++){
 					if(i != index){
@@ -116,7 +116,7 @@ var app = angular.module("clickApp", ["firebase"]);
 				};
 
 				//filtered: add all users, then filter with tags
-				
+
 				angular.forEach($scope.users, function(value,key){
 					$scope.filtered[key] = $scope.users[key];
 				});
@@ -129,7 +129,7 @@ var app = angular.module("clickApp", ["firebase"]);
 					});
 				}
 				$scope.filtered.$save();
-				
+
 			};
 
 
@@ -138,13 +138,13 @@ var app = angular.module("clickApp", ["firebase"]);
 				//alert(event.target.id);
 				if ($scope.users[username].select == "glyphicon glyphicon-check"){
 					//alert(event.target.id+' before: check');
-			      	
+
 			      	$scope.users[username].select = "glyphicon glyphicon-unchecked";
 			      	$scope.users.$save();
 			      	$scope.filtered[username].select = "glyphicon glyphicon-unchecked";
 			      	$scope.filtered.$save();
 			      	delete $scope.selected[username];
-			      	//alert("change to uncheck");			      	
+			      	//alert("change to uncheck");
 				    $scope.selected.$save();
 			    }
 			    else if ($scope.users[username].select == "glyphicon glyphicon-unchecked"){
@@ -158,9 +158,9 @@ var app = angular.module("clickApp", ["firebase"]);
 			      	//alert("change to check");
 				    $scope.selected.$save();
 			    }
-			    
-		
-			}; 
-			
+
+
+			};
+
 		}
 	);
