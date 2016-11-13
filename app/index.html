@@ -112,6 +112,7 @@
           <div class="col-md-12">
             <div class="row">
               <div class="col-md-12">
+                <!-- Only this part is showed before facebook login -->
                 <div ng-show="!logined">
                   <div class="text-center">
                     <h1>Welcome to Teamform!</h1>
@@ -119,7 +120,7 @@
                     <button type="button" class="btn btn-primary" ng-click="btn_fb();">Login with Facebook</button>
                   </div>
                 </div>
-
+                <!-- Only this part is showed after facebook login -->
                 <div class="text-center" ng-show="logined">
                   <h1>Teamform</h1>
                   <p>A real-time online team forming app for any event</p>
