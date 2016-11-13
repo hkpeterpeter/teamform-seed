@@ -16,7 +16,6 @@ export default class TeamService {
             team.createdByUser = await this.userService.getUser(team.createdBy);
             team.users = await this.getTeamUsers(id);
             team.event = await this.eventService.getEvent(team.eventId);
-            team.users = await this.getTeamUsers(id);
         };
         await init();
         team.$$updated = await init;
@@ -26,7 +25,7 @@ export default class TeamService {
         let teamUsers = await this.$firebaseArray(this.$database.ref('teams/' + id).child('users')).$loaded();
         for (let teamUser of teamUsers) {
             if (teamUser.id) {
-                Object.assign(teamUser, await this.userService.getUser(teamUser.id));
+                teamUser.user = await this.userService.getUser(teamUser.id);
             }
         }
         return teamUsers;
@@ -35,10 +34,7 @@ export default class TeamService {
         let user = this.authService.getUser();
         let teamJoin = await this.getTeam(id);
         await this.eventService.joinEvent(teamJoin.eventId, true);
-        let teams = await this.getTeams();
-        teams = teams.filter((team) => {
-            return teamJoin.eventId == team.eventId;
-        });
+        let teams = await this.$firebaseArray(this.$database.ref('teams').orderByChild('eventId').equalTo(teamJoin.eventId)).$loaded();
         for (let team of teams) {
             for (let [key, teamUser] of Object.entries(team.users)) {
                 if (teamUser.id == user.uid) {

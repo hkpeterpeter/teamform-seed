@@ -6,19 +6,16 @@ export default class UserService {
         this.$database = $database;
         this.authService = authService;
     }
-    getUser(id) {
+    async getUser(id) {
         return this.$firebaseObject(this.$database.ref('users/' + id)).$loaded().then((user) => {
             if (user.$value === null) {
-                return Promise.reject('User not exist');
+                return Promise.reject(new Error('User not exist'));
             }
             return Promise.resolve(user);
         });
     }
-    getUsers(options = {}) {
-        return this.$firebaseArray(this.$database.ref('users')).$loaded()
-            .then(users => {
-                return users;
-            });
+    getUsers() {
+        return this.$firebaseArray(this.$database.ref('users')).$loaded();
     }
     async editUser(user) {
         user.pending = null;
@@ -30,14 +27,6 @@ export default class UserService {
             await userSkills.$add(newUserSkill);
         }
         return userRef;
-    }
-    createEvent(event) {
-        return this.authService.checkAuth()
-            .then(user => {
-                event.createdBy = user.uid;
-                event.createdAt = Date.now();
-                return this.$firebaseArray(this.$database.ref('events')).$add(event);
-            });
     }
     static instance(...args) {
         return new UserService(...args);

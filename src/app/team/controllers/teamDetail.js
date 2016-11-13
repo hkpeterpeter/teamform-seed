@@ -1,9 +1,10 @@
 export default class TeamDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, teamService) {
+    constructor($location, $state, $stateParams, $timeout, authService, teamService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
+        this.authService = authService;
         this.teamService = teamService;
         this.team = null;
         this.error = null;
@@ -34,6 +35,10 @@ export default class TeamDetailCtrl {
             });
         }
     }
+    canManage() {
+        let user = this.authService.getUser();
+        return user && user.uid == this.team.createdBy;
+    }
     filterJoined(user) {
         return user.id != null && user.pending !== true && user.confirmed !== false;
     }
@@ -45,4 +50,4 @@ export default class TeamDetailCtrl {
     }
 }
 
-TeamDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'TeamService'];
+TeamDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'AuthService', 'TeamService'];
