@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--
+	title icon
+	<link rel="icon" href="../../favicon.ico">
+	-->
+    <title>Team Forming</title>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+	
+	
+	
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<!--angular js library-->
+	 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+	 
+	
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+	<script src = "search-page.js"></script>
+	<!--temporary css of search tag-->
+	 <style>
+		.filter-tag{
+			margin-right:10px;
+		}
+		.filter-bar{
+			padding:5px 10px 5px 5px;
+			
+		}
+		
+	 </style>
+	 
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+
+  </head>
+
+  <body ng-app = "profile" ng-controller = "searchPage">
+	
+    <nav class="navbar navbar-inverse navbar-fixed-top" >
+      <div class="container-fluid">
+        <div class="navbar-header">
+			<a class="navbar-brand" href="#" >
+				<div>
+					<!--use firebase to get the user picture and user name-->
+					<img alt="Brand" style = "height:30px;width:30px" src="peter.jpg"/> <span>Peter Cheung     </span>
+					
+					<!--not yet dicided-->
+					<button type="button" class="btn btn-default btn-xs">Logout</button>
+				</div>
+			</a>
+        </div>
+		
+        <div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<!-- not yet decided -->
+					<!-- get personal data and count the number of notifications in notification json-->
+					<!-- ng-click to go to notification section?-->
+					<a href="#"><img src = "images.png" style = "width:20px;height:20px"/> <span class="badge">42<!--use angular js--></span></a>
+				</li>
+			</ul>
+			
+			
+			<form class="navbar-form navbar-right">
+				<label for = "search">
+					<div class="dropdown"  >
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
+								{{searchType}}
+							<span class="caret"></span>
+						</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li><a href="#" ng-click = "setSearchT()">Search Team</a></li>
+						<li><a href="#" ng-click = "setSearchP()">Search Person</a></li>
+					</ul>
+					</div>
+				</label>
+            <input name = "search" type="text" class="form-control" ng-focus = "start()" placeholder="Search...">
+			<button type="button" class="btn btn-default" aria-label="Left Align">
+				<span class="glyphicon glyphicon-search" aria-hidden="true">
+			</button>
+          </form>
+        
+		</div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row" >
+	  
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Export</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item</a></li>
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+            <li><a href="">More navigation</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="">Nav item again</a></li>
+            <li><a href="">One more nav</a></li>
+            <li><a href="">Another nav item</a></li>
+          </ul>
+        </div>
+		
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"   ng-hide = "startSearch">
+			<div class = "row filter-bar">
+				<div class = "col-sm-3">
+					<h5>Enter the tags that you want to search: </h5>
+					
+				</div>
+				<div class = "col-sm-2">
+					<input type="text" class="form-control" ng-model = "new" ng-change = "autocomplete()" placeholder="case ignored"/>
+				</div>
+				<div class = "col-sm-1">
+					<button class="btn btn-primary" type="submit" ng-click = "clear()">Clear</button>
+				</div>
+				<div class = "col-sm-6">
+					<p class="text-danger">Please don`t use any special character like '@','#'.'$'.'%','^'.........</p>
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class = "row filter-bar">
+				<div class="col-sm-3 ">
+					<h5>Choose the tags that you want to search: </h5>
+				</div>
+				<div class = "col-sm-9  " id = "predefineTag"   >
+					<div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
+					
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class = "row filter-bar">
+				<div class = "col-sm-3 ">
+					<h5>Current filter tags: </h5>
+				</div>
+				<div class = "col-sm-9" id = "searchTag" >
+					<div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
+						{{y}}
+						<span>&nbsp&nbsp</span>
+						<span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
+					</div>
+				</div>
+			</div>
+			
+			<hr/>
+			
+			
+			
+			<div class = "row filter-bar">
+				<div class="col-sm-3 ">
+					<span class = "glyphicon glyphicon-eye-close" style = "margin-right:5px"></span>
+					<label for = "full" style = "margin-right:5px"><h4>Ignore full teams: </h4></label>
+					<input name = "full" type = "checkbox">
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class = "row">
+				<div class = "row">
+					<div class = "col-sm-3">
+						<h3>Search Result:</h3>
+					</div>
+				</div>
+				
+							<div class="row ">
+								<div class="col-sm-6 col-md-3  team-list " ng-repeat = "">
+									<div class="row">
+										<img  class = "col-sm-5" style = "width:150px;height:120px" src="peter.jpg" alt="teamname">
+										
+										<div class="caption col-sm-7">
+											<h3>OOP</h3>
+											<p>...</p>
+											<p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
+										</div>
+									</div>
+								</div>		
+							</div>
+						
+				
+			</div>
+			
+			
+			
+			
+		</div>
+
+		
+      </div>
+	  
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="jquery.min.js"><\/script>')</script>
+    <script src="bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>

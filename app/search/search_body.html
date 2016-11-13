@@ -1,0 +1,82 @@
+
+  <div class = "row filter-bar">
+    <div class = "col-sm-3">
+      <h5>Enter the tags that you want to search: </h5>
+
+    </div>
+    <div class = "col-sm-2">
+      {{new}}
+      <input type="text" class="form-control" ng-model = "new" ng-change = "autocomplete(new)" placeholder="case ignored"/>
+    </div>
+    <div class = "col-sm-1">
+      <button class="btn btn-primary" type="submit" ng-click = "clear()">Clear</button>
+    </div>
+    <div class = "col-sm-6">
+      <p class="text-danger">Please don`t use any special character like '@','#'.'$'.'%','^'.........</p>
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class = "row filter-bar">
+    <div class="col-sm-3 ">
+      <h5>Choose the tags that you want to search: </h5>
+    </div>
+    <div class = "col-sm-9  " id = "predefineTag"   >
+      <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
+
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class = "row filter-bar">
+    <div class = "col-sm-3 ">
+      <h5>Current filter tags: </h5>
+    </div>
+    <div class = "col-sm-9" id = "searchTag" >
+      <div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
+        {{y}}
+        <span>&nbsp&nbsp</span>
+        <span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
+      </div>
+    </div>
+  </div>
+
+  <hr/>
+
+
+
+  <div class = "row filter-bar">
+    <div class="col-sm-3 ">
+      <span class = "glyphicon glyphicon-eye-close" style = "margin-right:5px"></span>
+      <label for = "full" style = "margin-right:5px"><h4>Ignore full teams: </h4></label>
+      <input name = "full" type = "checkbox">
+    </div>
+  </div>
+
+  <hr/>
+
+  <div class = "row">
+    <div class = "row">
+      <div class = "col-sm-3">
+        <h3>Search Result:</h3>
+      </div>
+    </div>
+
+          <div class="row ">
+            <div class="col-sm-6 col-md-3  team-list " ng-repeat = "">
+              <div class="row">
+                <img  class = "col-sm-5" style = "width:150px;height:120px" src="../search/peter.jpg" alt="teamname">
+
+                <div class="caption col-sm-7">
+                  <h3>OOP</h3>
+                  <p>...</p>
+                  <p><a href="#" class="btn btn-primary" role="button">View</a> <a href="#" class="btn btn-default" role="button">Join</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+  </div>

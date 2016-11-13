@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Please Login</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- Angular Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+
+    <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+    <link rel="stylesheet" href="index.css">
+
+    <script src="site.js"></script>
+    <script src="index.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-app="indexApp" ng-controller="indexCtrl">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+
+          <ul id="myTab" class="nav nav-tabs">
+            <li class="active">
+              <a href="#login" data-toggle="tab">Login</a>
+            </li>
+            <li><a href="#reg" data-toggle="tab">Register</a></li>
+          </ul>
+
+          <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="login">
+
+              <form class="form-signin">
+                <h2 class="form-signin-heading">Log in</h2>
+                <label for="inputUsername" class="sr-only">Email address</label>
+                <input type="" id="inputUsername" class="form-control" placeholder="Email address" required autofocus ng-model="inputUsername">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="inputPassword">
+                <!-- <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="remember-me" ng-model="rememberMe"> Remember me
+                  </label>
+                </div> -->
+                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()">Log in</button>
+                <hr>
+                <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="loginFB()">Log in with Facebook</button>
+              </form>
+
+            </div>
+            <div class="tab-pane fade" id="reg">
+
+              <form class="form-signin">
+                <h2 class="form-signin-heading">Register</h2>
+                <label for="inputUsername" class="sr-only">Email address</label>
+                <input type="" id="inputUsernameReg" class="form-control" placeholder="Email address" required autofocus ng-model="inputUsernameReg">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPasswordReg" class="form-control" placeholder="Password" required ng-model="inputPasswordReg">
+                <label for="inputConfirmPassword" class="sr-only">Confirm Password</label>
+                <input type="password" id="inputConfirmPasswordReg" class="form-control" placeholder="Confirm Password" required ng-model="inputConfirmPasswordReg">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="reg()">Register</button>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-4">{{scopeUser}}</div>
+      </div>
+    </div> <!-- /container -->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
+</html>
