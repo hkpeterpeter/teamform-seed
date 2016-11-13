@@ -16,7 +16,7 @@ export default class EventService {
             event.teams = await this.$firebaseArray(this.$database.ref('teams').orderByChild('eventId').equalTo(id)).$loaded();
             let eventUsers = await this.$firebaseArray(event.$ref().child('users')).$loaded();
             for(let eventUser of eventUsers) {
-                Object.assign(eventUser, await this.userService.getUser(eventUser.id));
+                eventUser.user = await this.userService.getUser(eventUser.id);
             }
             event.users = eventUsers;
         });
@@ -26,8 +26,8 @@ export default class EventService {
     }
     async joinEvent(id, force) {
         let user = this.authService.getUser();
-        let result = await this.$firebaseArray(this.$database.ref('events/' + id + '/users').orderByChild('id').equalTo(user.uid)).$loaded();
-        let joined = result.length > 0;
+        let eventUsers = await this.$firebaseArray(this.$database.ref('events/' + id + '/users').orderByChild('id').equalTo(user.uid)).$loaded();
+        let joined = eventUsers.length > 0;
         if (!joined) {
             return eventUsers.$add({id: user.uid});
         } else {

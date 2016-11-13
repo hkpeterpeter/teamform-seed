@@ -19,10 +19,10 @@ export default class UserService {
     }
     async editUser(user) {
         user.pending = null;
-        let newUserSkills = user.skills;
+        let newUserSkills = user.skills || [];
         user.skills = null;
         let userRef = await user.$save();
-        let userSkills = this.$firebaseArray(userRef.child('skills'));
+        let userSkills = await this.$firebaseArray(userRef.child('skills')).$loaded();
         for (let newUserSkill of newUserSkills) {
             await userSkills.$add(newUserSkill);
         }

@@ -112,7 +112,8 @@ module.exports = function makeWebpackConfig() {
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
-            'root.jQuery': 'jquery'
+            'root.jQuery': 'jquery',
+            '_': 'lodash'
         }),
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
