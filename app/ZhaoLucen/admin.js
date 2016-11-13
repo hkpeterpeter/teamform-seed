@@ -1,131 +1,220 @@
-
-teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, filterFilter) {
+teamapp.filter('adminRequest', function ($rootScope, $firebaseObject) {
+		return function(items) {
+			var event = '0';
+			
+			var filtered = [];
+			for (var key in items) {
+				if (items[key].eventID == event) {
+					filtered.push(items[key]);
+				};
+			};
+			return filtered;
+	};
+});
+teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $firebaseArray, filterFilter) {
   var event = $firebaseObject($rootScope.event_ref.child('0'));
+
   event.$loaded().then(function(){
-  	console.log(event.adminID);
-  	$rootScope.eventTeams = event.allTeams;
-  	$rootScope.eventUsers = event.waitingUsers;
-  	$scope.minSize = event.minSize;
-  	$scope.maxSize = event.maxSize;
-  	$scope.size = $scope.maxSize - $scope.minSize + 1;
-  	console.log($scope.size);
-  	var admin = $firebaseObject($rootScope.user_ref.child('0'));
+  	
+  	//$rootScope.eventTeams = event.allTeams;
+  	$rootScope.minSize = event.minSize;
+  	$rootScope.maxSize = event.maxSize;
+  	$rootScope.size = $scope.maxSize - $scope.minSize + 1;
+  	
+  	var admin = $firebaseObject($rootScope.user_ref.child(event.adminID));
   	admin.$loaded().then(function(){
-  		$scope.event = {
+  		$rootScope.eventInfo = {
   			name: event.eventName,
   			admin: admin.name
   		};
   	});
-  	console.log($rootScope.eventTeams);
-  });
+  
 
-  $scope.getNumber = function(num) {
-    return new Array(num);   
-	}
-
-	console.log($rootScope.eventTeams);
-	$scope.teams = [
-		{
-			name: 'TeamOne',
-			size: 5,
-			minSize: 6,
-			maxSize: 7,
-			skills: ['JavaScript', 'Java'],
-			members: ['m1', 'm2', 'm18', 'm62', 'm23']
-		}, {
-			name: 'TeamTwo',
-			size: 3,
-			minSize: 2,
-			maxSize: 6,
-			skills: ['Machine Learning', 'Java'],
-			members: ['m10', 'm63', 'm24']
-		}, {
-			name: 'TeamThree',
-			size: 4,
-			minSize: 4,
-			maxSize: 6,
-			skills: ['Machine Learning', 'AngularJS'],
-			members: ['m11', 'm66', 'm25']
+  
+  	$scope.getNumber = function(num) {
+    	return new Array(num);   
 		}
-	];
-	console.log($scope.adminTeamSearch);
+
+		$scope.teams = $firebaseArray($rootScope.team_ref.orderByChild("belongstoEvent").equalTo(event.$id.toString()));
 	
-	$scope.maxSize = 8;
+		$scope.maxSize = 8;
 
-	//$scope.teams = $rootScope.eventTeams;
-	$scope.teamFilter = function(item) {
-		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == false) {
-			return false;
-		};
-		if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
-			if (item.size != $scope.maxSize) {
+		//$scope.teams = $rootScope.eventTeams;
+		$scope.teamFilter = function(item) {
+			if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == false) {
 				return false;
 			};
-		};
-		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
-			if (item.size == $scope.maxSize) {
-				return false;
+			if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
+				if ((item.membersID.length+1) != $rootScope.maxSize) {
+					return false;
+				};
 			};
-		};
+			if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
+				if ((item.membersID.length+1) == $rootScope.maxSize) {
+					return false;
+				};
+			};
 
 
-		if (!$scope.adminTeamSearch || (item.name.toLowerCase().indexOf($scope.adminTeamSearch.toLowerCase()) != -1) ) {
-			return true;
-		} else {
-			var skills = angular.toJson(item.skills);
-			if (skills.toLowerCase().indexOf($scope.adminTeamSearch.toLowerCase()) != -1) {
+			if (!$scope.adminTeamSearch || (item.teamName.toString().toLowerCase().indexOf($scope.adminTeamSearch.toString().toLowerCase()) != -1) ) {
 				return true;
 			} else {
-				return false;
+				var skills = angular.toJson(item.desiredSkills);
+				if (skills.toString().toLowerCase().indexOf($scope.adminTeamSearch.toString().toLowerCase()) != -1) {
+					return true;
+				} else {
+					return false;
+				};
 			};
 		};
-	};
 
+		$scope.getLength = function(team) {
+			return Object.keys(team.membersID).length + 1;
+		}
 
 	$scope.remove = function(team) { 
   		var index = $scope.teams.indexOf(team);
   		$scope.teams.splice(index, 1);     
 	};
 
-	$scope.users = [
-		{
-			name: "user1",
-			intro: "I am user1. I am a front-end developer. This is my self-introduction.",
-			skills: ['JavaScript', 'AngularJS', 'Node.js'],
-			requests: ['TeamOne', 'TeamTwo']
-		}, {
-			name: "user2",
-			intro: "I am user2. I am a Java expert. This is my self-introduction.",
-			skills: ['AngularJS', 'Algorithm'],
-			requests: ['TeamThree', 'TeamTwo']
-		}
-	];
+	$scope.users = [];
+	console.log(event.waitingUsers);
+	for (var key in event.waitingUsers) {
+		$scope.users.push($firebaseObject($rootScope.user_ref.child(event.waitingUsers[key])));
+	}
+
 
 	$scope.userFilter = function(item) {
 		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == false) {
 			return false;
 		};
-		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
-			if (item.requests.length == 0) {
-				return false;
-			};
-		};
 		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
-			if (item.requests.length != 0) {
+			var requested = false;
+			for (var key in item.teamApplying) {
+				console.log(item.teamApplying[key].eventID);
+				console.log(item.teamApplying[key].teamName);
+				console.log(event.$id);
+				if (item.teamApplying[key].eventID == event.$id) {
+					requested = true;
+					break;
+				}
+			};
+			if (!requested)
 				return false;
+		};
+		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
+			for (var key in item.teamApplying) {
+				if (item.teamApplying[key].eventID == event.$id)
+					return false;
 			};
 		};
 
-		if (!$scope.adminUserSearch || (item.name.toLowerCase().indexOf($scope.adminUserSearch.toLowerCase()) != -1) ) {
+		if (!$scope.adminUserSearch || (item.name.toString().toLowerCase().indexOf($scope.adminUserSearch.toString().toLowerCase()) != -1) ) {
 			return true;
 		} else {
-			var skills = angular.toJson(item.skills);
-			if (skills.toLowerCase().indexOf($scope.adminUserSearch.toLowerCase()) != -1) {
-				return true;
-			} else {
-				return false;
+			for (var key in item.skills) {
+				if (item.skills.hasOwnProperty(key)) {
+					if (item.skills[key].toString().toLowerCase().indexOf($scope.adminUserSearch.toString().toLowerCase()) != -1) {
+						return true;
+					};
+				};
+			};
+			return false;
+		};
+	};
+	
+	$scope.adminAddUserToTeam = function(key, request, user) {
+		var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
+		console.log(curTeamMember);
+		console.log(curTeamMember.length);
+		if (curTeamMember.length < parseInt($rootScope.maxSize)-1) {
+			//Add user to team member
+			curTeamMember.$add(user.$id.toString());
+
+			var curUser = $rootScope.user_ref.child(user.$id.toString());
+
+			//Add user to teamAsMember
+			var curUserIn = curUser.child("teamsAsMember");
+			var curUserInList = $firebaseArray(curUserIn);
+			//var curUserOutList = $firebaseArray(curUserOut);
+			curUserInList.$add(request.teamID);
+
+			//Delete this request from teamsApplying
+			var curUserOut = $firebaseObject(curUser);
+			curUserOut.$loaded().then(function(){
+				console.log(curUserOut);
+				for (var key in curUserOut.teamsApplying) {
+					console.log(curUserOut.teamsApplying.teamID);
+					if (curUserOut.teamsApplying[key].teamID == request.teamID) {
+						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
+						break;
+					}
+				};
+			});
+
+
+			//curUserOutList.$remove(request);
+			for (var i = $scope.users.length - 1; i >= 0; i--) {
+				if ($scope.users[i] == user.$id)
+					$scope.users.splice(i, 1);
+			};
+			// Remove waiting user from database-event
+			for (var key in event.waitingUsers) {
+				if(event.waitingUsers[key] == user.$id) {
+					$rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
+					break;
+				};
+			};
+			
+		};
+	};
+
+	$scope.adminAddUserToOtherTeam = function(user) {
+		var teamName = user.adminAdd;
+		var teamID;
+		console.log(teamName);
+		for (var key in $scope.teams) {
+			if ($scope.teams[key].teamName == teamName) {
+				teamID = $scope.teams[key].$id;
+			};
+		};
+
+		if (teamID == null) {
+			console.log("No Such Team");
+			return;
+		}
+			
+		var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
+		console.log(curTeamMember);
+		console.log(curTeamMember.length);
+		if (curTeamMember.length < parseInt($rootScope.maxSize)-1) {
+			//Add user to team member
+			curTeamMember.$add(user.$id.toString());
+
+			var curUser = $rootScope.user_ref.child(user.$id.toString());
+
+			//Add user to teamAsMember
+			var curUserIn = curUser.child("teamsAsMember");
+			var curUserInList = $firebaseArray(curUserIn);
+			curUserInList.$add(teamID);
+		
+
+			//curUserOutList.$remove(request);
+			for (var i = $scope.users.length - 1; i >= 0; i--) {
+				if ($scope.users[i] == user.$id)
+					$scope.users.splice(i, 1);
+			};
+			// Remove waiting user from database-event
+			for (var key in event.waitingUsers) {
+				if(event.waitingUsers[key] == user.$id) {
+					$rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
+					break;
+				};
 			};
 		};
 	};
 
+
+	//event loaded ends
+	});
 });
