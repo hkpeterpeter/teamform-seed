@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-create_event-app">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>LIGHT OF WISDOM - Administrative Page</title>
+
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+      <!-- Angular Library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+   <script src="assets/lib/firebase.js"></script>     
+
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
+
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/login.js"></script>
+   <script src="assets/js/create_event.js"></script>
+
+
+</head>
+
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="index.html">HOME</a></li>
+					<li><a href="#event">EVENTS</a></li>
+					<li><a href="#about">ABOUT US</a></li>
+					
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+
+
+		<div class="row">
+			<!-- Article main content -->
+			<div class="jumbotron top-space parallax">
+		<div class="container">
+		
+		             
+		    <div class="container">
+			
+			<h3 class="text-center thin"><p>CREATE EVENT</p></h3>
+			
+			<div class="row">
+			<em>Enter a name to create a event</em>
+			<input id="input_text" type="text" >
+			<button id="btn_event" type="button" class="btn btn-primary btn-sm" >Create</button>
+			</div> <!-- /row  -->
+		</div>
+	
+		
+	</div>	<!-- /container -->
+
+		
+			
+			<h3 class="text-center thin name"><p>CURRENT EVENT</p></h3>
+			
+			<div class="row" ng-controller="CreateEventCtrl">
+			<div class="col-md-6 col-sm-6 highlight">
+			<table border="1">
+			<tr>
+			<td> Event Name </td><td> Holder </td><td> Team Size </td><td></td></tr>
+
+			<tr ng-repeat="e in events">
+			<td>{{e.param.EventName}} </td>
+			<td>{{e.param.EventAdmin}} </td>
+			<td>{{e.param.TeamSize}}</td>
+			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="modifyevent(e.param.EventName);">modify</button></td>
+			</tr>
+
+			</table>
+			</div>
+
+				
+			</div> <!-- /row  -->
+		
+		</div>
+			<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Contact</h3>
+						<div class="widget-body">
+							<p>+234 23 9873237<br>
+								<a href="mailto:#">some.email@somewhere.com</a><br>
+								<br>
+								234 Hidden Pond Road, Ashland City, TN 37015
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Follow me</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons">
+								<a href=""><i class="fa fa-twitter fa-2"></i></a>
+								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Text widget</h3>
+						<div class="widget-body">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
+							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="simplenav">
+								<a href="#">Home</a> | 
+								<a href="#event">Event</a> |
+								<a href="#about">About us</a> |
+								<b><a href="loginwithgoogle()">Sign in</a></b>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="text-right">
+								Copyright &copy; 2016, Light Of Wisdom. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+	</footer>	
+</body>
+</html>

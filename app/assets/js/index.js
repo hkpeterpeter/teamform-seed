@@ -1,11 +1,56 @@
+$(document).ready(function(){
+
+    $("#btn_admin").click(function(){
+    	var val = $('#input_text').val();
+    	if ( val !== '' ) {
+    		var url = "admin.html?q=" + val;
+			var event_name = $('#input_text').val();
+    		window.location.href= url ;
+    		return false;
+    	}
+    });
+
+    $("#btn_leader").click(function(){
+    	var val = $('#input_text').val();
+    	if ( val !== '' ) {
+    		var url = "team.html?q=" + val;
+			
+    		window.location.href= url ;
+    		return false;
+    	}
+    });
+
+    $("#btn_member").click(function(){
+    	var val = $('#input_text').val();
+    	if ( val !== '' ) {
+    		var url = "member.html?q=" + val;
+    		window.location.href= url ;
+    		return false;
+    	}
+    });
 
 
+});
 
-angular.module('teamform-login-app', ['firebase'])
-.controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray', "$firebaseAuth", function($scope, $firebaseObject, $firebaseArray,$firebaseAuth) {
-         
-    // Call Firebase initialization code defined in site.js
+
+angular.module('teamform-index-app', ['firebase'])
+.controller('IndexCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+    
     initalizeFirebase();
+
+    var eventRef, refPath;
+
+    refPath = "/event/"
+    eventRef = firebase.database().ref(refPath);
+    $scope.events = [];
+    $scope.events = $firebaseArray(eventRef);
+
+
+    $scope.viewevent = function(eventname) {
+        // Finally, go back to the front-end
+        window.location.href= "event.html?q=" + eventname;
+
+    }
 
     //Login Service
     $scope.loginwithgoogle = function(){
@@ -16,7 +61,7 @@ angular.module('teamform-login-app', ['firebase'])
     var token = result.credential.accessToken;
      // The signed-in user info.
     var user = firebase.auth().currentUser;
-    console.log("Logged in as:", result.uid);
+    console.log("Logged in as:", user.displayName);
 
             var usersRef = firebase.database().ref('users');
             var usersArray = $firebaseArray(usersRef);
@@ -55,18 +100,6 @@ angular.module('teamform-login-app', ['firebase'])
     console.log("Sign-out unsuccessful");
     });
 
-
-
-
-
-
 };
-
-
-
-
-
-
  };
-
 }]);
