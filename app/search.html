@@ -166,11 +166,13 @@
                 <!--Search Result-->
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-repeat="r in result">
                     <div id={{r.eid}} class="{{(result[0]==false)?'hide':''}} well wellHalfTransparent well col-xs-12 col-sm-12 col-md-12 col-lg-12 searchResultElement">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 leftAlignVerticalCenter">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <a class="searchResultElementTitle" href="#">
                                 <span ng-bind-html="trustAsHtml(r.name)"></span>
                             </a>
                             <span class="badge id-badge" ng-bind-html="trustAsHtml(r.id)"></span>
+                            <input type="button" class="btn btn-md btn-danger pull-right {{(r.email==''&& !r.full.includes('(FULL)')?'':'hide')}} joinBtn"
+                                value="Join" />
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <span class="font-size-xs">{{(r.email==""?"Preference: ":"Gender: ")}}</span>
