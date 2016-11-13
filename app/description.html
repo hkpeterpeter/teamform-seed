@@ -1,0 +1,27 @@
+ <!-- format the website below -->
+   <style>
+   td.imp {
+    padding: 10px;
+	font-size: 20px;
+   }
+   </style>
+
+	      <table align ="center">
+		  <tr align ="left"><td class="imp"><strong>Event Name: </strong></td>
+		    <td class="imp"> {{param.eventName}}</td></tr>
+	      <tr align ="left"><td class="imp"><strong>About the Event: </strong></td>
+		    <td class="imp"> {{param.description}}</td></tr>
+		  <tr align ="left"><td class="imp"><strong>Admin: </strong></td>
+		    <td class="imp"> {{adminName}}</td></tr>
+		  <tr align ="left"><td class="imp"><strong>Minimum Team Size: </strong></td>
+		    <td class="imp"> {{param.minTeamSize}}</td></tr>
+		  <tr align ="left"><td class="imp"><strong>Maximum Team Size: </strong></td>
+		    <td class="imp"> {{param.maxTeamSize}}</td></tr>
+		  <tr align ="left"><td class="imp"><strong>Deadline: </strong></td>
+		    <td class="imp"> {{ deadline | date:'dd/MM/yyyy' }}</td></tr>
+		  <tr align ="left"><td class="imp"><strong>Days Left: </strong></td>
+		    <td class="imp"> <span ng-hide="(deadline-today)<0">{{(deadline - today)/(1000*60*60*24) | number:0}}</span>
+			                 <span ng-show="(deadline-today)<0"><strong><font color="red">Passed the deadline!</font><strong></span>
+			</td></tr>
+		  </table>
+		  <br>  

@@ -1,0 +1,23 @@
+                  <style>
+				  .table {
+                    width: 60%;
+	                margin-left:auto; 
+                    margin-right:auto;
+                    max-width: 60%;
+	              }
+				  </style>
+				  
+				  <table class="table table-striped" border="1">
+                    <thead>
+                      <tr>
+                        <th><font size="4px"><center>Announcement</center></font></th>
+                        <th width="1%" white-space="nowrap"><font size="4px"><center>Date</center></font></th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="a in announcements">
+                      <tr>
+                        <td><font size="4px">{{a.text}}</font></td>
+                        <td><font size="4px">{{a.date | date: 'dd/MM/yyyy'}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
