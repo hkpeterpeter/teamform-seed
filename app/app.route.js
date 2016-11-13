@@ -120,6 +120,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
             url: '/handleRequests',
             templateUrl: 'handleRequests.html',
             controller: 'handleRequests',
+            })
+			
+			.state('randomEvent', {
+            url: '/randomEvent',
+            templateUrl: 'randomEvent.html',
+            controller: 'random_Event',
             });
 });
 
