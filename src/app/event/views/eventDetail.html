@@ -91,14 +91,7 @@
 
     <div class="panel panel-warning">
         <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-6">
-                    <h3 class="panel-title text-left">User Joined</h3>
-                </div>
-                <div class="col-xs-6">
-                    <div class="text-right"><a class="label label-warning" ng-click="eventDetail.autoFormTeam()">Auto FormTeam</a></div>
-                </div>
-            </div>
+            <h3 class="panel-title">User Joined</h3>
         </div>
 
         <div class="table-responsive">
@@ -106,11 +99,14 @@
                 <thead>
                     <tr>
                         <th>User</th>
+                        <th>HasTeam</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr dir-paginate="eventUser in eventDetail.event.users | itemsPerPage: 5" pagination-id="users">
                         <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{eventUser.user.name}}</a></td>
+                        <td ng-if="eventUser.hasTeam"><span class="text-success glyphicon glyphicon-ok"></span></td>
+                        <td ng-if="!eventUser.hasTeam"><span class="text-danger glyphicon glyphicon-remove"></span></td>
                     </tr>
                 </tbody>
             </table>
@@ -118,6 +114,52 @@
         <div class="panel-footer">
             <dir-pagination-controls pagination-id="users" class="pull-right" />
             <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3 class="panel-title text-left">Auto Teamforming</h3>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><a class="label label-danger" ng-click="eventDetail.autoFormTeam()">Auto FormTeam</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div ng-repeat="team in eventDetail.autoTeam.teams">
+                    <div class="col-sm-6">
+                        <h5>{{team.name}}</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="teamUser in team.users">
+                                        <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{teamUser.user.name}}</a></td>
+                                        <td>{{teamUser.role}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="$odd" class="clearfix"></div>
+                </div>
+            </div>
+            <div ng-if="eventDetail.autoTeam.failed">
+                Failed Users:
+                <ul>
+                    <li ng-repeat="failedUser in eventDetail.autoTeam.failed">
+                        <a ui-serf="user.detail({userId: failedUser.user.$id})">{{failedUser.user.name}}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
