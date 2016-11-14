@@ -89,5 +89,75 @@ $scope.switcher = function(event) {
 //   }
 // }
 
+$scope.features = [
+  {
+    image_path: "Fenghaoan/images/feature1.png",
+    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+    flip: "true"
+  },
+  {
+    image_path: "Fenghaoan/images/feature1.png",
+    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+    flip: "false"
+  },
+  {
+    image_path: "Fenghaoan/images/feature1.png",
+    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+    flip: "true"
+  },
+
+];
+
+$scope.developers = [
+  {
+    name: "FENG Haoan",
+    image: "Fenghaoan/images/feature1.png",
+    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+    personal_website: "https://www.google.com",
+    flip: "false"
+  },
+  {
+    name: "FENG Haoan",
+    image: "Fenghaoan/images/feature1.png",
+    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+    personal_website: "https://www.google.com",
+    flip: "true"
+  },
+  {
+    name: "FENG Haoan",
+    image: "Fenghaoan/images/feature1.png",
+    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+    personal_website: "https://www.google.com",
+    flip: "false"
+  },
+  {
+    name: "FENG Haoan",
+    image: "Fenghaoan/images/feature1.png",
+    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+    personal_website: "https://www.google.com",
+    flip: "true"
+  },
+];
 }]);
 
+teamapp.directive('featureCard', function() {
+    return {
+        restrict: 'E',
+        templateUrl: "Fenghaoan/js/featureCard.html",
+        replace: true,
+        link: function($scope, iElm, iAttrs, controller) {
+
+        }
+    };
+});
+
+teamapp.directive('developerCard', function() {
+    return {
+        restrict: 'E',
+        templateUrl: "Fenghaoan/js/developerCard.html",
+        replace: true,
+        link: function($scope, iElm, iAttrs, controller) {
+
+        }
+    };
+});
