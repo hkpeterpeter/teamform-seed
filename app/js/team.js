@@ -22,7 +22,7 @@ angular.module('teamform-team-app', ['firebase'])
 	var refPath = "";
 	var eventName = getURLParameter("q");
 	$scope.tags = [];
-	$scope.tags = $firebaseArray(firebase.database().ref("tags"));
+	// $scope.tags = $firebaseArray(firebase.database().ref("tags"));
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		teamName : '',
@@ -82,6 +82,15 @@ angular.module('teamform-team-app', ['firebase'])
 		return "null";
 	};
 
+	$scope.retrieveTagsFromID = function(id) {
+		for(var tmpIdx = 0; tmpIdx < $scope.member.length; tmpIdx++) {
+			if($scope.member[tmpIdx].$id === id) {
+				return $scope.member[tmpIdx].tags;
+			}
+		}
+		return "null";
+	};
+
 	$scope.retrieveNamesFromJSON = function(teamMembers) {
 		var result = [];
 		var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
@@ -121,6 +130,7 @@ angular.module('teamform-team-app', ['firebase'])
 		var status = $("#add").text();
 		var refPath = getURLParameter("q") + "/team/" + teamID;
 		var ref = firebase.database().ref(refPath);
+
 		if(teamID !== '' && status === "Add") {
 			$scope.param.teamMembers.push($scope.uid);			
 			var rp = eventName + "/member/" + $scope.uid;
@@ -177,31 +187,50 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
-	$scope.tagChecked = function(tagval){
-		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
-		for(var j =0; j < length; j++){
-			if(tagval == $scope.param.tags[j]) {
-				return true;
+	// $scope.tagChecked = function(tagval){
+	// 	var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+	// 	for(var j =0; j < length; j++){
+	// 		if(tagval == $scope.param.tags[j]) {
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// };
+	// $scope.addTags = function(tagval){
+	// 	var addOrNot = true;
+	// 	var k = 0;
+	// 	var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+	// 	for(; k < length; k++){
+	// 		if(tagval == $scope.param.tags[k]){
+	// 			addOrNot = false;
+	// 			break;
+	// 		}
+	// 	}
+	// 	if(addOrNot){$scope.param.tags.push(tagval);}
+	// 	else{$scope.param.tags.splice(k,1);}
+	// };
+	// $scope.openCategory = function(){
+	// 	document.getElementById("myDropdown").classList.toggle("show");
+	// };
+
+	$scope.addTag = function() {
+		 var name = $.trim($scope.tname);
+		 var weight = $.trim($scope.tweight);
+				
+		if(name !== '' && $scope.tags.indexOf(name) == -1 ) {
+			if(weight == "" || !angular.isNumber(weight)) {
+				weight = 1;
 			}
+			var tag = {
+				'name' : name,
+				'weight' : weight
+			};
+			$scope.tags.push(tag);
 		}
-		return false;
+		$scope.tname = "";
+		$scope.tweight ="";
 	};
-	$scope.addTags = function(tagval){
-		var addOrNot = true;
-		var k = 0;
-		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
-		for(; k < length; k++){
-			if(tagval == $scope.param.tags[k]){
-				addOrNot = false;
-				break;
-			}
-		}
-		if(addOrNot){$scope.param.tags.push(tagval);}
-		else{$scope.param.tags.splice(k,1);}
-	};
-	$scope.openCategory = function(){
-		document.getElementById("myDropdown").classList.toggle("show");
-	}
+
 	//tagsfunctionendshere
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;		
@@ -238,33 +267,67 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 	};
 	
-	//$scope.inviteList = [];
+
+	$scope.checkTeam = function(){
+		//check if teamName exist
+			$scope.teamList = [];
+			$scope.teamList = $scope.team;
+			console.log("$scope.team ", $scope.team);
+			if (typeof $scope.teamList != 'undefined'){
+				for(var i=0; i< $scope.teamList.length; i++){
+					if ($scope.param.teamName ==$scope.teamList[i].$id){
+						return true;
+					}
+				}
+			}
+			return false;
+	}
+		
 	//invite function
-	$scope.sendInvite = function(m) {
-		if ($scope.param.teamName == ""){
+	$scope.sendInvite = function(id){
+		if (typeof $scope.param.teamName == 'undefined' || $scope.param.teamName == ""){
 			window.alert("Enter a team name first!");
+			return;
 		}
-		//DOES NOT WORK
-		else if (firebase.database().ref(getURLParameter("q") + "/member/" + m).inTeam != null){
-			window.alert("User is already in a team!");
+		if ($scope.checkTeam() != true){
+			window.alert("Team \"" + $scope.param.teamName + "\" does not exist!");
+			return;
 		}		
-		else{
-			//$scope.inviteList = [];
-			$scope.param.invitedBy = [];
-			
-			//$scope.inviteList = $firebaseArray(firebase.database().ref(getURLParameter("q") + "/member/" + m + "invitedBy"));
-			//for (var i=0; i < $scope.inviteList.length; i++){
-				//$scope.param.invitedBy.push($scope.inviteList);
-			//}	
-			
-			$scope.param.invitedBy.push($scope.param.teamName);
-			var refPath = getURLParameter("q") + "/member/" + m;
-			var ref = firebase.database().ref(refPath);			
-			ref.update({
-				invitedBy: $scope.param.invitedBy
-			})
-			window.alert("Invitation sent!");
-		}
-	};
+		//check if user in a team, if not invite user
+		var refPath = getURLParameter("q") + "/member/" + id;
+		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
+		$scope.memberInfo.$loaded(function(data){
+			console.log("Data: ", data);
+			if(typeof data.inTeam != 'undefined'){
+				window.alert("User is already in a team!");
+			}else{
+				$scope.inviteList = [];
+				$scope.invitedBy = [];				
+				$scope.inviteList = data.invitedBy;
+				
+				if (typeof $scope.inviteList != 'undefined'){
+					for(var i=0; i< $scope.inviteList.length; i++){
+						//check if team has send invitation to this user before.
+						if ($scope.param.teamName == $scope.inviteList[i]){
+							window.alert("Invitation sent before.");
+							return;
+						}
+						//push
+						else{
+							$scope.invitedBy.push($scope.inviteList[i]);
+						}
+					}
+				}
+				$scope.invitedBy.push($scope.param.teamName);
+				console.log("invitedBy: ", $scope.invitedBy);
+				var refPath = getURLParameter("q") + "/member/" + id;
+				var ref = firebase.database().ref(refPath);
+				ref.update({
+					invitedBy: $scope.invitedBy
+				});
+				window.alert("Invitation sent!");
+			}
+		});
+	}
 
 }]);

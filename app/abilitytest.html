@@ -52,18 +52,24 @@
         <br>
         <div class="text-center">
            <h1>Ability Test</h1>
-           <div ng-repeat="question in quiz">
-             <div class = "row">
+        </div>
+           <ul ng-repeat="question in quiz">
+             <ul class = "row">
+              <ul class = "col-xs-8 col-xs-offset-2">
                 {{question.question}}
                 <br>
-                <div ng-repeat = "options in question">
-                  <div ng-repeat = "option in options">
-                    {{option}}
-                  </div>
-                </div>
+                  <ul ng-repeat = "option in question.option">
+                    <div class="checkbox">
+			<label><input type="checkbox" ng-click="addanswer(option);">
+				<li>{{option}}</li>
+			</label>
+		    </div>
+                  </ul>
                 <br>
-             </div>
-           </div>
+              </ul>
+            </ul>
+          </ul>
+        <div class="text-center">
            <div class="col-xs-2 col-xs-offset-5">
              <button type="button" class="btn btn-primary" ng-click="submitFunc();">Submit</button>
           </div>
