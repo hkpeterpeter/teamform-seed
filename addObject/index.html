@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.2/angular.js" data-semver="1.4.2"></script>
+    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
+    </head>
+
+  <body ng-controller="MainCtrl">
+
+    <table>
+        <tr>
+            <td align="right">Search :</td>
+            <td><input ng-model="query[queryBy]" /></td>
+        </tr>           
+        <tr>
+            <td align="right">Search By :</td>
+            <td>
+                <select ng-model="queryBy">
+                    <option value="$"></option>
+                    <option value="title">TITLE</option>
+                    <option value="description">DESCRRIPTION</option>
+                </select>   
+            </td>
+        </tr>
+    </table>
+
+
+    <div ng-repeat="module in validation.modules | filter:query">Title:{{module.title}}
+    description:{{module.description}}</div>
+    <div>
+      <form name="myForm" novalidate class="simple-form">
+    Title:  <input value="" type="text" placeholder="a" ng-model="itemAmount"><br />
+    description: <input value="" type="text" placeholder="Name of Item" ng-model="itemName">
+    <br />
+    <button ng-click="addItem()">Add to list</button>
+  </form>
+  </div>
+  </body>
+
+</html>
