@@ -136,11 +136,15 @@
 }
 
 .chat-body1 p {
-    background: #fbf9fa none repeat scroll 0 0;
     padding: 10px;
 }
 
-.chat_area .admin_chat .chat-body1 {
+.chat-body1 span {
+    background: #EEE none repeat scroll 0 0;
+    padding: 10px;
+}
+
+.chat_area .sender-chat .chat-body1 {
     margin-left: 0;
     margin-right: 50px;
 }

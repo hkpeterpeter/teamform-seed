@@ -46,8 +46,20 @@ export default class TeamDetailCtrl {
             });
         }
     }
-    canManage() {
-        let user = this.authService.getUser();
+    async rejectConfirmTeamPosition(positionId) {
+        try {
+            let teamUsers = await this.teamService.rejectConfirmTeamPosition(this.$stateParams.teamId, positionId);
+            this.$timeout(() => {
+                console.log('success');
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
+    async canManage() {
+        let user = await this.authService.getUser();
         return user && user.uid == this.team.createdBy;
     }
     filterJoined(user) {
