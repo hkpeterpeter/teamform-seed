@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" ng-app="teamform-team-app">
    <head>
       <meta charset="utf-8">
@@ -81,7 +81,7 @@
 					  <strong>Preferred Team Size: </strong> 					  
 					  <span>
 						 <span class="badge">
-						   {{param.currentTeamSize}}</span>
+						   <input type="text" class="form-control" id="inputTeamName" placeholder="{{param.currentTeamSize}}" ng-model="param.currentTeamSize"></span>
 						  
 						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
 
@@ -89,6 +89,14 @@
 
 						  
 					   </span>
+              <div class="checkbox">
+                  <label>
+                      <input type="checkbox" value="priority"
+                             ng-checked="param.priority"
+                             ng-click="changePriority()">
+                      Priority
+                  </label>
+              </div>    
 				   </div>
 				   
 				   

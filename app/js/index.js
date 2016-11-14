@@ -98,7 +98,6 @@ angular.module('teamform-index-app', ['firebase'])
 			    //console.error("Error:", error);
 			});
 
-
     }
 
 
