@@ -128,7 +128,6 @@ angular.module('teamform')
 	    if (confirm("Are you sure you want to delete this team from the event?\nCurrent team members will not be deleted.\n \nWARNING- this cannot be undone!")){
 		//remove the event from firebase, including all child nodes
 		var teamID = $.trim( $scope.param.teamName );		
-		var eventName = eventName;
 		var refPath = eventName + "/team/" + teamID ;
 		ref = firebase.database().ref(refPath);
 		ref.remove();
