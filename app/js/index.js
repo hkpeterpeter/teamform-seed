@@ -195,16 +195,15 @@
                                   want_to_travel: []
                               }
 
-                              if ($scope.langs[0].selected) {
-                                  $scope.input.language.push($scope.langs[0].name);
-                              } else if ($scope.langs[1].selected) {
-                                  $scope.input.language.push($scope.langs[2].name);
-                              } else if ($$scope.langs[2].selected) {
-                                  $scope.input.language.push($scope.langs[1].name);
+                              for ($k = 0; $k < $scope.langs.length; $k++) {
+                                  if ($scope.langs[$k].selected) {
+                                      $scope.input.language.push($scope.langs[$k].name);
+                                  }
                               }
 
-                              $scope.members.$add($scope.input);
+                              console.log($scope.input);
 
+                              $scope.members.$add($scope.input);
 
                           }, function(error) {
                               // An error happened.
@@ -290,20 +289,40 @@
               FB.login(function(response) {
                   // handle the response
                   console.log(response);
+
+                  FB.api(
+                      '/' + response.authResponse.userID, {
+                          fields: "id,about,age_range,picture,bio,birthday,context,email,first_name,last_name,gender,hometown,link,location,middle_name,name,timezone,website,work,locale"
+                      },
+                      function(response) {
+                          console.log(response);
+
+                          // construct JSON for Database
+                          $input = {
+                              available_for_traveling: true,
+                              birthday: response.birthday,
+                              descriptions: "",
+                              email: response.email,
+                              first_name: response.first_name,
+                              from: "",
+                              gender: response.gender,
+                              id: user.uid,
+                              last_name: response.last_name,
+                              profile_pic: response.picture.data.url
+                          }
+
+                          console.log($input);
+                          firebase.database().ref('members/' + user.uid).set($input);
+
+                      } // , 
+                      // {access_token: response.authResponse.accessToken}
+                  );
+
+
               }, {
-                  scope: 'public_profile,user_birthday',
+                  scope: 'public_profile,user_birthday,user_about_me,user_location,user_hometown',
                   return_scopes: true
               });
-
-              FB.api(
-                  '/' + user.providerData[0].uid, {
-                      fields: "id,about,age_range,picture,bio,birthday,context,email,first_name,gender,hometown,link,location,middle_name,name,timezone,website,work"
-                  },
-                  function(response) {
-                      console.log(response);
-                  } // , 
-                  // {access_token: token}
-              );
 
           }).catch(function(error) {
               var errorCode = error.code;
