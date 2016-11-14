@@ -22,7 +22,7 @@ angular.module('teamform-team-app', ['firebase'])
 	var refPath = "";
 	var eventName = getURLParameter("q");
 	$scope.tags = [];
-	// $scope.tags = $firebaseArray(firebase.database().ref("tags"));
+    $scope.tags = $firebaseArray(firebase.database().ref("newTags"));
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		teamName : '',
@@ -153,9 +153,15 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.member.$save(rec);	
 			}
 		});
+		if ($scope.param.teamMembers.length !==0){
 		ref.set(newData, function() {
 			location.reload();
 		});
+	    }
+		else{
+			location.reload();
+		}
+
 	};
 	
 	$scope.loadFunc = function() {
@@ -187,50 +193,33 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
-	// $scope.tagChecked = function(tagval){
-	// 	var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
-	// 	for(var j =0; j < length; j++){
-	// 		if(tagval == $scope.param.tags[j]) {
-	// 			return true;
-	// 		}
-	// 	}
-	// 	return false;
-	// };
-	// $scope.addTags = function(tagval){
-	// 	var addOrNot = true;
-	// 	var k = 0;
-	// 	var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
-	// 	for(; k < length; k++){
-	// 		if(tagval == $scope.param.tags[k]){
-	// 			addOrNot = false;
-	// 			break;
-	// 		}
-	// 	}
-	// 	if(addOrNot){$scope.param.tags.push(tagval);}
-	// 	else{$scope.param.tags.splice(k,1);}
-	// };
-	// $scope.openCategory = function(){
-	// 	document.getElementById("myDropdown").classList.toggle("show");
-	// };
+	 $scope.tagChecked = function(tagval){
+	 	var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+	 	for(var j =0; j < length; j++){
+	 		if(tagval == $scope.param.tags[j]) {
+	 			return true;
+	 		}
+	 	}
+	 	return false;
+	 };
+	 $scope.addTags = function(tagval){
+	 	var addOrNot = true;
+		var k = 0;
+		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+ 	for(; k < length; k++){
+	 		if(tagval == $scope.param.tags[k]){
+				addOrNot = false;
+	 			break;
+	 		}
+	 	}
+	 	if(addOrNot){$scope.param.tags.push(tagval);}
+	 	else{$scope.param.tags.splice(k,1);}
+	 };
+ $scope.openCategory = function(dVal){
+	 	document.getElementById(dVal).classList.toggle("show");
+	 };
 
-	$scope.addTag = function() {
-		 var name = $.trim($scope.tname);
-		 var weight = $.trim($scope.tweight);
-				
-		if(name !== '' && $scope.tags.indexOf(name) == -1 ) {
-			if(weight == "" || !angular.isNumber(weight)) {
-				weight = 1;
-			}
-			var tag = {
-				'name' : name,
-				'weight' : weight
-			};
-			$scope.tags.push(tag);
-		}
-		$scope.tname = "";
-		$scope.tweight ="";
-	};
-
+	
 	//tagsfunctionendshere
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;		
