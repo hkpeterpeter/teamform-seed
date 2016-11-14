@@ -117,8 +117,9 @@
                   <div ng-show="!logined">
                     <div class="text-center">
                       <h1>Welcome to Teamform!</h1>
-                      <p>Please first login with Facebook</p>
+                      <p>Please first login</p>
                       <button type="button" class="btn btn-primary" ng-click="btn_fb();">Login with Facebook</button>
+                      <button type="button" class="btn btn-primary" ng-click="btn_email();">Login with email</button>
                     </div>
                   </div>
 
@@ -129,12 +130,12 @@
                     <div class="text-center">
                       <input type="text" class="form-control" id="inputEventID" ng-model="eventID" placeholder="Enter event ID" style="text-align: center;">
                       <br>
-                      <p ng-show="logined">Logined as {{currentUser.displayName}}</p>
+                      <p ng-show="logined">Logined as {{username}}</p>
                       <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
                       <br>
-                      <button type="button" class="btn btn-primary" ng-click="btn_admin();">Administrator</button>
-                      <button type="button" class="btn btn-primary" ng-click="btn_leader();">Team Leader</button>
-                      <button type="button" class="btn btn-primary" ng-click="btn_member();">Member</button>
+                      <button type="button" class="btn btn-primary" ng-click="btn_admin();" ng-show="!fb">Administrator</button>
+                      <button type="button" class="btn btn-primary" ng-click="btn_leader();" ng-show="fb">Team Leader</button>
+                      <button type="button" class="btn btn-primary" ng-click="btn_member();" ng-show="fb">Member</button>
                     </div>
                   </div>
                   <br>

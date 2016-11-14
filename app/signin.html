@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="teamform-signin-app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Signin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+      <link rel="stylesheet" href="signin.css">
+      <script src="js/site.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin" ng-controller="SigninCtrl">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus ng-model="email">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required ng-model="password">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="btn_signin();">Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="lib/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>
+      <script src="lib/angularfire.min.js"></script>
+      <!-- JavaScript of this page -->
+      <script src="js/signin.js"></script>
+
+  </body>
+</html>
