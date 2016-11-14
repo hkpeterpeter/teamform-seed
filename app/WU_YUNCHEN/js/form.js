@@ -20,8 +20,7 @@
         return {
             restrict: "E",
             scope: {
-                id: '@',
-
+                idOfField: '@',
                 label: '@', 
                 fieldModel: '='
             },
@@ -36,8 +35,7 @@
         return {
             restrict: "E",
             scope: {
-                id: '@',
-
+                idOfField: '@',
                 label: '@',
                 fieldModel: '='
             },
@@ -52,7 +50,7 @@
         return {
             restrict: "E",
             scope: {
-                id: '@',
+                idOfField: '@',
                 label: '@'
             },
 
