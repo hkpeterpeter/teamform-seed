@@ -11,9 +11,9 @@
                 <label for="inputName" class="col-sm-2 control-label">Event</label>
                 <div class="col-sm-10">
                     <ui-select ng-model="teamList.search.eventId" required>
-                        <ui-select-match allow-clear="true" placeholder="Select Event">{{$select.selected.name}}</ui-select-match>
+                        <ui-select-match allow-clear="true" placeholder="Select Event">{{$select.selected.data.name}}</ui-select-match>
                         <ui-select-choices repeat="event.$id as event in teamList.events | filter:$select.search">
-                            {{event.name}}
+                            {{event.data.name}}
                         </ui-select-choices>
                     </ui-select>
                 </div>
@@ -57,16 +57,16 @@
     <tbody dir-paginate="team in teamList.teams | filter:teamList.search | itemsPerPage: 2">
         <tr>
             <td>
-                <a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a>
+                <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
             </td>
             <td>
-                <a ui-sref="event.detail({eventId: team.event.$id})">{{team.event.name}}</a>
+                <a ui-sref="event.detail({eventId: team.getEvent().$id})">{{team.getEvent().data.name}}</a>
             </td>
             <td>
-                <a ui-sref="user.detail({userId: team.createdBy})">{{team.createdByUser.name}}</a>
+                <a ui-sref="user.detail({userId: team.data.createdBy})">{{team.getCreatedByUser().name}}</a>
             </td>
             <td>
-                {{team.createdAt | date:'medium'}}
+                {{team.data.createdAt | date:'medium'}}
             </td>
         </tr>
     </tbody>
