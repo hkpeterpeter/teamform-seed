@@ -1,0 +1,39 @@
+<body ng-app="teamApp">
+	<style>
+		table,th, td {
+			border: 1px solid black;
+		}
+	</style>
+	<h1>Still finding an interesting event? Random event may surprise you!</h1>
+	
+	<div ng-controller="random_Event">           
+		Here is a list of event picked up randomly: <br>
+		<div ng-model="randomizedEvent" >
+			<table width="400">
+				<tr align="center">
+					<td align="center"><b>Name:</b></td>
+					<td align="center"><b>Intro.</b></td>
+					<td><b>Join(In Person)</b></td>
+				</tr>
+				
+				<tr data-ng-repeat="x in event| orderBy:random">
+					<td align="center">{{x.name}}</td>
+					<td align="center">{{x.intro}}</td>
+					<td align="center">
+						<div ng-controller="joinTeam">
+							<button ng-click="joinTeamInPerson(q.name,g.name)">Join</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<br><br><br>	
+		Still no idea? 
+		<button>
+		  Try again!!!
+		</button>
+        
+	</div>
+         
+</body>   
+
