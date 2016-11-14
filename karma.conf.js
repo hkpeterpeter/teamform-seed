@@ -5,19 +5,19 @@ module.exports = function(config) {
     basePath: './app',
 	frameworks: ['jasmine'],
     files: [
-      'lib/loader.js',
+    'lib/loader.js',
 	  'lib/jquery.min.js',
       'lib/angular.min.js',
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
+      'lib/angular-cookies.min.js',
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',
-	  'js/*.js',
+    'zwangbm/js/*.js',
+    'jzhangbs/*.js',
+    'TXR/*.js',
+    'search/*.js',
       'unit_tests/*.js',
-      'zwangbm/js/*.js',
-      'jzhangbs/*.js',
-      'TXR/*.js',
-      'search/*.js'
 
     ],
 	exclude: [

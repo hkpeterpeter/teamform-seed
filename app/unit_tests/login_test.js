@@ -1,8 +1,8 @@
-describe("Test Login", function(){
+describe("TestLogin", function(){
 
   var $scope, $rootScope, $controller, $cookies, $firebaseObject, $firebaseArray, $window;
 
-  beforeEach(module("indexApp", "ngCookies", "firebase"));
+  beforeEach(module('indexApp'));
   beforeEach(inject(
     function(_$rootScope_, _$controller_, _$cookies_, _$firebaseArray_, _$firebaseObject_, _$window_){
       $rootScope = _$rootScope_;

@@ -1,6 +1,6 @@
 var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
 
-initalizeFirebase();
+//initalizeFirebase();
 
 app.config(function($routeProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html"})
@@ -91,7 +91,7 @@ app.controller("NotificationController", function($scope){
       }
 
       $scope.adduser=function(){
-        
+
       }*/
   });
 
@@ -179,7 +179,7 @@ app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
 
               $scope.users[username].select = "glyphicon glyphicon-unchecked";
               $scope.users.$save();
-              
+
               delete $scope.selected[username];
               //alert("change to uncheck");
             $scope.selected.$save();
@@ -191,7 +191,7 @@ app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
               //alert(event.target.id+' before: uncheck');
               $scope.users[username].select = "glyphicon glyphicon-check";
               $scope.users.$save();
-              
+
 
               $scope.selected[username]=$scope.users[username];
               //alert("change to check");
@@ -199,12 +199,11 @@ app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
 
             //put at last in case username is not in filtered
           $scope.filtered[username].select = "glyphicon glyphicon-check";
-            $scope.filtered.$save();  
-            
+            $scope.filtered.$save();
+
           }
 
 
       };
 
   });
-
