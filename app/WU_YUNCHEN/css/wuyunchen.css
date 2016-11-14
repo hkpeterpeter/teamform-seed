@@ -6,6 +6,10 @@
     color: #FFF !important;
 }
 
+.event_form_style textarea{
+    color: #FFF !important;
+}
+
 .rangespinner input[type="text"] {
     border: 1px solid #ccc;
     color: #009688;
