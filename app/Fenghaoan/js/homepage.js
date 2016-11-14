@@ -1,11 +1,12 @@
 teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope,$scope) {
+  // Login helper functions
   $scope.login = function(providerName) {
-  var successFlag = false;
-  switch (providerName) {
-    case 'google':
-    var provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/plus.login');
-    break;
+    var successFlag = false;
+    switch (providerName) {
+      case 'google':
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/plus.login');
+      break;
     // case 'twitter':
     // var provider = new firebase.auth.TwitterAuthProvider();
     // break;
@@ -20,14 +21,14 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
       // statements_def
       console.log('error login');
       break;
-  }
+    }
 
-  firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then(function(result) {
 
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
-  var user = result.user;
+  // var user = result.user;
 
   successFlag = true;
 
@@ -36,7 +37,28 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
       $('.cd-user-modal').removeClass('is-visible');
       $('.loginB').css('display', 'none');
     }
-}).catch(function(error) {
+
+    var data = result.user.providerData[0];
+    $rootScope.loginWithEmail(data['email']);
+
+    if ($rootScope.currentUser['id'] == 0) {
+      var newUser = {
+        eventsManaging:[],
+        email:data['email'],
+        name:data['displayName'],
+        notifis:[],
+        profilePic:data['photoURL'],
+        skills:[],
+        teamsApplying:[],
+        teamsAsLeader:[],
+        teamsAsMember:[]
+      };
+
+      $rootScope.addUser(newUser);
+      console.log("user added");
+    }
+
+  }).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -47,7 +69,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
   console.log(error);
   if (errorCode == 'auth/account-exists-with-different-credential') {
     $('.loginB').toggle();
-}
+  }
 });
 
 };
@@ -57,7 +79,7 @@ $scope.login_selected = function() {
       $('.cd-user-modal').addClass('is-visible');
       if ($('#cd-login').css('display')==='none')
       {
-          $('#cd-login').toggle();
+        $('#cd-login').toggle();
       }
 
       // formLogin.addClass('is-selected');
@@ -65,9 +87,9 @@ $scope.login_selected = function() {
       // formForgotPassword.removeClass('is-selected');
       $('.cd-switcher').children('li').eq(0).children('a').addClass('selected');
       // tabSignup.removeClass('selected');
-};
+    };
 
-$scope.signup_selected = function(){
+    $scope.signup_selected = function(){
       // mainNav.children('ul').removeClass('is-visible');
       $('.cd-user-modal').addClass('is-visible');
       // formLogin.removeClass('is-selected');
@@ -75,12 +97,12 @@ $scope.signup_selected = function(){
       // formForgotPassword.removeClass('is-selected');
       $('.cd-user-modal').removeClass('selected');
       // tabSignup.addClass('selected');
-  };
+    };
 
-$scope.switcher = function(event) {
-  event.preventDefault();
-  ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
-}
+    $scope.switcher = function(event) {
+      event.preventDefault();
+      ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
+    }
 
 // $scope.changeVisible = function(event) {
 
@@ -90,74 +112,74 @@ $scope.switcher = function(event) {
 // }
 
 $scope.features = [
-  {
-    image_path: "Fenghaoan/images/feature1.png",
-    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-    flip: "true"
-  },
-  {
-    image_path: "Fenghaoan/images/feature1.png",
-    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-    flip: "false"
-  },
-  {
-    image_path: "Fenghaoan/images/feature1.png",
-    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-    flip: "true"
-  },
+{
+  image_path: "Fenghaoan/images/feature1.png",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  flip: "true"
+},
+{
+  image_path: "Fenghaoan/images/feature1.png",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  flip: "false"
+},
+{
+  image_path: "Fenghaoan/images/feature1.png",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  flip: "true"
+},
 
 ];
 
 $scope.developers = [
-  {
-    name: "FENG Haoan",
-    image: "Fenghaoan/images/feature1.png",
-    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-    personal_website: "https://www.google.com",
-    flip: "false"
-  },
-  {
-    name: "FENG Haoan",
-    image: "Fenghaoan/images/feature1.png",
-    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-    personal_website: "https://www.google.com",
-    flip: "true"
-  },
-  {
-    name: "FENG Haoan",
-    image: "Fenghaoan/images/feature1.png",
-    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-    personal_website: "https://www.google.com",
-    flip: "false"
-  },
-  {
-    name: "FENG Haoan",
-    image: "Fenghaoan/images/feature1.png",
-    content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-    personal_website: "https://www.google.com",
-    flip: "true"
-  },
+{
+  name: "FENG Haoan",
+  image: "Fenghaoan/images/feature1.png",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  personal_website: "https://www.google.com",
+  flip: "false"
+},
+{
+  name: "FENG Haoan",
+  image: "Fenghaoan/images/feature1.png",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  personal_website: "https://www.google.com",
+  flip: "true"
+},
+{
+  name: "FENG Haoan",
+  image: "Fenghaoan/images/feature1.png",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  personal_website: "https://www.google.com",
+  flip: "false"
+},
+{
+  name: "FENG Haoan",
+  image: "Fenghaoan/images/feature1.png",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  personal_website: "https://www.google.com",
+  flip: "true"
+},
 ];
 }]);
 
 teamapp.directive('featureCard', function() {
-    return {
-        restrict: 'E',
-        templateUrl: "Fenghaoan/js/featureCard.html",
-        replace: true,
-        link: function($scope, iElm, iAttrs, controller) {
+  return {
+    restrict: 'E',
+    templateUrl: "Fenghaoan/js/featureCard.html",
+    replace: true,
+    link: function($scope, iElm, iAttrs, controller) {
 
-        }
-    };
+    }
+  };
 });
 
 teamapp.directive('developerCard', function() {
-    return {
-        restrict: 'E',
-        templateUrl: "Fenghaoan/js/developerCard.html",
-        replace: true,
-        link: function($scope, iElm, iAttrs, controller) {
+  return {
+    restrict: 'E',
+    templateUrl: "Fenghaoan/js/developerCard.html",
+    replace: true,
+    link: function($scope, iElm, iAttrs, controller) {
 
-        }
-    };
+    }
+  };
 });
