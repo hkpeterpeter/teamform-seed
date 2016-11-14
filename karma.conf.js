@@ -17,11 +17,14 @@ module.exports = function(config) {
 	exclude: [
 	],
 	preprocessors: {	 	
-		 'js/site.js' : ['coverage'],		
-		 'js/index.js' : ['coverage'],
-		 'js/admin.js' : ['coverage'],
-		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage']
+		 'baichunyan/js/bai.js' : ['coverage'],		
+		 'Fenghaoan/js/homepage.js' : ['coverage'],
+		 'fish/js/fish.js': ['coverage'],
+		 'JiaHe/teamleader.js': ['coverage'],
+		 'Samuel-personalDashboard/personal-dashboard-main.js' : ['coverage'],
+		 'WU_YUNCHEN/form.js' : ['coverage'],
+		 'ZhaoLucen/admin.js' : ['coverage'],
+		 'zhuxinyu/myctrl.js': ['coverage']
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
