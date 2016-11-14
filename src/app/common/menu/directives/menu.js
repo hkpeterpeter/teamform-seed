@@ -17,8 +17,9 @@ export default class Menu {
     }
 
     async updateAuth(scope) {
+        let user = await this.authService.getUser();
         this.$timeout(() => {
-            scope.user = this.authService.getUser();
+            scope.user = user;
             scope.isAuth = scope.user != null;
         });
     }

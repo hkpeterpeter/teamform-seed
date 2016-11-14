@@ -29,7 +29,7 @@ export default class MessageCtrl {
         }
     }
     async getConversations() {
-        let user = this.authService.getUser();
+        let user = await this.authService.getUser();
         if (user) {
             try {
                 let conversations = await this.messageService.getConversations(user.uid);
@@ -47,7 +47,7 @@ export default class MessageCtrl {
         }
     }
     async sendMessage() {
-        let user = this.authService.getUser();
+        let user = await this.authService.getUser();
         if (user) {
             try {
                 let result = await this.messageService.sendMessage(user.uid, this.conversation.user.$id, this.messageContent);
