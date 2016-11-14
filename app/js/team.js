@@ -97,9 +97,11 @@ angular.module('teamform')
 	$scope.loadFunc = function() {
 		
 		var teamID = $.trim( $scope.param.teamName );		
-		var eventName = eventName;
-		var refPath = eventName + "/team/" + teamID ;
-		retrieveOnceFirebase(firebase, refPath, function(data) {	
+		var eventName = $scope.event;
+		var refPath = eventName + "/team/" + teamID;
+		console.log(teamID);
+		console.log(refPath);
+		$scope.retrieveOnceFirebase(firebase, refPath, function(data) {	
 
 			if ( data.child("size").val() != null ) {
 				

@@ -17,8 +17,8 @@ angular.module('teamform')
 			var refPath = eventName + "/member/" + userID;
 			$scope.retrieveOnceFirebase(firebase, refPath, function(data) {
 								
-				if ( data.child("name").val() != null ) {
-					$scope.userName = data.child("name").val();
+				if ( data.child("memberName").val() != null ) {
+					$scope.userName = data.child("memberName").val();
 				} else {
 					$scope.userName = "";
 				}
@@ -44,7 +44,7 @@ angular.module('teamform')
 		if ( userID !== '' && userName !== '' ) {
 									
 			var newData = {				
-				'name': userName,
+				'memberName': userName,
 				'selection': $scope.selection
 			};
 			
