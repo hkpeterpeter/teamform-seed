@@ -120,13 +120,15 @@
 
             <!--invite users with pop up window-->
 
-                  <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal">Invite Users</a>
+                  <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal">Invite Users</button>
                      </h2>
                   <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
                            <!--tag-->
+                           <div ng-controller="clickCtrl">
+                           
                            <div class = "row filter-bar">
                             <div class="col-sm-3 ">
                               <h5>Add tags to filter users: </h5>
@@ -152,6 +154,8 @@
                               </div>
                             </div>
                           </div>
+                        
+                        </div>
                         </div>
                         <div class="modal-body">
                           <!--main body-->
@@ -184,6 +188,7 @@
                           </div>
 
                         </div>
+
                         <div class="modal-footer">
 
                         </div>
