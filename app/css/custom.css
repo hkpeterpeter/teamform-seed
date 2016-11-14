@@ -119,3 +119,9 @@ event_item_month{
 .event_item_description{
     color: #777;
 }
+
+.profile_box{
+    border: 3px solid #f1f1f1;
+    box-shadow: 3px 3px 5px #ccc;
+    padding: 50px 40px;
+}
