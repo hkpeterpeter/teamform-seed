@@ -85,22 +85,22 @@
 								</span>
 							</div> 
 
-							<div class="row">
-								<!--<button ng-click="openCategory();" class="dropbtn">Add Tags for Your Team</button>-->
-								<label for="tags" class="control-label">Tags:</label>
-								<div class="form-group">
-									<div class="col-xs-4"><input class="form-control" type="text" name="title" ng-model="tname" placeholder="Tag Requirements"></div>
-									<div class="col-xs-2"><input class="form-control" type="text" name="title" ng-model="tweight" placeholder="Weight of Tag"></div>
-									<button type="button" class="btn btn-primary btn-s col-xs-1" id="addbtn" ng-click="addTag();" >Add</button>
-								</div>
-								<div class="row">
-									<div ng-repeat="t in tags">
-										<button type="button" class="btn btn-default btn-xs col-xs-1" id="delbtn" ng-click="tags.splice(tags.indexOf(t), 1);" >{{t.name}}</button>
-										<label for="weight" class="col-xs-1">{{t.weight}}</label>
-									</div>
-								</div>
-							</div>
-						</form>
+		<div class="row">
+			<button ng-click="openCategory('dropdownCategory');" class="dropbtn">Add Tags for Your Team</button>
+  			 <div id="dropdownCategory" class="dropdown-content">
+			  <div ng-repeat="category in tags"  ng-click = "openCategory(category.$id);" class="dropdown-text" >
+			   <h5>{{category.$id}}</h5>
+			    <div id= {{category.$id}} class="dropdown-tags">
+				 <div ng-repeat ="tt in category">
+    		      <label><input type="checkbox"	ng-checked="tagChecked(tt);"	 ng-click="addTags(tt);">
+				   <span>{{tt}}</span>
+			      </label>
+				</div>
+			   </div>
+		    </div>
+         </div>
+       </div>
+	  </form>
 						<div class="row">
 							<div class="col-sm-4">
 								<h4>Team members</h4>
@@ -112,12 +112,12 @@
 								</div>
 							</div>
 							<div class="col-sm-4">
-								<!--<h4>Tags</h4>
+								<h4>Tags</h4>
 								<div ng-repeat="ttt in param.tags">
 									<button type="button" class="btn" ng-click="addTags(ttt);">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
 									</button>
-								</div>-->
+								</div>
 							</div>
 							<div class="col-sm-4">
 								<h4>Requests received:</h4>
