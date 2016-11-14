@@ -47,4 +47,3 @@ app.controller("MyAuthCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
                               
                               
                               ]);
-No newline at end of file
