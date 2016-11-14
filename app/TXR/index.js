@@ -71,12 +71,23 @@ app.controller("NotificationController", function($scope){
       		$scope.userList[i].Info="He wants to join your team.";
       	}
       	else if($scope.userList[i].type=="Information"){
-      		$scope.userList[i].Info="He left the team.";
+      		$scope.userList[i].Info="Someone left the team.";
       	}
+      }
+
+      $scope.whetherfromteam=function(user){
+            if($scope.userList[user].type=="Information"){
+              return false;
+            }
+            return true;
       }
 
       $scope.removeuser=function(user){
        			$scope.userList.splice(user,1);
+      }
+
+      $scope.adduser=function(){
+        
       }
   });
 
