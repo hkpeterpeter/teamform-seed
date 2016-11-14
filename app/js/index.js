@@ -70,4 +70,37 @@ angular.module('teamform-index-app', ['firebase'])
         }
     }
 
+    $scope.refreshEvents = function () {
+        var ref = firebase.database().ref();
+
+        // Link and sync a firebase object
+       /* $scope.selection = [];
+        $scope.toggleSelection = function (item) {
+            var idx = $scope.selection.indexOf(item);
+            if (idx > -1) {
+                $scope.selection.splice(idx, 1);
+            }
+            else {
+                $scope.selection.push(item);
+            }
+        }*/
+
+
+        $scope.events = $firebaseArray(ref);
+        $scope.events.$loaded()
+			.then(function (data) {
+
+
+
+			})
+			.catch(function (error) {
+			    // Database connection error handling...
+			    //console.error("Error:", error);
+			});
+
+
+    }
+
+
+    $scope.refreshEvents(); // call to refresh teams...
 }]);
