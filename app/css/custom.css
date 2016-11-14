@@ -84,7 +84,7 @@ input[type=email],input[type=password], select {
 .event_item{
     background-color: white;
     border: 3px solid #f1f1f1;
-    padding: 5px 25px;
+    padding: 5px 35px;
     min-height: 70px;
     box-shadow: 3px 3px 5px #ccc;
 }
@@ -95,8 +95,27 @@ input[type=email],input[type=password], select {
 
 .event_item_name{
     font-size: 17px;
+    font-weight: bold;
+    
 }
 
+.event_item_date{
+    color:white;
+    background-color: #337ab7;
+    border: 2px solid #2573a9;
+    width: 55px;
+    height: 55px;
+    padding: 0px 5px;
+    box-shadow: 2px 2px 2px #ccc;
+}
+
+.event_item_day{
+    font-size: 22px;
+}
+
+event_item_month{
+    font-size: 15px;
+}
 .event_item_description{
     color: #777;
 }
