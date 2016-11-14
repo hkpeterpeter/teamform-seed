@@ -3,6 +3,7 @@ describe('Test read.js', function() {
    // Testing Read
     beforeEach(function () {
         module("teamApp")
+        firebaseRef = new Firebase("https://comp3111-bb108.firebaseio.com/");
         inject(function ($rootScope, $controller, $firebaseObject) {
             scope = $rootScope.$new();
 
@@ -11,7 +12,7 @@ describe('Test read.js', function() {
                 $firebaseObject: $firebaseObject
             });
 
-            firebaseRef = new Firebase("https://comp3111-bb108.firebaseio.com/");
+            
         });
     });
 
