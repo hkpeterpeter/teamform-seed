@@ -31,5 +31,14 @@
                 templateUrl: 'app/partials/team.html',
                 controller: 'TeamCtrl'
             });
+
+            var config = {
+                apiKey: "AIzaSyDpflKeM1c07q-guKmbpJGjHosd9-PKjU8",
+                authDomain: "teamharambe-10608.firebaseapp.com",
+                databaseURL: "https://teamharambe-10608.firebaseio.com",
+                storageBucket: "teamharambe-10608.appspot.com",
+                messagingSenderId: "491929198847"
+            };
+            firebase.initializeApp(config);
     }]);
 }(angular));
