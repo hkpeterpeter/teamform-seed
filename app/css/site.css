@@ -7,20 +7,53 @@
 }
 
 .flex-container {
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    text-align: left;
+    padding: 0 20px;
+    flex-wrap: nowrap;
 }
 
-.flex-row-label {
+.flex-row-1 {
     -webkit-flex: 1 0 0;
     flex: 1 0 0;
 }
-.flex-row-content {
-    -webkit-flex: 4 0 0;
-    flex: 4 0 0;
+
+.flex-row-2 {
+    -webkit-flex: 2 0 0;
+    flex: 2 0 0;
+}
+
+.flex-row-3 {
+    -webkit-flex: 3 0 0;
+    flex: 3 0 0;
+}
+
+.margin-50 {
+    margin: 0 50px;
+}
+
+.skill-set-item {
+    margin: 5px 5px;
+    line-height: 35px;
+    border-radius: 80px;
+    -moz-border-radius: 80px;
+    -webkit-border-radius: 80px;
+    background-color: dodgerblue;
+    color: white;
+}
+
+.skill-set-item-content {
+    padding: 10px 10px;
 }
 
 /* Code to center the tutorial video */
-div.center iframe{
+div.center iframe {
     display: block;
     margin-left: auto;
     margin-right: auto;

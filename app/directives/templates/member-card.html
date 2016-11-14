@@ -1,11 +1,37 @@
-<div class="panel panel-info box-shadow-bottom-only flex-container">
-    Hi!!
-    {{data.userName}}
-    <div class="flex-row-label">Username:</div><div class="flex-row-content">{{data.userName}}</div>
-    <div class="flex-row-label">User ID:</div><div class="flex-row-content">{{data.userID}}</div>
-    <div class="flex-row-label">Title:</div><div class="flex-row-content">{{data.title}}</div>
-    <div class="flex-row-label">Number of Invitations:</div><div class="flex-row-content">{{data.invitations.length}}</div>
+<div class="panel panel-info box-shadow-bottom-only margin-50">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{data.userName}}</h3>
+    </div>
+    <div class="panel-body">
+        <div class="flex-container">
+            <div class="flex-row-1">
 
-    <div>Skill set:</div>
-    <!--TODO: Add skill set values here-->
+                <div class="flex-container">
+                    <label class="flex-row-1">User ID:</label>
+                    <span class="flex-row-2">{{data.userId}}</span>
+                </div>
+
+                <div class="flex-container">
+                    <label class="flex-row-1">Title:</label>
+                    <span class="flex-row-2">{{data.title}}</span>
+                </div>
+
+                <div class="flex-container">
+                    <label class="flex-row-1">Number of Invitations:</label>
+                    <span class="flex-row-2">{{data.invitations.length}}</span>
+                </div>
+
+            </div>
+            <div class="flex-row-1">
+                <div class="flex-container">
+                    <label class="flex-row-1">Skill set:</label>
+                    <div class="flex-row-3">
+                        <span ng-repeat="skill in data.skillSet" class="skill-set-item">
+                            <span class="skill-set-item-content">{{skill}}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
