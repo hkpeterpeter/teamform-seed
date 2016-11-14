@@ -145,6 +145,7 @@
                         </td>
                         <td>
                             <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.confirmTeamPosition(teamUser.$id)">Accept</button>
+                            <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.rejectConfirmTeamPosition(teamUser.$id)">Reject</button>
                         </td>
                     </tr>
                 </tbody>

@@ -12,6 +12,7 @@ import firebase from '../common/firebase';
 import auth from '../common/auth';
 import user from '../user';
 import event from '../event';
+import message from '../message';
 
 import TeamDetailCtrl from './controllers/teamDetail';
 import TeamListCtrl from './controllers/teamList';
@@ -19,7 +20,7 @@ import TeamCreateCtrl from './controllers/teamCreate';
 import TeamEditCtrl from './controllers/teamEdit';
 import TeamService from './factories/TeamService';
 
-export default angular.module('team', [uirouter, angularfire, firebase, pagination, uiselect, 'frapontillo.bootstrap-switch', user, event, alert, auth])
+export default angular.module('team', [uirouter, angularfire, firebase, pagination, uiselect, 'frapontillo.bootstrap-switch', user, event, message, alert, auth])
     .config(routes)
     .controller('TeamDetailCtrl', TeamDetailCtrl)
     .controller('TeamListCtrl', TeamListCtrl)

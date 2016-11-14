@@ -38,7 +38,7 @@ export default class EventService {
         return event;
     }
     async joinEvent(id, force) {
-        let user = this.authService.getUser();
+        let user = await this.authService.getUser();
         let eventUsers = await this.$firebaseArray(this.$database.ref('events/' + id + '/users').orderByChild('id').equalTo(user.uid)).$loaded();
         let joined = eventUsers.length > 0;
         if (!joined) {
@@ -59,7 +59,7 @@ export default class EventService {
         return events;
     }
     async createEvent(event) {
-        let user = this.authService.getUser();
+        let user = await this.authService.getUser();
         event.createdBy = user.uid;
         event.createdAt = Date.now();
         return this.$firebaseArray(this.$database.ref('events')).$add(event);
