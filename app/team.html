@@ -32,23 +32,23 @@
 						Back</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-        		  <li class="dropdown" id="blogout">
-           		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
-           		  <div>
-           			<span id="userName"></span>
-           			<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-           			<img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
-           		  </div>
-           		  </a>
-           		  <ul class="dropdown-menu">
-             		<li id="logOut"><a href="#">Log out</a></li>
-           		  </ul>
-       			  </li>               
-       			  <li>
-          		  <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
-          		  </button>
-       			  </li>
-    			</ul>
+						<li class="dropdown" id="blogout">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
+								<div>
+									<span id="userName"></span>
+									<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+									<img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
+								</div>
+							</a>
+							<ul class="dropdown-menu">
+								<li id="logOut"><a href="#">Log out</a></li>
+							</ul>
+						</li>               
+						<li>
+							<button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
+							</button>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</nav>
@@ -86,12 +86,17 @@
 							</div> 
 
 							<div class="row">
-								<button ng-click="openCategory();" class="dropbtn">Add Tags for Your Team</button>
-								<div id="myDropdown" class="dropdown-content">
-									<div ng-repeat="tt in tags">
-										<label><input type="checkbox"	ng-checked="tagChecked(tt.$value);"	 ng-click="addTags(tt.$value);">
-											<span>{{tt.$value}}</span>
-										</label>
+								<!--<button ng-click="openCategory();" class="dropbtn">Add Tags for Your Team</button>-->
+								<label for="tags" class="control-label">Tags:</label>
+								<div class="form-group">
+									<div class="col-xs-4"><input class="form-control" type="text" name="title" ng-model="tname" placeholder="Tag Requirements"></div>
+									<div class="col-xs-2"><input class="form-control" type="text" name="title" ng-model="tweight" placeholder="Weight of Tag"></div>
+									<button type="button" class="btn btn-primary btn-s col-xs-1" id="addbtn" ng-click="addTag();" >Add</button>
+								</div>
+								<div class="row">
+									<div ng-repeat="t in tags">
+										<button type="button" class="btn btn-default btn-xs col-xs-1" id="delbtn" ng-click="tags.splice(tags.indexOf(t), 1);" >{{t.name}}</button>
+										<label for="weight" class="col-xs-1">{{t.weight}}</label>
 									</div>
 								</div>
 							</div>
@@ -107,12 +112,12 @@
 								</div>
 							</div>
 							<div class="col-sm-4">
-								<h4>Tags</h4>
+								<!--<h4>Tags</h4>
 								<div ng-repeat="ttt in param.tags">
 									<button type="button" class="btn" ng-click="addTags(ttt);">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
 									</button>
-								</div>
+								</div>-->
 							</div>
 							<div class="col-sm-4">
 								<h4>Requests received:</h4>
@@ -133,13 +138,13 @@
 						<ul ng-repeat="m in member">
 							<div class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" >
 								<label>
-									<li>
-										Name = {{retrieveNameFromID(m.$id)}} <br>
-										request to join the following teams: 
-										<p ng-repeat="s in m.selection">
-											{{ $index+1 }}. {{s}}
-										</p>
-									</li>
+								<li>
+								Name = {{retrieveNameFromID(m.$id)}} <br>
+								request to join the following teams: 
+								<p ng-repeat="s in m.selection">
+								{{ $index+1 }}. {{s}}
+								</p>
+								</li>
 								</label>
 							</div>
 						</ul>
@@ -153,28 +158,27 @@
 								Preferred team size: <span class="badge">{{t.size}}</span> <br>
 								Tags:
 								<p ng-repeat ="tag in t.tags">{{tag}}<p>
-									<p ng-show="!t.tags"> none </p>
-									Current team members: 
-									<p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
-										{{ $index+1 }}. {{ member }}
-									</p>
-									<span ng-show="!t.teamMembers"> none </span>
-								</li>
-							</ul>
-						</div>
-
+								<p ng-show="!t.tags"> none </p>
+								Current team members: 
+								<p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
+								{{ $index+1 }}. {{ member }}
+								</p>
+								<span ng-show="!t.teamMembers"> none </span>
+							</li>
+						</ul>
 					</div>
+
 				</div>
 			</div>
+		</div>
 
-			<script src="lib/angular.min.js"></script>
-			<script src="lib/angular-route.min.js"></script>
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-route.min.js"></script>
 
-			<script src="lib/firebase.js"></script>
-			<script src="lib/angularfire.min.js"></script>
-			
-			<script src="js/team.js"></script>
+	<script src="lib/firebase.js"></script>
+	<script src="lib/angularfire.min.js"></script>
+	
+	<script src="js/team.js"></script>
 
-		</body>
-		</html>
-
+</body>
+</html>

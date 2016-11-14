@@ -99,8 +99,7 @@ angular.module('teamform-member-app', ['firebase'])
 				
 		if(tag !== '' && $scope.tags.indexOf(tag) == -1) {
 			$scope.tags.push(tag);
-			$scope.tag = "";
-			}
+		}
 		$scope.tag = "";
 	};
 	

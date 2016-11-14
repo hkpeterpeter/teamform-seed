@@ -22,7 +22,7 @@ angular.module('teamform-team-app', ['firebase'])
 	var refPath = "";
 	var eventName = getURLParameter("q");
 	$scope.tags = [];
-	$scope.tags = $firebaseArray(firebase.database().ref("tags"));
+	// $scope.tags = $firebaseArray(firebase.database().ref("tags"));
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		teamName : '',
@@ -82,6 +82,15 @@ angular.module('teamform-team-app', ['firebase'])
 		return "null";
 	};
 
+	$scope.retrieveTagsFromID = function(id) {
+		for(var tmpIdx = 0; tmpIdx < $scope.member.length; tmpIdx++) {
+			if($scope.member[tmpIdx].$id === id) {
+				return $scope.member[tmpIdx].tags;
+			}
+		}
+		return "null";
+	};
+
 	$scope.retrieveNamesFromJSON = function(teamMembers) {
 		var result = [];
 		var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
@@ -121,6 +130,7 @@ angular.module('teamform-team-app', ['firebase'])
 		var status = $("#add").text();
 		var refPath = getURLParameter("q") + "/team/" + teamID;
 		var ref = firebase.database().ref(refPath);
+
 		if(teamID !== '' && status === "Add") {
 			$scope.param.teamMembers.push($scope.uid);			
 			var rp = eventName + "/member/" + $scope.uid;
@@ -177,31 +187,50 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
-	$scope.tagChecked = function(tagval){
-		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
-		for(var j =0; j < length; j++){
-			if(tagval == $scope.param.tags[j]) {
-				return true;
+	// $scope.tagChecked = function(tagval){
+	// 	var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+	// 	for(var j =0; j < length; j++){
+	// 		if(tagval == $scope.param.tags[j]) {
+	// 			return true;
+	// 		}
+	// 	}
+	// 	return false;
+	// };
+	// $scope.addTags = function(tagval){
+	// 	var addOrNot = true;
+	// 	var k = 0;
+	// 	var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
+	// 	for(; k < length; k++){
+	// 		if(tagval == $scope.param.tags[k]){
+	// 			addOrNot = false;
+	// 			break;
+	// 		}
+	// 	}
+	// 	if(addOrNot){$scope.param.tags.push(tagval);}
+	// 	else{$scope.param.tags.splice(k,1);}
+	// };
+	// $scope.openCategory = function(){
+	// 	document.getElementById("myDropdown").classList.toggle("show");
+	// };
+
+	$scope.addTag = function() {
+		 var name = $.trim($scope.tname);
+		 var weight = $.trim($scope.tweight);
+				
+		if(name !== '' && $scope.tags.indexOf(name) == -1 ) {
+			if(weight == "" || !angular.isNumber(weight)) {
+				weight = 1;
 			}
+			var tag = {
+				'name' : name,
+				'weight' : weight
+			};
+			$scope.tags.push(tag);
 		}
-		return false;
+		$scope.tname = "";
+		$scope.tweight ="";
 	};
-	$scope.addTags = function(tagval){
-		var addOrNot = true;
-		var k = 0;
-		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
-		for(; k < length; k++){
-			if(tagval == $scope.param.tags[k]){
-				addOrNot = false;
-				break;
-			}
-		}
-		if(addOrNot){$scope.param.tags.push(tagval);}
-		else{$scope.param.tags.splice(k,1);}
-	};
-	$scope.openCategory = function(){
-		document.getElementById("myDropdown").classList.toggle("show");
-	}
+
 	//tagsfunctionendshere
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;		
