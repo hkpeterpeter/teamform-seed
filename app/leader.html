@@ -47,6 +47,19 @@
       <ol>
         <li ng-repeat='pre in preference'>{{pre}}<a  ng-click="removePre(pre)">Remove</a></li>
       </ol>
+      <button class='btn btn-primary' ng-click='filterPre()'>Filter</button>
+      <p>Filtered list:</p> 
+      <div ng-repeat="u in filtedUsers">
+           <ul>
+               <li>Name:{{u.name}}</li>
+               <li>Gpa:{{u.gpa}}</li>
+               <li>Language:{{u.language}}</li>
+               <li>Team:{{u.teams}}</li>
+               <li>Description:{{u.description}}</li>
+               <li>User Id: {{u.$id}}</li>
+            </ul>
+        </div>                 
+
       
 
       <!-- /.container -->
