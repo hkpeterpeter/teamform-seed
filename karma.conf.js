@@ -2,26 +2,28 @@
 module.exports = function(config) {
   config.set({
 
-    basePath: './app',
+    basePath: './',
 	frameworks: ['jasmine'],
     files: [
-	  'lib/jquery.min.js',
-      'lib/angular.min.js',
-      'lib/angular-route.min.js',
-      'lib/angular-mocks.js',
-	  'lib/firebase.js',
-	  'lib/angularfire.min.js',	  
-	  'js/*.js',
-      'unit_tests/*.js'	  
+	  'app/lib/jquery.min.js',
+      'app/lib/angular.min.js',
+      'app/lib/angular-route.min.js',
+      'app/lib/angular-mocks.js',
+	  'app/lib/firebase.js',
+	  'app/lib/angularfire.min.js',
+	  'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+      'app/js/main.js',
+	  'app/js/*.js',
+      'app/unit_tests/*.js'
     ],
 	exclude: [
 	],
-	preprocessors: {	 	
-		 'js/site.js' : ['coverage'],		
-		 'js/index.js' : ['coverage'],
-		 'js/admin.js' : ['coverage'],
-		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage']
+	preprocessors: {
+		 'app/js/main.js' : ['coverage'],
+		 'app/js/index.js' : ['coverage'],
+		 'app/js/admin.js' : ['coverage'],
+		 'app/js/team.js' : ['coverage'],
+		 'app/js/member.js' : ['coverage']
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
