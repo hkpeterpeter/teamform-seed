@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Firebase Authentication SDK 電子郵件/密碼登入</title>
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBm3v0FwEKneu9IBdj5vRh9Zn_iajH0xjk",
+    authDomain: "tast-dc842.firebaseapp.com",
+    databaseURL: "https://tast-dc842.firebaseio.com",
+    storageBucket: "tast-dc842.appspot.com",
+    messagingSenderId: "431016183416"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src="SampleCtrl.js"></script>
+<script src="save.js"></script>
+<script src="Question.js"></script>
+
+</head>
+  <body>
+    <div ng-controller="MyAuthCtrl">
+   		E-mail: <input type="text" name="mail" ng-model="input.email"><br>
+  		Password: <input type="text" name="pword" ng-model="input.password"><br>
+  		Display Name: <input type="text" name="dname" ng-model="input.displayname"><br><br>
+      <button type="button" ng-click="createUser()" >Sign up</button>
+      <button type="button" ng-click="loginUser()" >Login</button><br>
+
+    <br>
+    <br>
+    <br>
+    </div>
+    <div ng-controller="Question">
+      <h1>Gen Question</h1>
+      Question: <input type="text" name="Question" ng-model="questions.Question"><br>
+      A: <input type="text" name="A" ng-model="questions.A"><br>
+      B: <input type="text" name="B" ng-model="questions.B"><br>
+      C: <input type="text" name="C" ng-model="questions.C"><br>
+      D: <input type="text" name="D" ng-model="questions.D"><br>
+      Ans: <input type="text" name="Answer" ng-model="questions.Ans"><br>
+      <button type="button" ng-click="DOIT()" >DO IT</button>
+
+      <div ng-repeat="q in question" >
+      <form ng-submit=AnswerQ()>
+        {{q.Question}} <br>
+        <input type="radio" name="a" value="A" ng-model="cAns"> {{q.A}} <br>
+        <input type="radio" name="b" value="B" ng-model="cAns"> {{q.B}}<br>
+        <input type="radio" name="c" value="C" ng-model="cAns"> {{q.C}}<br>
+        <input type="radio" name="d" value="D" ng-model="cAns"> {{q.D}}<br>
+        <button type="submit" >Ans</button>
+      </form>
+      <br>
+      </div>
+
+
+    </div>
+    
+
+
+
+  </body>
+</html>
