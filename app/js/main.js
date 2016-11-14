@@ -89,7 +89,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	$rootScope.addEvent=function(event){
 		$rootScope.events.$add(event);
 	}
-	//$rootScope.addUser(exampleNewUser);
+	// $rootScope.addUser(exampleNewUser);
 
 	$rootScope.carousel_timer = null;
 	$rootScope.$on('$viewContentLoaded', function() {
