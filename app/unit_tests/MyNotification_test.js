@@ -1,17 +1,20 @@
 // Testing of NotificationController
-describe('mainApp', function() {
-   var $scope;
+describe('TestNotification', function() {
+   
+   var $scope， $rootScope, $controller;
 
    beforeEach(module('mainApp'));
 
-   beforeEach(inject(function($rootScope, $controller){
-   	    $scope = $rootScope.$new();
-   	    $controller('NotificationController', {$scope: $scope});
+   beforeEach(inject(function(_$rootScope_, _$controller_){
+   		$rootScope = _$rootScope_;
+   		$controller=_$controller_;
    }));
 
-
-
- 	// == Now, we can start testing using $scope ===
+   beforeEach(function(){
+   		$scope=$rootScope.$new();
+   		$controller("NotificationController",{$scope: $scope});
+   });
+	// == Now, we can start testing using $scope ===
 
  	// Testing the default username 
   	it('test the user', function(){
