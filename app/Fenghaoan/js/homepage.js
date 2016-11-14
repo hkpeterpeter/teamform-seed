@@ -56,7 +56,11 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
 
       $rootScope.addUser(newUser);
       console.log("user added");
+      $rootScope.loginWithEmail(data['email']);
     }
+
+    // console.log($rootScope.currentUser);
+    // $rootScope.test();
 
   }).catch(function(error) {
   // Handle Errors here.
