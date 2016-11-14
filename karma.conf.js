@@ -5,26 +5,26 @@ module.exports = function(config) {
     basePath: './app',
 	frameworks: ['jasmine'],
     files: [
-      'https://www.gstatic.com/charts/loader.js',
+      'lib/loader.js',
 	  'lib/jquery.min.js',
       'lib/angular.min.js',
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
 	  'lib/firebase.js',
-	  'lib/angularfire.min.js',	  
+	  'lib/angularfire.min.js',
 	  'js/*.js',
       'unit_tests/*.js',
       'zwangbm/js/*.js',
-      'jzhangbs/site.js',
+      'jzhangbs/*.js',
       'TXR/*.js',
       'search/*.js'
 
     ],
 	exclude: [
 	],
-	preprocessors: {	 	
+	preprocessors: {
 		 'zwangbm/js/btnclick.js' : ['coverage'],
-		 //'jzhangbs/*.js' : ['coverage'],
+		 'jzhangbs/*.js' : ['coverage'],
 		 'TXR/*.js': ['coverage'],
       	 'search/*.js' : ['coverage']
 
@@ -40,10 +40,10 @@ module.exports = function(config) {
     browsers: ['Chrome'],
 	singleRun: true,
     plugins: [
-      'karma-chrome-launcher',      
+      'karma-chrome-launcher',
       'karma-jasmine',
 	  'karma-coverage'
-    ]    
+    ]
 
   });
 };
