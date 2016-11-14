@@ -12,6 +12,14 @@ module.exports = function(config) {
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',	  
 	  'js/*.js',
+	  'baichunyan/js/bai.js',
+	  'Fenghaoan/js/homepage.js',
+	  'fish/js/fish.js',
+	  'JiaHe/teamleader.js',
+	  'Samuel-personalDashboard/personal-dashboard-main.js',
+	  'WU_YUNCHEN/form.js',
+	  'ZhaoLucen/admin.js',
+	  'zhuxinyu/myctrl.js',
       'unit_tests/*.js'	  
     ],
 	exclude: [
