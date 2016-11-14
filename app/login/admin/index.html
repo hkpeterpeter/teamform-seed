@@ -25,33 +25,28 @@
   firebase.initializeApp(config);
 </script>
 
-<script src="SampleCtrl.js"></script>
+<script src="adminCtrl.js"></script>
 <script src="save.js"></script>
-<script src="Question.js"></script>
+
 
 </head>
   <body>
-    <div ng-controller="MyAuthCtrl">
-      <button type="button" ng-click="createUser()" >Click Me!</button>
-      <button type="button" ng-click="loginUser()" >Click Me2!</button><br>
+    <div ng-controller="AdminAuthCtrl">
       E-mail: <input type="text" name="mail" ng-model="input.email"><br>
       Password: <input type="text" name="pword" ng-model="input.password"><br>
-      Display Name: <input type="text" name="dname" ng-model="input.displayname"><br><br>
+      <button type="button" ng-click="createAdmin()" >Sign up</button>
+      <button type="button" ng-click="loginAdmin()" >Login</button><br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      Course: <input type="text" name="mail" ng-model="courseName"><br>
+      Max: <input type="text" name="mail" ng-model="course.max"><br>
+      Min: <input type="text" name="mail" ng-model="course.min"><br>
+      <button type="button" ng-click="CreateCourse()" >Create Course</button><br>
+      <div ng-controller="MyCtrl"></div>
 
-
-    </div>
-    <div ng-controller="Question">
-    <form>
-      {{q.question}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "a"> {{q.a}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "b"> {{q.b}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "c"> {{q.c}}<br>
-      <input type="radio" name="location" ng-model="Qinput" value = "d"> {{q.d}}<br>
-    </form>
-    <button type="button" ng-click="sumitans()">answer</button>
-
-
-    </div>
     
 
 

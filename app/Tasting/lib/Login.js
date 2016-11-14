@@ -16,9 +16,8 @@ app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
         }
 
         $scope.createUser = function() {
-            console.log("Hello");   
             $scope.authObj.$createUserWithEmailAndPassword($scope.signInput.email + "@connect.ust.hk", $scope.signInput.password).then(function(firebaseUser) {
-                console.log("User " + firebaseUser.uid + "created successfully!");   
+                alert("User " + firebaseUser.uid + "created successfully!");   
                 var ref = firebase.database().ref("User");
                 ref.child(firebaseUser.uid).set($scope.input);
 
