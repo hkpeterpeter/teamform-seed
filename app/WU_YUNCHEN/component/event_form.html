@@ -1,18 +1,18 @@
 <!--
-Event description: {{eventDescription}}
-Minimum number of team member: {{eventMin}}
-Maximum number of team member: {{eventMax}}
+Event description: {{eventDescription}} in js: $scope.eventDescription
+Minimum number of team member: {{eventMin}} in js: $scope.eventMin
+Maximum number of team member: {{eventMax}} in js: $scope.eventMax
 -->
 
-<div class="container">
+<div class="container event_form_style">
     <div class="row">
         <form class="col s12">
           
-          <textarea-field id="event_description" label="Event description" field-model="eventDescription"></textarea-field>
+          <textarea-field id-of-field="event_description" label="Event description" field-model="eventDescription"></textarea-field>
           <br>
           <div class="row">
             <div class="col s6">
-              <label>Minimum number of team member</label>
+              <p>Minimum number of team member</p>
               <div range-spinner
                 range-min="1" 
                 range-step="1"  
@@ -27,7 +27,7 @@ Maximum number of team member: {{eventMax}}
               <br><br><br><br>
             </div>
             <div class="col s6">
-              <label>Maximum number of team member</label>
+              <p>Maximum number of team member</p>
               <div range-spinner
                 range-min="1" 
                 range-step="1"  
