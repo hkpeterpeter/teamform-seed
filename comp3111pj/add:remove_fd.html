@@ -1,0 +1,50 @@
+<!doctype>
+<html ng-app="Demo">
+  <head>
+  <title></title>	
+
+  <style type="text/css">
+        a[ ng-click ] {
+            cursor: pointer ;
+            text-decoration: underline ;
+        }
+    </style>
+
+<script src="js/angular.js"></script> 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+
+<script type="text/javascript" src="http://jemonjam.com/angular-notification-icons/bower_components/jquery/dist/jquery.js"></script>
+
+
+  </head>
+
+  <body ng-controller="DemoController">
+  	<h1>
+        Using The $http Service In AngularJS To Make AJAX Requests
+    </h1>
+
+    <!-- Show existing friends. -->
+    <ul>
+        <li ng-repeat="friend in friends">
+            {{ friend.name }}
+            ( <a ng-click="removeFriend( friend )">Delete</a> )
+        </li>
+    </ul>
+    	<!-- Add a new friend to the list. -->
+    <form ng-submit="addFriend()">
+
+        <input type="text" ng-model="tt" placeholder="Enter the name here"size="40" />
+        <p>{{tt}}</p>
+        <input type="submit" value="Add Friend" ng-click="addFriend()"/>
+
+    </form>
+   
+  </body>
+
+  </html>
