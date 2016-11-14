@@ -14,7 +14,7 @@ angular.module('teamform')
 	};
 
 	refPath =  eventName + "/admin";
-	retrieveOnceFirebase(firebase, refPath, function(data) {	
+	$scope.retrieveOnceFirebase(firebase, refPath, function(data) {
 
 		if ( data.child("param").val() != null ) {
 			$scope.range = data.child("param").val();

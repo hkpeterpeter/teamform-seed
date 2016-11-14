@@ -3,6 +3,11 @@
 
     angular.module("teamform", ['ui.router', 'firebase']
     ).run(['$rootScope', function ($rootScope) {
+
+        $rootScope.retrieveOnceFirebase = function(firebase, refPath, callbackFunc) {
+            firebase.database().ref(refPath).once("value").then(callbackFunc);
+        };
+
     }]).config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider){
 

@@ -3,7 +3,7 @@ angular.module('teamform')
 	function($scope, $firebaseObject, $firebaseArray, $stateParams, $state) {
 	
 	// TODO: implementation of MemberCtrl
-        
+
     var eventName = $stateParams.event;
     $scope.event = eventName;
 	$scope.userID = "";
@@ -15,7 +15,7 @@ angular.module('teamform')
 		if ( userID !== '' ) {
 			
 			var refPath = eventName + "/member/" + userID;
-			retrieveOnceFirebase(firebase, refPath, function(data) {
+			$scope.retrieveOnceFirebase(firebase, refPath, function(data) {
 								
 				if ( data.child("name").val() != null ) {
 					$scope.userName = data.child("name").val();
