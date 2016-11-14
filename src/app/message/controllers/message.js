@@ -1,7 +1,8 @@
 import style from '../../../assets/stylesheets/message.scss';
 export default class MessageCtrl {
-    constructor($location, $state, $timeout, authService, messageService) {
+    constructor($location, $interval, $state, $timeout, authService, messageService) {
         this.$location = $location;
+        this.$interval = $interval;
         this.$state = $state;
         this.$timeout = $timeout;
         this.authService = authService;
@@ -13,6 +14,9 @@ export default class MessageCtrl {
         this.error = null;
         this.messageContent = '';
         this.getConversations();
+        $interval(() => {
+            this.getConversations();
+        }, 5000);
     }
     getConversation(id) {
         for (let conversation of this.conversations) {
@@ -60,4 +64,4 @@ export default class MessageCtrl {
     }
 }
 
-MessageCtrl.$inject = ['$location', '$state', '$timeout', 'AuthService', 'MessageService'];
+MessageCtrl.$inject = ['$location', '$interval', '$state', '$timeout', 'AuthService', 'MessageService'];

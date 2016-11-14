@@ -29,9 +29,13 @@ export default class MessageService {
                 }
                 if(recv) {
                     message.recv = true;
+                    message.createAt++;
                 }
                 return message;
             }));
+            messages = messages.sort((a, b) => {
+                return a.createAt - b.createAt;
+            });
             conversations = messages.reduce((newConversations, message) => {
                 let conversationUser = message.sender;
                 if(conversationUser.$id == id) {
@@ -46,8 +50,6 @@ export default class MessageService {
                 newConversations.push({user: conversationUser, messages: [message]});
                 return newConversations;
             }, []);
-            messagesSent.$$update = await init;
-            messagesRecv.$$update = await init;
             return Promise.resolve();
         };
         await init();
@@ -68,7 +70,7 @@ export default class MessageService {
     }
     async sendMessage(sender, receiver, content) {
         let messages = await this.$firebaseArray(this.$database.ref('messages')).$loaded();
-        return messages.$add({sender: sender, receiver: receiver, content: content});
+        return messages.$add({sender: sender, receiver: receiver, content: content, createAt: Date.now()});
     }
     static instance(...args) {
         return new MessageService(...args);
