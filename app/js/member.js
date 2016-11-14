@@ -10,6 +10,15 @@ $(document).ready(function(){
 
 });
 
+$("#btn_chat").click(function() {
+    	var val = getURLParameter("q");
+    	if(val !== '') {
+    		var url = "chatRoom.html?q=" + val;
+    		window.location.href= url ;
+    		return false;
+    	}
+    });
+
 angular.module('teamform-member-app', ['firebase'])
 .directive('login', function() {
     return {
@@ -225,4 +234,6 @@ angular.module('teamform-member-app', ['firebase'])
 		
 	};	
 	$scope.refreshTeams(); // call to refresh teams...
-}]);
+}])
+
+;
