@@ -43,12 +43,16 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
     $scope.createflip = function() {
         if ($scope.event.name != "") {
             document.getElementById('myflipper').classList.toggle('flipped');
-            console.log($scope.event.name);
+            
         } else {
             Materialize.toast('Please Enter The Event Name!', 1000);
         }
     };
     $scope.cancelEvent = function() {
+
+        $scope.event.name="";
+
+        
         document.getElementById('myflipper').classList.toggle('flipped');
     };
 
@@ -188,9 +192,11 @@ teamapp.directive('eventCard', function($compile) {
                
                 $rootScope.clickedEvent.$loaded().then(function(data){
                     console.log(data);
+                    console.log($rootScope.currentUser.id);
 
                 if($rootScope.currentUser.id==data.adminID){
                 //is Admin
+
                     console.log("An Admin");
                     window.location.href = '#admin';
                 }else{
@@ -248,7 +254,42 @@ teamapp.directive('eventCard', function($compile) {
 teamapp.directive("subcan", function() {
     return {
         restrict: "E",
-        templateUrl: "zhuxinyu/js/components/submitCancelPanel/subcan.html"
+        templateUrl: "zhuxinyu/js/components/submitCancelPanel/subcan.html",
+        controller: function ($rootScope,$scope, $element,$firebaseObject,$firebaseArray,allteams,allevents,allusers) {
+
+            $scope.createEvent=function(){
+                
+                var eventCreating={};
+              // eventCreating.description=document.getElementById("event_detail").value;
+                eventCreating.description=$scope.eventDescription;
+                eventCreating.min_num=$scope.eventMin;
+                eventCreating.max_num=$scope.eventMax;
+                eventCreating.adminID=$rootScope.currentUser.id;
+                eventCreating.evnetName=$scope.event.name;
+                eventCreating.imageUrl=$rootScope.currentUser.profilePic;
+                console.log(eventCreating);
+
+                $rootScope.events.$add(eventCreating).then(function(ref){
+                    var eventID=ref.key;
+                    console.log(eventID);
+
+                    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("eventsManaging")).$add(eventID);
+
+
+                    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs")).$add({
+                        content: "An new event "+ $scope.event.name +" has been created",
+                        read: false,
+                        type:"System"
+                    });
+
+                     Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
+
+                   
+                    $scope.cancelEvent();
+                });
+            }
+
+        }
     };
 });
 teamapp.directive("eventFooter", function() {
@@ -268,5 +309,86 @@ teamapp.directive("boardList",function(){
     }
 })
 
+
+teamapp.directive("zhuNavi", function() {
+    return {
+        restrict: "E",
+        templateUrl: "zhuxinyu/js/components/fish-navi.html",
+         controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+           
+             
+
+            $firebaseObject($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs")).$bindTo($scope,"allNotif");
+
+            $scope.shownotify=function(){
+                $scope.ntList=[];
+
+
+                $scope.invite_ntList=[];
+
+                $.each($scope.allNotif, function(i,n) {
+
+                    if(n!=null&&n.content!=null&&n.read==false){
+
+                        if(n.type=="invitation"){
+
+                             $scope.invite_ntList.push(n);
+                          
+                        }else{
+
+                             $scope.ntList.push(n);
+                            
+
+                        }
+                        //n.read=true;
+                       
+                    }
+                });
+              
+            }
+
+             
+          
+     
+       }
+         
+    };
+});
+
+
+
+teamapp.directive("notifyBar",function(){
+    return {
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/notifyBar/notifyBar.html",
+        scope:{
+            cpic:"@",
+            type:"@"
+            
+        },
+        transclude:true
+    }
+});
+
+teamapp.directive("invitationBar",function(){
+    return {
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/invitationBar/invitationBar.html",
+        scope:{
+            cpic:"@",
+            type:"@",
+            from:"@",
+            event:"@",
+            team:"@"
+            
+        },
+        transclude:true,
+        controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+            $scope.accept=function(){
+                console.log("User:"+$rootScope.currentUser.id+" should be added to team "+$scope.team);
+            }
+        }
+    }
+});
 
 

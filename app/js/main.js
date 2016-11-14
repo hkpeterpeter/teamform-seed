@@ -3,22 +3,22 @@ var teamapp = angular.module('teamapp', ["ngRoute","firebase"]);
 
 
 teamapp.config(function($routeProvider) {
-    $routeProvider
-    .when("/search", {
-        templateUrl : "zhuxinyu/searchEvent.html"
-    }).when("/eventx",{
-    	templateUrl : "baichunyan/eventx.html"
-    }).when("/profile",{
-    	templateUrl : "Samuel-personalDashboard/personal-dashboard.html"
-    }).when("/home",{
-    	templateUrl : "Fenghaoan/home.html"
-    }).when("/teamleader",{
-    	templateUrl : "JiaHe/teamleader.html"
-    }).when("/admin",{
-    	templateUrl : "ZhaoLucen/admin.html"
-    }).when("/team",{
-    	templateUrl : "fish/member-event.html"
-    }).otherwise({redirectTo:'/home'});
+	$routeProvider
+	.when("/search", {
+		templateUrl : "zhuxinyu/searchEvent.html"
+	}).when("/eventx",{
+		templateUrl : "baichunyan/eventx.html"
+	}).when("/profile",{
+		templateUrl : "Samuel-personalDashboard/personal-dashboard.html"
+	}).when("/home",{
+		templateUrl : "Fenghaoan/home.html"
+	}).when("/teamleader",{
+		templateUrl : "JiaHe/teamleader.html"
+	}).when("/admin",{
+		templateUrl : "ZhaoLucen/admin.html"
+	}).when("/team",{
+		templateUrl : "fish/member-event.html"
+	}).otherwise({redirectTo:'/home'});
 
 });
 
@@ -56,7 +56,9 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	}
 
 	$rootScope.currentUser={
-        id:"-KVtEW8EVXIacwd9hsGx"
+        id:"0",
+        profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
+        email:"abc@connect.ust.hk"
     }
                 
 	var exampleNewUser={
@@ -89,29 +91,41 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	}
 	//$rootScope.addUser(exampleNewUser);
 
-
-	$rootScope.carousel_flag_fha = true;
-
+	$rootScope.carousel_timer = null;
 	$rootScope.$on('$viewContentLoaded', function() {
 		// Don't touch these lines 
+		carousel_flag_fha = true;
+
+		$('.carousel').off('mouseover');
+		$('.carousel').off('mouseleave');
 
 		// $('.carousel').carousel();
 		$('.carousel.carousel-slider').carousel({full_width: true});
 
+		clearInterval($rootScope.carousel_timer);
 		
-		setInterval(()=> { 
-			if ($rootScope.carousel_flag_fha) {
+		$rootScope.carousel_timer = setInterval(()=> { 
+			if (carousel_flag_fha) {
 				$('.carousel').carousel('next'); 
 			}
 		}, 3000);
-		$('.carousel').on('mouseover', ()=> { $rootScope.carousel_flag_fha = false; });
-		$('.carousel').on('mouseleave', ()=> { $rootScope.carousel_flag_fha = true; });
+		$('.carousel').on('mouseover', ()=> { carousel_flag_fha = false; });
+		$('.carousel').on('mouseleave', ()=> { carousel_flag_fha = true; });
 
-        $(document).keyup(function(event){
-          if(event.which=='27'){
-            $('.cd-user-modal').removeClass('is-visible');
-        }
-    });
-    });
+		$(document).keyup(function(event){
+			if(event.which=='27'){
+				$('.cd-user-modal').removeClass('is-visible');
+			}
+
+
+		});
+		$(function() {
+			var div = $('.videoframe');
+			var width = div.width();
+
+			div.css('height', width*0.6);
+		});
+
+	});
 
 }]);
