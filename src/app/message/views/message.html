@@ -37,7 +37,7 @@
                         <div><button><i class="fa fa-plus-square-o" aria-hidden="true"></i> New Message</button></div>
                     </div>
 
-                    <div ng-class="[message.style['chat_area']]">
+                    <div ng-class="[message.style['chat_area']]" scroll-glue>
                         <ul class="list-unstyled">
                             <li class="clearfix">
                                 <div ng-repeat="msg in message.conversation.messages">

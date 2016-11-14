@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import angularfire from 'angularfire';
+import angularjsscrollglue from 'angularjs-scroll-glue';
 
 import routes from './config/routes';
 import alert from '../common/alert';
@@ -10,7 +11,7 @@ import user from '../user';
 import MessageCtrl from './controllers/message';
 import MessageService from './factories/MessageService';
 
-export default angular.module('message', [uirouter, angularfire, firebase, alert, user, auth])
+export default angular.module('message', [uirouter, angularfire, firebase, alert, 'luegg.directives', user, auth])
     .config(routes)
     .controller('MessageCtrl', MessageCtrl)
     .factory('MessageService', MessageService.instance)

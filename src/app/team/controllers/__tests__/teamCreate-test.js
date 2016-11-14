@@ -14,17 +14,18 @@ describe('TeamCreateController', () => {
         }
     });
 
-    it('trigger setLeader', () => {
+    it('trigger setLeader', async (done) => {
         let $timeout;
         inject((_$timeout_, AuthService) => {
             $timeout = _$timeout_;
             $spys.push(spyOn(AuthService, 'getUser').and.returnValue({uid: 1}));
         });
         $controller.team = {users: []};
-        $controller.setLeader();
+        await $controller.setLeader();
         $timeout.flush();
         expect($controller.team.users[0].id).toEqual(1);
         expect($controller.team.users[0].role).toEqual('Leader');
+        done();
     });
 
     it('should resolve getEvents', async (done) => {
