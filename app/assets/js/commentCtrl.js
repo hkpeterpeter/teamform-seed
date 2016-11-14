@@ -1,14 +1,4 @@
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyDRwTjOiH_DUPfAHdwTMPTLjB9qn7iKMS4",
-    authDomain: "light-of-wisdom-7d1ea.firebaseapp.com",
-    databaseURL: "https://light-of-wisdom-7d1ea.firebaseio.com",
-    storageBucket: "light-of-wisdom-7d1ea.appspot.com",
-    messagingSenderId: "411144932773"
-};
-firebase.initializeApp(config);
 
-// inject firebase service
 var app = angular.module("comment", ["firebase"]); 
 
 app.controller("commentCtrl", 

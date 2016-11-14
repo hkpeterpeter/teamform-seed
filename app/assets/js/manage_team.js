@@ -4,24 +4,60 @@ angular.module('teamform-manage_team-app', ['firebase'])
 .controller('ManageTeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
 	initalizeFirebase();
-	var user = firebase.auth().currentUser;
-	var teamleader = "BUG";
-	//var teamleader = user.displayName;
-	if(user)
-	{
-		console.log("Logged in as:", user.displayName);
-		teamleader = user.displayName;
-	}
-	else{
-		console.error("BUG");
-	}
-	
-	$scope.teaminfo ={};
+	var teamleader;
 
+	firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+
+        var userPath = "/user/" + user.uid;
+        var userref = firebase.database().ref(userPath);
+
+
+        userref.on("value", function(snapshot) {
+  				console.log(snapshot.val());
+  				teamleader = snapshot.val().name;
+  				console.log(teamleader);
+		}, function (errorObject) {
+  			console.log("The read failed: " + errorObject.code);
+		});
+
+    } 
+    else {}
+    });
+
+
+	
+	$scope.teaminfo = {TeamLeader:"", Description:"" };
+	$scope.input = {description: ""};
 
 	var eventName, teamName;
 	eventName = getURLParameter("q");
 	teamName = getURLParameter("tn");
+
+	var eventPath ="/event/" + eventName +"/param";
+	var eventref = firebase.database().ref(eventPath);
+	var current_team;
+
+	eventref.once("value",function(snapshot)
+	{
+		console.log(snapshot.val());
+		current_team = snapshot.val().No_of_Team;
+		current_team = current_team +1;
+		console.log(current_team);
+		eventref.update(
+		{
+			'No_of_Team' : current_team
+		}
+					);
+
+	}, function (errorObject) {
+  			console.log("The read failed: " + errorObject.code);
+	});
+
+
+
+
+
 
 	var ref, refPath;
 	$scope.EventName = eventName;
@@ -32,12 +68,12 @@ angular.module('teamform-manage_team-app', ['firebase'])
 	ref = firebase.database().ref(refPath);
 	$scope.teaminfo = $firebaseObject(ref);
 
-	$scope.input = {description : $scope.teaminfo.description};
-	
-	ref.update({
-		TeamLeader : teamleader,
-		TeamName : teamName
-	});
+
+
+
+
+
+
 
 	$scope.teaminfo.$loaded()
 		.then( function(data) {
@@ -47,9 +83,9 @@ angular.module('teamform-manage_team-app', ['firebase'])
 			$('#manage_team_page_controller').show(); 
 
 			$scope.teaminfo.TeamLeader = teamleader;
-			$scope.teaminfo.TeamName = $scope.input.teamname;
-			$scope.teaminfo.description = $scope.input.description;	
-		}) 
+			$scope.teaminfo.TeamName = teamName;
+			$scope.teaminfo.Description = $scope.input.description;
+					}) 
 		.catch(function(error) {
 			// Database connection error handling...
 			//console.error("Error:", error);

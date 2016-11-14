@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="position">
+<html ng-app = "teamform-member-app" ng-controller="MemberCtrl">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -26,21 +26,8 @@
 
       <!-- Angular Library -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-
       <!-- Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-	    apiKey: "AIzaSyAONa3ULgY4f-S31VJYGksehH_EcR0XBGA",
-	    authDomain: "comp3111-bce17.firebaseapp.com",
-	    databaseURL: "https://comp3111-bce17.firebaseio.com",
-	    storageBucket: "comp3111-bce17.appspot.com",
-	    messagingSenderId: "1097576612509"
-	  };
-	  firebase.initializeApp(config);
-	</script>
-
       <!-- AngularFire URL: https://github.com/firebase/angularfire -->
    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
@@ -54,9 +41,7 @@
    <script src="assets/js/template.js"></script>
 
    <script src="assets/js/site.js"></script>
-   <script src="assets/js/login.js"></script>
-
-   <script src="assets/js/Anderson.js"></script>
+   <script src="assets/js/member.js"></script>
    
    
 </head>
@@ -70,14 +55,14 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" align="middle"></a>
 			</div>
-			<div class="navbar-collapse collapse" ng-controller="LoginCtrl" ng-app="teamform-login-app">
+			<div class="navbar-collapse collapse" >
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
 					<li><a href="admin.html">ADMIN(FOR TEST)</a></li>
 					<li><a href="member.html">MEMBER</a></li>
-					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
+
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -88,7 +73,7 @@
 
 	<!-- container -->
 
-		<div ng-controller="positionSubmit" class="container">
+		<div class="container">
 
 			<ol class="breadcrumb">
 				<li><a href="index.html">Home</a></li>
@@ -100,7 +85,7 @@
 				<!-- Article main content -->
 				<article class="col-sm-8 maincontent">
 					<header class="page-header">
-						<h1 class="page-title">[Name]</h1>
+						<h1 class="page-title">{{userObj.name}}</h1>
 					</header>
 					<h3>Your Position</h3>
 					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>

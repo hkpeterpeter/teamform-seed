@@ -44,6 +44,13 @@
         </div>
 
 <form class="form-signin" name="regForm" role="form">
+
+   <div class="form-group" ng-class="{ 'has-error' : regForm.name.$invalid }" minlength="5">
+    <label>User name</label>
+    <input type="text" name="username" class="form-control" ng-model="user.name">
+    <p class="help-block" ng-show="regForm.name.$invalid">Min user name length is 5 characters</p>
+</div>
+
     <div class="form-group" ng-class="{ 'has-error' : regForm.email.$invalid }">
     <label>Email</label>
     <input type="email" name="email" class="form-control" ng-model="user.email">

@@ -41,7 +41,7 @@ angular.module('teamform-event-app', ['firebase'])
 			}
 
 			if(typeof $scope.param.MaxTeam == "undefined"){				
-				$scope.param.MaxTeam = 12;
+				$scope.param.MaxTeam = 5;
 			}
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#event_page_controller').show(); 

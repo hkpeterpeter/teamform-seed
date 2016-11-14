@@ -50,7 +50,6 @@
 
 
    <script src="assets/js/site.js"></script>
-   <script src="assets/js/login.js"></script>
    <script src="assets/js/event.js"></script>
 
 
@@ -106,21 +105,18 @@
 
          <hr>
 
-		 <div class="row">
-			 
-			 <div class="col-md-6 col-xs-6 text-left">
-							
-			 
-			  <h3>All members:</h3>
-			  <ul ng-repeat="m in member">
-				
-				  <li>ID = {{m.$id}} <br> 
-				  Name = {{m.name}} <br>
-				  request to join the following teams: {{m.selection | json}}</li>
-			  </ul>
+		<table border="1">
+			<tr>
+			<td> Team Name </td><td> Leader </td><td> Number of Teammate </td><td></td></tr>
 
-			 </div>
-		 </div>
+			<tr ng-repeat="t in teams">
+			<td>{{t.TeamName}} </td>
+			<td>{{t.TeamLeader}} </td>
+			<td>{{}}</td>
+			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="viewteam(t.TeamName);">More Info</button></td>
+			</tr>
+
+			</table>
 
 
       </div>

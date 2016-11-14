@@ -8,11 +8,27 @@ $scope.SignUp = function() {
     if (!$scope.regForm.$invalid) {
         var email = $scope.user.email;
         var password = $scope.user.password;
+        var username = $scope.user.name;
         if (email && password) {
            firebase.auth().createUserWithEmailAndPassword(email, password)
                 .then(function() {
-                    // do things if success
                     console.log('User creation success');
+
+                    var user = firebase.auth().currentUser;
+
+                    var refPath = "user/" + user.uid;
+             
+                    var ref = firebase.database().ref(refPath);
+                    ref.set({
+                        name: username,
+                        email: email ,
+                        createdate: new Date().toString()
+            })
+
+
+
+
+
                 }, function(error) {
                     // do things if failure
                     console.log(error);
