@@ -1,3 +1,103 @@
-<div class="container">
+<div class="container"   ng-app="chat" ng-controller="ChatCtrl">
     <ui-alert message="{{chat.error.message}}"></ui-alert>
+    <div class="row">
+      <pre  class="col-md-4 col-sm-height pre-scrollable chatroom">
+        <div ng-repeat="chatRoom in ">
+          <button type="changeChatGroup" class="btn btn-primary"> {{chatRoom}}sfsdf</button>
+        </div>
+
+      </pre>
+      <div class="col-md-8 col-sm-height ">
+        <pre class="pre-scrollable chatbox">
+            <div>
+              {{record.data}}:
+              <p>sdasd</p>
+            </div>
+
+        </pre>
+
+      <form style="width : fill"  ng-submit="send()" >
+          <input class="sendmessagebox" ng-model="record.data">
+      </form>
+    </div>
+
+  </div>
 </div>
+
+
+<style type="text/css">
+.chatbox{
+  height: 100%;
+  overflow: auto;
+}
+
+.chatroom{
+  height: 100%;
+  overflow: auto;
+}
+
+.sendmessagebox{
+  width: 100%;
+}
+
+</style>
+
+<script>
+var chat = angular.module( 'chatApp', ["firebase"] );
+chat.controller( 'chatControl',
+function($scope, $firebasearray) {
+
+
+  var user = firebase.auth().currentUser; //get current user
+  var name, email;
+
+
+
+    // Receive Messages
+    Messages.receive(function(message){
+        $scope.messages.push(message);
+    });
+
+
+    //Start of manage group function
+    $scope.chatroomGroup={
+      groupName: "",
+      massages: {
+        name: "",
+        data: "",
+        date: ""
+      }
+    }
+
+    $scope.creatChatGroup = function(){
+
+    }
+
+    //End of manage group unction
+
+    // Start of Send message to firebase function
+
+
+
+    var ref = firebase.database().ref("chat");
+    $scope.messages = $firebasearray(ref);
+
+
+    $scope.record = {name : "",
+                     data : "aaaa",
+                     date : ""};
+
+    // Send Messages
+    $scope.send = function() {
+      if(user != null &&$scope.record.data !=""){
+        $scope.record.name = user.displayName
+        $scope.record.date = new Date().toString;
+        $scope.messages.$add($scope.record);
+      }
+
+    };
+
+
+    //End of Send message to firebase function
+} );
+</script>
