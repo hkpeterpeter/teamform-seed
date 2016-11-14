@@ -1,43 +1,42 @@
-//jshint strict: false
+'use strict';
+
 module.exports = function(config) {
-  config.set({
-
-    basePath: './app',
-	frameworks: ['jasmine'],
-    files: [
-	  'lib/jquery.min.js',
-      'lib/angular.min.js',
-      'lib/angular-route.min.js',
-      'lib/angular-mocks.js',
-	  'lib/firebase.js',
-	  'lib/angularfire.min.js',	  
-	  'js/*.js',
-      'unit_tests/*.js'	  
-    ],
-	exclude: [
-	],
-	preprocessors: {	 	
-		 'js/site.js' : ['coverage'],		
-		 'js/index.js' : ['coverage'],
-		 'js/admin.js' : ['coverage'],
-		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage']
-	},
-	reporters: ['progress', 'coverage'],
-	coverageReporter: {
-			type: 'html',
-			dir: 'coverage/',
-			subdir: '.'
-	},
-	port: 8080,
-	colors: true,
-    browsers: ['Chrome'],
-	singleRun: true,
-    plugins: [
-      'karma-chrome-launcher',      
-      'karma-jasmine',
-	  'karma-coverage'
-    ]    
-
-  });
+    config.set({
+        basePath: './',
+        frameworks: ['jasmine'],
+        files: [
+            'src/test.webpack.js',
+        ],
+        exclude: [],
+        preprocessors: {
+            'src/test.webpack.js': ['webpack', 'sourcemap']
+        },
+        webpack: require('./webpack.config.js'),
+        reporters: ['progress', 'coverage'],
+        coverageReporter: {
+            dir: 'coverage/',
+            reporters: [{
+                type: 'html',
+                subdir: '.'
+            }, {
+                type: 'lcov',
+                subdir: '.'
+            }]
+        },
+        port: 9876,
+        colors: true,
+        browsers: ['PhantomJS'],
+        singleRun: true,
+        plugins: [
+            'karma-phantomjs-launcher',
+            'karma-jasmine',
+            'karma-coverage',
+            'karma-webpack',
+            'karma-sourcemap-loader',
+            'karma-eslint'
+        ],
+        webpackMiddleware: {
+            noInfo: true
+        }
+    });
 };
