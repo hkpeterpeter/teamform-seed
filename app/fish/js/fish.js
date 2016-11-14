@@ -81,10 +81,10 @@ $scope.processData=function(allData, currentEventID, currentTeamID, currentUserI
 }]);
 
 
-teamapp.directive("fishNavi", function() {
-	return {
-		restrict: "E",
-		templateUrl: "fish/fish-navi.html",
-	};
-});
+// teamapp.directive("fishNavi", function() {
+// 	return {
+// 		restrict: "E",
+// 		templateUrl: "fish/fish-navi.html",
+// 	};
+// });
 
