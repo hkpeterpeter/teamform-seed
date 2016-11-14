@@ -4,7 +4,7 @@ teamapp.filter('adminRequest', function ($rootScope, $firebaseObject) {
 			
 			var filtered = [];
 			for (var key in items) {
-				if (items[key].eventID == event) {
+				if (items[key].eventID.toString() == event) {
 					filtered.push(items[key]);
 				};
 			};
@@ -20,7 +20,6 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   	$scope.minSize = event.minSize;
   	$scope.maxSize = event.maxSize;
   	$scope.size = $scope.maxSize - $scope.minSize + 1;
-  	
   	var admin = $firebaseObject($rootScope.user_ref.child(event.adminID));
   	admin.$loaded().then(function(){
   		$scope.eventInfo = {
@@ -29,28 +28,27 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   		};
   	});
   
-
-  
-  	$scope.getNumber = function(num) {
-    	return new Array(num);   
-		}
-
+  	$scope.adminUserRequest = true;
+  	$scope.adminUserNotRequest = true;
+  	$scope.adminTeamFull = true;
+  	$scope.adminTeamNotFull = true;
 		$scope.teams = $firebaseArray($rootScope.team_ref.orderByChild("belongstoEvent").equalTo(event.$id.toString()));
 	
 		$scope.maxSize = 8;
 
 		//$scope.teams = $rootScope.eventTeams;
 		$scope.teamFilter = function(item) {
+			var curTeamSize = $scope.getLength(item);
 			if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == false) {
 				return false;
 			};
 			if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
-				if ((item.membersID.length+1) != $scope.maxSize) {
+				if (curTeamSize != $scope.maxSize) {
 					return false;
 				};
 			};
 			if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
-				if ((item.membersID.length+1) == $scope.maxSize) {
+				if (curTeamSize == $scope.maxSize) {
 					return false;
 				};
 			};
@@ -69,7 +67,10 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		};
 
 		$scope.getLength = function(team) {
-			return Object.keys(team.membersID).length + 1;
+			if (team.membersID != null)
+				return Object.keys(team.membersID).length + 1;
+			else
+				return 1;
 		}
 
 	$scope.remove = function(team) { 
@@ -81,7 +82,6 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 	$scope.adminMergeTeam = function(team) {
 		var teamName = team.adminMerge;
 		var mergedTeam;
-		console.log(teamName);
 		for (var key in $scope.teams) {
 			if ($scope.teams[key].teamName == teamName) {
 				mergedTeam = $scope.teams[key];
@@ -93,8 +93,13 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			return;
 		};
 
-		console.log(team);
-		console.log(mergedTeam);
+		var mergedTeamSize = $scope.getLength(mergedTeam);
+		var curTeamSize = $scope.getLength(team);
+		if (mergedTeamSize + curTeamSize > $scope.maxSize) {
+			console.log("exceed team member limit");
+			return;
+		};
+		
 		var newMembers = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("membersID"));
 		newMembers.$add(team.leaderID);
 		for (var key in team.membersID) {
@@ -107,11 +112,11 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		};
 
 		$scope.remove(team);
-
+	
 	};
 
 	$scope.users = [];
-	console.log(event.waitingUsers);
+	//console.log(event.waitingUsers);
 	for (var key in event.waitingUsers) {
 		$scope.users.push($firebaseObject($rootScope.user_ref.child(event.waitingUsers[key])));
 	}
@@ -124,9 +129,6 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
 			var requested = false;
 			for (var key in item.teamApplying) {
-				console.log(item.teamApplying[key].eventID);
-				console.log(item.teamApplying[key].teamName);
-				console.log(event.$id);
 				if (item.teamApplying[key].eventID == event.$id) {
 					requested = true;
 					break;
@@ -157,10 +159,9 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 	};
 	
 	$scope.adminAddUserToTeam = function(key, request, user) {
+		var curTeamSize = $scope.getLength($scope.teams.$getRecord(request.teamID.toString()));
 		var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
-		console.log(curTeamMember);
-		console.log(curTeamMember.length);
-		if (curTeamMember.length < parseInt($scope.maxSize)-1) {
+		if (curTeamSize < parseInt($scope.maxSize)) {
 			//Add user to team member
 			curTeamMember.$add(user.$id.toString());
 
@@ -175,9 +176,9 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			//Delete this request from teamsApplying
 			var curUserOut = $firebaseObject(curUser);
 			curUserOut.$loaded().then(function(){
-				console.log(curUserOut);
+
 				for (var key in curUserOut.teamsApplying) {
-					console.log(curUserOut.teamsApplying.teamID);
+					//console.log(curUserOut.teamsApplying.teamID);
 					if (curUserOut.teamsApplying[key].eventID == event.$id) {
 						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
 					}
@@ -196,16 +197,20 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 				};
 			};
 			
-		};
+		} else {
+			console.log("the team is full");
+		}
 	};
 
 	$scope.adminAddUserToOtherTeam = function(user) {
 		var teamName = user.adminAdd;
 		var teamID;
-		console.log(teamName);
+		var curTeamSize;
+
 		for (var key in $scope.teams) {
 			if ($scope.teams[key].teamName == teamName) {
 				teamID = $scope.teams[key].$id;
+				curTeamSize = $scope.getLength($scope.teams[key]);
 			};
 		};
 
@@ -215,9 +220,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		}
 			
 		var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
-		console.log(curTeamMember);
-		console.log(curTeamMember.length);
-		if (curTeamMember.length < parseInt($scope.maxSize)-1) {
+
+		if (curTeamSize < parseInt($scope.maxSize)) {
 			//Add user to team member
 			curTeamMember.$add(user.$id.toString());
 
@@ -231,16 +235,15 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			//Delete all requests of this event from teamsApplying
 			var curUserOut = $firebaseObject(curUser);
 			curUserOut.$loaded().then(function(){
-				console.log(curUserOut);
+				//console.log(curUserOut);
 				for (var key in curUserOut.teamsApplying) {
-					console.log(curUserOut.teamsApplying.teamID);
+					//console.log(curUserOut.teamsApplying.teamID);
 					if (curUserOut.teamsApplying[key].eventID == event.$id) {
 						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
 					}
 				};
 			});		
 
-			//curUserOutList.$remove(request);
 
 			var index = $scope.users.indexOf(user);
   		$scope.users.splice(index, 1);  
@@ -251,6 +254,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 					break;
 				};
 			};
+		} else {
+			console.log("the team is full");
 		};
 	};
 
