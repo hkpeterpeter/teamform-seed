@@ -19,10 +19,19 @@
                         <li class="dropdown">
                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
                            <ul class="dropdown-menu">
-                              <li><a href="index.html#pageAbout">About teamform</a></li>
+						      <!-- display the About Teamform before log in -->
                               <li>
-                              <a href="index.html#pageTeam">Development team</a>
+							  <a ng-hide="loggedIn"><div style="cursor: pointer;" onclick="window.location='index.html#pageAbout';">About teamform</div></a>
+							  </li>
+							  <!-- display the About Teamform after logged in -->
+							  <li>
+							  <a ng-show="loggedIn"><div style="cursor: pointer;" onclick="window.location='index.html#aboutTeamform';">About teamform</div></a>
+							  </li>
+							  
+                              <li>
+							  <a><div style="cursor: pointer;" onclick="window.location='index.html#pageTeam';">Development team</div></a>
                               </li>
+							  
                               <li role="separator" class="divider"></li>
                               <li><a href="#">TODO: Add menu items here... </a></li>
                               <li>

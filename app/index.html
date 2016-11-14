@@ -92,6 +92,8 @@
 		
         <div ng-show="loggedIn"><!--Show this when login-->
         <img src="img/teamform_banner.jpg" alt="teamform_banner" style="width:100%;">
+		    <br><br>
+		    <div id='aboutTeamform' class="col-md-12" ng-include="'about.html'"></div>
             <form name="Eventform" class="css-form ">
 
                     <!-- A sample login page -->
@@ -105,13 +107,13 @@
                           <!--enter event name and join(just for testing)-->
                         <!--create event and become admin-->
                         <div class="text-center">
-                            <label><font size="5"><b>Create a New Event&nbsp;</b></font> 
+                            <font size="5"><b>Create a New Event&nbsp;</b></font> 
+							<label>
 							  <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent('')">+ New</button>
 							</label>
                             <div>
                               <font size="5"><b>...or Choose an Existing Event Below:</b></font>
                             </div>
-                            <br>
 
                               <div ng-repeat="event in events" class="col-md-4">
                                 <br>
@@ -196,9 +198,10 @@
 
       <hr class="featurette-divider">
           <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="pageTeam">
+         <div class="row featurette">
             <div class="col-md-12">
 			   <br>
+			   <div id="pageTeam">
                <h1 class="featurette-heading"><u>Development Team
                   </u></h1><h2>
                   <span class="text-muted">by 418 I'm a Teapot</span>
@@ -280,6 +283,9 @@
                </div>
 
              </div>
+			 
+			 </div>
+			 
          </div>
 
 
