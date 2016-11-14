@@ -23,7 +23,15 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.userName = "";	
 	$scope.teams = {};
 	
-	
+	firebase.auth().onAuthStateChanged(function (user) {
+	    if (user) {
+	        // User is signed in.
+	        $scope.userName = user.displayName;
+	    } else {
+	        // No user is signed in.
+	    }
+	});
+
 	
 	$scope.loadFunc = function() {
 		var userID = $scope.userID;
