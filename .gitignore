@@ -3,7 +3,7 @@ node_modules/
 bower_components/
 app/bower_components/
 app/coverage/
-app/js/site.js
 tmp
 .DS_Store
 *.log
+app/js/site.js
