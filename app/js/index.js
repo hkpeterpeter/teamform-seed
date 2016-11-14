@@ -17,6 +17,7 @@
 
           $scope.emailText = "";
           $scope.pwText = "";
+          $scope.loggedIn = false;
 
           $scope.checkPwTyped = function() {
               if ($.trim(($scope.password)) <= 0) {
@@ -60,7 +61,7 @@
                   $("#log").css('color', '#990000');
 
                   isLoggedIn = true;
-
+                  $scope.loggedIn = isLoggedIn;
 
                   console.log('logged in:', user);
               }).catch(function(error) {
