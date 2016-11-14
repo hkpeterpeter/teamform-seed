@@ -1,5 +1,23 @@
 describe("tfApp", function() {
-  beforeEach(module("tfApp"));
+  beforeEach(function(){
+    //angular.module("firebase",[]);
+    //angular.module("ui.router",[]);
+    //angular.module("ngDialog",[]);
+    module("tfApp");
+    module(function($provide){
+        // $provide.factory('$stateParams', function(){
+        //     // this.isNumber = jasmine.createSpy('isNumber').andCallFake(function(num){
+        //     //     //a fake implementation
+        //     // });
+        //     // this.isDate = jasmine.createSpy('isDate').andCallFake(function(date){
+        //     //     //a fake implementation
+        //     // });
+        //     return {
+        //       eid: "testEid"
+        //     }
+        // });
+      });
+  });
 
   var $controller;
 
@@ -8,30 +26,21 @@ describe("tfApp", function() {
     $controller = _$controller_;
   }));
 
-  describe('profileCtrl', function() {
+  describe('eventDCtrl', function() {
     var $scope, controller;
 
      beforeEach(function() {
       $scope = {};
-      controller = $controller('profileCtrl', { $scope: $scope });
+      controller = $controller('eventDCtrl', { $scope: $scope });
     });
 
-    it('$scope.button_name should be EDIT', function() {
-    //   $scope.password = 'longerthaneightchars';
-    //   $scope.grade();
-      expect($scope.button_name).toEqual('EDIT');
+    it('$scope.isManaging should be false at first', function() {
+      expect($scope.isManaging).toEqual(false);
     });
 
-    it('$scope.button_name should be SAVE after executing edit()', function() {
-    //   $scope.password = 'longerthaneightchars';
-      $scope.edit();
-      expect($scope.button_name).toEqual('SAVE');
+    it('$scope.selectTeam should be false at first', function() {
+      expect($scope.selectTeam).toEqual(false);
     });
 
-    // it('sets the strength to "weak" if the password length <3 chars', function() {
-    //   $scope.password = 'a';
-    //   $scope.grade();
-    //   expect($scope.strength).toEqual('weak');
-    // });
   });
 });
