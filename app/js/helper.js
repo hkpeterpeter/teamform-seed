@@ -231,9 +231,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                     helper.addPersonToTeam(uid, eventID, teamID).then(function(){
 
                         var msg = user.readOnly.name + " has accepted an invitation from your team " + team.name;
-                        for(leaderuid in team.leader){
-                          helper.pushNotificationTo(leaderuid, eventID, msg);
-                        }
+                        helper.pushNotificationTo(team.leader, eventID, msg);
                         // delete user.writable[eventID]["invitations"][teamID];
                         // user.$save();
                         var temp = {};
@@ -270,9 +268,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             user.$loaded().then(function(){
                 // send notification to leader
                 var msg = user.readOnly.name + " has declined an invitation from your team " + team.name;
-                for(leaderuid in team.leader){
-                  helper.pushNotificationTo(leaderuid, eventID, msg);
-                }
+                helper.pushNotificationTo(team.leader, eventID, msg);
                 //delete application in user info
                 // delete user.writable[eventID]["invitations"][teamID];
                 // user.$save();
