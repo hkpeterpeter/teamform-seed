@@ -4,7 +4,7 @@ teamapp.filter('adminRequest', function ($rootScope, $firebaseObject) {
 			
 			var filtered = [];
 			for (var key in items) {
-				if (items[key].eventID == event) {
+				if (items[key].eventID.toString() == event) {
 					filtered.push(items[key]);
 				};
 			};
@@ -20,7 +20,6 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   	$scope.minSize = event.minSize;
   	$scope.maxSize = event.maxSize;
   	$scope.size = $scope.maxSize - $scope.minSize + 1;
-  	
   	var admin = $firebaseObject($rootScope.user_ref.child(event.adminID));
   	admin.$loaded().then(function(){
   		$scope.eventInfo = {
@@ -240,7 +239,6 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 				};
 			});		
 
-			//curUserOutList.$remove(request);
 
 			var index = $scope.users.indexOf(user);
   		$scope.users.splice(index, 1);  
