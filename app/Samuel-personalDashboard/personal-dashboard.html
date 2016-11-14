@@ -17,7 +17,7 @@
         <div class="col m6 s6">
             <h4 width="100%">Username: {{currentUser.name}}</h4>
             <h6 width="100%">My ID (email): {{currentUser.email}}</h6>
-            <p>{{currentUser}}</p>
+            <p>{{displayUser}}</p>
         </div>
     </div>
     <!--<p width="100%">{{currentUser}}</p>-->
@@ -87,11 +87,11 @@
         </div>
         <div id="eventsAsAdmin">
             <h4>Events administrating by me</h4>
-            <div ng-repeat="event in currentUser.eventsManaging">{{event}}</div>
+            <div ng-repeat="event in eventsList">{{event}}</div>
         </div>
         <div id="teamsAsLeader">
             <h4>I am team leader</h4>
-            <div ng-repeat="team in leadingList">{{team.$value}}</div>
+            <div ng-repeat="team in leadingList">{{team}}</div>
         </div>
         <div id="teamsAsMember">
             <h4>I am a member in these teams</h4>

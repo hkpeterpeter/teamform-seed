@@ -10,8 +10,11 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     var skillsRef = userRef.child('/skills');
 
+    $scope.displayUser = $firebaseObject(userRef);
+
     $scope.skillsList = $firebaseArray(skillsRef);
     $scope.receiveNewSikll = function () {
+        console.log($scope.skillsList );
         $scope.skillsList.$add($scope.newSkill);
         $scope.newSkill = '';
     };
