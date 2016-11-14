@@ -27,7 +27,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				gotoURL("/jzhangbs/index.html",[],$window);
 			};
 
-			$scope.currentTag = ["java"];
+			$scope.currentTag = [];
 			$scope.resultTag = [];
 			//$scope.new;
 			$scope.startSearch = divToggle.dataObj.search;
@@ -96,28 +96,28 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				var reg = newx;
 				reg.replace(' ','');
 				if(reg !== ""){
-					for(i = 0;i < tag.length;i++){
+					for(var i = 0;i < tag.length;i++){
 						var k = 0;
-						var valid = true;
+						var valid = false;
 						for(var j = 0;j < reg.length;j++){
-
+						
 							while(k < tag[i].length){
-								if(tag[i].charAt(k)==reg.charAt(j)){
+								if(tag[i].charAt(k) == reg.charAt(j)){
 									k++;
+									if(j == reg.length-1){
+										valid = true;
+									}
 									break;
 								}else{
 									k++;
 								}
-
-							}
-							if(k >= tag[i].length && j+1 < reg.length){
-								valid = false;
-								break;
+								
 							}
 						}
 						if(valid){
-							$scope.currentTag.push(tag[i]);
+							$scope.currentTag.push(current);
 						}
+						
 					}
 				}else{
 					$scope.resultTag = [];
