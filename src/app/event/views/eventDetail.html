@@ -4,7 +4,7 @@
         <div class="panel-heading">
             <div class="row">
                 <div class="col-xs-6">
-                    <h3 class="panel-title text-left">{{eventDetail.event.name}}</h3>
+                    <h3 class="panel-title text-left">{{eventDetail.event.data.name}}</h3>
                 </div>
                 <div class="col-xs-6">
                     <div class="text-right"><a class="label label-info" ui-sref="event.detail.edit({eventId: eventDetail.event.$id})">Edit</a></div>
@@ -26,24 +26,24 @@
                                 </tr>
                                 <tr>
                                     <th>Name</th>
-                                    <td>{{eventDetail.event.name}}</td>
+                                    <td>{{eventDetail.event.data.name}}</td>
                                 </tr>
                                 <tr>
                                     <th>Event Date</th>
-                                    <td>{{eventDetail.event.eventDate | date: 'medium'}}</td>
+                                    <td>{{eventDetail.event.data.eventDate | date: 'medium'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Team Size</th>
-                                    <td ng-if="eventDetail.event.teamMin != eventDetail.event.teamMax">{{eventDetail.event.teamMin}} - {{eventDetail.event.teamMax}}</td>
-                                    <td ng-if="eventDetail.event.teamMin == eventDetail.event.teamMax">{{eventDetail.event.teamMin}}</td>
+                                    <td ng-if="eventDetail.event.data.teamMin != eventDetail.event.data.teamMax">{{eventDetail.event.data.teamMin}} - {{eventDetail.event.data.teamMax}}</td>
+                                    <td ng-if="eventDetail.event.data.teamMin == eventDetail.event.data.teamMax">{{eventDetail.event.data.teamMin}}</td>
                                 </tr>
                                 <tr>
                                     <th>Created Date</th>
-                                    <td>{{eventDetail.event.createdAt | date: 'medium'}}</td>
+                                    <td>{{eventDetail.event.data.createdAt | date: 'medium'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Created By</th>
-                                    <td><a ui-sref="user.detail({userId: eventDetail.event.createdBy})">{{eventDetail.event.createdByUser.name}}</a></td>
+                                    <td><a ui-sref="user.detail({userId: eventDetail.event.data.createdBy})">{{eventDetail.event.getCreatedByUser().name}}</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -75,7 +75,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="team in eventDetail.event.teams | itemsPerPage: 5" pagination-id="teams">
+                    <tr dir-paginate="team in eventDetail.event.getTeams() | itemsPerPage: 5" pagination-id="teams">
                         <td><a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a></td>
                         <td>{{team.users}}</td>
                     </tr>
@@ -103,7 +103,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="eventUser in eventDetail.event.users | itemsPerPage: 5" pagination-id="users">
+                    <tr dir-paginate="eventUser in eventDetail.event.getEventUsers() | itemsPerPage: 5" pagination-id="users">
                         <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{eventUser.user.name}}</a></td>
                         <td ng-if="eventUser.hasTeam"><span class="text-success glyphicon glyphicon-ok"></span></td>
                         <td ng-if="!eventUser.hasTeam"><span class="text-danger glyphicon glyphicon-remove"></span></td>

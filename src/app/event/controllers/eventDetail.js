@@ -36,25 +36,27 @@ export default class EventDetailCtrl {
     }
     autoFormTeam() {
         let teams = [];
-        let users = _.chain(this.event.users).filter({hasTeam: false}).shuffle().value();
+        let failed = null;
+        let users = _.chain(this.event.getEventUsers()).filter({hasTeam: false}).shuffle().value();
         while (users.length > 0) {
-            let rand = _.random(this.event.teamMin, this.event.teamMax);
+            let rand = _.random(this.event.data.teamMin, this.event.data.teamMin);
             if (rand > users.length) {
                 rand = users.length;
             }
             teams.push(_.pullAt(users, _.range(rand)));
         }
         let lastTeam = teams[teams.length - 1];
-        if (lastTeam.length < this.event.teamMin) {
+        if (lastTeam.length < this.event.data.teamMin) {
             for (let i = 0; i < teams.length && lastTeam.length > 0; i++) {
                 let team = teams[i];
-                for (let j = team.length; j < this.event.teamMax && lastTeam.length > 0; j++) {
+                for (let j = team.length; j < this.event.data.teamMax && lastTeam.length > 0; j++) {
                     team.push(_.pullAt(lastTeam, [0])[0]);
                 }
             }
             _.pull(teams, lastTeam);
-        } else {
-            lastTeam = null;
+            if(lastTeam.length > 0) {
+                failed = lastTeam;
+            }
         }
         teams = teams.map((team) => {
             team = {users: team};
@@ -66,7 +68,7 @@ export default class EventDetailCtrl {
             return team;
         });
         this.$timeout(() => {
-            this.autoTeam = {teams: teams, failed: lastTeam};
+            this.autoTeam = {teams: teams, failed: failed};
         });
         console.log(teams);
     }

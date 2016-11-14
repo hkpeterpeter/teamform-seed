@@ -11,8 +11,8 @@ export default class EventEditCtrl extends EventDetailCtrl {
     }
     async edit() {
         this.loading = true;
-        if (this.event.eventDate instanceof Date) {
-            this.event.eventDate = this.event.eventDate.getTime();
+        if (this.event.data.eventDate instanceof Date) {
+            this.event.data.eventDate = this.event.data.eventDate.getTime();
         }
         try {
             let result = await this.eventService.editEvent(this.event);
@@ -30,14 +30,17 @@ export default class EventEditCtrl extends EventDetailCtrl {
         }
     }
     setTeamMin(value) {
-        if (value > 0 && value <= this.event.teamMax) {
-            this.event.teamMin = value;
+        if (value > 0 && value <= this.event.data.teamMax) {
+            this.event.data.teamMin = value;
         }
     }
     setTeamMax(value) {
-        if (value > 0 && value >= this.event.teamMin) {
-            this.event.teamMax = value;
+        if (value > 0 && value >= this.event.data.teamMin) {
+            this.event.data.teamMax = value;
         }
+    }
+    toggleEventDatePopup() {
+        this.eventDatePopupOpened = !this.eventDatePopupOpened;
     }
 }
 
