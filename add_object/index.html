@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.2/angular.js" data-semver="1.4.2"></script>
+    <script src="app.js"></script>
+    <script crc="choice.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
+    <script src="http://vitalets.github.io/checklist-model/checklist-model.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    </head>
+
+  <body ng-controller="MainCtrl">
+
+    <table>
+        <tr>
+            <td align="right">Search :</td>
+            <td><input ng-model="query[queryBy]" /></td>
+        </tr>           
+        <tr>
+            <td align="right">Search By :</td>
+            <td>
+                <select ng-model="queryBy">
+                    <option value="$"></option>
+                    <option value="Name">Name</option>
+                    <option value="Skills">Skills</option>
+                    <option value="Position">Position</option>
+                    <option value="GradeAimed">GradeAimed</option>
+
+                </select>   
+            </td>
+        </tr>
+    </table>
+
+
+    <div ng-repeat="module in validation.modules | filter:query">Name:{{module.Name}}
+    Skills:{{module.Skills}}
+    Position:{{module.Position}}
+    GradeAimed:{{module.GradeAimed}}</div>
+    <div>
+      <form name="myForm" novalidate class="simple-form">
+    Name:  <input value="" type="text" placeholder="Your Name" ng-model="Name"><br />
+    
+    <br />
+    Positon: <input value="" type="text" placeholder="Web developer, desinger... " ng-model="Position">
+    <br />
+    GradeAimed: <select name="gradeSelect" ng-model="GradeAimed">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </select> <br />
+
+<div ng-repeat="ch in citiesHospitals">
+        <p>{{ch.city}}</p>
+          <div class="checkbox" ng-repeat="h in ch.hospitals">
+            <label>
+              <input type="checkbox" checklist-model="filter.citiesHospitals['{{ch.city}}']" checklist-value="h.name"  ng-model="Skills">{{h.name}}
+            </label>
+          </div>
+    <button ng-click="addItem()">Add to list</button>
+  </form>
+  </div>
+  </body>
+
+</html>
