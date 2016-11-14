@@ -23,6 +23,8 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
       break;
     }
 
+
+
     firebase.auth().signInWithPopup(provider).then(function(result) {
 
   // This gives you a Google Access Token. You can use it to access the Google API.
