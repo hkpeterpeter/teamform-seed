@@ -3,10 +3,7 @@ angular.module('teamform')
 	function($scope, $firebaseObject, $firebaseArray, $stateParams, $state) {
 	
 	// TODO: implementation of MemberCtrl
-	
-	
-	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+        
     var eventName = $stateParams.event;
     $scope.event = eventName;
 	$scope.userID = "";
