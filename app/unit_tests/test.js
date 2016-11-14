@@ -1,4 +1,4 @@
-describe("profileCtrl", function() {
+describe("tfApp", function() {
   beforeEach(module("tfApp"));
 
   var $controller;
@@ -8,10 +8,10 @@ describe("profileCtrl", function() {
     $controller = _$controller_;
   }));
 
-  describe('$scope', function() {
+  describe('profileCtrl', function() {
     var $scope, controller;
 
-    beforeEach(function() {
+     beforeEach(function() {
       $scope = {};
       controller = $controller('profileCtrl', { $scope: $scope });
     });
