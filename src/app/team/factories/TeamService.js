@@ -1,11 +1,12 @@
 export default class TeamService {
-    constructor($firebaseArray, $firebaseObject, $database, authService, userService, eventService) {
+    constructor($firebaseArray, $firebaseObject, $database, authService, userService, eventService, messageService) {
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
         this.authService = authService;
         this.userService = userService;
         this.eventService = eventService;
+        this.messageService = messageService;
     }
     async getTeam(id) {
         let team = await this.$firebaseObject(this.$database.ref('teams/' + id)).$loaded();
@@ -32,7 +33,7 @@ export default class TeamService {
         return teamUsers;
     }
     async joinTeam(id, positionId) {
-        let user = this.authService.getUser();
+        let user = await this.authService.getUser();
         let teamJoin = await this.getTeam(id);
         await this.eventService.joinEvent(teamJoin.eventId, true);
         let teams = await this.$firebaseArray(this.$database.ref('teams').orderByChild('eventId').equalTo(teamJoin.eventId)).$loaded();
@@ -52,14 +53,17 @@ export default class TeamService {
             if (teamUser.id == null && teamUser.$id == positionId) {
                 let newTeamUser = {
                     id: user.uid,
-                    role: teamUser.role
+                    role: teamUser.role,
+                    refId: positionId
                 };
                 if (teamJoin.invite) {
                     newTeamUser.pending = true;
                     newTeamUser.confirmed = false;
+                    this.messageService.sendMessage(user.uid, teamJoin.createdBy, user.name+' Request to Join '+teamJoin.name);
                     return users.$add(newTeamUser);
                 } else {
                     teamUser.id = newTeamUser.id;
+                    this.messageService.sendMessage(user.uid, teamJoin.createdBy, user.name+' Joined Your Team: '+teamJoin.name);
                     return users.$save(teamUser);
                 }
             }
@@ -103,12 +107,22 @@ export default class TeamService {
         return teamUser;
     }
     async confirmTeamPosition(id, positionId) {
+        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.confirmed = null;
+        let oldTeamUser = await this.getTeamPositionUser(id, teamUser.refId);
+        await oldTeamUser.$remove();
+        return teamUser.$save();
+    }
+    async rejectConfirmTeamPosition(id, positionId) {
+        // TODO:: send message
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        await teamUser.$remove();
         return teamUser.$save();
     }
     async acceptTeamPosition(id, positionId) {
+        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.accepted = null;
@@ -119,4 +133,4 @@ export default class TeamService {
     }
 }
 
-TeamService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService', 'EventService'];
+TeamService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService', 'EventService', 'MessageService'];

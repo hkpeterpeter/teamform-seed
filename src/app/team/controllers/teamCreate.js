@@ -22,8 +22,8 @@ export default class TeamCreateCtrl {
         this.setLeader();
         this.getEvents();
     }
-    setLeader() {
-        let user = this.authService.getUser();
+    async setLeader() {
+        let user = await this.authService.getUser();
         if (user) {
             this.$timeout(() => {
                 this.team.users.unshift({id: user.uid, role: 'Leader'});
@@ -53,8 +53,9 @@ export default class TeamCreateCtrl {
     async createTeam() {
         this.loading = true;
         try {
+            let me = await this.authService.getUser();
             this.team.users.map((user) => {
-                if (user.id && user.id != this.authService.getUser().uid) {
+                if (user.id && user.id != me.uid) {
                     user.pending = true;
                     user.accepted = false;
                 }

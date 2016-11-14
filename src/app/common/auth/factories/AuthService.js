@@ -1,11 +1,12 @@
 export default class AuthService {
-    constructor($rootScope, $firebaseArray, $firebaseObject, $firebaseAuth, auth, $database) {
+    constructor($rootScope, $firebaseArray, $firebaseObject, $firebaseAuth, $timeout, auth, $database) {
         this.$rootScope = $rootScope;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$firebaseAuth = $firebaseAuth(auth);
         this.$auth = auth;
         this.$database = $database;
+        this.$timeout = $timeout;
         this.user = null;
         this.userReady = false;
         this._bindAuth();
@@ -24,16 +25,20 @@ export default class AuthService {
     getUserSync() {
         return this.$firebaseAuth.$getAuth();
     }
-    getUser() {
-        if (!this.userReady) {
-            this.user = this.getUserSync();
-            this.userReady = true;
-        }
-        if (this.user) {
-            return Object.assign({}, this.user);
-        } else {
-            return null;
-        }
+    async getUser() {
+        return new Promise((resolve, reject) => {
+            let t = () => {
+                if (this.userReady) {
+                    if (this.user) {
+                        return resolve(Object.assign({}, this.user));
+                    } else {
+                        return resolve(null);
+                    }
+                }
+                this.$timeout(t, 100);
+            };
+            t();
+        });
     }
     async auth(credential = {}) {
         if (credential.hasOwnProperty('email')) {
@@ -53,15 +58,15 @@ export default class AuthService {
         return result;
     }
     async checkAuth() {
-        let user = this.getUser();
+        let user = await this.getUser();
         if (user) {
             return Promise.resolve(user);
         } else {
             return Promise.reject(new Error('Unauthorized, Please Login'));
         }
     }
-    checkRules(rules = {}) {
-        let user = this.getUser();
+    async checkRules(rules = {}) {
+        let user = await this.getUser();
         if (this.user && rules.signOut) {
             return Promise.reject('GUEST_REQUIRED');
         }
@@ -88,4 +93,12 @@ export default class AuthService {
     }
 }
 AuthService.Instance = null;
-AuthService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', '$firebaseAuth', 'auth', 'database'];
+AuthService.instance.$inject = [
+    '$rootScope',
+    '$firebaseArray',
+    '$firebaseObject',
+    '$firebaseAuth',
+    '$timeout',
+    'auth',
+    'database'
+];

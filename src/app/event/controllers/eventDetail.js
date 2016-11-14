@@ -35,7 +35,7 @@ export default class EventDetailCtrl {
     }
     autoFormTeam() {
         let teams = [];
-        let users = _.shuffle(this.event.users);
+        let users = _.chain(this.event.users).filter({hasTeam: false}).shuffle().value();
         while (users.length > 0) {
             let rand = _.random(this.event.teamMin, this.event.teamMax);
             if (rand > users.length) {
@@ -45,9 +45,9 @@ export default class EventDetailCtrl {
         }
         let lastTeam = teams[teams.length - 1];
         if (lastTeam.length < this.event.teamMin) {
-            for(let i=0; i<teams.length && lastTeam.length > 0; i++) {
+            for (let i = 0; i < teams.length && lastTeam.length > 0; i++) {
                 let team = teams[i];
-                for(let j=team.length; j<this.event.teamMax; j++) {
+                for (let j = team.length; j < this.event.teamMax && lastTeam.length > 0; j++) {
                     team.push(_.pullAt(lastTeam, [0]));
                 }
             }
@@ -57,10 +57,4 @@ export default class EventDetailCtrl {
     }
 }
 
-EventDetailCtrl.$inject = [
-    '$location',
-    '$state',
-    '$stateParams',
-    '$timeout',
-    'EventService'
-];
+EventDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];

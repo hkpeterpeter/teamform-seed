@@ -1,21 +1,28 @@
 export default class UserService {
-    constructor($q, $firebaseArray, $firebaseObject, $database, authService) {
-        this.$q = $q;
+    constructor($firebaseArray, $firebaseObject, $database, authService) {
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
         this.authService = authService;
     }
     async getUser(id) {
-        return this.$firebaseObject(this.$database.ref('users/' + id)).$loaded().then((user) => {
-            if (user.$value === null) {
-                return Promise.reject(new Error('User not exist'));
-            }
-            return Promise.resolve(user);
-        });
+        let user = this.$firebaseObject(this.$database.ref('users/' + id)).$loaded();
+        if (user.$value === null) {
+            return Promise.reject(new Error('User not exist'));
+        }
+        return Promise.resolve(user);
     }
-    getUsers() {
-        return this.$firebaseArray(this.$database.ref('users')).$loaded();
+    async getUsers() {
+        let users = await this.$firebaseArray(this.$database.ref('users')).$loaded();
+        let init = async() => {
+            users = await Promise.all(users.map(async(user) => {
+                return await this.getUser(user.$id);
+            }));
+            return Promise.resolve();
+        };
+        await init();
+        users.$$updated = await init;
+        return Promise.resolve(users);
     }
     async editUser(user) {
         user.pending = null;
@@ -33,4 +40,4 @@ export default class UserService {
     }
 }
 
-UserService.instance.$inject = ['$q', '$firebaseArray', '$firebaseObject', 'database', 'AuthService'];
+UserService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService'];
