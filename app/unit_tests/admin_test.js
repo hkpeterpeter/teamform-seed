@@ -171,19 +171,17 @@ describe('teamapp_admin', function() {
         scope.adminUserRequest = false;
         scope.adminUserNotRequest = true;
         scope.adminUserSearch = null;
-        scope.event.$loaded().then(function(){
+          scope.$apply();
           expect(scope.userFilter(users[3])).toEqual(true);
           expect(scope.userFilter(users[2])).toEqual(false);
-        });
       }); 
       it ('should show full team', function() {
         scope.adminUserRequest = true;
         scope.adminUserNotRequest = false;
         scope.adminUserSearch = null;
-        scope.event.$loaded().then(function() {
+          scope.$apply();
           expect(scope.userFilter(users[0])).toEqual(false);
           expect(scope.userFilter(users[2])).toEqual(true);
-        });
       });
       it ('should find skill', function() {
         scope.adminUserSearch = 'jav';

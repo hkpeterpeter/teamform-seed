@@ -243,8 +243,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		};
 		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
 			var requested = false;
-			for (var key in item.teamApplying) {
-				if (item.teamApplying[key].eventID == $scope.event.$id) {
+			for (var key in item.teamsApplying) {
+				if (item.teamsApplying[key].eventID == $scope.event.$id) {
 					requested = true;
 					break;
 				}
@@ -253,8 +253,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 				return false;
 		};
 		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
-			for (var key in item.teamApplying) {
-				if (item.teamApplying[key].eventID == $scope.event.$id)
+			for (var key in item.teamsApplying) {
+				if (item.teamsApplying[key].eventID == $scope.event.$id)
 					return false;
 			};
 		};
