@@ -4,27 +4,11 @@
 
 //var teamapp = angular.module("dashboard", ['firebase']);
 
-teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject, $firebaseAuth) {
+teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject) {
 
-    $scope.username = "Samuel He";
+    var userRef = firebase.database().ref('users/' + $rootScope.currentUser.id);
 
-    $rootScope.currentUser = {};
-
-
-    var userRef = firebase.database().ref('users/0');
-
-    var obj = $firebaseObject(userRef);
-    obj.$loaded().then(function () {
-        console.log("loaded record:", obj.$id);
-        angular.forEach(obj, function (value, key) {
-            console.log(key, value);
-        });
-
-        obj.$bindTo($rootScope, "currentUser");
-    });
-
-
-    var skillsRef = firebase.database().ref('users/0/skills');
+    var skillsRef = userRef.child('/skills');
 
     $scope.skillsList = $firebaseArray(skillsRef);
     $scope.receiveNewSikll = function () {
@@ -33,35 +17,42 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
     };
 
 
-
-    var eventsRef = firebase.database().ref('users/0/eventsManaging');
+    var eventsRef = userRef.child('/eventsManaging');
     $scope.eventsList = $firebaseArray(eventsRef);
 
-    var applyingRef = firebase.database().ref('users/0/teamsApplying');
+    var applyingRef = userRef.child('/teamsApplying');
     $scope.applyingList = $firebaseArray(applyingRef);
 
-    var leadingTeams = firebase.database().ref('users/0/teamsAsLeader');
+    var leadingTeams = userRef.child('/teamsAsLeader');
     $scope.leadingList = $firebaseArray(leadingTeams);
 
-    var memberTeams = firebase.database().ref('users/0/teamsAsMember');
+    var memberTeams = userRef.child('/teamsAsMember');
     $scope.memberList = $firebaseArray(memberTeams);
 
-    $scope.unread = {"read": false};
+    $scope.unreadFilter = {"read": false};    //Used as front-end display filter ONLY
 
-    var notifsRef = firebase.database().ref('users/0/notifs');
+    var notifsRef = userRef.child('/notifs');
     $scope.notifs = $firebaseArray(notifsRef);
 
     $scope.notifsDisplay = [];
     $scope.isInvitation = [];
     $scope.$watch("notifs", function (newValue, oldValue) {
         for (var i = 0; i< $scope.notifs.length; i++){
-            if ($scope.notifs[i].type === "normal"){
-                $scope.notifsDisplay[i] = $scope.notifs[i].content;
-                $scope.isInvitation[i] = false;
-            }
-            else if ($scope.notifs[i].type === "invitation"){
+            // if ($scope.notifs[i].type === "normal"){
+            //     $scope.notifsDisplay[i] = $scope.notifs[i].content;
+            //     $scope.isInvitation[i] = false;
+            // }
+            // else if ($scope.notifs[i].type === "invitation"){
+            //     $scope.notifsDisplay[i] = "You were invited to join team "+ $scope.notifs[i].content.teamName + ' whose ID is '+ $scope.notifs[i].content.teamID;
+            //     $scope.isInvitation[i] = true;
+            // }
+            if ($scope.notifs[i].type === "invitation"){
                 $scope.notifsDisplay[i] = "You were invited to join team "+ $scope.notifs[i].content.teamName + ' whose ID is '+ $scope.notifs[i].content.teamID;
                 $scope.isInvitation[i] = true;
+            }
+            else{
+                $scope.notifsDisplay[i] = $scope.notifs[i].content;
+                $scope.isInvitation[i] = false;
             }
         }
     }, true);
