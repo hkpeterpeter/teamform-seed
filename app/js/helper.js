@@ -65,8 +65,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                 if(id!=team.leader)
                 helper.deletePersonFromTeam(id,eventID,teamID);
             }
-
-
         }).then(function(){
             helper.deletePersonFromTeam(team.leader,eventID,teamID).then(function(){
                 team.$remove();
@@ -335,6 +333,17 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref=firebase.database().ref("events/"+eventID+"/teams/" + teamID  + "/announcements");
         return $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()}).then(function(){});
     }
+    helper.deleteEventAnnouncement = function(eventID, announcementKey) {
+        //yre
+        ref=firebase.database().ref("events/"+eventID+"/eventInfo/announcements");
+        ref.child(announcementKey).remove();
+        // $firebaseArray(ref).$loaded().then(function(data){
+        //     var annIndex = data.$indexFor(announcementKey);
+        //     console.log(annIndex);      
+        //     return $firebaseArray(ref).$remove(annIndex);
+        // });
+    }
+
     helper.setEventState= function(uid, eventID, state) {
         //lby
         //we only need to use $save() on the event obj correspondingly

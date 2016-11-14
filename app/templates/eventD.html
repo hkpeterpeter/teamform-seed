@@ -40,13 +40,26 @@
     <div class="panel-body">
         <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
             {{name.content}}
+            <button class="btn btn-primary"  ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'">Delete</button>
         </div>
     </div>
 <div/>
 <button class="btn btn-primary" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">createTeam</button>
 <button class="btn btn-primary" ng-click="quit()" ng-if="(myEvent | role)=='tba'">Quit Event</button>
 <button class="btn btn-primary" ng-click="createAnnouncementDialogue()" ng-if="(myEvent | role)=='admin'">post an announcement</button>
+<button class="btn btn-primary" ng-click="deleteAnnouncementChoice()" ng-if="(myEvent | role)=='admin'">delete an announcement</button>
 <button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join Event</button>
 <br><br><br><br>
 <!--<h1>Debug</h1>-->
 <!--<button class="btn btn-primary" ng-click="createEventList(userData)">createEventList</button>-->
+
+
+
+<!--
+announcement delete + date;
+number of people (and admin can edit max and min);
+ddl;
+highlight announcement of unread;
+zidong post announcement ()
+notification
+-->

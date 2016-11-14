@@ -66,11 +66,11 @@ app.controller("teamCtrl",
 									user_appli_ref.once('value', function (snapshot) {
 									   if (snapshot.hasChild($scope.teamID)) {
 												$scope.alreadyApplied = true;
-									  	}
+									  	}else{
 												$scope.alreadyApplied = false;
 											}
 										}
-								)
+								);
 						// eventref.once('value', function (snapshot) {
 	    	// 				if (!snapshot.hasChild($scope.eventID)) {
 		    //     				$scope.inthisteam = false;
