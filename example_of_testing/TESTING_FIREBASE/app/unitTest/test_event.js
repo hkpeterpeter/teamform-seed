@@ -19,32 +19,27 @@ describe('Testing', function() {
         });
     });
 
-
     describe('submit() with not signed in',function(){
-        it("should create event on firebase", function (){
 
-
-  
-        var $scope= {};
-        $controller('eventSubmit', { $scope: $scope });
+        it("should create event on firebase", function (done){
         
-        $scope.input.name="pk";
-        $scope.input.intro="hihi";
-        $scope.input.state=false;
-        $scope.input.holder="on99";
-        
-        
-        $scope.submit();
-               
-        firebase.database().ref().once('value', function(snap){
-            expect(1).toEqual(1);    
-        });
-    });
+            var $scope= {};
+            $controller('eventSubmit', { $scope: $scope });
             
-     
-    
+            $scope.input.name="pk";
+            $scope.input.intro="hihi";
+            $scope.input.state=false;
+            $scope.input.holder="on99";
+            $scope.submit();
+            firebase.database().ref().once('value', function(snap){
+                expect(1).toEqual(1);    
+            });
+          setTimeout(function() {
+            done();
+            }, 2000);
     });
 
+    });
 });
     
 

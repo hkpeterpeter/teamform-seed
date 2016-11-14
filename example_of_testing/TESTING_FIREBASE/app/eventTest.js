@@ -36,7 +36,7 @@ app.controller("eventSubmit",
                     //$scope.input.name= "";
                     //$scope.nameTouched = false;
                 var event=firebase.database().ref("events"); 
-                event.push().set($scope.input);
+                return (event.push().set($scope.input));
                 };
 
         }
