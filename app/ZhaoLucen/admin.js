@@ -12,67 +12,55 @@ teamapp.filter('adminRequest', function ($rootScope, $firebaseObject) {
 	};
 });
 teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $firebaseArray, filterFilter) {
-  var event = $firebaseObject($rootScope.event_ref.child('0'));
+	$rootScope.user_ref=firebase.database().ref("users");
+	$rootScope.event_ref=firebase.database().ref("events");
+	$rootScope.team_ref=firebase.database().ref("teams");
 
-  event.$loaded().then(function(){
+	$scope.adminUserRequest = true;
+  $scope.adminUserNotRequest = true;
+  $scope.adminTeamFull = true;
+  $scope.adminTeamNotFull = true;
+
+  $rootScope.admintesting = '0';
+  $scope.event = $firebaseObject($rootScope.event_ref.child('0'));
+
+  $scope.event.$loaded().then(function(){
   	
   	//$rootScope.eventTeams = event.allTeams;
-  	$scope.minSize = event.minSize;
-  	$scope.maxSize = event.maxSize;
+  	$scope.minSize = $scope.event.minSize;
+  	$scope.maxSize = $scope.event.maxSize;
   	$scope.size = $scope.maxSize - $scope.minSize + 1;
-  	var admin = $firebaseObject($rootScope.user_ref.child(event.adminID));
+  	var admin = $firebaseObject($rootScope.user_ref.child($scope.event.adminID));
   	admin.$loaded().then(function(){
   		$scope.eventInfo = {
-  			name: event.eventName,
+  			name: $scope.event.eventName,
   			admin: admin.name
   		};
   	});
   
-  	$scope.adminUserRequest = true;
-  	$scope.adminUserNotRequest = true;
-  	$scope.adminTeamFull = true;
-  	$scope.adminTeamNotFull = true;
-		$scope.teams = $firebaseArray($rootScope.team_ref.orderByChild("belongstoEvent").equalTo(event.$id.toString()));
-	
-		$scope.maxSize = 8;
 
-		//$scope.teams = $rootScope.eventTeams;
-		$scope.teamFilter = function(item) {
-			var curTeamSize = $scope.getLength(item);
-			if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == false) {
-				return false;
-			};
-			if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
-				if (curTeamSize != $scope.maxSize) {
-					return false;
-				};
-			};
-			if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
-				if (curTeamSize == $scope.maxSize) {
-					return false;
-				};
-			};
+		$scope.teams = $firebaseArray($rootScope.team_ref.orderByChild("belongstoEvent").equalTo($scope.event.$id.toString()));
 
-
-			if (!$scope.adminTeamSearch || (item.teamName.toString().toLowerCase().indexOf($scope.adminTeamSearch.toString().toLowerCase()) != -1) ) {
-				return true;
-			} else {
-				var skills = angular.toJson(item.desiredSkills);
-				if (skills.toString().toLowerCase().indexOf($scope.adminTeamSearch.toString().toLowerCase()) != -1) {
-					return true;
-				} else {
-					return false;
-				};
-			};
+		$scope.users = [];
+		//console.log(event.waitingUsers);
+		for (var key in $scope.event.waitingUsers) {
+			$scope.users.push($firebaseObject($rootScope.user_ref.child($scope.event.waitingUsers[key])));
 		};
 
-		$scope.getLength = function(team) {
-			if (team.membersID != null)
-				return Object.keys(team.membersID).length + 1;
-			else
-				return 1;
-		}
+	//event loaded ends
+	});
 
+	
+	// Functions - TEAM
+	// Get number of team members
+	$scope.getLength = function(team) {
+		if (team.membersID != null)
+			return Object.keys(team.membersID).length + 1;
+		else
+			return 1;
+	}
+
+	// Delete a team
 	$scope.remove = function(team) { 
   		var index = $scope.teams.indexOf(team);
   		$scope.teams.splice(index, 1); 
@@ -88,7 +76,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			};
 		};
 
-		if (mergedTeam == null) {
+		if (mergedTeam == null || teamName == null) {
 			console.log("No Such Team");
 			return;
 		};
@@ -115,49 +103,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 	
 	};
 
-	$scope.users = [];
-	//console.log(event.waitingUsers);
-	for (var key in event.waitingUsers) {
-		$scope.users.push($firebaseObject($rootScope.user_ref.child(event.waitingUsers[key])));
-	}
 
-
-	$scope.userFilter = function(item) {
-		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == false) {
-			return false;
-		};
-		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
-			var requested = false;
-			for (var key in item.teamApplying) {
-				if (item.teamApplying[key].eventID == event.$id) {
-					requested = true;
-					break;
-				}
-			};
-			if (!requested)
-				return false;
-		};
-		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
-			for (var key in item.teamApplying) {
-				if (item.teamApplying[key].eventID == event.$id)
-					return false;
-			};
-		};
-
-		if (!$scope.adminUserSearch || (item.name.toString().toLowerCase().indexOf($scope.adminUserSearch.toString().toLowerCase()) != -1) ) {
-			return true;
-		} else {
-			for (var key in item.skills) {
-				if (item.skills.hasOwnProperty(key)) {
-					if (item.skills[key].toString().toLowerCase().indexOf($scope.adminUserSearch.toString().toLowerCase()) != -1) {
-						return true;
-					};
-				};
-			};
-			return false;
-		};
-	};
-	
+// Functions - USER
 	$scope.adminAddUserToTeam = function(key, request, user) {
 		var curTeamSize = $scope.getLength($scope.teams.$getRecord(request.teamID.toString()));
 		var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
@@ -179,7 +126,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 
 				for (var key in curUserOut.teamsApplying) {
 					//console.log(curUserOut.teamsApplying.teamID);
-					if (curUserOut.teamsApplying[key].eventID == event.$id) {
+					if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
 						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
 					}
 				};
@@ -190,8 +137,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			var index = $scope.users.indexOf(user);
   		$scope.users.splice(index, 1);  
 			// Remove waiting user from database-event
-			for (var key in event.waitingUsers) {
-				if(event.waitingUsers[key] == user.$id) {
+			for (var key in $scope.event.waitingUsers) {
+				if($scope.event.waitingUsers[key] == user.$id) {
 					$rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
 					break;
 				};
@@ -214,7 +161,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			};
 		};
 
-		if (teamID == null) {
+		if (teamID == null || teamName == null) {
 			console.log("No Such Team");
 			return;
 		}
@@ -238,7 +185,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 				//console.log(curUserOut);
 				for (var key in curUserOut.teamsApplying) {
 					//console.log(curUserOut.teamsApplying.teamID);
-					if (curUserOut.teamsApplying[key].eventID == event.$id) {
+					if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
 						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
 					}
 				};
@@ -248,8 +195,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			var index = $scope.users.indexOf(user);
   		$scope.users.splice(index, 1);  
 			// Remove waiting user from database-event
-			for (var key in event.waitingUsers) {
-				if(event.waitingUsers[key] == user.$id) {
+			for (var key in $scope.event.waitingUsers) {
+				if($scope.event.waitingUsers[key] == user.$id) {
 					$rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
 					break;
 				};
@@ -259,7 +206,73 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		};
 	};
 
+// Filter - team
+  	
+	$scope.teamFilter = function(item) {
+		var curTeamSize = $scope.getLength(item);
+		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == false) {
+			return false;
+		};
+		if ($scope.adminTeamFull == true && $scope.adminTeamNotFull == false) {
+			if (curTeamSize != $scope.maxSize) {
+				return false;
+			};
+		};
+		if ($scope.adminTeamFull == false && $scope.adminTeamNotFull == true) {
+			if (curTeamSize == $scope.maxSize) {
+				return false;
+			};
+		};
 
-	//event loaded ends
-	});
+		if (!$scope.adminTeamSearch || (item.teamName.toString().toLowerCase().indexOf($scope.adminTeamSearch.toString().toLowerCase()) != -1) ) {
+			return true;
+		} else {
+			var skills = angular.toJson(item.desiredSkills);
+			if (skills.toString().toLowerCase().indexOf($scope.adminTeamSearch.toString().toLowerCase()) != -1) {
+				return true;
+			} else {
+				return false;
+			};
+		};
+	};
+
+	// Filter - user
+	$scope.userFilter = function(item) {
+		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == false) {
+			return false;
+		};
+		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
+			var requested = false;
+			for (var key in item.teamApplying) {
+				if (item.teamApplying[key].eventID == $scope.event.$id) {
+					requested = true;
+					break;
+				}
+			};
+			if (!requested)
+				return false;
+		};
+		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
+			for (var key in item.teamApplying) {
+				if (item.teamApplying[key].eventID == $scope.event.$id)
+					return false;
+			};
+		};
+
+		if (!$scope.adminUserSearch || (item.name.toString().toLowerCase().indexOf($scope.adminUserSearch.toString().toLowerCase()) != -1) ) {
+			return true;
+		} else {
+			if (item.skills == null)
+				return false;
+			for (var key in item.skills) {
+				if (item.skills.hasOwnProperty(key)) {
+					if (item.skills[key].toString().toLowerCase().indexOf($scope.adminUserSearch.toString().toLowerCase()) != -1) {
+						return true;
+					};
+				};
+			};
+			return false;
+		};
+	};
 });
+
