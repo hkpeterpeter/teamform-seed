@@ -1,6 +1,6 @@
 var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
 
-initalizeFirebase();
+//initalizeFirebase();
 
 app.config(function($routeProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html"})
