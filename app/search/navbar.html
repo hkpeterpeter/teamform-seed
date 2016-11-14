@@ -1,28 +1,28 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" >
       <div class="container-fluid">
         <div class="navbar-header">
-			<a class="navbar-brand" href="#" >
+			<a class="navbar-brand" href="#/" >
 				<div>
 					<!--use firebase to get the user picture and user name-->
-					<img alt="Brand" style = "height:30px;width:30px" src="peter.jpg"/> <span>Peter Cheung     </span>
-					
+					<img alt="Brand" style = "height:30px;width:30px" src="../search/peter.jpg"/> <span>Peter Cheung     </span>
+
 					<!--not yet dicided-->
-					<button type="button" class="btn btn-default btn-xs">Logout</button>
+					<button type="button" class="btn btn-default btn-xs" ng-click="logout()">Logout</button>
 				</div>
 			</a>
         </div>
-		
+
         <div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<!-- not yet decided -->
 					<!-- get personal data and count the number of notifications in notification json-->
 					<!-- ng-click to go to notification section?-->
-					<a href="#"><img src = "images.png" style = "width:20px;height:20px"/> <span class="badge">42<!--use angular js--></span></a>
+					<a href="#"><img src = "../search/images.png" style = "width:20px;height:20px"/> <span class="badge">42<!--use angular js--></span></a>
 				</li>
 			</ul>
-			
-			
+
+
 			<form class="navbar-form navbar-right">
 				<label for = "search">
 					<div class="dropdown"  >
@@ -41,7 +41,7 @@
 				<span class="glyphicon glyphicon-search" aria-hidden="true">
 			</button>
           </form>
-        
+
 		</div>
       </div>
     </nav>

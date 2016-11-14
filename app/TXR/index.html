@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ngRoute test</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+ <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+ <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+ 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Angular Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.js"></script>
+
+    <!-- draw pie chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="../jzhangbs/drawPie.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    	 <!--<script>
+		angular.module("searchToggle",[])
+		.controller("searchController",function($scope){
+			$scope.searchType = "Search Team";
+			$scope.setSearchT = function(){
+				$scope.searchType = "Search Team";
+			};
+			$scope.setSearchP = function(){
+				$scope.searchType = "Search Person";
+			};
+			$scope.setSearchE = function(){
+				$scope.searchType = "Search Event";
+			};
+		});
+
+
+	 </script>-->
+	 <!--temporary css of search tag-->
+   <script src="../jzhangbs/site.js"></script>
+   <script src="index.js"></script>
+
+   <script src="../search/search-page.js"></script>
+   <script src="../zwangbm/js/btnclick.js"></script>
+
+   <link rel="stylesheet" href="index.css">
+
+  </head>
+  <body ng-app="mainApp">
+       <div ng-controller="searchPage">
+       	<div ng-include="'../search/navbar.html'"></div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#/">My Profile <span class="sr-only">(current)</span></a></li>
+            		<li><a href="#/" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">My Events</a>
+                    <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+                    <li><a href="#MyEvents/COMP3111">COMP3111</a></li>
+
+                    <li><a href="#MyEvents/COMP3511">COMP3511</a></li>
+
+                    <li><a href="#MyEvents/COMP2012">COMP2012</a></li>
+                    </ul>
+                  </li>
+
+            <li><a href="#MyNotifications">My Notifications</a></li>
+           		<li><a href="#MyNotifications" id="btn-1" data-toggle="collapse" data-target="#submenu2" aria-expanded="false">My Conversations</a>
+                    <ul class="nav collapse" id="submenu2" role="menu" aria-labelledby="btn-1">
+                    <li><a href="#MyConversation/Peter">Peter</a></li>
+
+                    <li><a href="#MyConversation/Jason">Jason</a></li>
+
+                    <li><a href="#MyConversation/Ken">Ken</a></li>
+                    </ul>
+                  </li>
+          </ul>
+        </div>
+
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"   ng-hide = "startSearch">
+        <div ng-include="'../search/search_body.html'"></div>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ng-view" ng-show="startSearch"></div>
+    </div></div></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
+</html>
