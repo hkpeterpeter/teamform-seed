@@ -141,22 +141,28 @@ app1.controller("clickCtrl",
 
 			      	$scope.users[username].select = "glyphicon glyphicon-unchecked";
 			      	$scope.users.$save();
-			      	$scope.filtered[username].select = "glyphicon glyphicon-unchecked";
-			      	$scope.filtered.$save();
+			      	
 			      	delete $scope.selected[username];
 			      	//alert("change to uncheck");
 				    $scope.selected.$save();
+				    //put at last in case username not in filtered
+				    $scope.filtered[username].select = "glyphicon glyphicon-unchecked";
+			      	$scope.filtered.$save();
 			    }
 			    else if ($scope.users[username].select == "glyphicon glyphicon-unchecked"){
 			      	//alert(event.target.id+' before: uncheck');
 			      	$scope.users[username].select = "glyphicon glyphicon-check";
 			      	$scope.users.$save();
-			      	$scope.filtered[username].select = "glyphicon glyphicon-check";
-			      	$scope.filtered.$save();
+			      	
 
 			      	$scope.selected[username]=$scope.users[username];
 			      	//alert("change to check");
 				    $scope.selected.$save();
+
+				    //put at last in case username is not in filtered
+					$scope.filtered[username].select = "glyphicon glyphicon-check";
+				    $scope.filtered.$save();	
+				    
 			    }
 
 
