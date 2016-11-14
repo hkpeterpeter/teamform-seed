@@ -5,6 +5,7 @@ module.exports = function(config) {
     basePath: './app',
 	frameworks: ['jasmine'],
     files: [
+      'https://www.gstatic.com/charts/loader.js',
 	  'lib/jquery.min.js',
       'lib/angular.min.js',
       'lib/angular-route.min.js',
@@ -12,16 +13,21 @@ module.exports = function(config) {
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',	  
 	  'js/*.js',
-      'unit_tests/*.js'	  
+      'unit_tests/*.js',
+      'zwangbm/js/*.js',
+      'jzhangbs/site.js',
+      'TXR/*.js',
+      'search/*.js'
+
     ],
 	exclude: [
 	],
 	preprocessors: {	 	
-		 'js/site.js' : ['coverage'],		
-		 'js/index.js' : ['coverage'],
-		 'js/admin.js' : ['coverage'],
-		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage']
+		 'zwangbm/js/btnclick.js' : ['coverage'],
+		 //'jzhangbs/*.js' : ['coverage'],
+		 'TXR/*.js': ['coverage'],
+      	 'search/*.js' : ['coverage']
+
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
