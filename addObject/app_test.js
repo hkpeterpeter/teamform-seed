@@ -42,5 +42,5 @@ describe('AppController', function() {
             description: 'hoho'
         });
   	});
- 
+
 });
