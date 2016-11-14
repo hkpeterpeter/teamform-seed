@@ -2,10 +2,10 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
 
     $rootScope.currentEvent = 0;
     $rootScope.currentTeam = 0;
-    $rootScope.currentUser = 0;
+    // $rootScope.currentUser = 0;
 
     $scope.event = $firebaseObject(firebase.database().ref('events/' + $rootScope.currentEvent));
-    $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser));
+    $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser.id));
     $firebaseObject(firebase.database().ref('teams/' + $rootScope.currentTeam)).$bindTo($scope, "team");
 
     $scope.invite = {
@@ -58,6 +58,13 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
         }
         $scope.invite.desiredSkills = [];
         $scope.invite.newSkill = '';
+    }
+    $scope.activator = "activator";
+    $scope.checkApplicants = function() {
+        if ($scope.applicants.length == 0) {
+            window.alert("There is no applicants.");
+            $scope.activator = "";
+        }
     }
     $scope.smartAdd = function() {
         var cnt = 0;

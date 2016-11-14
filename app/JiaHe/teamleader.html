@@ -186,7 +186,7 @@
                 <div class="card-content white-text">
                     <span class="card-title">Requests</span>
                     <span class="new badge white-text team-badge" data-badge-caption="requests">{{ applicants.length }}</span>
-                    <span class="new badge orange darken-2 white-text team-badge activator" data-badge-caption="Smart pick"></span>
+                    <span class="new badge orange darken-2 white-text team-badge {{activator}}" data-badge-caption="Smart pick" ng-click="checkApplicants()"></span>
                     <!-- Applicant cards -->
                     <div class="section" ng-repeat="applicant in applicants">
                         <div class="card horizontal">
