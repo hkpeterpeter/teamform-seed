@@ -1,14 +1,16 @@
 describe('Test team.js', function() {
    
-	var $scope, $rootScope, $controller;
+	var $scope, TeamCtrl;
+
+	if(firebase.apps.length === 0) {
+		initalizeFirebase();
+	}
 
 	beforeEach(module('teamform-team-app'));
-	beforeEach(function() {
-		inject(function($rootScope, $controller) {
-			$scope = $rootScope.$new();
-			$controller('TeamCtrl', {$scope: $scope});
-		});
-	});
+	beforeEach(inject(function($rootScope, $controller) {
+		$scope = $rootScope.$new();
+		TeamCtrl = $controller('TeamCtrl', {$scope: $scope});
+	}));
 
 	describe('test retrieveNameFromID', function() {
 		it("Apple", function() {
