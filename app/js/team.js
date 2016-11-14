@@ -1,9 +1,6 @@
 angular.module('teamform')
 .controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray',  '$stateParams', '$state',
     function($scope, $firebaseObject, $firebaseArray, $stateParams, $state) {
-		
-	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
 
 	var refPath = "";
 	var eventName = $stateParams.event;

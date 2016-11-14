@@ -6,9 +6,6 @@ angular.module('teamform')
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
-			
-	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
 	
 	var refPath, ref, eventName;
 
