@@ -50,7 +50,7 @@
               <h3 class="panel-title">Members &nbsp; Max:{{teamdata.max}}, current:{{teamdata.currentSize}}</h3>
           </div>
           <div class="panel-body">
-            <ul ng-repeat="(id,uid) in members">
+            <ul ng-repeat="(id,uid) in filterLeader(members,leader)">
                  <li>  <a ng-href= "/#/dashboard/profile/{{uid}}">{{users.$getRecord(uid).readOnly.name}}</a>
                    <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" ng-click = "DeleteMember(uid)">Reject</button>
                    <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && leader_change && (myEvents[eventID] | teamId)==teamID" ng-click = "SetLeader(uid)">Select as new leader</button>
@@ -60,10 +60,11 @@
           <div>
             <h6>Team Leader:</h6>
             <!-- {{users.$getRecord(teamdata.leader).readOnly.name}} -->
-            <ul ng-repeat="(id,uid) in leader">
+            <!-- <ul ng-repeat="uid in leader">
               <li>{{users.$getRecord(uid).readOnly.name}}
               </li>
-            </ul>
+            </ul> -->
+             <a ng-href= "/#/dashboard/profile/{{leader}}"> {{users.$getRecord(leader).readOnly.name}} </a>
           </div>
         </div>
   		</div>
@@ -98,13 +99,23 @@
   	</div>
   	<div class="row-fluid">
       <!-- Applications -->
+
+
       <div class="span4"  ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">Applications</h3>
           </div>
+          <form name="myForm">
+              <label for="repeatSelect"> filter: </label>
+              <select name="repeatSelect" id="repeatSelect" ng-model="search_model">
+                  <option value = "all">All applications</option>
+                  <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+              </select>
+          </form>
+
           <div class="panel-body">
-            <ul ng-repeat="(uid,status) in applications">
+            <ul ng-repeat="(uid,status) in filterByStatus(applications,search_model)">
               <li>
                 {{users.$getRecord(uid).readOnly.name}} : {{status}}
                 <button type="button" class="btn btn-primary" ng-click="accept_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID">Accept</button>
@@ -118,10 +129,17 @@
       <div class="span4" ng-if="(myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID " >
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Invitation List</h3>
+            <h3 class="panel-title">Invitations</h3>
           </div>
+          <form name="myForm">
+              <label for="repeatSelect"> filter: </label>
+              <select name="repeatSelect" id="repeatSelect" ng-model="search_model">
+                  <option value = "all">All invitations</option>
+                  <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+              </select>
+          </form>
           <div class="panel-body">
-            <ul ng-repeat="(uid,status) in invitations">
+            <ul ng-repeat="(uid,status) in filterByStatus(invitations,search_model)">
               <li>{{users.$getRecord(uid).readOnly.name}} : {{status}}</li>
             </ul>
           </div>
@@ -231,7 +249,7 @@
                         <form class = "form-inline">
                           <div class = "form-group">
                               <label for = "name">New Language tag:</label>
-                              <input type = "text" name = "name" placeholder = "e.g. Englishß" ng-model = "form.languagetag" >
+                              <input type = "text" name = "name" placeholder = "e.g. English" ng-model = "form.languagetag" >
                               <button class = "btn btn-primary" ng-click = "addLanguageTag(form.languagetag)" data-dismiss = "modal">Submit</button>
                           </div>
                         </form>

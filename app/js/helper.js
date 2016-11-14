@@ -195,8 +195,8 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         var event_ref = firebase.database().ref("events/" + eventID);
         var event = $firebaseObject(event_ref);
 
-		var team_ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID);
-		var team = $firebaseObject(team_ref);
+		    var team_ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID);
+		    var team = $firebaseObject(team_ref);
 
         var user_ref = firebase.database().ref("users/" + uid);
         var user = $firebaseObject(user_ref);
@@ -207,21 +207,20 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         return event.$loaded().then(function(){
             team.$loaded().then(function(){
                 user.$loaded().then(function(){
-
                     //check event state
                     if (event.eventInfo.isClosed == true){
                         // delete user.writable[eventID]["invitations"][teamID];
                         // user.$save();
                         user_ref.child("writable/" + eventID + "/invitations/" + teamID).remove();
-				        alert("Invalid operation! The event has already been closed.");
-				        return;
-			        }
+				                alert("Invalid operation! The event has already been closed.");
+				                return;
+			              }
 
                     //check team size
             		if (team.currentSize >= team.max){
-				        alert("Invalid operation! The team has reached its maximum capacity.");
-				        return;
-			        }
+				              alert("Invalid operation! The team has reached its maximum capacity.");
+				              return;
+			              }
 
                     // modify invitation in target team , send notification, delete application
                //      applicationList.$loaded().then(function(){
@@ -230,12 +229,13 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                //      });
 
                     // add person to team
-                    helper.addPersonToTeam(uid, eventID, teamID).then(function(){
+                helper.addPersonToTeam(uid, eventID, teamID).then(function(){
 
-                        var msg = user.readOnly.name + " has accepted an invitation from your team " + team.name;
-                        for(leaderuid in team.leader){
-                          helper.pushNotificationTo(leaderuid, eventID, msg);
-                        }
+                      var msg = user.readOnly.name + " has accepted an invitation from your team " + team.name;
+
+                      helper.pushNotificationTo(team.leader, eventID, msg);
+
+                      helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
                         // delete user.writable[eventID]["invitations"][teamID];
                         // user.$save();
                         var temp = {};
@@ -272,9 +272,11 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             user.$loaded().then(function(){
                 // send notification to leader
                 var msg = user.readOnly.name + " has declined an invitation from your team " + team.name;
-                for(leaderuid in team.leader){
-                  helper.pushNotificationTo(leaderuid, eventID, msg);
-                }
+                // for(leaderuid in team.leader){
+                  helper.pushNotificationTo(team.leader, eventID, msg);
+
+
+                // }
                 //delete application in user info
                 // delete user.writable[eventID]["invitations"][teamID];
                 // user.$save();

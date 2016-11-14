@@ -26,6 +26,13 @@ app.controller("teamCtrl",
 			5 : "SQL"
 		}
 
+		$scope.statusList = {
+			0 : "pending",
+			1 : "accepted",
+			2 : "declined",
+			3 : "withdrawn"
+		}
+
 		Auth.$onAuthStateChanged(function(authData) {
 				// console.log($scope.obj);
 				if (authData) {
@@ -65,8 +72,10 @@ app.controller("teamCtrl",
 							var user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid  + '/writable/' + $scope.eventID + '/applications');
 									user_appli_ref.once('value', function (snapshot) {
 									   if (snapshot.hasChild($scope.teamID)) {
+
 												$scope.alreadyApplied = true;
 									  	}
+											else{
 												$scope.alreadyApplied = false;
 											}
 										}
@@ -137,7 +146,7 @@ app.controller("teamCtrl",
 		var announceref = main_ref.child('announcements');
 		var applicref = main_ref.child('applications');
 		var inviteref = main_ref.child('invitations')
-		$scope.invitations = $firebaseObject(inviteref);
+
 
 //get member
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/members');
@@ -145,8 +154,8 @@ app.controller("teamCtrl",
 
 
 //get leader
-		var leaderref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/leader');
-		$scope.leader = $firebaseObject(leaderref);
+		// var leaderref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/leader');
+		// $scope.leader = $firebaseObject(leaderref);
 
 //member functions
 		// $scope.addMember = function(){
@@ -164,9 +173,9 @@ app.controller("teamCtrl",
 			Helper.sendApplicationTo($scope.userData.uid, $scope.eventID, $scope.teamID);
 			window.alert("Your application is received");
 
-			for (leaderuid in $scope.leader){
-				Helper.pushNotificationTo(leaderuid, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
-			}
+
+				Helper.pushNotificationTo($scope.leader, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
+
 		}
 
 
@@ -174,6 +183,7 @@ app.controller("teamCtrl",
 		// $scope.updateMember = function(id,content){
 		// 	memref.child(id).update({
 		// 		uid: content
+
 		// 	});
 		// 	$scope.members = memberdata;
 		// }
@@ -205,6 +215,16 @@ app.controller("teamCtrl",
 			for (uid in $scope.memberlist){
 				Helper.pushNotificationTo(uid, $scope.eventID, "Your team's leader has changed from " + Helper.getUsername($scope.userData.uid) + " to " + Helper.getUsername(uid))
 			}
+		}
+
+		$scope.filterLeader= function(items, leaderuid) {
+				var result = {};
+				angular.forEach(items, function(value, key) {
+						if (key !== leaderuid) {
+								result[key] = value;
+						}
+				});
+				return result;
 		}
 
 		$scope.ChangeTeamName = function(newname){
@@ -397,6 +417,21 @@ $scope.test = $scope.teamdata.members;
 		// 	});
 		// }
 //
+$scope.invitations = $firebaseObject(inviteref);
+
+
+$scope.search_model = "all";
+
+$scope.filterByStatus = function(items, filter_model) {
+		var result = {};
+		angular.forEach(items, function(value, key) {
+				if (value == filter_model || filter_model == "all") {
+						result[key] = value;
+				}
+		});
+		return result;
+}
+
 // //get invitations
 // 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/invitations');
 // 		$scope.invitations = $firebaseArray(ref);
