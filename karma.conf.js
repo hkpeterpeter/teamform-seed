@@ -17,7 +17,7 @@ module.exports = function(config) {
 	  'fish/js/fish.js',
 	  'JiaHe/teamleader.js',
 	  'Samuel-personalDashboard/personal-dashboard-main.js',
-	  'WU_YUNCHEN/form.js',
+	  'WU_YUNCHEN/js/form.js',
 	  'ZhaoLucen/admin.js',
 	  'zhuxinyu/myctrl.js',
       'unit_tests/*.js'	  
@@ -30,7 +30,7 @@ module.exports = function(config) {
 		 'fish/js/fish.js': ['coverage'],
 		 'JiaHe/teamleader.js': ['coverage'],
 		 'Samuel-personalDashboard/personal-dashboard-main.js' : ['coverage'],
-		 'WU_YUNCHEN/form.js' : ['coverage'],
+		 'WU_YUNCHEN/js/form.js' : ['coverage'],
 		 'ZhaoLucen/admin.js' : ['coverage'],
 		 'zhuxinyu/myctrl.js': ['coverage']
 	},
