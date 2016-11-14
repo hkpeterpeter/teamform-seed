@@ -11,7 +11,7 @@ describe('Test read.js', function() {
                 $firebaseObject: $firebaseObject
             });
 
-            firebaseRef = new Firebase("https://comp3111-bb108.firebaseio.com/Team");
+            firebaseRef = new Firebase("https://comp3111-bb108.firebaseio.com/");
         });
     });
 
@@ -20,10 +20,10 @@ describe('Test read.js', function() {
         var team = {
             //state = true,
             //holder = 1,
-            name:"",
-            intro:"",
-            teamleader:"",
-            openness:true	,
+            name:"aaa",
+            intro:"bbb",
+            teamleader:"ccc",
+            openness:true,
             member:"",
             numberOfmember:0
         };
@@ -32,6 +32,6 @@ describe('Test read.js', function() {
         firebase.flush();
         scope.$digest();
 
-        expect(scope.obj).toBe(team);
+        expect(scope.team).toBe(team);
     });
 });
