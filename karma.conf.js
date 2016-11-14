@@ -23,7 +23,7 @@ module.exports = function(config) {
 	exclude: [
 	],
 	preprocessors: {	 	
-		 'zwangbm/js/btnclick.js' : ['coverage'],
+		 'zwangbm/js/angular_invite.js' : ['coverage'],
 		 //'jzhangbs/*.js' : ['coverage'],
 		 'TXR/*.js': ['coverage'],
       	 'search/*.js' : ['coverage']
