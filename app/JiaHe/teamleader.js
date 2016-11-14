@@ -32,7 +32,7 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
         var index = $scope.invitedPeople.indexOf(invitedPerson);
         invitedPeopleID.$remove(index);
         $scope.invitedPeople.splice(index, 1);
-        addNotif(invitedPerson.$id, "normal", "The invitation from Team " + $scope.team.teamName + " is canceled");
+        // addNotif(invitedPerson.$id, "normal", "The invitation from Team " + $scope.team.teamName + " is canceled");
     }
     $scope.addApplicant = function(applicant) {
         if ($scope.members.length + 1 < $scope.event.maxSize) {
@@ -51,7 +51,7 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
                 firebase.database().ref('teams/' + $rootScope.currentTeam + '/invitedPeople').child($scope.invite.desiredSkills[i]).set($scope.invite.desiredSkills[i]);
                 $scope.invitedPeople.push($firebaseObject(firebase.database().ref('users/' + $scope.invite.desiredSkills[i])));
                 firebase.database().ref('users/' + $scope.invite.desiredSkills[i] + '/teamsAsInvitedPeople').child($rootScope.currentTeam).set($rootScope.currentTeam);
-                addNotif($scope.invite.desiredSkills[i], "invitation", "You are invited by Team " + $scope.team.teamName);
+                // addNotif($scope.invite.desiredSkills[i], "invitation", "You are invited by Team " + $scope.team.teamName);
             }
         } else {
             window.alert("Your team is full!");
