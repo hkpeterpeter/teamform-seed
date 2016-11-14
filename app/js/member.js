@@ -53,7 +53,6 @@ angular.module('teamform-member-app', ['firebase'])
 
 	$scope.loadFunc = function() {
 		var refPath = getURLParameter("q") + "/member/" + $scope.uid;
-		console.log(refPath);
 		$scope.userInfo = $firebaseObject(firebase.database().ref(refPath));
 		$scope.userInfo.$loaded().then(function() {
 			$scope.userID = $scope.userInfo.$id;
@@ -73,8 +72,6 @@ angular.module('teamform-member-app', ['firebase'])
 			} else {
 				$scope.tags = [];
 			}
-			console.log("$scope.userInfo: ", $scope.userInfo);
-			console.log("$scope.userInfo.invitedBy[0]: ", $scope.userInfo.invitedBy[0]);
 		});
 		
 		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
@@ -94,7 +91,6 @@ angular.module('teamform-member-app', ['firebase'])
 			else{
 				$("#inviteStatus").html("You have no invitation.");
 			}
-			console.log("$scope.memberInfo: ", $scope.memberInfo);
 		});
 	};
 	
