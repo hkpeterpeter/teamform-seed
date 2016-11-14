@@ -57,16 +57,16 @@
     <tbody dir-paginate="team in teamList.teams | filter:teamList.search | itemsPerPage: 2">
         <tr>
             <td>
-                <a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a>
+                <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
             </td>
             <td>
-                <a ui-sref="event.detail({eventId: team.event.$id})">{{team.event.data.name}}</a>
+                <a ui-sref="event.detail({eventId: team.getEvent().$id})">{{team.getEvent().data.name}}</a>
             </td>
             <td>
-                <a ui-sref="user.detail({userId: team.createdBy})">{{team.createdByUser.name}}</a>
+                <a ui-sref="user.detail({userId: team.data.createdBy})">{{team.getCreatedByUser().name}}</a>
             </td>
             <td>
-                {{team.createdAt | date:'medium'}}
+                {{team.data.createdAt | date:'medium'}}
             </td>
         </tr>
     </tbody>

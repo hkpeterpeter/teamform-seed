@@ -60,7 +60,7 @@ export default class TeamDetailCtrl {
     }
     async canManage() {
         let user = await this.authService.getUser();
-        return user && user.uid == this.team.createdBy;
+        return user && user.uid == this.team.data.createdBy;
     }
     filterJoined(user) {
         return user.id != null && user.pending !== true && user.confirmed !== false;
