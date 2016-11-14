@@ -75,9 +75,23 @@
 					 <div class="col-md-8 col-xs-8">
 							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter wanted personality" ng-model="param.wantedPersonalities">
 					</div>
-					 <div class="col-md-8 col-xs-8">
-							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter wanted star" ng-model="param.wantedHoroscopes">
-					</div>
+          <div class="col-md-8 col-xs-8">
+            Wanted Horoscope : 
+            <select class="selectpicker" ng-model="param.wantedHoroscopes">
+             <option>Aries</option>
+             <option>Taurus</option>
+             <option>Gemini</option>
+             <option>Cancer</option>
+             <option>Leo</option>
+             <option>Virgo</option>
+             <option>Libra</option>
+             <option>Scorpio</option>
+             <option>Sagittarius</option>
+             <option>Capricorn</option>
+             <option>Aquarius</option>
+             <option>Pisces</option>
+            </select>
+         </div>
 
 
                   </div>
@@ -132,27 +146,11 @@
 							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
 						</button>
 					 </div>
-
                   </div>
 				</div>
-
-
-
-
-
-
-
-
-
             </div>
 
-
-
-
             <div class="col-md-4 col-xs-4 text-left">
-
-
-
 					<h3>All teams:</h3>
 					<ul ng-repeat="t in team">
 						<li>
