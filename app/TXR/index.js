@@ -58,9 +58,9 @@ app.controller("ConversationController",function($scope,$routeParams){
 
 app.controller("NotificationController", function($scope){
 			$scope.userList=[
-      				{ Name: "O(n^3) is not that slow", type: "Invitation", Info: ""},
-      				{ Name: "Andy", type: "Application", Info: ""},
-      				{ Name: "Your team", type: "Information", Info: ""}
+      				{ Name: "Peter", type: "Invitation", Info: ""},
+      				{ Name: "Jason", type: "Application", Info: ""},
+      				{ Name: "Kevin", type: "Information", Info: ""}
        ];
       var i;
       for(i=0; i<$scope.userList.length; ++i){
@@ -86,9 +86,13 @@ app.controller("NotificationController", function($scope){
        			$scope.userList.splice(user,1);
       }
 
+/*      $scope.reply=function(user){
+        return "#MyConversation/"+ "Peter";
+      }
+
       $scope.adduser=function(){
         
-      }
+      }*/
   });
 
 app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
