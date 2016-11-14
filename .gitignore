@@ -6,3 +6,4 @@ app/coverage/
 tmp
 .DS_Store
 *.log
+app/js/site.js
