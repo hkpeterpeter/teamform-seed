@@ -1,0 +1,38 @@
+<!-- <a ng-href="/#/dashboard/event/01">Event 01</a> -->
+<h2> My Events</h2>
+<ul>
+	<li ng-repeat="(myEventId, myEvent) in myEvents">
+		<a ng-href="/#/dashboard/event/{{myEventId}}">
+			{{events.$getRecord(myEventId).eventInfo.name}}
+
+		</a>
+        ({{myEvent.position}})
+	</li>
+</ul>
+
+
+<button class="btn btn-primary" ng-click="createEventDialog()" >createEvent</button>
+
+<form name = "searchEvent">
+    search by Event name: <input type="text" name="searchName" ng-model = "searchText"><br>
+
+</form>
+
+<p>Search Restuls:</p>
+
+<ul>
+    <li ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}">
+        <a ng-href="/#/dashboard/event/{{Event.$id}}">
+            {{Event.eventInfo.name}}
+        </a>
+    </li>
+</ul>
+
+<!-- <h3> All Events</h3>
+<ul>
+    <li ng-repeat="(EventId, Event) in AllEvents">
+        <a ng-href="/#/dashboard/event/{{EventId}}">
+            {{Event.eventInfo.name}}
+        </a>
+    </li>
+</ul> -->

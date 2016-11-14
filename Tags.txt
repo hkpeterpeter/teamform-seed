@@ -1,0 +1,10 @@
+Tags:
+
+skill:
+JavaScript,HTML,CSS,C++,Python,SQL,SML,C,C#,Java,Objective-C,FLEX,PHP
+
+language:
+Mandarin, Korean, Cantonese, English, Japanese, German, Spanish
+
+Manner:
+Outgoing, OnCampus, Pretty, Thoughtful, Cool, SleepLate, Creative
