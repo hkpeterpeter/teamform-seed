@@ -83,55 +83,12 @@ describe("tfApp", function() {
             expect($scope.userData).toEqual({uid:"testUid"});
         });
 
-        it('test $scope.userData',function(){
-            expect($scope.userData).toEqual({uid:"testUid"});
-        });
-
-
 
         it('$scope.manage() should be change $scope.isManaging to true and $scope.selectTeam to false', function() {
             $scope.manage();
             expect($scope.isManaging).toEqual(true);
             expect($scope.selectTeam).toEqual(false);
             console.log("pppp");
-        });
-
-
-        it('test $scope.deleteTeam', function() {
-            $scope.deleteTeam("dummyTeamKey");
-        });
-
-        it('test $scope.addToTeam, after which the personToBeAdded should be the input', function() {
-            $scope.addToTeam("dummyPersonId");
-            expect(personToBeAdded).toEqual("dummyPersonId")
-        });
-
-
-        it('test $scope.toTeam', function() {
-            $scope.toTeam("dummyTeamKey");
-            expect($scope.selectTeam).toEqual(false);
-        });
-
-        it('test $scope.deleteAnn', function() {
-            $scope.deleteAnn("dummyAnnKey");
-        });
-        
-        it('test $scope.invite', function() {
-            $scope.invite("dummyPersonKey");
-        });
-
-        it('test $scope.quit', function() {
-            $scope.quit();
-        });
-
-        it('test $scope.joinEvent', function() {
-            $scope.joinEvent();
-        });
-
-        it('test $scope.createTeamDialogue() and $scope.createTeam', function() {
-            $scope.createTeamDialogue()
-             $scope.createTeam();
-             expect($scope.newTeam.leader).toEqual("testUid");
         });
 
         it('test $scope.deleteTeam', function() {
@@ -180,4 +137,3 @@ describe("tfApp", function() {
 
     });
 });
-
