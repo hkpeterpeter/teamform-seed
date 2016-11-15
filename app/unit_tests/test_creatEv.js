@@ -3,9 +3,8 @@ describe('createEv.js', function() {
    describe('AdminCtrl',function(){
      var firebaseRef, scope;
 
-   beforeEach(function () {
-       module("teamform-member-app")
-       inject(function ($rootScope, $controller, $firebaseObject) {
+   beforeEach(module("teamform-member-app"));
+   beforeEach(inject(function ($rootScope, $controller, $firebaseObject) {
            scope = $rootScope.$new();
 
            $controller("AdminCtrl", {
@@ -14,8 +13,7 @@ describe('createEv.js', function() {
            });
 
            firebaseRef = new Firebase("https://myurl.firebaseio.com/somechild");
-        });
-    });
+        }));
 
     describe('Create Event, Page: 0',function(){
         beforeEach(function(){
