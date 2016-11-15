@@ -145,7 +145,7 @@
 						<ul ng-repeat="m in member">
 							<div class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" >
 								<label>
-								<li>
+								<span>
 								Name = {{retrieveNameFromID(m.$id)}} <br>
 								Tags = {{retrieveTagsFromID(m.$id)}} <br>
 								Score = {{retrieveScoreFromTags(retrieveTagsFromID(m.$id))}} <br>
@@ -153,7 +153,7 @@
 								<p ng-repeat="s in m.selection">
 								{{ $index+1 }}. {{s}}
 								</p>
-								</li>
+								</span>
 								</label>
 							</div>
 						</ul>
@@ -161,8 +161,8 @@
 
 					<div class="col-md-4 col-xs-4 text-left">
 						<h3>All teams:</h3>
-						<ul ng-repeat="t in team">
-							<li>
+						<ul ng-repeat="t in team" class = "teamList">
+							<span>
 								Team Name: {{t.$id}}  <br>
 								Preferred team size: <span class="badge">{{t.size}}</span> <br>
 								Tags:
@@ -173,7 +173,7 @@
 								{{ $index+1 }}. {{ member }}
 								</p>
 								<span ng-show="!t.teamMembers"> none </span>
-							</li>
+							</span>
 						</ul>
 					</div>
 
