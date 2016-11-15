@@ -3,13 +3,15 @@ describe('teamform-admin-app', function() {
    //
    // Example: A test case of getRandomIntInclusive
    //
-   var $scope;
-   describe('change min size test', function() {
+   describe('change size test', function() {
 
 	  it('test change size', function() {
-	  	var value = 2;
-        $scope.changeMinTeamSize(3);
-	  	expect( $scope.param.minTeamSize ).toEqual(5);
+	      $scope.param.minTeamSize = 2;
+	      $scope.param.maxTeamSize = 8;
+	      $scope.changeMinTeamSize(3);
+	      $scope.changeMaxTeamSize(-2);
+	      expect($scope.param.minTeamSize).toEqual(5);
+	      expect($scope.param.maxTeamSize).toEqual(6);
 	  });
 
    });
