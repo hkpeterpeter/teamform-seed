@@ -5,7 +5,7 @@
 var app = angular.module("indexApp", ["firebase", "ngCookies"]);
 
 app.controller("indexCtrl",
-  function($scope, $firebaseArray, $firebaseObject, $timeout, $cookies, $window) {
+  function($scope, $firebaseArray, $firebaseObject, $cookies, $window) {
 
     if (checkLogin($cookies))
       gotoURL("/TXR/index.html", [], $window);
