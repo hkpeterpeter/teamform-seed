@@ -10,4 +10,15 @@ describe("TeamApp module", function() {
     
         });
     });
+
+    describe('Team function',function(){
+
+        it("After create team, teamname should be defined", function (done){
+            var $scope= {};
+            $controller('AuthCtrl', { $scope: $scope });
+            
+            }, 2000);
+    });
+
+    });
 });
