@@ -111,7 +111,7 @@
 									</button>
 								</div>
 							</div>
-							<div class="col-sm-4">
+							<div class="col-sm-2">
 								<h4>Tags</h4>
 								<div ng-repeat="ttt in param.tags">
 									<button type="button" class="btn" ng-click="addTags(ttt);">
@@ -119,8 +119,15 @@
 									</button>
 								</div>
 							</div>
+							<div class="col-sm-2" novalidate>
+								<h4>Weight</h4>
+								<div ng-repeat="ttt in param.tags">
+									<input type="number" class="form-control" id="changeWeight" ng-model="param.weight[$index]" >
+								</div>
+							</div>
 							<div class="col-sm-4">
 								<h4>Requests received:</h4>
+								<button type="button" class="btn btn-primary" id="smartAdd" ng-click="smartAdd();">Smart Add</button>
 								<!--TODO: Show the requests -->	        
 								<div ng-repeat="r in requests">
 									<button type="button" class="btn" ng-click="processRequest(r);">
@@ -140,6 +147,8 @@
 								<label>
 								<li>
 								Name = {{retrieveNameFromID(m.$id)}} <br>
+								Tags = {{retrieveTagsFromID(m.$id)}} <br>
+								Score = {{retrieveScoreFromTags(retrieveTagsFromID(m.$id))}} <br>
 								request to join the following teams: 
 								<p ng-repeat="s in m.selection">
 								{{ $index+1 }}. {{s}}

@@ -1,19 +1,21 @@
-<html ng-app="chatRoom">
+<!DOCTYPE html>
+<html lang="en" ng-app="chatRoom">
 	<head>
 	<meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="keywords" content="teamform, team">
 
-      <title>teamform - member page</title>
+      <title>teamform - chat room</title>
 
       <script src="lib/jquery.min.js"></script>
       <script src="lib/bootstrap.min.js"></script>
       
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-      <link rel="stylesheet" href="css/font-awesome.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
       <link rel="stylesheet" href="css/site.css" >
+      <link rel="stylesheet" href="css/login.css">
 
       <script src="js/site.js"></script>
 	
@@ -26,14 +28,14 @@
 		<!-- Bar -->
 		<nav class="navbar navbar-default">
       <div class="container">
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-left">
+         <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
             <li><a href="index.html">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             Back</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown" id="fblogout">
+              <li class="dropdown" id="blogout">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
                 <div>
                 <span id="userName"></span>
@@ -42,15 +44,15 @@
                 </div>
                 </a>
                 <ul class="dropdown-menu">
-                  <li id="logout"><a href="#">Log out</a></li>
+                <li id="logOut"><a href="#">Log out</a></li>
                 </ul>
-              </li>
-              <li id="fblogin">
-                <button type="button" class="btn btn-primary"> Log In
+              </li>               
+              <li>
+                <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
                 </button>
               </li>
           </ul>
-        </div>
+         </div>
       </div>
     </nav>
 		<div ng-controller="chatRoomCtrl">		
@@ -76,7 +78,6 @@
 		<script src="lib/firebase.js"></script>
 		<script src="lib/angularfire.min.js"></script>
 		
-		<script src="js/member.js"></script>
 		<script src="js/chatRoom.js"></script>
 	</body>
 </html>

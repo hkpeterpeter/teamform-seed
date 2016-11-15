@@ -2,17 +2,15 @@ $(document).ready(function() {
   $("#blogin").hide();
   $("#blogout").hide();
 
-  initalizeFirebase();
-
-  $("#blogin").click(function() {
-     // window.location.href = "login.html";  
-  });
-
   $("#blogout").click(function(){
       firebase.auth().signOut().then(function() {
         location.reload();
       });
   });
+
+  if(firebase.apps.length === 0) {
+    initalizeFirebase();
+  }
 
   firebase.auth().onAuthStateChanged(function(firebaseUser) {
     if(firebaseUser) {

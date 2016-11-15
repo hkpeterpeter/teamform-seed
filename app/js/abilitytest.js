@@ -13,6 +13,7 @@ $(document).ready(function(){
 angular.module('ability-test-app', ['firebase'])
 .controller('AbilityTestCtrl', ['$scope', '$firebaseObject', '$firebaseArray',
 	function($scope, $firebaseObject, $firebaseArray) {
+
 		firebase.auth().onAuthStateChanged(function(firebaseUser) {
 	      if(firebaseUser) {
 	      	var user = firebase.auth().currentUser;
