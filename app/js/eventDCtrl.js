@@ -13,6 +13,7 @@ app.controller("eventDCtrl",
         personToBeAdded="";
         $scope.editingInfo=false;
         $scope.editButton="Edit";
+        $scope.isDeletingAnn = false;
         this.Object=Object;
         Auth.$onAuthStateChanged(function(authData) {
             // console.log($scope.obj);
@@ -75,9 +76,13 @@ app.controller("eventDCtrl",
 
         }
         $scope.toTeam=function(key){
-            helper.addPersonToTeam(personToBeAdded,$scope.eventID,key);
+            Helper.addPersonToTeam(personToBeAdded,$scope.eventID,key);
             $scope.selectTeam=false;
             console.log(key);
+        }
+        $scope.deleteAnn = function(key){
+            Helper.deleteEventAnnouncement($scope.eventID,key)
+            console.log(key + " been deleted");
         }
         $scope.invite=function(uid){
             Helper.sendInvitationTo(uid,$scope.eventID,$filter('teamId')($scope.myEvent));
@@ -137,6 +142,9 @@ app.controller("eventDCtrl",
             console.log($scope.newAnn);
             Helper.postEventAnnouncement($scope.eventID, $scope.newAnn.a);
             dialogue.close();
+        }
+        $scope.deleteAnnouncementChoice=function(){
+            $scope.isDeletingAnn = !$scope.isDeletingAnn;
         }
         $scope.validInvite = function(uid){
             // console.log($scope.inv, ' ' , uid);

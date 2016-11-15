@@ -1,6 +1,8 @@
 <h1>{{eventObj.eventInfo.name}}</h1>
-<h3>{{myEvents[eventID] | role}}</h3>
-<h1 ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</h1>
+<h3> - {{myEvents[eventID] | role}}</h3>
+<h4 ng-if="!editingInfo">Event Info: {{eventObj.eventInfo.desc}}</h4>
+<h4>Team size: [{{eventObj.eventInfo.min}}, {{eventObj.eventInfo.max}}]</h4>
+<h4>Team forming deadline: <span style="color: red;">{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}</span></h4>
 <textarea ng-model="eventObj.eventInfo.desc" ng-if="editingInfo" ng-value="eventObj.eventInfo.desc"></textarea>
 <input class="btn btn-primary" ng-click="editInfo()" ng-if="myEvent.position=='admin'" ng-value="editButton">
 
@@ -40,13 +42,95 @@
     <div class="panel-body">
         <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
             {{name.content}}
+            <button class="btn btn-primary"  ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'">Delete</button>
         </div>
     </div>
 <div/>
 <button class="btn btn-primary" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">createTeam</button>
 <button class="btn btn-primary" ng-click="quit()" ng-if="(myEvent | role)=='tba'">Quit Event</button>
 <button class="btn btn-primary" ng-click="createAnnouncementDialogue()" ng-if="(myEvent | role)=='admin'">post an announcement</button>
+<button class="btn btn-primary" ng-click="deleteAnnouncementChoice()" ng-if="(myEvent | role)=='admin'">delete an announcement</button>
 <button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join Event</button>
 <br><br><br><br>
 <!--<h1>Debug</h1>-->
 <!--<button class="btn btn-primary" ng-click="createEventList(userData)">createEventList</button>-->
+
+
+
+<!--
+announcement delete + date;
+number of people (and admin can edit max and min);
+ddl;
+highlight announcement of unread;
+zidong post announcement ()
+notification
+-->
+<!--
+<script type = "text/javascript">
+
+/***********************************************
+* Display time of last visit script- by JavaScriptKit.com
+* This notice MUST stay intact for use
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and more
+***********************************************/
+
+var days = 730; // days until cookie expires = 2 years.
+var lastvisit=new Object();
+var firstvisitmsg="This is your first visit to this page. Welcome!"; 
+lastvisit.subsequentvisitmsg="Welcome back visitor! Your last visit was on <b>[displaydate]</b>";
+
+lastvisit.getCookie=function(Name){ 
+var re=new RegExp(Name+"=[^;]+", "i"); 
+if (document.cookie.match(re)) 
+return document.cookie.match(re)[0].split("=")[1];
+return''; 
+}
+
+lastvisit.setCookie=function(name, value, days){ 
+var expireDate = new Date();
+
+var expstring=expireDate.setDate(expireDate.getDate()+parseInt(days));
+document.cookie = name+"="+value+"; expires="+expireDate.toGMTString()+"; path=/";
+}
+
+lastvisit.showmessage = function() {
+var wh = new Date();
+if (lastvisit.getCookie("visitc") == "") { 
+lastvisit.setCookie("visitc", wh, days); 
+document.write(firstvisitmsg);
+}
+
+else {
+var lv = lastvisit.getCookie("visitc");
+var lvp = Date.parse(lv);
+var now = new Date();
+now.setTime(lvp);
+var day = new Array("Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat");
+var month = new Array ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+var dd = now.getDate();
+var dy = now.getDay();
+dy = day[dy];
+var mn = now.getMonth();
+mn = month[mn];
+yy = now.getFullYear();
+var hh = now.getHours();
+var ampm = "AM";
+if (hh >= 12) {ampm = "PM"}
+if (hh >12){hh = hh - 12};
+if (hh == 0) {hh = 12}
+if (hh < 10) {hh = "0" + hh};
+var mins = now.getMinutes();
+if (mins < 10) {mins = "0"+ mins}
+var secs = now.getSeconds();
+if (secs < 10) {secs = "0" + secs}
+var dispDate = dy + ", " + mn + " " + dd + ", " + yy + " " + hh + ":" + mins + ":" + secs + " " + ampm
+document.write(lastvisit.subsequentvisitmsg.replace("\[displaydate\]", dispDate))
+}
+
+lastvisit.setCookie("visitc", wh, days);
+
+}
+
+lastvisit.showmessage();
+
+</script>-->

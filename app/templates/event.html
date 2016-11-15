@@ -4,7 +4,9 @@
 	<li ng-repeat="(myEventId, myEvent) in myEvents">
 		<a ng-href="/#/dashboard/event/{{myEventId}}">
 			{{events.$getRecord(myEventId).eventInfo.name}}
+
 		</a>
+        ({{myEvent.position}})
 	</li>
 </ul>
 
