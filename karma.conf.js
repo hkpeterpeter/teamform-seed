@@ -17,13 +17,15 @@ module.exports = function(config) {
             'app.signup_and_login.js',
             'event.js',
             'unit_tests/test_login.js',
-            'unit_tests/test_createEvent.js'
+            'unit_tests/test_createEvent.js',
+            'unit_tests/test_createTeam.js'
         ],
         exclude: [],
         preprocessors: {
             'app.js': ['coverage'],
             'event.js': ['coverage'],
-            'app.signup_and_login.js' : ['coverage']
+            'app.signup_and_login.js' : ['coverage'],
+            'createTeam.js' : ['coverage']
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {
