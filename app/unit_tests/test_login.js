@@ -63,7 +63,7 @@ describe("TeamApp module", function() {
          
          $controller('AuthCtrl', { $scope: $scope });
          
-         $scope.lInput.email.com = "fish7@fish.com";
+         $scope.lInput.email = "fish7@fish.com";
          $scope.lInput.password = "123123";
          
          $scope.signIn();
