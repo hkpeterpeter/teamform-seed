@@ -16,6 +16,7 @@ module.exports = function(config) {
             'app.route.js',
             'app.signup_and_login.js',
             'event.js',
+            'unit_tests/test_login.js',
             'unit_tests/test_createEvent.js'
         ],
         exclude: [],

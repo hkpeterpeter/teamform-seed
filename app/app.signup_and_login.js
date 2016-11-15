@@ -1,35 +1,35 @@
-app.controller("eventSubmit",
+// app.controller("eventSubmit",
                
-    function($scope, $firebaseArray){
+//     function($scope, $firebaseArray){
             
 
-        $scope.input = {
-            name:"",
-            intro:"",
-            holder:"",
-            state:false,
-            member:""
-            };
+//         $scope.input = {
+//             name:"",
+//             intro:"",
+//             holder:"",
+//             state:false,
+//             member:""
+//             };
 
-        var ref=firebase.database().ref("events");
-        $scope.event = $firebaseArray(ref);
+//         var ref=firebase.database().ref("events");
+//         $scope.event = $firebaseArray(ref);
                 
-        $scope.submit = function() {
-                    //$scope.input.state=true;
-                    //$scope.input.holder=1;
-                    ////$scope.input.holder=
-                    //$scope.event.$add($scope.input);
-                    //window.alert("Event create success!");
-                    //$scope.input.intro= "";
-                    //$scope.input.name= "";
-                    //$scope.nameTouched = false;
-                var event=firebase.database().ref("events"); 
-                return (event.push().set($scope.input));
-                };
+//         $scope.submit = function() {
+//                     //$scope.input.state=true;
+//                     //$scope.input.holder=1;
+//                     ////$scope.input.holder=
+//                     //$scope.event.$add($scope.input);
+//                     //window.alert("Event create success!");
+//                     //$scope.input.intro= "";
+//                     //$scope.input.name= "";
+//                     //$scope.nameTouched = false;
+//                 var event=firebase.database().ref("events"); 
+//                 return (event.push().set($scope.input));
+//                 };
 
-        }
+//         }
                          
-);
+// );
                
 
 

@@ -24,7 +24,6 @@ app.controller("eventSubmit",
                 $scope.input.name = "";
                 $scope.nameTouched = false;
             }
-
         };
         //<span ng-show="eventForm.newEventName.$touched && eventForm.newEventName.$invalid">The event name is required.</span>
         $scope.nameTouched = false;

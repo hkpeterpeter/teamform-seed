@@ -1,12 +1,14 @@
 describe('Testing', function() {
-    var config = {
-        apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
-        authDomain: "comp3111-bb108.firebaseapp.com",
-        databaseURL: "https://comp3111-bb108.firebaseio.com",
-        storageBucket: "comp3111-bb108.appspot.com",
-        messagingSenderId: "554833059052"
-    };
-    firebase.initializeApp(config);
+    // var config = {
+    //     apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+    //     authDomain: "comp3111-bb108.firebaseapp.com",
+    //     databaseURL: "https://comp3111-bb108.firebaseio.com",
+    //     storageBucket: "comp3111-bb108.appspot.com",
+    //     messagingSenderId: "554833059052"
+    // };
+    // firebase.initializeApp(config);
+
+    var form;
 
     beforeEach(function() {
 
@@ -19,7 +21,7 @@ describe('Testing', function() {
         });
     });
 
-    describe('submit() with not signed in', function() {
+    describe('submit()', function() {
 
         it("should create event on firebase", function(done) {
 
@@ -27,15 +29,19 @@ describe('Testing', function() {
             $controller('eventSubmit', {
                 $scope: $scope
             });
+            form = $scope.eventForm;
             // else part
             $scope.input.name = "pk";
             $scope.input.intro = "hihi";
             $scope.input.state = false;
             $scope.input.holder = "on99";
             $scope.submit();
-            firebase.database().ref().once('value', function(snap) {
-                expect($scope.successful).toEqual(1);
-            });
+            expect($scope.nameTouched).toEqual(false);
+
+            form.newEventName.$touched.$setViewValue(true);
+            $scope.eventForm.newEventName.$touched = true;
+            $scope.nameErrorMessage();
+            expect($scope.nameTouched).toEqual(true);
 
             setTimeout(function() {
                 done();
