@@ -1,68 +1,74 @@
-$(document).ready(function(){
-
-	$('#admin_page_controller').hide();
-	$('#text_event_name').text("Error: Invalid event name ");
-	var eventName = getURLParameter("q");
-	if (eventName != null && eventName !== '' ) {
-		$('#text_event_name').text("Event name: " + eventName);
-
-	}
-
-});
+// $(document).ready(function(){
+//
+// 	$('#admin_page_controller').hide();
+// 	$('#text_event_name').text("Error: Invalid event name ");
+// 	var eventName = getURLParameter("q");
+// 	if (eventName != null && eventName !== '' ) {
+// 		$('#text_event_name').text("Event name: " + eventName);
+// 	}
+//
+// });
 
 angular.module('teamform-admin-app', ['firebase'])
 .controller('profileCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+	var self = this;
+	initializeFirebase();
+	// TODO: implementation of createEventCtrl
+	var id = "";
+	firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    user.providerData.forEach(function (profile) {
 
+		id = firebase.auth().currentUser.uid;
+  });
+	}
+ else {
+    // No user is signed in.
+  }
+  });
 	// Initialize $scope.param as an empty JSON object
+
 	$scope.param = {};
 
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+
 
 	var userID, refPath, ref;
 
-  userID = "9uJ5BtAxCcVvHmHix0OB7GtJMkj1";
+  userID = "0zHAK5g7jqhtLOFrqgH5gzvYo9r1";
 	refPath = "users/" + userID;
 	ref = firebase.database().ref(refPath);
 
-	// Link and sync a firebase object
-
 	$scope.param = $firebaseObject(ref);
-	$scope.param.$loaded()
-		.then( function(data) {
-			console.log(data);
-			// Fill in some initial values when the DB entry doesn't exist
-			if(typeof $scope.param.maxTeamSize == "undefined"){
-				$scope.param.maxTeamSize = 10;
-			}
-			if(typeof $scope.param.minTeamSize == "undefined"){
-				$scope.param.minTeamSize = 1;
-			}
+	$scope.param.$loaded();
 
-			// Enable the UI when the data is successfully loaded and synchornized
-			$('#admin_page_controller').show();
-		})
-		.catch(function(error) {
-			// Database connection error handling...
-			//console.error("Error:", error);
-		});
-
-  var tagsPath = refPath + "/tags";
+	var tagsPath = refPath + "/tags";
   $scope.tags = $firebaseObject(firebase.database().ref(tagsPath));
+	$scope.displayDesc = true;
+	$scope.newDesc = {text:""};
 
 
   $scope.showName = function() {
-    var nameRef;
-
-    nameRef = refPath + "/name";
-		$scope.name = $firebaseObject(firebase.database().ref(nameRef));
 
 		return $scope.param.name ;
 
 	}
 
-			// Fill in some initial values when the DB entry doesn't exist
+	$scope.showDesc = function() {
+		 return $scope.param.desc ;
+	}
 
+	$scope.hideDesc = function() {
 
+		$scope.displayDesc = !$scope.displayDesc;
 
+	}
+
+	$scope.saveDesc = function() {
+
+		$scope.param.desc = $scope.newDesc.text;
+		$scope.param.$save();
+
+	}
 }]);

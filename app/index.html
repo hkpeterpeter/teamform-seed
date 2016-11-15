@@ -7,7 +7,7 @@
       <meta name="keywords" content="teamform, team">
       <meta name="google-signin-scope" content="profile email">
       <meta name="google-signin-cookiepolicy" content="single_host_origin">
-      <meta name="google-signin-client_id" content="384214768584-bre8127mo82ck9us018hhocd7vbquu6c.apps.googleusercontent.com">
+      <meta name="google-signin-client_id" content="1011476046624-3vo2s9rg5t4g89db047rp7lhq9vr79sg.apps.googleusercontent.com">
 
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>teamform - A real-time online team forming app</title>
@@ -50,9 +50,9 @@
 
 
    </head>
-   <body class="hold-transition skin-blue sidebar-mini">
+   <body class="hold-transition skin-blue sidebar-mini" ng-controller = "indexCtrl">
 
-      <div class="navbar-wrapper">
+      <div class="navbar-wrapper" >
         <header class="main-header" >
           <!-- Logo -->
           <a href="index2.html" class="logo">
@@ -174,10 +174,154 @@
           <!-- sidebar: style can be found in sidebar.less -->
           <section class="sidebar">
             <!-- Sidebar user panel -->
+            <div class="user-panel" ng-show = "login">
+              <div class="pull-left image">
+                <img class="img-circle" alt="User Image">
+              </div>
+              <div class="pull-left info">
+                <p id = "user_name2">Alexander Pierce</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+              </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+              <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                    <span class="input-group-btn">
+                      <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                      </button>
+                    </span>
+              </div>
+            </form>
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+              <li class="header">MAIN NAVIGATION</li>
+              <li class="active treeview">
+                <a href="#">
+                  <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                  <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="event.html">
+                  <i class="fa fa-files-o"></i>
+                  <span>Profile</span>
+                  <span class="pull-right-container">
+                    <span class="label label-primary pull-right">4</span>
+                  </span>
+                </a>
 
+              </li>
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-files-o"></i>
+                  <span>Create Events</span>
+                  <span class="pull-right-container">
+                    <span class="label label-primary pull-right">4</span>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+                  <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+                  <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+                  <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                </ul>
+              </li>
+
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-share"></i> <span>My Teams & Events</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                  <li>
+                    <a href="#"><i class="fa fa-circle-o"></i> Admin
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-circle-o"></i> Leader
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu" ng-repeat="t in team">
+                      <li><a href="{{t.link}}"><i class="fa fa-circle-o"></i>{{t.event}}-{{t.team}}</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-circle-o"></i> Member
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu" ng-repeat="m in member">
+                      <li><a href="{{m.link}}"><i class="fa fa-circle-o"></i>{{m.event}}-{{m.team}}</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-folder"></i> <span>Tests</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                  <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
+                  <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
+                  <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
+                  <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
+                  <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
+                  <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+                  <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
+                  <li><a href="pages/examples/pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
+                </ul>
+              </li>
+
+              <li>
+                <a href="pages/mailbox/mailbox.html">
+                  <i class="fa fa-envelope"></i> <span>Messages</span>
+                  <span class="pull-right-container">
+                    <small class="label pull-right bg-yellow">12</small>
+                    <small class="label pull-right bg-green">16</small>
+                    <small class="label pull-right bg-red">5</small>
+                  </span>
+                </a>
+              </li>
+
+
+
+              <li class="header">LABELS</li>
+              <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+              <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
+              <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+            </ul>
           </section>
           <!-- /.sidebar -->
         </aside>
+        <div class="content-wrapper" ng-switch on="pFilter" >
+            <div  ng-switch-when="create_event"><div ng-include="'create_event.html'"></div></div>
+            <div  ng-switch-when="team_info"><div ng-include="'event.html'"></div></div>
+            <!--<div  ng-switch-default><div ng-include="'includes/parcel_details_exception.html'"></div></div>-->
+        </div>
       </div>
 
 

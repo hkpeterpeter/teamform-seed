@@ -26,7 +26,7 @@ function getRandomIntInclusive(min, max) {
 // Reference: https://console.firebase.google.com
 //
 
-function initalizeFirebase() {
+function initializeFirebase() {
 
   // Initialize Firebase
   var config = {
@@ -37,6 +37,7 @@ function initalizeFirebase() {
     messagingSenderId: "409818143167"
   };
   firebase.initializeApp(config);
+
 }
 
 //
