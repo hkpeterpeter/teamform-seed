@@ -4,25 +4,13 @@ angular.module('teamform')
 
             // Initialize $scope.param as an empty JSON object
             $scope.param = {};
-
-            $scope.param.$loaded()
-                .then( function(data) {
-
-                    // Fill in some initial values when the DB entry doesn't exist
-                    if(typeof $scope.param.maxTeamSize == "undefined"){
-                        $scope.param.maxTeamSize = 10;
-                    }
-                    if(typeof $scope.param.minTeamSize == "undefined"){
-                        $scope.param.minTeamSize = 1;
-                    }
-
-                    // Enable the UI when the data is successfully loaded and synchornized
-                    $('#admin_creation_controller').show();
-                })
-                .catch(function(error) {
-                    // Database connection error handling...
-                    //console.error("Error:", error);
-                });
+            // Fill in some initial values when the DB entry doesn't exist
+            if(typeof $scope.param.maxTeamSize == "undefined"){
+                $scope.param.maxTeamSize = 10;
+            }
+            if(typeof $scope.param.minTeamSize == "undefined"){
+                $scope.param.minTeamSize = 1;
+            }
 
             $scope.changeMinTeamSize = function(delta) {
                 var newVal = $scope.param.minTeamSize + delta;
