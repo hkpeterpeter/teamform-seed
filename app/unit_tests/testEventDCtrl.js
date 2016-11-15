@@ -56,12 +56,13 @@ describe("tfApp", function() {
 
     });
 
-    var $controller, auth;
+    var $controller, auth, $filter;
 
-    beforeEach(inject(function(_$controller_, Auth){
+    beforeEach(inject(function(_$controller_, Auth, _$filter_){
         // The injector unwraps the underscores (_) from around the parameter names when matching
         $controller = _$controller_;
         auth = Auth;
+        $filter = _$filter_
     }));
 
     describe('eventDCtrl', function() {
@@ -144,10 +145,36 @@ describe("tfApp", function() {
         });
 
         it("test $scope.validInvite()",function(){
+            $scope.myEvent=undefined;
+            $scope.validInvite("testUid");
+            $scope.myEvent={team:"dummyTeam"};
+            $scope.eventObj.teams={dummyTeam:{invitations:{}}};
+            $scope.validInvite("testUid");
+            $scope.eventObj.teams[$filter('teamId')($scope.myEvent)].invitations={testUid:"testUid"};
+            $scope.eventObj.teams[$filter('teamId')($scope.myEvent)].invitations['testUid'] ='pending';
             $scope.validInvite("testUid");
         })
 
+        it("test filter teamId", function(){
+            result1 = $filter('teamId')();
+            expect(result1).toEqual(null);
+            result2 = $filter('teamId')({team:"dummyId"});
+            expect(result2).toEqual("dummyId");
+        })
 
+        it("test filter role", function(){
+            result1 = $filter('role')();
+            expect(result1).toEqual('visitor');
+            result2 = $filter('role')({position:"dummyRole"});
+            expect(result2).toEqual("dummyRole");
+        })
+
+        it("test filter numKeys", function(){
+            result1 = $filter('numKeys')();
+            expect(result1).toEqual(0);
+            result2 = $filter('numKeys')({key:"dummy"});
+            expect(result2).toEqual(1);
+        })
 
 
 
