@@ -5,20 +5,22 @@ module.exports = function(config) {
     basePath: './app',
 	frameworks: ['jasmine'],
     files: [
-	  'lib/jquery.min.js',
+	    'lib/jquery.min.js',
       'lib/angular.min.js',
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
-	  'lib/firebase.js',
-	  'lib/angularfire.min.js',	  
-	  'app.signup_and_login.js',
-	  'app.js',
-      'unit_tests/test_login.js'	  
+	    'lib/firebase.js',
+	    'lib/angularfire.min.js',	  
+	    'app.signup_and_login.js',
+	    'app.js',
+      'unit_tests/test_login.js',
+			'randomEvent.js'	  
     ],
 	exclude: [
 	],
 	preprocessors: {	 	
-		 'app.signup_and_login.js' : ['coverage']
+		 'app.signup_and_login.js' : ['coverage'],
+		 'randomEvent.js' : ['coverage']
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
@@ -33,7 +35,7 @@ module.exports = function(config) {
     plugins: [
       'karma-chrome-launcher',      
       'karma-jasmine',
-	  'karma-coverage'
+	    'karma-coverage'
     ]    
 
   });
