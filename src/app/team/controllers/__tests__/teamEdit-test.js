@@ -14,6 +14,32 @@ describe('TeamEditController', () => {
         }
     });
 
+    it('should resolve getTeam', async (done) => {
+        let $timeout;
+        inject((_$timeout_, TeamService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(TeamService, 'getTeam').and.returnValue(Promise.resolve({name: 'test'})));
+        });
+        $controller.$stateParams.teamId = 1;
+        await $controller.getTeam();
+        $timeout.flush();
+        expect($controller.team.name).toEqual('test');
+        done();
+    });
+
+    it('should reject getTeam', async (done) => {
+        let $timeout;
+        inject((_$timeout_, TeamService) => {
+            $timeout = _$timeout_;
+            $spys.push(spyOn(TeamService, 'getTeam').and.returnValue(Promise.reject(new Error('Team not exist'))));
+        });
+        $controller.$stateParams.teamId = 1;
+        await $controller.getTeam();
+        $timeout.flush();
+        expect($controller.error.message).toEqual('Team not exist');
+        done();
+    });
+
     it('should resolve edit', async (done) => {
         let $timeout;
         inject((_$timeout_, TeamService) => {

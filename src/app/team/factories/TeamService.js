@@ -128,6 +128,14 @@ export default class TeamService {
         teamUser.accepted = null;
         return teamUser.$save();
     }
+    async rejectAcceptTeamPosition(id, positionId) {
+        // TODO:: send message
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        teamUser.user = null;
+        teamUser.pending = null;
+        teamUser.accepted = null;
+        return teamUser.$save();
+    }
     static instance(...args) {
         return new TeamService(...args);
     }
