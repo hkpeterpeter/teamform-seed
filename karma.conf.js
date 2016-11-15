@@ -18,6 +18,7 @@ module.exports = function(config) {
 			'js/helper.js',
 			'js/profileCtrl.js',
 			'js/eventDCtrl.js',
+			'js/requestCtrl.js',
       'unit_tests/testEventDCtrl.js'	  
     ],
 	exclude: [
