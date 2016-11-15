@@ -3,16 +3,22 @@ describe('Test index.js', function() {
    //
    // Example: A test case of getRandomIntInclusive
    //
-   var $scope;
+    btn_fb();
    it('test btn_fb', function(){
-      $scope.btn_fb();
-      expect($scope.logined).toBe(true);
+      expect(logined).toBe(true);
+
+   });
+   it('test btn_logout', function () {
+       btn_logout();
+       expect(logined).toBe(true);
 
    });
 
-   it('test btn_admin', function(){
-      $scope.btn_admin();
-      expect(window.location.href).toBe("admin.html?q=");
+
+   it('test btn_admin', function () {
+       eventID="eventID";
+      btn_admin();
+      expect(window.location.href).toBe("admin.html?q=eventID");
    });
 
 
