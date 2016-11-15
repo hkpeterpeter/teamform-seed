@@ -29,8 +29,8 @@ module.exports = function(config) {
 
 		'unit_tests/testteamCtrl.js',
 			'js/requestCtrl.js',
-      'unit_tests/*.js'
-
+      'unit_tests/*.js',
+      'unit_tests/testHelper.js'
     ],
 	exclude: [
 	],
