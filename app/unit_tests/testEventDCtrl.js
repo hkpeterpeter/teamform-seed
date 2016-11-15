@@ -73,16 +73,9 @@ describe("tfApp", function() {
             
         });
 
-     beforeEach(function() {
-      $scope = {};
-      controller = $controller('eventDCtrl', { $scope: $scope});
-
-    });
-
         it('test $scope.userData',function(){
             expect($scope.userData).toEqual({uid:"testUid"});
         });
-
 
         it('$scope.manage() should be change $scope.isManaging to true and $scope.selectTeam to false', function() {
             $scope.manage();
@@ -99,7 +92,6 @@ describe("tfApp", function() {
             $scope.addToTeam("dummyPersonId");
             expect(personToBeAdded).toEqual("dummyPersonId")
         });
-
 
         it('test $scope.toTeam', function() {
             $scope.toTeam("dummyTeamKey");
@@ -128,6 +120,32 @@ describe("tfApp", function() {
              expect($scope.newTeam.leader).toEqual("testUid");
         });
 
+        it("test $scope.createAnnouncementDialogue() and $scope.postAnnouncement()",function(){
+            $scope.createAnnouncementDialogue();
+            $scope.postAnnouncement();
+        });
+
+        it("test $scope.deleteAnnouncementChoice()",function(){
+            $scope.deleteAnnouncementChoice();
+        });
+
+        it("test $scope.editInfo() when $scope.editButton == 'Edit'",function(){
+            $scope.editButton = "Edit";
+            $scope.editInfo();
+            expect($scope.editButton).toEqual("Save");
+            expect($scope.editingInfo).toEqual(true);
+        });
+
+        it("test $scope.editInfo() when $scope.editButton != 'Edit'",function(){
+            $scope.editButton = "NotEdit";
+            $scope.editInfo();
+            expect($scope.editButton).toEqual("Edit");
+            expect($scope.editingInfo).toEqual(false);
+        });
+
+        it("test $scope.validInvite()",function(){
+            $scope.validInvite("testUid");
+        })
 
 
 
