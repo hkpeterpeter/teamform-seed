@@ -97,6 +97,26 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             });
 
         }
+//update tags
+    helper.updateSkillTags = function(eventID, teamID, skilltags){
+      ref = firebase.database().ref("events/"+eventID+"/teams/" + teamID + "/tags");
+
+      return  ref.child('SkillTags').set(skilltags);
+    }
+
+    helper.updateLanguageTags = function(eventID, teamID, languagetags){
+      ref = firebase.database().ref("events/"+eventID+"/teams/" + teamID + "/tags");
+
+      return  ref.child('LanguageTags').set(languagetags);
+    }
+
+
+    helper.updateMannerTags = function(eventID, teamID, mannertags){
+      ref = firebase.database().ref("events/"+eventID+"/teams/" + teamID + "/tags");
+
+      return  ref.child('MannerTags').set(mannertags);
+    }
+
 
     //violating rules
     helper.pushNotificationTo = function(toUid, eventID, msg) {
@@ -193,8 +213,8 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         var event_ref = firebase.database().ref("events/" + eventID);
         var event = $firebaseObject(event_ref);
 
-		var team_ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID);
-		var team = $firebaseObject(team_ref);
+		    var team_ref = firebase.database().ref("events/" + eventID + "/teams/" + teamID);
+		    var team = $firebaseObject(team_ref);
 
         var user_ref = firebase.database().ref("users/" + uid);
         var user = $firebaseObject(user_ref);
@@ -205,21 +225,20 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         return event.$loaded().then(function(){
             team.$loaded().then(function(){
                 user.$loaded().then(function(){
-
                     //check event state
                     if (event.eventInfo.isClosed == true){
                         // delete user.writable[eventID]["invitations"][teamID];
                         // user.$save();
                         user_ref.child("writable/" + eventID + "/invitations/" + teamID).remove();
-				        alert("Invalid operation! The event has already been closed.");
-				        return;
-			        }
+				                alert("Invalid operation! The event has already been closed.");
+				                return;
+			              }
 
                     //check team size
             		if (team.currentSize >= team.max){
-				        alert("Invalid operation! The team has reached its maximum capacity.");
-				        return;
-			        }
+				              alert("Invalid operation! The team has reached its maximum capacity.");
+				              return;
+			              }
 
                     // modify invitation in target team , send notification, delete application
                //      applicationList.$loaded().then(function(){
@@ -228,16 +247,22 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                //      });
 
                     // add person to team
-                    helper.addPersonToTeam(uid, eventID, teamID).then(function(){
+                helper.addPersonToTeam(uid, eventID, teamID).then(function(){
+
+                      var msg = user.readOnly.name + " has accepted an invitation from your team " + team.name;
 
                         var msg = user.readOnly.name + " has accepted an invitation from your team " + team.name;
-                        helper.pushNotificationTo(team.leader, eventID, msg);
+                        helper.pushNotificationTo(team.leader, eventID, msg).then(function(){
+                          var temp = {};
+                          temp[uid] = "accepted";
+                          applicationList_ref.update(temp);
+                          user_ref.child("writable/" + eventID + "/invitations/" + teamID).remove();
+                          helper.postTeamAnnouncement(eventID, teamID, user.readOnly.name + " has joined the team " );
+                        })
+
                         // delete user.writable[eventID]["invitations"][teamID];
                         // user.$save();
-                        var temp = {};
-                        temp[uid] = "accepted";
-                        applicationList_ref.update(temp);
-                        user_ref.child("writable/" + eventID + "/invitations/" + teamID).remove();
+
                     });
                 });
             });
@@ -268,7 +293,9 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             user.$loaded().then(function(){
                 // send notification to leader
                 var msg = user.readOnly.name + " has declined an invitation from your team " + team.name;
+
                 helper.pushNotificationTo(team.leader, eventID, msg);
+
                 //delete application in user info
                 // delete user.writable[eventID]["invitations"][teamID];
                 // user.$save();
@@ -283,13 +310,13 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   		temp[uid] = "accepted";
   		ref.child('applications').update(temp);
 
-        helper.addPersonToTeam(uid, eventID,teamID, "member");
-        helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
+        helper.addPersonToTeam(uid, eventID,teamID, "member").then(function(){
+          helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
 
-        userref = firebase.database().ref("users/"+uid +"/writable/" + eventID);
-        appli_ref = userref.child("applications/"+teamID);
-        appli_ref.remove();
-
+          userref = firebase.database().ref("users/"+uid +"/writable/" + eventID);
+          appli_ref = userref.child("applications/"+teamID);
+          appli_ref.remove();
+        })
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz
@@ -335,7 +362,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         ref.child(announcementKey).remove();
         // $firebaseArray(ref).$loaded().then(function(data){
         //     var annIndex = data.$indexFor(announcementKey);
-        //     console.log(annIndex);      
+        //     console.log(annIndex);
         //     return $firebaseArray(ref).$remove(annIndex);
         // });
     }
@@ -384,6 +411,41 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         return ref.child("isRead").set(true).then(function(){});
 
     }
+
+    helper.tags={
+        LanguageTags:{
+            Cantonese: false,
+            English: false,
+            German: false,
+            Japanese: false,
+            Korean: false,
+            Mandarin: false,
+            Spanish: false
+        },
+        MannerTags:{
+            Cool:false,
+            Creative:false,
+            Oncampus:false,
+            Outgoing:false,
+            Pretty:false,
+            SleepLate:false,
+            Thoughtful:false
+        },
+        SkillTags:{
+            C : 0,
+            Cpp : 0,
+            CSS: 0,
+            FLEX: 0,
+            HTML: 0,
+            Java: 0,
+            JavaScript: 0,
+            Objective_C: 0,
+            PHP: 0,
+            Python: 0,
+            SML: 0,
+            SQL: 0
+        }
+    };
 
 
     return helper;
