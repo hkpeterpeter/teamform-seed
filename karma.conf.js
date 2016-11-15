@@ -10,7 +10,8 @@ module.exports = function(config) {
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
 	  'lib/firebase.js',
-	  'lib/angularfire.min.js',	  
+	  'lib/angularfire.min.js',
+      'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js', 	  
 	  'js/*.js',
       'unit_tests/*.js',	  
     ],
@@ -21,11 +22,11 @@ module.exports = function(config) {
 		 'js/index.js' : ['coverage'],
 		 'js/admin.js' : ['coverage'],
 		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage'],
-		 'js/createGroup.js' : ['coverage']
+		 'js/member.js' : ['coverage']
+		 //,'js/createGroup.js' : ['coverage']
 		 //'js/searchbar.js' : ['coverage'],
-		 //'js/chatroomCtrl.js' : ['coverage']
-		 ,'js/searchbar.js' : ['coverage']
+		 ,'js/chatroomCtrl.js' : ['coverage']
+		 //,'js/searchbar.js' : ['coverage']
 },
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
