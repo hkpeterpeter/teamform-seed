@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<body>
+
+
+  <div class="container"  ng-app="myApp" ng-controller="trial">
+        <span>{{questionList}}</span>
+
+
+
+
+  <!-- Trigger the modal with a button -->
+  <div ng-repeat="x in questionList" class="well">
+    <h3 class="col-xs-10 col-md-10" >{{questionList[$index].title}}</h3>
+    <button ng-click="goBackup($index)" type="button" class="btn btn-info btn-lg pull-right'" data-toggle="modal" data-target="#modal{{$index}}"><span class="glyphicon glyphicon-pencil" aria-hidden="false" aria-label="Edit"></span></button>
+    <button ng-click="deleteQuestion($index,1)" class="btn btn-lg pull-right'" ><span class="glyphicon glyphicon-trash" aria-hidden="false" aria-label="Delete"></span></button>
+  </div>
+
+<button ng-click="addQuestion()" data-toggle="modal" data-target="#modalForNew"  class="btn btn-success pull-left'"  ><span class="glyphicon glyphicon-plus-sign" aria-hidden="false" aria-label="Add Question"></span></button>
+<button ng-click="deleteQuestion(0,questionList.length)" class="btn btn-danger pull-left'" ><span class="glyphicon glyphicon-trash" aria-hidden="false" aria-label="Delete All"></span></button>
+
+
+<!--another modal only for editing newly added question-->
+<div  class="modal fade" id="modalForNew" role="dialog" >
+  <form name="newQuestionForm">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+
+        <!--button type="button" class="close" data-dismiss="modal">&times;</button-->
+        <div class="modal-body">
+
+          <div class="form-group">
+            <div >
+                <labal>Question: </label>
+                  <input class=" form-control" type="text" ng-model="tempQuestion.title" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Choice: </label>
+                <input ng-repeat="x in tempQuestion.choice" class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice[$index]" required>
+              </div>
+
+              <div class="form-group">
+                <div >
+                  <label>Answer: </label>
+                  <input class="col-xs-10 col-md-10 form-control " type="text" ng-model="tempQuestion.answer" required>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="modal-footer">
+
+          <!-- paragraph is for the padding of button-->
+
+        <button ng-disabled="newQuestionForm.$invalid" ng-click="saveEditedQuestion(questionList.length-1)" type="button" class="btn btn-success" data-dismiss="modal" >Save</button>
+        <button ng-click="deleteQuestion(questionList.length-1,1)" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+          </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div ng-repeat = "x in questionList" class="modal fade" id="modal{{$index}}" role="dialog" >
+    <form name="questionForm{{$index}}">
+      <div class="modal-dialog">
+
+      <!-- Modal content-->
+        <div class="modal-content">
+
+          <!--button type="button" class="close" data-dismiss="modal">&times;</button-->
+          <div class="modal-body">
+
+            <div class="form-group">
+              <div >
+                  <labal>Question: </label>
+                    <input class=" form-control" type="text" ng-model="tempQuestion.title" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Choice: </label>
+                  <input ng-repeat="x in tempQuestion.choice" class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice[$index]" required>
+
+                </div>
+
+                <div class="form-group">
+                  <div >
+                    <label>Answer: </label>
+                    <input class="col-xs-10 col-md-10 form-control " type="text" ng-model="tempQuestion.answer" required>
+                  </div>
+                </div>
+              </div>
+            </form>
+        <div class="modal-footer">
+
+            <!-- paragraph is for the padding of button-->
+
+          <button ng-disabled="questionForm{{$index}}.$invalid" ng-click="saveEditedQuestion($index)" type="button" class="btn btn-success" data-dismiss="modal" >Save</button>
+          <button ng-click="cancelEditedQuestion()" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+    </div>
+
+
+
+  </div>
+
+
+<script>
+
+var app = angular.module('myApp', []);
+
+<!-- question only as it is for saving single question-->
+app.service('backup', function() {
+  var question ;
+  console.log('in the backup');
+
+
+
+  var saveQuestion = function(newObj) {
+      question =jQuery.extend(true,{},newObj);
+      console.log('see see the obj');
+      console.log(newObj);
+      console.log('see see the question');
+      console.log(question);
+  };
+
+  var getQuestion = function(){
+    console.log('getQuestion called');
+    console.log('question return');
+    console.log(question);
+      return question;
+  };
+
+  return {
+    saveQuestion: saveQuestion,
+    getQuestion: getQuestion
+  };
+
+});
+
+<!--it is just some left behind and will be deleted on final version-->
+app.service('keeper', function() {
+  var questionList = [];
+  var counter = 0;
+
+  var increaseCounter = function()
+  {
+      counter = counter +1;
+  }
+
+  var decreaseCounter = function()
+  {
+      counter = counter -1;
+  }
+
+  var getCounter = function()
+  {
+     return counter;
+  }
+
+  var addQuestion = function(newObj) {
+      questionList.push(newObj);
+  };
+
+  var getQuestion = function(){
+      return questionList;
+  };
+
+  return {
+    addQuestion: addQuestion,
+    getQuestion: getQuestion,
+    getCounter: getCounter,
+    decreaseCounter: decreaseCounter,
+    increaseCounter: increaseCounter
+  };
+
+});
+
+
+
+app.controller('trial', function($scope, keeper, backup) {
+    $scope.questionList = [];
+    $scope.tempQuestion ='';
+    var question = {
+      title : "Can you feel my heart beat?",
+      type : "MC",
+      choice: ["A","B","C","D"],
+      answer: "A"
+    };
+    var question2 = {
+      title : "Can you feel my head beat?",
+      type : "MC",
+      choice: ["A","B","C","D"],
+      answer: "A"
+    };
+    var question3 = {
+      title : "Can you feel my hand beat?",
+      type : "MC",
+      choice: ["A","B","C","D"],
+      answer: "A"
+    };
+    $scope.questionList.push(question);
+    $scope.questionList.push(question2);
+    $scope.questionList.push(question3);
+
+    console.log($scope.questionList);
+
+    $scope.goBackup = function(questionNo)
+    {
+      console.log('goBackup called');
+      console.log($scope.questionList[questionNo]);
+      backup.saveQuestion($scope.questionList[questionNo]);
+      $scope.tempQuestion = backup.getQuestion();
+    };
+
+    $scope.getBackup = function()
+    {
+      $scope.tempQuestion = backup.getQuestion();
+      console.log('temp Question setted');
+      console.log($scope.tempQuestion);
+      return backup.getQuestion();
+    };
+
+    $scope.cancelEditedQuestion = function()
+    {
+      <!--did nothing as cancel did not need to perform any operation right now-->
+      $scope.emptyTempquestion();
+    };
+
+    $scope.saveEditedQuestion = function(questionNo)
+    {
+
+      $scope.questionList[questionNo] = $scope.tempQuestion;
+    };
+
+
+    $scope.deleteQuestion = function(index,number)
+    {
+
+    $scope.questionList.splice(index,number);
+    };
+
+    $scope.emptyTempquestion = function()
+    {
+      console.log('try to empty tempQuestion');
+      tempQuestion ={
+        title : "",
+        type : "",
+        choice: ["","","",""],
+        answer: ""
+      };
+
+    };
+
+    $scope.addQuestion = function()
+    {
+      console.log('addQuestion called');
+      <!--consider to delete it-->
+      $scope.emptyTempquestion();
+
+      var emptyQuestion ={
+        title : "",
+        type : "",
+        choice: ["","","",""],
+        answer: ""
+      };
+      $scope.questionList.push(emptyQuestion) ;
+
+
+    };
+
+
+
+
+});
+
+app.controller('popup', function($scope, keeper) {
+   var temp = keeper.getQuestion();
+   $scope.arr=['','','',''];
+   $scope.text = temp.name;
+
+});
+</script>
+
+</body>
+</html>

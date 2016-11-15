@@ -30,7 +30,7 @@ $(document).ready(function(){
 
 });
 
-angular.module('teamform-index-app', ['login','search','firebase'])
+angular.module('teamform-index-app', ['firebase', 'login', 'search'])
 .controller('indexCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 
 $scope.click_team = function(){
