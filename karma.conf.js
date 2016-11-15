@@ -19,8 +19,10 @@ module.exports = function(config) {
             'app.signup_and_login.js',
             'event.js',
             'createTeam.js',
+            'personal_info.js',
             'unit_tests/test_login.js',
             'unit_tests/test_createEvent.js',
+            'unit_tests/test_personal_info.js',
             'unit_tests/test_createTeam.js'
         ],
         exclude: [],
@@ -29,6 +31,7 @@ module.exports = function(config) {
             'event.js': ['coverage'],
             'app.signup_and_login.js' : ['coverage'],
             'createTeam.js' : ['coverage'],
+            'personal_info.js' : ['coverage']
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {

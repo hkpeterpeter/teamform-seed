@@ -33,21 +33,24 @@
 describe("TeamApp module", function() {
 
     var config = {
-    apiKey: "AIzaSyARcBw16Z-m5cPGOuNRx5tICKK0RiJ8kms",
-    authDomain: "testingdb-af83e.firebaseapp.com",
-    databaseURL: "https://testingdb-af83e.firebaseio.com",
-    storageBucket: "testingdb-af83e.appspot.com",
-    messagingSenderId: "2571210567"
-  };
-  firebase.initializeApp(config);
+        apiKey: "AIzaSyARcBw16Z-m5cPGOuNRx5tICKK0RiJ8kms",
+        authDomain: "testingdb-af83e.firebaseapp.com",
+        databaseURL: "https://testingdb-af83e.firebaseio.com",
+        storageBucket: "testingdb-af83e.appspot.com",
+        messagingSenderId: "2571210567"
+    };
+    firebase.initializeApp(config);
+
+    var rootScope;
 
     beforeEach(function() {
 
         module("teamApp", "firebase", "ui.router");
 
-        inject(function(_$controller_) {
+        inject(function(_$controller_, $rootScope) {
 
             $controller = _$controller_;
+            rootScope = $rootScope;
 
         });
     });
@@ -72,7 +75,7 @@ describe("TeamApp module", function() {
 
             $scope.signIn();
 
-            expect($rootScope.id).toBeDefined();
+            expect(rootScope.id).toBeDefined();
             setTimeout(function() {
                 done();
             }, 2000);
