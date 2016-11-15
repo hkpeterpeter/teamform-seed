@@ -86,7 +86,7 @@
               <div class="text-center">
 
                 <br>
-                <p ng-show="logined">Logined as {{username}}</p>
+                <p ng-show="logined"><b><i>Hello {{username}} !</i></b></p>
                 <br>
               </div>
             </div>
@@ -94,32 +94,34 @@
         <!--Personal Data -->
         <div>
           <h2> Personal Data</h2>
+          <form>
+            <textarea class="form-control" rows="3"></textarea>
 
            <div class="lightblue">
              <p> Which school are you from?</p>
-             <form>
+
                <input type="radio" name="major" value="SENG" > School of Engineering<br>
                <input type="radio" name="major" value="SBM"> School of Business and Management<br>
                <input type="radio" name="major" value="SSC"> School of Science<br>
                <input type="radio" name="major" value="SHSS"> School of Humanities and Social Science<br>
-             </form>
+
                </div>
 
             <div class="lightgrey">
                <p> Where are you from?</p>
-               <form>
+
                  <input type="radio" name="home" value="HK" > Hong Kong<br>
                  <input type="radio" name="home" value="China"> China<br>
                  <input type="radio" name="home" value="Asia"> Asia<br>
                  <input type="radio" name="home" value="NA"> North America<br>
                  <input type="radio" name="home" value="EU"> Europe<br>
                  <input type="radio" name="home" value="Other"> Other
-               </form>
+
              </div>
 
              <div class="lightblue">
                <p> Which hall do you live in?</p>
-               <form>
+
                  <input type="radio" name="hall" value="hall1" > Hall I<br>
                  <input type="radio" name="hall" value="hall2" > Hall II<br>
                  <input type="radio" name="hall" value="hall3" > Hall III<br>
@@ -130,25 +132,26 @@
                  <input type="radio" name="hall" value="hall8" > Hall VIII<br>
                  <input type="radio" name="hall" value="hall9" > Hall IX<br>
                  <input type="radio" name="hall" value="nohall" > I don't live in hall
-               </form>
+
                  </div>
 
                  <div class="lightgrey">
                     <p> What kind of group are you looking for?</p>
-                    <form>
+
                       <input type="radio" name="gptype" value="gradeA" > Elite<br>
                       <input type="radio" name="gptype" value="gradeB"> Work hard together !<br>
                       <input type="radio" name="gptype" value="gradeC"> Making new friends<br>
                       <input type="radio" name="gptype" value="gradeD"> I don't care !
-                    </form>
+
                   </div>
+
 
 
 
                  <div style="text-align: center;">
                  <input type="submit" value="Confirm">
                  </div>
-
+                </form>
               </div>
 
 
