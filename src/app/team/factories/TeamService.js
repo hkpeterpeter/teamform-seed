@@ -1,7 +1,8 @@
 export default class TeamService {
     constructor($firebaseArray, $firebaseObject, $database, authService, userService, eventService, messageService) {
-        this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
+        this.$firebaseArray = $firebaseArray;
+        //this.$firebase = $firebase;
         this.$database = $database;
         this.authService = authService;
         this.userService = userService;
