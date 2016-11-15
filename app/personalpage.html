@@ -22,6 +22,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
      <link rel="stylesheet" href="css/site.css" >
 
+     <!-- Facebook SDK -->
+     <script>
+        window.fbAsyncInit = function() {
+        FB.init({
+           appId      : '322733031442583',
+           xfbml      : true,
+           version    : 'v2.8'
+        });
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+     </script>
+
+     <!-- Bootstrap -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
 
      <!-- Customized libraries shared by pages -->
      <script src="js/site.js"></script>
@@ -57,11 +81,10 @@
 
            <div class="text-center">
               <h1>My Profile</h1>
-              <p>firebase.auth().user.displayName</p>
               <p style="color:red"> Still in Progress</p>
 
               <div class="text-center">
-                <input type="text" class="form-control" id="inputEventID" ng-model="eventID" placeholder="Enter event ID" style="text-align: center;">
+
                 <br>
                 <p ng-show="logined">Logined as {{username}}</p>
                 <br>
@@ -114,16 +137,16 @@
                     <p> What kind of group are you looking for?</p>
                     <form>
                       <input type="radio" name="gptype" value="gradeA" > Elite<br>
-                      <input type="radio" name="gptype" value="gradeB"> Work hard together!<br>
+                      <input type="radio" name="gptype" value="gradeB"> Work hard together !<br>
                       <input type="radio" name="gptype" value="gradeC"> Making new friends<br>
-                      <input type="radio" name="gptype" value="gradeD"> I don't care!
+                      <input type="radio" name="gptype" value="gradeD"> I don't care !
                     </form>
                   </div>
 
 
 
                  <div style="text-align: center;">
-                 <input type="submit" value="Submit">
+                 <input type="submit" value="Confirm">
                  </div>
 
               </div>
