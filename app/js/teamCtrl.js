@@ -17,13 +17,46 @@ app.controller("teamCtrl",
 			{name :"SQL" , state: false}
 		];
 
-		$scope.tagList = {
-			0 : "javascript",
-			1 : "html",
-			2 : "css",
-			3 : "c++",
-			4 : "python",
-			5 : "SQL"
+		$scope.SkillTagsList = {
+			0 : "JavaScript",
+			1 : "HTML",
+			2 : "CSS",
+			3 : "C++",
+			4 : "Python",
+			5 : "SQL",
+			6 : "SML",
+			7 : "C",
+			8 : "C#",
+			9 : "Java",
+			10 : "Objective-C",
+			11 : "FLEX",
+			12 : "PHP"
+		}
+
+		$scope.LanguageTagsList = {
+			"Mandarin" : false,
+			"Korean" : false,
+			"Cantonese" : false,
+			"English" : false,
+			"Japanese" : false,
+			"German" : false,
+			"Spanish" : false
+		}
+
+		$scope.SkillTagsList = {
+			0 : "JavaScript",
+			1 : "HTML",
+			2 : "CSS",
+			3 : "C++",
+			4 : "Python",
+			5 : "SQL",
+			6 : "SML",
+			7 : "C",
+			8 : "C#",
+			9 : "Java",
+			10 : "Objective-C",
+			11 : "FLEX",
+			12 : "PHP"
 		}
 
 		$scope.statusList = {
@@ -52,7 +85,7 @@ app.controller("teamCtrl",
 						//     $scope.inv = $firebaseObject(invref);
 						// });
 						// $scope.obj.$loaded().then(function(data){
-						//     if($scope.obj[$scope.eventID]===undefined)
+						//     if($scope.obj[$scope.eventID]===undefine
 						//         $scope.role="visitor";
 						//     else
 						//     {
@@ -212,8 +245,8 @@ app.controller("teamCtrl",
 		$scope.SetLeader = function(uid){
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team leader has changed from " + Helper.getUsername($scope.userData.uid) + " to " + Helper.getUsername(uid));
 			Helper.changeLeader($scope.userData.uid, uid, $scope.eventID, $scope.teamID);
-			for (uid in $scope.memberlist){
-				Helper.pushNotificationTo(uid, $scope.eventID, "Your team's leader has changed from " + Helper.getUsername($scope.userData.uid) + " to " + Helper.getUsername(uid))
+			for (memberuid in $scope.memberlist){
+				Helper.pushNotificationTo(memberuid, $scope.eventID, "Your team's leader has changed from " + Helper.getUsername($scope.userData.uid) + " to " + Helper.getUsername(uid))
 			}
 		}
 
@@ -236,8 +269,8 @@ $scope.test = $scope.teamdata.members;
 			ref.child('name').set(newname);
 
 							Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team name has changed to " + newname);
-							for (uid in  $scope.memberlist){
-								Helper.pushNotificationTo(uid, $scope.eventID, "Your team's name has changed to " + newname)
+							for (memberuid in  $scope.memberlist){
+								Helper.pushNotificationTo(memberuid, $scope.eventID, "Your team's name has changed to " + newname)
 							}
 		}
 
@@ -249,8 +282,8 @@ $scope.test = $scope.teamdata.members;
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('desc').set(newdesc);
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team intro has changed to \"" + newdesc + "\"");
-			for (uid in  $scope.memberlist){
-				Helper.pushNotificationTo(uid, $scope.eventID, "Your team's intro has changed to \"" + newdesc + "\"")
+			for (memberuid in  $scope.memberlist){
+				Helper.pushNotificationTo(memberuid, $scope.eventID, "Your team's intro has changed to \"" + newdesc + "\"")
 			}
 		}
 
@@ -263,8 +296,8 @@ $scope.test = $scope.teamdata.members;
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('max').set(newmax);
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, "Team max size has changed to " + newmax );
-			for (uid in  $scope.memberlist){
-				Helper.pushNotificationTo(uid, $scope.eventID, "Your team's max size has changed to " + newmax);
+			for (memberuid in  $scope.memberlist){
+				Helper.pushNotificationTo(memberuid, $scope.eventID, "Your team's max size has changed to " + newmax);
 			}
 		}
 
@@ -321,6 +354,17 @@ $scope.test = $scope.teamdata.members;
 				// $scope.role=$scope.obj[$scope.eventID].position;
 				// $scope.teamID=$scope.obj[$scope.eventID].team;
 		}
+
+
+		var dialogue;
+		$scope.ManageTagDialogue = function(){
+				dialogue = ngDialog.open({
+						template: 'templates/manageTag.html',
+						className: 'ngdialog-theme-plain',
+						scope: $scope
+				});
+		};
+
 //get skill tags
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags/SkillTags');
 		$scope.skilltags = $firebaseObject(ref);

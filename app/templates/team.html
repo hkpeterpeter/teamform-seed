@@ -75,17 +75,17 @@
               <h3 class="panel-title">Tags</h3>
           </div>
           <div class="panel-body"> Skill Tags:
-            <ul ng-repeat="(name,value) in skilltags">
-                <li>{{name}} : {{value.num}}/{{value.need}}</li>
+            <ul ng-repeat="(name,value) in skilltags" ng-if = "value > 0">
+                <li>{{name}} : {{value}}</li>
             </ul>
           </div>
-          <div class="panel-body"> Feature Tags:
-            <ul ng-repeat="(name,value) in featuretags">
+          <div class="panel-body"> Manner Tags:
+            <ul ng-repeat="(name,value) in mannertags" ng-if = "value">
                 <li>{{name}}</li>
             </ul>
           </div>
           <div class="panel-body"> Language Tags:
-            <ul ng-repeat="(name,value) in languagetags">
+            <ul ng-repeat="(name,value) in languagetags" ng-if = "value">
                 <li>{{name}}</li>
             </ul>
           </div>
@@ -227,7 +227,7 @@
                 <form class = "form-inline">
                   <div class = "form-group">
                       <label for = "name">New manner tag:</label>
-                      <input type = "text" name = "name" placeholder = "e.g. Cool" ng-model = "form.featuretag" >
+                      <input type = "text" name = "name" placeholder = "e.g. Cool" ng-model = "form.mannertags" >
                       <button class = "btn btn-primary" ng-click = "addFeatureTag(form.featuretag)" data-dismiss = "modal">Submit</button>
                   </div>
                 </form>
