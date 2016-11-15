@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-admin-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - A real-time online team forming app</title>
+
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+   </head>
+   <body>
+
+   <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/hkpeterpeter/teamform-seed" target="_blank">Fork me on GitHub</a></span>
+
+
+
+
+      <div class="navbar-wrapper">
+
+         <div class="container">
+            <nav class="navbar navbar-static-top navbar-default">
+               <div class="container">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand" href="#">teamform</a>
+                  </div>
+                  <div id="navbar" class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav">
+
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                              <li><a href="#page_about">About teamform</a></li>
+                              <li>
+                              <a href="#page_team">Development team</a>
+                              </li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#">TODO: Add menu items here... </a></li>
+                           </ul>
+                        </li>
+
+            						<li class="dropdown">
+            							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
+
+            							<ul class="dropdown-menu">
+            								<li>
+            									<a href="coverage/index.html" target="_blank">Report</a>
+            								</li>
+            								<li role="separator" class="divider"></li>
+
+            								<li>
+            									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
+            								</li>
+
+            								<li><a href="#">TODO: Add more test cases here... </a></li>
+            							</ul>
+            						</li>
+
+                     </ul>
+                  </div>
+               </div>
+            </nav>
+         </div>
+      </div>
+      <!--  ================================================== -->
+      <!-- personal display blocks -->
+      <div ng-controller="profileCtrl" class="row">
+            <div class="col-md-2">
+            </div>
+
+            <div class="col-md-8">
+              <!-- Custom Tabs -->
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#tab_1" data-toggle="tab">Tab 1</a></li>
+                  <li><a href="#tab_2" data-toggle="tab">Tab 2</a></li>
+                  <li><a href="#tab_3" data-toggle="tab">Tab 3</a></li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      Dropdown <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                      <li role="presentation" class="divider"></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                    </ul>
+                  </li>
+                  <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tab_1">
+
+                    <span> Name : {{ showName()}} </span>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_2">
+                    <span>Events:</span>
+                    <span ng-repeat=" e in dashboard">
+                    </span>
+                  </div>
+                  <!-- /.tab-pane -->
+                  <div class="tab-pane" id="tab_3">
+                    <span>Tags</span>
+                    <span ng-repeat="t in Tags">
+                        {{t.content}}
+                    </span>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div>
+              <!-- nav-tabs-custom -->
+            </div>
+            <div class="col-md-2">
+            </div>
+      </div>
+
+      <!-- /.col -->
+      <!--  ================================================== -->
+         <!-- FOOTER -->
+      <div class="row">
+         <hr>
+         <footer>
+            <p class="pull-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2017 COMP3111/H teaching team </p>
+            <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
+         </footer>
+      </div>
+      <!-- /.container -->
+
+      <!-- JavaScript of this page -->
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="lib/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>
+
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>
+      <script src="lib/angularfire.min.js"></script>
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+      <script src="js/profile.js"></script>
+
+
+   </body>
+</html>
