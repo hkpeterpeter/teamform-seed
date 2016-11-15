@@ -7,7 +7,7 @@
 	
 		<title >LIGHT OF WISDOM - {{EventName}} Event - {{TeamName}} Team</title>
 
-	<link rel="shortcut icon" href="assets/images/assets/images/logo.png">
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -76,17 +76,15 @@
 	<br><br><br><br>
 	
 
+
+			<button id="btn_join_team" type="button" class="btn btn-primary btn-sm" ng-click="jointeam()">Join</button>
 	  
 	<div class="jumbotron top-space parallax">	 
 		<div class="container">
 			<h2 id="text_event_name"></h2>
-					
-			<div>
 
-				<div class="row ">
-				<div class="text-center container-fluidspace">
-				<button id="btn_join_team" type="button" class="btn btn-primary btn-sm" ng-click="jointeam()">Join</button>
-				</div>
+			<div>
+				<div class="row">
 					<div class="col-md-2 col-xs-2"></div>
 						<div class="col-md-8 col-xs-8 ">						
 							<table align="center" border="2px">
@@ -100,12 +98,16 @@
 								</tr>
 								<tr>
 									<th>Team Member</th>
-									<tr ng-repeat="m in members">
-									<td>{{m.position}}</td>
-									<td>{{m.username}}</td>
-									</tr>
+									<td></td>
 								</tr>
-
+								<tr>
+									<td>Position</td>
+									<td>Username</td>
+								</tr>
+								<tr ng-repeat="m in members"> 
+									<th>{{m.position}}</th>
+									<td>{{m.username}}</td>
+								</tr>
 							</table>
 							<div id="comment" class="container" >
 									<div class="page-header">
@@ -146,12 +148,6 @@
 											<span>Commented on: {{c.date}}</span>
 										</div>
 									</div>
-									
-									<a href="index.html"
-									<button id="btn_admin" type="button" class="btn btn-primary" >
-									<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-									Back</button></a>
-									
 							</div>
 
 						</div>
@@ -160,9 +156,12 @@
 			</div>
 		</div>
 	</div>
+</div>
 
-
-	
+	<a href="index.html"
+	<button id="btn_admin" type="button" class="btn btn-primary" >
+	<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+	Back</button></a>
 
    
    </body>

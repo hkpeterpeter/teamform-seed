@@ -66,6 +66,11 @@ angular.module('teamform-member-app', ['firebase'])
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var userPath = "/user/" + user.uid;
+<<<<<<< HEAD
+        var userRef = firebase.database().ref(userPath);
+        userID =user.uid;
+        $scope.userObj = $firebaseObject(userRef);
+=======
         var userref = firebase.database().ref(userPath);
         $scope.userObj = $firebaseObject(userref);
 		$(document).ready(function(){
@@ -76,12 +81,12 @@ angular.module('teamform-member-app', ['firebase'])
 				$("p").show();
 			});
 		});
->>>>>>> 9854935eba44088e0ca35e6f1b0f3e0c5c605e35
+
+>>>>>>> hkkcliu-master
     } else {
     // No user is signed in.
     }
     });
-
 
     $scope.addPosition = function()
     {
