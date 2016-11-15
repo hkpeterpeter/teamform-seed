@@ -7,7 +7,7 @@
       <meta name="keywords" content="teamform, team">
       <meta name="google-signin-scope" content="profile email">
       <meta name="google-signin-cookiepolicy" content="single_host_origin">
-      <meta name="google-signin-client_id" content="775129663322-rs7btt6av3qbadi2l03uvg24p5m3l4rp.apps.googleusercontent.com">
+      <meta name="google-signin-client_id" content="1011476046624-3vo2s9rg5t4g89db047rp7lhq9vr79sg.apps.googleusercontent.com">
 
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>teamform - A real-time online team forming app</title>
@@ -20,6 +20,8 @@
 	  -->
 
       <script src="lib/jquery.min.js"></script>
+
+
 
 
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
@@ -56,9 +58,9 @@
 
 
    </head>
-   <body class="hold-transition skin-blue sidebar-mini">
+   <body class="hold-transition skin-blue sidebar-mini" ng-controller = "indexCtrl">
 
-      <div class="navbar-wrapper">
+      <div class="navbar-wrapper" >
         <header class="main-header" >
           <!-- Logo -->
           <a href="index2.html" class="logo">
@@ -415,7 +417,7 @@
                 </ul>
               </li>
               <li class="treeview">
-                <a href="#">
+                <a href="event.html">
                   <i class="fa fa-files-o"></i>
                   <span>Profile</span>
                   <span class="pull-right-container">
@@ -442,20 +444,44 @@
 
               <li class="treeview">
                 <a href="#">
-                  <i class="fa fa-pie-chart"></i>
-                  <span>My Team</span>
+                  <i class="fa fa-share"></i> <span>My Teams & Events</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
-                <ul class="treeview-menu">
-                  <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Admin</a></li>
-                  <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Leader</a></li>
-                  <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Member</a></li>
-
+                <ul class="treeview-menu" style="display: none;">
+                  <li>
+                    <a href="#"><i class="fa fa-circle-o"></i> Admin
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu">
+                      <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-circle-o"></i> Leader
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu" ng-repeat="t in team">
+                      <li><a href="{{t.link}}"><i class="fa fa-circle-o"></i>{{t.event}}-{{t.team}}</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#"><i class="fa fa-circle-o"></i> Member
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </a>
+                    <ul class="treeview-menu" ng-repeat="m in member">
+                      <li><a href="{{m.link}}"><i class="fa fa-circle-o"></i>{{m.event}}-{{m.team}}</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </li>
-
 
               <li class="treeview">
                 <a href="#">
@@ -498,8 +524,11 @@
           </section>
           <!-- /.sidebar -->
         </aside>
-
-
+        <div class="content-wrapper" ng-switch on="pFilter" >
+            <div  ng-switch-when="create_event"><div ng-include="'create_event.html'"></div></div>
+            <div  ng-switch-when="team_info"><div ng-include="'event.html'"></div></div>
+            <!--<div  ng-switch-default><div ng-include="'includes/parcel_details_exception.html'"></div></div>-->
+        </div>
 
       </div>
 
