@@ -215,7 +215,8 @@ describe('fishCtrl',function(){
 					},
 					"profilePic" : "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872",
 					"skills" : [ "Angular", "database", "computer" ],
-					"teamsAsLeader" : 777
+					"teamsAsLeader" : 777,
+					"teamsAsMember" : [111]
 				},
 				"1" : {
 					"email" : "user1@connect.ust.hk",
@@ -485,10 +486,19 @@ describe('fishCtrl',function(){
 					"teamsAsInvitedPeople" : [ 0, 666 ],
 					"teamsAsLeader" : [ "1" ]
 				}
-			},
-			"$loaded()": true
+			}
 		};
 		expect($scope.processData(allData,0,"0","0")).toBeDefined();
+		$scope.preprocessData(allData);
+
+		
+
+		expect($scope.currentTeam).toBeDefined();
+		allData.users[0].teamsAsMember=['7776'];
+		expect($scope.currentTeam).toBeUndefined();
+		$scope.preprocessData(allData);
+		expect($scope.readyData).toBeDefined();
+
 
 	});
 

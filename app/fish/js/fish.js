@@ -60,7 +60,10 @@ $scope.processData=function(allData, currentEventID, currentTeamID, currentUserI
     };
 
     allData.$loaded().then(function(data){
+        $scope.preprocessData(data);
+    });
 
+    $scope.preprocessData=function(allData){
         for (var candidate in allData.users[$scope.currentUser].teamsAsMember){
             if (allData.teams[candidate].belongstoEvent == $scope.currentEvent){
                 $scope.currentTeam = candidate;
@@ -69,7 +72,7 @@ $scope.processData=function(allData, currentEventID, currentTeamID, currentUserI
         }
 
         $scope.readyData = $scope.processData(allData, $scope.currentEvent, $scope.currentTeam, $scope.currentUser);
-    });
+    };
 
 
     $scope.initShowBody=function(id){
