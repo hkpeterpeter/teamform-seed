@@ -1,15 +1,13 @@
 angular.module('teamform')
 .controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$stateParams', '$state',
 	function($scope, $firebaseObject, $firebaseArray, $stateParams, $state) {
-	
-	// TODO: implementation of MemberCtrl
 
     var eventName = $stateParams.event;
     $scope.event = eventName;
 	$scope.userID = "";
 	$scope.userName = "";	
 	$scope.teams = {};
-	
+
 	$scope.loadFunc = function() {
 		var userID = $scope.userID;
 		if ( userID !== '' ) {
@@ -23,7 +21,6 @@ angular.module('teamform')
 					$scope.userName = "";
 				}
 				
-				
 				if (data.child("selection").val() != null ) {
 					$scope.selection = data.child("selection").val();
 				}
@@ -35,14 +32,11 @@ angular.module('teamform')
 		}
 	};
 	
-	$scope.saveFunc = function() {
-		
-		
+	$scope.saveFunc = function() {		
 		var userID = $.trim( $scope.userID );
 		var userName = $.trim( $scope.userName );
 		
-		if ( userID !== '' && userName !== '' ) {
-									
+		if ( userID !== '' && userName !== '' ) {	
 			var newData = {				
 				'memberName': userName,
 				'selection': $scope.selection
@@ -88,5 +82,4 @@ angular.module('teamform')
 	};
         
 	$scope.refreshTeams(); // call to refresh teams...
-		
 }]);
