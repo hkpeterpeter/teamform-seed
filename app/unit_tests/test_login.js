@@ -1,55 +1,51 @@
 describe('Test login.js', function () {
 
-    var firebase = {
-        database: function () {
-            return {
-                ref: function (item1) {
-                    return {
-                        once: function (item2) {
-                            return {
-                                then: function (func) {
-                                    func();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    };
+   describe('LoginCtrl', function () {
 
-    var $rootScope, $state, $injector;
-    beforeEach(function () {
+    beforeEach(module('teamform'));
 
-        module('teamform');
+    var $rootScope, $state, $injector, $controller;
 
-        inject(function (_$rootScope_, _$state_, _$injector_) {
+    beforeEach(inject(function(_$rootScope_, _$state_, _$injector_, _$controller_){
             $rootScope = _$rootScope_;
             $state = _$state_;
             $injector = _$injector_;
-        })
+	    $controller = _$controller_;
+	    spyOn($state, 'go');
+        }));
+    
+    describe('$scope.goToAdmin', function() {
+    	it('goes to admin page', function () {      
+		var $scope = {};
+		var controller= $controller('LoginCtrl',{$scope: $scope});
+		$scope.goToAdmin();
+        	expect($state.go).toHaveBeenCalledWith("admin", {event: $scope.event});
+    	});
+    
     });
 
+    describe('$scope.goToTeam', function() {
+    	it('goes to team page', function () {      
+		var $scope = {};
+		var controller= $controller('LoginCtrl',{$scope: $scope});
+		$scope.goToTeam();
+        	expect($state.go).toHaveBeenCalledWith("team", {event: $scope.event});
+    	});
+    
+    });	
 
-    it('goes to admin', function ($state) {
-        //browser.get('http://localhost:8080/index.html#/login');
-        //element(by.model('LoginCtrl')).goToAdmin
-        $scope.goToAdmin();
-        expect($state.go).toHaveBeenCalled();
-        expect($state.go).toHaveBeenCalledWith('admin',$stateParams);
-    });
+    describe('$scope.goToMember', function() {
+    	it('goes to member page', function () {      
+		var $scope = {};
+		var controller= $controller('LoginCtrl',{$scope: $scope});
+		$scope.goToMember();
+        	expect($state.go).toHaveBeenCalledWith("member", {event: $scope.event});
+    	});
     
-    it('goes to team', function ($state) {
-        $scope.goToTeam();
-        expect($state.go).toHaveBeenCalled();
-        expect($state.go).toHaveBeenCalledWith('team',$stateParams);
+    });	
+
     });
-    
-    it('goes to member', function ($state) {
-        $scope.goToMember();
-        expect($state.go).toHaveBeenCalled();
-        expect($state.go).toHaveBeenCalledWith('member',$stateParams);
-    });
+ 
     
     
 });
