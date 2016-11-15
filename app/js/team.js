@@ -29,10 +29,13 @@ angular.module('teamform-team-app', ['firebase'])
 		currentTeamSize : 0,
 		teamMembers : [],
 		tags : [],
+		weight : [],
 		invitedBy: []
 	};
 	$scope.uid = "";
 	$scope.currentUser = [];
+	$scope.debug = [];
+	
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
 		if(firebaseUser) {
@@ -45,6 +48,7 @@ angular.module('teamform-team-app', ['firebase'])
 			// }
 		}
 	});
+	
 
 	refPath = eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {
@@ -64,6 +68,7 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));	
 	
+	$scope.scores = [];
 	$scope.requests = [];
 
 	$scope.users = [];
@@ -85,10 +90,24 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.retrieveTagsFromID = function(id) {
 		for(var tmpIdx = 0; tmpIdx < $scope.member.length; tmpIdx++) {
 			if($scope.member[tmpIdx].$id === id) {
-				return $scope.member[tmpIdx].tags;
+				if(angular.isDefined($scope.member[tmpIdx].tags) === false) {return "null"};
+				return $scope.member[tmpIdx].tags ;
 			}
 		}
 		return "null";
+	};
+	
+	$scope.retrieveScoreFromTags = function(mtags) {
+		if(mtags === "null") {return 0 ;}
+		var score =0;
+		var found = -1;
+		for(var i =0; i < mtags.length; i++) {
+			found = $scope.param.tags.indexOf(mtags[i]);
+			if(found  !== -1) {
+				score += $scope.param.weight[found];
+			}
+		}
+		return score;
 	};
 
 	$scope.retrieveNamesFromJSON = function(teamMembers) {
@@ -104,6 +123,15 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 		return result;
 	};
+	
+	$scope.smartAdd = function() {
+		var scores = [];
+		var req = $scope.requests;
+		// for(var i = 0; i < req.length; i++ ) {
+		// 	scores.push(retrieveScoreFromTags(retrieveTagsFromID(req[i])));
+		// }
+		// return scores;
+	}
 
 	$scope.refreshViewRequestsReceived = function() {
 		$scope.requests = [];
@@ -142,7 +170,8 @@ angular.module('teamform-team-app', ['firebase'])
 		var newData = {
 			'size': $scope.param.currentTeamSize,
 			'teamMembers': $scope.param.teamMembers,
-			'tags': $scope.param.tags
+			'tags': $scope.param.tags,
+			'weight' : $scope.param.weight
 		};
 		$.each($scope.param.teamMembers, function(i, obj) {
 			var rec = $scope.member.$getRecord(obj);
@@ -184,6 +213,9 @@ angular.module('teamform-team-app', ['firebase'])
 					if(data.child("tags").val() != null) {
 						$scope.param.tags = data.child("tags").val();
 					}
+					if(data.child("weight").val() != null) {
+						$scope.param.weight = data.child("weight").val();
+					}
 					$scope.$apply();
 				});
 			}
@@ -212,12 +244,19 @@ angular.module('teamform-team-app', ['firebase'])
 	 			break;
 	 		}
 	 	}
-	 	if(addOrNot){$scope.param.tags.push(tagval);}
-	 	else{$scope.param.tags.splice(k,1);}
+	 	if(addOrNot){
+			$scope.param.tags.push(tagval);
+			$scope.param.weight.push(1);
+			}
+	 	else{
+			 $scope.param.tags.splice(k,1);
+			 $scope.param.weight.splice(k,1);
+			}
 	 };
  $scope.openCategory = function(dVal){
 	 	document.getElementById(dVal).classList.toggle("show");
 	 };
+
 
 	
 	//tagsfunctionendshere
@@ -271,7 +310,8 @@ angular.module('teamform-team-app', ['firebase'])
 			}
 			return false;
 	}
-		
+	
+	
 	//invite function
 	$scope.sendInvite = function(id){
 		if (typeof $scope.param.teamName == 'undefined' || $scope.param.teamName == ""){

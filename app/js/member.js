@@ -41,6 +41,8 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.tag = "";
 	$scope.tags =[];
 	$scope.eventName = getURLParameter("q");
+	$scope.ntags = [];
+    $scope.ntags = $firebaseArray(firebase.database().ref("newTags"));
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
