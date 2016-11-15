@@ -385,6 +385,41 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
     }
 
+    helper.tags={
+        LanguageTags:{
+            Cantonese: false,
+            English: false,
+            German: false,
+            Japanese: false,
+            Korean: false,
+            Mandarin: false,
+            Spanish: false
+        },
+        MannerTags:{
+            Cool:false,
+            Creative:false,
+            Oncampus:false,
+            Outgoing:false,
+            Pretty:false,
+            SleepLate:false,
+            Thoughtful:false
+        },
+        SkillTags:{
+            C : 0,
+            Cpp : 0,
+            CSS: 0,
+            FLEX: 0,
+            HTML: 0,
+            Java: 0,
+            JavaScript: 0,
+            Objective_C: 0,
+            PHP: 0,
+            Python: 0,
+            SML: 0,
+            SQL: 0
+        }
+    };
+
 
     return helper;
 })
