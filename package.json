@@ -21,6 +21,7 @@
     "test": "karma start karma.conf.js"
   },
   "dependencies": {
-    "angular-ui-router": "^0.3.2"
+    "angular-ui-router": "^0.3.2",
+    "mockfirebase": "^0.12.0"
   }
 }
