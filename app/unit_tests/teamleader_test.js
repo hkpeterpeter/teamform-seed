@@ -1,4 +1,4 @@
-initFirebase();
+// initFirebase();
 describe('teamleader_controll', function() {
     beforeEach(module('teamapp'));
 
