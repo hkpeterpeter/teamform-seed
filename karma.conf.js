@@ -11,15 +11,17 @@ module.exports = function(config) {
             'lib/angular-mocks.js',
             'lib/firebase.js',
             'lib/angularfire.min.js',
-            'app.signup_and_login.js',
+            'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js',
             'app.js',
-            'unit_tests/test_login.js',
-            'randomEvent.js'
+            'app.route.js',
+            // 'app.signup_and_login.js',
+            'event.js',
+            'unit_tests/test_createEvent.js'
         ],
         exclude: [],
         preprocessors: {
-            'app.signup_and_login.js': ['coverage'],
-            'randomEvent.js': ['coverage']
+            'app.js': ['coverage'],
+            'event.js': ['coverage']
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {

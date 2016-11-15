@@ -52,6 +52,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
       .state('event', {
             url: '/event',
             templateUrl: 'event.html',
+            authRequired: true,
             controller: 'eventSubmit'
             })
             
