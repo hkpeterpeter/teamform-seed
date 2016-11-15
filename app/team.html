@@ -75,8 +75,7 @@
    
 	<br><br><br><br>
 	
-	
-	<div class="text-center">
+
 
 			<button id="btn_join_team" type="button" class="btn btn-primary btn-sm" ng-click="jointeam()">Join</button>
 	  
@@ -85,7 +84,6 @@
 			<h2 id="text_event_name"></h2>
 
 			<div>
-
 				<div class="row">
 					<div class="col-md-2 col-xs-2"></div>
 						<div class="col-md-8 col-xs-8 ">						
@@ -102,7 +100,14 @@
 									<th>Team Member</th>
 									<td></td>
 								</tr>
-								<tr ng-repeat="m in members"> <td>{{m.username}}</td></tr>
+								<tr>
+									<td>Position</td>
+									<td>Username</td>
+								</tr>
+								<tr ng-repeat="m in members"> 
+									<th>{{m.position}}</th>
+									<td>{{m.username}}</td>
+								</tr>
 							</table>
 							<div id="comment" class="container" >
 									<div class="page-header">

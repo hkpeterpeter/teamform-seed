@@ -1,6 +1,6 @@
 angular.module('teamform-team-app', ['firebase'])
-.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
-    function($scope, $firebaseObject, $firebaseArray) {
+.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$window',
+    function($scope, $firebaseObject, $firebaseArray, $window) {
 		
 	// Call Firebase initialization code defined in site.js
 	initalizeFirebase();
@@ -40,25 +40,136 @@ angular.module('teamform-team-app', ['firebase'])
     }
     });
 */
-    var user = firebase.auth().currentUser;
-    console.log(user);
+	    var user = firebase.auth().currentUser;
+	    console.log(user);
 
 		if (user != null) {
-        	var userPath ="/user/" + user.uid;
-        	var userref = firebase.database().ref(userPath);
-        	var name;
+	        var userPath ="/user/" + user.uid;
+	        var userref = firebase.database().ref(userPath);
+	        var name;
+	        var position;
+	        var isPositionEmpty = true;
 
+	        userref.once("value", function(data) {
+	        	console.log(data.val());
+	        	name = data.val().name;
+	        	position = data.val().position;
 
-        	userref.once("value", function(data) {
-        		  console.log(data.val());
-        			name = data.val().name;
-        		var eventPath ="/event/" + eventName + "/team/"+teamName+"/members/"+ user.uid;
-        		var eventref = firebase.database().ref(eventPath);
+	        	if(position=="Forward")
+	        	{
+	        		if($scope.teaminfo.Forward=="")
+	        		{
+	        			//Forward position is emtpy
+	        		}
+	        		else
+	        		{
+	        			isPositionEmpty = false;
+	        		}
+	        	}
+	        	if(position=="Midfield")
+	        	{
+	        		if($scope.teaminfo.Midfield=="")
+	        		{
+	        			//Forward position is emtpy
+	        		}
+	        		else
+	        		{
+	        			isPositionEmpty = false;
+	        		}
+	        	}
+	        	if(position=="LeftBack")
+	        	{
+	        		if($scope.teaminfo.LeftBack=="")
+	        		{
+	        			//Forward position is emtpy
+	        		}
+	        		else
+	        		{
+	        			isPositionEmpty = false;
+	        		}
+	        	}
+	        	if(position=="RightBack")
+	        	{
+	        		if($scope.teaminfo.RightBack=="")
+	        		{
+	        			//Forward position is emtpy
+	        		}
+	        		else
+	        		{
+	        			isPositionEmpty = false;
+	        		}
+	        	}        	
+	        	if(position=="GoalKeeper")
+	        	{
+	        		if($scope.teaminfo.GoalKeeper=="")
+	        		{
+	        			//Forward position is emtpy
+	        		}
+	        		else
+	        		{
+	        			isPositionEmpty = false;
+	        		}
+	        	}
 
-        			eventref.set({ 'joined' : true, 'username' : name})	 
+	        	if(isPositionEmpty==true)
+	        	{
+		        	var eventPath ="/event/" + eventName + "/team/"+teamName+"/members/"+ user.uid;
+		        	var eventref = firebase.database().ref(eventPath);
+
+		        	eventref.update({	
+		        		'joined' : true, 
+		        		'username' : name,
+		        		'position' : position
+		        	})
+
+		        	if(position!=null)
+		        	{
+		        		position = position.toString();
+		        	}
+		        	var positionPath = "/event/"+eventName+"/team/"+teamName;
+		        	var positionRef = firebase.database().ref(positionPath);
+		        	if(position=="Forward")
+		        	{
+		        		positionRef.update({	
+		        			'Forward' : name
+		        		})
+		        	}
+		        	if(position=="Midfield")
+		        	{
+		        		positionRef.update({	
+		        			'Midfield' : name
+		        		})
+		        	}
+		        	if(position=="LeftBack")
+		        	{
+		        		positionRef.update({	
+		        			'LeftBack' : name
+		        		})
+		        	}
+		        	if(position=="RightBack")
+		        	{
+		        		positionRef.update({	
+		        			'RightBack' : name
+		        		})
+		        	}        	
+		        	if(position=="GoalKeeper")
+		        	{
+		        		positionRef.update({	
+		        			'GoalKeeper' : name
+		        		})
+		        	}
+				}
+				else
+				{
+					//Failure of joining team
+					$window.alert("Your position is occupied by other player!!!");
+          		    console.log('Your position is occupied by other player!!!');
+				}
+
 			});
-		} else {
-  			// No user is signed in.
+		} else 
+		{
+	  			// No user is signed in.
 		}
 
 	}

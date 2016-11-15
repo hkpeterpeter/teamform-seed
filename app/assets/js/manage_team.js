@@ -27,8 +27,8 @@ angular.module('teamform-manage_team-app', ['firebase'])
 
 
 	
-	$scope.teaminfo = {TeamLeader:"", Description:"" };
-	$scope.input = {description: ""};
+	$scope.teaminfo = {TeamLeader:"", Description:"", Forward:"", Midfield:"", LeftBack:"", RightBack:"", Goalkeeper:""};
+	$scope.input = {forward:"", midfield:"", leftBack:"", rightBack:"", goalkeeper:""};
 
 	var eventName, teamName;
 	eventName = getURLParameter("q");
@@ -85,6 +85,11 @@ angular.module('teamform-manage_team-app', ['firebase'])
 			$scope.teaminfo.TeamLeader = teamleader;
 			$scope.teaminfo.TeamName = teamName;
 			$scope.teaminfo.Description = $scope.input.description;
+			$scope.teaminfo.Forward = $scope.input.forward;
+			$scope.teaminfo.Midfield = $scope.input.midfield;
+			$scope.teaminfo.LeftBack = $scope.input.leftBack;
+			$scope.teaminfo.RightBack = $scope.input.rightBack;
+			$scope.teaminfo.Goalkeeper = $scope.input.goalkeeper;
 					}) 
 		.catch(function(error) {
 			// Database connection error handling...
