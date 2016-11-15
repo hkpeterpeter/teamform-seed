@@ -10,7 +10,9 @@ app.controller("teamedit",["$scope","$firebaseArray", "Auth","$rootScope",
         $scope.teamedit = function(eventId, teamId,teamintro) {
           var path = "events" + "/" + eventId + "/" + "Team" + "/" + teamId;
                     console.log(path);
-        
+        var newdata = {
+            intro : teamintro
+        }        
           var itemRef =firebase.database().ref(path);
           itemRef.update(newdata);
         }
