@@ -1,4 +1,7 @@
 teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope,$scope) {
+
+  $scope.loginStatus = false;
+
   // Login helper functions
   $scope.login = function(providerName) {
     var successFlag = false;
@@ -20,7 +23,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
     default:
       // statements_def
       console.log('error login');
-      break;
+      return;
     }
 
 
@@ -60,7 +63,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
       console.log("user added");
       $rootScope.loginWithEmail(data['email']);
     }
-
+    $scope.loginStatus = true;
     // console.log($rootScope.currentUser);
     // $rootScope.test();
 
