@@ -89,6 +89,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		.state('createTeam', {
             url: '/createTeam',
             templateUrl: 'createTeam.html',
+            authRequired: true,
             controller: 'teamSubmit'
             })
 

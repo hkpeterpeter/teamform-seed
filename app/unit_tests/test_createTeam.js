@@ -1,42 +1,38 @@
 describe('Testing', function() {
-    // var config = {
-    //     apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
-    //     authDomain: "comp3111-bb108.firebaseapp.com",
-    //     databaseURL: "https://comp3111-bb108.firebaseio.com",
-    //     storageBucket: "comp3111-bb108.appspot.com",
-    //     messagingSenderId: "554833059052"
-    // };
-    // firebase.initializeApp(config);
 
-    var form;
+    var ref, auth;
 
     beforeEach(function() {
 
         module("teamApp", "firebase");
 
-        inject(function(_$controller_) {
+        inject(function(_$controller_, $firebaseAuth) {
 
             $controller = _$controller_;
-
+            ref = firebase.database().ref();
+            auth = $firebaseAuth(firebase.auth());
         });
     });
 
-    describe('createTeam.js', function() {
+    describe('submit()', function() {
 
-        it("should create team", function(done) {
+        it("should create event on firebase", function(done) {
 
             var $scope = {};
             $controller('teamSubmit', {
                 $scope: $scope
             });
-            form = $scope.teamForm;
-            // else part
+            var teamNum = 0;
 
-             $scope.input.state=true;
-             $scope.input.holder=1;
-
+            $scope.input.name = "fish";
+            $scope.input.intro = "fish";
+            $scope.input.event = "Event333";
+            auth.$signInWithEmailAndPassword("fish1@fish.com", "123123");
             $scope.submit();
 
+            setTimeout(function() {
+                expect(teamNum).toEqual(teamNum);
+            }, 2000);
 
             setTimeout(function() {
                 done();
