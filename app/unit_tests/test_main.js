@@ -31,7 +31,7 @@ describe('Test main.js', function () {
     });
 
 
-    it('value within 1 to 3', function () {
+    it('test module run', function () {
         var obj = {
             callback: function () {
             }
