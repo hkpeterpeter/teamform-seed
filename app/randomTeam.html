@@ -7,10 +7,12 @@
 	<h1>No idea about choosing team? How about choose a team randomly?</h1>
 	<div ng-controller="random_Team">           
 		Please select the event below: <br>
-		<select ng-model="selectedName" ng-options="x.name for x in event" ng-change="setEvent(selectedName.$id)"></select>
+		<select ng-model="selectedName" ng-options="x.name for x in event"></select>
+		<!--<select ng-model="selectedName" ng-options="x.name for x in event" ng-change="shuffleArray($scope.teamOfChosenEvent)"></select>-->
+		
 		<br><br><br>
 		Please select which type of team do you want: <br>
-		<input type="radio" ng-model="randMethod"  value="rrand">Really random <br>
+		<input type="radio" ng-model="randMethod"  value="rrand"  ng-change="setEvent(selectedName.$id)">Really random <br>
 		<!--<input type="radio" ng-model="randMethod" ng-change="scope.eventID.$save(selectedName)" value="rrand">Really random <br>-->
 		<!--<input type="radio" ng-model="randMethod" value="full">Almost full <br>
 		<input type="radio" ng-model="randMethod" value="age">Age <br>-->
@@ -28,7 +30,7 @@
 							<td><b>Join(In Person)</b></td>
 						</tr>
 						
-						<tr data-ng-repeat="g in teamOfChosenEvent| orderBy:random" ng-if="(g.openness == true)">
+						<tr data-ng-repeat="g in teamOfChosenEvent | orderBy:random  | limitTo:10"   ng-if="(g.openness == true)">
 							<td align="center">{{g.name}}</td>
 							<td align="center">{{g.intro}}</td>
 							<td align="center">
@@ -40,7 +42,7 @@
 					</table>
 					<br><br><br>
 					Feel free to try again if you still have no idea.
-					<button>
+					<button ng-click="">
 					  Try again!!!
 					</button>
 
