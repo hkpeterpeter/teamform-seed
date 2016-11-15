@@ -1,7 +1,7 @@
 describe('fishCtrl',function(){
 	beforeEach(module('teamapp','firebase'));
 	var $scope, $firebaseArray, $firebaseObject, createController, $q, defered;
-	initFirebase();
+	//initFirebase();
 
 	beforeEach(inject(function($rootScope, $controller, _$rootScope_, _$firebaseArray_, _$firebaseObject_, _$q_){
 		$firebaseArray = _$firebaseArray_;
@@ -50,6 +50,26 @@ describe('fishCtrl',function(){
 		var controller = createController();
 
 
+	});
+	it('pe1', function(){
+		var controller = createController();
+		expect($scope.projectEuler001(1000)).toBe(233168);
+	});
+	it('pe2', function(){
+		var controller = createController();
+		expect($scope.projectEuler002(4000000)).toBe(4613732);
+	});
+	it('pe3', function(){
+		var controller = createController();
+		expect($scope.projectEuler003(600851475143)).toBe(6857);
+	});
+	it('pe4', function(){
+		var controller = createController();
+		expect($scope.projectEuler004(3)).toBe(906609);
+	});
+	it('pe5', function(){
+		var controller = createController();
+		expect($scope.projectEuler005(20)).toBe(232792560);
 	});
 	it('process data', function(){
 		var controller = createController();
