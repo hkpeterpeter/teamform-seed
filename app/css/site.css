@@ -52,6 +52,10 @@
     padding: 10px 10px;
 }
 
+.login {
+    display: inline-block;
+}
+
 /* Code to center the tutorial video */
 div.center iframe {
     display: block;
