@@ -35,6 +35,18 @@
                 url: '/team/:event',
                 templateUrl: 'app/partials/team.html',
                 controller: 'TeamCtrl'
+            }).state('admin_creation', {
+                url: '/admin_creation',
+                templateUrl: 'app/partials/admin_creation.html',
+                controller: 'AdminCreationCtrl'
+            }).state('member_creation', {
+                url: '/member_creation',
+                templateUrl: 'app/partials/member_creation.html',
+                controller: 'MemberCreationCtrl'
+            }).state('team_creation', {
+                url: '/team_creation',
+                templateUrl: 'app/partials/team_creation.html',
+                controller: 'TeamCreationCtrl'
             });
 
             var config = {
