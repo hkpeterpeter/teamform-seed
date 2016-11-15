@@ -66,6 +66,27 @@ describe('Test team.js', function() {
 		expect($scope.requests).toEqual(["123", "789"]);
 	});
 
+	it("test tagChecked", function() {
+		$scope.param = {
+			tags: ["male", "female", "ug", "pg"]
+		};
+		expect($scope.tagChecked("male")).toEqual(true);
+		expect($scope.tagChecked("python")).toEqual(false);
+		$scope.param = {};
+		expect($scope.tagChecked("python")).toEqual(false);
+	});
+
+	it("test addTags", function() {
+		$scope.param = {
+			tags: ["male", "female", "ug", "pg"],
+			weight: [1,2,3,4]
+		};
+		$scope.addTags("Java");
+		expect($scope.param.tags.length).toEqual(5);
+		$scope.addTags("male");
+		expect($scope.param.tags.length).toEqual(4);
+	});
+
 	// it("test removeMember 1", function() {
 	// 	$scope.eventName = "COMP3111";
 	// 	$scope.param = {
