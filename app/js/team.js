@@ -125,10 +125,11 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 	};
 
+	$scope.eventName = getURLParameter("q");
 	$scope.saveFunc = function() {
 		var teamID = $.trim( $scope.param.teamName );
 		var status = $("#add").text();
-		var refPath = getURLParameter("q") + "/team/" + teamID;
+		var refPath = $scope.eventName + "/team/" + teamID;
 		var ref = firebase.database().ref(refPath);
 
 		if(teamID !== '' && status === "Add") {
@@ -153,10 +154,10 @@ angular.module('teamform-team-app', ['firebase'])
 				$scope.member.$save(rec);	
 			}
 		});
-		if ($scope.param.teamMembers.length !==0){
-		ref.set(newData, function() {
-			location.reload();
-		});
+		if ($scope.param.teamMembers.length !== 0) {
+			ref.set(newData, function() {
+				location.reload();
+			});
 	    }
 		else{
 			location.reload();
@@ -239,20 +240,20 @@ angular.module('teamform-team-app', ['firebase'])
 		else {
 			x = confirm("Are you sure to remove the last team member? Doing this will remove the team.");
 		}
-		if (x){
-		var index = $scope.param.teamMembers.indexOf(member);
-		if(index > -1) {
-			$scope.param.teamMembers.splice(index, 1); // remove that item
-			var refPath = eventName + "/member/" + member;
-			var ref = firebase.database().ref(refPath);
-			ref.update({inTeam: null});
-			if($scope.param.teamMembers.length == 0){
-				var refPath1 = eventName + "/team/" + $scope.param.teamName;
-				var ref1 = firebase.database().ref(refPath1);
-				ref1.remove();
+		if(x) {
+			var index = $scope.param.teamMembers.indexOf(member);
+			if(index > -1) {
+				$scope.param.teamMembers.splice(index, 1); // remove that item
+				var refPath = eventName + "/member/" + member;
+				var ref = firebase.database().ref(refPath);
+				ref.update({inTeam: null});
+				if($scope.param.teamMembers.length == 0){
+					var refPath1 = eventName + "/team/" + $scope.param.teamName;
+					var ref1 = firebase.database().ref(refPath1);
+					ref1.remove();
+				}
 			}
-		}
-		$scope.saveFunc();
+			$scope.saveFunc();
 		}
 	};
 	

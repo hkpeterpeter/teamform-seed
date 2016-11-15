@@ -117,9 +117,14 @@ describe('Test admin.js', function() {
 		expect($scope.expanded).toEqual(true);
 	});
 
-	it("test hasTeam", function() {
+	it("test hasTeam true", function() {
 		var member = {inTeam: "dummy"};
 		expect($scope.hasTeam(member)).toEqual(true);
+	});
+
+	it("test hasTeam false", function() {
+		var member = {weight: 10};
+		expect($scope.hasTeam(member)).toEqual(false);
 	});
 
 });

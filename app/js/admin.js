@@ -73,43 +73,26 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.expanded = false;
 	$scope.setExpanded = function() {
 		$scope.expanded = !$scope.expanded;
-		console.log("Now expaned: " + $scope.expanded);
 	};
 	
 	$scope.getTeamMember = function(teamMembers) {
-		var result = [];
-		var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
-		for(var idx = 0; idx < length; idx++) {
-			for(var tmpIdx = 0; tmpIdx < $scope.users.length; tmpIdx++) {
-				console.log($scope.users);
-				if($scope.users[tmpIdx].$id === teamMembers[idx]) {
-					result.push($scope.users[tmpIdx].name);
-					break;
-				}
-			}
-		}
-		return result;
-	}
+		return getTeamMembersName(teamMembers, $scope.users);
+	};
 	
 	$scope.terminateEvent = function() {
 		var eventName = getURLParameter("q");
 		var refPath = eventName;
 		firebase.database().ref(refPath).remove();
 		window.location.href= "index.html";
-	}
+	};
 	
 	$scope.hasTeam = function(member) {
 		return typeof member.inTeam !== 'undefined';
-	}
+	};
 	
 	$scope.getMemberName = function(uid) {
-		for(var tmpIdx = 0; tmpIdx < $scope.users.length; tmpIdx++) {
-			if($scope.users[tmpIdx].$id == uid) {
-				return $scope.users[tmpIdx].name;
-			}
-		}
-		return "null";
-	}
+		return getUserName(uid, $scope.users);
+	};
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
@@ -229,7 +212,7 @@ angular.module('teamform-admin-app', ['firebase'])
 				team.teamMembers.push(member.$id);
 				member.inTeam = teamId;
 				firebase.database().ref(memBasePath + member.$id).update(
-						{inTeam: member.inTeam});
+						{inTeam: member.inTeam, invitedBy: []});
 				members.splice(0, 1);
 			}
 			teamRef.set(team);
