@@ -12,5 +12,27 @@ describe('Test site.js', function() {
 
    });
 
+   describe('getURLParameter test', function(){
+      it('return url',function(){
+        var value= getURLParameter(name);
+        expect(value).toEqual(decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null);
+      });
+   });
+
+  /* describe('initalizeFirebase', function(){
+      it('test firebase',function(){
+        var config = {
+      apiKey: "AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY",
+      authDomain: "lab-firebase-d860e.firebaseapp.com",
+      databaseURL: "https://lab-firebase-d860e.firebaseio.com",
+      storageBucket: "lab-firebase-d860e.appspot.com",
+    };
+      $scope.initializeFirebase(config);
+      expect($scope).toBe(firebase.initializeApp(config));
+      });
+   }); */
+//not correct//
+
+   
 
 });
