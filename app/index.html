@@ -92,7 +92,12 @@
         </div>
 		
         <div ng-show="loggedIn"><!--Show this when login-->
-        <img src="img/teamform_banner_thin.jpg" alt="teamform_banner" style="width:100%;">
+          <div>
+            <section  style="background-image: url('img/img1_thin.jpg');" class="banner img-responsive" >
+              <br><br><br><br><br>
+              <h1 class="pull-left banner_title">Welcome, {{username}}</h1>
+            </section>
+          </div>
 		    <br><br>
 		    
             <form name="Eventform" class="css-form ">
@@ -108,12 +113,12 @@
                           <!--enter event name and join(just for testing)-->
                         <!--create event and become admin-->
                         <div class="text-center">
-                            <font size="5"><b>Create a New Event&nbsp;</b></font> 
-							<label>
+                            <h2 style="display:inline;">Create a New Event&nbsp;</h2> 
+							
 							  <button id="btn_createEvent" type="button" class="btn btn-primary" ng-click="createNewEvent('')">+ New</button>
-							</label>
+						
                             <div>
-                              <font size="5"><b>...or Choose an Existing Event Below:</b></font>
+                              <font size="5">...or Choose an Existing Event Below:</font>
                             </div>
 
                               <div ng-repeat="event in events" class="col-md-4">
