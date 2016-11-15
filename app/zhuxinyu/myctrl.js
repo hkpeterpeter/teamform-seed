@@ -69,6 +69,8 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
                 }
             } 
             console.log(resultList);
+
+            $scope.updateEventList(resultList);
            
         }else{
              Materialize.toast('Please Enter The Event Name!', 1000);
