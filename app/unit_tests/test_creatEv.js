@@ -1,30 +1,25 @@
 describe('createEv.js', function() {
-   // Example: A test case of AdminCtrl
-   describe('AdminCtrl',function(){
-     var firebaseRef, scope;
+  // Example: A test case of createEventCtrl
+  describe('createEventCtrl',function(){
+    var firebaseRef, scope;
 
-   beforeEach(function () {
-       module("teamform-member-app")
-       inject(function ($rootScope, $controller, $firebaseObject) {
-           scope = $rootScope.$new();
+    beforeEach(module("teamform-member-app"));
+    beforeEach(inject(function ($rootScope, $controller, $firebaseObject) {
+      scope = $rootScope.$new();
 
-           $controller("AdminCtrl", {
-               $scope: scope,
-               $firebaseObject: $firebaseObject
-           });
+      $controller("createEventCtrl", {
+        $scope: scope,
+        $firebaseObject: $firebaseObject
+      });
 
-           firebaseRef = new Firebase("https://myurl.firebaseio.com/somechild");
-        });
-    });
+      firebaseRef = new Firebase("https://myurl.firebaseio.com/somechild");
+    }));
 
     describe('Create Event, Page: 0',function(){
-        beforeEach(function(){
-          createEvent();
-        });
-        it('Test createEvent function',function(){
-          expect($scope.page).toEqual(0);
-        });
-    })
+      it('Test createEvent function',function(){
+        expect($scope.page).toEqual(0);
+      });
+    });
 
   });
 });
