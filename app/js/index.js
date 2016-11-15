@@ -1,31 +1,37 @@
+function adminBtnClick() {
+    var val = $('#input_text').val();
+    if(val !== '') {
+        var url = "admin.html?q=" + val;
+        window.location.href= url ;
+        return false;
+    }
+}
+
+function leaderBtnClick() {
+    var val = $('#input_text').val();
+    if(val !== '') {
+        var url = "team.html?q=" + val;
+        window.location.href= url ;
+        return false;
+    }
+}
+
+function memberBtnClick() {
+    var val = $('#input_text').val();
+    if(val !== '') {
+        var url = "member.html?q=" + val;
+        window.location.href= url ;
+        return false;
+    }
+}
+
 $(document).ready(function() {
 
-    $("#btn_admin").click(function() {
-    	var val = $('#input_text').val();
-    	if(val !== '') {
-    		var url = "admin.html?q=" + val;
-    		window.location.href= url ;
-    		return false;
-    	}
-    });
+    $("#btn_admin").click(adminBtnClick);
 
-    $("#btn_leader").click(function() {
-    	var val = $('#input_text').val();
-    	if(val !== '') {
-    		var url = "team.html?q=" + val;
-    		window.location.href= url ;
-    		return false;
-    	}
-    });
+    $("#btn_leader").click(leaderBtnClick);
 
-    $("#btn_member").click(function() {
-    	var val = $('#input_text').val();
-    	if(val !== '') {
-    		var url = "member.html?q=" + val;
-    		window.location.href= url ;
-    		return false;
-    	}
-    });
+    $("#btn_member").click(memberBtnClick);
 
     firebase.auth().onAuthStateChanged(function(firebaseUser) {
         if(!firebaseUser) {

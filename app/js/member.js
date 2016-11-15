@@ -190,7 +190,7 @@ angular.module('teamform-member-app', ['firebase'])
 			teamMembers: $scope.newMemberList
 		});
 		//remove invitedBy list
-		var refPath1 = g$scope.eventName + "/member/" + $scope.uid + "/invitedBy";
+		var refPath1 = $scope.eventName + "/member/" + $scope.uid + "/invitedBy";
 		var ref1 = firebase.database().ref(refPath1);
 		ref1.remove();
 		window.alert("Invitation accepted!");
