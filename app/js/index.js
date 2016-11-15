@@ -5,7 +5,7 @@ angular.module('teamform-index-app', ['firebase'])
 
 
     // Call Firebase initialization code defined in site.js
-    initalizeFirebase();
+    initializeFirebase();
     $scope.eventID = "";
     var user = firebase.auth().user;
     if (user) {
