@@ -59,6 +59,22 @@ export default class ChatCtrl {
       }
     }
 
+
+    async create() {
+        if (this.chatroom.name) {
+            try {
+                let result = this.chatService.createChatroom(this.chatroom);
+                this.$timeout(() => {
+                    this.chatroom = {};
+                });
+            } catch (error) {
+                this.$timeout(() => {
+                    this.error = error;
+                });
+            }
+        }
+    }
+
 }
 
 ChatCtrl.$inject = ['$location', '$state', '$timeout', 'ChatService', 'AuthService'];
