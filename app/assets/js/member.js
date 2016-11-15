@@ -76,7 +76,7 @@ angular.module('teamform-member-app', ['firebase'])
 				$("p").show();
 			});
 		});
->>>>>>> 9854935eba44088e0ca35e6f1b0f3e0c5c605e35
+
     } else {
     // No user is signed in.
     }
