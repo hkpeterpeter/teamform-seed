@@ -126,6 +126,14 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			};
 		});
 
+app.controller("logoutctrl",function($scope, $cookies, $window){
+			$scope.logout = function() {
+					$cookies.remove("username",{path:"/"});
+					gotoURL("/jzhangbs/index.html",[],$window);
+				};
+		
+		});
+
 
 
 
