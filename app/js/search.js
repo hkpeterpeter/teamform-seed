@@ -7,13 +7,14 @@ $(document).ready(function(){
 
 
     $scope.items = [];
-  	var path = "event/";
+  	var path = "events/";
   	firebase.database().ref(path).orderByChild("name").on("child_added", function(data) {
-  	$scope.items.push({"name" : data.key, "link" : "event.html?eid=" + data.key, "type": "event"});
-  	path = "event/" + data.key + "/team/";
+
+  	$scope.items.push({"name" : data.key, "link" : "events.html?e=" + data.key , "type": "event"});
+  	path = "events/" + data.key + "/teams/";
     var event = data.key;
     firebase.database().ref(path).orderByChild("name").on("child_added", function(data) {
-  	$scope.items.push({"name" : data.key, "link" : event +"/team/" + data.key, "type" : "team"});
+  	$scope.items.push({"name" : data.key, "link" : "event.html?e=" + event + "&t=" + data.key, "type" : "team"});
   	});
   	});
 
