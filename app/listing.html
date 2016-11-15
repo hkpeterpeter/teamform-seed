@@ -133,15 +133,9 @@
 				<h3>All teams:</h3>
 				<ul ng-repeat="t in team">
 					<li>
-<<<<<<< HEAD
-						User ID: {{t.$id}}  <br>fff
-						Preferred team size: <span class="badge">{{t.param.TeamSize}}</span> <br>
-						Current team members: {{t.members.$id}}
-=======
 						User ID: {{t.$id}}  <br>
 						Preferred team size: <span class="badge">{{t.size}}</span> <br>
 						Current team members: {{t.teamMembers}} <br>
->>>>>>> 672a1daba15bca12ff03d680e64125a3ede760e5
 					
 					</li>
 					
@@ -153,7 +147,7 @@
 							
 			 
 			  <h3>All members:</h3>
-			  <ul ng-repeat="m in members">
+			  <ul ng-repeat="m in member">
 				
 				  <li>ID = {{m.$id}} <br> 
 				  Name = {{m.username}} <br>

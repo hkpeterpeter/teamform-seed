@@ -10,21 +10,7 @@ angular.module('teamform-event-app', ['firebase'])
 	ref = firebase.database().ref(refPath);
 	$scope.eventinfo = $firebaseObject(ref);
 
-<<<<<<< HEAD
-	$scope.param =
-	{
-		"EventName" : '',
-		
-		"MaxTeam" : 0,
-		"No_of_Team": 0,
-		"TeamSize": 0
-
-	};
-	
-	$scope.createteam = function() {
-=======
 	$scope.createteam = function(teamname) {
->>>>>>> 672a1daba15bca12ff03d680e64125a3ede760e5
 		
 		if(teamname!='null')
 		{
