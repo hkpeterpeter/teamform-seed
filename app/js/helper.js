@@ -232,14 +232,17 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
                       var msg = user.readOnly.name + " has accepted an invitation from your team " + team.name;
 
                         var msg = user.readOnly.name + " has accepted an invitation from your team " + team.name;
-                        helper.pushNotificationTo(team.leader, eventID, msg);
+                        helper.pushNotificationTo(team.leader, eventID, msg).then(function(){
+                          var temp = {};
+                          temp[uid] = "accepted";
+                          applicationList_ref.update(temp);
+                          user_ref.child("writable/" + eventID + "/invitations/" + teamID).remove();
+                          helper.postTeamAnnouncement(eventID, teamID, user.readOnly.name + " has joined the team " );
+                        })
 
                         // delete user.writable[eventID]["invitations"][teamID];
                         // user.$save();
-                        var temp = {};
-                        temp[uid] = "accepted";
-                        applicationList_ref.update(temp);
-                        user_ref.child("writable/" + eventID + "/invitations/" + teamID).remove();
+
                     });
                 });
             });
@@ -287,13 +290,13 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   		temp[uid] = "accepted";
   		ref.child('applications').update(temp);
 
-        helper.addPersonToTeam(uid, eventID,teamID, "member");
-        helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
+        helper.addPersonToTeam(uid, eventID,teamID, "member").then(function(){
+          helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
 
-        userref = firebase.database().ref("users/"+uid +"/writable/" + eventID);
-        appli_ref = userref.child("applications/"+teamID);
-        appli_ref.remove();
-
+          userref = firebase.database().ref("users/"+uid +"/writable/" + eventID);
+          appli_ref = userref.child("applications/"+teamID);
+          appli_ref.remove();
+        })
     }
     helper.declineApplication = function(uid, eventID, teamID) {
         //wyz

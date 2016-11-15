@@ -8,6 +8,7 @@ app.controller("teamCtrl",
 		$scope.teamID = $stateParams.tid;
 
 		$scope.leader_change = false;
+		$scope.isDeletingTeamAnn = false;
 		$scope.tagShowList = [
 			{name :"javascript", state: false},
 			{name :"html" , state: false},
@@ -200,13 +201,11 @@ app.controller("teamCtrl",
 		$scope.ApplyTeam = function(){
 			Helper.sendApplicationTo($scope.userData.uid, $scope.eventID, $scope.teamID);
 			window.alert("Your application is received");
-
-
-			// for (leaderuid in $scope.leader){
-			// 	Helper.pushNotificationTo(leaderuid, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
-			// }
-			Helper.pushNotificationTo($scope.teamdata.leader, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
-
+				// for (leaderuid in $scope.leader){
+				// 	Helper.pushNotificationTo(leaderuid, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
+				// }
+				Helper.pushNotificationTo($scope.teamdata.leader, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
+				window.location.reload();
 		}
 
 
@@ -220,11 +219,12 @@ app.controller("teamCtrl",
 		// }
 
 		$scope.DeleteMember = function(uid){
-			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID);
-			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, Helper.getUsername(uid) + " has been kicked off the team");
-			for (memberuid in $scope.teamdata.members){
-					Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has been kicked off the team.");
-			}
+			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID).then(function(){
+				Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, Helper.getUsername(uid) + " has been kicked off the team");
+				for (memberuid in $scope.teamdata.members){
+						Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has been kicked off the team.");
+				}
+			})
 		}
 
 		$scope.QuitTeam = function(){
@@ -452,6 +452,10 @@ $scope.test = $scope.teamdata.members;
 			}
 		}
 
+		$scope.deleteTeamAnnouncementChoice=function(){
+				$scope.isDeletingTeamAnn = !$scope.isDeletingTeamAnn;
+		}
+
 		$scope.deleteAnnouncement = function(aid){
 			announceref.child(aid).remove();
 		}
@@ -551,5 +555,16 @@ $scope.filterByStatus = function(items, filter_model) {
 						// 	$scope.applications = applicationdata;
 						// }
 
-}
-);
+});
+
+app.filter('DateFormat', function(){
+		return function(obj) {
+			if (obj == undefined){
+					return null;
+			}
+			else{
+				var datefiltered = new Date(obj);
+				return datefiltered;
+			}
+		}
+});
