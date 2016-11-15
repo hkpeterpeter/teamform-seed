@@ -17,7 +17,6 @@ angular.module('teamform')
                 if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
                     $scope.param.minTeamSize = newVal;
                 }
-                $scope.param.$save();
             };
 
             $scope.changeMaxTeamSize = function(delta) {
@@ -25,7 +24,6 @@ angular.module('teamform')
                 if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
                     $scope.param.maxTeamSize = newVal;
                 }
-                $scope.param.$save();
             };
 
         }]);
