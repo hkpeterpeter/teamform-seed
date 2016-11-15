@@ -36,7 +36,8 @@ function initalizeFirebase() {
       storageBucket: "lab-firebase-d860e.appspot.com",
     };
 
-  return firebase.initializeApp(config);
+   firebase.initializeApp(config);
+
 
 }    
 
@@ -47,5 +48,6 @@ function initalizeFirebase() {
 
 function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
+ 
 }
 

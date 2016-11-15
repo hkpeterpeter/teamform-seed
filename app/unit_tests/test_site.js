@@ -13,12 +13,15 @@ describe('Test site.js', function() {
    });
 
    describe('getURLParameter test', function(){
-       it('return url', function () {
+     it('return url',function(){
+         var value= getURLParameter(name);
+         expect(value).toEqual(decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null);
+       /*it('return url', function () {
         $scope.location = "?q=100&f=ssdd"
         var value= getURLParameter(q);
         expect(value).toEqual(100);
         value = getURLParameter(f);
-        expect(value).toEqual("ssdd");
+        expect(value).toEqual("ssdd");*/
       });
    });
 
@@ -30,10 +33,17 @@ describe('Test site.js', function() {
       databaseURL: "https://lab-firebase-d860e.firebaseio.com",
       storageBucket: "lab-firebase-d860e.appspot.com",
         };
-        expect(initializeFirebase(config).name).toBe("Team Formation App");
+        expect(initializeFirebase(config)).toBe(true);
       });
    }); 
 //not correct//
+
+describe('retrieveonceFirebase', function(){
+      it('test retrievefirebase',function(){
+     var firebase, refPath, callbackFunc;
+        expect(retrieveOnceFirebase(firebase, refPath, callbackFunc)).toBe(true);
+      });
+   }); 
 
    
 
