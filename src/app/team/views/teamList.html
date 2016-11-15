@@ -10,10 +10,10 @@
             <div class="form-group">
                 <label for="inputName" class="col-sm-2 control-label">Event</label>
                 <div class="col-sm-10">
-                    <ui-select ng-model="teamList.search.eventId" required>
-                        <ui-select-match allow-clear="true" placeholder="Select Event">{{$select.selected.name}}</ui-select-match>
+                    <ui-select ng-model="teamList.search.data.eventId" required>
+                        <ui-select-match allow-clear="true" placeholder="Select Event">{{$select.selected.data.name}}</ui-select-match>
                         <ui-select-choices repeat="event.$id as event in teamList.events | filter:$select.search">
-                            {{event.name}}
+                            {{event.data.name}}
                         </ui-select-choices>
                     </ui-select>
                 </div>
@@ -21,19 +21,21 @@
             <div class="form-group">
                 <label for="inputName" class="col-sm-2 control-label">Team Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="teamList.search.name" required>
+                    <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="teamList.search.data.name" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Private Team</label>
                 <div class="col-sm-10">
-                    <input bs-switch ng-model="teamCreate.search.private" type="checkbox" />
+                    <input bs-switch ng-model="teamList.search.data.private" type="checkbox" />
+                    <button type="button" class="btn btn-sm btn-info" ng-click="teamList.search.data.private = null">All</button>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Direct Join</label>
                 <div class="col-sm-10">
-                    <input bs-switch ng-model="teamCreate.search.invite" type="checkbox" />
+                    <input bs-switch ng-model="teamList.search.data.directJoin" type="checkbox" />
+                    <button type="button" class="btn btn-sm btn-info" ng-click="teamList.search.data.directJoin = null">All</button>
                 </div>
             </div>
         </form>
@@ -45,30 +47,46 @@
 </div>
 <div class="clearfix"></div>
 <div class="divider"></div>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Team Name</th>
-            <th>Event</th>
-            <th>Created By</th>
-            <th>Created At</th>
-        </tr>
-    </thead>
-    <tbody dir-paginate="team in teamList.teams | filter:teamList.search | itemsPerPage: 2">
-        <tr>
-            <td>
-                <a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a>
-            </td>
-            <td>
-                <a ui-sref="event.detail({eventId: team.event.$id})">{{team.event.name}}</a>
-            </td>
-            <td>
-                <a ui-sref="user.detail({userId: team.createdBy})">{{team.createdByUser.name}}</a>
-            </td>
-            <td>
-                {{team.createdAt | date:'medium'}}
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Team Name</th>
+                <th>Event</th>
+                <th>Created By</th>
+                <th>Created At</th>
+                <th>Vacancy</th>
+                <th>Direct Join</th>
+            </tr>
+        </thead>
+        <tbody dir-paginate="team in teamList.teams | filter:teamList.search | itemsPerPage: 2">
+            <tr>
+                <td>
+                    <span class="label label-danger" ng-if="team.data.private">Private</span>
+                    <span class="label label-success" ng-if="!team.data.private">Public</span>
+                </td>
+                <td>
+                    <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>
+                </td>
+                <td>
+                    <a ui-sref="user.detail({userId: team.data.createdBy})">{{team.getCreatedByUser().name}}</a>
+                </td>
+                <td>
+                    {{team.data.createdAt | date:'medium'}}
+                </td>
+                <td>
+                    {{team.getVacancy()}}
+                </td>
+                <td>
+                    <span class="text-success glyphicon glyphicon-ok" ng-if="team.data.directJoin"></span>
+                    <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <dir-pagination-controls />

@@ -58,9 +58,37 @@ export default class TeamDetailCtrl {
             });
         }
     }
+    async acceptTeamPosition(positionId) {
+        try {
+            let teamUsers = await this.teamService.acceptTeamPosition(this.$stateParams.teamId, positionId);
+            this.$timeout(() => {
+                console.log('success');
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
+    async rejectAcceptTeamPosition(positionId) {
+        try {
+            let teamUsers = await this.teamService.rejectAcceptTeamPosition(this.$stateParams.teamId, positionId);
+            this.$timeout(() => {
+                console.log('success');
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
     async canManage() {
         let user = await this.authService.getUser();
-        return user && user.uid == this.team.createdBy;
+        return user && user.uid == this.team.data.createdBy;
+    }
+    async canAccept(positionId) {
+        let user = await this.authService.getUser();
+        return user && user.uid == this.team.data.users[positionId];
     }
     filterJoined(user) {
         return user.id != null && user.pending !== true && user.confirmed !== false;

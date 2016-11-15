@@ -8,6 +8,8 @@
     <thead>
         <tr>
             <th>Event Name</th>
+            <th>User Joined</th>
+            <th>Team Joined</th>
             <th>Created By</th>
             <th>Created At</th>
         </tr>
@@ -15,13 +17,19 @@
     <tbody dir-paginate="event in eventList.events | itemsPerPage: 2">
         <tr>
             <td>
-                <a ui-sref="event.detail({eventId: event.$id})">{{event.name}}</a>
+                <a ui-sref="event.detail({eventId: event.$id})">{{event.data.name}}</a>
             </td>
             <td>
-                <a ui-sref="user.detail({userId: event.createdBy})">{{event.createdByUser.name}}</a>
+                {{event.getTotalEventUsers()}}
             </td>
             <td>
-                {{event.createdAt | date:'medium'}}
+                {{event.getTotalTeams()}}
+            </td>
+            <td>
+                <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().name}}</a>
+            </td>
+            <td>
+                {{event.data.createdAt | date:'medium'}}
             </td>
         </tr>
     </tbody>

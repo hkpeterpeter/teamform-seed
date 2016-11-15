@@ -1,12 +1,12 @@
 <ui-alert message="{{eventCreate.error.message}}" />
 <form class="form-horizontal">
     <div class="form-group">
-        <label for="inputName" class="col-sm-2 control-label">Event</label>
+        <label class="col-sm-2 control-label">Event</label>
         <div class="col-sm-10">
             <ui-select on-select="teamCreate.onEventChange($item)" ng-model="teamCreate.team.eventId" required>
-                <ui-select-match placeholder="Select Event">{{$select.selected.name}}</ui-select-match>
+                <ui-select-match placeholder="Select Event">{{$select.selected.data.name}}</ui-select-match>
                 <ui-select-choices repeat="event.$id as event in teamCreate.events | filter:$select.search">
-                    {{event.name}}
+                    {{event.data.name}}
                 </ui-select-choices>
             </ui-select>
         </div>
@@ -26,11 +26,11 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Direct Join</label>
         <div class="col-sm-10">
-          <input bs-switch ng-model="teamCreate.team.invite" type="checkbox" />
+          <input bs-switch ng-model="teamCreate.team.directJoin" type="checkbox" />
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Team Member {{range(teamCreate.selectedEvent.teamMax)}}</label>
+        <label class="col-sm-2 control-label">Team Member {{range(teamCreate.selectedEvent.data.teamMax)}}</label>
         <div class="col-sm-10">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
@@ -44,9 +44,9 @@
                         <tr ng-repeat="user in teamCreate.team.users track by $index">
                             <td>
                                 <ui-select on-select="teamCreate.onTeamUserChange($item)" ng-model="user.id" ng-if="$index > 0" ng-disabled="$index == 0">
-                                    <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.name}}</ui-select-match>
+                                    <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.user.name}}</ui-select-match>
                                     <ui-select-choices repeat="eventUser.id as eventUser in teamCreate.availablieUsers | filter:$select.search">
-                                        {{eventUser.name}}
+                                        {{eventUser.user.name}}
                                     </ui-select-choices>
                                 </ui-select>
                                 <input type="text" ng-if="$index == 0" class="form-control" placeholder="Role" ng-model="user.id" ng-disabled="$index == 0" required>

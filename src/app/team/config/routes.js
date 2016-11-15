@@ -49,7 +49,7 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
                 }
             },
             ncyBreadcrumb: {
-                label: '{{ teamDetail.team.name || teamEdit.team.name }}',
+                label: '{{ teamDetail.team.data.name || teamEdit.team.data.name }}',
                 parent: 'team.list'
             }
         })
