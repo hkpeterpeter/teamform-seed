@@ -171,9 +171,7 @@ imgtrans {
 .container-dd { 
     /* The image used */
     background-image: url( ../images/bg_header.jpg);
-    background-repeat: no-repeat;
-     background-position: center;
-     background-size: cover;
+	
       padding-top: 70px;
     padding-bottom: 70px;
    
@@ -183,3 +181,14 @@ imgtrans {
     /* Create the parallax scrolling effect */
     
 }	
+
+td 
+{
+    text-align:center; 
+    vertical-align:middle;
+	background-color: #BCE954;
+	font-family:"Open sans", Helvetica, Arial;
+	font-size:20px;
+	
+	
+}
