@@ -37,7 +37,6 @@ function initalizeFirebase() {
     messagingSenderId: "409818143167"
   };
   firebase.initializeApp(config);
-
 }
 
 //
