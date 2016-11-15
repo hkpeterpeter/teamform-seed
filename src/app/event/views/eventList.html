@@ -8,6 +8,8 @@
     <thead>
         <tr>
             <th>Event Name</th>
+            <th>User Joined</th>
+            <th>Team Joined</th>
             <th>Created By</th>
             <th>Created At</th>
         </tr>
@@ -16,6 +18,12 @@
         <tr>
             <td>
                 <a ui-sref="event.detail({eventId: event.$id})">{{event.data.name}}</a>
+            </td>
+            <td>
+                {{event.getTotalEventUsers()}}
+            </td>
+            <td>
+                {{event.getTotalTeams()}}
             </td>
             <td>
                 <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().name}}</a>
