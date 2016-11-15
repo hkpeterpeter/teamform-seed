@@ -18,6 +18,20 @@
 
     <!-- Customized CSS file shared by pages -->
     <link rel="stylesheet" href="app/css/site.css">
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="app/lib/firebase.js"></script>
+
+    <script>
+        var config = {
+            apiKey: "AIzaSyDpflKeM1c07q-guKmbpJGjHosd9-PKjU8",
+            authDomain: "teamharambe-10608.firebaseapp.com",
+            databaseURL: "https://teamharambe-10608.firebaseio.com",
+            storageBucket: "teamharambe-10608.appspot.com",
+            messagingSenderId: "491929198847"
+        };
+        firebase.initializeApp(config);
+    </script>
 </head>
 <body ng-app="teamform">
 <div class="navbar-wrapper">
@@ -75,8 +89,6 @@
 <script src="app/lib/angular.min.js"></script>
 <script src="app/lib/angular-route.min.js"></script>
 
-<!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-<script src="app/lib/firebase.js"></script>
 <script src="app/lib/angularfire.min.js"></script>
 <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
 
