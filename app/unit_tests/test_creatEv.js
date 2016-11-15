@@ -16,7 +16,6 @@ describe('createEv.js', function() {
     }));
 
     describe('Create Event, Page: 0',function(){
-      createEvent();
       it('Test createEvent function',function(){
         expect($scope.page).toEqual(0);
       });

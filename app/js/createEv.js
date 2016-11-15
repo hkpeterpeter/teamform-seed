@@ -57,7 +57,7 @@ angular.module('teamform-member-app', ['firebase'])
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show();
 			//$scope.createEvent();
-			//$scope.createTeam("6210");
+			$scope.createTeam("haha");
 		})
 		.catch(function(error) {
 			// Database connection error handling...
@@ -85,10 +85,10 @@ angular.module('teamform-member-app', ['firebase'])
       $scope.page=1;
       $scope.eventID=evID;
       var obj=$scope.event[evID];
+			console.log("oldTeam: "+JSON.stringify($scope.event[evID])+"\n");
 			$scope.oldTeam=Object.getOwnPropertyNames(obj.teams);
       $scope.minTeam=obj.param.minTeamSize;
       $scope.maxTeam=obj.param.maxTeamSize;
-			console.log("oldTeam: "+JSON.stringify($scope.event[evID])+"\n");
 			if($scope.maxTeam==$scope.oldTeam.length)
 				alert("Number of existing teams reachs the maximum, createTeam is forbidden.");
     };
@@ -129,14 +129,19 @@ angular.module('teamform-member-app', ['firebase'])
 				if(!$scope.page)
         	obj.teams={"_":""};
         else{
-					delete obj["_"];
           obj.teams=$scope.event[$scope.eventID].teams;
+					delete obj.teams._;
           obj.teams[$scope.newTeam[0]]={members:[''],requests:['']};
         }
 
         console.log("Final Save: "+JSON.stringify(obj)+"\n");
         ref.child($scope.eventID).update(obj);
-				if($scope.page)
-					self.createTeam($scope.eventID);
+				if($scope.page){
+					alert("The team "+$scope.newTeam[0]+" has created in event "+$scope.eventID+". ");
+					$scope.createTeam($scope.eventID);
+				}
+				else{
+					alert("The event "+$scope.eventID+" has created.");
+				}
     };
 }]);
