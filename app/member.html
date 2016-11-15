@@ -85,27 +85,34 @@
 				<!-- Article main content -->
 				<article class="col-sm-8 maincontent">
 					<header class="page-header">
-						<h1 class="page-title">{{userObj.name}}</h1>
+						<h1 class="page-title">Porfile</h1>
 					</header>
-					<h3>Your Position</h3>
-					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
-					<p>
-						<input type="button" name="Forward" value="Forward" id="buttonFoward" class="btn btn-primary btn-lg ">
-						<input type="button" name="Midfield" value="Midfield" id="buttonMidfield" class="btn btn-primary btn-lg ">
-						<input type="button" name="Back" value="Back" id="buttonBack" class="btn btn-primary btn-lg ">
-						<input type="button" name="Goalkeeper" value="Goalkeeper" id="buttonGoalkeeper" class="btn btn-primary btn-lg ">
+					<img src="assets/images/profile-icon.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" >
+						
+					<h4><b>Name: </b>{{userObj.name}}</h4>
+					
+					<p style="display:none"><br><input type="text" placeholder="Enter your name"></p>
+					<h4><b>Your Position: </b>{{userObj.position}}</h4>
+					
+					<p style="display:none">
+						<input type="button" name="Forward" value="Forward" id="buttonFoward" class="btn btn-primary btn-lg "> <br />
+						<input type="button" name="Midfield" value="Midfield" id="buttonMidfield" class="btn btn-primary btn-lg "> <br />
+						<input type="button" name="Back" value="Back" id="buttonBack" class="btn btn-primary btn-lg "> <br />
+						<input type="button" name="Goalkeeper" value="Goalkeeper" id="buttonGoalkeeper" class="btn btn-primary btn-lg "> <br />
+					<input id="hide" class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
 					</p>
+					<input id="show" class="btn btn-default btn-sm" type="button" value="Edit">
 					<div class="form-group">
 						<textarea class="form-control" id="text" ng-model="input.position" style="width:200px;height:40px;" ></textarea>
-						<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
+						
 					</div>
 
 				</article>
 				<!-- /Article -->
 				
 				<!-- Sidebar -->
+				
 				<aside class="col-sm-4 sidebar sidebar-right">
-
 					<div class="widget">
 						<h4>Joined Event</h4>
 						<ul class="list-unstyled list-spaces">
@@ -113,10 +120,8 @@
 							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
 						</ul>
 					</div>
-
 				</aside>
 				<!-- /Sidebar -->
-
 			</div>
 		</div>	<!-- /container -->
 

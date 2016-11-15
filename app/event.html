@@ -8,7 +8,7 @@
 	
 	<title >LIGHT OF WISDOM - Event : {{eventinfo.EventName}} Page</title>
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	<link rel="shortcut icon" href="assets/images/logo.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -105,14 +105,14 @@
 
          <hr>
 
-		<table border="1">
+		<table align="center" border="1">
 			<tr>
 			<td> Team Name </td><td> Leader </td><td> Number of Teammate </td><td></td></tr>
 
 			<tr ng-repeat="t in teams">
 			<td>{{t.TeamName}} </td>
 			<td>{{t.TeamLeader}} </td>
-			<td>{{}}</td>
+			<td>{{t.NumOfMembers}}</td>
 			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="viewteam(t.TeamName);">More Info</button></td>
 			</tr>
 

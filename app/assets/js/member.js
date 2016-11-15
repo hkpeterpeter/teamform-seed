@@ -69,12 +69,22 @@ angular.module('teamform-member-app', ['firebase'])
         var userPath = "/user/" + user.uid;
         var userref = firebase.database().ref(userPath);
         $scope.userObj = $firebaseObject(userref);
+		$(document).ready(function(){
+		$("#hide").click(function(){
+				$("p").hide();
+			});
+			$("#show").click(function(){
+				$("p").show();
+			});
+		});
     } else {
     
 
     // No user is signed in.
     }
     });
+	
+	
   
 
 
