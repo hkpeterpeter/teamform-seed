@@ -1,0 +1,44 @@
+<body ng-app="teamApp">
+    <style>
+table,th, td {
+    border: 1px solid black;
+}
+</style>
+         <h1>Teaminfo</h1>
+         <div ng-controller="teaminfo">
+           
+Please select the event below: <br>
+<select ng-model="selectedName" ng-options="x.name for x in event">
+</select>
+
+ <h3>List of Team: </h3><br>
+
+ <div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
+     <table width="1000"><tr align="center">
+     <td align="center"><b>Name:</b></td>
+     <td align="center"><b>Intro.</b></td>
+     <td align="center"><b>numberOfmember</b></td>
+     <td align="center"><b>openness</b></td>
+     <td align="center"><b>position</b></td>
+     <td align="center"><b>state</b></td>
+     </tr>
+
+
+         <tr data-ng-repeat="(key, g) in q.Team" ng-if="g.name.indexOf(searchText) > -1 || !searchText">
+         <td align="center">{{g.name}}</td>
+         <td align="center">{{g.intro}}</td>
+         <td align="center">{{g.numberOfmember}}</td>
+         <td align="center">{{g.openness}}</td>
+         <td align="center">{{g.position}}</td>
+         <td align="center">{{g.state}}</td>
+		 <td align="center"><input class="btn btn-primary" type="button" value="Remove" ng-click="RemoveTeam(selectedName.$id, key);"></input></td>
+
+
+         </tr>
+        
+         </table>
+         </div>
+        
+         </div>
+         
+    </body>   
