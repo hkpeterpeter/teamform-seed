@@ -156,12 +156,12 @@ app.controller("teamCtrl",
 		// }
 
 		$scope.DeleteMember = function(uid){
-			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID).then(function(){
+			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID);
 				Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, Helper.getUsername(uid) + " has been kicked off the team");
 				for (memberuid in $scope.teamdata.members){
 						Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has been kicked off the team.");
 				}
-			})
+
 		}
 
 		$scope.QuitTeam = function(){
@@ -199,9 +199,6 @@ app.controller("teamCtrl",
 
 		$scope.ChangeTeamName = function(newname){
 
-
-$scope.test = $scope.teamdata.members;
-
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('name').set(newname);
 
@@ -214,8 +211,6 @@ $scope.test = $scope.teamdata.members;
 		}
 
 		$scope.ChangeTeamDesc = function(newdesc){
-
-
 
 
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
