@@ -2,6 +2,12 @@
 //   $('#myTab li:eq(1) a').tab('show');
 // });
 
+var testData = {
+  "abcd": {password: "1"},
+  "1856889751213495": {password: "facebook"},
+  "$save": function(){return true;}
+};
+
 var app = angular.module("indexApp", ["firebase", "ngCookies"]);
 
 app.controller("indexCtrl",
@@ -10,9 +16,15 @@ app.controller("indexCtrl",
     if (checkLogin($cookies))
       gotoURL("/TXR/index.html", [], $window);
 
-    initalizeFirebase();
-    var ref = firebase.database().ref("usersx");
-    accounts = $firebaseObject(ref);
+    var accounts;
+    if (isTest === undefined) {
+      initalizeFirebase();
+      var ref = firebase.database().ref("usersx");
+      accounts = $firebaseObject(ref);
+    }
+    else {
+      accounts = testData;
+    }
 
     $scope.scopeUser = accounts;
 
@@ -40,7 +52,7 @@ app.controller("indexCtrl",
         };
         userTemplate.password = user.password;
         accounts[user.username] = userTemplate;
-        accounts.$save().then(function(ref){},function(e){console.log(e);});
+        accounts.$save();
       }
     };
 

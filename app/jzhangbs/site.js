@@ -6,9 +6,9 @@
 //   var myvar = getURLParameter('myvar');
 //
 
-function getURLParameter(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
-}
+// function getURLParameter(name) {
+//   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+// }
 
 
 // Returns a random integer between min (included) and max (included)
@@ -45,9 +45,9 @@ function initalizeFirebase() {
 // For 3-way sync, use $firebaseObject or $firebaseArray provided by AngularFire
 //
 
-function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
-	firebase.database().ref(refPath).once("value").then(callbackFunc);
-}
+// function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
+// 	firebase.database().ref(refPath).once("value").then(callbackFunc);
+// }
 
 function gotoURL(path, params, $window) {
   var urlParams = "";
