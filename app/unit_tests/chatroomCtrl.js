@@ -14,16 +14,16 @@ describe('chatroomCtrl', function(){
 		//firebase = $firebase('https://comp3111-5fbe5.firebaseio.com');
 	}));
 
-	it('createMsg', function(){
-		var tempObject = {}
-		tempObject = ctrl.createMsg("content", "date");
-		expect(tempObject.content).toEqual("content");
-	});
+	// it('createMsg', function(){
+	// 	var tempObject = {}
+	// 	tempObject = ctrl.createMsg("content", "date");
+	// 	expect(tempObject.content).toEqual("content");
+	// });
 
-	//http://stackoverflow.com/questions/22921484/how-can-we-test-non-scope-angular-controller-methods
-	it('hasChatRecord return -1', function(){
-		var result = ctrl.hasChatRecord("");
-		expect(result).toEqual(-1);
-	});
+	// //http://stackoverflow.com/questions/22921484/how-can-we-test-non-scope-angular-controller-methods
+	// it('hasChatRecord return -1', function(){
+	// 	var result = ctrl.hasChatRecord("");
+	// 	expect(result).toEqual(-1);
+	// });
 
 });

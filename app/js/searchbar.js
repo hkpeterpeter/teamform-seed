@@ -7,16 +7,6 @@ app.controller("searchCtrl",
     function ($scope, $firebaseArray, $sce) {
         $scope.trustAsHtml = $sce.trustAsHtml;
 
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
-            authDomain: "comp3111-5fbe5.firebaseapp.com",
-            databaseURL: "https://comp3111-5fbe5.firebaseio.com",
-            storageBucket: "comp3111-5fbe5.appspot.com",
-            messagingSenderId: "946291658553"
-        };
-        firebase.initializeApp(config);
-
         //get members' data
         var ref = firebase.database().ref("members");
         $scope.memberData = $firebaseArray(ref);
@@ -119,6 +109,15 @@ app.controller("searchCtrl",
             }
         }
 
+        $scope.suggestionElement = function (suggestions, i) {
+            this.class = "suggestionElement";
+            this.text = suggestions[i];
+            this.action = function () {
+                $scope.searchInput = this.text;
+                disableCentralize();
+                $scope.search();
+            };
+        }
         //listen to the search text field changes, and give suggestions
         $scope.$watch("searchInput", function (newVal, oldVal) {
             //clear the previos suggestions
@@ -151,17 +150,8 @@ app.controller("searchCtrl",
 
                 //screen suggestions
                 for (var i = 0; i < scores.length; i++)
-                    if (scores[i] > 0) {
-                        $scope.suggestions.push({
-                            "class": "suggestionElement",
-                            "text": suggestions[i],
-                            "action": function () {
-                                $scope.searchInput = this.text;
-                                disableCentralize();
-                                $scope.search();
-                            }
-                        });
-                    }
+                    if (scores[i] > 0)
+                        $scope.suggestions.push(new $scope.suggestionElement(suggestions, i));
                     else
                         break;
 
@@ -177,8 +167,7 @@ app.controller("searchCtrl",
             //create a local array to store result
             var teamsAndMembers = [];
 
-            //local helper function for creating result elements
-            function resultElement(_id, _name, _description, _eid, _language, _country, _tags, _email, _gender, _full, _depart, _desireToGo) {
+            $scope.resultElement = function (_id, _name, _description, _eid, _language, _country, _tags, _email, _gender, _full, _depart, _desireToGo) {
                 this.name = _name;
                 this.id = _id;
                 this.description = _description;
@@ -238,7 +227,7 @@ app.controller("searchCtrl",
                 for (var i = 0; i < teams.length; i++) {
                     //constraints
                     if (keywords.join("") == "" && $scope.constraint.tm == 1) {
-                        teamsAndMembers.push(new resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                        teamsAndMembers.push(new  $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
                             teams[i].language_for_communication, teams[i].destination, teams[i].tags, "", teams[i].preference,
                             teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : ""),
                             new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay(), ""));
@@ -303,7 +292,7 @@ app.controller("searchCtrl",
                             continue;
                         }
 
-                        teamsAndMembers.push(new resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                        teamsAndMembers.push(new  $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
                             lang, dest, teams[i].tags, "", pref, full, depart, ""));
                         if (teams.length - 1 == i)
                             $scope.constraint.clearT();
@@ -354,7 +343,7 @@ app.controller("searchCtrl",
                         var e7 = hightlight(teams[i].preference, keywords);
                         var e8 = teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : "");
                         var e9 = new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay();
-                        teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
+                        teamsAndMembers.push(new  $scope.resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
                     }
                 }
             }
@@ -392,7 +381,7 @@ app.controller("searchCtrl",
                 for (var i = 0; i < members.length; i++) {
                     //constraint
                     if (keywords.join("") == "" && $scope.constraint.tm == 2) {
-                        teamsAndMembers.push(new resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                        teamsAndMembers.push(new  $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
                             "searchResultElement-" + (i + resultCount), members[i].language.join(", "), members[i].from, "", members[i].email, members[i].gender, "", "", members[i].want_to_travel.join(", ")));
                         continue;
                     }
@@ -479,7 +468,7 @@ app.controller("searchCtrl",
                             continue;
                         }
 
-                        teamsAndMembers.push(new resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                        teamsAndMembers.push(new  $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
                             "searchResultElement-" + (i + resultCount), lang, country, "", members[i].email, gender, "", "", desireToGo));
                         if (members.length - 1 == i)
                             $scope.constraint.clearM();
@@ -532,7 +521,7 @@ app.controller("searchCtrl",
                         var e6 = hightlight(members[i].email, keywords);
                         var e7 = hightlight(members[i].gender, keywords);
                         var e8 = hightlight(members[i].want_to_travel.join(" * "), keywords).split(" * ").join(", ");
-                        teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
+                        teamsAndMembers.push(new  $scope.resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
                     }
                 }
             }
@@ -559,56 +548,71 @@ app.controller("searchCtrl",
 var countrylist;
 var languagelist;
 
-$(document).ready(function () {
+$(document).ready(jQueryDocReady);
+
+//jquery init functions
+var toggleAdvancedSearchPanel = function () {
+    $("#advancedSearchPanel").toggle();
+};
+var hideAdvancedSearchCancelBtn = function () {
+    $("#advancedSearchPanel").hide();
+};
+var hideSearchSuggestion = function () {
+    $("#searchSuggestion").hide();
+};
+
+var keyDownEvent = function (event) {
+    //keycode 13 is "enter"
+    //keycode 27 is "esc"
+    switch (event.which) {
+        case 13:
+            $("#searchBtnContainer").find("input[type='button']").click();
+            break;
+
+        case 27:
+            $("#searchSuggestion").hide();
+            break;
+
+        default:
+            //Do Nothing
+            break;
+    }
+};
+
+var readCountryJson = function (data) {
+    countrylist = data.country_list;
+    for (var i = 0; i < countrylist.length; i++)
+        $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]'], select[ng-model='constraint.t[0]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
+};
+
+var readLanguageJson = function (data) {
+    languagelist = data.languages;
+    languagelist = sortArray(languagelist, "English");
+    for (var i = 0; i < languagelist.length; i++)
+        $("select[ng-model='constraint.m[3]'], select[ng-model='constraint.t[1]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
+};
+
+//jquery init
+function jQueryDocReady() {
     //initialization
     $("#searchSuggestion").hide();
     $("#advancedSearchPanel").hide();
 
     //show and hide
-    $("#advancedSearchBtn").click(function () {
-        $("#advancedSearchPanel").toggle();
-    });
 
-    $("#advancedSearchCancelBtn").click(function () {
-        $("#advancedSearchPanel").hide();
-    });
+    $("#advancedSearchBtn").click(toggleAdvancedSearchPanel);
 
-    $("body").click(function () {
-        $("#searchSuggestion").hide();
-    });
+    $("#advancedSearchCancelBtn").click(hideAdvancedSearchCancelBtn);
+
+    $("body").click(hideSearchSuggestion);
 
     //load the Json file to the html
-    $.getJSON("https://gist.githubusercontent.com/timfb/551d3ed641435fd15c25b99ea9647922/raw/ce3b3d8459491d38fafe69020bd3535bfd11d334/countrylist.json", function (data) {
-        countrylist = data.country_list;
-        for (var i = 0; i < countrylist.length; i++)
-            $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]'], select[ng-model='constraint.t[0]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
-    });
-    $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/116c838a8df916d72fed37c6a4123b2891f88eef/languagelist.json", function (data) {
-        languagelist = data.languages;
-        languagelist = sortArray(languagelist, "English");
-        for (var i = 0; i < languagelist.length; i++)
-            $("select[ng-model='constraint.m[3]'], select[ng-model='constraint.t[1]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
-    });
+    $.getJSON("https://gist.githubusercontent.com/timfb/551d3ed641435fd15c25b99ea9647922/raw/ce3b3d8459491d38fafe69020bd3535bfd11d334/countrylist.json", readCountryJson);
+    $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/116c838a8df916d72fed37c6a4123b2891f88eef/languagelist.json", readLanguageJson);
 
     //keydown handling
-    $("#searchTextField").keydown(function (event) {
-        //keycode 13 is "enter"
-        //keycode 27 is "esc"
-        switch (event.which) {
-            case 13:
-                $("#searchBtnContainer").find("input[type='button']").click();
-                break;
-
-            case 27:
-                $("#searchSuggestion").hide();
-                break;
-
-            default:
-                //Do Nothing
-                break;
-        }
-    });
-});
+    $("#searchTextField").keydown(keyDownEvent);
+}
 
 //===some helper functions===
 
