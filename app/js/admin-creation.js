@@ -4,13 +4,8 @@ angular.module('teamform')
 
             // Initialize $scope.param as an empty JSON object
             $scope.param = {};
-            // Fill in some initial values when the DB entry doesn't exist
-            if(typeof $scope.param.maxTeamSize == "undefined"){
-                $scope.param.maxTeamSize = 10;
-            }
-            if(typeof $scope.param.minTeamSize == "undefined"){
-                $scope.param.minTeamSize = 1;
-            }
+            $scope.param.maxTeamSize = 10;
+            $scope.param.minTeamSize = 1;
 
             $scope.changeMinTeamSize = function(delta) {
                 var newVal = $scope.param.minTeamSize + delta;
