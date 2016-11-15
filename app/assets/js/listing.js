@@ -33,29 +33,14 @@ $(document).ready(function(){
 });
 
 
-angular.module('teamform-index-app', ['firebase'])
-.controller('IndexCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$window', function($scope, $firebaseObject, $firebaseArray,$window) {
+angular.module('teamform-listing-app', ['firebase'])
+.controller('ListingCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
     
     initalizeFirebase();
 
-    var eventRef, refPath;
+    var listing = getURLParameter("q");
 
-    refPath = "/event/"
-    eventRef = firebase.database().ref(refPath);
-    $scope.events = [];
-    $scope.events = $firebaseArray(eventRef);
 
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        var userPath = "/user/" + user.uid;
-        var userref = firebase.database().ref(userPath);
-        $scope.userObj = $firebaseObject(userref);
-    } else {
-    
-
-    // No user is signed in.
-    }
-    });
 
 
     $scope.viewevent = function(eventname) {
@@ -65,16 +50,17 @@ angular.module('teamform-index-app', ['firebase'])
     }
 
 
+
     //Logout
     $scope.logout = function(){
     firebase.auth().signOut().then(function() {
     // Sign-out successful.
     console.log("Sign-out successful");
-    $window.alert("You are signed-out");
     }, function(error) {
      // An error happened.
     console.log("Sign-out unsuccessful");
     });
-};
 
+};
+ };
 }]);

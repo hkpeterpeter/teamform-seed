@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html ng-app="position">
+<html lang="en" ng-app="teamform-create_event-app">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
 	
-	<title>LIGHT OF WISDOM</title>
+	<title>LIGHT OF WISDOM - Administrative Page</title>
 
-	<link rel="shortcut icon" href="assets/images/logo.png">
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -24,22 +24,13 @@
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
       <!-- Angular Library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 
       <!-- Firebase -->
-	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-	    apiKey: "AIzaSyAONa3ULgY4f-S31VJYGksehH_EcR0XBGA",
-	    authDomain: "comp3111-bce17.firebaseapp.com",
-	    databaseURL: "https://comp3111-bce17.firebaseio.com",
-	    storageBucket: "comp3111-bce17.appspot.com",
-	    messagingSenderId: "1097576612509"
-	  };
-	  firebase.initializeApp(config);
-	</script>
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
 
       <!-- AngularFire URL: https://github.com/firebase/angularfire -->
    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
@@ -47,7 +38,12 @@
 
    <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>        
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+   <script src="assets/lib/firebase.js"></script>     
 
    <script src="assets/js/headroom.min.js"></script>
    <script src="assets/js/jQuery.headroom.min.js"></script>
@@ -55,10 +51,9 @@
 
    <script src="assets/js/site.js"></script>
    <script src="assets/js/login.js"></script>
+   <script src="assets/js/create_event.js"></script>
 
-   <script src="assets/js/Anderson.js"></script>
-   
-   
+
 </head>
 
 <body>
@@ -68,16 +63,14 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" align="middle"></a>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
 			</div>
-			<div class="navbar-collapse collapse" ng-controller="LoginCtrl" ng-app="teamform-login-app">
+			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li class="active"><a href="#">HOME</a></li>
+					<li class="active"><a href="index.html">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
-					<li><a href="admin.html">ADMIN(FOR TEST)</a></li>
-					<li><a href="member.html">MEMBER</a></li>
-					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
+					
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -87,57 +80,54 @@
 	<header id="head" class="secondary"></header>
 
 	<!-- container -->
+	<div class="container">
 
-		<div ng-controller="positionSubmit" class="container">
 
-			<ol class="breadcrumb">
-				<li><a href="index.html">Home</a></li>
-				<li class="active">Member</li>
-			</ol>
-
+		<div class="row">
+			<!-- Article main content -->
+			<div class="jumbotron top-space parallax">
+		<div class="container">
+		
+		             
+		    <div class="container">
+			
+			<h3 class="text-center thin"><p>CREATE EVENT</p></h3>
+			
 			<div class="row">
-				
-				<!-- Article main content -->
-				<article class="col-sm-8 maincontent">
-					<header class="page-header">
-						<h1 class="page-title">[Name]</h1>
-					</header>
-					<h3>Your Position</h3>
-					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
-					<p>
-						<input type="button" name="Forward" value="Forward" id="buttonFoward" class="btn btn-primary btn-lg ">
-						<input type="button" name="Midfield" value="Midfield" id="buttonMidfield" class="btn btn-primary btn-lg ">
-						<input type="button" name="Back" value="Back" id="buttonBack" class="btn btn-primary btn-lg ">
-						<input type="button" name="Goalkeeper" value="Goalkeeper" id="buttonGoalkeeper" class="btn btn-primary btn-lg ">
-					</p>
-					<div class="form-group">
-						<textarea class="form-control" id="text" ng-model="input.position" style="width:200px;height:40px;" ></textarea>
-						<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
-					</div>
-
-				</article>
-				<!-- /Article -->
-				
-				<!-- Sidebar -->
-				<aside class="col-sm-4 sidebar sidebar-right">
-
-					<div class="widget">
-						<h4>Joined Event</h4>
-						<ul class="list-unstyled list-spaces">
-							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
-							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
-						</ul>
-					</div>
-
-				</aside>
-				<!-- /Sidebar -->
-
-			</div>
-		</div>	<!-- /container -->
-
+			<em>Enter a name to create a event</em>
+			<input id="input_text" type="text" >
+			<button id="btn_event" type="button" class="btn btn-primary btn-sm" >Create</button>
+			</div> <!-- /row  -->
+		</div>
 	
+		
+	</div>	<!-- /container -->
 
-	<footer id="footer" class="top-space">
+		
+			
+			<h3 class="text-center thin name"><p>CURRENT EVENT</p></h3>
+			
+			<div class="row" ng-controller="CreateEventCtrl">
+			<div class="col-md-6 col-sm-6 highlight">
+			<table border="1">
+			<tr>
+			<td> Event Name </td><td> Holder </td><td> Team Size </td><td></td></tr>
+
+			<tr ng-repeat="e in events">
+			<td>{{e.param.EventName}} </td>
+			<td>{{e.param.EventAdmin}} </td>
+			<td>{{e.param.TeamSize}}</td>
+			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="modifyevent(e.param.EventName);">modify</button></td>
+			</tr>
+
+			</table>
+			</div>
+
+				
+			</div> <!-- /row  -->
+		
+		</div>
+			<footer id="footer" class="top-space">
 
 		<div class="footer1">
 			<div class="container">
@@ -157,7 +147,7 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Follow me</h3>
 						<div class="widget-body">
-							<p class="follow-me-icons clearfix">
+							<p class="follow-me-icons">
 								<a href=""><i class="fa fa-twitter fa-2"></i></a>
 								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
 								<a href=""><i class="fa fa-github fa-2"></i></a>
@@ -186,10 +176,9 @@
 						<div class="widget-body">
 							<p class="simplenav">
 								<a href="#">Home</a> | 
-								<a href="about.html">About</a> |
-								<a href="sidebar-right.html">Sidebar</a> |
-								<a href="contact.html">Contact</a> |
-								<b><a href="signup.html">Sign up</a></b>
+								<a href="#event">Event</a> |
+								<a href="#about">About us</a> |
+								<b><a href="loginwithgoogle()">Sign in</a></b>
 							</p>
 						</div>
 					</div>
@@ -197,7 +186,7 @@
 					<div class="col-md-6 widget">
 						<div class="widget-body">
 							<p class="text-right">
-								Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
+								Copyright &copy; 2016, Light Of Wisdom. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
 							</p>
 						</div>
 					</div>
@@ -205,17 +194,7 @@
 				</div> <!-- /row of widgets -->
 			</div>
 		</div>
+
 	</footer>	
-		
-
-
-
-
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/headroom.min.js"></script>
-	<script src="assets/js/jQuery.headroom.min.js"></script>
-	<script src="assets/js/template.js"></script>
 </body>
 </html>
