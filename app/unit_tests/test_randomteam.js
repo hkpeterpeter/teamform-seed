@@ -10,21 +10,24 @@ describe('Testing', function() {
 
         });
     });
-   
-describe('random_Event function',function(){
 
-        it("an random number should be generated", function (){
+describe('RandomTeam function',function(){
+
+            it("an random number should be generated", function (){
         
             var $scope= {};
-            var $rootScope= {};
             var $firebaseArray= {};
+            var $rootScope= {};
             var Auth= {};
 
-            $controller('random_Event',{
+            $controller('random_Team',{
                 $scope: $scope,
                 Auth: Auth,
                 $rootScope: $rootScope
             });
+
+            var testID = "Test333";
+            $scope.setEvent(testID);
 
             var truthy = true;         
             
@@ -41,6 +44,6 @@ describe('random_Event function',function(){
             setTimeout(function() {
             done();
             }, 2000);
-    });
+         });
     });
 });
