@@ -85,6 +85,7 @@
 				<!-- Article main content -->
 				<article class="col-sm-8 maincontent">
 					<header class="page-header">
+<<<<<<< HEAD
 						<h1 class="page-title">Profile</h1>
 					</header>
 					<img src="assets/images/profile-icon.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" >
@@ -103,13 +104,29 @@
 					<input id="hide" class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
 					</p>
 					<input id="show" class="btn btn-default btn-sm" type="button" value="Edit">
+=======
+						<h1 class="page-title">{{userObj.name}}</h1>
+					</header>
+					<h3>Your Position</h3>
+					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
+
+					<select ng-model="position">
+						<option value="Forward">Forward</option>
+						<option value="Midfield">Midfield</option>
+						<option value="LeftBack">LeftBack</option>
+						<option value="RightBack">RightBack</option>
+						<option value="Goalkeeper">Goalkeeper</option>
+					</select>
+					<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
+					<p><tt>{{ userObj.position }}</tt></p>
+>>>>>>> 4d962d247748c854d34bea220e97ba1efd36876e
 
 				</article>
 				<!-- /Article -->
 				
 				<!-- Sidebar -->
-				
 				<aside class="col-sm-4 sidebar sidebar-right">
+
 					<div class="widget">
 						<h4>Joined Event</h4>
 						<ul class="list-unstyled list-spaces">
@@ -117,8 +134,10 @@
 							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
 						</ul>
 					</div>
+
 				</aside>
 				<!-- /Sidebar -->
+
 			</div>
 		</div>	<!-- /container -->
 
