@@ -36,7 +36,7 @@ function initalizeFirebase() {
       storageBucket: "lab-firebase-d860e.appspot.com",
     };
 
-  firebase.initializeApp(config);
+  return firebase.initializeApp(config);
 
 }    
 
