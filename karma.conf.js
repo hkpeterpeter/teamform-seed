@@ -12,6 +12,7 @@ module.exports = function (config) {
             'app/lib/firebase.js',
             'app/lib/angularfire.min.js',
             'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+			'node_modules/mockfirebase/browser/mockfirebase.js',
             'app/js/main.js',
             'app/js/*.js',
             'app/directives/*.js',
