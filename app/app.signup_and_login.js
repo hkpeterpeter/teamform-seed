@@ -1,5 +1,3 @@
-var app = angular.module("teamApp", ["ui.router","firebase"]);
-
 app.controller("eventSubmit",
                
     function($scope, $firebaseArray){
@@ -36,7 +34,7 @@ app.controller("eventSubmit",
 
 
 app.controller("AuthCtrl", [
-                            //"$scope", "Auth","$rootScope", '$state',
+                            "$scope", "Auth","$rootScope", '$state',
                             function($scope, Auth, $rootScope, $state) {
 
 	var ref = firebase.database().ref();

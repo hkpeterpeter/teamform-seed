@@ -14,14 +14,15 @@ module.exports = function(config) {
             'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js',
             'app.js',
             'app.route.js',
-            // 'app.signup_and_login.js',
+            'app.signup_and_login.js',
             'event.js',
             'unit_tests/test_createEvent.js'
         ],
         exclude: [],
         preprocessors: {
             'app.js': ['coverage'],
-            'event.js': ['coverage']
+            'event.js': ['coverage'],
+            'app.signup_and_login.js' : ['coverage']
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {
