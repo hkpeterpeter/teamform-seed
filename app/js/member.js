@@ -72,13 +72,13 @@ angular.module('teamform')
 		};
 	
 		$scope.teams = $firebaseArray(ref);
-		$scope.teams.$loaded()
+		/*$scope.teams.$loaded()
 			.then( function(data) {
 			}) 
 			.catch(function(error) {
 				// Database connection error handling...
 				//console.error("Error:", error);
-			});
+			});*/
 	};
         
 	$scope.refreshTeams(); // call to refresh teams...
