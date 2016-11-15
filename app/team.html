@@ -1,47 +1,69 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="teamform-team-app">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>LIGHT OF WISDOM - team page</title>
-	  <link rel="shortcut icon" href="images/logo.png">
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link rel="stylesheet" href="css/bootstrap-theme.css" media="screen" >
-	<link rel="stylesheet" href="css/main.css">
+<html lang="en" ng-app="teamform-team-app" ng-controller="TeamCtrl">
+<head>
+	<meta charset="utf-8" >
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+		<title >LIGHT OF WISDOM - {{EventName}} Event - {{TeamName}} Team</title>
+
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+      <!-- Angular Library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
 
-      <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
-	  	  
-   </head>
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>     
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+   <script src="assets/lib/firebase.js"></script>     
+   <script src="assets/lib/angular-route.min.js"></script>    
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
+
+
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/team.js"></script>
+
+</head>
    <body>
-<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+   
+   <div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="index.html">HOME</a></li>
-					
 					<li><a href="#out">SIGN OUT</a></li>
 					
 					
@@ -51,165 +73,92 @@
 	</div> 
 	<!-- /.navbar -->
    
-   
-    
-   <br><br>
-<br><br>
-   <div class="text-center">
-      <h1><p>Team Page</p></h1>
+	<br><br><br><br>
+	
+	
+	<div class="text-center">
+
+			<button id="btn_join_team" type="button" class="btn btn-primary btn-sm" ng-click="jointeam()">Join</button>
 	  
-	  <div class="jumbotron top-space parallax">	 
-				<div class="container">
-      <h2 id="text_event_name"></h2>
-       <div id="team_page_controller" ng-controller="TeamCtrl">
+	<div class="jumbotron top-space parallax">	 
+		<div class="container">
+			<h2 id="text_event_name"></h2>
 
-         <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
-
-            <div class="col-md-6 col-xs-6 text-left ">
-			
-			 
-
-
-               <!-- Controls go here.. -->
-                <form class="form-horizontal text-left">
-				
-                  <div class="form-group">
-				  
-                     <label for="inputTeamName" class="control-label">Team Name</label>
-					 <br>
-					 
-					 <div class="row">
-						 <div class="col-md-8 col-xs-8">
-							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">													
-						 </div>
-						
-						<div class="col-md-2 col-xs-2">
-						   <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
-						 </div>
-						 
-					</div>
-					
-										 
-					 
-                  </div>
-
-                
-				  <div class="row">
-					  <strong>Preferred Team Size: </strong> 					  
-					  <span>
-						 <span class="badge">
-						   {{param.currentTeamSize}}</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-				   <br>
-				   <div class="row">
-					  <strong>Choose your team tag(s): </strong> 
-					</div>  
-				   
-				   <div class="row">
-							<button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
-						</div>
-				   
-
-                  </form>
-
+			<div>
 
 				<div class="row">
-                  <div class="col-sm-6">
-                     <h4>Team members</h4>
-                     <!-- TODO: Show the current team member list -->
-					 
-					 <div ng-repeat="member in param.teamMembers">
-						<button type="button" class="btn" ng-click="removeMember(member);">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
-						</button>
-					 </div>
-					 
-                  </div>
+					<div class="col-md-2 col-xs-2"></div>
+						<div class="col-md-8 col-xs-8 ">						
+							<table align="center" border="2px">
+								<tr>
+									<th>Team Name</th>
+									<td>{{teaminfo.TeamName}}</td>
+								</tr>
+								<tr>
+									<th>Team Leader</th>
+									<td>{{teaminfo.TeamLeader}}</td>
+								</tr>
+								<tr>
+									<th>Team Member</th>
+									<td></td>
+								</tr>
+								<tr ng-repeat="m in members"> <td>{{m.username}}</td></tr>
+							</table>
+							<div id="comment" class="container" >
+									<div class="page-header">
+										<h3>Comment section</h3>
+									</div>
+									
+									<div class="row">
+										<form name="form" class="css-form col-md-12" novalidate>
+											<!-- 
+											##In case useful for changing it to get Team Name or get Member Name from db##
+											## all "title" are hided including those in commentCtrl.js ##
+											<div class="form-group">
+												<label>Thread: <span class="required " ng-show="form.title.$error.required">*required</span> </label>
+												<input class="form-control" type="text" name="title" ng-model="input.title" placeholder="Thread title" required>
+											</div>
+											-->
+											<div class="form-group">
+												<label>Comment: <span class="required" ng-show="form.comment.$error.required">*required</span></label>
+												<textarea class="form-control" name="comment" ng-model="input.comment" placeholder="Enter your comment ..." required></textarea>
+												<br>
+												<input class="btn btn-primary" type="button" value="Send" ng-click="addComment()" >
+											</div>											</form>
+									</div>
+											
+									<h3>All comments:</h3>
+									<div class="panel panel-success" ng-repeat="c in comment" >
+									<!--
+										<div class="panel-heading">{{c.title}}
+											<span class="glyphicon glyphicon-remove pull-right" ng-click="comment.$remove(c);"></span>
+										</div>
+									-->
+										<div class="panel-body">{{c.comment}}</div>			
+										<div class="panel-footer">
+											<button class="btn btn-primary" type="button" ng-click="c.likes = c.likes+1; comment.$save(q);">
+												<span class="glyphicon glyphicon-thumbs-up"></span> Likes
+												<span class="badge"> {{c.likes}}</span> 
+											</button>
+											<span>Commented on: {{c.date}}</span>
+										</div>
+									</div>
+							</div>
 
-                  <div class="col-sm-6">
-                     <h4>Requests received:</h4>
-
-                     <!--TODO: Show the requests -->
-					 
-					 <div ng-repeat="r in requests">
-						<button type="button" class="btn" ng-click="processRequest(r);">
-							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
-						</button>
-					 </div>
-					 
-                  </div>
+						</div>
+					<div class="col-md-2 col-xs-2"></div>
 				</div>
-				  <div class="row">
-						 <button id="btn_search" type="button" class="btn btn-primary" >Search Member</button>
-						 </div>
-				  
-
-                  				  
-					
-                   
-                  
-
-
-            </div>
-
-
-
-
-            <div class="col-md-4 col-xs-4 text-left">
-			
-					
-			 
-					<h3>All teams:</h3>
-					<ul ng-repeat="t in team">
-						<li>
-						
-							User ID: {{t.$id}}  <br>
-							Preferred team size: <span class="badge">{{t.size}}</span> <br>
-							Current team members: {{t.teamMembers}}
-						
-						</li>
-						
-					</ul>			
-			
 			</div>
-         </div>
+		</div>
+	</div>
+</div>
 
+	<a href="index.html"
+	<button id="btn_admin" type="button" class="btn btn-primary" >
+	<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+	Back</button></a>
 
-       </div>
-   </div>
-   </div>
-   </div>
-
-
-   <!-- JavaScript of this page -->
-
-   <!-- Angular and Angular-route libraries (v1.5.7) -->
-   <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>        
-     
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>     
-   <script src="lib/angularfire.min.js"></script>
-
-
-   <script src="js/team.js"></script>
-
-   </body>
    
-   <footer>
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >
-   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-   Back</button></a>
-   </footer>
+   </body>
 </html>
 
