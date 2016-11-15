@@ -7,18 +7,31 @@ describe('Test admin.js', function() {
 	
 	beforeEach(module('teamform-admin-app'));
 	beforeEach(inject(function($rootScope, $controller) {
+		// compile = $compile;
 		$scope = $rootScope.$new();
 		AdminCtrl = $controller('AdminCtrl', {$scope: $scope});
 	}));
-	
-	it('changeMinTeamSize', function() {
-        $scope.param.minTeamSize = 1;
-        $scope.param.maxTeamSize = 10;
-        $scope.changeMinTeamSize(1);
-		expect($scope.param.minTeamSize).toEqual(2);
-    });
 
-	it("get member name", function() {
+	// function getCompiledElement() {
+	// 	var element = angular.element('<div login></div>');
+	// 	var compiledElement = compile(element)($scope);
+	// 	$scope.$digest();
+	// 	return compiledElement;
+	// }
+	
+	// it('should contain span.close', function() {
+	// 	var spanElement = getCompiledElement().find('span.close');
+	// 	expect(spanElement).toBeDefined();
+	// 	expect(spanElement.text()).toEqual("&times;");
+	// });
+
+	it('test paramLoadedCallback', function() {
+		$scope.param = {};
+		$scope.paramLoadedCallback();
+		expect($scope.paramTest).toEqual("maxUndefined minUndefined noAdmin");
+	});
+
+	it("test getMemberName", function() {
 		$scope.users = [
 			{ $id: "234", "name": "apple" },
 			{ $id: "5486asd", "name": "hello" }
@@ -28,7 +41,7 @@ describe('Test admin.js', function() {
 		expect($scope.getMemberName("id_not_exist")).toEqual("null");
 	});
 		
-	it("get all team member's name", function() {
+	it("test getTeamMember", function() {
 		var team1 = [ "123", "456" ];
 		var team2 = [ "wsdw45" ];
 		$scope.users = [
@@ -44,7 +57,7 @@ describe('Test admin.js', function() {
 		expect(ret2[0]).toEqual('bye');
 	});
 
-	it("Assign all", function() {
+	it("test smartAssignment", function() {
 		$scope.param.minTeamSize = 1;
 		$scope.param.maxTeamSize = 3;
 		$scope.team = [
@@ -91,7 +104,7 @@ describe('Test admin.js', function() {
 		expect(nbMemInTeam).toEqual($scope.member.length);
 	});
 
-	it("changing min team size", function() {
+	it("test changeMinTeamSize", function() {
 		$scope.param.minTeamSize = 5;
 		$scope.param.maxTeamSize = 10;
 		$scope.changeMinTeamSize(1);
@@ -101,7 +114,7 @@ describe('Test admin.js', function() {
 		expect($scope.param.minTeamSize).toEqual(6);
 	});
 	
-	it("changing max team size", function() {
+	it("test changeMaxTeamSize", function() {
 		$scope.param.maxTeamSize = 3;
 		$scope.param.minTeamSize = 1;
 		$scope.changeMaxTeamSize(1);
@@ -117,9 +130,14 @@ describe('Test admin.js', function() {
 		expect($scope.expanded).toEqual(true);
 	});
 
-	it("test hasTeam", function() {
+	it("test hasTeam true", function() {
 		var member = {inTeam: "dummy"};
 		expect($scope.hasTeam(member)).toEqual(true);
+	});
+
+	it("test hasTeam false", function() {
+		var member = {weight: 10};
+		expect($scope.hasTeam(member)).toEqual(false);
 	});
 
 });
