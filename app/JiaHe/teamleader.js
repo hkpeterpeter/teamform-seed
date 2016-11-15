@@ -1,26 +1,26 @@
 teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($rootScope, $scope, $firebaseObject, $firebaseArray) {
 
-    $rootScope.currentEvent = 0;
-    $rootScope.currentTeam = 0;
-    $rootScope.currentUser = 0;
+    // Add for test
+    $rootScope.currentTeamID = 0;
+    $scope.event = $firebaseObject(firebase.database().ref('events/0'));
 
-    $scope.event = $firebaseObject(firebase.database().ref('events/' + $rootScope.currentEvent));
-    $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser));
-    $firebaseObject(firebase.database().ref('teams/' + $rootScope.currentTeam)).$bindTo($scope, "team");
+    // $scope.event = $rootScope.bindedclickedEvent;
+    $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser.id));
+    $firebaseObject(firebase.database().ref('teams/' + $rootScope.currentTeamID)).$bindTo($scope, "team");
 
     $scope.invite = {
         desiredSkills: [],
         newSkill: ""
     }
     $scope.deleteMember = function(member) {
-        $firebaseObject(firebase.database().ref('users/' + member.$id + '/teamsAsMember/' + $rootScope.currentTeam)).$remove();
+        $firebaseObject(firebase.database().ref('users/' + member.$id + '/teamsAsMember/' + $rootScope.currentTeamID)).$remove();
         var index = $scope.members.indexOf(member);
         membersID.$remove(index);
         $scope.members.splice(index, 1);
         addNotif(member.$id, "normal", "You are removed from Team " + $scope.team.teamName);
     }
     $scope.deleteApplicant = function(applicant, reject = true) {
-        $firebaseObject(firebase.database().ref('users/' + applicant.$id + '/teamsApplying/' + $rootScope.currentTeam)).$remove();
+        $firebaseObject(firebase.database().ref('users/' + applicant.$id + '/teamsApplying/' + $rootScope.currentTeamID)).$remove();
         var index = $scope.applicants.indexOf(applicant);
         applicantsID.$remove(index);
         $scope.applicants.splice(index, 1);
@@ -28,17 +28,17 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
             addNotif(applicant.$id, "normal", "Your request is rejected by Team " + $scope.team.teamName);
     }
     $scope.deleteInvitation = function(invitedPerson) {
-        $firebaseObject(firebase.database().ref('users/' + invitedPerson.$id + '/teamsAsInvitedPeople/' + $rootScope.currentTeam)).$remove();
+        $firebaseObject(firebase.database().ref('users/' + invitedPerson.$id + '/teamsAsInvitedPeople/' + $rootScope.currentTeamID)).$remove();
         var index = $scope.invitedPeople.indexOf(invitedPerson);
         invitedPeopleID.$remove(index);
         $scope.invitedPeople.splice(index, 1);
-        addNotif(invitedPerson.$id, "normal", "The invitation from Team " + $scope.team.teamName + " is canceled");
+        // addNotif(invitedPerson.$id, "normal", "The invitation from Team " + $scope.team.teamName + " is canceled");
     }
     $scope.addApplicant = function(applicant) {
         if ($scope.members.length + 1 < $scope.event.maxSize) {
-            firebase.database().ref('teams/' + $rootScope.currentTeam + '/membersID').child(applicant.$id).set(applicant.$id);
+            firebase.database().ref('teams/' + $rootScope.currentTeamID + '/membersID').child(applicant.$id).set(applicant.$id);
             $scope.members.push($firebaseObject(firebase.database().ref('users/' + applicant.$id)));
-            firebase.database().ref('users/' + applicant.$id + '/teamsAsMember').child($rootScope.currentTeam).set($rootScope.currentTeam);
+            firebase.database().ref('users/' + applicant.$id + '/teamsAsMember').child($rootScope.currentTeamID).set($rootScope.currentTeamID);
             $scope.deleteApplicant(applicant, false);
             addNotif(applicant.$id, "request approved", "Your request is approved by Team " + $scope.team.teamName);
         } else {
@@ -48,16 +48,23 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
     $scope.sendInvitation = function() {
         if ($scope.members.length + 1 < $scope.event.maxSize) {
             for (i = 0; i < $scope.invite.desiredSkills.length; i++) {
-                firebase.database().ref('teams/' + $rootScope.currentTeam + '/invitedPeople').child($scope.invite.desiredSkills[i]).set($scope.invite.desiredSkills[i]);
+                firebase.database().ref('teams/' + $rootScope.currentTeamID + '/invitedPeople').child($scope.invite.desiredSkills[i]).set($scope.invite.desiredSkills[i]);
                 $scope.invitedPeople.push($firebaseObject(firebase.database().ref('users/' + $scope.invite.desiredSkills[i])));
-                firebase.database().ref('users/' + $scope.invite.desiredSkills[i] + '/teamsAsInvitedPeople').child($rootScope.currentTeam).set($rootScope.currentTeam);
-                addNotif($scope.invite.desiredSkills[i], "invitation", "You are invited by Team " + $scope.team.teamName);
+                firebase.database().ref('users/' + $scope.invite.desiredSkills[i] + '/teamsAsInvitedPeople').child($rootScope.currentTeamID).set($rootScope.currentTeamID);
+                // addNotif($scope.invite.desiredSkills[i], "invitation", "You are invited by Team " + $scope.team.teamName);
             }
         } else {
             window.alert("Your team is full!");
         }
         $scope.invite.desiredSkills = [];
         $scope.invite.newSkill = '';
+    }
+    $scope.activator = "activator";
+    $scope.checkApplicants = function() {
+        if ($scope.applicants.length == 0) {
+            window.alert("There is no applicants.");
+            $scope.activator = "";
+        }
     }
     $scope.smartAdd = function() {
         var cnt = 0;
@@ -116,9 +123,9 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
     }
 
     var flag = 0;
-    var membersID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeam + '/membersID'));
-    var applicantsID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeam + '/pendingApplicants'));
-    var invitedPeopleID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeam + '/invitedPeople'));
+    var membersID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/membersID'));
+    var applicantsID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/pendingApplicants'));
+    var invitedPeopleID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/invitedPeople'));
 
     $scope.init = function() {
         if (!flag) {
