@@ -30,6 +30,7 @@ module.exports = function (config) {
         preprocessors: {
             'app/js/main.js': sourcePreprocessors,
             'app/js/index.js': sourcePreprocessors,
+	    'app/js/login.js': sourcePreprocessors,
             'app/js/admin.js': sourcePreprocessors,
             'app/js/admin-creation.js': sourcePreprocessors,
             'app/js/team.js': sourcePreprocessors,
