@@ -30,7 +30,7 @@
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
 
@@ -43,18 +43,16 @@
 
 
     <!--firebase-->
-    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/2.1.0/angularfire.js"></script>
 
     <!-- Google api platform js -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="js/site.js" type="text/javascript"></script>
 
-    <script>
+    <script type="text/javascript">
         // Initialize Firebase
-        var config = {
-            
-        };
-        firebase.initializeApp(config);
+        initFirebase();
     </script>
 
 
@@ -75,7 +73,7 @@
    <input ng-model="eventtitle" type="text" />
 -->
 
-<fish-navi></fish-navi>
+<zhu-navi></zhu-navi>
 
 <div ng-view>
 

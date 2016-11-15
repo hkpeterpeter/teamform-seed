@@ -103,8 +103,9 @@
               </div>
             </div>
             <div class="card-action">
+              <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge">
               <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="remove(team)">Delete</button>
-              <button class="btn-flat orange-text admin-team-btn">Merge</button>
+              <button class="btn-flat orange-text admin-team-btn" ng-click="adminMergeTeam(team)">Merge</button>
             </div>
 
             <div class="card-reveal blue-grey darken-1 white-text">
