@@ -66,11 +66,6 @@ angular.module('teamform-member-app', ['firebase'])
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         var userPath = "/user/" + user.uid;
-<<<<<<< HEAD
-        var userRef = firebase.database().ref(userPath);
-        userID =user.uid;
-        $scope.userObj = $firebaseObject(userRef);
-=======
         var userref = firebase.database().ref(userPath);
         $scope.userObj = $firebaseObject(userref);
 		$(document).ready(function(){
@@ -82,7 +77,6 @@ angular.module('teamform-member-app', ['firebase'])
 			});
 		});
 
->>>>>>> hkkcliu-master
     } else {
     // No user is signed in.
     }
