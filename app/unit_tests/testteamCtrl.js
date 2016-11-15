@@ -63,11 +63,12 @@ describe("tfApp", function(){
       // initalizeFirebase();
   });
 
-  var $controller, auth, helper;
+  var $controller, $filter, auth, helper;
 
-  beforeEach(inject(function(_$controller_, Auth, Helper){
+  beforeEach(inject(function(_$controller_, _$filter_ ,  Auth, Helper){
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $controller = _$controller_;
+    $filter = _$filter_;
     auth = Auth;
     helper = Helper;
   }));
@@ -89,6 +90,19 @@ describe("tfApp", function(){
         });
 
 
+        it('$scope.alreadyApplied() should return whether user has already applied for a team', function() {
+          $scope.user_appli = {"a" : "pending"};
+          $scope.teamID = "b";
+          $scope.user_appli[$scope.teamID] == undefined;
+            expect($scope.alreadyApplied()).toEqual(false);
+
+            $scope.user_appli = {"a" : "pending"};
+            $scope.teamID = "a";
+            $scope.user_appli[$scope.teamID] = "pending";
+            expect($scope.alreadyApplied()).toEqual(true);
+
+          // expect(window.alert).toHaveBeenCalledWith("Your application is received");
+        });
 
         it('$scope.ApplyTeam() should apply for a team', function() {
           $scope.ApplyTeam();
@@ -98,31 +112,54 @@ describe("tfApp", function(){
 
 
         it('$scope.DeleteMember() should delete a member in a team', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.DeleteMember();
+
         });
 
 
 
         it('$scope.QuitTeam() should quit a team', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.QuitTeam();
         });
 
 
 
         it('$scope.SetLeader() should assign team leader to another member', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.SetLeader();
         });
 
 
 
         it('$scope.filterLeader() should return a filter list with leader uid not in it', function() {
-          $scope.filterLeader();
+          var items =
+          { "a" : "a",
+            "b":"b"
+          };
+          var leaderuid = "a";
+
+          expect($scope.filterLeader(items,leaderuid)).toEqual({"b" : "b"});
 
         });
 
 
 
         it('$scope.ChangeTeamName() should change a team name', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.ChangeTeamName("s");
 
         });
@@ -130,6 +167,10 @@ describe("tfApp", function(){
 
 
         it('$scope.ChangeTeamDesc() should change a team description', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.ChangeTeamDesc("s");
 
         });
@@ -137,6 +178,10 @@ describe("tfApp", function(){
 
 
         it('$scope.ChangeTeamMax() should change a team maximum limit', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.ChangeTeamMax(9);
 
         });
@@ -144,24 +189,80 @@ describe("tfApp", function(){
 
         it('$scope.changeTeamInfo() should change a team infomation', function() {
           $scope.changeTeamInfoDialogue();
+          $scope.teamdata.name = "mark";
+          $scope.newTeaminfo.name = "god";
+          $scope.teamdata.desc = "aaa";
+          $scope.newTeaminfo.desc = "bbb";
+          $scope.teamdata.max = 7;
+          $scope.newTeaminfo.max = 8;
           $scope.changeTeamInfo();
+          $scope.teamdata.name = "mark";
+          $scope.newTeaminfo.name = "mark";
+          $scope.teamdata.desc = "aaa";
+          $scope.newTeaminfo.desc = "aaa";
+          $scope.teamdata.max = 7;
+          $scope.newTeaminfo.max = 7;
+          $scope.changeTeamInfo();
+
+        });
+
+
+
+        it('$scope.ManageTagDialogue() should jump a dialogue', function() {
+          $scope.ManageTagDialogue();
         });
 
 
         it('$scope.filterSkillTags() should filter skill tags', function() {
-          $scope.filterSkillTags();
+          var items =
+          { "a" : 0,
+            "b": 1
+          };
+          expect($scope.filterSkillTags(items)).toEqual({"b":1});
+          $scope.noSkillTags = false;
+
+          var items =
+          { "a" : 0,
+            "b": 0
+          };
+          expect($scope.filterSkillTags(items)).toEqual({});
+          $scope.noSkillTags = true;
 
         });
 
 
         it('$scope.filterLanguageTags() should filter language tags', function() {
-          $scope.filterLanguageTags();
+          var items =
+          { "a" : false,
+            "b": true
+          };
+          expect($scope.filterLanguageTags(items)).toEqual({"b":true});
+          $scope.noLanguageTags = false;
+
+          var items =
+          { "a" : false,
+            "b": false
+          };
+          expect($scope.filterLanguageTags(items)).toEqual({});
+          $scope.noLanguageTags = true;
 
         });
 
 
         it('$scope.filterMannerTags() should filter manner tags', function() {
-          $scope.filterMannerTags();
+          var items =
+          { "a" : false,
+            "b": true
+          };
+          expect($scope.filterMannerTags(items)).toEqual({"b":true});
+          $scope.noMannerTags = false;
+
+          var items =
+          { "a" : false,
+            "b": false
+          };
+          expect($scope.filterMannerTags(items)).toEqual({});
+          $scope.noMannerTags = true;
 
         });
         //
@@ -193,6 +294,10 @@ describe("tfApp", function(){
         });
 
         it('$scope.addAnnouncement() should add an announcement', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.addAnnouncement();
         });
 
@@ -205,15 +310,47 @@ describe("tfApp", function(){
         });
 
         it('$scope.filterByStatus() should filter applications and invitations by status', function() {
-          $scope.filterByStatus();
+          var items =
+          { "a" : "pending",
+            "b":"accepted"
+          };
+          var search_model = "all";
+          expect($scope.filterByStatus(items, search_model)).toEqual({ "a" : "pending","b":"accepted"});
+
+          var items =
+          { "a" : "pending",
+            "b":"accepted"
+          };
+          var search_model = "pending";
+          expect($scope.filterByStatus(items, search_model)).toEqual({ "a" : "pending"});
+
         });
 
         it('$scope.accept_Application() should accept an application', function() {
+          $scope.teamdata.members =
+            { "a" : "a",
+              "b":"b"
+            };
           $scope.accept_Application("111");
         });
 
         it('$scope.decline_Application() should decline an application', function() {
           $scope.decline_Application("111");
+        });
+
+        it('filter DateFormat should return a date from a string', function() {
+          var foo = "2016-11-15 16:56";
+
+          var foofiltered = new Date(foo);
+
+          var result = $filter('DateFormat')(foo);
+          expect(result).toEqual(foofiltered);
+
+          var foo = undefined;
+
+          var result = $filter('DateFormat')(foo);
+          expect(result).toEqual(null);
+
         });
     });
 
