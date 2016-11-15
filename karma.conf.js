@@ -1,3 +1,11 @@
+var sourcePreprocessors = 'coverage';
+function isDebug(argument) {
+    return argument === '--debug';
+}
+if (process.argv.some(isDebug)) {
+    sourcePreprocessors = [];
+}
+
 //jshint strict: false
 module.exports = function (config) {
     config.set({
@@ -20,12 +28,12 @@ module.exports = function (config) {
         ],
         exclude: [],
         preprocessors: {
-            'app/js/main.js': ['coverage'],
-            'app/js/index.js': ['coverage'],
-            'app/js/admin.js': ['coverage'],
-            'app/js/team.js': ['coverage'],
-            'app/js/member.js': ['coverage'],
-            'app/directives/member-card.js': ['coverage']
+            'app/js/main.js': sourcePreprocessors,
+            'app/js/index.js': sourcePreprocessors,
+            'app/js/admin.js': sourcePreprocessors,
+            'app/js/team.js': sourcePreprocessors,
+            'app/js/member.js': sourcePreprocessors,
+            'app/directives/member-card.js': sourcePreprocessors
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {
