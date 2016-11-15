@@ -67,6 +67,10 @@ describe('Test angular_invite.js', function() {
 	   		$scope.reset(index);// html
 	   		expect($scope.resultTag).toEqual(["html"]);
 	   		expect($scope.currentTag).toEqual(["javascript","angularjs","css","java","cpp","sql"]);
+	   		expect($scope.filtered).toEqual({
+			"shinji":{"name":"shinji","intro":"I am not a pussy","img":"./img/shinji.jpg","select":"glyphicon glyphicon-unchecked","tag":["angularjs","html","css","sql"]},
+			"van":{"name":"van","intro":"ddf","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["html","sql"]}
+			});
 		});
    		it('delete',function(){
 	   		var index = 0;
