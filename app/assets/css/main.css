@@ -115,12 +115,7 @@ img.pull-left { margin-right: 10px; }
 
 
 p {
-<<<<<<< HEAD:app/assets/css/main.css
-  color:#2A19AE;
-=======
-  
   color:#2C3E50;
->>>>>>> e63921abcef2d8b9af8421840b7637d166734de3:app/css/main.css
 }
 
 
@@ -171,9 +166,7 @@ imgtrans {
 .container-dd { 
     /* The image used */
     background-image: url( ../images/bg_header.jpg);
-    background-repeat: no-repeat;
-     background-position: center;
-     background-size: cover;
+	
       padding-top: 70px;
     padding-bottom: 70px;
    
@@ -183,3 +176,40 @@ imgtrans {
     /* Create the parallax scrolling effect */
     
 }	
+
+
+td 
+{
+    text-align:center; 
+    vertical-align:middle;
+	background-color: #BCE954;
+	font-family:"Open sans", Helvetica, Arial;
+	font-size:20px;
+	
+	
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px;
+}
+
+.close {
+    /* Position it in the top right corner outside of the modal */
+    position: absolute;
+    right: 25px;
+    top: 0; 
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+}
+
