@@ -10,9 +10,18 @@ h1
 	font-style: italic;
 	
 }
+h3{
+	margin: 15px 5px 15px 5px;
+	font-family: Comic Sans, Comic Sans MS, Cursive;
+}
 h2
 {
+	font-family: Comic Sans, Comic Sans MS, Cursive;
 	font-style: center;
+	font-size:xxx-large;
+	font-style: x-bold;
+	margin-bottom: 10px;
+	text-decoration: underline;
 }
 h4
 {
@@ -24,7 +33,7 @@ h4
 position: absolute;
 left: 0px;
 width: 800px;
-height: 500px;
+height: 600px;
 padding: 40px;
 background-color: rgba(255,255,255,0.4);
 -webkit-border-radius: 37px;
@@ -34,9 +43,16 @@ border: #7F7F7F solid 1px;
 }
 
 
+.picleft
+{
+margin: 10px 20px 10px 5px	
+}
 
-
-
+span
+{
+font-style: italic;	
+font-size: x-large;
+}
 
 	
 	

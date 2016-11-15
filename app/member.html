@@ -1,70 +1,23 @@
-
-<!DOCTYPE html>
-<html ng-app = "teamform-member-app" lang="en">
-
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>teamform - member page</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link href="css/member.css" type="text/css" rel="stylesheet" />
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	<!-- Angular Library -->
-	<!-- Angular Library -->
- 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
- 
- 	<!-- Firebase -->
- 	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
- 
- 	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
- 	<script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
- 
- 	<script>
-  	// Initialize Firebase
- 	var config = {
-     apiKey: "AIzaSyAjSwkuqVhX249KogPKC04riNIzOTJTQGk",
-    authDomain: "comp3111-fc3c0.firebaseapp.com",
-    databaseURL: "https://comp3111-fc3c0.firebaseio.com",
-     storageBucket: "comp3111-fc3c0.appspot.com",
-     messagingSenderId: "863597722858"
-   	};
-  	firebase.initializeApp(config);
- 	</script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/member.js"></script>
+	<link href="css/member.css" type="text/css" rel="stylesheet" />
+    <title>Member Page</title>
 
 </head>
 
-<body>
-   <div ng-controller = "MemberCtrl" class="container">	
-   </div>
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+<body ng-app = "member" ng-controller = "memCtrl">
+	
+	<button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
 
    <a href="addpost.html"
    <button id="btn_admin" type="button" class="btn btn-primary" > Go to the advertisement board page</button></a>
-    
-	
-    <!-- Page Content -->
-    <div class="container">
-
-        <!-- Portfolio Item Heading -->
+	 <form >
+		<div class="container">
+	        <!-- Portfolio Item Heading -->
             <div class="text-center">
 				<h1>Member Page</h1>
 			</div>
@@ -73,9 +26,28 @@
         <!-- Portfolio Item Row -->
         <div class="row" >
             <div class="col-md-12">
-                <div align=left class="bubble" class="img-responsive" style="margin-top:80px">
-				<h2>Member Profile</h2>
-				<h3>Name:</h3>
+                <div align=left class="bubble" class="img-responsive" style="margin-top:50px">
+				<h2 style="margin-top:-10px"><center>Your Profile</center></h2>
+				<img src="{{mems[getID()].profile_pic}}" width = "170" height = "220" class="picleft" class="img-responsive"/ align=left>
+				
+				<div style = "margin = 5px 0px 5px 20px">
+					<h3>Last Name: &nbsp;<span>{{mems[getID()].last_name}}</span></h3>
+					<h3>Member ID: &nbsp;<span>{{mems[getID()].id}}</span></h3>
+					<h3> Gender: &nbsp;<span>{{mems[getID()].gender}}</span></h3>
+					<h3> Lives in:&nbsp; <span>{{mems[getID()].from}}</span></h3>
+					<h3> Date of Born: &nbsp;<span>{{mems[getID()].birthday}}</span></h3>
+					<h3> Email Address: &nbsp;<span>{{mems[getID()].email}}</span></h3>
+					<h3> Descriptions: &nbsp;<span>{{mems[getID()].descriptions}}</span></h3>
+					<h3>Available For Traveling?: &nbsp;<span>{{mems[getID()].available_for_traveling}}</span></h3>
+					<h3>Has been to: &nbsp;<span ng-repeat="to in mems[getID()].has_been">{{to}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+					<h3>Languages: &nbsp;<span ng-repeat="language in mems[getID()].language">{{language}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+					<h3>Want to travel to: &nbsp;<span ng-repeat="place in mems[getID()].want_to_travel">{{place}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+				</div>		
+				
+				
+				
+				
+				
 				</div>
 				
             </div>
@@ -93,17 +65,14 @@
 
         </div>
         <!-- /.row -->
-
+		
         <hr>
 
- 
 
     </div>
+	</form>
     <!-- /.container -->
 
-  
 	<script src="js/member.js"></script>
 	<script src="js/site.js"></script>
 </body>
-
-</html>
