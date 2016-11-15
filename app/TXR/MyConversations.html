@@ -1,12 +1,23 @@
-	 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="MyConversationPeter">
 
-	
 	<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">         
       <div class="col-md-1 col-lg-8">
-        <h3 class="text-center">Peter</h3>
+        <h3 align="left" ng-show="IsVisiblePeter">Peter invites you to join <strong>O(n^3) is not that slow</strong>
+        <h3 align="left" ng-show="IsVisibleJason">Jason invites you to join <strong>O(n^3) is not that slow</strong>
+        <h3 align="left" ng-show="IsVisibleKevin">Kevin invites you to join <strong>O(n^3) is not that slow</strong>
+   
+
+        </h3>
 </div>
+                     
+
+<br>
+<div align="right">
+
+                        <button type="button" class="btn btn-md btn-primary">Accept</button>
+                        <button type="button" class="btn btn-md btn-danger">Reject</button>
+                      </div>
 </div>
 	  </div>
 </nav>
@@ -14,18 +25,28 @@
     <div id="message_placeholder">
     </div>
     <div id="message">
-    	<div class="col-xs-1" id="message_sender"><img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" alt="" width="50" height="30" class="img-thumbnail"></div>
+    	<div class="col-xs-1" id="message_sender" ng-show="IsVisiblePeter"><img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" alt="" width="50" height="30" class="img-thumbnail"></div>
+      <div class="col-xs-1" id="message_sender" ng-show="IsVisibleJason"><img src="https://course.cse.ust.hk/comp3111/images/jason.png" alt="" width="50" height="30" class="img-thumbnail" ></div>
+      <div class="col-xs-1" id="message_sender" ng-show="IsVisibleKevin"><img src="https://course.cse.ust.hk/comp3111/images/ken.png" alt="" width="50" height="30" class="img-thumbnail" ></div>
     	<div class="col-lg-9" id="message_content">
-    	<span id="message_body">
-    		Hello, I'm Slackbot. I try to be helpful. (But I’m still just a bot. Sorry!) Type *something* to get started.
-    		If you have any questions about *how to use Slack*, please ask me! I’ll do my best to help.
+    	<span id="message_body" ng-show="IsVisiblePeter">
+    		Hello, I'm Peter. 
     	</span>
+          	<span id="message_body" ng-show="IsVisibleJason">
+    		Hello, I'm Jason. 
+    	</span>
+          	<span id="message_body" ng-show="IsVisibleKevin">
+    		Hello, I'm Kevin. 
+    	</span>
+
     	<a href="#">12:37 PM</a>
     	</div>
     </div>
     <div class="col-lg-11">
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Message Peter">
+      <input type="text" class="form-control" placeholder="Message Peter" ng-show="IsVisiblePeter">
+      <input type="text" class="form-control" placeholder="Message Jason" ng-show="IsVisibleJason">
+      <input type="text" class="form-control" placeholder="Message Kevin" ng-show="IsVisibleKevin">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Send</button>
       </span>
@@ -33,77 +54,3 @@
   </div>
 	  </div>
 
-</div>
-	 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="MyConversationJason">
-
-	
-	<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">         
-      <div class="col-md-1 col-lg-8">
-        <h3 class="text-center">Jason</h3>
-</div>
-</div>
-	  </div>
-</nav>
-  <div id="message_container">
-    <div id="message_placeholder">
-    </div>
-    <div id="message">
-    	<div class="col-xs-1" id="message_sender"><img src="https://course.cse.ust.hk/comp3111/images/jason.png" alt="" width="50" height="30" class="img-thumbnail"></div>
-    	<div class="col-lg-9" id="message_content">
-    	<span id="message_body">
-    		Hello, I'm Slackbot. I try to be helpful. (But I’m still just a bot. Sorry!) Type *something* to get started.
-    		If you have any questions about *how to use Slack*, please ask me! I’ll do my best to help.
-    	</span>
-    	<a href="#">12:37 PM</a>
-    	</div>
-    </div>
-    <div class="col-lg-11">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Message Jason">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Send</button>
-      </span>
-    </div><!-- /input-group -->
-  </div>
-	  </div>
-</div>
-
-
- <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" id="MyConversationKen">
-
-	
-	<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">         
-      <div class="col-md-1 col-lg-8">
-        <h3 class="text-center">Kevin</h3>
-</div>
-</div>
-	  </div>
-</nav>
-  <div id="message_container">
-    <div id="message_placeholder">
-    </div>
-    <div id="message">
-    	<div class="col-xs-1" id="message_sender"><img src="https://course.cse.ust.hk/comp3111/images/ken.png" alt="" width="50" height="30" class="img-thumbnail"></div>
-    	<div class="col-lg-9" id="message_content">
-    	<span id="message_body">
-    		Hello, I'm Slackbot. I try to be helpful. (But I’m still just a bot. Sorry!) Type *something* to get started.
-    		If you have any questions about *how to use Slack*, please ask me! I’ll do my best to help.
-    	</span>
-    	<a href="#">12:37 PM</a>
-    	</div>
-    </div>
-    <div class="col-lg-11">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Message Ken">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Send</button>
-      </span>
-    </div><!-- /input-group -->
-  </div>
-	  </div>
-
-</div>
