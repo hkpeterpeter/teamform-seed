@@ -1,17 +1,17 @@
-$(document).ready(function(){
-
-	$('#admin_page_controller').hide();
-	$('#text_event_name').text("Error: Invalid event name ");
-	var eventName = getURLParameter("q");
-	if (eventName != null && eventName !== '' ) {
-		$('#text_event_name').text("Event name: " + eventName);
-	}
-
-});
+// $(document).ready(function(){
+//
+// 	$('#admin_page_controller').hide();
+// 	$('#text_event_name').text("Error: Invalid event name ");
+// 	var eventName = getURLParameter("q");
+// 	if (eventName != null && eventName !== '' ) {
+// 		$('#text_event_name').text("Event name: " + eventName);
+// 	}
+//
+// });
 
 angular.module('teamform-member-app', ['firebase'])
 .controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
-
+	var self = this;
 	initalizeFirebase();
 	// TODO: implementation of AdminCtrl
 	var id = "";
@@ -41,7 +41,6 @@ angular.module('teamform-member-app', ['firebase'])
 
   //0: create event 1: create team
   $scope.page=0;
-
 	// Link and sync a firebase object
 	$scope.event = $firebaseObject(ref);
 	$scope.event.$loaded()
@@ -57,6 +56,8 @@ angular.module('teamform-member-app', ['firebase'])
 
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show();
+			//self.createEvent();
+			self.createTeam("6210");
 		})
 		.catch(function(error) {
 			// Database connection error handling...
@@ -72,84 +73,47 @@ angular.module('teamform-member-app', ['firebase'])
     return size;
   };
 
-    $scope.newTeam=[];
+    $scope.newTeam=[''];
     $scope.minTeam=0;
     $scope.maxTeam=10;
-    //$scope.obj={haha:{},obj:{}}
-    //console.log("function size: "+Object.size($scope.event)+"\n");
-    //console.log("size: "+Object.keys($scope.event).length);
 
-    $scope.createEvenet=function(){
+    self.createEvent=function(){
       $scope.page=0;
     };
 
-    $scope.createTeam=function(evID){
+    self.createTeam=function(evID){
       $scope.page=1;
       $scope.eventID=evID;
       var obj=$scope.event[evID];
+			$scope.oldTeam=Object.getOwnPropertyNames(obj.teams);
       $scope.minTeam=obj.param.minTeamSize;
       $scope.maxTeam=obj.param.maxTeamSize;
-      $scope.oldTeam=obj.teams;
-      $scope.otLength=Object.size(obj.teams);
-    };
-
-    $scope.addTeam=function(){
-      //console.log($scope.newTeam.length+" "+$scope.maxTeam+"\n");
-      if(!$scope.page){
-        if($scope.newTeam.length<$scope.maxTeam)
-          $scope.newTeam.push('');
-      }
-      else{
-        var temp=$scope.maxTeam-$scope.otLength;
-        if($scope.newTeam.length<temp)
-          $scope.newTeam.push('');
-      }
-    };
-
-    $scope.rmvTeam=function(){
-      if(!$scope.page){
-        if($scope.newTeam.length>$scope.minTeam)
-          $scope.newTeam.pop();
-      }
-      else{
-
-      }
-    };
-
-    $scope.fillTeam=function(){
-      var temp=$scope.minTeam-$scope.newTeam.length;
-      if(temp>0)
-        for(var i=0;i<temp;i++)
-          $scope.newTeam.push('');
-    };
-
-    $scope.fullTeam=function(){
-        var temp=$scope.newTeam.length-$scope.maxTeam;
-        if($scope.page)
-          temp+=$scope.otLength;
-        if(temp>0)
-          for(var i=0;i<temp;i++)
-            $scope.newTeam.pop();
+			console.log("oldTeam: "+JSON.stringify($scope.event[evID])+"\n");
+			if($scope.maxTeam==$scope.oldTeam.length)
+				alert("Number of existing teams reachs the maximum, createTeam is forbidden.");
     };
 
     $scope.submit=function(){
         if(this.ceForm.$invalid)
           return alert("Please fulfill requirements before submit the request.");
-        //console.log("function size: "+Object.size($scope.event)+"\n");
+
+				//Page: createEvent
         if(!$scope.page){
           for(var i=0;i<Object.size($scope.event);i++){
             //console.log("The "+i+"-th property is "+Object.keys($scope.event)[i]+"\n");
             if(Object.keys($scope.event)[i]==$scope.eventID)
-              return alert("The event name has been registered, please submit a new one.");
+              return alert("The event name is existed, please rename it.");
           }
         }
-        for(var i=0;i<$scope.newTeam.length;i++){
-          for(var j=i+1;j<$scope.newTeam.length;j++){
-            console.log($scope.newTeam[i]+" "+$scope.newTeam[j]+"\n");
-            if($scope.newTeam[i]==$scope.newTeam[j])
-              return alert("Team names are duplicate, please submit a new name list.");
-          }
-        }
+
+				if($scope.page){
+					console.log("checking exist name: "+$scope.newTeam[0]+"\n");
+					for(var i=0;i<$scope.oldTeam.length;i++){
+						console.log("oldteam name: "+$scope.oldTeam[i]+"\n");
+						if($scope.newTeam[0]==$scope.oldTeam[i])
+							return alert("The team name is existed, please rename it.");
+					}
+				}
 
         var obj={};
         obj.param={
@@ -161,15 +125,18 @@ angular.module('teamform-member-app', ['firebase'])
           maxTeamSize: $scope.maxTeam,
           minTeamSize: $scope.minTeam
         };
-        obj.teams={};
-        if($scope.page)
-          obj.teams=$scope.oldTeam;
-        for(var i=0;i<$scope.newTeam.length;i++){
-          //console.log("newTeam[i]: "+$scope.newTeam[i]+"\n");
-          obj.teams[$scope.newTeam[i]]={members:[''],requests:['']};
+
+				if(!$scope.page)
+        	obj.teams={"_":""};
+        else{
+					delete obj["_"];
+          obj.teams=$scope.event[$scope.eventID].teams;
+          obj.teams[$scope.newTeam[0]]={members:[''],requests:['']};
         }
 
         console.log("Final Save: "+JSON.stringify(obj)+"\n");
         ref.child($scope.eventID).update(obj);
+				if($scope.page)
+					self.createTeam($scope.eventID);
     };
 }]);
