@@ -24,7 +24,8 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
-		"teamMembers" : []
+		"teamMembers" : [],
+		"priority" : null
 	};
 		
 	$scope.changePriority = function () {
@@ -38,7 +39,7 @@ angular.module('teamform-team-app', ['firebase'])
 	            'priority': !$scope.param.priority
 	        };
 
-	        var refPath = getURLParameter("q") + "/team/" + teamID;
+	        var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
 	        var ref = firebase.database().ref(refPath);
 
 
@@ -60,7 +61,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 	}
 
-	refPath =  eventName + "/admin";
+	refPath = "event/" + eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {	
 
 		if ( data.child("param").val() != null ) {
@@ -73,12 +74,12 @@ angular.module('teamform-team-app', ['firebase'])
 	});
 	
 	
-	refPath = eventName + "/member";	
+	refPath = "event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
 	
-	refPath = eventName + "/team";	
+	refPath = "event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
