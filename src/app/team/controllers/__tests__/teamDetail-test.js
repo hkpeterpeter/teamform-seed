@@ -155,32 +155,24 @@ describe('TeamDetailController', () => {
         done();
     });
 
-    it('canManage', async (done) => {
-        let $timeout;
-        inject((_$timeout_, AuthService) => {
-            $timeout = _$timeout_;
-            $spys.push(spyOn(AuthService, 'getUser').and.returnValue(Promise.resolve({uid: 1})));
+    it('canManage', () => {
+        inject((AuthService) => {
+            $spys.push(spyOn(AuthService, 'getUserSync').and.returnValue({uid: 1}));
         });
         $controller.team = {data: {createdBy: 1}};
-        expect(await $controller.canManage()).toEqual(true);
+        expect($controller.canManage()).toEqual(true);
         $controller.team = {data: {createdBy: 2}};
-        expect(await $controller.canManage()).toEqual(false);
-        $timeout.flush();
-        done();
+        expect($controller.canManage()).toEqual(false);
     });
 
-    it('canAccept', async (done) => {
-        let $timeout;
-        inject((_$timeout_, AuthService) => {
-            $timeout = _$timeout_;
-            $spys.push(spyOn(AuthService, 'getUser').and.returnValue(Promise.resolve({uid: 1})));
+    it('canAccept', () => {
+        inject((AuthService) => {
+            $spys.push(spyOn(AuthService, 'getUserSync').and.returnValue({uid: 1}));
         });
-        $controller.team = {data: {users: {0: 1}}};
-        expect(await $controller.canAccept(0)).toEqual(true);
-        $controller.team = {data: {users: {0: 2}}};
-        expect(await $controller.canAccept(0)).toEqual(false);
-        $timeout.flush();
-        done();
+        $controller.team = {data: {users: {0: {id: 1}}}};
+        expect($controller.canAccept(0)).toEqual(true);
+        $controller.team = {data: {users: {0: {id: 2}}}};
+        expect($controller.canAccept(0)).toEqual(false);
     });
 
     it('filterJoined', () => {

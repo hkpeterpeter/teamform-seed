@@ -82,13 +82,13 @@ export default class TeamDetailCtrl {
             });
         }
     }
-    async canManage() {
-        let user = await this.authService.getUser();
+    canManage() {
+        let user = this.authService.getUserSync();
         return user && user.uid == this.team.data.createdBy;
     }
-    async canAccept(positionId) {
-        let user = await this.authService.getUser();
-        return user && user.uid == this.team.data.users[positionId];
+    canAccept(positionId) {
+        let user = this.authService.getUserSync();
+        return user && user.uid == this.team.data.users[positionId].id;
     }
     filterJoined(user) {
         return user.id != null && user.pending !== true && user.confirmed !== false;
