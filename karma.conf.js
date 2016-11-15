@@ -10,21 +10,27 @@ module.exports = function(config) {
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
 			'lib/firebase.js',
-			'lib/angularfire.min.js',	
+			'lib/angularfire.min.js',
 			'lib/angular-ui-router/release/angular-ui-router.js',
-			'lib/ng-dialog/js/ngDialog.min.js',  
+			'lib/ng-dialog/js/ngDialog.min.js',
 			'js/site.js',
 			'js/main.js',
 			'js/helper.js',
 			'js/profileCtrl.js',
 			'js/eventDCtrl.js',
+
+      'js/teamCtrl.js',
+      'unit_tests/testEventDCtrl.js',
+      'unit_tests/testteamCtrl.js'
+
 			'js/requestCtrl.js',
-      'unit_tests/*.js'	  
+      'unit_tests/*.js'
+
     ],
 	exclude: [
 	],
-	preprocessors: {	 	
-		 'js/*.js' : ['coverage'],		
+	preprocessors: {
+		 'js/*.js' : ['coverage'],
 		//  'js/index.js' : ['coverage'],
 		//  'js/admin.js' : ['coverage'],
 		//  'js/team.js' : ['coverage'],
@@ -41,10 +47,10 @@ module.exports = function(config) {
     browsers: ['Chrome'],
 	singleRun: true,
     // plugins: [
-    //   'karma-chrome-launcher',      
+    //   'karma-chrome-launcher',
     //   'karma-jasmine',
 	  // 'karma-coverage'
-    // ]    
+    // ]
 
   });
 };
