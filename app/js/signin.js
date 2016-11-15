@@ -12,7 +12,6 @@
             var errorCode = error.code;
             var errorMessage = error.message;
             // ...
-            window.location.href = "error.html";
         });
 
         window.location.href = "index.html";
