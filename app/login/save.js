@@ -1,38 +1,23 @@
-app.controller("Question", ["$scope", "$firebaseArray","$firebaseObject",
-    function($scope, $firebaseArray, $firebaseObject) {
-    var ref = firebase.database().ref('Question/Q1');
-
-    $scope.q = {
-            question: "",
-            a: "",
-            b: "",
-            c: "",
-            d: "",
-            ans: ""
-    }
+app.controller("MyCtrl", ["$scope", "$firebaseObject",
+  function($scope, $firebaseObject) {
+     var ref = firebase.database().ref("Course");
 
      var obj = $firebaseObject(ref);
 
      // to take an action after the data loads, use the $loaded() promise
      obj.$loaded().then(function() {
-        $scope.q.question = obj.q1;
-        $scope.q.a = obj.a;
-        $scope.q.b = obj.b;
-        $scope.q.c = obj.c;
-        $scope.q.d = obj.d;
-        $scope.q.ans = obj.correct;
-    });
+        console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
 
+       // To iterate the key/value pairs of the object, use angular.forEach()
+       angular.forEach(obj, function(value, key) {
+          console.log(key, value);
+       });
+     });
 
-    $scope.sumitans = function() {
-        if($scope.Qinput == $scope.q.ans){
-          console.log("correct");
-        }
-        else{
-          console.log("XXX");
-        }
-        
-    }
+     // To make the data available in the DOM, assign it to $scope
+     $scope.data = obj;
 
+     // For three-way data bindings, bind it to the scope instead
+     obj.$bindTo($scope, "data");
   }
-]
+]);

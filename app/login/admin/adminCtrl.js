@@ -11,6 +11,7 @@ app.controller("AdminAuthCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
         }
 
         $scope.course = {
+            courseName: "",
             max: 5,
             min: 2,
         }
@@ -40,9 +41,10 @@ app.controller("AdminAuthCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
         }
 
         $scope.CreateCourse = function() {
-            var ref = firebase.database().ref('Course/');
-            ref.child($scope.courseName).set($scope.course);
-            
+            var ref = firebase.database().ref('Course');
+            var course = $firebaseArray(ref);
+
+            course.$add($scope.course);            
         }
 
     }
