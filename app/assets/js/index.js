@@ -1,40 +1,3 @@
-$(document).ready(function(){
-
-    $("#btn_admin").click(function(){
-    	var val = $('#input_text').val();
-    	if ( val !== '' ) {
-    		var url = "admin.html?q=" + val;
-			var event_name = $('#input_text').val();
-    		window.location.href= url ;
-    		return false;
-    	}
-    });
-
-    $("#btn_leader").click(function(){
-    	var val = $('#input_text').val();
-    	if ( val !== '' ) {
-    		var url = "team.html?q=" + val;
-			
-    		window.location.href= url ;
-    		return false;
-    	}
-    });
-
-    $("#btn_member").click(function(){
-    	var val = $('#input_text').val();
-    	if ( val !== '' ) {
-    		var url = "member.html?q=" + val;
-    		window.location.href= url ;
-    		return false;
-    	}
-    });
-
-
-});
-
-
-
-
 angular.module('teamform-index-app', ['firebase'])
 .controller('IndexCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$window', function($scope, $firebaseObject, $firebaseArray,$window) {
     
@@ -62,7 +25,17 @@ angular.module('teamform-index-app', ['firebase'])
 
     $scope.viewevent = function(eventname) {
         // Finally, go back to the front-end
-        window.location.href= "event.html?q=" + eventname;
+        if(eventname != 'null')
+        {
+            window.location.href= "event.html?q=" + eventname;
+            return true;
+            
+        }
+        else
+        {
+            return false;
+        }
+
 
     }
 
@@ -73,19 +46,12 @@ angular.module('teamform-index-app', ['firebase'])
     // Sign-out successful.
     console.log("Sign-out successful");
     $window.alert("You are signed-out");
+    return true;
     }, function(error) {
      // An error happened.
     console.log("Sign-out unsuccessful");
+    return false;
     });
 };
 
 }]);
-
-var modal = document.getElementById('id01');
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}

@@ -1,8 +1,3 @@
-
-
-
-
-
 angular.module('teamform-event-app', ['firebase'])
 .controller('EventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	
@@ -15,11 +10,18 @@ angular.module('teamform-event-app', ['firebase'])
 	ref = firebase.database().ref(refPath);
 	$scope.eventinfo = $firebaseObject(ref);
 
-	$scope.createteam = function() {
+	$scope.createteam = function(teamname) {
 		
-		// Finally, go back to the front-end
-		var path = eventName +"&tn=" + $scope.input.teamname;
-		window.location.href= "manage_team.html?q="+ path;
+		if(teamname!='null')
+		{
+			var path = eventName +"&tn=" + $scope.input.teamname;
+			window.location.href= "manage_team.html?q="+ path;
+			return true;
+		}
+		else
+		{
+			return false;
+		}	
 	}
 
 	    var eventRef, refPath;
