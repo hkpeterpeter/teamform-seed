@@ -179,7 +179,7 @@ angular.module('teamform-member-app', ['firebase'])
 				var refPath = $scope.eventName + "/team/" + teamName;
 				$scope.teamMember = $firebaseObject(firebase.database().ref(refPath));
 				$scope.teamMember.$loaded(function(data){
-					acceptInvCallback(data);
+					$scope.acceptInvCallback(data);
 				});
 			}	
 		}		
