@@ -1,3 +1,35 @@
-<div class="container">
-    <ui-alert message="{{chat.error.message}}"></ui-alert>
+<ui-alert message="{{chat.error.message}}"></ui-alert>
+<div class="panel">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Chat</h3>
+    </div>
+    <div class="panel-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div>
+              Select a chatroom:
+            </div>
+            <div>
+            <button type="button" class="btn btn-primary">{{chat.chatroom}}</button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div>
+                {{chat.message.data}}:
+            </div>
+            <div>
+                {{chat.messages}}
+                <!-- {{chat.messages.createdBy}}:
+                {{chat.messages.data}} -->
+            </div>
+            <form ng-submit="chat.send()">
+                <input type="text" class="form-control" ng-model="chat.message.data">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
