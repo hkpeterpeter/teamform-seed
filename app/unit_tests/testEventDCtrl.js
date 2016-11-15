@@ -15,6 +15,27 @@ describe("tfApp", function() {
                 }
              });
 
+             $provide.factory('$firebaseObject', function(){
+                return function(params){
+                    var dummyObj={};
+                    dummyObj.$loaded = function(){
+                        var dummyResolve={};
+                        dummyResolve.then = function(callback){
+                            callback("dummyData");
+                        };
+                        return dummyResolve;
+                    }
+                    dummyObj.$save = function(){
+                        var dummyResolve={};
+                        dummyResolve.then = function(callback){
+                            callback("dummyData");
+                        };
+                        return dummyResolve;
+                    }
+                    return dummyObj;
+                }
+             });
+
              $provide.factory('Helper', function(){
                 var helper={};
                 helper.addPersonToTeam = function(uid, eventID, teamID, position="member") {}
