@@ -53,9 +53,10 @@ app.controller("eventCtrl",
         };
 
 
+        var event = {};
         $scope.submit = function(){
 
-            var event = {
+             event = {
                 eventInfo:
                 {name:"",
                 ddl:"",
@@ -73,7 +74,7 @@ app.controller("eventCtrl",
 
 
 
-            event.eventInfo.ddl = $scope.input.ddl.toJSON();
+            event.eventInfo.ddl = $scope.input.ddl.toString();
 
             event.eventInfo.isClosed = false;
             //console.log(event);
