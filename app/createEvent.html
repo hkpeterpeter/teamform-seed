@@ -22,7 +22,7 @@
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
       <link rel="stylesheet" href="css/site.css" >
-
+      <link rel="stylesheet" href="css/custom.css" >
 
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
@@ -31,10 +31,15 @@
    <body ng-controller="newEventCtrl">
      <div ng-include="'navbar.html'" id='navbarMenu'></div>
    <br>
-
+    <div>
+     <section  style="background-image: url('img/img1_thin.jpg');" class="banner img-responsive" >
+          <br><br><br><br><br>
+          <h1 class="pull-left banner_title">Create New Event</h1>
+      </section>
+    </div>
    <div class="text-center">
-      <h1>Create New Event</h1>
-      <h2 id="text_event_name"></h2>
+     
+      <!--<h2 id="text_event_name"></h2>-->
       <div id="admin_page_controller">
          <div class="row">
             <div class="col-md-2 col-xs-2"></div>
@@ -61,7 +66,7 @@
             <br><br>
                 <strong>Deadline: </strong>
                 <input type="date" ng-model="deadline" min="{{today | date:'yyyy-MM-dd'}}"/>
-                Date left: {{(deadline - today)/(1000*60*60*24) | number:0}}
+                Days left: {{(deadline - today)/(1000*60*60*24) | number:0}}
             <br><br>
 
              <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create Event</button>
