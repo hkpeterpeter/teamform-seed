@@ -12,7 +12,7 @@
 angular.module('teamform-member-app', ['firebase'])
 .controller('createEventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	var self = this;
-	initalizeFirebase();
+	initializeFirebase();
 	// TODO: implementation of createEventCtrl
 	var id = "";
 	firebase.auth().onAuthStateChanged(function(user) {
