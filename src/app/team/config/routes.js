@@ -23,8 +23,12 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
             }
         })
         .state('team.create', {
-            auth: (authService) => {
-                return authService.checkAuth();
+            resolve: {
+                auth: ['AuthService', (authService) => {
+                    return authService.checkRules({
+                        signIn: true
+                    });
+                }]
             },
             url: '/create/:eventId?',
             template: TeamCreateView,
@@ -50,8 +54,12 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
             }
         })
         .state('team.detail.edit', {
-            auth: (authService) => {
-                return authService.checkAuth();
+            resolve: {
+                auth: ['AuthService', (authService) => {
+                    return authService.checkRules({
+                        signIn: true
+                    });
+                }]
             },
             url: '/edit',
             views: {

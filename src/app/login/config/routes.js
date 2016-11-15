@@ -3,8 +3,12 @@ import LoginView from '../views/login.html';
 export default ['$stateProvider', ($stateProvider) => {
     $stateProvider
         .state('login', {
-            auth: (authService) => {
-                return authService.checkRules({guest: true});
+            resolve: {
+                auth: ['AuthService', (authService) => {
+                    return authService.checkRules({
+                        signOut: true
+                    });
+                }]
             },
             url: '/login',
             template: LoginView,

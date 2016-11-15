@@ -2,9 +2,14 @@
 <div ng-if="eventDetail.event">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="pull-left panel-title">{{eventDetail.event.name}}</h3>
-            <div class="pull-right"><a class="label label-info" ui-sref="event.detail.edit({eventId: eventDetail.event.$id})">Edit</a></div>
-            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3 class="panel-title text-left">{{eventDetail.event.data.name}}</h3>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><a class="label label-info" ui-sref="event.detail.edit({eventId: eventDetail.event.$id})">Edit</a></div>
+                </div>
+            </div>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -13,7 +18,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-9">
                     <div class="table-responsive">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-striped table-bordered">
                             <tbody>
                                 <tr>
                                     <th>Event ID</th>
@@ -21,20 +26,24 @@
                                 </tr>
                                 <tr>
                                     <th>Name</th>
-                                    <td>{{eventDetail.event.name}}</td>
+                                    <td>{{eventDetail.event.data.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Event Date</th>
+                                    <td>{{eventDetail.event.data.eventDate | date: 'medium'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Team Size</th>
-                                    <td ng-if="eventDetail.event.teamMin != eventDetail.event.teamMax">{{eventDetail.event.teamMin}} - {{eventDetail.event.teamMax}}</td>
-                                    <td ng-if="eventDetail.event.teamMin == eventDetail.event.teamMax">{{eventDetail.event.teamMin}}</td>
+                                    <td ng-if="eventDetail.event.data.teamMin != eventDetail.event.data.teamMax">{{eventDetail.event.data.teamMin}} - {{eventDetail.event.data.teamMax}}</td>
+                                    <td ng-if="eventDetail.event.data.teamMin == eventDetail.event.data.teamMax">{{eventDetail.event.data.teamMin}}</td>
                                 </tr>
                                 <tr>
                                     <th>Created Date</th>
-                                    <td>{{eventDetail.event.createdAt | date: 'medium'}}</td>
+                                    <td>{{eventDetail.event.data.createdAt | date: 'medium'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Created By</th>
-                                    <td><a ui-sref="user.detail({userId: eventDetail.event.createdBy})">{{eventDetail.event.createdByUser.name}}</a></td>
+                                    <td><a ui-sref="user.detail({userId: eventDetail.event.data.createdBy})">{{eventDetail.event.getCreatedByUser().name}}</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -46,11 +55,23 @@
     </div>
 
     <div class="panel panel-success">
+<<<<<<< HEAD
 	<div class="panel-heading">
             <h3 class="pull-left panel-title">Team Joined</h3>
+=======
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3 class="panel-title text-left">Team Joined</h3>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><a class="label label-success" ui-sref="team.create({eventId: eventDetail.event.$id})">Create Team</a></div>
+                </div>
+            </div>
+>>>>>>> a0ec02b2d672a3daf36e0b0737f8f6fde6cc615a
         </div>
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
                         <th>Team Name</th>
@@ -58,22 +79,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="team in eventDetail.event.teams | itemsPerPage: 1" pagination-id="teams">
+                    <tr dir-paginate="team in eventDetail.event.getTeams() | itemsPerPage: 5" pagination-id="teams">
                         <td><a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a></td>
                         <td>{{team.users}}</td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <dir-pagination-controls ng-if="eventDetail.event.teams.length" pagination-id="teams" />
-                        </td>
-                    </tr>
-                </tfoot>
             </table>
         </div>
+<<<<<<< HEAD
 	<div class="panel-heading">
             <div class="pull-right"><a class="label label-success" ui-sref="team.create({eventId: eventDetail.event.$id})">Create Team</a></div>
+=======
+
+        <div class="panel-footer">
+            <dir-pagination-controls pagination-id="teams" class="pull-right" />
+>>>>>>> a0ec02b2d672a3daf36e0b0737f8f6fde6cc615a
             <div class="clearfix"></div>
         </div>
     </div>
@@ -88,21 +108,67 @@
                 <thead>
                     <tr>
                         <th>User</th>
+                        <th>HasTeam</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="user in eventDetail.event.users | itemsPerPage: 1" pagination-id="users">
-                        <td><a ui-sref="user.detail({userId: user.id})">{{user.name}}</a></td>
+                    <tr dir-paginate="eventUser in eventDetail.event.getEventUsers() | itemsPerPage: 5" pagination-id="users">
+                        <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{eventUser.user.name}}</a></td>
+                        <td ng-if="eventUser.hasTeam"><span class="text-success glyphicon glyphicon-ok"></span></td>
+                        <td ng-if="!eventUser.hasTeam"><span class="text-danger glyphicon glyphicon-remove"></span></td>
                     </tr>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <dir-pagination-controls ng-if="eventDetail.event.users.length" pagination-id="users" />
-                        </td>
-                    </tr>
-                </tfoot>
             </table>
+        </div>
+        <div class="panel-footer">
+            <dir-pagination-controls pagination-id="users" class="pull-right" />
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h3 class="panel-title text-left">Auto Teamforming</h3>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><a class="label label-danger" ng-click="eventDetail.autoFormTeam()">Auto FormTeam</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div ng-repeat="team in eventDetail.autoTeam.teams">
+                    <div class="col-sm-6">
+                        <h5>{{team.name}}</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="teamUser in team.users">
+                                        <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{teamUser.user.name}}</a></td>
+                                        <td>{{teamUser.role}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="$odd" class="clearfix"></div>
+                </div>
+            </div>
+            <div ng-if="eventDetail.autoTeam.failed">
+                Failed Users:
+                <ul>
+                    <li ng-repeat="failedUser in eventDetail.autoTeam.failed">
+                        <a ui-serf="user.detail({userId: failedUser.user.$id})">{{failedUser.user.name}}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

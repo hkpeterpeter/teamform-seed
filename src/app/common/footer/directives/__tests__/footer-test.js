@@ -1,19 +1,19 @@
-describe('AlertDirective', function() {
+import footer from '../../';
+describe('FooterDirective', () => {
     let $compile,
         $rootScope;
 
     beforeEach(() => {
-        angular.mock.module('common.alert')
+        angular.mock.module(footer);
         inject((_$compile_, _$rootScope_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
-
         });
     });
 
-    it('Alert', () => {
-        let element = $compile('<ui-alert message="error"></ui-alert >')($rootScope);
+    it('Footer', () => {
+        let element = $compile('<ui-footer></ui-footer>')($rootScope);
         $rootScope.$digest();
-        expect(element.html()).toContain('error');
+        expect(element.html()).not.toBeNull();
     });
 });

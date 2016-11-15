@@ -3,7 +3,6 @@
 // Modules
 const path = require('path');
 const webpack = require('webpack');
-const autoprefixer = require('autoprefixer');
 
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -55,7 +54,12 @@ module.exports = function makeWebpackConfig() {
             loader: isTest ? 'null' : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
         }, {
             test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
+            loaders: ['style', 'css', 'postcss', 'sass'],
+            include: /bootstrap/
+        }, {
+            test: /\.scss$/,
+            loaders: ['style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass'],
+            exclude: /bootstrap/
         }, {
             test: /\.woff$/,
             loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/assets/font/[hash].[ext]'
@@ -79,7 +83,7 @@ module.exports = function makeWebpackConfig() {
             test: /\.js$/,
             exclude: [
                 /node_modules/,
-                /\.test\.js$/,
+                /__tests__/,
                 /test.webpack.js$/
             ],
             loader: 'isparta'
@@ -88,28 +92,34 @@ module.exports = function makeWebpackConfig() {
         config.module.preLoaders.push({
             test: /\.js$/,
             loader: 'eslint',
-            exclude: /(node_modules|bower_components|\.test.js$)/
+            exclude: /(node_modules|bower_components|__tests__)/
         });
     }
 
     config.postcss = [
-        autoprefixer({
+        require('autoprefixer')({
             browsers: ['last 3 version']
         })
     ];
-
+    let CONFIG;
+    try {
+        CONFIG = require('./config.js')
+    } catch (error) {
+        CONFIG = process.env;
+    }
     config.plugins = [
         new ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             'window.jQuery': 'jquery',
-            'root.jQuery': 'jquery'
+            'root.jQuery': 'jquery',
+            '_': 'lodash'
         }),
         new webpack.ResolverPlugin(
             new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
         ),
         new DefinePlugin({
-            ENV: JSON.stringify(require('./config.js'))
+            ENV: JSON.stringify(CONFIG)
         })
     ];
 

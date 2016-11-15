@@ -15,13 +15,13 @@
     <tbody dir-paginate="event in eventList.events | itemsPerPage: 2">
         <tr>
             <td>
-                <a ui-sref="event.detail({eventId: event.$id})">{{event.name}}</a>
+                <a ui-sref="event.detail({eventId: event.$id})">{{event.data.name}}</a>
             </td>
             <td>
-                <a ui-sref="user.detail({userId: event.createdBy})">{{event.createdByUser.name}}</a>
+                <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().name}}</a>
             </td>
             <td>
-                {{event.createdAt | date:'medium'}}
+                {{event.data.createdAt | date:'medium'}}
             </td>
         </tr>
     </tbody>

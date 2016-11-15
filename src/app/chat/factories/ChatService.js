@@ -1,7 +1,6 @@
 export default class ChatService {
     // TODO:: Chatroom UI
-    constructor($q, $firebaseArray, $firebaseObject, $database) {
-        this.$q = $q;
+    constructor($firebaseArray, $firebaseObject, $database) {
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
@@ -11,4 +10,4 @@ export default class ChatService {
     }
 }
 
-ChatService.instance.$inject = ['$q', '$firebaseArray', '$firebaseObject', 'database'];
+ChatService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database'];

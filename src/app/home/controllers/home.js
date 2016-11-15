@@ -1,7 +1,7 @@
 export default class HomeCtrl {
-    constructor($scope, $firebaseArray, $firebaseObject, database) {
-        
+    constructor($firebaseArray, $firebaseObject, database) {
+
     }
 }
 
-HomeCtrl.$inject = ['$scope', '$firebaseArray', '$firebaseObject', 'database'];
+HomeCtrl.$inject = ['$firebaseArray', '$firebaseObject', 'database'];

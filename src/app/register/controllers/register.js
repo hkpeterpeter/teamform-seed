@@ -11,17 +11,22 @@ export default class RegisterCtrl {
         this.error = null;
     }
 
-    register() {
-        this.authService.register(this.credential)
-            .then((result) => {
-                this.$state.go(this.$state.params.toState, this.$state.params.toParams);
-            })
-            .catch((error) => {
-                this.$timeout(() => {
-                    this.error = error;
-                    this.loading = false;
+    async register() {
+        try {
+            let result = await this.authService.register(this.credential);
+            this.$timeout(() => {
+                this.$state.go('user.detail.edit', {
+                    userId: result.uid,
+                    toState: this.$state.params.toState,
+                    toParams: this.$state.params.toParams
                 });
             });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+                this.loading = false;
+            });
+        }
     }
 }
 

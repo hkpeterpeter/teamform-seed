@@ -23,8 +23,12 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
             }
         })
         .state('event.create', {
-            auth: (authService) => {
-                return authService.checkAuth();
+            resolve: {
+                auth: ['AuthService', (authService) => {
+                    return authService.checkRules({
+                        signIn: true
+                    });
+                }]
             },
             url: '/create',
             template: EventCreateView,
@@ -50,8 +54,12 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
             }
         })
         .state('event.detail.edit', {
-            auth: (authService) => {
-                return authService.checkAuth();
+            resolve: {
+                auth: ['AuthService', (authService) => {
+                    return authService.checkRules({
+                        signIn: true
+                    });
+                }]
             },
             url: '/edit',
             views: {

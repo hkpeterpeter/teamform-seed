@@ -8,16 +8,17 @@ export default class EventListCtrl {
         this.error = null;
         this.getEvents();
     }
-    getEvents() {
-        this.eventService.getEvents().then((events) => {
+    async getEvents() {
+        try {
+            let events = await this.eventService.getEvents();
             this.$timeout(() => {
                 this.events = events;
             });
-        }).catch((error) => {
+        } catch (error) {
             this.$timeout(() => {
                 this.error = error;
             });
-        });
+        }
     }
 }
 

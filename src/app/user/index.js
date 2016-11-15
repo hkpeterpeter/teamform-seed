@@ -2,7 +2,7 @@ import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import angularfire from 'angularfire';
 import pagination from 'angular-utils-pagination';
-import 'ng-tags-input';
+import uiselect from 'ui-select';
 
 import routes from './config/routes';
 import alert from '../common/alert';
@@ -13,7 +13,7 @@ import UserListCtrl from './controllers/userList';
 import UserEditCtrl from './controllers/userEdit';
 import UserService from './factories/UserService';
 
-export default angular.module('user', [uirouter, angularfire, firebase, pagination, alert, auth, 'ngTagsInput'])
+export default angular.module('user', [uirouter, angularfire, firebase, pagination, uiselect, alert, auth])
     .config(routes)
     .controller('UserDetailCtrl', UserDetailCtrl)
     .controller('UserListCtrl', UserListCtrl)

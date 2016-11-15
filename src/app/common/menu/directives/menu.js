@@ -1,9 +1,10 @@
 export default class Menu {
-    constructor($state, authService) {
+    constructor($state, $timeout, authService) {
         this.template = require('../views/menu.html');
         this.restrict = 'E';
         this.scope = {};
         this.$state = $state;
+        this.$timeout = $timeout;
         this.authService = authService;
     }
 
@@ -15,13 +16,11 @@ export default class Menu {
         });
     }
 
-    updateAuth(scope) {
-        this.authService.checkAuth().then((user) => {
+    async updateAuth(scope) {
+        let user = await this.authService.getUser();
+        this.$timeout(() => {
             scope.user = user;
-            scope.isAuth = true;
-        }).catch(() => {
-            scope.user = {};
-            scope.isAuth = false;
+            scope.isAuth = scope.user != null;
         });
     }
 
@@ -29,4 +28,4 @@ export default class Menu {
         return new Menu(...args);
     }
 }
-Menu.instance.$inject = ['$state', 'AuthService'];
+Menu.instance.$inject = ['$state', '$timeout', 'AuthService'];
