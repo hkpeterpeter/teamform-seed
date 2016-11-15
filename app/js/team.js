@@ -133,7 +133,7 @@ angular.module('teamform-team-app', ['firebase'])
                 'priority':  $scope.param.priority
 			};		
 			
-			var refPath = getURLParameter("q") + "/team/" + teamID;	
+			var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
 			var ref = firebase.database().ref(refPath);
 			
 			
@@ -171,7 +171,7 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.loadFunc = function() {
 		
 		var teamID = $.trim( $scope.param.teamName );		
-		var eventName = getURLParameter("q");
+		var eventName = "event/" + getURLParameter("q");
 		var refPath = eventName + "/team/" + teamID ;
 		retrieveOnceFirebase(firebase, refPath, function(data) {	
 
