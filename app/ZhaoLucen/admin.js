@@ -241,21 +241,27 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == false) {
 			return false;
 		};
-		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
-			var requested = false;
-			for (var key in item.teamsApplying) {
-				if (item.teamsApplying[key].eventID == $scope.event.$id) {
-					requested = true;
-					break;
-				}
-			};
-			if (!requested)
-				return false;
-		};
 		if ($scope.adminUserRequest == true && $scope.adminUserNotRequest == false) {
-			for (var key in item.teamsApplying) {
-				if (item.teamsApplying[key].eventID == $scope.event.$id)
+			var requested = false;
+			if (item.teamsApplying == null)
+				return false;
+			
+				for (var key in item.teamsApplying) {
+					if (item.teamsApplying[key].eventID.toString() == $scope.event.$id.toString()) {
+						requested = true;
+						break;
+					}
+				};
+				if (!requested)
 					return false;
+			
+		};
+		if ($scope.adminUserRequest == false && $scope.adminUserNotRequest == true) {
+			if (item.teamsApplying != null) {
+				for (var key in item.teamsApplying) {
+					if (item.teamsApplying[key].eventID.toString() == $scope.event.$id.toString())
+						return false;
+				};
 			};
 		};
 
