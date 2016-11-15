@@ -39,7 +39,7 @@ angular.module('teamform-team-app', ['firebase'])
 	            'priority': !$scope.param.priority
 	        };
 
-	        var refPath = getURLParameter("q") + "/team/" + teamID;
+	        var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
 	        var ref = firebase.database().ref(refPath);
 
 

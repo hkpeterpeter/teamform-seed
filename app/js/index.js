@@ -7,6 +7,15 @@ angular.module('teamform-index-app', ['firebase'])
     // Call Firebase initialization code defined in site.js
     initalizeFirebase();
     $scope.eventID = "";
+    var user = firebase.auth().user;
+    if (user) {
+        // User is signed in.
+        $scope.$apply($scope.logined = true);
+        $scope.$apply($scope.username = user.displayName);
+        if ($scope.username == null) { $scope.$apply($scope.fb = false); $scope.$apply($scope.username = user.email); } else { $scope.$apply($scope.fb = true); };
+    } else {
+        // No user is signed in.
+    };
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // User is signed in.
@@ -71,7 +80,7 @@ angular.module('teamform-index-app', ['firebase'])
     }
 
     $scope.refreshEvents = function () {
-        var ref = firebase.database().ref();
+        var ref = firebase.database().ref("event/");
 
         // Link and sync a firebase object
        /* $scope.selection = [];
