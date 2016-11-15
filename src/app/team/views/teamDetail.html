@@ -37,6 +37,13 @@
                                     <td ng-if="teamDetail.team.getEvent().data.teamMin == teamDetail.team.getEvent().data.teamMax">{{teamDetail.team.getEvent().data.teamMin}}</td>
                                 </tr>
                                 <tr>
+                                    <th>Direct Join</th>
+                                    <td>
+                                        <span class="text-success glyphicon glyphicon-ok" ng-if="teamDetail.team.data.directJoin"></span>
+                                        <span class="text-danger glyphicon glyphicon-remove" ng-if="!teamDetail.team.data.directJoin"></span>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>Created Date</th>
                                     <td>{{teamDetail.team.data.createdAt | date: 'medium'}}</td>
                                 </tr>
@@ -146,6 +153,8 @@
                         <td>
                             <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.confirmTeamPosition(teamUser.$id)">Accept</button>
                             <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.rejectConfirmTeamPosition(teamUser.$id)">Reject</button>
+                            <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canAccept(teamUser.$id) && teamUser.accepted === false" ng-click="teamDetail.acceptTeamPosition(teamUser.$id)">Accept</button>
+                            <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canAccept(teamUser.$id) && teamUser.accepted === false" ng-click="teamDetail.rejectAcceptTeamPosition(teamUser.$id)">Reject</button>
                         </td>
                     </tr>
                 </tbody>
