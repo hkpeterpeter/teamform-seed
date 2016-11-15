@@ -98,16 +98,7 @@ describe("searchPage",function(){
 		expect($scope.resultTag.length).toEqual(inilengthr + 1);
 	});
 
-	it("logout()",function(){
-		var $scope = {};
-		var $cookies;
-		var $window;
-		var controller = $controller("searchPage",{$scope:$scope,$cookies:$cookies,$window:$window});
-		$scope.currentTag = [];
-		$scope.logout();
-		expect($cookies.length).toEqual(0);
-		expect($window.url).toEqual("/jzhangbs/index.html");
-	});
+
 	
 	it("clear()",function(){
 		var $scope = {};
