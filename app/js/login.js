@@ -10,7 +10,7 @@ $(document).ready(function(){
 	$scope.param = {};
   $scope.login = false;
 	// Call Firebase initialization code defined in site.js
-
+  initializeFirebase();
 	var id;
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().onAuthStateChanged(function(user) {
