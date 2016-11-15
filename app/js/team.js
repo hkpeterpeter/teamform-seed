@@ -19,47 +19,14 @@ angular.module('teamform-team-app', ['firebase'])
 
 	var refPath = "";
 	var eventName = getURLParameter("q");	
-	
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
 		"teamMembers" : [],
-		"priority" : null
+		"priority" : false
 	};
 		
-	$scope.changePriority = function () {
-	    var teamID = $.trim($scope.param.teamName);
-
-	    if (teamID !== '') {
-
-	        var newData = {
-	            'size': $scope.param.currentTeamSize,
-	            'teamMembers': $scope.param.teamMembers,
-	            'priority': !$scope.param.priority
-	        };
-
-	        var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
-	        var ref = firebase.database().ref(refPath);
-
-
-	        // for each team members, clear the selection in /[eventName]/team/
-
-
-
-	        ref.set(newData, function () {
-
-	            // console.log("Success..");
-
-	            // Finally, go back to the front-end
-	            // window.location.href= "index.html";
-	        });
-
-
-
-	    }
-
-	}
 
 	refPath = "event/" + eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {	
