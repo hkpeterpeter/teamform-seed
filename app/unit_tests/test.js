@@ -15,18 +15,18 @@ describe("tfApp", function() {
       $scope = {};
       controller = $controller('profileCtrl', { $scope: $scope });
     });
-
-    it('$scope.button_name should be EDIT', function() {
-    //   $scope.password = 'longerthaneightchars';
-    //   $scope.grade();
-      expect($scope.button_name).toEqual('EDIT');
-    });
-
-    it('$scope.button_name should be SAVE after executing edit()', function() {
-    //   $scope.password = 'longerthaneightchars';
-      $scope.edit();
-      expect($scope.button_name).toEqual('SAVE');
-    });
+    //
+    // it('$scope.button_name should be EDIT', function() {
+    // //   $scope.password = 'longerthaneightchars';
+    // //   $scope.grade();
+    //   expect($scope.button_name).toEqual('EDIT');
+    // });
+    //
+    // it('$scope.button_name should be SAVE after executing edit()', function() {
+    // //   $scope.password = 'longerthaneightchars';
+    //   $scope.edit();
+    //   expect($scope.button_name).toEqual('SAVE');
+    // });
 
     // it('sets the strength to "weak" if the password length <3 chars', function() {
     //   $scope.password = 'a';
