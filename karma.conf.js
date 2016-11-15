@@ -14,7 +14,7 @@ module.exports = function(config) {
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',
     'zwangbm/js/*.js',
-    'jzhangbs/*.js',
+    'jzhangbs/{index,site}.js',
     'TXR/*.js',
     'search/*.js',
       'unit_tests/*.js',
@@ -24,7 +24,7 @@ module.exports = function(config) {
 	],
 	preprocessors: {
 		 'zwangbm/js/angular_invite.js' : ['coverage'],
-		 'jzhangbs/*.js' : ['coverage'],
+		 'jzhangbs/{index,site}.js' : ['coverage'],
 		 'TXR/*.js': ['coverage'],
      'search/search-page.js' : ['coverage']
 

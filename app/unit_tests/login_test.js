@@ -1,9 +1,12 @@
+var isTest = true;
+
 describe("TestLogin", function(){
 
   var $scope, $rootScope, $controller, $cookies, $firebaseObject, $firebaseArray, $window, $timeout;
 
   beforeEach(function(){
     module('indexApp');
+
     inject(
       function(_$rootScope_, _$controller_, _$cookies_, _$firebaseArray_, _$firebaseObject_, _$window_, _$timeout_){
         $rootScope = _$rootScope_;
@@ -14,6 +17,10 @@ describe("TestLogin", function(){
         $window = _$window_;
         $timeout = _$timeout_;
     });
+
+    spyOn(window, 'gotoURL');
+    spyOn(testData, '$save');
+
     $scope = $rootScope.$new();
     $controller("indexCtrl", {
       $scope: $scope,
@@ -36,11 +43,51 @@ describe("TestLogin", function(){
     $scope.inputPassword = "1";
     $scope.login();
     expect($cookies.get("username",{path:"/"})).toEqual("abcd");
-    expect($window.location.path).toEqual("/TXR/index.html");
   });
 
-  afterEach(function(done){
-    firebase.app().delete().then(function(){done();});
+  it('already login jump', function(){
+    expect(window.gotoURL).toHaveBeenCalled();
+    $cookies.remove("username",{path:"/"});
+  });
+
+  it('reg', function(){
+    $scope.inputUsernameReg = "test";
+    $scope.inputPasswordReg = "test";
+    $scope.inputConfirmPasswordReg = "test";
+    $scope.reg();
+    expect($scope.scopeUser["test"].password).toEqual("test");
+  });
+
+  xit('FB login', function(done){
+    setTimeout(function () {
+      $scope.loginFB();
+      done();
+    }, 2000);
+  });
+
+  it('login invalid input', function(){
+    $scope.inputUsername = "abcd";
+    $scope.inputPassword = "2";
+    $scope.login();
+    expect(window.gotoURL).not.toHaveBeenCalled();
+  });
+
+  it('reg invalid input', function(){
+    $scope.inputUsernameReg = "";
+    $scope.reg();
+    expect(testData.$save).not.toHaveBeenCalled();
+  });
+
+  it('reg with exist user', function(){
+    $scope.inputUsernameReg = "abcd";
+    $scope.inputPasswordReg = "1";
+    $scope.inputConfirmPasswordReg = "1";
+    $scope.reg();
+    expect(testData.$save).not.toHaveBeenCalled();
+  });
+
+  afterEach(function(){
+
   });
 
 });
