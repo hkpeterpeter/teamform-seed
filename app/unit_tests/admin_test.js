@@ -1,4 +1,4 @@
-
+initFirebase();
 describe('admin request filter', function() {
 	beforeEach(module('teamapp', 'firebase'));
   
