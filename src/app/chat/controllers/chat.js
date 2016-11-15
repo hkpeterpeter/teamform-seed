@@ -10,7 +10,7 @@ export default class ChatCtrl {
         this.messages = [];
         this.data = [];
         this.getMessages();
-        this.chatroom= {};
+        this.chatroom = {};
         this.chatrooms = [];
         this.getChatrooms();
     }
@@ -46,19 +46,18 @@ export default class ChatCtrl {
         }
     }
 
-    async getChatrooms(){
-      try {
-          let chatrooms = await this.chatService.getChatrooms();
-          this.$timeout(() => {
-              this.chatrooms = chatrooms;
-          });
-      } catch (error) {
-          this.$timeout(() => {
-              this.error = error;
-          });
-      }
+    async getChatrooms() {
+        try {
+            let chatrooms = await this.chatService.getChatrooms();
+            this.$timeout(() => {
+                this.chatrooms = chatrooms;
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
     }
-
 
     async create() {
         if (this.chatroom.name) {
