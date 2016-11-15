@@ -73,17 +73,16 @@ describe("tfApp", function() {
             
         });
 
-<<<<<<< 0a2d958bf1dd070da402f67a8d9b15285dabaa98
      beforeEach(function() {
       $scope = {};
       controller = $controller('eventDCtrl', { $scope: $scope});
 
     });
-=======
+
         it('test $scope.userData',function(){
             expect($scope.userData).toEqual({uid:"testUid"});
         });
->>>>>>> testEventDCtrl updated
+
 
         it('$scope.manage() should be change $scope.isManaging to true and $scope.selectTeam to false', function() {
             $scope.manage();
@@ -101,10 +100,7 @@ describe("tfApp", function() {
             expect(personToBeAdded).toEqual("dummyPersonId")
         });
 
-<<<<<<< 0a2d958bf1dd070da402f67a8d9b15285dabaa98
-  });
-});
-=======
+
         it('test $scope.toTeam', function() {
             $scope.toTeam("dummyTeamKey");
             expect($scope.selectTeam).toEqual(false);
@@ -141,4 +137,4 @@ describe("tfApp", function() {
 
     });
 });
->>>>>>> testEventDCtrl updated
+
