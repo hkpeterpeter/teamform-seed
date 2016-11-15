@@ -40,25 +40,71 @@ angular.module('teamform-team-app', ['firebase'])
     }
     });
 */
-    var user = firebase.auth().currentUser;
-    console.log(user);
+	    var user = firebase.auth().currentUser;
+	    console.log(user);
 
 		if (user != null) {
-        	var userPath ="/user/" + user.uid;
-        	var userref = firebase.database().ref(userPath);
-        	var name;
+	        var userPath ="/user/" + user.uid;
+	        var userref = firebase.database().ref(userPath);
+	        var name;
+	        var position;
+
+	        userref.once("value", function(data) {
+	        	console.log(data.val());
+	        	name = data.val().name;
+	        	position = data.val().position;
+
+	        	var eventPath ="/event/" + eventName + "/team/"+teamName+"/members/"+ user.uid;
+	        	var eventref = firebase.database().ref(eventPath);
+
+	        	eventref.update({	
+	        		'joined' : true, 
+	        		'username' : name,
+	        		'position' : position
+	        	})
+
+	        	if(position!=null)
+	        	{
+	        		position = position.toString();
+	        	}
+	        	var positionPath = "/event/"+eventName+"/team/"+teamName;
+	        	var positionRef = firebase.database().ref(positionPath);
+	        	if(position=="Forward")
+	        	{
+	        		positionRef.update({	
+	        			'Forward' : name
+	        		})
+	        	}
+	        	if(position=="Midfield")
+	        	{
+	        		positionRef.update({	
+	        			'Midfield' : name
+	        		})
+	        	}
+	        	if(position=="LeftBack")
+	        	{
+	        		positionRef.update({	
+	        			'LeftBack' : name
+	        		})
+	        	}
+	        	if(position=="RightBack")
+	        	{
+	        		positionRef.update({	
+	        			'RightBack' : name
+	        		})
+	        	}        	
+	        	if(position=="GoalKeeper")
+	        	{
+	        		positionRef.update({	
+	        			'GoalKeeper' : name
+	        		})
+	        	}
 
 
-        	userref.once("value", function(data) {
-        		  console.log(data.val());
-        			name = data.val().name;
-        		var eventPath ="/event/" + eventName + "/team/"+teamName+"/members/"+ user.uid;
-        		var eventref = firebase.database().ref(eventPath);
-
-        			eventref.set({ 'joined' : true, 'username' : name})	 
 			});
-		} else {
-  			// No user is signed in.
+		} else 
+		{
+	  			// No user is signed in.
 		}
 
 	}
