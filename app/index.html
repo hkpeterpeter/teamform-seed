@@ -138,10 +138,7 @@
                      
                      <div class="text-center">
 						<br>
-
-
                         <h1 class="thin"><p> You are currently login as {{userObj.name}}</p></h1>
-
 
                         <p>A real-time online team forming app for any event</p>
                      </div>
@@ -192,7 +189,6 @@
 			<tr ng-repeat="e in events">
 			<td>{{e.param.EventName}} </td>
 			<td>{{e.param.EventAdmin}} </td>
-			<td></td>
 			<td>{{e.param.TeamSize}}</td>
 			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="viewevent(e.param.EventName);">More Info</button></td>
 			</tr>
