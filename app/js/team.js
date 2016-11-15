@@ -129,9 +129,6 @@ angular.module('teamform')
 		var refPath = eventName + "/team/" + teamID ;
 		ref = firebase.database().ref(refPath);
 		ref.remove();
-		//if deleted return to the index page
-            $state.go('landing');
-
         }
 	};
 	
