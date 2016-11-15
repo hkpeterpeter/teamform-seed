@@ -31,6 +31,7 @@ module.exports = function (config) {
             'app/js/main.js': sourcePreprocessors,
             'app/js/index.js': sourcePreprocessors,
             'app/js/admin.js': sourcePreprocessors,
+            'app/js/admin-creation.js': sourcePreprocessors,
             'app/js/team.js': sourcePreprocessors,
             'app/js/member.js': sourcePreprocessors,
             'app/directives/member-card.js': sourcePreprocessors

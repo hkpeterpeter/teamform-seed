@@ -1,6 +1,6 @@
 angular.module('teamform')
-    .controller('AdminCreationCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$stateParams', '$state',
-        function($scope, $firebaseObject, $firebaseArray, $stateParams, $state) {
+    .controller('AdminCreationCtrl', ['$scope', '$stateParams', '$state',
+        function($scope, $stateParams, $state) {
 
             // Initialize $scope.param as an empty JSON object
             $scope.param = {};
