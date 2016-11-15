@@ -465,9 +465,11 @@ describe('fishCtrl',function(){
 					"teamsAsInvitedPeople" : [ 0, 666 ],
 					"teamsAsLeader" : [ "1" ]
 				}
-			}
+			},
+			"$loaded()": true
 		};
 		expect($scope.processData(allData,0,"0","0")).toBeDefined();
+
 	});
 
 
