@@ -1,1 +1,137 @@
-<!-- -->
+<div ng-controller='eventX'>
+
+    <!-- Event Card -->
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br><br>
+                <h1 class="header teal-text">{{readyData.event.eventName}}</h1>
+
+                <h5 class="header">{{readyData.event.eventDescription}}</h5>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row center">
+                <button ng-click="createTeam($event, t.teamID);" class="btn waves-effect waves-light btn-large" type="button">{{create_team}}
+                  <i class="material-icons right">send</i>
+                </button>
+            </div>
+          </div>
+        <div class="parallax"><img src="fish/image/bg.jpg" alt="Unsplashed background img 1" style="display: block;" height="200"></div>
+    </div>
+
+
+
+    <div class="container" ng-show="showTeams">
+        <!--   Collapsible structure -->
+        <ul class="collapsible blue-grey darken-2" data-collapsible="expandable">
+            <div ng-repeat="t in readyData.team">
+                <li>
+                    <!--       Team Card -->
+                    <div class="collapsible-header active blue-grey darken-1 tooltipped" data-position="left" data-delay="0" data-tooltip="I am tooltip" ng-click="showBody(t.teamID);">
+
+                        <div class="card horizontal">
+                            <div class="card-image">
+                                <img class="responsive-img" src="{{t.imageUrl}}">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <span class="card-title activator grey-text text-darken-4">{{t.teamName}}</span>
+                                    <span class="card-content"><p></p></span>
+                                    <div class="container">
+                                        <div class="row right">
+                                            <button ng-click="joinTeam($event, t.teamID);" class="btn waves-effect waves-light" type="button">JOIN
+                                              <i class="material-icons right">send</i>
+                                            </button>
+
+                                            <button ng-click="removeTeam($event, t.teamID);" class="btn waves-effect waves-light" type="button">Not Interested
+                                            <i class="material-icons right">not_interested</i>
+                                          </button>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="collapsible-body-{{t.teamID}}" style="display: none;">
+                        <div class="card sticky-action blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title activator">Team Leader</span>
+                                <div class="section">
+                                    <div class="card horizontal">
+                                        <div class="card-image">
+                                            <img src="{{readyData.user[t.leaderID].profilePic}}" height='200'>
+
+                                        </div>
+                                        <div class="card-stacked">
+                                            <div class="card-content">
+                                                <span class="card-title activator grey-text text-darken-3">{{readyData.user[t.leaderID].name}}</span>
+                                                <br/>
+                                                <span class="team-text-span grey-text text-darken-3">Skills:
+
+
+                          <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in readyData.user[t.leaderID].skills">{{skill}}</div>
+
+
+                        </span>
+                                            </div>
+                                            <div class="card-action">
+                                                <a href="#">This is a link to personal profile</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="card-title activator">Team Members</span>
+
+                                <div class="section">
+
+                                    <div class="container">
+                                        <div class="col s6" ng-repeat="memberID in t.membersID">
+                                            <div class="card horizontal">
+                                                <div class="card-image">
+                                                    <img src="{{readyData.user[memberID].profilePic}}" height='200'>
+                                                </div>
+                                                <div class="card-stacked">
+                                                    <div class="card-content">
+                                                        <span class="card-title activator grey-text text-darken-3">{{readyData.user[memberID].name}}</span>
+                                                        <br/>
+                                                        <span class="team-text-span grey-text text-darken-3">Skills:
+                              <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in readyData.user[memberID].skills">{{skill}}</div>
+                            </span>
+                                                    </div>
+                                                    <div class="card-action">
+                                                        <a href="#">This is a link to personal profile</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </div>
+        </ul>
+    </div>
+<team-form ng-show="showTeamForm"></team-form>
+    <!--   solution for initially opening my team -->
+    <!-- <div>
+    {{initShowBody(readyData.team[0].teamID);}}
+  </div> -->
+
+
+    <script type="text/javascript">
+        var $toastContent = $('<span>You can click on each team for more details</span>');
+        Materialize.toast($toastContent, 8000);
+    </script>
+
+
+    <event-footer>
+    </event-footer>
+</div>
