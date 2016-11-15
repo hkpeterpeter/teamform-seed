@@ -29,6 +29,7 @@ describe('fishCtrl',function(){
 	it('const test', function(){
 		var controller = createController();
 		expect($scope.currentEvent).toBe(0);
+		expect($scope.currentUser).toBe(0);
 	});
 	it('show body', function(){
 		var controller = createController();
@@ -489,15 +490,19 @@ describe('fishCtrl',function(){
 			}
 		};
 		expect($scope.processData(allData,0,"0","0")).toBeDefined();
-		$scope.preprocessData(allData);
-
 		
 
-		expect($scope.currentTeam).toBeDefined();
+		
+		allData.users[0].teamsAsMember=['0'];
+		$scope.preprocessData(allData);
+		expect($scope.currentTeam).toBe('0');
+		expect($scope.readyData).toBeDefined();
 		allData.users[0].teamsAsMember=['7776'];
+		$scope.currentTeam = undefined;
+		$scope.preprocessData(allData);
 		expect($scope.currentTeam).toBeUndefined();
 		$scope.preprocessData(allData);
-		expect($scope.readyData).toBeDefined();
+		
 
 
 	});
