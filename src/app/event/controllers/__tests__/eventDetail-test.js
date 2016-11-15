@@ -65,4 +65,29 @@ describe('EventDetailController', () => {
         done();
     });
 
+    it('autoFormTeam', () => {
+        let $timeout;
+        inject((_$timeout_) => {
+            $timeout = _$timeout_;
+        });
+        $controller.event = {
+            getEventUsers: () => {
+                return [{id: 1, hasTeam: false}, {id: 2, hasTeam: false}];
+            },
+            data: {teamMin: 2, teamMax: 2}
+        };
+        $timeout.flush();
+        // expect($controller.autoTeam.failed).toBe(null);
+        $controller.autoFormTeam();
+        $controller.event = {
+            getEventUsers: () => {
+                return [{id: 1, hasTeam: false}, {id: 2, hasTeam: false}, {id: 3, hasTeam: false}];
+            },
+            data: {teamMin: 2, teamMax: 2}
+        };
+        $controller.autoFormTeam();
+        $timeout.flush();
+        expect($controller.autoTeam.failed).not.toBe(null);
+    });
+
 });
