@@ -16,6 +16,27 @@ describe('tfApp',function(){
 		        			uid : "testUid"
 		        		}
 		        	});
+
+					$provide.factory('$firebaseObject', function(){
+						return function(params){
+							var dummyObj={};
+							dummyObj.$loaded = function(){
+								var dummyResolve={};
+								dummyResolve.then = function(callback){
+									callback("dummyData");
+								};
+								return dummyResolve;
+							}
+							dummyObj.$save = function(){
+								var dummyResolve={};
+								dummyResolve.then = function(callback){
+									callback("dummyData");
+								};
+								return dummyResolve;
+							}
+							return dummyObj;
+						}
+					});
 	     	 });
  	 });
 	var $controller, auth;
