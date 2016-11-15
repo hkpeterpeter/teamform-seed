@@ -127,12 +127,8 @@ angular.module('teamform-app', ['firebase'])
       return false;
     }
     $scope.auth.$createUserWithEmailAndPassword($scope.username, $scope.password)
-    .then(function(firebaseUser) {
-			$scope.firebaseUser=firebaseUser;
-      $scope.message = "User created with uid: " + firebaseUser.uid;
-    })
     .catch(function(error) {
-      $scope.error = error;
+      $scope.error = error.message;
     });
   };
 
@@ -141,7 +137,7 @@ angular.module('teamform-app', ['firebase'])
       return false;
     }
     // console.log("$scope.username,$scope.password",$scope.username,$scope.password);
-    firebase.auth().signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
+    $scope.auth.signInWithEmailAndPassword($scope.username, $scope.password).catch(function(error){
       $scope.error = error.message;
       console.error("email Login failed(ng):", error);
     });
@@ -163,6 +159,19 @@ angular.module('teamform-app', ['firebase'])
     $scope.auth.$signOut();
   }
 
+  var getProfile = function(uid){
+    var path= "profile/"+uid;
+    var ref = firebase.database().ref(path);
+    var profile = $firebaseObject(ref);
+    profile.$loaded()
+      .catch(function(error) {
+        $scope.error = error.message;
+        console.error("Error:", error);
+      });
+    return profile;
+  }
+  this.getProfile = getProfile;
+
   $scope.auth.$onAuthStateChanged(function(firebaseUser) {
     if (firebaseUser) {
       $scope.message = "Signed in as:"+ firebaseUser.uid;
@@ -177,16 +186,5 @@ angular.module('teamform-app', ['firebase'])
     }
   });
 
-  var getProfile = function(uid){
-    var path= "profile/"+uid;
-    var ref = firebase.database().ref(path);
-    var profile = $firebaseObject(ref);
-    profile.$loaded()
-      .catch(function(error) {
-        $scope.error = error.message;
-        console.error("Error:", error);
-      });
-    return profile;
-  }
-  this.getProfile = getProfile;
+
 }]);
