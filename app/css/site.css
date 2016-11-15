@@ -111,3 +111,13 @@ p {
 .dropdown a:hover {background-color: #ddd}
 
 .show {display:block;}
+
+.checkbox label{
+    padding: 5px;
+    border: 2px solid #888888;
+    margin-bottom:5px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+}
+.teamList{
+    padding: 5px;
+}
