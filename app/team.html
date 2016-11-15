@@ -76,17 +76,18 @@
 	<br><br><br><br>
 	
 	
-	<div class="text-center">
 
-			<button id="btn_join_team" type="button" class="btn btn-primary btn-sm" ng-click="jointeam()">Join</button>
 	  
 	<div class="jumbotron top-space parallax">	 
 		<div class="container">
 			<h2 id="text_event_name"></h2>
-
+					
 			<div>
 
-				<div class="row">
+				<div class="row ">
+				<div class="text-center container-fluidspace">
+				<button id="btn_join_team" type="button" class="btn btn-primary btn-sm" ng-click="jointeam()">Join</button>
+				</div>
 					<div class="col-md-2 col-xs-2"></div>
 						<div class="col-md-8 col-xs-8 ">						
 							<table align="center" border="2px">
@@ -143,6 +144,12 @@
 											<span>Commented on: {{c.date}}</span>
 										</div>
 									</div>
+									
+									<a href="index.html"
+									<button id="btn_admin" type="button" class="btn btn-primary" >
+									<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+									Back</button></a>
+									
 							</div>
 
 						</div>
@@ -151,12 +158,9 @@
 			</div>
 		</div>
 	</div>
-</div>
 
-	<a href="index.html"
-	<button id="btn_admin" type="button" class="btn btn-primary" >
-	<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-	Back</button></a>
+
+	
 
    
    </body>
