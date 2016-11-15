@@ -38,6 +38,7 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.eventName = getURLParameter("q");
 	$scope.ntags = [];
     $scope.ntags = $firebaseArray(firebase.database().ref("newTags"));
+	$scope.errMsg = "";
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
@@ -64,6 +65,11 @@ angular.module('teamform-member-app', ['firebase'])
 			$scope.tags = $scope.memberInfo.tags;			
 		} else {
 			$scope.tags = [];
+		}
+		if(typeof $scope.memberInfo.ability != 'undefined') {
+			$scope.ability = $scope.memberInfo.ability;			
+		} else {
+			$scope.ability = [];
 		}				
 		if($scope.memberInfo.inTeam != null) {
 			$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam + ".");
@@ -95,11 +101,21 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.addTag = function() {
 		 var tag = $.trim($scope.tag);
 				
-		if(tag !== '' && $scope.tags.indexOf(tag) === -1) {
+		if(tag !== '' && $scope.tags.indexOf(tag) === -1 && $scope.checkTag(tag)) {
 			$scope.tags.push(tag);
 		}
 		$scope.tag = "";
 	};
+	
+	$scope.checkTag = function(tag) {
+		if (tag == "Java") {
+			if($scope.ability.Java.marks < 50) {
+				$scope.errMsg = "Failure in Java Quiz";
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	$scope.saveFunc = function() {
 		var newData = {
