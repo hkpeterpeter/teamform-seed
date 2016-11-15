@@ -19,6 +19,17 @@ export default class Team {
         }
         return !angular.equals(this.data, oldData);
     }
+    getVacancy() {
+        if (!this.getEvent()) {
+            return 0;
+        }
+        return this.getEvent().data.teamMax - (this.getTeamUsers() || []).reduce((count, teamUser) => {
+            if (!teamUser.id) {
+                count++;
+            }
+            return count;
+        }, 0);
+    }
     getCreatedByUser() {
         // if(!this._createdByUser) {
         //     this._createdByUser = await this.$firebaseObject(this.$database.ref('users/'+this.data.createdBy));

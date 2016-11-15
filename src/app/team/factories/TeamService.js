@@ -80,8 +80,9 @@ export default class TeamService {
         }
         return this.teams;
     }
-    editTeam(team) {
-        return this.teams.$save(team);
+    async editTeam(team) {
+        let teams = await this.getTeams();
+        return teams.$save(team);
     }
     async createTeam(team) {
         let user = this.authService.user;

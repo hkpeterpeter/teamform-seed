@@ -30,6 +30,12 @@ export default class Event {
         }
         return !angular.equals(this.data, oldData);
     }
+    getTotalEventUsers() {
+        return (this.getEventUsers() || []).length ;
+    }
+    getTotalTeams() {
+        return (this.getTeams() || []).length;
+    }
     getCreatedByUser() {
         // if(!this._createdByUser) {
         //     this._createdByUser = await this.$firebaseObject(this.$database.ref('users/'+this.data.createdBy));
