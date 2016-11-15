@@ -9,7 +9,7 @@ angular.module('teamform-index-app', ['firebase'])
     $scope.eventID = "";
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            // User is signed in.
+            // User is signed in. 
             $scope.$apply($scope.logined = true);
             $scope.$apply($scope.username = user.displayName);
             if ($scope.username == null) { $scope.$apply($scope.fb = false); $scope.$apply($scope.username = user.email); } else { $scope.$apply($scope.fb = true); };
