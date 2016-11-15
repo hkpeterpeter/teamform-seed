@@ -42,6 +42,14 @@ describe('teamapp_admin', function() {
       $q = _$q_;
       deferred = _$q_.defer();
       deferred.resolve();
+      scope.event = {
+    $id: 0,
+    adminID: '0',
+    allTeams: {0: {leader: 'leader1', teamID: '1', member: {0: '0'} } },
+    eventName: '3111h',
+    maxSize: 8,
+    minSize: 5
+    };
 
     	//$firebaseObject = _$firebaseObject_;
     	//$compile = _$compile_;
@@ -49,12 +57,12 @@ describe('teamapp_admin', function() {
     }));	
   
     beforeEach(function() {
-  	  ctrl = $controller('admin_ctrl', { $scope: scope });
-      deferred.resolve();     
-      spyOn(scope.event, '$loaded').and.returnValue(deferred.promise);
-      deferred.resolve();     
-      
 
+
+  	  ctrl = $controller('admin_ctrl', { $scope: scope });
+      //deferred.resolve();     
+      //spyOn(scope.event, '$loaded').and.returnValue(deferred.promise);
+      //deferred.resolve();     
     });
    //
    // the data used for testing
@@ -97,7 +105,8 @@ describe('teamapp_admin', function() {
     skills: {ski31: 'angular'},
     teamsAsMember: {t0: 1}
   }];
-              
+           
+
 
 
    describe('admin basic control', function() {
@@ -106,24 +115,22 @@ describe('teamapp_admin', function() {
   				expect(scope.event_ref).toBeDefined();
 			});
   		it('should have defined event2', function() {
-  				expect(scope.event).toBeDefined();
+        	expect(scope.event).toBeDefined();
 
 			});
-      it('should have promise', function() {
+      /*it('should have promise', function() {
           deferred.resolve();
-          scope.event.$loaded();
+          scope.$apply();
           deferred.resolve();
           scope.$apply();
           expect(scope.event.$loaded).toHaveBeenCalled();
-
-      });
+      });*/
       it('should have team size', function() {
+
+
+    scope.$apply();
           //deferred.resolve();
-  scope.event.$loaded().then(scope.$apply());
-
-          
-
-          expect(scope.size).toBeDefined();   
+          expect(scope.event.minSize).toBeDefined();    
       });
 
    });

@@ -22,8 +22,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   $scope.adminTeamNotFull = true;
 
   $rootScope.admintesting = '0';
-  $scope.event = $rootScope.bindedclickedEvent; //$firebaseObject($rootScope.event_ref.child('0'));
-
+  if ($rootScope.bindedclickedEvent != null)
+  	$scope.event = $rootScope.bindedclickedEvent; //$firebaseObject($rootScope.event_ref.child('0'));
   //$scope.event.$loaded().then(function(){
   	
   	//$rootScope.eventTeams = event.allTeams;
