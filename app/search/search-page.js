@@ -115,7 +115,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							}
 						}
 						if(valid){
-							$scope.currentTag.push(current);
+							$scope.currentTag.push(tag[i]);
 						}
 						
 					}
