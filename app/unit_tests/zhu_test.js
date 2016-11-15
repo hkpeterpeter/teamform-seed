@@ -1,4 +1,4 @@
-
+initFirebase();
 describe('Test site.js', function() {
 	
 		beforeEach(module('teamapp'));
