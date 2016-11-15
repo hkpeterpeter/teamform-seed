@@ -8,21 +8,13 @@ app.controller("chatroomCtrl",
 
         $scope.tempcontent = "";
 
-        $scope.input = {
-            "members": [],
-            "msgs": [{
-                "content": "",
-                "date": ""
-            }]
-        }
-
         $scope.hasChatRecord = function (currentMemberList) {
             
         var checking = true;
 
         for(var t=0;t<$scope.chatrooms.length;t++){
              for(var i=0;i<$scope.chatrooms[t].members.length && checking ==true;i++){
-                 if($scope.chatrooms[t].members.length==1 && $scope.chatrooms[t].members[0]!=currentMemberList[0]){
+                 if($scope.chatrooms[t].members.length==1 && $scope.chatrooms[t].members[i]!=currentMemberList[i]){
                      break;
                     }
 
@@ -45,7 +37,7 @@ app.controller("chatroomCtrl",
 
         $scope.addChatRecord = function () {
             //$scope.input.members = $scope.input.members.split(" ").join("").split(",");
-            var currentMemberList = ["g0001"];
+            var currentMemberList = ["0001","0005"];
             var index = $scope.hasChatRecord(currentMemberList);
 
             if (index >= 0) {

@@ -1,19 +1,15 @@
-'use restrict';
-
 describe('chatroomCtrl', function(){
-	
-	beforeEach(module('chatroomApp', 'firebase'));
+    beforeEach(module('chatroomApp', 'firebase'));
 	var ctrl, firebase, $scope;
 
 	beforeEach(inject(function($controller, $firebase, $firebaseArray){
 		$scope = {};
 		ctrl = $controller('chatroomCtrl', {
 			$scope: $scope,
-			//https://github.com/katowulf/mockfirebase/wiki/Testing-AngularFire
 			$firebaseArray: $firebaseArray})
-		//firebase = $firebase('https://comp3111-5fbe5.firebaseio.com');
 	}));
 
+<<<<<<< HEAD
 	// it('createMsg', function(){
 	// 	var tempObject = {}
 	// 	tempObject = ctrl.createMsg("content", "date");
@@ -25,5 +21,19 @@ describe('chatroomCtrl', function(){
 	// 	var result = ctrl.hasChatRecord("");
 	// 	expect(result).toEqual(-1);
 	// });
+=======
+    it('addNewMessage', function(){
+        $scope.tempcontent = "Typing";
+        $scope.addNewMessage();
+        expect($scope.tempcontent).toEqual("Typing");
+	});
+
+      it('hasChatRecord', function(){
+        var currentMemberList =["0001","0005"];
+       $scope.addNewMessage(currentMemberList);
+	});
+>>>>>>> c03a0b3441feda90b5aab1e8b8fca06fdba39219
+
+	
 
 });
