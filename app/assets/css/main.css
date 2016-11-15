@@ -178,17 +178,6 @@ imgtrans {
 }	
 
 
-td 
-{
-    text-align:center; 
-    vertical-align:middle;
-	background-color: #BCE954;
-	font-family:"Open sans", Helvetica, Arial;
-	font-size:20px;
-	
-	
-}
-
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
