@@ -21,26 +21,82 @@
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-      <link rel="stylesheet" href="css/site.css" >
+      <!-- <link rel="stylesheet" href="css/site.css" > -->
 
 
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
-	  	<script src=""></script>
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="lib/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>
+
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>
+      <script src="lib/angularfire.min.js"></script>
+
+      <!-- JavaScript of this page -->
+      <script src="js/createEv.js"></script>
    </head>
-   <body>
+   <body ng-controller="AdminCtrl">
      <div class="page-header">
-       <h5>Create Event</h5>
+       <label ng-if="!page">Create Event</label>
+       <label ng-if="page">Create Team</label>
      </div>
-     <form novalidate class="sys-form"   ng-submit="">
-       <div class="form-group">
+     <pre>Event: {{event|json}}</pre>
+     <!-- <pre>Test: {{obj}}</pre> -->
+     <form novalidate class="sys-form" name="ceForm" ng-submit="submit()">
+       <div class="form-group has-feedback has-feedback-right">
          <label>Event Name</label>
-         <input type="text" class="form-control" placeholder="" ng-model="" >
+         <input type="text" class="form-control" placeholder="eventID" name="eventID" ng-model="eventID" ngMaxlength="32" required ng-disabled="page">
          <small class="text-muted">
-           Maximum length of user name is 32 characters.
+           Maximum length of event name is 32 characters.
          </small>
+         <i class="form-control-feedback glyphicon glyphicon-ok correct" ng-show="(ceForm.$submitted||ceForm.eventID.$touched)&&(ceForm.eventID.$valid)"></i>
+         <i class="form-control-feedback glyphicon glyphicon-remove error" ng-show="(ceForm.$submitted||ceForm.eventID.$touched)&&(ceForm.eventID.$invalid)"></i>
+         <div ng-show="ceForm.$submitted||ceForm.eventID.$touched" style="color:red;">
+           <span ng-show="ceForm.eventID.$error.required">Please type the event name. <br></span>
+           <span ng-show="ceForm.eventID.$error.maxlength">Event name must be shorter than 32 characters. <br></span>
+         </div>
        </div>
-       
+       <div class="form-group has-feedback has-feedback-right">
+         <label>Minimum Team Size</label>
+         <input type="number" class="form-control" ng-model="minTeam" name="minTeam" min="0" max="{{maxTeam}}" ng-disabled="page">
+         <i class="form-control-feedback glyphicon glyphicon-ok correct" ng-show="(ceForm.$submitted||ceForm.minTeam.$touched)&&(ceForm.minTeam.$valid)"></i>
+         <i class="form-control-feedback glyphicon glyphicon-remove error" ng-show="(ceForm.$submitted||ceForm.minTeam.$touched)&&(ceForm.minTeam.$invalid)"></i>
+         <div ng-show="ceForm.$submitted||ceForm.minTeam.$touched" style="color:red;">
+           <span ng-show="ceForm.minTeam.$error.min">Please enter minimum teamsize larger than 0.<br></span>
+           <span ng-show="ceForm.minTeam.$error.max">Please enter minimum teamsize smaller than {{maxTeam}}.<br></span>
+         </div>
+       </div>
+        <div class="form-group has-feedback has-feedback-right">
+         <label>Maximum Team Size</label>
+         <input type="number" class="form-control" ng-model="maxTeam" name="maxTeam" min="{{minTeam}}" ng-change="fullTeam()" ng-disabled="page">
+         <i class="form-control-feedback glyphicon glyphicon-ok correct" ng-show="(ceForm.$submitted||ceForm.maxTeam.$touched)&&(ceForm.maxTeam.$valid)"></i>
+         <i class="form-control-feedback glyphicon glyphicon-remove error" ng-show="(ceForm.$submitted||ceForm.maxTeam.$touched)&&(ceForm.maxTeam.$invalid)"></i>
+         <div ng-show="ceForm.$submitted||ceForm.maxTeam.$touched" style="color:red;">
+           <span ng-show="ceForm.maxTeam.$error.min">Please enter maximum teamsize larger than {{minTeam}}.<br></span>
+           <span ng-show="ceForm.maxTeam.$error.max">Please enter maximum teamsize smaller than {{}}.<br></span>
+         </div>
+       </div>
+       <div class="form-group">
+        <div ng-if="page">
+          <label>Existing Teams</label>
+          <pre>{{oldTeam|json}}</pre>
+        </div>
+        <div>
+          <label>Create Teams</label>
+   				<button class="glyphicon glyphicon-plus-sign" type="button" ng-click="addTeam()"></button>
+          <button class="glyphicon glyphicon-minus-sign" type="button" ng-click="newTeam.pop();"></button>
+   			</div>
+        <div class="panel-body" ng-repeat="t in newTeam track by $index">
+          <input type="text" class="form-control" placeholder="Type the teamname." name="team{{$index}}" ng-model="newTeam[$index]" required>
+          <div ng-show="ceForm.$submitted||ceForm.team{{$index}}.$touched" style="color:red;">
+            <span ng-show="ceForm.team{{$index}}.$error.required">Please type team names before submitting the form. <br></span>
+          </div>
+        </div>
+      </div>
+       <button class="btn btn-primary" type="button" ng-click="">Back</button>
+       <button class="btn btn-primary" type="submit" ng-disabled="ceForm.$invalid">Submit</button>
      </form>
    </body>
  </html>
