@@ -13,7 +13,7 @@ describe("TeamApp module", function() {
 
     describe('Team function',function(){
 
-        it("After create team, teamname should be defined", function (done){
+        it("After create team, $scope.team should be defined", function (done){
             var $scope= {};
             $controller('teamSubmit', { $scope: $scope });
                 $scope.input.state=true;
