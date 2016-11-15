@@ -14,32 +14,48 @@ describe('searchCtrl', function() {
         $scope.constraint.t = ["-1", "-1", "-1", false, false];
         $scope.constraint.m = ["-1", "-1", "-1", "-1", false];
         $scope.constraint.hasConstraints();
+        expect($scope.constraint.hasConstraints()).toEqual(false);
+
         $scope.constraint.hasTeamConstraints();
+        expect($scope.constraint.hasTeamConstraints()).toEqual(false);
+
         $scope.constraint.hasMemberConstraints();
+        expect($scope.constraint.hasMemberConstraints()).toEqual(false);
 
         $scope.constraint.tm = "1";
         $scope.constraint.t = ["-1", "-1", "-1", false, false];
         $scope.constraint.m = ["-1", "-1", "-1", "-1", false];
         $scope.constraint.hasConstraints();
+        expect($scope.constraint.hasConstraints()).toEqual(true);
 
         $scope.constraint.tm = "0";
         $scope.constraint.t = ["1", "1", "1", true, true];
         $scope.constraint.m = ["-1", "-1", "-1", "-1", false];
         $scope.constraint.hasConstraints();
+        expect($scope.constraint.hasConstraints()).toEqual(true);
+        expect($scope.constraint.hasTeamConstraints()).toEqual(true);
 
         $scope.constraint.tm = "0";
         $scope.constraint.t = ["-1", "-1", "-1", false, false];
         $scope.constraint.m = ["1", "1", "1", "1", true];
         $scope.constraint.hasConstraints();
+        expect($scope.constraint.hasConstraints()).toEqual(true);
+        expect($scope.constraint.hasMemberConstraints()).toEqual(true);
 
         $scope.constraint.t = ["1", "1", "1", true, true];
         $scope.constraint.m = ["1", "1", "1", "1", true];
         $scope.constraint.hasTeamConstraints();
         $scope.constraint.hasMemberConstraints();
+        expect($scope.constraint.hasConstraints()).toEqual(true);
+        expect($scope.constraint.hasTeamConstraints()).toEqual(true);
+        expect($scope.constraint.hasMemberConstraints()).toEqual(true);
 
         $scope.constraint.clearT();
         $scope.constraint.clearM();
         $scope.constraint.clear();
+        expect($scope.constraint.hasConstraints()).toEqual(false);
+        expect($scope.constraint.hasTeamConstraints()).toEqual(false);
+        expect($scope.constraint.hasMemberConstraints()).toEqual(false);
 
         $scope.$digest();
 
@@ -49,6 +65,10 @@ describe('searchCtrl', function() {
 
         $scope.$apply(function() {
             $scope.constraint.tm = 2;
+        });
+
+        $scope.$apply(function() {
+            $scope.constraint.tm = 4;
         });
 
         $scope.$apply(function() {
@@ -173,6 +193,7 @@ describe('searchCtrl', function() {
                 "busy"
             ]
         }];
+        $scope.teamData.push($scope.teamData[0]);
         $scope.search();
 
         $scope.constraint.clear();
@@ -195,6 +216,137 @@ describe('searchCtrl', function() {
         $scope.teamData[0].destination = "China";
         countrylist = [{ "name": "china" }];
         $scope.constraint.t[0] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].language_for_communication = "Chinese";
+        languagelist = ["chinese"];
+        $scope.constraint.t[1] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].language_for_communication = "English";
+        languagelist = ["chinese"];
+        $scope.constraint.t[1] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].preference = "Male";
+        $scope.constraint.t[2] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].preference = "Male";
+        $scope.constraint.t[2] = "1";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.t[2] = "2";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].members = ["g0001"];
+        $scope.teamData[0].max = 1;
+        $scope.constraint.t[3] = true;
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].members = ["g0001"];
+        $scope.teamData[0].max = 3;
+        $scope.constraint.t[3] = true;
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].departure_date = new Date();
+        $scope.teamData[0].departure_date.setUTCFullYear(2015);
+        $scope.constraint.t[4] = true;
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.memberData = [{
+            "available_for_traveling": "true",
+            "birthday": "1980-9-9",
+            "descriptions": "I will be the president of United States.",
+            "email": "ghi@abc.com",
+            "first_name": "Donald",
+            "from": "United States",
+            "gender": "Male",
+            "has_been": [
+                "United Kingdom"
+            ],
+            "id": "0003",
+            "language": [
+                "English"
+            ],
+            "last_name": "Trump",
+            "profile_pic": "http://www.alternet.org/files/story_images/donald_trump_august_19_2015_cropped.jpg",
+            "want_to_travel": [
+                "China"
+            ]
+        }];
+        $scope.memberData.push($scope.memberData[0]);
+
+        $scope.constraint.clear();
+        $scope.constraint.tm = "2";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.t[0] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.m[0] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.m[0] = "1";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.m[1] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        countrylist = [{ "name": "United States" }, { "name": "china" }];
+        $scope.constraint.clear();
+        $scope.constraint.m[1] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.m[2] = "1";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.m[2] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.m[3] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        languagelist = ["english", "chinese"];
+        $scope.constraint.clear();
+        $scope.constraint.m[3] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.memberData[0].available_for_traveling = false;
+        $scope.constraint.clear();
+        $scope.constraint.m[4] = true;
         $scope.searchInput = "! !";
         $scope.search();
 
