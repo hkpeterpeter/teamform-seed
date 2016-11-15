@@ -9,10 +9,18 @@
         <div class="row">
           <div class="col-md-4">
             <div>
-              Select a chatroom:
+              Chatroom select:
+            </div>
+            <div ng-repeat ="chatroomList in chat.chatrooms">
+            <button type="button" class="btn btn-primary">{{chatroomList}}</button>
             </div>
             <div>
-            <button type="button" class="btn btn-primary">{{chat.chatroom}}</button>
+              <div>
+                Create chatroom
+              </div>
+              <form ng-submit="chat.create()">
+                  <input type="text" class="form-control" ng-model="chat.chatroom.name">
+              </form>
             </div>
           </div>
           <div class="col-md-8">
