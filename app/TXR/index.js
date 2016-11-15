@@ -12,18 +12,6 @@ app.config(function($routeProvider){
 
 });
 
-app.controller("searchController",function($scope){
- $scope.searchType = "Search Team";
- $scope.setSearchT = function(){
-   $scope.searchType = "Search Team";
- };
- $scope.setSearchP = function(){
-   $scope.searchType = "Search Person";
- };
- $scope.setSearchE = function(){
-   $scope.searchType = "Search Event";
- };
-});
 
 
 app.controller("EventController",function($scope,$routeParams){
