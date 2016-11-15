@@ -9,6 +9,16 @@ app.controller("teamCtrl",
 
 		$scope.leader_change = false;
 		$scope.isDeletingTeamAnn = false;
+
+		$scope.noSkillTags = false;
+		$scope.noLanguageTags = false;
+		$scope.noMannerTags = false;
+
+		$scope.modifySkillTags = false;
+		$scope.modifyLanguageTags = false;
+		$scope.modifyMannerTags = false;
+
+
 		$scope.tagShowList = [
 			{name :"javascript", state: false},
 			{name :"html" , state: false},
@@ -314,6 +324,17 @@ $scope.test = $scope.teamdata.members;
 						className: 'ngdialog-theme-plain',
 						scope: $scope
 				});
+
+				 // $scope.teamdata.members = $scope.teamdata.members;
+				 $scope.newTeaminfo={
+						 max: $scope.teamdata.max,
+						 name: $scope.teamdata.name,
+						 desc: $scope.teamdata.desc
+				 };
+				 console.log($scope.newTeaminfo);
+				 // console.log($scope.teamdata.members);
+
+
 		};
 
 		// $scope.teamdata.$loaded().then(function(){
@@ -324,33 +345,27 @@ $scope.test = $scope.teamdata.members;
 		// 	// console.log($scope.teamdata.members);
 		// })
 
-		$scope.newTeaminfo={
-				max: 0,
-				name: "",
-				desc: ""
-		};
-
-		console.log($scope.newTeaminfo);
 		$scope.changeTeamInfo=function(){
 
-			 $scope.teamdata.$loaded().then(function(){
-				// $scope.teamdata.members = $scope.teamdata.members;
-				$scope.teamname = $scope.teamdata.name;
-				$scope.teamdesc = $scope.teamdata.desc;
-				$scope.teammax = $scope.teamdata.max;
-				// console.log($scope.teamdata.members);
-			 })
+
 
 				$scope.newTeaminfo.max=parseInt($scope.newTeaminfo.max);
-				console.log($scope.newTeaminfo);
-				console.log($scope.teamname, $scope.teamdesc, $scope.teammax);
-				if($scope.teamname !== $scope.newTeaminfo.name){
+				// console.log($scope.teamdata.name);
+				// console.log($scope.newTeaminfo.name);
+				if($scope.teamdata.name !== $scope.newTeaminfo.name){
+					// console.log("aaaa");
 					$scope.ChangeTeamName($scope.newTeaminfo.name);
 				}
-				if($scope.teamdesc !== $scope.newTeaminfo.desc){
+				// console.log($scope.teamdata.desc );
+				// console.log($scope.newTeaminfo.desc);
+				if($scope.teamdata.desc !== $scope.newTeaminfo.desc){
+					// console.log("bbbb");
 					$scope.ChangeTeamDesc($scope.newTeaminfo.desc);
 				}
-				if($scope.teammax !== $scope.newTeaminfo.max){
+				// console.log($scope.teamdata.max );
+				// console.log($scope.newTeaminfo.max);
+				if($scope.teamdata.max !== $scope.newTeaminfo.max){
+					// console.log("cccc");
 					$scope.ChangeTeamMax($scope.newTeaminfo.max);
 				}
 				dialogue.close();
@@ -378,45 +393,12 @@ $scope.test = $scope.teamdata.members;
 //skill tag functions
 
 
-		$scope.addSkillTag = function(name, neednum, currnum){
-			skilltagref.child(name).set({
-				need: neednum,
-				num : currnum
-			});
-		}
-
-		$scope.deleteSkillTag = function(name){
-			skilltagref.child(name).remove();
-		}
-
-		$scope.updateSkillTag = function(name, neednum, currnum){
-			skilltagref.child(name).update({
-				need: neednum,
-				num : currnum
-			});
-		}
-
 //get manner tags
 		var ftref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags/MannerTags');
 		$scope.mannertags = $firebaseObject(ftref);
 
 //manner tag functions
 
-		$scope.addMannerTag = function(name){
-			var temp = {};
-	    temp[name] = name;
-	    ftref.update(temp);
-		}
-
-		$scope.deleteMannerTag = function(name){
-			ftref.child(name).remove();
-		}
-
-		$scope.updateMannerTag = function(name){
-			var temp = {};
-	    temp[name] = name;
-	    ftref.update(temp);
-		}
 
 //get language tags
 		var ltref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags/LanguageTags');
@@ -424,20 +406,57 @@ $scope.test = $scope.teamdata.members;
 
 //language tag functions
 
-		$scope.addLanguageTag = function(name){
-			var temp = {};
-			temp[name] = name;
-			ltref.update(temp);
+
+		$scope.filterSkillTags = function(items) {
+				var result = {};
+				angular.forEach(items, function(value, key) {
+						if (value !== 0) {
+								result[key] = value;
+						}
+				});
+				if (result[0] == undefined){
+					$scope.noSkillTags = true;
+				}
+				return result;
 		}
 
-		$scope.deleteLanguageTag = function(name){
-			ltref.child(name).remove();
+		$scope.filterLanguageTags = function(items) {
+				var result = {};
+				angular.forEach(items, function(value, key) {
+
+						if (value !== false) {
+								result[key] = value;
+						}
+				});
+				if (result[0] == undefined){
+					$scope.noLanguageTags = true;
+				}
+				return result;
 		}
 
-		$scope.updateLanguageTag = function(name){
-			var temp = {};
-			temp[name] = name;
-			ltref.update(temp);
+		$scope.filterMannerTags = function(items) {
+				var result = {};
+				angular.forEach(items, function(value, key) {
+						if (value !== false) {
+								result[key] = value;
+						}
+				});
+				if (result[0] == undefined){
+					$scope.noMannerTags = true;
+				}
+				return result;
+		}
+
+		$scope.aaa = $scope.teamdata.leader;
+
+		$scope.modifySkillTagsChoice = function(){
+			$scope.modifySkillTags = !$scope.modifySkillTags;
+		}
+		$scope.modifyLanguageTagsChoice = function(){
+			$scope.modifyLanguageTags = !$scope.modifyLanguageTags;
+		}
+		$scope.modifyMannerTagsChoice = function(){
+			$scope.modifyMannerTags = !$scope.modifyMannerTags;
 		}
 
 		//get announcements
@@ -485,6 +504,8 @@ $scope.filterByStatus = function(items, filter_model) {
 		});
 		return result;
 }
+
+
 
 // //get invitations
 // 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/invitations');

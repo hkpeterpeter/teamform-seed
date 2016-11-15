@@ -76,24 +76,32 @@
               <h3 class="panel-title">Tags</h3>
           </div>
           <div class="panel-body"> Skill Tags:
-            <ul ng-repeat="(name,value) in skilltags" ng-if = "value > 0">
+            <div ng-if = "noSkillTags">
+              None
+            </div>
+            <ul ng-repeat="(name,value) in filterSkillTags(skilltags)">
                 <li>{{name}} : {{value}}</li>
             </ul>
           </div>
-          <div class="panel-body"> Manner Tags:
-            <ul ng-repeat="(name,value) in mannertags" ng-if = "value">
+          <div class="panel-body"> Language Tags:
+            <div ng-if = "noLanguageTags">
+              None
+            </div>
+            <ul ng-repeat="(name,value) in filterLanguageTags(languagetags)">
                 <li>{{name}}</li>
             </ul>
           </div>
-          <div class="panel-body"> Language Tags:
-            <ul ng-repeat="(name,value) in languagetags" ng-if = "value">
+          <div class="panel-body"> Manner Tags:
+            <div ng-if = "noMannerTags">
+              None
+            </div>
+            <ul ng-repeat="(name,value) in filterMannerTags(mannertags)">
                 <li>{{name}}</li>
             </ul>
           </div>
           <div class="panel-body">
               <!-- <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a skill tag</button> -->
-              <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal3"  ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">add a feature tag</button>
-              <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal4"  ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID ">add a language tag</button>
+              <button type = "button" class = "btn btn-default" ng-click="ManageTagDialogue()"  ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Manage team tags</button>
           </div>
         </div>
   		</div>
