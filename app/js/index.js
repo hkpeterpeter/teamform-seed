@@ -10,6 +10,11 @@ firebase.initializeApp(config);
 
 var storageRef = firebase.storage().ref();
 var dbRef = firebase.database().ref("members");
+var num = 0;
+var snap = function(snapshot) {
+    num = snapshot.numChildren();
+};
+firebase.database().ref("members").on("value", snap);
 var app = angular.module("login", ["firebase"]);
 app.controller("LoginController",
     function($scope) {
@@ -370,7 +375,10 @@ function popupLogin() {
                     }
 
                     // console.log($input);
-                    firebase.database().ref('members/' + user.uid).set($input);
+                    // console.log(num);
+
+                    firebase.database().ref('members').child(num).set($input);
+                    // firebase.database().ref('members/' + user.uid).set($input);
 
                 } // , 
                 // {access_token: response.authResponse.accessToken}

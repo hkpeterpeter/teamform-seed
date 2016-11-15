@@ -326,4 +326,8 @@ describe('Global Funcs', function () {
     it('fb api error with msg', function () {
         fbAPIError({code: "auth/popup-closed-by-user"});
     });
+
+    it('test snap', function () {
+        snap({numChildren() { return 0; } });
+    });
 });
