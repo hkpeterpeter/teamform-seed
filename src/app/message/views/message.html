@@ -2,6 +2,7 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">Message</h3>
+        {{message.test}}
     </div>
     <div ng-class="[message.style['panel-message']]" class="panel-body">
         <div class="row">
@@ -40,14 +41,14 @@
                     <div ng-class="[message.style['chat_area']]" scroll-glue>
                         <ul class="list-unstyled">
                             <li class="clearfix">
-                                <div ng-repeat="msg in message.conversation.messages">
+                                <div ng-repeat="msg in message.conversation.messages track by $index">
                                     <div ng-if="msg.recv">
                                         <span ng-class="message.style['chat-img1']" class="pull-left">
                                           <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTgzM2ZiMDVlYiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ODMzZmIwNWViIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="User Avatar" class="img-circle">
                                       </span>
                                         <div ng-class="[message.style['chat-body1']]" class="clearfix">
-                                            <p><span>{{msg.content}}</span></p>
-                                            <div class="pull-left">{{msg.createAt | date: 'medium'}}</div>
+                                            <p><span>{{msg.data.content}}</span></p>
+                                            <div class="pull-left">{{msg.data.createAt | date: 'medium'}}</div>
                                         </div>
                                     </div>
                                     <div ng-if="msg.sent" ng-class="[message.style['sender-chat']]">
@@ -55,8 +56,8 @@
                                             <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTgzM2ZiMDVlYiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ODMzZmIwNWViIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="User Avatar" class="img-circle">
                                         </span>
                                         <div ng-class="[message.style['chat-body1']]" class="clearfix">
-                                            <p class="text-right"><span>{{msg.content}}</span></p>
-                                            <div class="pull-right">{{msg.createAt | date: 'medium'}}</div>
+                                            <p class="text-right"><span>{{msg.data.content}}</span></p>
+                                            <div class="pull-right">{{msg.data.createAt | date: 'medium'}}</div>
                                         </div>
                                     </div>
                                 </div>

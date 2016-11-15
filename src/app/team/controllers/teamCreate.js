@@ -14,7 +14,7 @@ export default class TeamCreateCtrl {
             eventId: '',
             users: [],
             private: false,
-            invite: false
+            directJoin: true
         };
         this.error = null;
         this.selectedEvent = null;

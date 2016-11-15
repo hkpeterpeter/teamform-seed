@@ -39,7 +39,7 @@ export default class EventDetailCtrl {
         let failed = null;
         let users = _.chain(this.event.getEventUsers()).filter({hasTeam: false}).shuffle().value();
         while (users.length > 0) {
-            let rand = _.random(this.event.data.teamMin, this.event.data.teamMin);
+            let rand = _.random(this.event.data.teamMin, this.event.data.teamMax);
             if (rand > users.length) {
                 rand = users.length;
             }

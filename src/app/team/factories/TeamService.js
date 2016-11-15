@@ -51,7 +51,7 @@ export default class TeamService {
                     role: teamUser.role,
                     refId: positionId
                 };
-                if (teamJoin.data.invite) {
+                if (!teamJoin.data.directJoin) {
                     newTeamUser.pending = true;
                     newTeamUser.confirmed = false;
                     this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, user.name + ' Request to Join ' + teamJoin.data.name);

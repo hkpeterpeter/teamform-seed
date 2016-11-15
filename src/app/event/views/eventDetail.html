@@ -71,13 +71,20 @@
                 <thead>
                     <tr>
                         <th>Team Name</th>
-                        <th>Team Size</th>
+                        <th>Direct Join</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr dir-paginate="team in eventDetail.event.getTeams() | itemsPerPage: 5" pagination-id="teams">
-                        <td><a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a></td>
-                        <td>{{team.users}}</td>
+                        <td>
+                            <span class="label label-danger" ng-if="team.data.private">Private</span>
+                            <span class="label label-success" ng-if="!team.data.private">Public</span>
+                            <a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a>
+                        </td>
+                        <td>
+                            <span class="text-success glyphicon glyphicon-ok" ng-if="team.data.directJoin"></span>
+                            <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -24,7 +24,7 @@ export default class Team {
             return 0;
         }
         return this.getEvent().data.teamMax - (this.getTeamUsers() || []).reduce((count, teamUser) => {
-            if (!teamUser.id) {
+            if (teamUser.id) {
                 count++;
             }
             return count;

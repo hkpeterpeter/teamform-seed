@@ -1,80 +1,52 @@
+import Message from './Message.js';
 export default class MessageService {
-    constructor($firebaseArray, $firebaseObject, $database, authService, userService) {
+    constructor($rootScope, $firebaseArray, $firebaseObject, $database, authService, userService) {
+        this.$rootScope = $rootScope;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
         this.authService = authService;
         this.userService = userService;
+        this.messages = null;
     }
-    async getConversations(id) {
-        let conversations = [];
-        let init = async() => {
-            let messagesSent = await this.$firebaseArray(this.$database.ref('messages').orderByChild('sender').equalTo(id)).$loaded();
-            let messagesRecv = await this.$firebaseArray(this.$database.ref('messages').orderByChild('receiver').equalTo(id)).$loaded();
-            messagesSent.map((message) => {
-                message.sent = true;
-                return message;
+    async getMessages() {
+        if (!this.messages) {
+            let messageFirebaseArray = this.$firebaseArray.$extend({
+                $$added: async(snap) => {
+                    return new Message(snap, this.$firebaseArray, this.$firebaseObject, this.$database, this.userService);
+                },
+                $$updated: function(snap) {
+                    return this.$getRecord(snap.key).update(snap);
+                },
+                getSent: function(id) {
+                    return this.$list.filter((message) => {
+                        return message.data.sender == id;
+                    });
+                },
+                getRecv: function(id) {
+                    return this.$list.filter((message) => {
+                        return message.data.receiver == id;
+                    });
+                },
             });
-            messagesRecv.map((message) => {
-                message.recv = true;
-                return message;
+            let messages = await messageFirebaseArray(this.$database.ref('messages')).$loaded();
+            messages.$watch(() => {
+                this.$rootScope.$broadcast('messageChanged');
             });
-            let messages = [...messagesSent, ...messagesRecv];
-            messages = await Promise.all(messages.map(async(message) => {
-                let sent = message.sent;
-                let recv = message.recv;
-                message = await this.getMessage(message.$id);
-                if(sent) {
-                    message.sent = true;
-                }
-                if(recv) {
-                    message.recv = true;
-                    message.createAt++;
-                }
-                return message;
-            }));
-            messages = messages.sort((a, b) => {
-                return a.createAt - b.createAt;
-            });
-            conversations = messages.reduce((newConversations, message) => {
-                let conversationUser = message.sender;
-                if(conversationUser.$id == id) {
-                    conversationUser = message.receiver;
-                }
-                for (let newConversation of newConversations) {
-                    if (newConversation.user.$id == conversationUser.$id) {
-                        newConversation.messages.push(message);
-                        return newConversations;
-                    }
-                }
-                newConversations.push({user: conversationUser, messages: [message]});
-                return newConversations;
-            }, []);
-            return Promise.resolve();
-        };
-        await init();
-        return conversations;
-    }
-    async getMessage(id) {
-        let message = await this.$firebaseObject(this.$database.ref('messages/' + id)).$loaded();
-        if (message.$value === null) {
-            return Promise.reject(new Error('Message not exist'));
+            this.messages = messages;
         }
-        let init = async () => {
-            message.sender = await this.userService.getUser(message.sender);
-            message.receiver = await this.userService.getUser(message.receiver);
-        };
-        await init();
-        message.$$updated = await init;
-        return Promise.resolve(message);
+        return this.messages;
     }
     async sendMessage(sender, receiver, content) {
-        let messages = await this.$firebaseArray(this.$database.ref('messages')).$loaded();
+        let messages = await this.getMessages();
         return messages.$add({sender: sender, receiver: receiver, content: content, createAt: Date.now()});
     }
     static instance(...args) {
-        return new MessageService(...args);
+        if (!MessageService.Instance) {
+            MessageService.Instance = new MessageService(...args);
+        }
+        return MessageService.Instance;
     }
 }
-
-MessageService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService'];
+MessageService.Instance = null;
+MessageService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService'];

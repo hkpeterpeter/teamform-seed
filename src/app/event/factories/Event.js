@@ -17,6 +17,9 @@ export default class Event {
             eventUser.user = await this.$firebaseObject(this.$database.ref('users/'+eventUser.id));
             eventUser.hasTeam = false;
             for (let team of this._teams) {
+                if(!team.users) {
+                    continue;
+                }
                 for (let [teamUserKey, teamUser]of Object.entries(team.users)) {
                     if (eventUser.id == teamUser.id) {
                         eventUser.hasTeam = true;
