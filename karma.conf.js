@@ -12,10 +12,13 @@ module.exports = function(config) {
             'lib/firebase.js',
             'lib/angularfire.min.js',
             'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js',
+            'https://www.gstatic.com/firebasejs/3.5.2/firebase.js',
+            'https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js',
             'app.js',
             'app.route.js',
             'app.signup_and_login.js',
             'event.js',
+            'createTeam.js',
             'unit_tests/test_login.js',
             'unit_tests/test_createEvent.js',
             'unit_tests/test_createTeam.js'
@@ -25,7 +28,7 @@ module.exports = function(config) {
             'app.js': ['coverage'],
             'event.js': ['coverage'],
             'app.signup_and_login.js' : ['coverage'],
-            'createTeam.js' : ['coverage']
+            'createTeam.js' : ['coverage'],
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {

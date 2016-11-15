@@ -55,6 +55,11 @@ app.controller("AuthCtrl", [
         skill: "",
         remark: ""
         };
+
+    $scope.lInput = {
+        email: "",
+        password: ""
+    }
     
     
     $scope.signUp = function() {
