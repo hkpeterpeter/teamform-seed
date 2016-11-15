@@ -16,6 +16,9 @@ app.controller("indexCtrl",
 
     $scope.scopeUser = accounts;
 
+    $scope.isLoad = false;
+    $scope.scopeUser.$loaded().then(function(){$scope.isLoad = true;});
+
     $scope.login = function() {
       var loginUser;
       if ( accounts[$scope.inputUsername] !== undefined && accounts[$scope.inputUsername].password == $scope.inputPassword )

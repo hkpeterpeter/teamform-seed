@@ -26,7 +26,7 @@ module.exports = function(config) {
 		 'zwangbm/js/angular_invite.js' : ['coverage'],
 		 'jzhangbs/*.js' : ['coverage'],
 		 'TXR/*.js': ['coverage'],
-      	 'search/*.js' : ['coverage']
+     'search/search-page.js' : ['coverage']
 
 	},
 	reporters: ['progress', 'coverage'],
