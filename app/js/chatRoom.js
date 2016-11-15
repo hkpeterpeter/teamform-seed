@@ -1,9 +1,7 @@
-// inject firebase service
 var app = angular.module("chatRoom", ["firebase"]); 
 
 app.controller("chatRoomCtrl", 
 
-	// Implementation the todoCtrl 
 	function($scope, $firebaseArray) {
 
 		$scope.input = {
@@ -11,7 +9,6 @@ app.controller("chatRoomCtrl",
 			date: "",
 			userName: ""
 		}
-		// sync with firebaseArray
 		var eventName = getURLParameter("q");
 		var ref = firebase.database().ref("chatRoom" + eventName);
 		$scope.chatList = $firebaseArray(ref);
@@ -20,11 +17,14 @@ app.controller("chatRoomCtrl",
 			
 			// update the date
 				if ( $scope.input.message != "" ) {
-					var user = firebase.auth().currentUser;
-					$scope.input.date = new Date().toString();
-					$scope.input.userName = user.displayName;
-					$scope.chatList.$add($scope.input);
-					// add an input question
+					firebase.auth().onAuthStateChanged(function(firebaseUser) {
+						if(firebaseUser) {
+												var user = firebase.auth().currentUser;
+												$scope.input.userName = user.displayName;
+												$scope.input.date = new Date().toString();
+												$scope.chatList.$add($scope.input);
+										}
+									})
 				}
 			}
 		}
