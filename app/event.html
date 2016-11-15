@@ -7,7 +7,10 @@
              {{nameErrorMessage()}}
             </p>
 
-
+            <p>Introduction:
+             <input name="newEventIntro" ng-model="input.intro" required>
+             {{introErrorMessage()}}
+            </p>
             <button ng-click="submit()" ng-disabled= "eventForm.newEventIntro.$invalid || eventForm.newEventName.$invalid || submitDisable">Submit</button>
           </form>
          </div>
