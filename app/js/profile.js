@@ -71,5 +71,4 @@ angular.module('teamform-admin-app', ['firebase'])
 		$scope.param.$save();
 
 	}
-
 }]);

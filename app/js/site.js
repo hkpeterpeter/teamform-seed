@@ -35,7 +35,6 @@ function initializeFirebase() {
     databaseURL: "https://project--4057470097300591247.firebaseio.com",
     storageBucket: "project--4057470097300591247.appspot.com",
     messagingSenderId: "409818143167"
-
   };
   firebase.initializeApp(config);
 
