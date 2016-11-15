@@ -1,11 +1,11 @@
 app.controller("MyCtrl", ["$scope", "$firebaseObject",
   function($scope, $firebaseObject) {
-     var ref = firebase.database().ref("Course/");
+     var ref = firebase.database().ref();
 
      var obj = $firebaseObject(ref);
 
      // to take an action after the data loads, use the $loaded() promise
-     obj.then(function() {
+     obj.$loaded().then(function() {
         console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
 
        // To iterate the key/value pairs of the object, use angular.forEach()

@@ -1,4 +1,4 @@
-angular.module("Demo")
+angular.module("Demo", [] )
 	.controller(
             "DemoController",
             function( $scope, friendService ) {
