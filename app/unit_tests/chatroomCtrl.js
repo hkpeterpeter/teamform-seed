@@ -9,19 +9,6 @@ describe('chatroomCtrl', function(){
 			$firebaseArray: $firebaseArray})
 	}));
 
-<<<<<<< HEAD
-	// it('createMsg', function(){
-	// 	var tempObject = {}
-	// 	tempObject = ctrl.createMsg("content", "date");
-	// 	expect(tempObject.content).toEqual("content");
-	// });
-
-	// //http://stackoverflow.com/questions/22921484/how-can-we-test-non-scope-angular-controller-methods
-	// it('hasChatRecord return -1', function(){
-	// 	var result = ctrl.hasChatRecord("");
-	// 	expect(result).toEqual(-1);
-	// });
-=======
     it('addNewMessage', function(){
         $scope.tempcontent = "Typing";
         $scope.addNewMessage();
@@ -32,7 +19,6 @@ describe('chatroomCtrl', function(){
         var currentMemberList =["0001","0005"];
        $scope.addNewMessage(currentMemberList);
 	});
->>>>>>> c03a0b3441feda90b5aab1e8b8fca06fdba39219
 
 	
 
