@@ -45,7 +45,18 @@ describe("tfApp", function(){
                 helper.getUsername  = function(uid){}
                 helper.joinEvent = function(uid, eventID) {}
                 helper.changeReadState = function(uid,eid,nid){}
+                helper.updateSkillTags = function(eventID, teamID, skilltags){}
+                helper.updateLanguageTags = function(eventID, teamID, languagetags){}
+                helper.updateMannerTags = function(eventID, teamID, mannertags){}
                return helper;
+             });
+
+             $provide.service('ngDialog',function(){
+                this.open=function(dummyParams){
+                  dialogue={};
+                  dialogue.close=function(){}
+                  return dialogue;
+                }
              });
       });
       // initalizeFirebase();
@@ -69,90 +80,119 @@ describe("tfApp", function(){
         controller = $controller('teamCtrl', { $scope: $scope});
 
       });
-      describe('testing Change_Leader()', function(){
+
         it('$scope.Change_Leader() should be change $scope.leader_change  to true ', function() {
           $scope.Change_Leader();
           expect($scope.leader_change).toEqual(true);
           console.log("test");
         });
-      });
 
-      describe('testing ApplyTeam()', function(){
+
+
         it('$scope.ApplyTeam() should apply for a team', function() {
-      //   $scope.password = 'longerthaneightchars';
-      //   $scope.grade();
           $scope.ApplyTeam();
           // expect(window.alert).toHaveBeenCalledWith("Your application is received");
         });
-      });
 
-      describe('testing DeleteMember()', function(){
+
+
         it('$scope.DeleteMember() should delete a member in a team', function() {
-      //   $scope.password = 'longerthaneightchars';
-      //   $scope.grade();
-          var uid = "123";
-          $scope.DeleteMember(uid);
+          $scope.DeleteMember();
         });
-      });
 
-      describe('testing QuitTeam()', function(){
+
+
         it('$scope.QuitTeam() should quit a team', function() {
-      //   $scope.password = 'longerthaneightchars';
-      //   $scope.grade();
-        $scope.QuitTeam();
+          $scope.QuitTeam();
         });
-      });
 
-      describe('testing SetLeader()', function(){
+
+
         it('$scope.SetLeader() should assign team leader to another member', function() {
-      //   $scope.password = 'longerthaneightchars';
-      //   $scope.grade();
-        $scope.SetLeader();
+          $scope.SetLeader();
         });
-      });
 
-      describe('testing SetLeader()', function(){
+
+
         it('$scope.filterLeader() should return a filter list with leader uid not in it', function() {
-      //   $scope.password = 'longerthaneightchars';
-      //   $scope.grade();
-        $scope.filterLeader();
+          $scope.filterLeader();
 
         });
-      });
 
-      describe('testing ChangeTeamName()', function(){
-        it('$scope.ChangeTeamName() should change the team name', function() {
-      //   $scope.password = 'longerthaneightchars';
-      //   $scope.grade();
-         var newname = "www";
-        $scope.ChangeTeamName(newname);
+
+
+        it('$scope.ChangeTeamName() should change a team name', function() {
+          $scope.ChangeTeamName("s");
 
         });
-      });
 
-      describe('testing ChangeTeamDesc()', function(){
-        it('$scope.ChangeTeamDesc() should change the team description', function() {
-      //   $scope.password = 'longerthaneightchars';
-      //   $scope.grade();
-      var newdesc = "sss";
-        $scope.ChangeTeamDesc(newdesc);
+
+
+        it('$scope.ChangeTeamDesc() should change a team description', function() {
+          $scope.ChangeTeamDesc("s");
 
         });
-      });
-      // it('Listen', function() {
-        // auth.$signInWithEmailAndPassword(
-        //               "test@test.com",
-        //               "123456"
-        // ).then(function(authData) {
-        //     console.log("Logged in as:", authData);
-        // }).catch(function(error) {
-        //     console.log("Authentication failed:", error);
-        //     // $window.alert(error);
-        // });
-        // setTimeout(function(){console.log('hhh')},3000);
-        // expect($scope.selectTeam).toEqual(false);
-      // });
 
+
+
+        it('$scope.ChangeTeamMax() should change a team maximum limit', function() {
+          $scope.ChangeTeamMax(9);
+
+        });
+
+
+        it('$scope.changeTeamInfo() should change a team infomation', function() {
+          $scope.changeTeamInfoDialogue();
+          $scope.changeTeamInfo();
+        });
+
+
+        it('$scope.filterSkillTags() should filter skill tags', function() {
+          $scope.filterSkillTags();
+
+        });
+
+
+        it('$scope.filterLanguageTags() should filter language tags', function() {
+          $scope.filterLanguageTags();
+
+        });
+
+
+        it('$scope.filterMannerTags() should filter manner tags', function() {
+          $scope.filterMannerTags();
+
+        });
+        //
+        it('$scope.modifySkillTagsChoice() should change the state of modifySkillTags', function() {
+          $scope.modifySkillTagsChoice();
+          $scope.modifySkillTags = true;
+        });
+
+        it('$scope.modifyLanguageTagsChoice() should change the state of modifyLanguageTags', function() {
+          $scope.modifyLanguageTagsChoice();
+          $scope.modifyLanguageTags = true;
+        });
+
+        it('$scope.modifyMannerTagsChoice() should change the state of modifyMannerTags', function() {
+          $scope.modifyMannerTagsChoice();
+          $scope.modifyMannerTags = true;
+        });
+
+        it('$scope.changeSkillTags() should change skill tags', function() {
+          $scope.changeSkillTags();
+
+        });
+
+        it('$scope.changeLanguageTags() should change language tags', function() {
+          $scope.changeLanguageTags();
+
+        });
+
+        it('$scope.changeMannerTags() should change manner tags', function() {
+          $scope.changeMannerTags();
+
+        });
     });
 
 });

@@ -18,6 +18,8 @@ app.controller("teamCtrl",
 		$scope.modifyLanguageTags = false;
 		$scope.modifyMannerTags = false;
 
+		$scope.newTeaminfo = {};
+
 		$scope.statusList = {
 			0 : "pending",
 			1 : "accepted",
@@ -142,7 +144,7 @@ app.controller("teamCtrl",
 				// 	Helper.pushNotificationTo(leaderuid, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
 				// }
 				Helper.pushNotificationTo($scope.teamdata.leader, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
-				window.location.reload();
+				// window.location.reload();
 		}
 
 
@@ -156,7 +158,7 @@ app.controller("teamCtrl",
 		// }
 
 		$scope.DeleteMember = function(uid){
-			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID);
+			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID)
 				Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, Helper.getUsername(uid) + " has been kicked off the team");
 				for (memberuid in $scope.teamdata.members){
 						Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has been kicked off the team.");
@@ -199,6 +201,7 @@ app.controller("teamCtrl",
 
 		$scope.ChangeTeamName = function(newname){
 
+
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('name').set(newname);
 
@@ -211,6 +214,8 @@ app.controller("teamCtrl",
 		}
 
 		$scope.ChangeTeamDesc = function(newdesc){
+
+
 
 
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
@@ -264,7 +269,7 @@ app.controller("teamCtrl",
 
 
 
-				$scope.newTeaminfo.max=parseInt($scope.newTeaminfo.max);
+				// $scope.newTeaminfo.max=parseInt($scope.newTeaminfo.max);
 				// console.log($scope.teamdata.name);
 				// console.log($scope.newTeaminfo.name);
 				if($scope.teamdata.name !== $scope.newTeaminfo.name){
