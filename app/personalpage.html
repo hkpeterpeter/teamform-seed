@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-admin-app">
+   <head>
+     <meta charset="utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta name="keywords" content="teamform, team">
+     <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+     <title>teamform - personal setting page</title>
+     <!-- libraries and CSS
+  JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
+  Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+  Font-awesome: More icons for the web development (v4.6.3 is used)
+  site.css: A customized css for our web application. Not from any web framework.
+  -->
+
+     <script src="lib/jquery.min.js"></script>
+     <script src="lib/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+     <link rel="stylesheet" href="css/site.css" >
+
+     <!-- Facebook SDK -->
+     <script>
+        window.fbAsyncInit = function() {
+        FB.init({
+           appId      : '322733031442583',
+           xfbml      : true,
+           version    : 'v2.8'
+        });
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "//connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+     </script>
+
+     <!-- Bootstrap -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+
+     <!-- Customized libraries shared by pages -->
+     <script src="js/site.js"></script>
+
+     <style>
+      div.lightblue {
+       background-color:#F0F8FF ;
+       color: black;
+       margin: 20px 0 20px 0;
+       padding: 20px;
+     }
+     div.lightgrey {
+      background-color:#A9A9A9 ;
+      color: black;
+      margin: 20px 0 20px 0;
+      padding: 20px;
+    }
+     h2{font-size:250%; color:lightblue;}
+     p{font-size:150%;}
+     </style>
+
+
+   </head>
+   <body>
+
+
+           <a href="index.html"
+           <button id="btn_admin" type="button" class="btn btn-primary" >
+           <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+           Back</button></a>
+
+           <br>
+
+           <div class="text-center">
+              <h1>My Profile</h1>
+              <p style="color:red"> Still in Progress</p>
+
+              <div class="text-center">
+
+                <br>
+                <p ng-show="logined">Logined as {{username}}</p>
+                <br>
+              </div>
+            </div>
+
+        <!--Personal Data -->
+        <div>
+          <h2> Personal Data</h2>
+
+           <div class="lightblue">
+             <p> Which school are you from?</p>
+             <form>
+               <input type="radio" name="major" value="SENG" > School of Engineering<br>
+               <input type="radio" name="major" value="SBM"> School of Business and Management<br>
+               <input type="radio" name="major" value="SSC"> School of Science<br>
+               <input type="radio" name="major" value="SHSS"> School of Humanities and Social Science<br>
+             </form>
+               </div>
+
+            <div class="lightgrey">
+               <p> Where are you from?</p>
+               <form>
+                 <input type="radio" name="home" value="HK" > Hong Kong<br>
+                 <input type="radio" name="home" value="China"> China<br>
+                 <input type="radio" name="home" value="Asia"> Asia<br>
+                 <input type="radio" name="home" value="NA"> North America<br>
+                 <input type="radio" name="home" value="EU"> Europe<br>
+                 <input type="radio" name="home" value="Other"> Other
+               </form>
+             </div>
+
+             <div class="lightblue">
+               <p> Which hall do you live in?</p>
+               <form>
+                 <input type="radio" name="hall" value="hall1" > Hall I<br>
+                 <input type="radio" name="hall" value="hall2" > Hall II<br>
+                 <input type="radio" name="hall" value="hall3" > Hall III<br>
+                 <input type="radio" name="hall" value="hall4" > Hall IV<br>
+                 <input type="radio" name="hall" value="hall5" > Hall V<br>
+                 <input type="radio" name="hall" value="hall6" > Hall VI<br>
+                 <input type="radio" name="hall" value="hall7" > Hall VII<br>
+                 <input type="radio" name="hall" value="hall8" > Hall VIII<br>
+                 <input type="radio" name="hall" value="hall9" > Hall IX<br>
+                 <input type="radio" name="hall" value="nohall" > I don't live in hall
+               </form>
+                 </div>
+
+                 <div class="lightgrey">
+                    <p> What kind of group are you looking for?</p>
+                    <form>
+                      <input type="radio" name="gptype" value="gradeA" > Elite<br>
+                      <input type="radio" name="gptype" value="gradeB"> Work hard together !<br>
+                      <input type="radio" name="gptype" value="gradeC"> Making new friends<br>
+                      <input type="radio" name="gptype" value="gradeD"> I don't care !
+                    </form>
+                  </div>
+
+
+
+                 <div style="text-align: center;">
+                 <input type="submit" value="Confirm">
+                 </div>
+
+              </div>
+
+
+
+
+           <!-- JavaScript of this page -->
+
+           <!-- Angular and Angular-route libraries (v1.5.7) -->
+           <script src="lib/angular.min.js"></script>
+           <script src="lib/angular-route.min.js"></script>
+
+           <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+           <script src="lib/firebase.js"></script>
+           <script src="lib/angularfire.min.js"></script>
+
+           <script src="js/admin.js"></script>
+
+
+      </body>
+</html>

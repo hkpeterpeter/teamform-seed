@@ -7,15 +7,21 @@
     // Call Firebase initialization code defined in site.js
     initalizeFirebase();
     $scope.btn_signin = function () {
-        firebase.auth().signInWithEmailAndPassword($scope.email, $scope.password).catch(function (error) {
+        firebase.auth().signInWithEmailAndPassword($scope.email, $scope.password).then(function () { window.location.href = "index.html"; }).catch(function (error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             // ...
-            window.location.href = "error.html";
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
+
         });
 
-        window.location.href = "index.html";
+        
     }
 
 }]);

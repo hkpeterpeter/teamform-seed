@@ -7,9 +7,18 @@ angular.module('teamform-index-app', ['firebase'])
     // Call Firebase initialization code defined in site.js
     initalizeFirebase();
     $scope.eventID = "";
+    var user = firebase.auth().user;
+    if (user) {
+        // User is signed in.
+        $scope.$apply($scope.logined = true);
+        $scope.$apply($scope.username = user.displayName);
+        if ($scope.username == null) { $scope.$apply($scope.fb = false); $scope.$apply($scope.username = user.email); } else { $scope.$apply($scope.fb = true); };
+    } else {
+        // No user is signed in.
+    };
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            // User is signed in. 
+            // User is signed in.
             $scope.$apply($scope.logined = true);
             $scope.$apply($scope.username = user.displayName);
             if ($scope.username == null) { $scope.$apply($scope.fb = false); $scope.$apply($scope.username = user.email); } else { $scope.$apply($scope.fb = true); };
@@ -48,6 +57,17 @@ angular.module('teamform-index-app', ['firebase'])
         }
     }
 
+    $scope.btn_logout = function () {
+        if ($scope.logined) {
+            firebase.auth().signOut().then(function () {
+                // Sign-out successful.
+                $scope.$apply($scope.logined=false);
+            }, function (error) {
+                // An error happened.
+            });
+        }
+    }
+
     $scope.btn_email = function () {
        window.location.href = "signin.html";
     }
@@ -71,7 +91,7 @@ angular.module('teamform-index-app', ['firebase'])
     }
 
     $scope.refreshEvents = function () {
-        var ref = firebase.database().ref("events");
+        var ref = firebase.database().ref("event/");
 
         // Link and sync a firebase object
        /* $scope.selection = [];
@@ -97,6 +117,7 @@ angular.module('teamform-index-app', ['firebase'])
 			    // Database connection error handling...
 			    //console.error("Error:", error);
 			});
+
 
     }
 

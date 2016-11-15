@@ -24,7 +24,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	var refPath, ref, eventName;
 
 	eventName = getURLParameter("q");
-	refPath = "events/" + eventName + "/admin/param";
+	refPath = "event/"+ eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
@@ -50,12 +50,12 @@ angular.module('teamform-admin-app', ['firebase'])
 		});
 		
 	
-	refPath = eventName + "/team";	
+	refPath = "event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
 	
-	refPath = eventName + "/member";
+	refPath = "event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
