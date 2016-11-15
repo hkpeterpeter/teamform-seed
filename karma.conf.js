@@ -18,7 +18,9 @@ module.exports = function(config) {
 			'js/helper.js',
 			'js/profileCtrl.js',
 			'js/eventDCtrl.js',
+		'js/notificationCtrl.js',
 			 'js/eventCtrl.js',
+		'unit_tests/testnotificationCtrl.js',
 		     'unit_tests/testEvent.js',
       'unit_tests/testEventDCtrl.js'	  
     ],
