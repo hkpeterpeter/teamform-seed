@@ -1,4 +1,4 @@
-﻿
+
 <!-- Hello World!-->
 
 <!DOCTYPE html>
@@ -144,7 +144,7 @@
                       <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
                       <br>
                       <button type="button" class="btn btn-primary" ng-click="btn_admin();" ng-show="!fb">Administrator</button>
-                      <button type="button" class="btn btn-primary" ng-click="btn_leader();" ng-show="fb">Team Leader</button>
+                      <button type="button" class="btn btn-primary" ng-repeat="event in events" ng-click="eventID=event.$id;btn_leader();" ng-show="fb">{{event.$id}}</button>
                       <button type="button" class="btn btn-primary" ng-click="btn_member();" ng-show="fb">Member</button>
                     </div>
                   </div>
@@ -168,7 +168,6 @@
             <div class="col-md-12">
                <h2 class="featurette-heading">Event List
                   <br>
-                  <span class="text-muted">event name</span>
                </h2>
 
 
