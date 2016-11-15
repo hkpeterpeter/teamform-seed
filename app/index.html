@@ -99,7 +99,9 @@
                </h2>
                <p class="lead"> The following roles are supported in teamform:</p>
 
-               <div class="row container-fluidspace">
+               <div class="row">
+			   <font color="white">
+
                   <div class="col-md-4">
                      <h3 class="text-center">Administrator</h3>
                      <ul>
@@ -121,6 +123,7 @@
                      <ul>
                         <li>Be able to request to join multiple teams</li>
                      </ul>
+					 </font>
                   </div>
 		</div>
 	</header>
@@ -135,14 +138,17 @@
                      
                      <div class="text-center">
 						<br>
-                        <h1 class="thin"><p> You are cureently login as {{userObj.name}}</p></h1>
+
+
+                        <h1 class="thin"><p> You are currently login as {{userObj.name}}</p></h1>
+
 
                         <p>A real-time online team forming app for any event</p>
                      </div>
 					<div class="jumbotron top-space">
                      <div class="text-center">
 
-                        <input id="input_text" type="text" class="input-lg">
+                        <input id="input_text" type="text" class="input-lg" placeholder="Enter a name here">
                         <br>
                         <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
                         <br>
@@ -153,8 +159,6 @@
                            <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
                            <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
                            <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-                          
-
 
                         </div>
                      </div>
@@ -170,18 +174,20 @@
       	<!-- Intro -->
 	<div class="container text-center">
 		<br>
-		<h2 class="thin id="event"">Current Events</h2>
+		<h2 class="thin" id="event">Current Events</h2>
 	</div>
 	<!-- /Intro-->
 	
 	<!-- Highlights - jumbotron -->
 	<div class="jumbotron top-space parallax">
-		<div class="container">
+
+		<div class="container text-center">
 			<div class="row" >
 
-			<table border="1" style="width:100%" align="center">
-			<tr>
-			<td> Event Name </td><td> Holder </td><td>Team</td><td> Team Size </td><td></td></tr>
+			<table align="center" border="1" style="background-color:#FFFFE0;border-color:#BDB76B;">
+			<tr style="background-color:#BDB76B;color:#ffffff;">
+			<td><b> Event Name </b></td><td><b> Holder </b></td><td><b> Team Size </b></td><td></td></tr>
+
 
 			<tr ng-repeat="e in events">
 			<td>{{e.param.EventName}} </td>
@@ -192,8 +198,10 @@
 			</tr>
 
 			</table>
-
 	</div>
+	</div>
+	</div>
+
 	<!-- /Highlights -->
 	<p class="pull-right"><a href="#">Back to top</a></p>
 	  
@@ -205,7 +213,6 @@
 	</div>
 	<!-- /Intro-->
 		
-
 		<div class="jumbotron top-space parallax">
 			<div class="container text-center">
 			
@@ -322,6 +329,7 @@
 
 	</footer>	
 
+	</div>
 
    </body>
 </html>
