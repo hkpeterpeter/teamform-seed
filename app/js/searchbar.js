@@ -6,17 +6,7 @@ var app = angular.module("search", ["firebase", "clock"]);
 app.controller("searchCtrl",
     function ($scope, $firebaseArray, $sce) {
         $scope.trustAsHtml = $sce.trustAsHtml;
-
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
-            authDomain: "comp3111-5fbe5.firebaseapp.com",
-            databaseURL: "https://comp3111-5fbe5.firebaseio.com",
-            storageBucket: "comp3111-5fbe5.appspot.com",
-            messagingSenderId: "946291658553"
-        };
-        firebase.initializeApp(config);
-
+        
         //get members' data
         var ref = firebase.database().ref("members");
         $scope.memberData = $firebaseArray(ref);

@@ -22,11 +22,11 @@ module.exports = function(config) {
 		 'js/index.js' : ['coverage'],
 		 'js/admin.js' : ['coverage'],
 		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage'],
-		 'js/createGroup.js' : ['coverage']
+		 'js/member.js' : ['coverage']
+		 //,'js/createGroup.js' : ['coverage']
 		 //'js/searchbar.js' : ['coverage'],
-		 //'js/chatroomCtrl.js' : ['coverage']
-		 ,'js/searchbar.js' : ['coverage']
+		 ,'js/chatroomCtrl.js' : ['coverage']
+		 //,'js/searchbar.js' : ['coverage']
 },
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
