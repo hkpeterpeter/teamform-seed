@@ -17,11 +17,7 @@ module.exports = function(config) {
     exclude: [
     ],
     preprocessors: {
-      'js/site.js' : ['coverage'],
-      'js/index.js' : ['coverage'],
-      'js/admin.js' : ['coverage'],
-      'js/team.js' : ['coverage'],
-      'js/member.js' : ['coverage']
+      'js/*.js' : ['coverage']
     },
     reporters: ['progress', 'coverage'],
     coverageReporter: {

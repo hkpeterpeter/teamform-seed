@@ -10,10 +10,10 @@
 // });
 
 angular.module('teamform-member-app', ['firebase'])
-.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+.controller('createEventCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
 	var self = this;
 	initalizeFirebase();
-	// TODO: implementation of AdminCtrl
+	// TODO: implementation of createEventCtrl
 	var id = "";
 	firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -48,16 +48,16 @@ angular.module('teamform-member-app', ['firebase'])
 
 			// Fill in some initial values when the DB entry doesn't exist
 			if(typeof $scope.event.maxTeamSize == "undefined"){
-				$scope.param.maxTeamSize = 10;
+				$scope.event.maxTeamSize = 10;
 			}
 			if(typeof $scope.event.minTeamSize == "undefined"){
-				$scope.param.minTeamSize = 1;
+				$scope.event.minTeamSize = 1;
 			}
 
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#admin_page_controller').show();
-			//self.createEvent();
-			self.createTeam("6210");
+			//$scope.createEvent();
+			//$scope.createTeam("6210");
 		})
 		.catch(function(error) {
 			// Database connection error handling...
@@ -77,11 +77,11 @@ angular.module('teamform-member-app', ['firebase'])
     $scope.minTeam=0;
     $scope.maxTeam=10;
 
-    self.createEvent=function(){
+    $scope.createEvent=function(){
       $scope.page=0;
     };
 
-    self.createTeam=function(evID){
+    $scope.createTeam=function(evID){
       $scope.page=1;
       $scope.eventID=evID;
       var obj=$scope.event[evID];
