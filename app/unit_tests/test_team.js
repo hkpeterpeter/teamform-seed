@@ -52,18 +52,8 @@ describe('Test team.js', function () {
         expect($rootScope.param).toBe({"teamName":'',"currentTeamSize":0,"teamMembers":[]});
     });*/
 
-    it('changes team size', function () {
-      createController($firebaseObject, $firebaseArray);
-      $rootScope.range.minTeamSize =1;
-      $rootScope.range.maxTeamSize =3;
-      $rootScope.param.currentTeanSize =1;
-      expect($rootScope.changeCurrentTeamSize(-1)).toBe(1);
-      expect($rootScope.changeCurrentTeamSize(1)).toBe(2);
-      expect($rootScope.changeCurrentTeamSize(3)).toBe(3);
-    });
-
     it('changes team size within boundries', function () {
-      createController($firebaseObject, $firebaseArray);
+      var controller = createController();
       $rootScope.range.minTeamSize =1;
       $rootScope.range.maxTeamSize =3;
       $rootScope.param.currentTeanSize =1;
@@ -73,24 +63,27 @@ describe('Test team.js', function () {
     });
 
     it('saveFunc works', function () {
-      createController($firebaseObject, $firebaseArray);
+      var controller = createController();
       $rootScope.saveFunc();
       expect($rootScope.param.$save).toHaveBeenCalled();
       expect($state.go).toHaveBeenCalled();
     });
 
     it('deleteFunc works if confirmed', function () {
-      createController($firebaseObject, $firebaseArray);
+      var teamID = $.trim( $scope.param.teamName );		
+		var refPath = eventName + "/team/" + teamID ;
+		ref = firebase.database().ref(refPath);
+		ref.remove();
+      var controller = createController('$stateParams'= {"teamName":'example',"currentTeamSize":0,"teamMembers":[]});
       spyOn(window, 'confirm').and.returnValue(true);
       $rootScope.deleteFunc();
-      expect($state.go).toHaveBeenCalled();
+      expect($rootscope.param.teamName).toHaveBeenCalled();
     });
 
-    it('deleteFunc works if denied', function () {
-      createController($firebaseObject, $firebaseArray);
+    it('deleteFunc does not deleteTeam if denied', function () {
+      var controller = createController();
       spyOn(window, 'confirm').and.returnValue(false);
       $rootScope.deleteFunc();
-      expect($state.go).toHaveBeenCalled();
     });
 
 });
