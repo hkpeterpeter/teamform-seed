@@ -22,33 +22,33 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   $scope.adminTeamNotFull = true;
 
   $rootScope.admintesting = '0';
-  $scope.event = $firebaseObject($rootScope.event_ref.child('0'));
+  $scope.event = $rootScope.bindedclickedEvent; //$firebaseObject($rootScope.event_ref.child('0'));
 
-  $scope.event.$loaded().then(function(){
+  //$scope.event.$loaded().then(function(){
   	
   	//$rootScope.eventTeams = event.allTeams;
-  	$scope.minSize = $scope.event.minSize;
-  	$scope.maxSize = $scope.event.maxSize;
-  	$scope.size = $scope.maxSize - $scope.minSize + 1;
-  	var admin = $firebaseObject($rootScope.user_ref.child($scope.event.adminID));
-  	admin.$loaded().then(function(){
-  		$scope.eventInfo = {
-  			name: $scope.event.eventName,
-  			admin: admin.name
-  		};
-  	});
+  $scope.minSize = $scope.event.minSize;
+  $scope.maxSize = $scope.event.maxSize;
+  $scope.size = $scope.maxSize - $scope.minSize + 1;
+  var admin = $firebaseObject($rootScope.user_ref.child($scope.event.adminID));
+  admin.$loaded().then(function(){
+  	$scope.eventInfo = {
+  		name: $scope.event.eventName,
+  		admin: admin.name
+  	};
+  });
   
 
-		$scope.teams = $firebaseArray($rootScope.team_ref.orderByChild("belongstoEvent").equalTo($scope.event.$id.toString()));
+	$scope.teams = $firebaseArray($rootScope.team_ref.orderByChild("belongstoEvent").equalTo($scope.event.$id.toString()));
 
-		$scope.users = [];
+	$scope.users = [];
 		//console.log(event.waitingUsers);
-		for (var key in $scope.event.waitingUsers) {
-			$scope.users.push($firebaseObject($rootScope.user_ref.child($scope.event.waitingUsers[key])));
-		};
+	for (var key in $scope.event.waitingUsers) {
+		$scope.users.push($firebaseObject($rootScope.user_ref.child($scope.event.waitingUsers[key])));
+	};
 
 	//event loaded ends
-	});
+	//});
 
 	
 	// Functions - TEAM
