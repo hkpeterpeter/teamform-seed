@@ -30,11 +30,11 @@ function initalizeFirebase() {
 
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDWBsNtdNcMzTLtvKEiqSHlx3eZu0RsFtY",
-    authDomain: "swimcapboys.firebaseapp.com",
-    databaseURL: "https://swimcapboys.firebaseio.com",
-    storageBucket: "swimcapboys.appspot.com",
-    messagingSenderId: "775129663322"
+    apiKey: "AIzaSyBkL0el0x9yKbnNbRGoCVFXjWpBU01ifxs",
+    authDomain: "test-15379.firebaseapp.com",
+    databaseURL: "https://test-15379.firebaseio.com",
+    storageBucket: "test-15379.appspot.com",
+    messagingSenderId: "384214768584"
   };
   firebase.initializeApp(config);
 
