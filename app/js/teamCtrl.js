@@ -61,35 +61,19 @@ app.controller("teamCtrl",
 
 
 							//check whether user has already applied for a team
-							var user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid  + '/writable/' + $scope.eventID + '/applications');
-									user_appli_ref.once('value', function (snapshot) {
-									   if (snapshot.hasChild($scope.teamID)) {
+						var user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid  + '/writable/' + $scope.eventID + '/applications');
+						$scope.user_appli = $firebaseObject(user_appli_ref);
+							// 		user_appli_ref.once('value', function (snapshot) {
+							// 		   if (snapshot.hasChild($scope.teamID)) {
 
-												$scope.alreadyApplied = true;
-									  	}
-											else{
-												$scope.alreadyApplied = false;
-											}
-										}
-								);
-						// eventref.once('value', function (snapshot) {
-	    	// 				if (!snapshot.hasChild($scope.eventID)) {
-		    //     				$scope.inthisteam = false;
-		    // 				}
-						// 	else{
-						// 			teamref=firebase.database().ref('users/' + $scope.userData.uid + '/writable/' + $scope.eventID );
-						// 			$scope.team_id = $firebaseObject(teamref);
-						// 			$scope.team_id.$loaded().then(function(){
-						// 				// console.log(team_id);
-						// 				if($scope.team_id.team == $scope.teamID){
-						// 					$scope.inthisteam = true;
-						// 				}
-						// 				else{
-						// 					$scope.inthisteam = false;
-						// 				}
-						// 			})
-						// 		}
-						// });
+							// 					$scope.alreadyApplied = true;
+							// 		  	}
+							// 				else{
+							// 					$scope.alreadyApplied = false;
+							// 				}
+							// 			}
+							// 	);
+
 				} else console.log("signed out");
 		});
 		//
@@ -135,6 +119,11 @@ app.controller("teamCtrl",
 		// 	memref.child("2RB6DFylc1ZEoVFsuCsgbIYOaSz2").remove();
 		// }
 
+		$scope.alreadyApplied = function(){
+			if ($scope.user_appli[$scope.teamID] != undefined) return true;
+			else return false;
+		}
+
 		$scope.ApplyTeam = function(){
 			Helper.sendApplicationTo($scope.userData.uid, $scope.eventID, $scope.teamID);
 			window.alert("Your application is received");
@@ -142,7 +131,7 @@ app.controller("teamCtrl",
 				// 	Helper.pushNotificationTo(leaderuid, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
 				// }
 				Helper.pushNotificationTo($scope.teamdata.leader, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
-				window.location.reload();
+				// window.location.reload();
 		}
 
 
