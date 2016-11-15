@@ -109,7 +109,7 @@
 					<h3>Invitations:</h3>
 					<h4>Choose one to accept the invitation.</h4>
 					<div id = "invitation"></div>
-					<div ng-repeat="teamName in userInfo.invitedBy">
+					<div ng-repeat="teamName in memberInfo.invitedBy">
 						{{teamName|json}}
 						<button type="" value="{{teamName}}" ng-click="acceptInv(teamName)" >
 							Accept
