@@ -9,6 +9,7 @@ module.exports = function(config) {
       'lib/angular.min.js',
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
+<<<<<<< HEAD
 	    'lib/firebase.js',
 	    'lib/angularfire.min.js',	  
 	    'app.signup_and_login.js',
@@ -21,6 +22,22 @@ module.exports = function(config) {
 	preprocessors: {	 	
 		 'app.signup_and_login.js' : ['coverage'],
 		 'randomEvent.js' : ['coverage']
+=======
+	  'lib/firebase.js',
+	  'lib/angularfire.min.js',
+    'http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js',
+	  'app.js',
+    'app.route.js',
+	  'app.signup_and_login.js',
+
+      'unit_tests/test_login.js'	  
+    ],
+	exclude: [
+	],
+	preprocessors: {
+    'app.js' : ['coverage'],
+		 'app.signup_and_login.js' : ['coverage']
+>>>>>>> 52b51433d3f918c09bbb373d17303243aefbcf3e
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
