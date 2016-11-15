@@ -35,7 +35,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
     }
     $scope.event = {
         name: "",
-        invite: [],
+       
         adm: "",
         detail: "Event Detail"
     };
@@ -57,17 +57,21 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
     };
 
     $scope.searchEvent = function() {
+      
+
         if($scope.event.name!=""){
-            resultList=[];
+            var resultList=[];
             for(var i=0;i<$rootScope.events.length;i++){
              
-                if($rootScope.events[i].eventName&&$rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
+                if($rootScope.events[i].eventName!=null && $rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
                     
                     resultList.push($rootScope.events[i]);
                 }
             } 
             console.log(resultList);
+
             $scope.updateEventList(resultList);
+           
         }else{
              Materialize.toast('Please Enter The Event Name!', 1000);
         }
@@ -79,6 +83,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
             scrollTop: $("#event_list").offset().top
             }, 1000);
           $("#searching").show();
+          
            $("#eventCardList").children().hide(1000,function(){
 
 
@@ -86,7 +91,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
 
 
                 for(var i=0;i<eventlist.length;i++){
-                    eventlist[i].epicture="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFx-uG2jowZG3cIHd204vbRprSKtNx4BHCeK7yZ5T0VaYslKeE";
+                  
                     $rootScope.addEventCard(eventlist[i]);
                 }
                  $("#eventCardList").hide();
@@ -165,18 +170,15 @@ teamapp.directive('eventCard', function($compile) {
             eadmin: "@",
             eminSize: "@",
             emaxSize: "@",
-            edescription: "@",
-            eSkill: "@",
-
-            etarget: "@",
-            eid:"="
+            edescription: "@",   
+            eid:"@"
         },
         restrict: 'E',
         templateUrl: 'zhuxinyu/js/components/eventCard/eventCard.html',
         replace: true,
         controller: function ($rootScope,$scope, $element,$firebaseObject,allteams,allevents,allusers) {
             $rootScope.addEventCard = function (cardInfo) {
-                var el = $compile("<event-card eid='"+cardInfo.$id+"'etitle='"+cardInfo.eventName+"' epicture='"+cardInfo.epicture+"' eadmin='"+cardInfo.adminID+"' emin-size='"+cardInfo.minSize+"' emax-size='"+cardInfo.maxSize+"' edescription='"+cardInfo.description+"' e-skill='"+cardInfo.eSkill+"' etarget='"+cardInfo.etarget+"'></event-card>")($scope);
+                var el = $compile("<event-card eid='"+cardInfo.$id+"'etitle='"+cardInfo.eventName+"' epicture='"+cardInfo.imageUrl+"' eadmin='"+cardInfo.adminID+"' emin-size='"+cardInfo.minSize+"' emax-size='"+cardInfo.maxSize+"' edescription='"+cardInfo.description+"'></event-card>")($scope);
                 $("#eventCardList").prepend(el);
 
             };
@@ -210,14 +212,14 @@ teamapp.directive('eventCard', function($compile) {
                             isLeader=true;
                             console.log("a leader");
                              window.location.href = '#teamleader';
-                            break;
+                           return;
                         }
                        for(var j=0;j<data.allTeams[i].member.length;j++){
                             if(data.allTeams[i].member[j]==$rootScope.currentUser.id){
                                 isMember=true;
                                 console.log("a member");
                                 window.location.href = '#team';
-                                break;
+                              return;
                             }
                        }
 
@@ -309,5 +311,86 @@ teamapp.directive("boardList",function(){
     }
 })
 
+
+teamapp.directive("zhuNavi", function() {
+    return {
+        restrict: "E",
+        templateUrl: "zhuxinyu/js/components/fish-navi.html",
+         controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+           
+             
+
+            $firebaseObject($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs")).$bindTo($scope,"allNotif");
+
+            $scope.shownotify=function(){
+                $scope.ntList=[];
+
+
+                $scope.invite_ntList=[];
+
+                $.each($scope.allNotif, function(i,n) {
+
+                    if(n!=null&&n.content!=null&&n.read==false){
+
+                        if(n.type=="invitation"){
+
+                             $scope.invite_ntList.push(n);
+                          
+                        }else{
+
+                             $scope.ntList.push(n);
+                            
+
+                        }
+                        //n.read=true;
+                       
+                    }
+                });
+              
+            }
+
+             
+          
+     
+       }
+         
+    };
+});
+
+
+
+teamapp.directive("notifyBar",function(){
+    return {
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/notifyBar/notifyBar.html",
+        scope:{
+            cpic:"@",
+            type:"@"
+            
+        },
+        transclude:true
+    }
+});
+
+teamapp.directive("invitationBar",function(){
+    return {
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/invitationBar/invitationBar.html",
+        scope:{
+            cpic:"@",
+            type:"@",
+            from:"@",
+            event:"@",
+            team:"@"
+            
+        },
+        transclude:true,
+        controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+            $scope.accept=function(){
+                console.log("User:"+$rootScope.currentUser.id+" should be added to team "+$scope.team);
+            }
+        }
+    }
+});
 
 

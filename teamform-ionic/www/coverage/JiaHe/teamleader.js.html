@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for JiaHe/teamleader.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">JiaHe/</a> teamleader.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.23% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>3/93</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">3.23% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>3/93</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", <span class="fstat-no" title="function not covered" >function($rootScope, $scope, $firebaseObject, $firebaseArray) {</span>
+&nbsp;
+    // Add for test
+<span class="cstat-no" title="statement not covered" >    $rootScope.currentTeamID = 0;</span>
+<span class="cstat-no" title="statement not covered" >    $scope.event = $firebaseObject(firebase.database().ref('events/0'));</span>
+&nbsp;
+    // $scope.event = $rootScope.bindedclickedEvent;
+<span class="cstat-no" title="statement not covered" >    $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser.id));</span>
+<span class="cstat-no" title="statement not covered" >    $firebaseObject(firebase.database().ref('teams/' + $rootScope.currentTeamID)).$bindTo($scope, "team");</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.invite = {</span>
+        desiredSkills: [],
+        newSkill: ""
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.deleteMember = <span class="fstat-no" title="function not covered" >function(member) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $firebaseObject(firebase.database().ref('users/' + member.$id + '/teamsAsMember/' + $rootScope.currentTeamID)).$remove();</span>
+<span class="cstat-no" title="statement not covered" >        var index = $scope.members.indexOf(member);</span>
+<span class="cstat-no" title="statement not covered" >        membersID.$remove(index);</span>
+<span class="cstat-no" title="statement not covered" >        $scope.members.splice(index, 1);</span>
+<span class="cstat-no" title="statement not covered" >        addNotif(member.$id, "normal", "You are removed from Team " + $scope.team.teamName);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.deleteApplicant = <span class="fstat-no" title="function not covered" >function(applicant, reject = true) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $firebaseObject(firebase.database().ref('users/' + applicant.$id + '/teamsApplying/' + $rootScope.currentTeamID)).$remove();</span>
+<span class="cstat-no" title="statement not covered" >        var index = $scope.applicants.indexOf(applicant);</span>
+<span class="cstat-no" title="statement not covered" >        applicantsID.$remove(index);</span>
+<span class="cstat-no" title="statement not covered" >        $scope.applicants.splice(index, 1);</span>
+<span class="cstat-no" title="statement not covered" >        if (reject)</span>
+<span class="cstat-no" title="statement not covered" >            addNotif(applicant.$id, "normal", "Your request is rejected by Team " + $scope.team.teamName);</span>
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.deleteInvitation = <span class="fstat-no" title="function not covered" >function(invitedPerson) {</span></span>
+<span class="cstat-no" title="statement not covered" >        $firebaseObject(firebase.database().ref('users/' + invitedPerson.$id + '/teamsAsInvitedPeople/' + $rootScope.currentTeamID)).$remove();</span>
+<span class="cstat-no" title="statement not covered" >        var index = $scope.invitedPeople.indexOf(invitedPerson);</span>
+<span class="cstat-no" title="statement not covered" >        invitedPeopleID.$remove(index);</span>
+<span class="cstat-no" title="statement not covered" >        $scope.invitedPeople.splice(index, 1);</span>
+        // addNotif(invitedPerson.$id, "normal", "The invitation from Team " + $scope.team.teamName + " is canceled");
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.addApplicant = <span class="fstat-no" title="function not covered" >function(applicant) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if ($scope.members.length + 1 &lt; $scope.event.maxSize) {</span>
+<span class="cstat-no" title="statement not covered" >            firebase.database().ref('teams/' + $rootScope.currentTeamID + '/membersID').child(applicant.$id).set(applicant.$id);</span>
+<span class="cstat-no" title="statement not covered" >            $scope.members.push($firebaseObject(firebase.database().ref('users/' + applicant.$id)));</span>
+<span class="cstat-no" title="statement not covered" >            firebase.database().ref('users/' + applicant.$id + '/teamsAsMember').child($rootScope.currentTeamID).set($rootScope.currentTeamID);</span>
+<span class="cstat-no" title="statement not covered" >            $scope.deleteApplicant(applicant, false);</span>
+<span class="cstat-no" title="statement not covered" >            addNotif(applicant.$id, "request approved", "Your request is approved by Team " + $scope.team.teamName);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            window.alert("Your team is full!");</span>
+        }
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.sendInvitation = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        if ($scope.members.length + 1 &lt; $scope.event.maxSize) {</span>
+<span class="cstat-no" title="statement not covered" >            for (i = 0; i &lt; $scope.invite.desiredSkills.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                firebase.database().ref('teams/' + $rootScope.currentTeamID + '/invitedPeople').child($scope.invite.desiredSkills[i]).set($scope.invite.desiredSkills[i]);</span>
+<span class="cstat-no" title="statement not covered" >                $scope.invitedPeople.push($firebaseObject(firebase.database().ref('users/' + $scope.invite.desiredSkills[i])));</span>
+<span class="cstat-no" title="statement not covered" >                firebase.database().ref('users/' + $scope.invite.desiredSkills[i] + '/teamsAsInvitedPeople').child($rootScope.currentTeamID).set($rootScope.currentTeamID);</span>
+                // addNotif($scope.invite.desiredSkills[i], "invitation", "You are invited by Team " + $scope.team.teamName);
+            }
+        } else {
+<span class="cstat-no" title="statement not covered" >            window.alert("Your team is full!");</span>
+        }
+<span class="cstat-no" title="statement not covered" >        $scope.invite.desiredSkills = [];</span>
+<span class="cstat-no" title="statement not covered" >        $scope.invite.newSkill = '';</span>
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.activator = "activator";</span>
+<span class="cstat-no" title="statement not covered" >    $scope.checkApplicants = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        if ($scope.applicants.length == 0) {</span>
+<span class="cstat-no" title="statement not covered" >            window.alert("There is no applicants.");</span>
+<span class="cstat-no" title="statement not covered" >            $scope.activator = "";</span>
+        }
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.smartAdd = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        var cnt = 0;</span>
+<span class="cstat-no" title="statement not covered" >        var num = $scope.smartPick.preferedSize - $scope.members.length - 1;</span>
+&nbsp;
+<span class="fstat-no" title="function not covered" >        function goodMember(applicant) {</span>
+<span class="cstat-no" title="statement not covered" >            for (i = 0; i &lt; $scope.smartPick.desiredSkills.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                for (skill in applicant.skills) {</span>
+                    // window.alert(applicant.skills[skill]+" "+$scope.smartPick.desiredSkills[i]);
+<span class="cstat-no" title="statement not covered" >                    if (applicant.skills[skill] == $scope.smartPick.desiredSkills[i]) {</span>
+<span class="cstat-no" title="statement not covered" >                        return true;</span>
+                    }
+                }
+            }
+<span class="cstat-no" title="statement not covered" >            return false;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        for (k = 0; k &lt; $scope.applicants.length; k++) {</span>
+<span class="cstat-no" title="statement not covered" >            if (goodMember($scope.applicants[k])) {</span>
+<span class="cstat-no" title="statement not covered" >                $scope.addApplicant($scope.applicants[k]);</span>
+<span class="cstat-no" title="statement not covered" >                cnt++;</span>
+<span class="cstat-no" title="statement not covered" >                if (cnt &gt;= $scope.smartPick.preferedSize - $scope.members.length - 1)</span>
+<span class="cstat-no" title="statement not covered" >                    return;</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        for (i = 0; cnt &lt; num; i++) {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.addApplicant($scope.applicants[i]);</span>
+<span class="cstat-no" title="statement not covered" >            cnt++;</span>
+        }
+<span class="cstat-no" title="statement not covered" >        $scope.smartPick.newSkill = '';</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.addNewSkill = <span class="fstat-no" title="function not covered" >function(scope) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (scope.newSkill != '' &amp;&amp; scope.desiredSkills.indexOf(scope.newSkill) == -1) {</span>
+<span class="cstat-no" title="statement not covered" >            scope.desiredSkills.push(scope.newSkill);</span>
+<span class="cstat-no" title="statement not covered" >            scope.newSkill = '';</span>
+        }
+    }
+<span class="cstat-no" title="statement not covered" >    $scope.removeSkill = <span class="fstat-no" title="function not covered" >function(scope, skill) {</span></span>
+<span class="cstat-no" title="statement not covered" >        scope.desiredSkills.splice(scope.desiredSkills.indexOf(skill), 1);</span>
+    }
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function addNotif(userID, type, content) {</span>
+<span class="cstat-no" title="statement not covered" >        var newNotif = {</span>
+            content: content,
+            eventName: $scope.event.eventName,
+            teamID: $scope.team.$id,
+            teamName: $scope.team.teamName,
+            read: false,
+            senderEmail: $scope.leader.email,
+            sendName: $scope.leader.name,
+            type: type
+        };
+<span class="cstat-no" title="statement not covered" >        if (newNotif.type == "invitation" )</span>
+<span class="cstat-no" title="statement not covered" >            newNotif.acceptedOrNot = "undecided";</span>
+<span class="cstat-no" title="statement not covered" >        $firebaseArray(firebase.database().ref('users/' + userID + '/notifs')).$add(newNotif);</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var flag = 0;</span>
+<span class="cstat-no" title="statement not covered" >    var membersID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/membersID'));</span>
+<span class="cstat-no" title="statement not covered" >    var applicantsID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/pendingApplicants'));</span>
+<span class="cstat-no" title="statement not covered" >    var invitedPeopleID = $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/invitedPeople'));</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    $scope.init = <span class="fstat-no" title="function not covered" >function() {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!flag) {</span>
+<span class="cstat-no" title="statement not covered" >            $scope.smartPick = {</span>
+                preferedSize: angular.copy($scope.team.preferedSize),
+                desiredSkills: angular.copy($scope.team.desiredSkills),
+                newSkill: ""
+            }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >            $scope.members = [];</span>
+<span class="cstat-no" title="statement not covered" >            $scope.applicants = [];</span>
+<span class="cstat-no" title="statement not covered" >            $scope.invitedPeople = [];</span>
+<span class="cstat-no" title="statement not covered" >            for (i = 0; i &lt; membersID.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                $scope.members.push($firebaseObject(firebase.database().ref('users/' + membersID[i].$value)));</span>
+            }
+<span class="cstat-no" title="statement not covered" >            for (i = 0; i &lt; applicantsID.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                $scope.applicants.push($firebaseObject(firebase.database().ref('users/' + applicantsID[i].$value)));</span>
+            }
+<span class="cstat-no" title="statement not covered" >            for (i = 0; i &lt; invitedPeopleID.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                $scope.invitedPeople.push($firebaseObject(firebase.database().ref('users/' + invitedPeopleID[i].$value)));</span>
+            }
+<span class="cstat-no" title="statement not covered" >            flag = 1;</span>
+        }
+    };
+}]);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Nov 15 2016 23:14:49 GMT+0800 (HKT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
