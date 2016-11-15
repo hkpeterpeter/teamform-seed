@@ -30,14 +30,13 @@ function initalizeFirebase() {
 
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyBkL0el0x9yKbnNbRGoCVFXjWpBU01ifxs",
-    authDomain: "test-15379.firebaseapp.com",
-    databaseURL: "https://test-15379.firebaseio.com",
-    storageBucket: "test-15379.appspot.com",
-    messagingSenderId: "384214768584"
+    apiKey: "AIzaSyCzzSl8EeJXbEdGvX1UhxnxJhNGR0n3iBc",
+    authDomain: "group-3a091.firebaseapp.com",
+    databaseURL: "https://group-3a091.firebaseio.com",
+    storageBucket: "group-3a091.appspot.com",
+    messagingSenderId: "94247922384"
   };
   firebase.initializeApp(config);
-
 }
 
 //
