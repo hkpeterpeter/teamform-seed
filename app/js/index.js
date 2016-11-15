@@ -57,6 +57,17 @@ angular.module('teamform-index-app', ['firebase'])
         }
     }
 
+    $scope.btn_logout = function () {
+        if ($scope.logined) {
+            firebase.auth().signOut().then(function () {
+                // Sign-out successful.
+                $scope.$apply($scope.logined=false);
+            }, function (error) {
+                // An error happened.
+            });
+        }
+    }
+
     $scope.btn_email = function () {
        window.location.href = "signin.html";
     }
