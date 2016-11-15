@@ -31,7 +31,7 @@ export default class ChatCtrl {
     async send() {
         let user = await this.authService.getUser();
         if (user != null && this.message.data) {
-            this.message.createdBy = user.uid;
+            this.message.createdBy = user.email;
             this.message.createdAt = Date.now();
             try {
                 let result = this.chatService.sendMessage(this.message);

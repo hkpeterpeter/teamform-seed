@@ -7,7 +7,7 @@
     <div class="panel-body">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-2">
             <div>
               Chatroom select:
             </div>
@@ -27,8 +27,9 @@
             <div>
                 {{chat.message.data}}:
             </div>
-            <div>
-                {{chat.messages}}
+            <div ng-repeat="showMessage in chat.messages">
+                {{showMessage.createdBy}}:
+                {{showMessage.data}}
                 <!-- {{chat.messages.createdBy}}:
                 {{chat.messages.data}} -->
             </div>
