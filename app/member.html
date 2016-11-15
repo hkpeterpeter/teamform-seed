@@ -89,16 +89,16 @@
 					</header>
 					<h3>Your Position</h3>
 					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
-					<p>
-						<input type="button" name="Forward" value="Forward" id="buttonFoward" class="btn btn-primary btn-lg ">
-						<input type="button" name="Midfield" value="Midfield" id="buttonMidfield" class="btn btn-primary btn-lg ">
-						<input type="button" name="Back" value="Back" id="buttonBack" class="btn btn-primary btn-lg ">
-						<input type="button" name="Goalkeeper" value="Goalkeeper" id="buttonGoalkeeper" class="btn btn-primary btn-lg ">
-					</p>
-					<div class="form-group">
-						<textarea class="form-control" id="text" ng-model="input.position" style="width:200px;height:40px;" ></textarea>
-						<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
-					</div>
+
+					<select ng-model="position">
+						<option value="Forward">Forward</option>
+						<option value="Midfield">Midfield</option>
+						<option value="LeftBack">LeftBack</option>
+						<option value="RightBack">RightBack</option>
+						<option value="Goalkeeper">Goalkeeper</option>
+					</select>
+					<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
+					<p><tt>{{ userObj.position }}</tt></p>
 
 				</article>
 				<!-- /Article -->
