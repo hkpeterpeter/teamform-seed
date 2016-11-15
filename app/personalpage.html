@@ -26,6 +26,23 @@
      <!-- Customized libraries shared by pages -->
      <script src="js/site.js"></script>
 
+     <style>
+      div.lightblue {
+       background-color:#F0F8FF ;
+       color: black;
+       margin: 20px 0 20px 0;
+       padding: 20px;
+     }
+     div.lightgrey {
+      background-color:#A9A9A9 ;
+      color: black;
+      margin: 20px 0 20px 0;
+      padding: 20px;
+    }
+     h2{font-size:250%; color:lightblue;}
+     p{font-size:150%;}
+     </style>
+
 
    </head>
    <body>
@@ -51,7 +68,67 @@
               </div>
             </div>
 
-           </div>
+        <!--Personal Data -->
+        <div>
+          <h2> Personal Data</h2>
+
+           <div class="lightblue">
+             <p> Which school are you from?</p>
+             <form>
+               <input type="radio" name="major" value="SENG" > School of Engineering<br>
+               <input type="radio" name="major" value="SBM"> School of Business and Management<br>
+               <input type="radio" name="major" value="SSC"> School of Science<br>
+               <input type="radio" name="major" value="SHSS"> School of Humanities and Social Science<br>
+             </form>
+               </div>
+
+            <div class="lightgrey">
+               <p> Where are you from?</p>
+               <form>
+                 <input type="radio" name="home" value="HK" > Hong Kong<br>
+                 <input type="radio" name="home" value="China"> China<br>
+                 <input type="radio" name="home" value="Asia"> Asia<br>
+                 <input type="radio" name="home" value="NA"> North America<br>
+                 <input type="radio" name="home" value="EU"> Europe<br>
+                 <input type="radio" name="home" value="Other"> Other
+               </form>
+             </div>
+
+             <div class="lightblue">
+               <p> Which hall do you live in?</p>
+               <form>
+                 <input type="radio" name="hall" value="hall1" > Hall I<br>
+                 <input type="radio" name="hall" value="hall2" > Hall II<br>
+                 <input type="radio" name="hall" value="hall3" > Hall III<br>
+                 <input type="radio" name="hall" value="hall4" > Hall IV<br>
+                 <input type="radio" name="hall" value="hall5" > Hall V<br>
+                 <input type="radio" name="hall" value="hall6" > Hall VI<br>
+                 <input type="radio" name="hall" value="hall7" > Hall VII<br>
+                 <input type="radio" name="hall" value="hall8" > Hall VIII<br>
+                 <input type="radio" name="hall" value="hall9" > Hall IX<br>
+                 <input type="radio" name="hall" value="nohall" > I don't live in hall
+               </form>
+                 </div>
+
+                 <div class="lightgrey">
+                    <p> What kind of group are you looking for?</p>
+                    <form>
+                      <input type="radio" name="gptype" value="gradeA" > Elite<br>
+                      <input type="radio" name="gptype" value="gradeB"> Work hard together!<br>
+                      <input type="radio" name="gptype" value="gradeC"> Making new friends<br>
+                      <input type="radio" name="gptype" value="gradeD"> I don't care!
+                    </form>
+                  </div>
+
+
+
+                 <div style="text-align: center;">
+                 <input type="submit" value="Submit">
+                 </div>
+
+              </div>
+
+
 
 
            <!-- JavaScript of this page -->
