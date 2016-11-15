@@ -6,7 +6,7 @@ $(document).ready(function(){
 	if (eventName != null && eventName !== '' ) {
 		$('#text_event_name').text("Event name: " + eventName);
 
-	}
+	};
 
 });
 
@@ -58,7 +58,6 @@ angular.module('teamform-admin-app', ['firebase'])
 	refPath = "events/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-};
 
 
 

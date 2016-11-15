@@ -103,6 +103,7 @@ $(document).ready(function(){
 
 angular.module('teamform-app', ['firebase'])
 .controller('LoginCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$firebaseAuth', function($scope, $firebaseObject, $firebaseArray, $firebaseAuth) {
+
   // Call Firebase initialization code defined in site.js
   initalizeFirebase();
   $scope.firebaseUser = null;
@@ -112,20 +113,6 @@ angular.module('teamform-app', ['firebase'])
   $scope.logedin =false;
   $scope.profile= null;
   $scope.auth = $firebaseAuth();
-
-  // firebase.auth().onAuthStateChanged(function(user) {
-  //   if (user) {
-  //     $scope.firebaseUser = user;
-  //     $scope.message = "User is signed in as",user.uid;
-  //     $scope.uid = user.uid;
-  //     $scope.logedin =true;
-  //     console.log("User is signed in as",user.uid);
-  //   } else {
-  //     // No user is signed in.
-  //     console.log("No User is signed in");
-  //   }
-  // });
-
 
   $scope.loginValidation=function(){
     if($scope.username==null&&$scope.password==null){
@@ -201,4 +188,5 @@ angular.module('teamform-app', ['firebase'])
       });
     return profile;
   }
+  this.getProfile = getProfile;
 }]);
