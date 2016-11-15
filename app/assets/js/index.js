@@ -33,6 +33,8 @@ $(document).ready(function(){
 });
 
 
+
+
 angular.module('teamform-index-app', ['firebase'])
 .controller('IndexCtrl', ['$scope', '$firebaseObject', '$firebaseArray','$window', function($scope, $firebaseObject, $firebaseArray,$window) {
     
@@ -78,3 +80,12 @@ angular.module('teamform-index-app', ['firebase'])
 };
 
 }]);
+
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

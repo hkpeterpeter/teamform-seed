@@ -93,7 +93,7 @@
 			
 			<h3 class="text-center thin"><p>CREATE EVENT</p></h3>
 			
-			<div class="row">
+			<div class="row container-fluidspace text-center">
 			<em>Enter a name to create a event</em>
 			<input id="input_text" type="text" >
 			<button id="btn_event" type="button" class="btn btn-primary btn-sm" >Create</button>
@@ -108,14 +108,16 @@
 			<h3 class="text-center thin name"><p>CURRENT EVENT</p></h3>
 			
 			<div class="row" ng-controller="CreateEventCtrl">
-			<div class="col-md-6 col-sm-6 highlight">
-			<table border="1">
+			<div class="highlight">
+			<table border="1" style="width:100%">
 			<tr>
-			<td> Event Name </td><td> Holder </td><td> Team Size </td><td></td></tr>
+			<td> Event Name </td><td> Holder </td><td>Team</td><td> Team Size </td><td></td></tr>
 
-			<tr ng-repeat="e in events">
+			<tr ng-repeat="e in events" ng-repeat="t in team">
+			
 			<td>{{e.param.EventName}} </td>
 			<td>{{e.param.EventAdmin}} </td>
+			<td></td>
 			<td>{{e.param.TeamSize}}</td>
 			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="modifyevent(e.param.EventName);">modify</button></td>
 			</tr>
@@ -133,19 +135,19 @@
 			<div class="container">
 				<div class="row">
 					
-					<div class="col-md-3 widget">
+					<div class="col-md-6 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-							<p>+234 23 9873237<br>
+							<p>Light of Wisdom<br>
 								<a href="mailto:#">some.email@somewhere.com</a><br>
 								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
+								"phone"
 							</p>	
 						</div>
 					</div>
 
-					<div class="col-md-3 widget">
-						<h3 class="widget-title">Follow me</h3>
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Follow us</h3>
 						<div class="widget-body">
 							<p class="follow-me-icons">
 								<a href=""><i class="fa fa-twitter fa-2"></i></a>
@@ -156,44 +158,12 @@
 						</div>
 					</div>
 
-					<div class="col-md-6 widget">
-						<h3 class="widget-title">Text widget</h3>
-						<div class="widget-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
-						</div>
-					</div>
-
-				</div> <!-- /row of widgets -->
-			</div>
-		</div>
-
-		<div class="footer2">
-			<div class="container">
-				<div class="row">
 					
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<p class="simplenav">
-								<a href="#">Home</a> | 
-								<a href="#event">Event</a> |
-								<a href="#about">About us</a> |
-								<b><a href="loginwithgoogle()">Sign in</a></b>
-							</p>
-						</div>
-					</div>
-
-					<div class="col-md-6 widget">
-						<div class="widget-body">
-							<p class="text-right">
-								Copyright &copy; 2016, Light Of Wisdom. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
-							</p>
-						</div>
-					</div>
-
 				</div> <!-- /row of widgets -->
 			</div>
 		</div>
+
+		
 
 	</footer>	
 </body>
