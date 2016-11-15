@@ -206,7 +206,7 @@ app.controller("searchCtrl",
             if ($scope.constraint.tm != 2) {
                 var teams = $scope.teamData;
                 // -e means equal, -s means similar
-                var scoreList = {
+                $scope.teamScoreList = {
                     "id-e": 100,
                     "id-s": function (dummy) { return 0; },
                     "name-e": 90,
@@ -227,7 +227,7 @@ app.controller("searchCtrl",
                 for (var i = 0; i < teams.length; i++) {
                     //constraints
                     if (keywords.join("") == "" && $scope.constraint.tm == 1) {
-                        teamsAndMembers.push(new  $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                        teamsAndMembers.push(new $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
                             teams[i].language_for_communication, teams[i].destination, teams[i].tags, "", teams[i].preference,
                             teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : ""),
                             new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay(), ""));
@@ -292,7 +292,7 @@ app.controller("searchCtrl",
                             continue;
                         }
 
-                        teamsAndMembers.push(new  $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                        teamsAndMembers.push(new $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
                             lang, dest, teams[i].tags, "", pref, full, depart, ""));
                         if (teams.length - 1 == i)
                             $scope.constraint.clearT();
@@ -311,25 +311,25 @@ app.controller("searchCtrl",
 
                     var score = 0;
                     //match id
-                    score += getSimilarityScore(keywords, id, "id", scoreList);
+                    score += getSimilarityScore(keywords, id, "id", $scope.teamScoreList);
 
                     //match name
-                    score += getSimilarityScore(keywords, name, "name", scoreList);
+                    score += getSimilarityScore(keywords, name, "name", $scope.teamScoreList);
 
                     //match destination
-                    score += getSimilarityScore(keywords, destination, "destination", scoreList);
+                    score += getSimilarityScore(keywords, destination, "destination", $scope.teamScoreList);
 
                     //match language
-                    score += getSimilarityScore(keywords, language, "language", scoreList);
+                    score += getSimilarityScore(keywords, language, "language", $scope.teamScoreList);
 
                     //match tag
-                    score += getSimilarityScore(keywords, tag.join(" "), "tag", scoreList);
+                    score += getSimilarityScore(keywords, tag.join(" "), "tag", $scope.teamScoreList);
 
                     //match description
-                    score += getSimilarityScore(keywords, description, "description", scoreList);
+                    score += getSimilarityScore(keywords, description, "description", $scope.teamScoreList);
 
                     //match preference
-                    score += getSimilarityScore(keywords, preference, "preference", scoreList);
+                    score += getSimilarityScore(keywords, preference, "preference", $scope.teamScoreList);
 
                     //update the result if score > 0
                     if (score > 0) {
@@ -343,7 +343,7 @@ app.controller("searchCtrl",
                         var e7 = hightlight(teams[i].preference, keywords);
                         var e8 = teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : "");
                         var e9 = new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay();
-                        teamsAndMembers.push(new  $scope.resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
+                        teamsAndMembers.push(new $scope.resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
                     }
                 }
             }
@@ -355,7 +355,7 @@ app.controller("searchCtrl",
                 //clear the scores used in searching teams
 
                 //create similarity score list for members
-                scoreList = {
+                $scope.memberScoreList = {
                     "id-e": 100,
                     "id-s": function (dummy) { return 0; },
                     "name-e": 90,
@@ -381,7 +381,7 @@ app.controller("searchCtrl",
                 for (var i = 0; i < members.length; i++) {
                     //constraint
                     if (keywords.join("") == "" && $scope.constraint.tm == 2) {
-                        teamsAndMembers.push(new  $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                        teamsAndMembers.push(new $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
                             "searchResultElement-" + (i + resultCount), members[i].language.join(", "), members[i].from, "", members[i].email, members[i].gender, "", "", members[i].want_to_travel.join(", ")));
                         continue;
                     }
@@ -468,7 +468,7 @@ app.controller("searchCtrl",
                             continue;
                         }
 
-                        teamsAndMembers.push(new  $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                        teamsAndMembers.push(new $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
                             "searchResultElement-" + (i + resultCount), lang, country, "", members[i].email, gender, "", "", desireToGo));
                         if (members.length - 1 == i)
                             $scope.constraint.clearM();
@@ -487,28 +487,28 @@ app.controller("searchCtrl",
 
                     score = 0;
                     //match id
-                    score += getSimilarityScore(keywords, id, "id", scoreList);
+                    score += getSimilarityScore(keywords, id, "id", $scope.memberScoreList);
 
                     //match name
-                    score += getSimilarityScore(keywords, name, "name", scoreList);
+                    score += getSimilarityScore(keywords, name, "name", $scope.memberScoreList);
 
                     //match description
-                    score += getSimilarityScore(keywords, description, "description", scoreList);
+                    score += getSimilarityScore(keywords, description, "description", $scope.memberScoreList);
 
                     //match email
-                    score += getSimilarityScore(keywords, email, "email", scoreList);
+                    score += getSimilarityScore(keywords, email, "email", $scope.memberScoreList);
 
                     //match the host country
-                    score += getSimilarityScore(keywords, from, "from", scoreList);
+                    score += getSimilarityScore(keywords, from, "from", $scope.memberScoreList);
 
                     //match language
-                    score += getSimilarityScore(keywords, language, "language", scoreList);
+                    score += getSimilarityScore(keywords, language, "language", $scope.memberScoreList);
 
                     //match gender
-                    score += getSimilarityScore(keywords, gender, "gender", scoreList);
+                    score += getSimilarityScore(keywords, gender, "gender", $scope.memberScoreList);
 
                     //match desirable countries
-                    score += getSimilarityScore(keywords, desire, "desire", scoreList);
+                    score += getSimilarityScore(keywords, desire, "desire", $scope.memberScoreList);
 
                     //update the result if score > 0
                     if (score > 0) {
@@ -521,7 +521,7 @@ app.controller("searchCtrl",
                         var e6 = hightlight(members[i].email, keywords);
                         var e7 = hightlight(members[i].gender, keywords);
                         var e8 = hightlight(members[i].want_to_travel.join(" * "), keywords).split(" * ").join(", ");
-                        teamsAndMembers.push(new  $scope.resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
+                        teamsAndMembers.push(new $scope.resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
                     }
                 }
             }

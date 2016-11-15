@@ -126,6 +126,78 @@ describe('searchCtrl', function() {
 
         $scope.resultElement();
 
+        $scope.teamScoreList["id-s"](0.5);
+        $scope.teamScoreList["name-s"](0.5);
+        $scope.teamScoreList["destination-s"](0.5);
+        $scope.teamScoreList["language-s"](0.5);
+        $scope.teamScoreList["tag-s"](0.5);
+        $scope.teamScoreList["description-s"](0.5);
+        $scope.teamScoreList["preference-s"](0.5);
+
+        $scope.memberScoreList["id-s"](0.5);
+        $scope.memberScoreList["name-s"](0.5);
+        $scope.memberScoreList["description-s"](0.5);
+        $scope.memberScoreList["email-s"](0.5);
+        $scope.memberScoreList["from-s"](0.5);
+        $scope.memberScoreList["language-s"](0.5);
+        $scope.memberScoreList["gender-s"](0.5);
+        $scope.memberScoreList["desire-s"](0.5);
+
+        $scope.constraint.tm = 1;
+        $scope.searchInput = "! !";
+        $scope.teamData = [{
+            "departure_date": "2017-1-1",
+            "descriptions": "We are doing comp3111 project, and we do not have leisure time to travel. :0)",
+            "destination": "South Africa",
+            "estimated_budget_per_person": "USD3100",
+            "id": "g0001",
+            "language_for_communication": "English",
+            "max": "7",
+            "members": [
+                "0001",
+                "0002",
+                "0003",
+                "0004",
+                "0005"
+            ],
+            "name": "team one one one",
+            "preference": "Male",
+            "return_date": "2017-2-1",
+            "tags": [
+                "long trip",
+                "leisure",
+                "backpack",
+                "boy",
+                "Africa",
+                "trip",
+                "busy"
+            ]
+        }];
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.m = ["-1", "-1", "-1", "-1", true];
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.constraint.t[4] = true;
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        countrylist = [{ "name": "china" }];
+        $scope.constraint.t[0] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
+        $scope.constraint.clear();
+        $scope.teamData[0].destination = "China";
+        countrylist = [{ "name": "china" }];
+        $scope.constraint.t[0] = "0";
+        $scope.searchInput = "! !";
+        $scope.search();
+
         $scope.suggestionElement(["a"], 0);
         new $scope.suggestionElement(["a"], 0).action();
 
