@@ -24,7 +24,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	var refPath, ref, eventName;
 
 	eventName = getURLParameter("q");
-	refPath = eventName + "/admin/param";	
+	refPath = "events/" + eventName + "/admin/param";
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object

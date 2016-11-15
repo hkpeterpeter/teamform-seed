@@ -71,7 +71,7 @@ angular.module('teamform-index-app', ['firebase'])
     }
 
     $scope.refreshEvents = function () {
-        var ref = firebase.database().ref();
+        var ref = firebase.database().ref("events");
 
         // Link and sync a firebase object
        /* $scope.selection = [];
