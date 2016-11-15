@@ -34,7 +34,7 @@ export default class ChatCtrl {
             this.message.createdBy = user.email;
             this.message.createdAt = Date.now();
             try {
-                let result = this.chatService.sendMessage(this.message);
+                let result = await this.chatService.sendMessage(this.message);
                 this.$timeout(() => {
                     this.message = {};
                 });
@@ -62,7 +62,7 @@ export default class ChatCtrl {
     async create() {
         if (this.chatroom.name) {
             try {
-                let result = this.chatService.createChatroom(this.chatroom);
+                let result = await this.chatService.createChatroom(this.chatroom);
                 this.$timeout(() => {
                     this.chatroom = {};
                 });
