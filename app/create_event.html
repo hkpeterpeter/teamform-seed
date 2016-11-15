@@ -113,7 +113,8 @@
 			<tr>
 			<td> Event Name </td><td> Holder </td><td>Team</td><td> Team Size </td><td></td></tr>
 
-			<tr ng-repeat="e in events">
+			<tr ng-repeat="e in events" ng-repeat="t in team">
+			
 			<td>{{e.param.EventName}} </td>
 			<td>{{e.param.EventAdmin}} </td>
 			<td></td>
