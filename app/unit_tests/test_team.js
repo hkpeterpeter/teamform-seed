@@ -10,4 +10,22 @@ describe("TeamApp module", function() {
     
         });
     });
+
+    describe('Team function',function(){
+
+        it("After create team, teamname should be defined", function (done){
+            var $scope= {};
+            $controller('teamSubmit', { $scope: $scope });
+                $scope.input.state=true;
+                        $scope.input.holder=1;
+                        $scope.team = {
+                            name:"",
+                            intro:"",
+                            teamleader:"",
+                            openness:true	,
+                            member:"",
+                            numberOfmember:0
+            }, 2000);
+    });
+    });
 });
