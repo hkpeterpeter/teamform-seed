@@ -68,18 +68,15 @@ describe("tfApp", function() {
 
     it('test withdrawApp', function() {
         $scope.withdrawApp(0,0);
-        expect(0).toEqual(0);
     });
 
     it('test acceptInvi', function() {
         $scope.acceptInvi(0,0);
-        expect(0).toEqual(0);
 
     });
 
     it('test declineInvi', function(){
         $scope.declineInvi(0,0);
-        expect(0).toEqual(0);
     });
 
     it('test filter', function(){
