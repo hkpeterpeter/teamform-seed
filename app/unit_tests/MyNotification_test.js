@@ -1,7 +1,6 @@
 // Testing of NotificationController
 describe('TestNotification', function() {
-   
-   var $scope， $rootScope, $controller;
+   var $scope, $rootScope, $controller;
 
    beforeEach(module('mainApp'));
 
