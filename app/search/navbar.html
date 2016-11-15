@@ -1,4 +1,14 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" >
+      <script>
+		app.controller("logoutctrl",function($cookies,$window){
+			$scope.logout = function() {
+					$cookies.remove("username",{path:"/"});
+					gotoURL("/jzhangbs/index.html",[],$window);
+				};
+		
+		});
+		
+	  </script>
       <div class="container-fluid">
         <div class="navbar-header">
 			<a class="navbar-brand" href="#/" >
@@ -7,7 +17,9 @@
 					<img alt="Brand" style = "height:30px;width:30px" src="../search/peter.jpg"/> <span>Peter Cheung     </span>
 
 					<!--not yet dicided-->
-					<button type="button" class="btn btn-default btn-xs" ng-click="logout()">Logout</button>
+					<div ng-controller = "logoutctrl">
+						<button type="button" class="btn btn-default btn-xs" ng-click="logout()">Logout</button>
+					</div>
 				</div>
 			</a>
         </div>
