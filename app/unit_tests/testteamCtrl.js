@@ -43,6 +43,7 @@ describe("tfApp", function(){
                 helper.setEventState= function(uid, eventID, state) {}
                 helper.changeLeader = function(fromuid, touid, eventID, teamID){}
                 helper.getUsername  = function(uid){}
+                helper.getTeamname = function(teamID){}
                 helper.joinEvent = function(uid, eventID) {}
                 helper.changeReadState = function(uid,eid,nid){}
                 helper.updateSkillTags = function(eventID, teamID, skilltags){}
@@ -181,17 +182,38 @@ describe("tfApp", function(){
 
         it('$scope.changeSkillTags() should change skill tags', function() {
           $scope.changeSkillTags();
-
         });
 
         it('$scope.changeLanguageTags() should change language tags', function() {
           $scope.changeLanguageTags();
-
         });
 
         it('$scope.changeMannerTags() should change manner tags', function() {
           $scope.changeMannerTags();
+        });
 
+        it('$scope.addAnnouncement() should add an announcement', function() {
+          $scope.addAnnouncement();
+        });
+
+        it('$scope.deleteTeamAnnouncementChoice() should change state', function() {
+          $scope.deleteTeamAnnouncementChoice();
+        });
+
+        it('$scope.deleteAnnouncement() should delete an announcement', function() {
+          $scope.deleteAnnouncement("dasdsa");
+        });
+
+        it('$scope.filterByStatus() should filter applications and invitations by status', function() {
+          $scope.filterByStatus();
+        });
+
+        it('$scope.accept_Application() should accept an application', function() {
+          $scope.accept_Application("111");
+        });
+
+        it('$scope.decline_Application() should decline an application', function() {
+          $scope.decline_Application("111");
         });
     });
 

@@ -480,7 +480,7 @@ $scope.filterByStatus = function(items, filter_model) {
 				$scope.accept_Application = function(uid){
 					Helper.acceptApplication(uid, $scope.eventID, $scope.teamID);
 
-					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teams.$getRecord($scope.teamID).name +  " has been accepted.");
+					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + Helper.getTeamname($scope.teamID)+  " has been accepted.");
 					for (memberuid in  $scope.teamdata.members){
 							Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has joined the team.");
 					}
@@ -488,7 +488,7 @@ $scope.filterByStatus = function(items, filter_model) {
 
 				$scope.decline_Application = function(uid){
 					Helper.declineApplication(uid, $scope.eventID, $scope.teamID);
-					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teams.$getRecord($scope.teamID).name +  " has been declined.");
+					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + Helper.getTeamname($scope.teamID) +  " has been declined.");
 				}
 
 });
