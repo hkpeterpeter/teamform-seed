@@ -10,7 +10,7 @@ export default class ChatCtrl {
         this.messages = [];
         this.data = [];
         this.getMessages();
-        this.chatroom= {};
+        this.chatroom = {};
         this.chatrooms = [];
         this.getChatrooms();
     }
@@ -34,7 +34,7 @@ export default class ChatCtrl {
             this.message.createdBy = user.email;
             this.message.createdAt = Date.now();
             try {
-                let result = this.chatService.sendMessage(this.message);
+                let result = await this.chatService.sendMessage(this.message);
                 this.$timeout(() => {
                     this.message = {};
                 });
@@ -46,24 +46,23 @@ export default class ChatCtrl {
         }
     }
 
-    async getChatrooms(){
-      try {
-          let chatrooms = await this.chatService.getChatrooms();
-          this.$timeout(() => {
-              this.chatrooms = chatrooms;
-          });
-      } catch (error) {
-          this.$timeout(() => {
-              this.error = error;
-          });
-      }
+    async getChatrooms() {
+        try {
+            let chatrooms = await this.chatService.getChatrooms();
+            this.$timeout(() => {
+                this.chatrooms = chatrooms;
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
     }
-
 
     async create() {
         if (this.chatroom.name) {
             try {
-                let result = this.chatService.createChatroom(this.chatroom);
+                let result = await this.chatService.createChatroom(this.chatroom);
                 this.$timeout(() => {
                     this.chatroom = {};
                 });

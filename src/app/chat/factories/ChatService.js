@@ -18,13 +18,13 @@ export default class ChatService {
         return new ChatService(...args);
     }
 
-    async getChatrooms(){
-      let chatrooms = await this.$firebaseArray(this.$database.ref('chatroom')).$loaded();
-      return chatrooms;
+    async getChatrooms() {
+        let chatrooms = await this.$firebaseArray(this.$database.ref('chatroom')).$loaded();
+        return chatrooms;
     }
-    async createChatroom(chatroom){
-      let chatrooms = await this.$firebaseArray(this.$database.ref('chatroom'));
-      return chatrooms.$add(chatroom);
+    async createChatroom(chatroom) {
+        let chatrooms = await this.$firebaseArray(this.$database.ref('chatroom'));
+        return chatrooms.$add(chatroom);
     }
 }
 

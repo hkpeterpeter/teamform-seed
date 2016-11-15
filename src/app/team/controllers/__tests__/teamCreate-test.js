@@ -33,9 +33,10 @@ describe('TeamCreateController', () => {
         inject((_$timeout_, EventService) => {
             $timeout = _$timeout_;
             $spys.push(spyOn(EventService, 'getEvents').and.returnValue(Promise.resolve([{$id: 1}, {$id: 2}])));
+            $spys.push(spyOn(EventService, 'getEvent').and.returnValue(Promise.resolve({$id: 1, data: {users:[{id:1, role: 'Leader'}], teamMin: 1, teamMax: 5}, getEventUsers: function() { return this.data.users; }})));
         });
         $controller.$stateParams.eventId = 1;
-        await $controller.getEvents();;
+        await $controller.getEvents();
         $timeout.flush();
         expect($controller.events[0].$id).toEqual(1);
         done();

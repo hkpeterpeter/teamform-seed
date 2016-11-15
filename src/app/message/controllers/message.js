@@ -37,7 +37,8 @@ export default class MessageCtrl {
                 ...messagesRecv
             ];
             allMessage = allMessage.sort((a, b) => {
-                return (a.data.createAt + (a.recv || 0)) - (b.data.createAt + (b.recv || 0));
+                return (a.data.createAt - b.data.createAt);
+                // return (a.data.createAt + (a.recv || 0)) - (b.data.createAt + (b.recv || 0));
             });
             let conversations = await allMessage.reduce(async(newConversations, message) => {
                 newConversations = await newConversations;
