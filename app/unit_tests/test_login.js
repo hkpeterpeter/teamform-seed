@@ -32,14 +32,21 @@
 
 describe("TeamApp module", function() {
    
-   var config = {
-        apiKey: "AIzaSyAVbRf9lY-uCjVhhrq9Rl9AuWaZnZROFlA",
-        authDomain: "pk01-33b28.firebaseapp.com",
-        databaseURL: "https://pk01-33b28.firebaseio.com",
-        storageBucket: "pk01-33b28.appspot.com",
-        messagingSenderId: "397595280376"
-        };
-   firebase.initializeApp(config);
+   //var config = {
+   //     apiKey: "AIzaSyAVbRf9lY-uCjVhhrq9Rl9AuWaZnZROFlA",
+   //     authDomain: "pk01-33b28.firebaseapp.com",
+   //     databaseURL: "https://pk01-33b28.firebaseio.com",
+   //     storageBucket: "pk01-33b28.appspot.com",
+   //     messagingSenderId: "397595280376"
+   //     };
+     var config = {
+         apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+         authDomain: "comp3111-bb108.firebaseapp.com",
+         databaseURL: "https://comp3111-bb108.firebaseio.com",
+         storageBucket: "comp3111-bb108.appspot.com",
+         messagingSenderId: "554833059052"
+     };
+     firebase.initializeApp(config);
    
    beforeEach(function () {
         

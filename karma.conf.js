@@ -16,16 +16,19 @@ module.exports = function(config) {
             'app.route.js',
             'app.signup_and_login.js',
             'event.js',
+            'join.js',
             'unit_tests/test_login.js',
             'unit_tests/test_createEvent.js',
-            'unit_tests/test_createTeam.js'
+            'unit_tests/test_createTeam.js',
+            'unit_tests/test_joinTeam.js'
         ],
         exclude: [],
         preprocessors: {
             'app.js': ['coverage'],
             'event.js': ['coverage'],
             'app.signup_and_login.js' : ['coverage'],
-            'createTeam.js' : ['coverage']
+            'createTeam.js' : ['coverage'],
+            'join.js' : ['coverage']
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {

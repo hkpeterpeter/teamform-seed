@@ -56,8 +56,10 @@ app.controller("joinTeam",
                 if(firebase.auth().currentUser){//if logged in
                         
                         memberNoTeamRef.orderByChild("uid").equalTo(firebase.auth().currentUser.uid).once("child_added",
-                                function(exist){
-                                        if(exist.val()){
+                                function(exist)
+                                {
+                                        //if(exist.val()){
+                                                window.alert("found!");
                                                 newRequest.eventName = event;
                                                 newRequest.targetTeam = teamName;
                                                 newRequest.memberName = exist.child("username").val();
@@ -77,10 +79,10 @@ app.controller("joinTeam",
         
                                                 window.alert("Request sent!");
                                                 newRequest.message="";
-                                        }
-                                        else {
-                                                window.alert("You have a team!");
-                                        }
+                                //        }
+                                        //else {
+                                        //        window.alert("You have a team!");
+                                        //}
                                         
                                 }                       
                         );
