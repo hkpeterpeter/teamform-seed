@@ -19,23 +19,29 @@ module.exports = function(config) {
             'app.signup_and_login.js',
             'event.js',
             'createTeam.js',
+            'join.js',
+            'joinevent.js',
+            'teamedit.js',
             'personal_info.js',
-            'unit_tests/test_login.js',
-            'unit_tests/test_createEvent.js',
-            'unit_tests/test_personal_info.js',
-            'unit_tests/test_createTeam.js'
-            'unit_tests/test_createTeam.js',
+            'randomTeam.js',
+            'randomEvent.js',
+            'unit_tests/*.js'
+        ],
+        exclude: [
             'unit_tests/test_joinTeam.js'
         ],
-        exclude: [],
         preprocessors: {
             'app.js': ['coverage'],
             'event.js': ['coverage'],
             'app.signup_and_login.js' : ['coverage'],
             'createTeam.js' : ['coverage'],
-            'personal_info.js' : ['coverage']
+            'personal_info.js' : ['coverage'],
             'createTeam.js' : ['coverage'],
-            'join.js' : ['coverage']
+            'join.js' : ['coverage'],
+            'teamedit.js' : ['coverage'],
+            'joinevent.js' : ['coverage'],
+            'randomEvent.js' : ['coverage'],
+            'randomTeam.js' : ['coverage']
         },
         reporters: ['progress', 'coverage'],
         coverageReporter: {

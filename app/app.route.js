@@ -83,6 +83,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('Eventjoin', {
             url: '/eventjoin',
             templateUrl: 'joinevent.html',
+            authRequired: true,
             controller: 'eventjoin'
             })
 

@@ -1,12 +1,4 @@
 describe('Testing joinTeam-', function() {
-    //var config = {
-    //    apiKey: "AIzaSyAVbRf9lY-uCjVhhrq9Rl9AuWaZnZROFlA",
-    //    authDomain: "pk01-33b28.firebaseapp.com",
-    //    databaseURL: "https://pk01-33b28.firebaseio.com",
-    //    storageBucket: "pk01-33b28.appspot.com",
-    //    messagingSenderId: "397595280376"
-    //    };
-    //firebase.initializeApp(config);
  
     beforeEach(function () {
         
