@@ -70,13 +70,16 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
 			</div>
-			<div class="navbar-collapse collapse" >
+			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
+					<li><a href="member.html">Member(FOR TEST)</a></li>
 					<li><a href="create_event.html">ADMIN</a></li>
-					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
+					<li><a class="btn" href="signin.html">SIGN IN</a></li>
+					<li><a class="btn" href="signup.html">SIGN UP</a></li>
+					<li><a class="btn" ng-click="logout()">SIGN OUT</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -90,8 +93,7 @@
                   <br>
                   <span class="text-muted">A real-time online team forming app</span>
                </h2>
-               <p class="lead"> The following roles are supported in teamform:
-               </p>
+               <p class="lead"> The following roles are supported in teamform:</p>
 
                <div class="row">
                   <div class="col-md-4">
@@ -129,7 +131,8 @@
                      
                      <div class="text-center">
 						<br>
-                        <h1 class="thin">Teamform</h1>
+                        <h1 class="thin"><p> You are cureently login as {{userObj.name}}</p></h1>
+
                         <p>A real-time online team forming app for any event</p>
                      </div>
 					<div class="jumbotron top-space">

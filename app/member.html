@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="member">
+<html ng-app = "teamform-member-app" ng-controller="MemberCtrl">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -23,26 +23,11 @@
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
-	
-	<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
 
       <!-- Angular Library -->
-    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js'></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
       <!-- Firebase -->
 	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-	<script>
-	  // Initialize Firebase
-	  var config = {
-		apiKey: "AIzaSyDRwTjOiH_DUPfAHdwTMPTLjB9qn7iKMS4",
-		authDomain: "light-of-wisdom-7d1ea.firebaseapp.com",
-		databaseURL: "https://light-of-wisdom-7d1ea.firebaseio.com",
-		storageBucket: "light-of-wisdom-7d1ea.appspot.com",
-		messagingSenderId: "411144932773"
-	  };
-	  firebase.initializeApp(config);
-	</script>
-
       <!-- AngularFire URL: https://github.com/firebase/angularfire -->
    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
@@ -56,7 +41,7 @@
    <script src="assets/js/template.js"></script>
 
    <script src="assets/js/site.js"></script>
-   <script src="assets/js/login.js"></script>
+   <script src="assets/js/member.js"></script>
    
    
 </head>
@@ -70,14 +55,14 @@
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" align="middle"></a>
 			</div>
-			<div class="navbar-collapse collapse" ng-controller="LoginCtrl" ng-app="teamform-login-app">
+			<div class="navbar-collapse collapse" >
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">HOME</a></li>
 					<li><a href="#event">EVENTS</a></li>
 					<li><a href="#about">ABOUT US</a></li>
 					<li><a href="admin.html">ADMIN(FOR TEST)</a></li>
 					<li><a href="member.html">MEMBER</a></li>
-					<li><a class="btn" ng-click="loginwithgoogle()">SIGN IN WITH GOOGLE</a></li>
+
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -100,12 +85,21 @@
 				<!-- Article main content -->
 				<article class="col-sm-8 maincontent">
 					<header class="page-header">
-						<h1 class="page-title">[Name]</h1>
+						<h1 class="page-title">{{userObj.name}}</h1>
 					</header>
-					<h3>[intro]</h3>
-					<p><img src="assets/images/tom_hanks.jpg" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
-							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
+					<h3>Your Position</h3>
+					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
+					<p>
+						<input type="button" name="Forward" value="Forward" id="buttonFoward" class="btn btn-primary btn-lg ">
+						<input type="button" name="Midfield" value="Midfield" id="buttonMidfield" class="btn btn-primary btn-lg ">
+						<input type="button" name="Back" value="Back" id="buttonBack" class="btn btn-primary btn-lg ">
+						<input type="button" name="Goalkeeper" value="Goalkeeper" id="buttonGoalkeeper" class="btn btn-primary btn-lg ">
+					</p>
+					<div class="form-group">
+						<textarea class="form-control" id="text" ng-model="input.position" style="width:200px;height:40px;" ></textarea>
+						<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
+					</div>
+
 				</article>
 				<!-- /Article -->
 				
