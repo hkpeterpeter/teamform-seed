@@ -13,7 +13,7 @@ $scope.SignIn = function(e) {
             //Success callback
             console.log('Authentication successful');
             $window.alert("You Login as " + user.email);
-            window.location.href= "index.html";
+            window.location.href= "login_index.html";
 
         }, function(error) {
             //Failure callback
