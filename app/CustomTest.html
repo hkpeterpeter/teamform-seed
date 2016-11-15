@@ -46,10 +46,7 @@
 
               <div class="form-group">
                 <label>Choice: </label>
-                <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.A" required>
-                <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.B" required>
-                <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.C" required>
-                <input class="col-xs-5 col-md-5 form-control" type="text" ng-model="tempQuestion.choice.D" required>
+                <input ng-repeat="x in tempQuestion.choice" class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice[$index]" required>
               </div>
 
               <div class="form-group">
@@ -95,10 +92,8 @@
 
                 <div class="form-group">
                   <label>Choice: </label>
-                  <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.A" required>
-                  <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.B" required>
-                  <input class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice.C" required>
-                  <input class="col-xs-5 col-md-5 form-control" type="text" ng-model="tempQuestion.choice.D" required>
+                  <input ng-repeat="x in tempQuestion.choice" class="col-xs-4 col-md-4 form-control" type="text" ng-model="tempQuestion.choice[$index]" required>
+
                 </div>
 
                 <div class="form-group">
@@ -210,34 +205,19 @@ app.controller('trial', function($scope, keeper, backup) {
     var question = {
       title : "Can you feel my heart beat?",
       type : "MC",
-      choice: {
-        "A" : "A",
-        "B" : "B",
-        "C" : "C",
-        "D" : "D",
-      },
+      choice: ["A","B","C","D"],
       answer: "A"
     };
     var question2 = {
       title : "Can you feel my head beat?",
       type : "MC",
-      choice: {
-        "A" : "A",
-        "B" : "B",
-        "C" : "C",
-        "D" : "D",
-      },
+      choice: ["A","B","C","D"],
       answer: "A"
     };
     var question3 = {
       title : "Can you feel my hand beat?",
       type : "MC",
-      choice: {
-        "A" : "A",
-        "B" : "B",
-        "C" : "C",
-        "D" : "D",
-      },
+      choice: ["A","B","C","D"],
       answer: "A"
     };
     $scope.questionList.push(question);
@@ -287,12 +267,7 @@ app.controller('trial', function($scope, keeper, backup) {
       tempQuestion ={
         title : "",
         type : "",
-        choice: {
-          "A" : "",
-          "B" : "",
-          "C" : "",
-          "D" : "",
-        },
+        choice: ["","","",""],
         answer: ""
       };
 
@@ -307,12 +282,7 @@ app.controller('trial', function($scope, keeper, backup) {
       var emptyQuestion ={
         title : "",
         type : "",
-        choice: {
-          "A" : "",
-          "B" : "",
-          "C" : "",
-          "D" : "",
-        },
+        choice: ["","","",""],
         answer: ""
       };
       $scope.questionList.push(emptyQuestion) ;
