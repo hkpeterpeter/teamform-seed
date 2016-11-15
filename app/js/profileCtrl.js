@@ -1,5 +1,5 @@
 app.controller("profileCtrl",  
-	function($scope, Auth, $firebaseArray, $firebaseObject,$window, $stateParams) {	
+	function($scope, Auth, $firebaseArray, $firebaseObject,$window, $stateParams,Helper) {	
 		Auth.$onAuthStateChanged(function(authData){
 			//initialize
 			if (authData) {
@@ -7,7 +7,7 @@ app.controller("profileCtrl",
 				ref = firebase.database().ref("users/"+$scope.authData.uid+"/readOnly/info");
 				$scope.profile_info = $firebaseObject(ref);
 				$scope.profile_readOnly = true;
-				$scope.profile_readOnly_checkbox = "return false;"
+				$scope.profile_info.tags = Helper.tags;
 				//$scope.profile_info.tag.c++=false;
 				var id = $stateParams.uid;
 				if (id != $scope.authData.uid)  $scope.button_visible = false;

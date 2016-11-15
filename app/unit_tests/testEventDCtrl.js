@@ -42,7 +42,7 @@ describe("tfApp", function() {
      beforeEach(function() {
       $scope = {};
       controller = $controller('eventDCtrl', { $scope: $scope});
-      
+
     });
 
     it('$scope.manage() should be change $scope.isManaging to true and $scope.selectTeam to false', function() {
