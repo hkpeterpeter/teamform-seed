@@ -41,9 +41,8 @@
                         <li id="logout"><a href="#">Log out</a></li>
                       </ul>
                    </li>
-                   <li id="fblogin">
-                     <button type="button" class="btn btn-primary"> Log In
-                     </button>
+                   <li>
+                     <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'">Log In</button>
                    </li>
                  </ul>
               </div>
@@ -53,22 +52,19 @@
         <div class="text-center">
            <h1>Ability Test</h1>
         </div>
-           <ul ng-repeat="question in quiz">
-             <ul class = "row">
-              <ul class = "col-xs-8 col-xs-offset-2">
-                {{question.question}}
-                <br>
-                  <ul ng-repeat = "option in question.option">
-                    <div class="checkbox">
-			<label><input type="checkbox" ng-click="addanswer(option);">
-				<li>{{option}}</li>
-			</label>
-		    </div>
-                  </ul>
-                <br>
-              </ul>
-            </ul>
+        <div class="col-xs-8 col-xs-offset-2">
+          <div ng-repeat="question in quiz track by $index">
+          {{question.question}}
+          <br></br>
+          <ul class="list-unstyled">
+            <li ng-repeat="option in question.option">
+             <input type="radio" name="{{'answer-' + question.$id}}" ng-click="addanswer(option);">{{option}}
+            </li>
           </ul>
+          <br></br>
+        </div>
+       </div>
+        
         <div class="text-center">
            <div class="col-xs-2 col-xs-offset-5">
              <button type="button" class="btn btn-primary" ng-click="submitFunc();">Submit</button>
