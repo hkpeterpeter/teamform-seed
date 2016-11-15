@@ -12,7 +12,8 @@ app.controller("eventSubmit",
 
         var ref = firebase.database().ref("events");
         $scope.event = $firebaseArray(ref);
-
+        $scope.myForm = $scope.eventForm;
+        $scope.dummy={};
         $scope.submit = function() {
             //            if(firebase.user!=null){
             if ($scope.input.name !== "" && $scope.input.intro !== "") {
@@ -45,7 +46,7 @@ app.controller("eventSubmit",
         $scope.introErrorMessage = function() {
             if ($scope.eventForm.newEventIntro.$touched) $scope.introTouched = true;
             if ($scope.introTouched && $scope.eventForm.newEventIntro.$invalid) {
-                return "The event name is required!";
+                return "The event intro is required!";
             }
         };
 
