@@ -28,7 +28,7 @@ describe("service testing",function(){
 
 describe("searchPage",function(){
   
-	beforeEach(module("testapp"));
+	beforeEach(module("mainApp"));
 
 	var $controller;
 
