@@ -125,12 +125,39 @@ angular.module('teamform-team-app', ['firebase'])
 	};
 	
 	$scope.smartAdd = function() {
-		var scores = [];
-		var req = $scope.requests;
-		// for(var i = 0; i < req.length; i++ ) {
-		// 	scores.push(retrieveScoreFromTags(retrieveTagsFromID(req[i])));
-		// }
-		// return scores;
+		 var scores = [];
+		 var req = $scope.requests;
+		 for(var i = 0; i < req.length; i++ ) {
+			 var item = {
+			 sid : "",
+			 score : ""
+		 }
+		 	scores.push(item);
+			scores[i].sid = req[i];
+			scores[i].score = $scope.retrieveScoreFromTags($scope.retrieveTagsFromID(req[i]));
+		 }
+		  for(var i =0; i < scores.length; i) {
+			  var maxid = $scope.returnMaxidx(scores);
+			  $scope.processRequest(scores[maxid].sid);
+			  scores.splice(maxid,1);			  
+		  }
+		 
+	};
+	$scope.returnMaxidx = function(arr) {
+		if (arr.length === 0) {
+        return -1;
+    }
+
+    var max = arr[0].score;
+    var maxIndex = 0;
+
+    for (var i = 1; i < arr.length; i++) {
+        if (arr[i].score > max) {
+            maxIndex = i;
+            max = arr[i].score;
+        }
+    }
+    return maxIndex;		
 	}
 
 	$scope.refreshViewRequestsReceived = function() {
