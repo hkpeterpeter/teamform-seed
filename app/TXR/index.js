@@ -58,9 +58,8 @@ app.controller("NotificationController", function($scope){
       	else if($scope.userList[i].type=="Application"){
       		$scope.userList[i].Info="He wants to join your team.";
       	}
-      	else if($scope.userList[i].type=="Information"){
-      		$scope.userList[i].Info="Someone left the team.";
-      	}
+      	else $scope.userList[i].Info="Someone left the team.";
+      	
       }
 
       $scope.whetherfromteam=function(user){
