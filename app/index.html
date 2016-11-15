@@ -94,10 +94,21 @@
 								<li role="separator" class="divider"></li>
 
 								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
+									<a href="unit_tests/test_admin.js" target="_blank">test_admin.js</a>
 								</li>
 
-								<li><a href="#">TODO: Add more test cases here... </a></li>
+								<li>
+									<a href="unit_tests/test_index.js" target="_blank">test_index.js</a>
+								</li>
+                <li>
+									<a href="unit_tests/test_member.js" target="_blank">test_member.js</a>
+								</li>
+                <li>
+									<a href="unit_tests/test_site.js" target="_blank">test_site.js</a>
+								</li>
+                <li>
+									<a href="unit_tests/test_team.js" target="_blank">test_team.js</a>
+								</li>
 							</ul>
 						</li>
 
@@ -170,7 +181,7 @@
                <h2 class="featurette-heading">Event List
                   <br>
                </h2>
-
+<button type="button" class="btn btn-primary" ng-repeat="event in events" ng-click="eventID=event.$id;">{{event.$id}}</button>
 
 
 
