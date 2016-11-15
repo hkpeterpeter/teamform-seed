@@ -18,10 +18,7 @@ npm -v
 
 Please clone the repository at GitHub using `git clone` command:
 
-```
-git clone https://github.com/hkpeterpeter/teamform-seed
-cd teamform-seed
-```
+(See Slack group.)
 
 ### Install Dependencies
  
