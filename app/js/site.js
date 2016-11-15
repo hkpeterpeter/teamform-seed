@@ -30,14 +30,13 @@ function initalizeFirebase() {
 
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDWBsNtdNcMzTLtvKEiqSHlx3eZu0RsFtY",
-    authDomain: "swimcapboys.firebaseapp.com",
-    databaseURL: "https://swimcapboys.firebaseio.com",
-    storageBucket: "swimcapboys.appspot.com",
-    messagingSenderId: "775129663322"
+    apiKey: "AIzaSyBL2hZWpRgIw8q_YOsfCqzm40_30IX98TM",
+    authDomain: "project--4057470097300591247.firebaseapp.com",
+    databaseURL: "https://project--4057470097300591247.firebaseio.com",
+    storageBucket: "project--4057470097300591247.appspot.com",
+    messagingSenderId: "409818143167"
   };
   firebase.initializeApp(config);
-
 }
 
 //
