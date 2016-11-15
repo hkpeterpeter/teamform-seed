@@ -1,4 +1,4 @@
-var isTest = true;
+isTest = true;
 
 describe("TestLogin", function(){
 
@@ -59,18 +59,14 @@ describe("TestLogin", function(){
   });
 
   it('FB login', function(done){
-    setTimeout(function () {
-      // spyOn(FB, "getLoginStatus");
-      // spyOn(FB, "login");
+    onFBInitFin = function(){
+      spyOn(FB, "login");
       $scope.loginFB();
-      setTimeout(function () {
-        // expect($cookies.get("username",{path:"/"})).toEqual("1856889751213495");
-        // expect(FB.getLoginStatus).toHaveBeenCalled();
-        // expect(FB.login).toHaveBeenCalled();
-        expect("FB login popup").toEqual("FB login popup");
+      onFBChkLogFin = function(){
+        expect(FB.login).toHaveBeenCalled();
         done();
-      }, 500);
-    }, 500);
+      };
+    };
   });
 
   it('login invalid input', function(){
