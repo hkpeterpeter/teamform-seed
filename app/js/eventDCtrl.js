@@ -191,7 +191,7 @@ app.filter('role', function(){
             return 'visitor';
         }
         else
-            return obj.position;     
+            return obj.position;
     }
 });
 
