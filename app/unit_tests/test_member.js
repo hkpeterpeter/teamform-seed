@@ -59,6 +59,14 @@ describe('Test member.js', function() {
 		expect($scope.loadFuncTest).toEqual("inTeam noinvite");
 	});
 
+	it("test toggleSelection", function() {
+		$scope.selection = ["one", "two", "three"];
+		$scope.toggleSelection("four");
+		expect($scope.selection.length).toEqual(4);
+		$scope.toggleSelection("one");
+		expect($scope.selection.length).toEqual(3);
+	});
+
 	it("test acceptInv", function() {
 		$scope.userInfo = {
 			$id: "newMember",

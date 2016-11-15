@@ -30,14 +30,9 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	// TODO: implementation of MemberCtrl	
 
-	$scope.userID = "";
-	$scope.userName = "";	
 	$scope.teams = {};
-	$scope.userInfo = "";
 	$scope.memberInfo = "";
 	$scope.uid = "";
-	$scope.name = "";
-	$scope.teamStatus = "";
 	$scope.tag = "";
 	$scope.tags =[];
 	$scope.eventName = getURLParameter("q");
@@ -48,14 +43,10 @@ angular.module('teamform-member-app', ['firebase'])
       if(firebaseUser) {
       	var user = firebase.auth().currentUser;
         $scope.uid = user.uid;
-        $scope.name = user.displayName;
         $scope.loadFunc();
       }
       else {
-      	$scope.userID = "";
-      	$scope.userName = "";
       	$scope.uid = "";
-      	$scope.name = "";
       	$scope.selection = [];
 		$scope.tags = [];
       	$("input").prop("disabled", true);
@@ -80,13 +71,13 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		else {
 			$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
-			 the team or <a href=\"team.html?q=" + getURLParameter("q") + "\">Click here</a> to create\
+			 the team or <a href=\"team.html?q=" + $scope.eventName + "\">Click here</a> to create\
 			  a team.");
 			$scope.loadFuncTest = "notinTeam";
 		}
 		//check for invitation
 		if($scope.memberInfo.invitedBy != null){
-			$("#inviteStatus").html("You are invited by " + $scope.memberInfo.invitedBy.length + " teams in the event " + getURLParameter("q") + ".");
+			$("#inviteStatus").html("You are invited by " + $scope.memberInfo.invitedBy.length + " teams in the event " + $scope.eventName + ".");
 			$scope.loadFuncTest += " invite";
 		}
 		else{
@@ -116,18 +107,15 @@ angular.module('teamform-member-app', ['firebase'])
 			'selection': $scope.selection,
 			'weight': 0 
 		};
-		var refPath = getURLParameter("q") + "/member/" + userID;
+		var refPath = $scope.eventName + "/member/" + $scope.uid;
 		var ref = firebase.database().ref(refPath);
-		ref.update(newData);
-		refPath = "user/" + userID;
-		ref = firebase.database().ref(refPath);
-		ref.update({ name: userName }, function() {
+		ref.update(newData, function() {
 			window.location.href = "index.html";
 		});
 	};
 	
 	$scope.refreshTeams = function() {
-		var refPath = getURLParameter("q") + "/team";
+		var refPath = $scope.eventName + "/team";
 		var ref = firebase.database().ref(refPath);
 		
 		// Link and sync a firebase object
@@ -145,7 +133,7 @@ angular.module('teamform-member-app', ['firebase'])
 	};
 	
 	$scope.atFunc = function() {
-		var url = "abilitytest.html?q=" + getURLParameter("q");
+		var url = "abilitytest.html?q=" + $scope.eventName;
 		window.location.href = url;
 	};
 
@@ -172,7 +160,7 @@ angular.module('teamform-member-app', ['firebase'])
 			//if no, add the user to the team
 			else {
 				$scope.token = "TeamAvailable";
-				var refPath = getURLParameter("q") + "/team/" + teamName;
+				var refPath = $scope.eventName + "/team/" + teamName;
 				$scope.teamMember = $firebaseObject(firebase.database().ref(refPath));
 				$scope.teamMember.$loaded(function(data){
 					acceptInvCallback(data);
@@ -196,19 +184,19 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		$scope.newMemberList.push($scope.uid);
 		console.log("$scope.newMemberList: ",$scope.newMemberList);
-		var refPath = getURLParameter("q") + "/team/" + $scope.team.$id;
+		var refPath = $scope.eventName + "/team/" + $scope.team.$id;
 		var ref = firebase.database().ref(refPath);
 		ref.update({
 			teamMembers: $scope.newMemberList
 		});
 		//remove invitedBy list
-		var refPath1 = getURLParameter("q") + "/member/" + $scope.uid + "/invitedBy";
+		var refPath1 = g$scope.eventName + "/member/" + $scope.uid + "/invitedBy";
 		var ref1 = firebase.database().ref(refPath1);
 		ref1.remove();
 		window.alert("Invitation accepted!");
 		$scope.token = "TeamJoined";
 		// update inTeam
-		var refPath2 = getURLParameter("q") + "/member/" + $scope.uid;
+		var refPath2 = $scope.eventName + "/member/" + $scope.uid;
 		var ref2 = firebase.database().ref(refPath2);
 		ref2.update({
 			invitedBy: [],
@@ -223,7 +211,7 @@ angular.module('teamform-member-app', ['firebase'])
 			var index = $scope.memberInfo.invitedBy.indexOf(teamName)
 			if(index>-1){
 				$scope.memberInfo.invitedBy.splice(index,1);
-				var refPath = getURLParameter("q") + "/member/" + $scope.memberInfo.$id;
+				var refPath = $scope.eventName + "/member/" + $scope.memberInfo.$id;
 				var ref = firebase.database().ref(refPath);
 				ref.update({
 					invitedBy: $scope.memberInfo.invitedBy
