@@ -11,7 +11,7 @@ module.exports = function(config) {
       'lib/angular-mocks.js',
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',	  
-	  'js/*.js,
+	  'js/*.js',
 	  'baichunyan/js/bai.js',
 	  'Fenghaoan/js/homepage.js',
 	  'fish/js/fish.js',
