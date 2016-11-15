@@ -85,7 +85,6 @@
 				<!-- Article main content -->
 				<article class="col-sm-8 maincontent">
 					<header class="page-header">
-<<<<<<< HEAD
 						<h1 class="page-title">Profile</h1>
 					</header>
 					<img src="assets/images/profile-icon.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" >
@@ -94,22 +93,11 @@
 					
 					<p style="display:none"><br><input type="text" placeholder="Enter your name"></p>
 					<h4><b>Email: </b>{{userObj.email}}</h4>
+					<p style="display:none"><br><input type="text" placeholder="Enter your email"></p>
+
 					<h4><b>Your Position: </b>{{userObj.position}}</h4>
 					
 					<p style="display:none">
-						<input type="button" name="Forward" value="Forward" id="buttonFoward" class="btn btn-primary btn-lg "> <br />
-						<input type="button" name="Midfield" value="Midfield" id="buttonMidfield" class="btn btn-primary btn-lg "> <br />
-						<input type="button" name="Back" value="Back" id="buttonBack" class="btn btn-primary btn-lg "> <br />
-						<input type="button" name="Goalkeeper" value="Goalkeeper" id="buttonGoalkeeper" class="btn btn-primary btn-lg "> <br />
-					<input id="hide" class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
-					</p>
-					<input id="show" class="btn btn-default btn-sm" type="button" value="Edit">
-=======
-						<h1 class="page-title">{{userObj.name}}</h1>
-					</header>
-					<h3>Your Position</h3>
-					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
-
 					<select ng-model="position">
 						<option value="Forward">Forward</option>
 						<option value="Midfield">Midfield</option>
@@ -117,10 +105,9 @@
 						<option value="RightBack">RightBack</option>
 						<option value="Goalkeeper">Goalkeeper</option>
 					</select>
-					<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
-					<p><tt>{{ userObj.position }}</tt></p>
->>>>>>> 4d962d247748c854d34bea220e97ba1efd36876e
-
+					<input id="hide" class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
+					</p>
+					<input id="show" class="btn btn-default btn-sm" type="button" value="Edit">
 				</article>
 				<!-- /Article -->
 				
