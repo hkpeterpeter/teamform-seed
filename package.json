@@ -4,20 +4,29 @@
   "version": "0.0.0",
   "private": true,
   "description": "Online Team Forming System",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://fishyu624@github.com/TeamNULLDummy/T_NULL.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "http-server": "^0.9.0",
-    "jasmine-core": "^2.4.1",    
-    "karma": "^1.2.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.1.1",
-    "karma-jasmine": "^1.0.2"  
+    "karma-jasmine": "^1.0.2"
   },
   "scripts": {
     "prestart": "npm install",
     "start": "http-server -a localhost -p 8080 -c-1 ./app",
     "pretest": "npm install",
     "test": "karma start karma.conf.js"
-  }
+  },
+  "main": "karma.conf.js",
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/TeamNULLDummy/T_NULL/issues"
+  },
+  "homepage": "https://github.com/TeamNULLDummy/T_NULL#readme"
 }

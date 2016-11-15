@@ -1,3 +1,5 @@
+var app = angular.module("teamApp", ["ui.router","firebase"]);
+
 app.controller("AuthCtrl", ["$scope", "Auth","$rootScope", '$state', function($scope, Auth, $rootScope, $state) {
 
 	var ref = firebase.database().ref();

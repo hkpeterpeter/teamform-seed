@@ -11,17 +11,14 @@ module.exports = function(config) {
       'lib/angular-mocks.js',
 	  'lib/firebase.js',
 	  'lib/angularfire.min.js',	  
-	  'js/*.js',
-      'unit_tests/*.js'	  
+	  'app.signup_and_login.js',
+	  'app.js',
+      'unit_tests/test_login.js'	  
     ],
 	exclude: [
 	],
 	preprocessors: {	 	
-		 'js/site.js' : ['coverage'],		
-		 'js/index.js' : ['coverage'],
-		 'js/admin.js' : ['coverage'],
-		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage']
+		 'app.signup_and_login.js' : ['coverage']
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
