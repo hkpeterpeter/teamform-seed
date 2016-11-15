@@ -74,11 +74,9 @@ app.controller("NotificationController", function($scope){
        			$scope.userList.splice(user,1);
       }
 
-/*      $scope.reply=function(user){
-        return "#MyConversation/"+ "Peter";
-      }
 
-      $scope.adduser=function(){
+
+   /*   $scope.adduser=function(){
 
       }*/
   });
