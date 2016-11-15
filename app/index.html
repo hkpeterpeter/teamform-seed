@@ -149,8 +149,6 @@
                            <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
                            <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
                            <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-                          
-
 
                         </div>
                      </div>
@@ -166,29 +164,30 @@
       	<!-- Intro -->
 	<div class="container text-center">
 		<br>
-		<h2 class="thin id="event"">Current Events</h2>
+		<h2 class="thin" id="event">Current Events</h2>
 	</div>
 	<!-- /Intro-->
 	
 	<!-- Highlights - jumbotron -->
 	<div class="jumbotron top-space parallax">
-		<div class="container">
-			<div class="row" >
+		<div align="center" class="container">
+			<div class="row">
 
-			<table border="1">
-			<tr>
-			<td> Event Name </td><td> Holder </td><td> Team Size </td><td></td></tr>
+				<table border="1">
+				<tr>
+				<td> Event Name </td><td> Holder </td><td> Team Size </td><td></td></tr>
 
-			<tr ng-repeat="e in events">
-			<td>{{e.param.EventName}} </td>
-			<td>{{e.param.EventAdmin}} </td>
-			<td>{{e.param.TeamSize}}</td>
-			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="viewevent(e.param.EventName);">More Info</button></td>
-			</tr>
+				<tr ng-repeat="e in events">
+				<td>{{e.param.EventName}} </td>
+				<td>{{e.param.EventAdmin}} </td>
+				<td>{{e.param.TeamSize}}</td>
+				<td><button type="button" class="btn btn-primary btn-sm" ng-click ="viewevent(e.param.EventName);">More Info</button></td>
+				</tr>
 
-			</table>
+				</table>
 
-	</div>
+			</div>
+		</div>
 	<!-- /Highlights -->
 	<p class="pull-right"><a href="#">Back to top</a></p>
 	  
@@ -348,6 +347,7 @@
 
 	</footer>	
 
+	</div>
 
    </body>
 </html>
