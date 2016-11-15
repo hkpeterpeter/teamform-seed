@@ -97,6 +97,26 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             });
 
         }
+//update tags
+    helper.updateSkillTags = function(eventID, teamID, skilltags){
+      ref = firebase.database().ref("events/"+eventID+"/teams/" + teamID + "/tags");
+
+      return  ref.child('SkillTags').set(skilltags);
+    }
+
+    helper.updateLanguageTags = function(eventID, teamID, languagetags){
+      ref = firebase.database().ref("events/"+eventID+"/teams/" + teamID + "/tags");
+
+      return  ref.child('LanguageTags').set(languagetags);
+    }
+
+
+    helper.updateMannerTags = function(eventID, teamID, mannertags){
+      ref = firebase.database().ref("events/"+eventID+"/teams/" + teamID + "/tags");
+
+      return  ref.child('MannerTags').set(mannertags);
+    }
+
 
     //violating rules
     helper.pushNotificationTo = function(toUid, eventID, msg) {
