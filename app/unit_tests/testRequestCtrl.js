@@ -63,7 +63,7 @@ describe("tfApp", function() {
      beforeEach(function() {
       $scope = {};
       controller = $controller('requestCtrl', { $scope: $scope});
-
+      $scope.authData = {uid: "123"};
     });
 
     it('test withdrawApp', function() {
@@ -83,7 +83,7 @@ describe("tfApp", function() {
     });
 
     it('test filter', function(){
-        result = $scope.filterEvent({a:1, b:2, c:"str"}, a );
+        result = $scope.filterEvent({a:1, b:2, c:"str"}, "a");
         expect(result).toEqual({a:1});
     });
 
