@@ -99,7 +99,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			return;
 		};
 
-		if (canMergeTeams(mergedTeam, team) == false) {
+		if ($scope.canMergeTeams(mergedTeam, team) == false) {
 			console.log("exceed team member limit");
 			return;
 		};
