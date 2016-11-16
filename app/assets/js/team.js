@@ -241,3 +241,7 @@ angular.module('teamform-team-app', ['firebase'])
 	
 		
 }]);
+function functionName()
+{
+    $("#output").val("");
+};
