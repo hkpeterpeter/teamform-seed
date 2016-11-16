@@ -57,6 +57,7 @@ legend{
   -o-transition: .3s;
   display: inline-block;
   text-align: center;
+  float: right;
 }
 
 
@@ -71,6 +72,7 @@ legend{
 }
 .buttons {
   padding-top: 30px;
+  
 }
 
 label{
