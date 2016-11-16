@@ -84,19 +84,19 @@ describe('Test site.js', function() {
 		 	data.adminID=10;
 		 	$rootScope.checkUser(data);
 
-		 	expect(window.location.href).toContain("#admin");
+		 	expect(window.location.href).toContain("admin");
 
 		 	$rootScope.currentUser.id=10
 		 	data.adminID=20;
 		 	$rootScope.checkUser(data);
-		 	expect(window.location.href).toContain("#eventx");
+		 	expect(window.location.href).toContain("eventx");
 		 	$rootScope.currentUser.id=0;
 		 	$rootScope.checkUser(data);
-		 	expect(window.location.href).toContain("#teamleader");
+		 	expect(window.location.href).toContain("teamleader");
 
 		 	$rootScope.currentUser.id=2;
 		 	$rootScope.checkUser(data);
-		 	expect(window.location.href).toContain("#team");
+		 	expect(window.location.href).toContain("team");
 		 });
 
 
