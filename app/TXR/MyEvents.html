@@ -120,8 +120,153 @@
 
             <!--invite users with pop up window-->
 
-                  <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal">Invite Users</button>
+                  <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "IsVisibleCOMP3111">Invite Users</button>
                      </h2>
+
+
+
+
+ <hr>
+        
+          <div class="row" ng-show = "IsVisibleCOMP3111">
+         <div class="col-lg-6" id="teammembers">
+        <h2>Current Members</h2>
+       
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+
+              <tbody>
+                <tr>
+                  <td style="font-size: 30px">1</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Peter</a></td>
+                 <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
+                  </td>
+                </tr>
+                 <tr>
+                  <td style="font-size: 30px">2</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/jason.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Jason</a></td>
+                  <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
+                  </td>
+                </tr>
+             <tr>
+                  <td style="font-size: 30px">3</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/ken.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Ken</a></td>
+                 <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
+                  </td>
+                </tr>
+       
+              </tbody>
+            </table>
+          </div>
+          </div>
+        <div class="col-lg-6" id="suggestion">
+        <h2>Suggested Users</h2>
+       
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+
+              <tbody>
+                <tr>
+                  <td style="font-size: 30px">1</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/mijung.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Mijung</a></td>
+                 <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
+                  </td>
+                </tr>
+                 <tr>
+                  <td style="font-size: 30px">2</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/shiheng.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Shiheng</a></td>
+                     <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
+                  </td>
+                </tr>
+             <tr>
+                  <td style="font-size: 30px">3</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/empty.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Good guy</a></td>
+                      <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
+                  </td>
+                </tr>
+       
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+          <div class="row" ng-show = "IsVisibleCOMP3511">
+         <div class="col-lg-10" id="teammembers">
+
+       
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+
+              <tbody>
+                <tr>
+                  <td style="font-size: 30px">1</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Peter</a></td>
+            
+                </tr>
+                 <tr>
+                  <td style="font-size: 30px">2</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/jason.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Jason</a></td>
+           
+                </tr>
+             <tr>
+                  <td style="font-size: 30px">3</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/ken.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Ken</a></td>
+          
+                </tr>
+       
+              </tbody>
+            </table>
+          </div>
+          </div>
+
+      </div>
+  
+
+
+
+
+
+
+
+
+
                   <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
@@ -198,138 +343,5 @@
 
 
 
- <hr>
-          <div class="row">
-         <div class="col-lg-6" id="teammembers" ng-show = "IsVisibleCOMP3111">
-        <h2>Current Members</h2>
 
-
-          <div class="table-responsive">
-            <table class="table table-striped">
-
-              <tbody>
-                <tr>
-                  <td style="font-size: 30px">1</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Peter</a></td>
-                 <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
-                  </td>
-                </tr>
-                 <tr>
-                  <td style="font-size: 30px">2</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/jason.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Jason</a></td>
-                  <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
-                  </td>
-                </tr>
-             <tr>
-                  <td style="font-size: 30px">3</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/ken.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Ken</a></td>
-                 <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-          </div>
-        <div class="col-lg-6" id="suggestion" ng-show = "IsVisibleCOMP3111">
-        <h2>Suggested Users</h2>
-
-
-          <div class="table-responsive">
-            <table class="table table-striped">
-
-              <tbody>
-                <tr>
-                  <td style="font-size: 30px">1</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/mijung.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Mijung</a></td>
-                 <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
-                  </td>
-                </tr>
-                 <tr>
-                  <td style="font-size: 30px">2</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/shiheng.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Shiheng</a></td>
-                     <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
-                  </td>
-                </tr>
-             <tr>
-                  <td style="font-size: 30px">3</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/empty.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Good guy</a></td>
-                      <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
-                  </td>
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-
-
-      
-          <div class="row">
-         <div class="col-lg-10" id="teammembers" ng-show = "IsVisibleCOMP3511">
-        <h2>Current Members</h2>
-
-
-          <div class="table-responsive">
-            <table class="table table-striped">
-
-              <tbody>
-                <tr>
-                  <td style="font-size: 30px">1</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Peter</a></td>
-       
-                </tr>
-                 <tr>
-                  <td style="font-size: 30px">2</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/jason.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Jason</a></td>
-        
-                </tr>
-             <tr>
-                  <td style="font-size: 30px">3</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/ken.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Ken</a></td>
-          
-                </tr>
-
-              </tbody>
-            </table>
-          </div>
-          </div>
-
-
-         
-      </div>
     </div>
