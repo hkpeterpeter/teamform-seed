@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html ng-app="plunker">
+<html>
     
     <head>
-        <meta charset="utf-8" />
-        <title>AngularJS Plunker</title>
-        <script>document.write('<base href="' + document.location + '" />');</script>
+        <script data-require="angularjs@1.5.8" data-semver="1.5.8" src="https://opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
         <link rel="stylesheet" href="style.css" />
-        <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
-        <script src="http://mbenford.github.io/ngTagsInput/js/ng-tags-input.min.js"></script>
         <script src="app.js"></script>
     </head>
     
-    <body ng-controller="MainCtrl">
-        <tags-input ng-model="tags"></tags-input>
-        <p>Model: {{tags}}</p>
+    <body ng-app="app" ng-controller="Ctrl">
+        Possible Values: {{ array.toString() }}
+        <ul>
+            <li ng-repeat="item in array | randomSample:3">{{ item }}</li>
+        </ul>
     </body>
     
 </html>
