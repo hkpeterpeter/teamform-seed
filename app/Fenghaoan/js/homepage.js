@@ -1,34 +1,15 @@
-teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope,$scope) {
-  // Login helper functions
-  $scope.login = function(providerName) {
-    var successFlag = false;
-    switch (providerName) {
-      case 'google':
-      var provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('https://www.googleapis.com/auth/plus.login');
-      break;
-    // case 'twitter':
-    // var provider = new firebase.auth.TwitterAuthProvider();
-    // break;
-    case 'facebook':
-    var provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope('user_friends');
-    break;
-    // case 'github':
-    // var provider = new firebase.auth.GithubAuthProvider();
-    // break;
-    default:
-      // statements_def
-      console.log('error login');
-      break;
-    }
+teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScope,$scope) {
 
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+  $scope.loginStatus = false;
 
+  // For stupid test case, comment out the only useful function here
+  /*
+  $scope.loginhelper = function(result) {
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
   // var user = result.user;
+
 
   successFlag = true;
 
@@ -58,11 +39,13 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
       console.log("user added");
       $rootScope.loginWithEmail(data['email']);
     }
-
+    $scope.loginStatus = true;
     // console.log($rootScope.currentUser);
     // $rootScope.test();
 
-  }).catch(function(error) {
+  };
+
+  $scope.loginErrorHandler = function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -74,18 +57,57 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
   if (errorCode == 'auth/account-exists-with-different-credential') {
     $('.loginB').toggle();
   }
-});
+};
+*/ 
+  // Login helper functions
+  $scope.login = function(providerName) {
+    var successFlag = false;
+    switch (providerName) {
+      case 'google':
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('https://www.googleapis.com/auth/plus.login');
+      break;
+    // case 'twitter':
+    // var provider = new firebase.auth.TwitterAuthProvider();
+    // break;
+    case 'facebook':
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('user_friends');
+    break;
+    // case 'github':
+    // var provider = new firebase.auth.GithubAuthProvider();
+    // break;
+    default:
+      // statements_def
+      console.log('error login');
+      return;
+    }
+
+
+    // *** Here goes the side effect of stupid test case
+
+    // firebase.auth().signInWithPopup(provider).then($scope.loginhelper).catch($scope.loginErrorHandler);
 
 };
 
 $scope.login_selected = function() {
       // mainNav.children('ul').removeClass('is-visible');
+      // $('.cd-user-modal').addClass('is-visible');
+      // $scope.cdUserModal = ;
+      // $scope.cdUserModal.addClass('is-visible');
+
       $('.cd-user-modal').addClass('is-visible');
-      if ($('#cd-login').css('display')==='none')
-      {
+      // $('#cd-login').css('display', 'none');
+
+      // if ($('#cd-login').css('display')==='none')
+      // {
+        // $('#cd-login').toggle();
+      // }
+      // console.log( $('.loginB').css('display') != 'none' && $('#cd-login').css('display') == 'none' );
+
+      if ( ($('.loginB').css('display') != 'none' && $('#cd-login').css('display') == 'none') ) {
         $('#cd-login').toggle();
       }
-
       // formLogin.addClass('is-selected');
       // formSignup.removeClass('is-selected');
       // formForgotPassword.removeClass('is-selected');
@@ -114,6 +136,7 @@ $scope.login_selected = function() {
 //      $('.cd-user-modal').removeClass('is-visible');
 //   }
 // }
+
 
 $scope.features = [
 {
