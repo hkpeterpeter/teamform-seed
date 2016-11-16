@@ -7,6 +7,7 @@ describe('Test admin.js', function() {
 	
 	beforeEach(module('teamform-admin-app'));
 	beforeEach(inject(function($rootScope, $controller) {
+		console.log("admin test");
 		// compile = $compile;
 		$scope = $rootScope.$new();
 		AdminCtrl = $controller('AdminCtrl', {$scope: $scope});
@@ -90,11 +91,26 @@ describe('Test admin.js', function() {
 			{ $id: "exist1", "name": "exist1" }
 		];
 		
-		$scope.smartAssignment();
+		function calculatSum(teamMembers) {
+			var sum = 0;
+			for(var idx = 0; idx < teamMembers.length; idx++) {
+				for(var tmpIdx = 0; tmpIdx < $scope.member.length; tmpIdx++) {
+					if($scope.member[tmpIdx].$id == teamMembers[idx]) {
+						sum += $scope.member[tmpIdx].weight;
+						break;
+					}
+				}
+			}
+			return sum;
+		}
 		
-		expect($scope.team.length).toEqual(4);
+		$scope.smartAssignment();
 		// no new member for full team
 		expect($scope.team[0].teamMembers.length).toEqual(1);
+		expect($scope.team.length).toEqual(4);
+		expect(calculatSum($scope.team[1].teamMembers)).toEqual(7);
+		expect(calculatSum($scope.team[2].teamMembers)).toEqual(2);
+		expect(calculatSum($scope.team[3].teamMembers)).toEqual(8);
 		
 		// test all members have a team
 		var nbMemInTeam = 0;
