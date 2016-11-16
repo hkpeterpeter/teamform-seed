@@ -131,7 +131,7 @@ export default class TeamService {
     async rejectAcceptTeamPosition(id, positionId) {
         // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
-        teamUser.user = null;
+        teamUser.id = null;
         teamUser.pending = null;
         teamUser.accepted = null;
         return teamUser.$save();
