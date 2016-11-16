@@ -1,12 +1,16 @@
  <footer class="page-footer teal" style="margin-top: 0px">
         <div class="container center" style="padding-bottom: 20px;">
 
-            <h5 class="white-text">
-            {{ftitle}}
+        <!-- This image is for current user -->
+      
+		   <a href="#profile"><img ng-src="{{currenpic}}" height="50px" width="50px"/></a>
+		            <h5 class="white-text">
+            	{{ftitle}}
             </h5>
+
             <p class="grey-text text-lighten-4" ng-transclude>
             
             </p>
- 			<board-list size=50></board-list>
+ 			<board-list size=60></board-list>
         </div>
 </footer>
