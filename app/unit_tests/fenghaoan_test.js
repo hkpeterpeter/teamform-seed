@@ -1,43 +1,60 @@
+initFirebase();
+
 describe('homeController', function() {
 
-	beforeEach(module('teamapp'));
+	beforeEach(module('teamapp','firebase'));
+	var btn;
+	beforeEach( function() {
+		btn = $(".cd-switcher").eq(0);
+	});
 
-	var $controller, $rootScope;
+	var $scope, $firebaseArray, $firebaseObject, createController, $q, defered;
+	//initFirebase();
 
-	beforeEach(inject(function(_$controller_, _$rootScope_){
-    $controller = _$controller_;
-    $rootScope = _$rootScope_;
+	beforeEach(inject(function($rootScope, $controller, _$rootScope_, _$firebaseArray_, _$firebaseObject_, _$q_){
+		$firebaseArray = _$firebaseArray_;
+		$firebaseObject = _$firebaseObject_;
+
+		$q = _$q_;
+		$rootScope = _$rootScope_;
+		$scope = $rootScope.$new();
+		deferred = _$q_.defer();
+
+		createController = function() {
+			return $controller('homeController', {
+				'$rootScope': $rootScope,
+				'$scope': $scope
+			});
+
+		};
+		$rootScope.currentUser = {id:0};
+
 	}));
 
-	describe('$scope.receiveNewSikll', function() {
-		it('receive not existing skill', function() {
-			var $scope = $rootScope.$new();
-			var controller = $controller('homeController', { $scope: $scope });
-			expect(controller).toBeDefined();
-		});
+
+	it('login()', function() {
+		var controller = createController();
+		$scope.login();
+		$scope.login('google');
+		$scope.login('facebook');
 	});
 
-	describe('$scope.login', function() {
-		it('login through OAthen', function() {
-			var $scope = $rootScope.$new();
-			var controller = $controller('homeController', { $scope: $scope });
-			
-			var firebaseConfig = {
-				apiKey: "some-api-key",
-				authDomain: "some-app.firebaseapp.com",
-				databaseURL: "https://some-app.firebaseio.com",
-				storageBucket: "some-app.appspot.com",
-			};
+	it('login_selected', function() {
+		var controller = createController();
+		$scope.login_selected();
 
-
-			$scope.loginStatus = false;
-			// $scope.login('google');
-			$scope.login('');
-			expect($scope.loginStatus).toEqual(false);
-			
-			$scope.login('google');
-		});
 	});
+
+	it('signup_selected', function() {
+		var controller = createController();
+		$scope.signup_selected();
+	});
+
+	it('switcher', function() {
+		var controller = createController();
+		// $scope.switcher(null);
+		btn.click();
+	})
 });
 
 // describe('Unit testing simpleField', function() {

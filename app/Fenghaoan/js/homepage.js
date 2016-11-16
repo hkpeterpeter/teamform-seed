@@ -28,69 +28,80 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
 
 
 
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+//     firebase.auth().signInWithPopup(provider).then(function(result) {
 
-  // This gives you a Google Access Token. You can use it to access the Google API.
-  var token = result.credential.accessToken;
-  // The signed-in user info.
-  // var user = result.user;
+//   // This gives you a Google Access Token. You can use it to access the Google API.
+//   var token = result.credential.accessToken;
+//   // The signed-in user info.
+//   // var user = result.user;
 
-  successFlag = true;
+//   successFlag = true;
 
-  if (successFlag) {
-      // $('.loginB').toggle();
-      $('.cd-user-modal').removeClass('is-visible');
-      $('.loginB').css('display', 'none');
-    }
+//   if (successFlag) {
+//       // $('.loginB').toggle();
+//       $('.cd-user-modal').removeClass('is-visible');
+//       $('.loginB').css('display', 'none');
+//     }
 
-    var data = result.user.providerData[0];
-    $rootScope.loginWithEmail(data['email']);
+//     var data = result.user.providerData[0];
+//     $rootScope.loginWithEmail(data['email']);
 
-    if ($rootScope.currentUser['id'] == 0) {
-      var newUser = {
-        eventsManaging:[],
-        email:data['email'],
-        name:data['displayName'],
-        notifis:[],
-        profilePic:data['photoURL'],
-        skills:[],
-        teamsApplying:[],
-        teamsAsLeader:[],
-        teamsAsMember:[]
-      };
+//     if ($rootScope.currentUser['id'] == 0) {
+//       var newUser = {
+//         eventsManaging:[],
+//         email:data['email'],
+//         name:data['displayName'],
+//         notifis:[],
+//         profilePic:data['photoURL'],
+//         skills:[],
+//         teamsApplying:[],
+//         teamsAsLeader:[],
+//         teamsAsMember:[]
+//       };
 
-      $rootScope.addUser(newUser);
-      console.log("user added");
-      $rootScope.loginWithEmail(data['email']);
-    }
-    $scope.loginStatus = true;
-    // console.log($rootScope.currentUser);
-    // $rootScope.test();
+//       $rootScope.addUser(newUser);
+//       console.log("user added");
+//       $rootScope.loginWithEmail(data['email']);
+//     }
+//     $scope.loginStatus = true;
+//     // console.log($rootScope.currentUser);
+//     // $rootScope.test();
 
-  }).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  console.log(error);
-  if (errorCode == 'auth/account-exists-with-different-credential') {
-    $('.loginB').toggle();
-  }
-});
+//   }).catch(function(error) {
+//   // Handle Errors here.
+//   var errorCode = error.code;
+//   var errorMessage = error.message;
+//   // The email of the user's account used.
+//   var email = error.email;
+//   // The firebase.auth.AuthCredential type that was used.
+//   var credential = error.credential;
+//   console.log(error);
+//   if (errorCode == 'auth/account-exists-with-different-credential') {
+//     $('.loginB').toggle();
+//   }
+// });
 
 };
 
+
 $scope.login_selected = function() {
       // mainNav.children('ul').removeClass('is-visible');
+      // $('.cd-user-modal').addClass('is-visible');
+      // $scope.cdUserModal = ;
+      // $scope.cdUserModal.addClass('is-visible');
+
       $('.cd-user-modal').addClass('is-visible');
-      if ($('#cd-login').css('display')==='none')
-      {
+      // $('#cd-login').css('display', 'none');
+
+      // if ($('#cd-login').css('display')==='none')
+      // {
+        // $('#cd-login').toggle();
+      // }
+      // console.log( $('.loginB').css('display') != 'none' && $('#cd-login').css('display') == 'none' );
+
+      if ( ($('.loginB').css('display') != 'none' && $('#cd-login').css('display') == 'none') ) {
         $('#cd-login').toggle();
       }
-
       // formLogin.addClass('is-selected');
       // formSignup.removeClass('is-selected');
       // formForgotPassword.removeClass('is-selected');
@@ -108,10 +119,10 @@ $scope.login_selected = function() {
       // tabSignup.addClass('selected');
     };
 
-    $scope.switcher = function(event) {
-      event.preventDefault();
-      ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
-    }
+    // $scope.switcher = function(event) {
+    //   event.preventDefault();
+    //   ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
+    // }
 
 // $scope.changeVisible = function(event) {
 
