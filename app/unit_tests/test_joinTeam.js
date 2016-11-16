@@ -19,7 +19,7 @@ describe('Testing joinTeam-', function() {
             $controller('joinTeam', { $scope: $scope });
             $scope.firebase=firebase;
             $scope.joinTeamInPerson("UNITTEST",'UNITTEST_TEAM1');
-            $scope.firebase.auth().signInWithEmailAndPassword('dontdel9me21@gmail.com', 'howehowe').then(
+            $scope.firebase.auth().signInWithEmailAndPassword('dontdel9me20@gmail.com', 'howehowe').then(
                         function(){
                         setTimeout(function() {
                            done();
@@ -47,7 +47,7 @@ describe('Testing joinTeam-', function() {
             $scope.reqJoinTeamInPerson("UNITTEST",'UNITTEST_TEAM1');
             
             
-            $scope.firebase.auth().signInWithEmailAndPassword('dontdel9me22@gmail.com', 'howehowe').then(
+            $scope.firebase.auth().signInWithEmailAndPassword('dontdel9me13@gmail.com', 'howehowe').then(
                         function(){
                         setTimeout(function() {
                            done();

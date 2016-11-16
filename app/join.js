@@ -59,7 +59,7 @@ app.controller("joinTeam",
                                 function(exist)
                                 {
                                         //if(exist.val()){
-                                                window.alert("found!");
+                                                //window.alert("found!");
                                                 newRequest.eventName = event;
                                                 newRequest.targetTeam = teamName;
                                                 newRequest.memberName = exist.child("username").val();
