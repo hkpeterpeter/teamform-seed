@@ -393,10 +393,6 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
       return users.$getRecord(uid).readOnly.name;
     }
 
-    helper.getTeamname  = function(teamID){
-
-      $scope.teams.$getRecord(teamID).name;
-    }
 
     var ref=firebase.database().ref("users");
     var users = $firebaseArray(ref);
