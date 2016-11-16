@@ -26,6 +26,10 @@ describe('createGroupCtrl', function(){
 		$scope.tempTeam.name = "0123456789012345678901234567890123456789012345678901";
 		$scope.setTeamName();
 		expect(window.alert).toHaveBeenCalledWith("Team name: should not be longer than 50 words!");				
+
+		$scope.tempTeam.name = "123";
+		expect($scope.setTeamName()).toBe(true);
+
 	});
 
 	it('setMaxTeamMember can only allow each group has 2 to 20 members', function(){
@@ -71,7 +75,10 @@ describe('createGroupCtrl', function(){
 		$scope.tempTeam.estimatedBudgetPerPerson = 10000000;
 		$scope.setEstimateBudgetPerPerson();
 		expect(window.alert).toHaveBeenCalledWith("Budget per groupmate: should not be larger than 100000.");
-		expect($scope.tempTeam.estimatedBudgetPerPerson).toEqual(100);		
+		expect($scope.tempTeam.estimatedBudgetPerPerson).toEqual(100);	
+
+		$scope.tempTeam.estimatedBudgetPerPerson = 500;
+		expect($scope.setEstimateBudgetPerPerson()).toBe(true);		
 	});
 
 	it('setDestination requires user to select one destination', function(){
@@ -80,6 +87,9 @@ describe('createGroupCtrl', function(){
 		$scope.tempTeam.destination = "";
 		$scope.setDestination();
 		expect(window.alert).toHaveBeenCalledWith("Destination: Please choose one country as your destination.");
+
+		$scope.tempTeam.destination = "HK";
+		expect($scope.setDestination()).toBe(true);
 	});
 
 	it('setLanguage requires user to select one language', function(){
@@ -88,6 +98,9 @@ describe('createGroupCtrl', function(){
 		$scope.tempTeam.languageForCommunication = "";
 		$scope.setLanguageForCommunication();
 		expect(window.alert).toHaveBeenCalledWith("Language: Please choose one language as your main communication language.");
+	
+		$scope.tempTeam.languageForCommunication = "AG";
+		expect($scope.setLanguageForCommunication()).toBe(true);
 	});	
 /*
 	it('check datepicker has been called', function(){
@@ -119,25 +132,9 @@ describe('createGroupCtrl', function(){
 		$scope.setDepartureDate();
 		expect(window.alert).toHaveBeenCalledWith("Departure date: Cannot choose a day in the past.");
 
+		$scope.tempTeam.departureDate = "11/19/2016";
+		expect($scope.setDepartureDate()).toBe(true);
 	});
-/*
-	it('test', function(){
-		var changeDateFromStringToIntArray = function(dateString){
-	    	var partitionDate = dateString.split("/");
-	    	var intPartitionDate = [];
-	    	for(var i = 0; i < 3; i++){
-	    		intPartitionDate.push(parseInt(partitionDate[i]));
-	    	}
-	    	return intPartitionDate;
-	    };
-
-	    var test = changeDateFromStringToIntArray("11/16/2016");
-
-	    expect(test[0]).toEqual(11);
-	    expect(test[1]).toEqual(16);
-	    expect(test[2]).toEqual(2016);	    	    
-	});
-*/
 
 	it('setreturnDate do not allow user set a date before the departure date', function(){
 		spyOn(window, 'alert');
@@ -161,9 +158,12 @@ describe('createGroupCtrl', function(){
 		$scope.setReturnDate();
 		expect(window.alert).toHaveBeenCalledWith("Return date: Cannot choose a day in the past.");
 
+		$scope.tempTeam.departureDate = "11/20/2016";
+		$scope.tempTeam.returnDate = "11/30/2016";	
+		expect($scope.setReturnDate()).toBe(true);		
 	});	
 
 	it('createGroup() create a right team object', function(){
-		expect($scope.team.id).toEqual("");
+		
 	});
 });
