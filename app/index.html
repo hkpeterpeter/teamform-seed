@@ -50,11 +50,6 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="js/site.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-        // Initialize Firebase
-        initFirebase();
-    </script>
-
 
     <!-- For creating the module and the maia controller-->
     <script src="js/main.js" type="text/javascript"></script>
@@ -116,13 +111,13 @@ Add for debugging (setting currentUser) $rootScope.currentUser.id: <input ng-mod
                 ref_user.on("value", function(snapshot) {
                     var value=snapshot.val()[0];
                     console.log(value);
-                
+
                 }, function (errorObject) {
                 console.log("The read failed: " + errorObject.code);
                 });
             };
 
-            
+
             function addUser(User){};
             function addEvent(event){};
             function addTeam(team){};
