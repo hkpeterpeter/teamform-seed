@@ -26,35 +26,28 @@
 </script>
 
 <script src="SampleCtrl.js"></script>
-<script src="save.js"></script>
 <script src="Question.js"></script>
+<script src="team.js"></script>
 
 </head>
   <body>
     <div ng-controller="MyAuthCtrl">
-   		<button type="button" ng-click="createUser()" >Click Me!</button>
-   		<button type="button" ng-click="loginUser()" >Click Me2!</button><br>
-   		E-mail: <input type="text" name="mail" ng-model="input.email"><br>
-  		Password: <input type="text" name="pword" ng-model="input.password"><br>
-  		Display Name: <input type="text" name="dname" ng-model="input.displayname"><br><br>
+      <button type="button" ng-click="createUser()" >Click Me!</button>
+      <button type="button" ng-click="loginUser()" >Click Me2!</button><br>
+      E-mail: <input type="text" name="mail" ng-model="input.email"><br>
+      Password: <input type="text" name="pword" ng-model="input.password"><br>
+      Display Name: <input type="text" name="dname" ng-model="input.displayname"><br><br>
 
-    <br>
-    <br>
-    <br>
-    </div>
-    <div ng-controller="Question">
-      E-Q: <input type="text" name="mail" ng-model="questions.Question"><br>
-      YO: <input type="text" name="pword" ng-model="questions.YOYO"><br>
-      <button type="button" ng-click="DOIT()" >DO IT</button>
 
-      <div ng-repeat="q in question">
-      {{q.Question}} <br>
-      {{q.YOYO}}
+    
+
+
+      <div ng-controller="TeamCtrl">
+        <select ng-model="selectCourse" ng-options="c.courseName for c in course" ng-change="setCourse(selectCourse.$id)"></select>
       </div>
 
-
-    </div>
     
+    </div>
 
 
 

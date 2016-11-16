@@ -1,6 +1,6 @@
 app.controller("MyCtrl", ["$scope", "$firebaseObject",
   function($scope, $firebaseObject) {
-     var ref = firebase.database().ref('Question/');
+     var ref = firebase.database().ref("Course");
 
      var obj = $firebaseObject(ref);
 

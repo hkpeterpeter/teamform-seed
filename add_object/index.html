@@ -16,6 +16,7 @@
     </head>
 
   <body ng-controller="MainCtrl">
+<<<<<<< HEAD
   <p>
     <table>
         <tr>
@@ -24,6 +25,16 @@
         </tr>           
         <tr>
             <td>Search By :</td>
+=======
+
+    <table>
+        <tr>
+            <td align="right">Search :</td>
+            <td><input ng-model="query[queryBy]" /></td>
+        </tr>           
+        <tr>
+            <td align="right">Search By :</td>
+>>>>>>> 916cf08f0b37dd0baef2346546cbd79acc9e28b4
             <td>
                 <select ng-model="queryBy">
                     <option value="$"></option>
@@ -36,6 +47,7 @@
             </td>
         </tr>
     </table>
+<<<<<<< HEAD
     </p>
 
     <div ng-repeat="module in validation.modules | filter:query">
@@ -52,12 +64,29 @@
     
     
     <b>GradeAimed:</b> <select name="gradeSelect" ng-model="GradeAimed">
+=======
+
+
+    <div ng-repeat="module in validation.modules | filter:query">Name:{{module.Name}}
+    Skills:{{module.Skills}}
+    Position:{{module.Position}}
+    GradeAimed:{{module.GradeAimed}}</div>
+    <div>
+      <form name="myForm" novalidate class="simple-form">
+    Name:  <input value="" type="text" placeholder="Your Name" ng-model="Name"><br />
+    
+    <br />
+    Positon: <input value="" type="text" placeholder="Web developer, desinger... " ng-model="Position">
+    <br />
+    GradeAimed: <select name="gradeSelect" ng-model="GradeAimed">
+>>>>>>> 916cf08f0b37dd0baef2346546cbd79acc9e28b4
         <option value="A">A</option>
         <option value="B">B</option>
         <option value="C">C</option>
         <option value="D">D</option>
     </select> <br />
 
+<<<<<<< HEAD
     <b>Positon:</b> 
     <div ng-repeat="p in pos">
     <label>
@@ -78,6 +107,18 @@
 	    <button ng-click="addNewItem()">Add to list</button>
 	  </form>
 	  </div>
+=======
+<div ng-repeat="ch in citiesHospitals">
+        <p>{{ch.city}}</p>
+          <div class="checkbox" ng-repeat="h in ch.hospitals">
+            <label>
+              <input type="checkbox" checklist-model="filter.citiesHospitals['{{ch.city}}']" checklist-value="h.name"  ng-model="Skills">{{h.name}}
+            </label>
+          </div>
+    <button ng-click="addItem()">Add to list</button>
+  </form>
+  </div>
+>>>>>>> 916cf08f0b37dd0baef2346546cbd79acc9e28b4
   </body>
 
 </html>
