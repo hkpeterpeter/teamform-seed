@@ -13,7 +13,8 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-coverage": "^1.1.1",
     "karma-firefox-launcher": "^1.0.0",
-    "karma-jasmine": "^1.0.2"
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.2"
   },
   "scripts": {
     "prestart": "npm install",
