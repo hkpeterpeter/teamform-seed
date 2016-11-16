@@ -1,16 +1,16 @@
-initFirebase();
+//initFirebase();
 describe('admin request filter', function() {
 	beforeEach(module('teamapp', 'firebase'));
-  
+
   var $filter;
 
   beforeEach(inject(function(_$filter_){
     $filter = _$filter_;
-    
+
   }));
 
-  var items = {item1: {eventID: '0', $id: '1'}, 
-  						item2: {eventID: '1', $id: '0'}, 
+  var items = {item1: {eventID: '0', $id: '1'},
+  						item2: {eventID: '1', $id: '0'},
   						item3: {eventID: '0'}};
 
   it('returns empty list when given null', function() {
@@ -32,24 +32,24 @@ describe('teamapp_admin', function() {
 
    var teams = {0: {
                 $id: "0",
-                membersID: {mem11: 'member11', mem12: 'member12'}, 
+                membersID: {mem11: 'member11', mem12: 'member12'},
                 leaderID: 'leader1',
                 invitedPeople: {inv11: 'user0', inv12: 'user2'},
                 teamName: 'teamOne',
                 desiredSkills: {ski11: 'angular',ski12: 'java' }
                 },1: {
-                membersID: {mem21: 'member21'}, 
+                membersID: {mem21: 'member21'},
                 leaderID: 'leader2',
                 invitedPeople: {inv21: 'user0',inv22: 'user2'},
                 teamName: 'testTwo',
                 desiredSkills: {ski21: 'angular', ski13: 'random', ski14: 'test'}
                 },2: {
                 $id: "2",
-                membersID: {mem31: 'member31', mem32: 'member32', mem33: 'member33', mem34: 'member34', mem35: 'member35', mem36: 'member36', mem37: 'member37' }, 
+                membersID: {mem31: 'member31', mem32: 'member32', mem33: 'member33', mem34: 'member34', mem35: 'member35', mem36: 'member36', mem37: 'member37' },
                 leaderID: 'leader3',
                 teamName: 'testThree',
                 desiredSkills: {ski31: 'angular'}
-                },3: { 
+                },3: {
                 leaderID: 'leader4',
                 teamName: 'testFour',
                 invitedPeople: {inv21: 'user0',inv22: 'user2', inv23: 'user4', inv24: 'user6'},
@@ -79,15 +79,15 @@ describe('teamapp_admin', function() {
 
     	//$firebaseObject = _$firebaseObject_;
     	//$compile = _$compile_;
-    }));	
-  
+    }));
+
     beforeEach(function() {
 
 
   	  ctrl = $controller('admin_ctrl', { $scope: scope });
-      //deferred.resolve();     
+      //deferred.resolve();
       //spyOn(scope.event, '$loaded').and.returnValue(deferred.promise);
-      //deferred.resolve();     
+      //deferred.resolve();
     });
    //
    // the data used for testing
@@ -116,7 +116,7 @@ describe('teamapp_admin', function() {
     skills: {ski31: 'nullskill' },
     teamsAsMember: {t0: 1}
   }];
-           
+
 
 
 
@@ -170,7 +170,7 @@ describe('teamapp_admin', function() {
       scope.$apply();
       scope.adminMergeTeam(teams['0']);
       expect(teams['0']).toBeDefined();
-      expect(scope.teams['0']).toBeDefined(); 
+      expect(scope.teams['0']).toBeDefined();
       }, 5000);
       $timeout.flush(6000);
       expect('0').toEqual('1');
@@ -182,7 +182,7 @@ describe('teamapp_admin', function() {
       */
       scope.$apply();
       scope.adminMergeTeam(teams['0']);
-      
+
       expect(teams['0']).toBeDefined();
     })
    });
@@ -211,7 +211,7 @@ describe('teamapp_admin', function() {
 
 
     describe('team filter test', function(){
-      
+
       it ('should not show any team', function() {
 
 
@@ -220,7 +220,7 @@ describe('teamapp_admin', function() {
         scope.adminTeamSearch = null;
         expect(scope.teamFilter(teams['0'])).toEqual(false);
         expect(scope.teamFilter(teams['2'])).toEqual(false);
-      }); 
+      });
       it ('should not show full team', function() {
         scope.maxSize = 8;
         scope.adminTeamFull = false;
@@ -232,7 +232,7 @@ describe('teamapp_admin', function() {
         expect(scope.maxSize).toEqual(8);
         expect(scope.teamFilter(teams['3'])).toEqual(true);
         expect(scope.teamFilter(teams['2'])).toEqual(false);
-      }); 
+      });
       it ('should show full team', function() {
         scope.adminTeamFull = true;
         scope.adminTeamNotFull = false;
@@ -246,7 +246,7 @@ describe('teamapp_admin', function() {
         scope.adminTeamSearch = 'jav';
         expect(scope.teamFilter(teams['0'])).toEqual(true);
         expect(scope.teamFilter(teams['1'])).toEqual(false);
-      });  
+      });
     });
 
 
@@ -259,7 +259,7 @@ describe('teamapp_admin', function() {
         scope.adminUserSearch = null;
         expect(scope.userFilter(users[0])).toEqual(false);
         expect(scope.userFilter(users[2])).toEqual(false);
-      }); 
+      });
       it ('should not show requested user', function() {
         scope.adminUserRequest = false;
         scope.adminUserNotRequest = true;
@@ -268,7 +268,7 @@ describe('teamapp_admin', function() {
           expect(scope.userFilter(users[1])).toEqual(true);
           expect(scope.userFilter(users[2])).toEqual(true);
           expect(scope.userFilter(users[0])).toEqual(false);
-      }); 
+      });
       it ('should show requested user only', function() {
         scope.adminUserRequest = true;
         scope.adminUserNotRequest = false;
@@ -283,7 +283,7 @@ describe('teamapp_admin', function() {
         expect(scope.userFilter(users[0])).toEqual(true);
         expect(scope.userFilter(users[1])).toEqual(false);
         expect(scope.userFilter(users[2])).toEqual(false);
-      });  
+      });
     });
 
    describe('recommend test', function() {
