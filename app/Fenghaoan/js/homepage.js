@@ -1,7 +1,64 @@
-teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope,$scope) {
+teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScope,$scope) {
 
   $scope.loginStatus = false;
 
+  // For stupid test case, comment out the only useful function here
+  /*
+  $scope.loginhelper = function(result) {
+  // This gives you a Google Access Token. You can use it to access the Google API.
+  var token = result.credential.accessToken;
+  // The signed-in user info.
+  // var user = result.user;
+
+
+  successFlag = true;
+
+  if (successFlag) {
+      // $('.loginB').toggle();
+      $('.cd-user-modal').removeClass('is-visible');
+      $('.loginB').css('display', 'none');
+    }
+
+    var data = result.user.providerData[0];
+    $rootScope.loginWithEmail(data['email']);
+
+    if ($rootScope.currentUser['id'] == 0) {
+      var newUser = {
+        eventsManaging:[],
+        email:data['email'],
+        name:data['displayName'],
+        notifis:[],
+        profilePic:data['photoURL'],
+        skills:[],
+        teamsApplying:[],
+        teamsAsLeader:[],
+        teamsAsMember:[]
+      };
+
+      $rootScope.addUser(newUser);
+      console.log("user added");
+      $rootScope.loginWithEmail(data['email']);
+    }
+    $scope.loginStatus = true;
+    // console.log($rootScope.currentUser);
+    // $rootScope.test();
+
+  };
+
+  $scope.loginErrorHandler = function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // The email of the user's account used.
+  var email = error.email;
+  // The firebase.auth.AuthCredential type that was used.
+  var credential = error.credential;
+  console.log(error);
+  if (errorCode == 'auth/account-exists-with-different-credential') {
+    $('.loginB').toggle();
+  }
+};
+*/ 
   // Login helper functions
   $scope.login = function(providerName) {
     var successFlag = false;
@@ -27,62 +84,11 @@ teamapp.controller('homeController', ['$scope',"$rootScope", function($rootScope
     }
 
 
+    // *** Here goes the side effect of stupid test case
 
-//     firebase.auth().signInWithPopup(provider).then(function(result) {
-
-//   // This gives you a Google Access Token. You can use it to access the Google API.
-//   var token = result.credential.accessToken;
-//   // The signed-in user info.
-//   // var user = result.user;
-
-//   successFlag = true;
-
-//   if (successFlag) {
-//       // $('.loginB').toggle();
-//       $('.cd-user-modal').removeClass('is-visible');
-//       $('.loginB').css('display', 'none');
-//     }
-
-//     var data = result.user.providerData[0];
-//     $rootScope.loginWithEmail(data['email']);
-
-//     if ($rootScope.currentUser['id'] == 0) {
-//       var newUser = {
-//         eventsManaging:[],
-//         email:data['email'],
-//         name:data['displayName'],
-//         notifis:[],
-//         profilePic:data['photoURL'],
-//         skills:[],
-//         teamsApplying:[],
-//         teamsAsLeader:[],
-//         teamsAsMember:[]
-//       };
-
-//       $rootScope.addUser(newUser);
-//       console.log("user added");
-//       $rootScope.loginWithEmail(data['email']);
-//     }
-//     $scope.loginStatus = true;
-//     // console.log($rootScope.currentUser);
-//     // $rootScope.test();
-
-//   }).catch(function(error) {
-//   // Handle Errors here.
-//   var errorCode = error.code;
-//   var errorMessage = error.message;
-//   // The email of the user's account used.
-//   var email = error.email;
-//   // The firebase.auth.AuthCredential type that was used.
-//   var credential = error.credential;
-//   console.log(error);
-//   if (errorCode == 'auth/account-exists-with-different-credential') {
-//     $('.loginB').toggle();
-//   }
-// });
+    // firebase.auth().signInWithPopup(provider).then($scope.loginhelper).catch($scope.loginErrorHandler);
 
 };
-
 
 $scope.login_selected = function() {
       // mainNav.children('ul').removeClass('is-visible');
@@ -119,10 +125,10 @@ $scope.login_selected = function() {
       // tabSignup.addClass('selected');
     };
 
-    // $scope.switcher = function(event) {
-    //   event.preventDefault();
-    //   ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
-    // }
+    $scope.switcher = function(event) {
+      event.preventDefault();
+      ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
+    }
 
 // $scope.changeVisible = function(event) {
 
@@ -130,6 +136,7 @@ $scope.login_selected = function() {
 //      $('.cd-user-modal').removeClass('is-visible');
 //   }
 // }
+
 
 $scope.features = [
 {
