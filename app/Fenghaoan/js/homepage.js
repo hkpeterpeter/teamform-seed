@@ -90,6 +90,8 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
 
 };
 
+$scope.i = 0;
+
 $scope.login_selected = function() {
       // mainNav.children('ul').removeClass('is-visible');
       // $('.cd-user-modal').addClass('is-visible');
@@ -105,7 +107,11 @@ $scope.login_selected = function() {
       // }
       // console.log( $('.loginB').css('display') != 'none' && $('#cd-login').css('display') == 'none' );
 
-      if ( ($('.loginB').css('display') != 'none' && $('#cd-login').css('display') == 'none') ) {
+      // if ( ($('.loginB').css('display') != 'none' && $('#cd-login').css('display') == 'none') ) {
+      //   $('#cd-login').toggle();
+      // }
+
+      if ($scope.i++ == 0) {
         $('#cd-login').toggle();
       }
       // formLogin.addClass('is-selected');
@@ -127,7 +133,8 @@ $scope.login_selected = function() {
 
     $scope.switcher = function(event) {
       event.preventDefault();
-      ( $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected() )
+      // $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected();
+      $scope.login_selected();
     }
 
 // $scope.changeVisible = function(event) {
