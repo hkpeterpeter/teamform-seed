@@ -34,7 +34,7 @@ describe('homeController', function() {
 	// 	var controller = createController();
 
 	// 	var result = {
-			
+		
 	// 		'credential': {
 	// 			'accessToken':"ya29.CjWYA5hfM2b_U2JfpRNOoiFNxdj9nqpk0Jqyzy2GqmOacf_TD6aJf3Y8sRpa1fOY4Avwt1P0bw",
 	// 			'idToken':"eyJhbGciOiJSUzI1NiIsImtpZCI6ImRhOWUzZDdjZGQxYjQxNzgwMTBmODlhZjExY2ZkMzc0MDAwNjFhZmMifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiaWF0IjoxNDc5MjcyNjE3LCJleHAiOjE0NzkyNzYyMTcsImF0X2hhc2giOiJTZzVGcnlSRkYtZDB2aW95YXZhWVFBIiwiYXVkIjoiMTA1Nzg0MzYxMzU1Mi0xNXJhN2YzYjd0azQ2Mm1kOXRsbGg3c2xrMTdxN2I2bC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjExODIwNTY3NTYxNzc2MzEwNDQwMyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhenAiOiIxMDU3ODQzNjEzNTUyLTE1cmE3ZjNiN3RrNDYybWQ5dGxsaDdzbGsxN3E3YjZsLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiZW1haWwiOiJ1bmRlZmluZWQuaGt1c3RAZ21haWwuY29tIn0.khbT_p5GSkYg3zW9B2mMHmh0bgkzRtnUKiZNGt7ykFJprmGiNs0FApzKwJeZISZPWAqcKlPJBy9H4mTvTUmka8tpxrMZZ829MGFJRBLRLtNsupFenynAh-0rQE32fOTPCUZ5aezUdUdG_h3Vjhosdrum9YZlaRhAroVTpQDnpxz0MjWMGVt-zPN8o8frA6f7x40buy9oOx0PyrogUvO1DnYcCNU8AhdNH5s401m9xDTFJ-DZDLaC7m3Hd958PzTmwOTSaIbVfu3k42BPBg24b7sOR0z12-VFpmuLd8UHwqfCh4SOfJGFmgOcQrCFLb5TaX1wPkSP3U9Mzcw0eNETJg",
@@ -69,7 +69,7 @@ describe('homeController', function() {
 	it('login_selected', function() {
 		var controller = createController();
 		$scope.login_selected();
-
+		$scope.login_selected();
 	});
 
 	it('signup_selected', function() {
@@ -87,8 +87,8 @@ describe('homeController', function() {
 
 
 describe('Unit testing feature card', function() {
-  var $compile,
-      $rootScope;
+	var $compile,
+	$rootScope;
 
   // Load the myApp module, which contains the directive
   beforeEach(module('teamapp'));
@@ -100,7 +100,7 @@ describe('Unit testing feature card', function() {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
     $templateCache.put('Fenghaoan/js/featureCard.html', '<div class="row"><div class="col s10 l8 offset-l1"  ng-show="{{feature.flip}}"><div class="card horizontal"><div class="card-image"><div style="display:table;height:100%"><div style=" display: table-cell;vertical-align: middle;"> <img ng-src="{{feature.image_path}}" style="height:263px;width: 263px"/></div></div></div><div class="card-stacked"><div class="card-content" style="height: 200px;overflow: hidden "><div>{{ feature.content }}</div></div></div></div></div><div class="col s10 l8 offset-l3  offset-s2"  ng-show="!{{feature.flip}}"><div class="card horizontal"><div class="card-stacked"><div class="card-content" style="height: 200px;overflow: hidden "><div>{{ feature.content }}</div> </div></div><div class="card-image"><div style="display:table;height:100%"><div style=" display: table-cell;vertical-align: middle;"><img ng-src="{{feature.image_path}}" style="height:263px;width: 263px"/></div></div></div></div></div></div>');
-  }));
+}));
 
   it('Replaces the element with the appropriate content', function() {
     // Compile a piece of HTML containing the directive
@@ -110,14 +110,14 @@ describe('Unit testing feature card', function() {
     // Check that the compiled element contains the templated content
     expect(element.html()).toContain("card");
     // expect(element.html()).toContain("input");
-  });
+});
 
 });
 
 
 describe('Unit testing feature card', function() {
-  var $compile,
-      $rootScope;
+	var $compile,
+	$rootScope;
 
   // Load the myApp module, which contains the directive
   beforeEach(module('teamapp'));
@@ -139,6 +139,6 @@ describe('Unit testing feature card', function() {
     // Check that the compiled element contains the templated content
     expect(element.html()).toContain("card");
     // expect(element.html()).toContain("input");
-  });
+});
 
 });
