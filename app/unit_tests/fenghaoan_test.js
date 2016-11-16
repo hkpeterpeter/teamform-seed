@@ -1,4 +1,4 @@
-initFirebase();
+//initFirebase();
 
 describe('homeController', function() {
 
