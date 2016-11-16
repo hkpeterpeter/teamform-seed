@@ -28,7 +28,7 @@
       <script src="js/site.js"></script>
 	  	  
    </head>
-   <body>
+   <body ng-app="teamform-team-app" ng-controller="TeamCtrl">
 
     <a href="index.html"
    <button id="btn_admin" type="button" class="btn btn-primary" >
@@ -136,27 +136,48 @@
 
 
 
-            <div class="col-md-4 col-xs-4 text-left">
-			
-					
-			 
-					<h3>All teams:</h3>
-					<ul ng-repeat="t in team">
-						<li>
-						
-							User ID: {{t.$id}}  <br>
-							Preferred team size: <span class="badge">{{t.size}}</span> <br>
-							Current team members: {{t.teamMembers}}
-						
-						</li>
-						
-					</ul>			
-			
-			</div>
+            
          </div>
 
 
        </div>
+	   <th>Departure Date</th>
+     <th>Return Date</th>
+     <th>Team Name</th>
+          <th>Description</th>
+          <th>Destination</th>
+          <th>Est.Bud. Per Person</th>
+          <th>Commu. Lang.</th>
+          <th>Preference</th>
+    <!--  //<td>Members</td> -->
+          <th>Max No. of members</th>
+          <th>Tags</th>
+          <th>Members List</th>
+
+     </tr>
+
+
+
+
+           <tr ng-repeat="team in teams">
+         <td align="center">{{team.departure_date}}</td>
+         <td align="center">{{team.return_date}}</td>
+         <td align="center">{{team.name}}</td>
+         <td align="center">{{team.descriptions}}</td>
+         <td align="center">{{team.destination}}</td>
+         <td align="center">{{team.estimated_budget_per_person}}</td>
+         <td align="center">{{team.language_for_communication}}</td>
+         <td align="center">{{team.preference}}</td>
+         <td align="center">{{team.max}}</td>
+         <td align="center">{{team.tags}}</td>
+         <td align="center">{{team.members}}</td>
+
+
+
+         </tr>
+        
+         </table>
+         </div>
    </div>
 
 
