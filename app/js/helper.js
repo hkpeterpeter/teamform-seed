@@ -388,6 +388,9 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         // return helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
     }
 
+    var ref=firebase.database().ref("users");
+    var users = $firebaseArray(ref);
+
     helper.getUsername  = function(uid){
 
       return users.$getRecord(uid).readOnly.name;
@@ -395,11 +398,9 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
     helper.getTeamname  = function(teamID){
 
-      $scope.teams.$getRecord(teamID).name;
+      return teams.$getRecord(teamID).name;
     }
 
-    var ref=firebase.database().ref("users");
-    var users = $firebaseArray(ref);
 
     helper.joinEvent = function(uid, eventID) {
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);
