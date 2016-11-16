@@ -22,8 +22,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   $scope.adminTeamNotFull = true;
 
   $rootScope.admintesting = '0';
-  $scope.event = $rootScope.bindedclickedEvent; //$firebaseObject($rootScope.event_ref.child('0'));
-
+  if ($rootScope.bindedclickedEvent != null)
+  	$scope.event = $rootScope.bindedclickedEvent; //$firebaseObject($rootScope.event_ref.child('0'));
   //$scope.event.$loaded().then(function(){
   	
   	//$rootScope.eventTeams = event.allTeams;
@@ -67,8 +67,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   		$rootScope.team_ref.child(team.$id.toString()).remove();    
 	};
 
-	$scope.adminMergeTeam = function(team) {
-		var teamName = team.adminMerge;
+	$scope.findTeamByName = function(teamName) {
 		var mergedTeam;
 		for (var key in $scope.teams) {
 			if ($scope.teams[key].teamName == teamName) {
@@ -76,14 +75,31 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			};
 		};
 
+		return mergedTeam;
+	}
+
+	$scope.canMergeTeams = function(mergedTeam, team) {
+		var mergedTeamSize = $scope.getLength(mergedTeam);
+		var curTeamSize = $scope.getLength(team);
+		if (mergedTeamSize + curTeamSize > $scope.maxSize) {
+			console.log("exceed team member limit");
+			return false;
+		} else {
+			return true;
+		};
+	};
+
+	$scope.adminMergeTeam = function(team) {
+		var teamName = team.adminMerge;
+		var mergedTeam = $scope.findTeamByName(teamName);
+
+
 		if (mergedTeam == null || teamName == null) {
 			console.log("No Such Team");
 			return;
 		};
 
-		var mergedTeamSize = $scope.getLength(mergedTeam);
-		var curTeamSize = $scope.getLength(team);
-		if (mergedTeamSize + curTeamSize > $scope.maxSize) {
+		if (canMergeTeams(mergedTeam, team) == false) {
 			console.log("exceed team member limit");
 			return;
 		};
@@ -103,108 +119,137 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 	
 	};
 
-
-// Functions - USER
-	$scope.adminAddUserToTeam = function(key, request, user) {
-		var curTeamSize = $scope.getLength($scope.teams.$getRecord(request.teamID.toString()));
-		var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
-		if (curTeamSize < parseInt($scope.maxSize)) {
+	$scope.adminUpdateUserInfo = function(team, user) {
+		var curTeamSize = $scope.getLength(team);
+		if (curTeamSize >= parseInt($scope.maxSize)) {
+			return false;
+		};
 			//Add user to team member
-			curTeamMember.$add(user.$id.toString());
+			var curTeamMember = team.membersID;
 
-			var curUser = $rootScope.user_ref.child(user.$id.toString());
+			curTeamMember[user.$id] = user.$id;
 
 			//Add user to teamAsMember
-			var curUserIn = curUser.child("teamsAsMember");
-			var curUserInList = $firebaseArray(curUserIn);
-			//var curUserOutList = $firebaseArray(curUserOut);
-			curUserInList.$add(request.teamID);
+			user.teamsAsMember[team.$id] = team.$id;
 
 			//Delete this request from teamsApplying
-			var curUserOut = $firebaseObject(curUser);
-			curUserOut.$loaded().then(function(){
-
-				for (var key in curUserOut.teamsApplying) {
-					//console.log(curUserOut.teamsApplying.teamID);
-					if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
-						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
+			var curUserOut = user.teamsApplying;
+				for (var key in curUserOut) {
+					if (curUserOut[key].eventID == $scope.event.$id) {
+						curUserOut[key] = null;
 					}
 				};
-			});
 
-
-			//curUserOutList.$remove(request);
-			var index = $scope.users.indexOf(user);
-  		$scope.users.splice(index, 1);  
+			//var index = $scope.users.indexOf(user);
+  		//$scope.users.splice(index, 1);  
 			// Remove waiting user from database-event
 			for (var key in $scope.event.waitingUsers) {
 				if($scope.event.waitingUsers[key] == user.$id) {
-					$rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
+					$scope.event.waitingUsers[key] = null;
 					break;
 				};
 			};
-			
-		} else {
-			console.log("the team is full");
-		}
+		return true;
 	};
 
-	$scope.adminAddUserToOtherTeam = function(user) {
-		var teamName = user.adminAdd;
-		var teamID;
-		var curTeamSize;
 
-		for (var key in $scope.teams) {
-			if ($scope.teams[key].teamName == teamName) {
-				teamID = $scope.teams[key].$id;
-				curTeamSize = $scope.getLength($scope.teams[key]);
+
+
+	$scope.findSuitableUser = function(team, users) {
+		if (users == null)
+			users = $scope.users;
+		var invites = [];
+		var notInvites = [];
+		if (team.invitedPeople != null) {
+		for (var i = users.length - 1; i >= 0; i--) {
+			for (var key in team.invitedPeople) {
+				if (team.invitedPeople[key] == users[i].$id) {
+					invites.push(users[i]);
+				} else {
+					notInvites.push(users[i]);
+				};
 			};
 		};
-
-		if (teamID == null || teamName == null) {
-			console.log("No Such Team");
-			return;
+	} else {
+		for (var i = users.length - 1; i >= 0; i--) {
+			notInvites.push(users[i]);
 		}
-			
-		var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
+	}
 
-		if (curTeamSize < parseInt($scope.maxSize)) {
-			//Add user to team member
-			curTeamMember.$add(user.$id.toString());
+		if (invites.length != 0) {
+			var maxCover1 = -1;
+			var maxCover2 = -1;
+			var curUser;
+			for (var i = invites.length - 1; i >= 0; i--) {
+				var skillCover = 0;
 
-			var curUser = $rootScope.user_ref.child(user.$id.toString());
-
-			//Add user to teamAsMember
-			var curUserIn = curUser.child("teamsAsMember");
-			var curUserInList = $firebaseArray(curUserIn);
-			curUserInList.$add(teamID);
-			
-			//Delete all requests of this event from teamsApplying
-			var curUserOut = $firebaseObject(curUser);
-			curUserOut.$loaded().then(function(){
-				//console.log(curUserOut);
-				for (var key in curUserOut.teamsApplying) {
-					//console.log(curUserOut.teamsApplying.teamID);
-					if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
-						$rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
+				for (var key in team.desiredSkills) {
+					for (var key2 in invites[i].skills) {
+						if(team.desiredSkills[key] == invites[i].skills[key2]) {
+							skillCover = skillCover + 1;
+							break;
+						}
 					}
-				};
-			});		
+				}
+				if (skillCover > maxCover1) {
+					curUser = invites[i];
+					maxCover1 = skillCover;
+				}
+			}
+			$scope.adminUserSearch = curUser.name;
+			console.log(curUser.name);
+			console.log(notInvites.length);
+
+			if (notInvites.length != 0) {
+				for (var i = notInvites.length - 1; i >= 0; i--) {
+					var skillCover = 0;
+
+					for (var key in team.desiredSkills) {
+						for (var key2 in notInvites[i].skills) {
+							if(team.desiredSkills[key] == notInvites[i].skills[key2]) {
+								skillCover = skillCover + 1;
+								break;
+							}
+						}
+					}
+					if (skillCover > maxCover2) {
+						maxCover2 = skillCover;
+					}
+					if (skillCover >= maxCover1 + 2) {
+						curUser = notInvites[i]; 
+					}
+				}				
+			}
 
 
-			var index = $scope.users.indexOf(user);
-  		$scope.users.splice(index, 1);  
-			// Remove waiting user from database-event
-			for (var key in $scope.event.waitingUsers) {
-				if($scope.event.waitingUsers[key] == user.$id) {
-					$rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
-					break;
-				};
-			};
+			return curUser;
 		} else {
-			console.log("the team is full");
-		};
+			var maxCover = -1;
+			var curUser;
+			for (var i = notInvites.length - 1; i >= 0; i--) {
+				var skillCover = 0;
+
+				for (var key in team.desiredSkills) {
+					for (var key2 in notInvites[i].skills) {
+						if(team.desiredSkills[key] == notInvites[i].skills[key2]) {
+							skillCover = skillCover + 1;
+							break;
+						}
+					}
+				}
+				if (skillCover > maxCover) {
+					curUser = notInvites[i];
+					maxCover = skillCover;
+				}
+			}
+			$scope.adminUserSearch = curUser.name;
+			return curUser;			
+		}
+
 	};
+
+
+
 
 // Filter - team
   	
