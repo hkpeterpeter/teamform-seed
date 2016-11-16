@@ -84,6 +84,79 @@
 
 
           <!-- Team Filter Ends -->
+<!-- js functions -->
+<script type="text/javascript">
+  $scope.adminAddUser = function(teamID, curTeamSize, curTeamMember, user) {
+    if (curTeamSize < parseInt($scope.maxSize)) {
+      //Add user to team member
+      curTeamMember.$add(user.$id.toString());
+
+      var curUser = $rootScope.user_ref.child(user.$id.toString());
+
+      //Add user to teamAsMember
+      var curUserIn = curUser.child("teamsAsMember");
+      var curUserInList = $firebaseArray(curUserIn);
+      curUserInList.$add(teamID);
+
+      //Delete this request from teamsApplying
+      var curUserOut = $firebaseObject(curUser);
+      curUserOut.$loaded().then(function(){
+        for (var key in curUserOut.teamsApplying) {
+          if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
+            $rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
+          }
+        };
+      });
+
+      var index = $scope.users.indexOf(user);
+      $scope.users.splice(index, 1);  
+      // Remove waiting user from database-event
+      for (var key in $scope.event.waitingUsers) {
+        if($scope.event.waitingUsers[key] == user.$id) {
+          $rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
+          break;
+        };
+      };
+      
+    } else {
+      console.log("the team is full");
+      return false;
+    }   
+    return true;
+  };
+
+// Functions - USER
+  $scope.adminAddUserToTeam = function(key, request, user) {
+    var curTeamSize = $scope.getLength($scope.teams.$getRecord(request.teamID.toString()));
+    var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
+    var teamID = request.teamID;
+    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
+
+
+  };
+
+  $scope.adminAddUserToOtherTeam = function(user) {
+    console.log("test");
+    var teamName = user.adminAdd;
+    var curTeamSize;
+
+    var team = $scope.findTeamByName(teamName);
+
+    if (team == null || teamName == null) {
+      console.log("No Such Team");
+      return;
+    }
+    var teamID = team.$id;
+    var curTeamSize = $scope.getLength(team);
+    var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
+    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
+
+  };  
+
+</script>
+<!-- js functions ends -->
+
+
     			<!-- A Single Card -->
           <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams | filter:teamFilter">
             <div class="card-content white-text">
@@ -106,6 +179,7 @@
               <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge">
               <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="remove(team)">Delete</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="adminMergeTeam(team)">Merge</button>
+              <button class="btn-flat orange-text admin-team-btn" ng-click="findSuitableUser(team)">Recommend</button>
             </div>
 
             <div class="card-reveal blue-grey darken-1 white-text">
