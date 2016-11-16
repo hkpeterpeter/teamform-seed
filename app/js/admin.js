@@ -9,6 +9,10 @@ $(document).ready(function(){
 
 });
 
+function reload() {
+	location.reload();
+}
+
 angular.module('teamform-admin-app', ['firebase'])
 .directive('login', function() {
     return {
@@ -22,6 +26,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
+	$scope.event = "";
 	
 	var refPath, ref, eventName;
 
@@ -48,7 +53,7 @@ angular.module('teamform-admin-app', ['firebase'])
 				$scope.param.eventAdmin = user.uid;
 				$scope.param.$save();
 				alert("Created new event " + eventName);
-				location.reload();
+				firebase.database().ref("eventList/" + eventName).set({ status: "active" }).then(reload);
 			}
 		} else if($scope.param.eventAdmin !== firebase.auth().currentUser.uid) {
 			$("#admin_page_controller button").hide();
@@ -87,8 +92,13 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.terminateEvent = function() {
 		var eventName = getURLParameter("q");
 		var refPath = eventName;
+		alert("Closed event " + eventName);
 		firebase.database().ref(refPath).remove();
-		window.location.href= "index.html";
+		firebase.database().ref("eventList/" + eventName).update({
+			status: "inactive"
+		}, function() {
+			window.location.href = "index.html";
+		});
 	};
 	
 	$scope.hasTeam = function(member) {
