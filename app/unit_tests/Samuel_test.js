@@ -1,7 +1,6 @@
 /**
  * Created by Samuel on 15/11/2016.
  */
-initFirebase();
 describe('dashboardController', function () {
 
     beforeEach(module('teamapp', 'firebase'));
