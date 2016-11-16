@@ -1,9 +1,9 @@
-describe('createEv.js', function() {
+describe('profile.js', function() {
   // Example: A test case of createEventCtrl
-  describe('createEventCtrl',function(){
+  describe('profileCtrl',function(){
     var firebaseRef, scope;
 
-    beforeEach(module("teamform-member-app"));
+    beforeEach(module("teamform-admin-app"));
     beforeEach(inject(function ($rootScope, $controller, $firebaseObject) {
       scope = $rootScope.$new();
 
