@@ -9,7 +9,7 @@ describe('LoginController', function () {
         ctrl = $controller('LoginController', {
             $scope: $scope
         });
-                $scope.testingLogin = true;
+        $scope.testingLogin = true;
     }));
 
     it('loggingIn', function () {
@@ -28,7 +28,7 @@ describe('LoginController', function () {
         $scope.testingLogin = true;
 
         $scope.loginUser();
-        // expect($scope.loggedIn).toEqual(true);
+        expect($scope.loggedIn).toEqual(true);
     });
 
     it('loggingInTestFailed', function () {
@@ -149,7 +149,7 @@ describe('RegController', function () {
         $scope.date = "2016-09-01";
         $scope.nofile = false;
         $scope.testingFile = false;
-        
+
         $scope.submit();
     });
 
@@ -158,7 +158,7 @@ describe('RegController', function () {
         $scope.passwordReg = "samkksamkksamkk";
         $scope.nofile = false;
         $scope.testingFile = false;
-        
+
         $scope.submit();
     });
 
@@ -193,7 +193,7 @@ describe('RegController', function () {
         $scope.date = "2016-09-01";
         $scope.nofile = false;
         $scope.testingFile = false;
-        
+
         $scope.submit();
     });
 
@@ -255,7 +255,7 @@ describe('Global Funcs', function () {
     });
 
     it('preview image', function () {
-        previewMethod({files: ["image"]});
+        previewMethod({ files: ["image"] });
     });
 
     it('change preview image', function () {
@@ -275,7 +275,7 @@ describe('Global Funcs', function () {
     it('want to login with pw and email when logged in', function () {
         isLoggedIn = true;
         loginByEmailAndPw();
-    });  
+    });
 
     it('want to login with pw and email when NOT logged in', function () {
         isLoggedIn = false;
@@ -285,7 +285,7 @@ describe('Global Funcs', function () {
     it('want to login with fb when logged in', function () {
         isLoggedIn = true;
         loginByFbCall();
-    });  
+    });
 
     it('want to login with fb when NOT logged in', function () {
         isLoggedIn = false;
@@ -324,10 +324,10 @@ describe('Global Funcs', function () {
     });
 
     it('fb api error with msg', function () {
-        fbAPIError({code: "auth/popup-closed-by-user"});
+        fbAPIError({ code: "auth/popup-closed-by-user" });
     });
 
     it('test snap', function () {
-        snap({numChildren() { return 0; } });
+        snap({ numChildren() { return 0; } });
     });
 });

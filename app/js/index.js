@@ -45,8 +45,8 @@ app.controller("LoginController",
         $scope.loggedIn = isLoggedIn;
 
         $scope.loginUser = function() {
-            $("#dialog").dialog('close');
-            $("#loginByMailAndPwDialog").dialog('close');
+            // $("#dialog").dialog('close');
+            // $("#loginByMailAndPwDialog").dialog('close');
             $("#regDialog").dialog('close');
 
             $("#email").val("");
@@ -130,8 +130,8 @@ app.controller("RegController",
             var name = $scope.namee;
             var nameLast = $scope.nameee;
 
-            $("#dialog").dialog('close');
-            $("#loginByMailAndPwDialog").dialog('close');
+            // $("#dialog").dialog('close');
+            // $("#loginByMailAndPwDialog").dialog('close');
             $("#regDialog").dialog('close');
 
             $scope.emailReg = "";
@@ -157,7 +157,14 @@ app.controller("RegController",
                 if ($("#pImg").val() != null)
                     file = $('#pImg')[0].files[0];
                 else {
-                    file = new File([""], "filename.txt", { type: "image/jpeg", lastModified: "1463230326000", lastModifiedDate: "Sat May 14 2016 20:52:06 GMT+0800 (HKT)", size: "55609", webkitRelativePath: "", name: "fake" });
+                    file = new File([""], "filename.txt", {
+                        type: "image/jpeg",
+                        lastModified: "1463230326000",
+                        lastModifiedDate: "Sat May 14 2016 20:52:06 GMT+0800 (HKT)",
+                        size: "55609",
+                        webkitRelativePath: "",
+                        name: "fake"
+                    });
                 }
                 console.log(file);
 
@@ -291,14 +298,14 @@ window.fbAsyncInit = fber;
     js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
-} (document, 'script', 'facebook-jssdk'));
+}(document, 'script', 'facebook-jssdk'));
 
 // init dialogs
 $("#dialog").dialog();
-$("#loginByMailAndPwDialog").dialog();
+// $("#loginByMailAndPwDialog").dialog();
 $("#regDialog").dialog();
-$("#dialog").dialog('close');
-$("#loginByMailAndPwDialog").dialog('close');
+// $("#dialog").dialog('close');
+// $("#loginByMailAndPwDialog").dialog('close');
 $("#regDialog").dialog('close');
 
 var asked = false;
@@ -309,7 +316,7 @@ var token;
 function checkCurUser() {
     var user = firebase.auth().currentUser;
     // if (user) {
-        // console.log(user);
+    // console.log(user);
     // }
     return user;
 }
@@ -327,10 +334,10 @@ var fbAPIError = function(error) {
     isLoggedIn = false;
 
     $("#log").text("Login");
-    $("#log").css('color', '#009900');
+    $("#log").css('color', '#FFFFFF');
 
     // if the user close the login popup and igore the login process, give it a login button
-    if (errorCode == "auth/popup-closed-by-user") { }
+    if (errorCode == "auth/popup-closed-by-user") {}
 
 };
 
@@ -386,16 +393,16 @@ function popupLogin() {
 
 
         }, {
-                scope: 'public_profile,user_birthday,user_about_me,user_location,user_hometown',
-                return_scopes: true
-            });
+            scope: 'public_profile,user_birthday,user_about_me,user_location,user_hometown',
+            return_scopes: true
+        });
 
     }).catch(fbAPIError);
 }
 
 
 $("#log").text("Login");
-$("#log").css('color', '#009900');
+$("#log").css('color', '#FFFFFF');
 
 var stateChange = function(user) {
     if (user) {
@@ -412,7 +419,7 @@ var stateChange = function(user) {
         // console.log("not yet login :(");
 
         $("#log").text("Login");
-        $("#log").css('color', '#009900');
+        $("#log").css('color', '#FFFFFF');
 
         isLoggedIn = false;
     }
@@ -598,14 +605,13 @@ var logoter = function() {
     alert("Logout! See you again :)");
 };
 
-var logoterError = function(error) { };
+var logoterError = function(error) {};
 
 var logoutFunc = function() {
-
     if (($("#log").text() == "Login" || tester == "login") && tester2 == "logout") {
-        $("#loginByMailAndPwDialog").dialog('close');
+        // $("#loginByMailAndPwDialog").dialog('close');
         $("#regDialog").dialog('close');
-        $("#dialog").dialog();
+        // $("#dialog").dialog();
         console.log("want to login");
     } else {
         // logout
@@ -618,8 +624,8 @@ $("#log").click(logoutFunc);
 var loginByFbCall = function() {
     if (isLoggedIn == false) {
         popupLogin();
-        $("#dialog").dialog('close');
-        $("#loginByMailAndPwDialog").dialog('close');
+        // $("#dialog").dialog('close');
+        // $("#loginByMailAndPwDialog").dialog('close');
         $("#regDialog").dialog('close');
     } else {
         alert("You have logged in!");
@@ -630,20 +636,20 @@ $("#loginByFb").click(loginByFbCall);
 
 var loginByEmailAndPw = function() {
     if (isLoggedIn == false) {
-        $("#dialog").dialog('close');
+        // $("#dialog").dialog('close');
         $("#regDialog").dialog('close');
-        $("#loginByMailAndPwDialog").dialog();
+        // $("#loginByMailAndPwDialog").dialog();
     } else {
         alert("You have logged in!");
     }
 };
 
-$("#loginByMailAndPw").click(loginByEmailAndPw);
+// $("#loginByMailAndPw").click(loginByEmailAndPw);
 
 var reger = function() {
     if (isLoggedIn == false) {
-        $("#dialog").dialog('close');
-        $("#loginByMailAndPwDialog").dialog('close');
+        // $("#dialog").dialog('close');
+        // $("#loginByMailAndPwDialog").dialog('close');
         $("#regDialog").dialog();
     } else {
         alert("You have logged in!");
