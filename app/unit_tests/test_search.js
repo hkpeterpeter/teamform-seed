@@ -54,6 +54,8 @@ describe('searchCtrl', function() {
         $scope.constraint.clearM();
         $scope.constraint.clear();
         expect($scope.constraint.hasConstraints()).toEqual(false);
+        expect(parseInt($scope.constraint.tm)).toEqual(0);
+        expect($scope.constraint.t[0]).toEqual("-1");
         expect($scope.constraint.hasTeamConstraints()).toEqual(false);
         expect($scope.constraint.hasMemberConstraints()).toEqual(false);
 
