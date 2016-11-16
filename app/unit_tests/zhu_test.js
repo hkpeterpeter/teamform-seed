@@ -148,8 +148,9 @@ describe('Test site.js', function() {
 			var element=$compile("<zhu-navi>I am BASIC</zhu-navi>")($rootScope);
 		
 		  	$rootScope.$digest();
+		  	$scope.shownotify();
 		 	expect(element.html()).toContain("notifications_none");		 
-		 	$scope.shownotify();
+		 	
 
 		 	  
 		 	
