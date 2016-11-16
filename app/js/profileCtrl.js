@@ -4,9 +4,7 @@ app.controller("profileCtrl",
 			//initialize
 			if (authData) {
 				$scope.authData = authData;
-
-				ref = firebase.database().ref("users/"+$scope.authData.uid+"/readOnly/info");
-
+				ref = firebase.database().ref("users/"+$stateParams.uid+"/readOnly/info");
 				$scope.profile_info = $firebaseObject(ref);
 				$scope.profile_readOnly = true;
 				$scope.profile_info.tags = Helper.tags;
