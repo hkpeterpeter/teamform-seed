@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<!-- Loading Bootstrap -->
+	<link href="../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Loading Flat UI -->
+	<link href="../css/flat-ui.min.css" rel="stylesheet">
+	
+	<!-- Loading Font Awesome -->
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">Team Forming</a>
+		</div>
+		<div class="navbar-right">
+		  <ul class="nav navbar-nav">
+		    <li><a href="#fakelink">About</a></li>
+		    <li><button class="btn btn-danger navbar-btn" type="button" ng-click="logout()"><i class="icon-signout"></i>&nbsp;&nbsp;&nbsp;Logout</button></li>
+		  </ul>
+		</div><!-- /.navbar-collapse -->
+	</nav><!-- /navbar -->
+
+	<div class="container-fluid">	
+		<div class="row">
+			<div class="col-md-4">
+				<div class="btn-group-vertical">
+					<a class="btn btn-danger" type="button" ng-href="/#/dashboard/home">
+						<br><i class="icon-home icon-2x"></i><br><p>Home</p></a>
+					<a class="btn btn-danger" type="button" ng-href="/#/dashboard/event">
+						<br><i class="icon-flag icon-2x"></i><br><p>Event</p></a>
+					<a class="btn btn-danger" type="button" ng-href="/#/dashboard/notification">
+						<br><i class="icon-bell icon-2x"></i><br><p>Notification</p></a>
+					<a class="btn btn-danger" type="button" ng-href="/#/dashboard/request">
+						<br><i class="icon-inbox icon-2x"></i><br><p>Request</p></a>
+					<a class="btn btn-danger" type="button" ng-href="/#/dashboard/profile">
+						<br><i class="icon-list-alt icon-2x"></i><br><p>Profile</p></a>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div ui-view></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+	<script src="../js/vendor/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="../js/vendor/video.js"></script>
+	<script src="../js/flat-ui.min.js"></script>
+
+</body>
+
+</html>

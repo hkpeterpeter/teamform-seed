@@ -1,0 +1,194 @@
+#Affair and Notification
+
+Terminologies
+1. Subject: specifies who can launch this affair
+2. Affair: specifies the content
+3. Announcement: specifies which announcement board (TEAM or EVENT) the affair will be posted on
+4. Notification: specifies who will receive a notification on this affair; the subject will never receive the notification on the affair
+5. Trigger: specifies the sequential affair or request
+
+Remark
+1. TEAM.ALL includes the relevant tba (application and invitation)
+2. When an event is finalized, all affairs within the event are forbidden, except "admin definalize the event"
+
+#01
+Subject: admin
+Affair: rename the event as NEWNAME
+Announcement: EVENT
+Notification: EVENT.all
+Trigger: 0
+
+#02
+Subject: admin
+Affair: change the event intro
+Announcement: EVENT
+Notification: 0
+Trigger: 0
+
+#03
+Subject: admin
+Affair: change the team size from (max, min) to (SIZE, SIZE)
+Announcement: EVENT
+Notification: EVENT.all
+Trigger: 0
+
+#04
+Subject: admin
+Affair: banish NAME[mem] from TEAM
+Announcement: 0
+Notification: TEAM.leader, NAME[mem]
+Trigger: Affair("NAME leave the team") in TEAM
+
+#05
+Subject: admin
+Affair: move NAME[tba] to TEAM
+Announcement: 0
+Notification: TEAM.leader, NAME[tba]
+Trigger: Affair("NAME join the team") in TEAM
+
+#06
+Subject: NAME[guest]
+Affair: join the event
+Announcement: 0
+Notification: 0
+Trigger: 0
+
+#07
+Subject: NAME[tba]
+Affair: leave the event
+Announcement: 0
+Notification: 0
+Trigger: (Affair: NAME withdraw all his applications and NAME decline all his invitations)
+
+#08
+Subject: admin
+Affair: post an announcement
+Announcement: 0
+Notification: EVENT.ALL
+Trigger: 0
+
+#09
+Subject: NAME[tba]
+Affair: create a team TEAM
+Announcement: EVENT
+Notification: EVENT.tba
+Trigger: Affair("NAME join the team") in TEAM
+
+#10
+Subject: admin
+Affair: finalize the event
+Announcement: EVENT
+Notification: Event.all
+Trigger: 0
+
+#11
+Subject: admin
+Affair: definalize the event
+Announcement: EVENT
+Notification: EVENT.all
+Trigger: 0
+
+#12
+Subject: admin, leader
+Affair: rename the team as NEWTEAMNAME
+Announcement: EVENT, TEAM
+Notification: TEAM.ALL
+Trigger: 0
+
+#13
+Subject: admin, leader
+Affair: remove the team TEAM
+Announcement: EVENT
+Notification: TEAM.ALL
+Trigger: 0
+
+#14
+Subject: leader
+Affair: change the team intro
+Announcement: TEAM
+Notification: TEAM.ALL
+Trigger: 0
+
+#15
+Subject: leader
+Affair:  change the preferred team size to NEWTEAMSIZE
+Announcement: TEAM
+Notification: TEAM.ALL
+Trigger: 0
+
+#16
+Subject: leader
+Affair:  pass on the leader to NAME[mem]
+Announcement: TEAM
+Notification: TEAM.ALL
+Trigger: 0
+
+#17
+Subject: NAME[tba]
+Affair: apply the team
+Announcement: 0
+Notification: TEAM.leader
+Trigger: Request("accept  NAME's application"), Request("decline  NAME's application") to TEAM.leader
+
+#18
+Subject: NAME[tba]
+Affair: withdraw the application to TEAM
+Announcement: 0
+Notification:  TEAM.leader
+Trigger: 0
+
+#19
+Subject: leader	
+Affair: accept NAME[tba]'s application
+Announcement: 0
+Notification: NAME[tba]
+Trigger: Affair("NAME join the team") in TEAM
+
+#20
+Subject: leader
+Affair: decline NAME[tba]'s application
+Announcement: 0
+Notification: NAME[tba]
+Trigger: 0
+
+#21
+Subject: leader
+Affair: invite NAME[tba]
+Announcement: 0
+Notification: NAME[tba]
+Trigger: Request("accept the invitation from TEAM"), Request("decline the invitation from TEAM") to NAME
+
+#22
+Subject: NAME[tba]	
+Affair: accept the invitation from TEAM
+Announcement: 0
+Notification: NAME[tba]
+Trigger: Affair("NAME join the team") in TEAM
+
+#23
+Subject: NAME[tba]	
+Affair: decline the invitation from TEAM
+Announcement: 0
+Notification: TEAM.leader
+Trigger: 0
+
+#24
+Subject: NAME[tba]
+Affair: join the team
+Announcement: TEAM
+Notification: TEAM.all
+Trigger: (Affair: NAME withdraw all his applications and NAME decline all his invitations)
+
+#25
+Subject: NAME[mem]
+Affair: leave the team
+Announcement: TEAM
+Notification: TEAM.all
+Trigger: 0
+
+#26
+Subject: leader
+Affair: post an announcement
+Announcement: 0
+Notification: TEAM.all
+Trigger: 0

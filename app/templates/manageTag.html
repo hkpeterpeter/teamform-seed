@@ -1,0 +1,31 @@
+<h1>Manage Tags</h1>
+<form>
+	<h3>Skill Tags</h3>
+  <ul ng-repeat="(name,value) in skilltags">
+      <li ng-if = "!modifySkillTags">{{name}} : {{value}}</li>
+      <li ng-if = "modifySkillTags">{{name}} :
+      <input type="number" placeholder="e.g. 70" ng-model = "newSkillTags[name]">
+      </li>
+  </ul>
+  <button type = "button" class = "btn btn-primary"  ng-click = "modifySkillTagsChoice()">Modify Skill Tags Values</button>
+  <button type = "button" class = "btn btn-primary"  ng-if = "modifySkillTags" ng-click = "changeSkillTags()">Confirm changes</button>
+	<h3>Language Tags</h3>
+  <ul ng-repeat="(name,value) in languagetags">
+      <!-- <li ng-if = "!modifyLanguageTags">{{name}} : {{value}}</li> -->
+      <li>{{name}} :
+      <input type="checkbox" checked="newLanguageTags[name]" ng-disabled = "!modifyLanguageTags" ng-model="newLanguageTags[name]"></li>
+  </ul>
+ <button type = "button" class = "btn btn-primary"  ng-click = "modifyLanguageTagsChoice()">Modify Language Tags</button>
+  <button type = "button" class = "btn btn-primary" ng-if = "modifyLanguageTags" ng-click = "changeLanguageTags()">Confirm changes</button>
+  <h3>Manner Tags</h3>
+  <ul ng-repeat="(name,value) in mannertags">
+      <!-- <li ng-if = "!modifyMannerTags">{{name}} : {{value}}</li> -->
+      <li>{{name}} :
+      <input type="checkbox" checked="newMannerTags[name]" ng-disabled="!modifyMannerTags"  ng-model = "newMannerTags[name]"></li>
+  </ul>
+	<br>
+  <button type = "button" class = "btn btn-primary" ng-click = "modifyMannerTagsChoice()">Modify Manner Tags</button>
+  <button type = "button" class = "btn btn-primary" ng-if = "modifyMannerTags" ng-click = "changeMannerTags()">Confirm changes</button>
+
+
+</form>

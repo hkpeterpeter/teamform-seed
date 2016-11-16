@@ -1,5 +1,6 @@
 app.controller("loginController",
 
+
     function($scope, Auth, $firebaseArray, $firebaseObject, $window) {
 
 
@@ -12,7 +13,7 @@ app.controller("loginController",
             //$scope.authData = authData;
 
             if (authData) {
-                console.log(authData);
+                console.log(authData.uid);
                 $window.location.href = '/#/dashboard/home';
             } else console.log("signed out");
         });
@@ -87,6 +88,7 @@ app.controller("loginController",
         };
 
     }
+
 );
 
 app.controller("signupCtrl",
@@ -132,18 +134,16 @@ app.controller("signupCtrl",
                         //console.log(uidlistObj);
                         uidlistObj.$add(userData.uid);
 
+                ref = firebase.database().ref("users/nameList");
+                // var namelistObj = $firebaseObject(ref);
+                var dict = {};
+                dict[$scope.input.name] = userData.uid;
+                ref.update(dict);
+                // // namelistObj.$add(dict);
 
-                        ref = firebase.database().ref("users/nameList");
-                        // var namelistObj = $firebaseObject(ref);
-                        var dict = {};
-                        dict[$scope.input.name] = userData.uid;
-                        ref.update(dict);
-                        // // namelistObj.$add(dict);
-
-                        // namelistObj[$scope.input.name] = userData.uid;
-                        // console.log(namelistObj);
-                        // namelistObj.$save();
-
+                // namelistObj[$scope.input.name] = userData.uid;
+                // console.log(namelistObj);
+                // namelistObj.$save();
                     }).catch(function(error) {
                         $window.alert(error);
                     });

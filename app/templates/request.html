@@ -1,1 +1,34 @@
 <h1>Requests:</h1>
+
+<div ng-controller="requestCtrl">
+    <div class="col-sm-6">
+        <form name="myForm">
+            <label for="repeatSelect"> filter: </label>
+            <select name="repeatSelect" id="repeatSelect" ng-model="search_model">
+                <option value = "all">All Events</option>
+                <option ng-repeat="(eid, myEvent) in myEventList" value="{{eid}}">{{allEvents.$getRecord(eid).eventInfo.name}}</option>
+            </select>
+        </form>
+        <hr>
+        <!--<tt>model = {{search_model}}</tt><br/> -->
+
+        <ul>
+            <li ng-repeat="(eid, myEvent) in filterEvent(myEventList, search_model)">
+                <h4>{{allEvents.$getRecord(eid).eventInfo.name}}</h4>
+                <div ng-show="myEvent.applications == null && myEvent.invitations == null">No requests!</div>
+                <ul>
+                    <li ng-repeat="(teamKey, tid) in myEvent.applications">
+                        You are currently applying for the team <span><a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a></span>.
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="withdrawApp(eid, tid)"></span>
+                    </li>
+
+                    <li ng-repeat="(teamKey, tid) in myEvent.invitations">
+                        Team <span><a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a></span> has sent you an invitation.
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-click="acceptInvi(eid, tid)"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="declineInvi(eid, tid)"></span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -2,28 +2,25 @@
 app.controller("notificationCtrl",
 
 	// Implementation the todoCtrl 
-	function($scope, Auth, $firebaseArray, $firebaseObject) {
+	function($scope, Auth, $firebaseArray, $firebaseObject,Helper) {
+
 
 		Auth.$onAuthStateChanged(function(authData){
+			if(authData){
 			$scope.authData = authData;
-		});
+			var ref = firebase.database().ref('users/' + authData.uid + '/writable');
+			$scope.myEvents = $firebaseObject(ref);
+            ref = firebase.database().ref('events');
+            $scope.events = $firebaseArray(ref);
 
-		var ref = firebase.database().ref('users/' + authData.uid + '/writable');
-		var my_event_list = $firebaseArray(ref);
+		}});
 
-		var my_notification_list = [];
 
-		for(var i=0;i<my_event_list.length;i++) {
-			for(var j=0;j<my_event_list[i].notification.length;j++){
 
-				my_notification_list.push(my_event_list[i].notification[j]);
-			}
+		$scope.changeState = function(eid,nid){
+			Helper.changeReadState($scope.authData.uid,eid,nid);
 
 		}
-
-		$scope.my_notification_list = my_notification_list;
-
-
 
 
 
