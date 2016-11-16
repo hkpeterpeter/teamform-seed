@@ -7,6 +7,8 @@ var testData = {
   "1856889751213495": {password: "facebook"},
   "$save": function(){return true;}
 };
+var onFBChkLogFin = function(){};
+var isTest = false;
 
 var app = angular.module("indexApp", ["firebase", "ngCookies"]);
 
@@ -17,7 +19,7 @@ app.controller("indexCtrl",
       gotoURL("/TXR/index.html", [], $window);
 
     var accounts;
-    if (isTest === undefined) {
+    if (isTest == false) {
       initalizeFirebase();
       var ref = firebase.database().ref("usersx");
       accounts = $firebaseObject(ref);
@@ -70,28 +72,35 @@ app.controller("indexCtrl",
     $scope.loginFB = function() {
       FB.getLoginStatus(function(response) {
         if (response.status == "connected") {
+          onFBChkLogFin();
           addUser({username:response.authResponse.userID, password:"facebook"});
           $cookies.put("username", response.authResponse.userID,{path:"/"});
           gotoURL("/TXR/index.html", [], $window);
         }
-        else FB.login(function(response){
-          if (response.status == "connected") {
-            addUser({username:response.authResponse.userID, password:"facebook"});
-            $cookies.put("username", response.authResponse.userID,{path:"/"});
-            gotoURL("/TXR/index.html",[], $window);
-          }
-        });
+        else {
+          FB.login(function(response){
+            if (response.status == "connected") {
+              addUser({username:response.authResponse.userID, password:"facebook"});
+              $cookies.put("username", response.authResponse.userID,{path:"/"});
+              gotoURL("/TXR/index.html",[], $window);
+            }
+          });
+          onFBChkLogFin();
+        }
       });
     };
   }
 );
 
+var onFBInitFin = function(){};
 window.fbAsyncInit = function() {
     FB.init({
       appId      : '639941769518491',
       xfbml      : true,
       version    : 'v2.8'
     });
+
+    onFBInitFin();
   };
 
   (function(d, s, id){

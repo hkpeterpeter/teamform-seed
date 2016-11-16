@@ -9,7 +9,7 @@ describe("setcolor",function(){
 describe("service testing",function(){
 
 	var sampledivToggle;
-  
+
 	beforeEach(function(){
 		/*
 		module(function($provide){
@@ -27,7 +27,7 @@ describe("service testing",function(){
 });
 
 describe("searchPage",function(){
-  
+
 	beforeEach(module("mainApp"));
 
 	var $controller;
@@ -37,7 +37,7 @@ describe("searchPage",function(){
 	}));
 
 	describe("Tag",function(){
-   
+
 		it("check null",function(){
 			var $scope = {};
 			var $cookies;
@@ -99,7 +99,7 @@ describe("searchPage",function(){
 	});
 
 
-	
+
 	it("clear()",function(){
 		var $scope = {};
 		var $cookies;
@@ -156,3 +156,25 @@ describe("searchPage",function(){
 	});
 });
 
+describe("logout test", function(){
+	it("logout()",function(){
+		var $rootScope, $scope, $controller, $cookies, $window;
+
+		module('mainApp');
+		inject(function(_$rootScope_, _$controller_, _$cookies_){
+			$rootScope = _$rootScope_;
+			$controller = _$controller_;
+			$cookies = _$cookies_;
+		});
+
+		$scope = $rootScope.$new();
+		$window = {};
+		$window.location = {host:"localhost", href:""};
+		$controller("logoutctrl", {$scope:$scope, $cookies:$cookies, $window:$window});
+
+		$cookies.put("username","abcd",{path:"/"});
+		$scope.logout();
+		expect($cookies.get("username",{path:"/"})).toEqual(undefined);
+		expect($window.location.href).toEqual("http://localhost/jzhangbs/index.html");
+	});
+});

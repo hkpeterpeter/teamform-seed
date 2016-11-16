@@ -37,11 +37,12 @@ module.exports = function(config) {
 	},
 	port: 8080,
 	colors: true,
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'PhantomJS'],
 	singleRun: true,
     plugins: [
       'karma-chrome-launcher',
       'karma-jasmine',
+      'karma-phantomjs-launcher',
 	  'karma-coverage'
     ]
 
