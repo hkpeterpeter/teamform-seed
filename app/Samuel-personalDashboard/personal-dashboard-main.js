@@ -12,26 +12,48 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
     $scope.displayUser = $firebaseObject(userRef);
 
     $scope.skillsList = $firebaseArray(skillsRef);
+
+    $scope.newSkill = '';
     $scope.receiveNewSikll = function () {
         $scope.skillsList.$add($scope.newSkill);
         $scope.newSkill = '';
     };
 
+    $scope.retrieveEvents = function(){
+        var eventsRef = userRef.child('/eventsManaging');
+        $scope.eventsList = $firebaseArray(eventsRef);
+        return true;
+    };
+    $scope.retrieveEvents();
 
-    var eventsRef = userRef.child('/eventsManaging');
-    $scope.eventsList = $firebaseArray(eventsRef);
+    $scope.retrieveApplying = function(){
+        var applyingRef = userRef.child('/teamsApplying');
+        $scope.applyingList = $firebaseArray(applyingRef);
+        return true;
+    };
+    $scope.retrieveApplying();
 
-    var applyingRef = userRef.child('/teamsApplying');
-    $scope.applyingList = $firebaseArray(applyingRef);
+    $scope.retrieveLeading = function(){
+        var leadingTeams = userRef.child('/teamsAsLeader');
+        $scope.leadingList = $firebaseArray(leadingTeams);
+        return true;
+    };
+    $scope.retrieveLeading();
 
-    var leadingTeams = userRef.child('/teamsAsLeader');
-    $scope.leadingList = $firebaseArray(leadingTeams);
+    $scope.retrieveMember = function(){
+        var memberTeams = userRef.child('/teamsAsMember');
+        $scope.memberList = $firebaseArray(memberTeams);
+        return true;
+    };
+    $scope.retrieveMember();
 
-    var memberTeams = userRef.child('/teamsAsMember');
-    $scope.memberList = $firebaseArray(memberTeams);
+    $scope.retrieveInvited = function(){
+        var invitedTeams = userRef.child('/teamsAsInvitedPeople');
+        $scope.invitedList = $firebaseArray(invitedTeams);
+        return true;
+    };
+    $scope.retrieveInvited();
 
-    var invitedTeams = userRef.child('/teamsAsInvitedPeople');
-    $scope.invitedList = $firebaseArray(invitedTeams);
     $scope.invitationDisplay = [];
 
     // $scope.$watch("invitedList", function (newValue, oldValue) {
@@ -48,44 +70,44 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
     var notifsRef = userRef.child('/notifs');
     $scope.notifs = $firebaseArray(notifsRef);
 
-    $scope.acceptInvitation = function(index){  //TODO: check whether this team is full
-        //To add him to the member list
-        var thisteamMemberList = $firebaseArray( firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/membersID') );
-        thisteamMemberList.$loaded().then(function(){
-            console.log("this team before adding him, has " + thisteamMemberList);
-            thisteamMemberList.$add($rootScope.currentUser.id);
-        });
-
-        //To remove him from the "invited people" list
-        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
-        thisteamInvitedPeople.$loaded().then(function(){
-            for (var i = 0; i<thisteamInvitedPeople.length; i++){
-                if (thisteamInvitedPeople[i].$value === $rootScope.currentUser.id){
-                    thisteamInvitedPeople.$remove(i);
-                }
-            }
-        });
-
-        //To update his own copy of "teams as member"
-        $scope.memberList.$add($scope.invitedList[index].$value);
-
-        //To remove this team from his "being invited list"
-        $scope.invitedList.$remove(index);
-    };
-
-    $scope.turndownInvitation = function(index){
-
-        //To remove him from the "invited people" list
-        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
-        thisteamInvitedPeople.$loaded().then(function(){
-            for (var i = 0; i<thisteamInvitedPeople.length; i++){
-                if (thisteamInvitedPeople[i].$value === $rootScope.currentUser.id){
-                    thisteamInvitedPeople.$remove(i);
-                }
-            }
-        });
-        $scope.invitedList.$remove(index);
-    }
+    // $scope.acceptInvitation = function(index){  //TODO: check whether this team is full
+    //     //To add him to the member list
+    //     var thisteamMemberList = $firebaseArray( firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/membersID') );
+    //     thisteamMemberList.$loaded().then(function(){
+    //         console.log("this team before adding him, has " + thisteamMemberList);
+    //         thisteamMemberList.$add($rootScope.currentUser.id);
+    //     });
+    //
+    //     //To remove him from the "invited people" list
+    //     var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
+    //     thisteamInvitedPeople.$loaded().then(function(){
+    //         for (var i = 0; i<thisteamInvitedPeople.length; i++){
+    //             if (thisteamInvitedPeople[i].$value === $rootScope.currentUser.id){
+    //                 thisteamInvitedPeople.$remove(i);
+    //             }
+    //         }
+    //     });
+    //
+    //     //To update his own copy of "teams as member"
+    //     $scope.memberList.$add($scope.invitedList[index].$value);
+    //
+    //     //To remove this team from his "being invited list"
+    //     $scope.invitedList.$remove(index);
+    // };
+    //
+    // $scope.turndownInvitation = function(index){
+    //
+    //     //To remove him from the "invited people" list
+    //     var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
+    //     thisteamInvitedPeople.$loaded().then(function(){
+    //         for (var i = 0; i<thisteamInvitedPeople.length; i++){
+    //             if (thisteamInvitedPeople[i].$value === $rootScope.currentUser.id){
+    //                 thisteamInvitedPeople.$remove(i);
+    //             }
+    //         }
+    //     });
+    //     $scope.invitedList.$remove(index);
+    // }
 
 
 });

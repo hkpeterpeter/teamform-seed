@@ -10,7 +10,8 @@ module.exports = function(config) {
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
 	  'lib/firebase.js',
-	  'lib/angularfire.min.js',	  
+	  'lib/angularfire.min.js',	
+	  'lib/materialize/js/materialize.js', 
 	  'js/*.js',
 	  'baichunyan/js/bai.js',
 	  'Fenghaoan/js/homepage.js',
@@ -20,7 +21,11 @@ module.exports = function(config) {
 	  'WU_YUNCHEN/js/form.js',
 	  'ZhaoLucen/admin.js',
 	  'zhuxinyu/myctrl.js',
-      'unit_tests/*.js'	  
+      'unit_tests/*.js',
+      'zhuxinyu/searchEvent.html',
+      
+
+
     ],
 	exclude: [
 	],

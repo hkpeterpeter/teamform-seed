@@ -25,7 +25,7 @@
     <div class="container" ng-show="showTeams">
         <!--   Collapsible structure -->
         <ul class="collapsible blue-grey darken-2" data-collapsible="expandable">
-            <div ng-repeat="t in readyData.team">
+            <div ng-repeat="t in readyData.team track by t.teamID">
                 <li>
                     <!--       Team Card -->
                     <div class="collapsible-header active blue-grey darken-1 tooltipped" data-position="left" data-delay="0" data-tooltip="I am tooltip" ng-click="showBody(t.teamID);">
@@ -75,7 +75,7 @@
                                                 <span class="team-text-span grey-text text-darken-3">Skills:
 
 
-                          <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in readyData.user[t.leaderID].skills">{{skill}}</div>
+                          <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in readyData.user[t.leaderID].skills track by skill">{{skill}}</div>
 
 
                         </span>
@@ -91,7 +91,7 @@
                                 <div class="section">
 
                                     <div class="container">
-                                        <div class="col s6" ng-repeat="memberID in t.membersID">
+                                        <div class="col s6" ng-repeat="memberID in t.membersID track by $index">
                                             <div class="card horizontal">
                                                 <div class="card-image">
                                                     <img src="{{readyData.user[memberID].profilePic}}" height='200'>
@@ -101,7 +101,7 @@
                                                         <span class="card-title activator grey-text text-darken-3">{{readyData.user[memberID].name}}</span>
                                                         <br/>
                                                         <span class="team-text-span grey-text text-darken-3">Skills:
-                              <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in readyData.user[memberID].skills">{{skill}}</div>
+                              <div class="chip focus teal lighten-1 white-text" ng-repeat="skill in readyData.user[memberID].skills track by skill">{{skill}}</div>
                             </span>
                                                     </div>
                                                     <div class="card-action">
@@ -120,10 +120,6 @@
         </ul>
     </div>
 <team-form ng-show="showTeamForm"></team-form>
-    <!--   solution for initially opening my team -->
-    <!-- <div>
-    {{initShowBody(readyData.team[0].teamID);}}
-  </div> -->
 
 
     <script type="text/javascript">
