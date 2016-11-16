@@ -3,7 +3,10 @@
   "author": "",
   "version": "0.0.0",
   "description": "This is a starter project for the teamform app",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fengyee/teamform-seed.git"
+  },
   "license": "MIT",
   "devDependencies": {
     "http-server": "^0.9.0",
@@ -19,5 +22,10 @@
     "start": "http-server -a localhost -p 8080 -c-1 ./app",
     "pretest": "npm install",
     "test": "karma start karma.conf.js"
-  }
+  },
+  "main": "karma.conf.js",
+  "bugs": {
+    "url": "https://github.com/Fengyee/teamform-seed/issues"
+  },
+  "homepage": "https://github.com/Fengyee/teamform-seed#readme"
 }
