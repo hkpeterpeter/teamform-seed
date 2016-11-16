@@ -3,8 +3,8 @@
 <h4 ng-if="!editingInfo">Event Info: {{eventObj.eventInfo.desc}}</h4>
 <h4>Team size: [{{eventObj.eventInfo.min}}, {{eventObj.eventInfo.max}}]</h4>
 <h4>Team forming deadline: <span style="color: red;">{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}</span></h4>
-<textarea ng-model="eventObj.eventInfo.desc" ng-if="editingInfo" ng-value="eventObj.eventInfo.desc"></textarea>
-<input class="btn btn-primary" ng-click="editInfo()" ng-if="myEvent.position=='admin'" ng-value="editButton">
+<!--<textarea ng-model="eventObj.eventInfo.desc" ng-if="editingInfo" ng-value="eventObj.eventInfo.desc"></textarea>-->
+<button class="btn btn-primary" ng-click="editInfo()" ng-if="myEvent.position=='admin'">Edit Info</button>
 
 <!-- <h1 ng-if="(myEvent | role)=='admin'">testing</h1> -->
 <div ng-if="!(myEvent===undefined)">
