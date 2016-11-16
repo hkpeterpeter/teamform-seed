@@ -1,0 +1,37 @@
+	<!Doctype html>
+	<html ng-app="Demo">
+	<head>
+		<title>Add/Remove function</title>
+		<style type="text/css">
+			a[ ng-click ] {
+				cursor: pointer ;
+				text-decoration: underline ;
+			}
+		</style>
+
+		<script src="assets/js/angular.js"></script> 
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.min.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
+
+		<script src="http://jemonjam.com/angular-notification-icons/bower_components/jquery/dist/jquery.js"></script>
+
+	</head>
+	<body ng-controller="DemoController">
+		<ul>
+			<li ng-repeat="fd in friends">
+				{{ fd.name}}
+				(<a ng-click="removeFriend( fd )">Delete</a> )	
+		</li>
+	</ul>
+
+	<form ng-submit="addFriend()">
+
+		<input type="text"  ng-model="form.name" placeholder="Enter the name here" size="40" />
+		<input type="submit" value="Add Friend" />
+	</form> 
+	</body>
+	</html>
