@@ -135,6 +135,8 @@
       font-family: "Roboto", sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+        background-image: url("http://exchange.wysetc.org/wp-content/uploads/sites/11/2016/03/Backpacker-Australia.jpg");
+      background-size: cover;
     }
     
     #loginByFb {
@@ -390,8 +392,9 @@
   <script>
   var stateChange = function(user) {
     if (user) {
-      var url = "search.html";
-      window.location.href = url;
+      // var url = "search.html";
+      // window.location.href = url;
+      alert("it will go to search page because you are logged in");
     } else {
     }
 };
@@ -401,4 +404,3 @@ firebase.auth().onAuthStateChanged(stateChange);
 </body>
 
 </html>
-
