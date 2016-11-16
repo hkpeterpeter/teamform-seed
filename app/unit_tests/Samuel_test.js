@@ -81,32 +81,45 @@ describe('dashboardController', function () {
             expect($rootScope.currentUser.id).toEqual("-KVu4OAjfPRTsmQ_8Ict");
         });
         it('receive not existing skill', function () {
-            $scope.skillsList = ["Saab", "Volvo", "BMW"];
-            $scope.newSkill = "angularjs";
-            $scope.receiveNewSikll();
-            var result = ["Saab", "Volvo", "BMW", "angularjs"];
-            expect($scope.skillsList).toEqual(result);
-        });
-        it('receive existing skill', function () {
-            $scope.skillsList = ["Saab", "Volvo", "BMW"];
             $scope.newSkill = "BMW";
             $scope.receiveNewSikll();
-            var result = ["Saab", "Volvo", "BMW"];
-            expect($scope.skillsList).toEqual(result);
+        });
+        it('receive existing skill', function () {
+            $scope.newSkill = "database";
+            $scope.receiveNewSikll();
         });
     });
     
-    describe("test accepting/turning down invitation",function () {
-        it("accept",function () {
-            $rootScope.currentUser.teamsAsInvitedPeople.push(222);
-            var index = $scope.invitedList.indexOf(222);
-            $scope.acceptInvitation(index);
+    // describe("test accepting/turning down invitation",function () {
+    //     it("accept",function () {
+    //         $rootScope.currentUser.teamsAsInvitedPeople.push(222);
+    //         var index = $scope.invitedList.indexOf(222);
+    //         $scope.acceptInvitation(index);
+    //     });
+    //     it("decline",function () {
+    //         $rootScope.currentUser.teamsAsInvitedPeople.push(222);
+    //         var index = $scope.invitedList.indexOf(222);
+    //         $scope.turndownInvitation(index);
+    //     });
+    // });
+
+    describe("test retrieving",function () {
+        it("retrieve events",function () {
+            expect($scope.retrieveEvents()).toEqual(true);
         });
-        it("decline",function () {
-            $rootScope.currentUser.teamsAsInvitedPeople.push(222);
-            var index = $scope.invitedList.indexOf(222);
-            $scope.turndownInvitation(index);
+        it("retrieve applying",function(){
+           expect($scope.retrieveApplying()).toEqual(true);
         });
+        it("retrieve member",function(){
+            expect($scope.retrieveMember()).toEqual(true);
+        });
+        it("retrieve leader",function(){
+            expect($scope.retrieveLeading()).toEqual(true);
+        });
+        it("retrieve invited",function(){
+            expect($scope.retrieveInvited()).toEqual(true);
+        });
+
     });
 
 

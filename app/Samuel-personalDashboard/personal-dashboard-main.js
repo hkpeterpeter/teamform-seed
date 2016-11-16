@@ -15,31 +15,45 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     $scope.newSkill = '';
     $scope.receiveNewSikll = function () {
-        var existingSkills = [];
-        for (var i=0; i< $scope.skillsList.length; i++){
-            existingSkills.push($scope.skillsList[i].$value);
-        }
-        if (existingSkills.indexOf($scope.newSkill) === -1){
-            $scope.skillsList.$add($scope.newSkill);
-            $scope.newSkill = '';
-        }
+        $scope.skillsList.$add($scope.newSkill);
+        $scope.newSkill = '';
     };
 
+    $scope.retrieveEvents = function(){
+        var eventsRef = userRef.child('/eventsManaging');
+        $scope.eventsList = $firebaseArray(eventsRef);
+        return true;
+    };
+    $scope.retrieveEvents();
 
-    var eventsRef = userRef.child('/eventsManaging');
-    $scope.eventsList = $firebaseArray(eventsRef);
+    $scope.retrieveApplying = function(){
+        var applyingRef = userRef.child('/teamsApplying');
+        $scope.applyingList = $firebaseArray(applyingRef);
+        return true;
+    };
+    $scope.retrieveApplying();
 
-    var applyingRef = userRef.child('/teamsApplying');
-    $scope.applyingList = $firebaseArray(applyingRef);
+    $scope.retrieveLeading = function(){
+        var leadingTeams = userRef.child('/teamsAsLeader');
+        $scope.leadingList = $firebaseArray(leadingTeams);
+        return true;
+    };
+    $scope.retrieveLeading();
 
-    var leadingTeams = userRef.child('/teamsAsLeader');
-    $scope.leadingList = $firebaseArray(leadingTeams);
+    $scope.retrieveMember = function(){
+        var memberTeams = userRef.child('/teamsAsMember');
+        $scope.memberList = $firebaseArray(memberTeams);
+        return true;
+    };
+    $scope.retrieveMember();
 
-    var memberTeams = userRef.child('/teamsAsMember');
-    $scope.memberList = $firebaseArray(memberTeams);
+    $scope.retrieveInvited = function(){
+        var invitedTeams = userRef.child('/teamsAsInvitedPeople');
+        $scope.invitedList = $firebaseArray(invitedTeams);
+        return true;
+    };
+    $scope.retrieveInvited();
 
-    var invitedTeams = userRef.child('/teamsAsInvitedPeople');
-    $scope.invitedList = $firebaseArray(invitedTeams);
     $scope.invitationDisplay = [];
 
     // $scope.$watch("invitedList", function (newValue, oldValue) {
