@@ -90,10 +90,8 @@ angular.module('teamform-admin-app', ['firebase'])
 	};
 	
 	$scope.terminateEvent = function() {
-		var eventName = getURLParameter("q");
-		var refPath = eventName;
 		alert("Closed event " + eventName);
-		firebase.database().ref(refPath).remove();
+		firebase.database().ref(eventName).remove();
 		firebase.database().ref("eventList/" + eventName).update({
 			status: "inactive"
 		}, function() {

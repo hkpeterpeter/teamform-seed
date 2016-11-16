@@ -12,44 +12,21 @@ describe('Test team.js', function() {
 		TeamCtrl = $controller('TeamCtrl', {$scope: $scope});
 	}));
 
-	/*
-	
 	it("test saveFunc", function() {
-		$scope.currentUser.inTeam = "teamName";
-		$scope.param.teamName = "teamName";
-		$("#add").text = "Add";
-		$scope.param.teamMembers =["member"];
-		$scope.member = ["member"];
-		$scope.saveFunc();
-		$scope.param.teamMembers =[""];
-		$scope.param.teanName = "";
-		$scope.saveFunc();
-		$scope.param.teamMembers =[];
-		$scope.param.teanName = "asd";
-		$scope.saveFunc();
-		$("#add").text = "";
-		$scope.saveFunc();
+		expect($scope.saveFunc()).toBeUndefined();
 	});
 	
-	it("test loadFunc", function() {
-		$scope.loadFunc();
-		
-	});
+	// it("test loadFunc", function() {
+	// 	expect($scope.loadFunc()).toBe('function');
+	// });
 	
-	it("test openCategory", function() {
-		$scope.openCategory(0);
-		
-	});
+	// it("test openCategory", function() {
+	// 	expect($scope.openCategory(0)).toBe('function');
+	// });
 	
 	it("test processRequest", function() {
-		$scope.param.teamMembers = ["a","b"];
-		$scope.param.currentTeamSize =3;
-		$scope.processRequest("a");
-		$scope.processRequest("x");
-		$scope.processRequest("y");		
-		
+		expect($scope.processRequest("a")).toBeUndefined();
 	});
-	*/
 
 	it("test smartAdd", function() {
 		$scope.requests = ["member"];
@@ -180,20 +157,11 @@ describe('Test team.js', function() {
 		expect($scope.param.teamMembers.length).toEqual(0);
 	});
 	
-	/*
-	it("test checkTeam", function() {
-		$scope.team = "undefined";
-		$scope.checkTeam();
-		$scope.param.teamName = "a";
-		$scope.team = [
-			{$id : "c"},
-			{$id : "a"}
-			];
-		$scope.checkTeam();
-		$scope.param.teamName = "b";
-		$scope.checkTeam();
+	
+	it("test checkTeam", function() {		
+		expect($scope.checkTeam()).toBeDefined();
 	});
-	*/
+	
 	it("test sendInvite", function() {
 		$scope.team = [
 			{$id: "Team1"}
@@ -212,29 +180,7 @@ describe('Test team.js', function() {
 		
 	});
 
-	// it("test removeMember 1", function() {
-	// 	$scope.eventName = "COMP3111";
-	// 	$scope.param = {
-	// 		teamName: "Team1", teamMembers: ["Member1", "Member2"]
-	// 	};
-	// 	$scope.removeMember("Member1");
-	// 	expect($scope.param.teamMembers.length).toEqual(1);
-	// });
-	// it("test removeMember 2", function() {
-	// 	$scope.eventName = "COMP3111";
-	// 	$scope.param = {
-	// 		teamName: "Team1", teamMembers: ["Member1", "Member2"]
-	// 	};
-	// 	$scope.removeMember("ID1");
-	// 	expect($scope.param.teamMembers.length).toEqual(2);
-	// });
-	// it("test removeMember 1", function() {
-	// 	$scope.eventName = "COMP3111";
-	// 	$scope.param = {
-	// 		teamName: "Team1", teamMembers: ["Member1", "Member2"]
-	// 	};
-	// 	$scope.removeMember("Member1");
-	// 	$scope.removeMember("Member2");
-	// 	expect($scope.param.teamMembers.length).toEqual(0);
-	// });
+	it("test removeMember", function() {
+		expect($scope.removeMember("Member1")).toBeUndefined();
+	});
 });
