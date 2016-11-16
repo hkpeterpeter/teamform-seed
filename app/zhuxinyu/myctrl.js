@@ -146,8 +146,9 @@ teamapp.directive("footerPanel",function(){
         transclude: true,
         scope:{
             ftitle:"@",
-            
+            currenpic:"@"
         }
+
     };
 
 });
