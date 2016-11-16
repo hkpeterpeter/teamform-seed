@@ -88,7 +88,7 @@ angular.module('teamform-admin-app', ['firebase']).controller('AdminCtrl', ['$sc
 			$scope.param.$save();
 
 			// Finally, go back to the front-end
-			window.location.href = "index.html";
+			// window.location.href = "index.html";
 		}
 
 
