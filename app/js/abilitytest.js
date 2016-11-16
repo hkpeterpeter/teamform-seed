@@ -25,36 +25,40 @@ angular.module('ability-test-app', ['firebase'])
     $scope.quiz = [];
   	$scope.quiz = $firebaseArray(firebase.database().ref("quiz/java"));
 
-		$scope.param = {
-			"answer" : []
-		};
+	$scope.param = {
+		"answer" : []
+	};
 
-		$scope.addanswer = function(option){
-			$scope.param.answer.push(option);
-		};
+	$scope.addanswer = function(option){
+		$scope.param.answer.push(option);
+	};
 
-		$scope.modelanswer = [];
+	$scope.modelAnswer = [];
 
-			$scope.quiz.$loaded(function(list){
-			var i = 0
-			for (; i < $scope.quiz.length; i++){
-				$scope.modelanswer.push($scope.quiz[i].answer)
+	$scope.quiz.$loaded(function(list) {
+		$scope.loadModelAnswer(list);
+	});
+	
+	$scope.loadModelAnswer = function(quizList) {
+		for (var i = 0; i < $scope.quiz.length; i++){
+			$scope.modelAnswer.push($scope.quiz[i].answer)
+		}
+	};
+	
+	$scope.submitFunc = function() {
+		$scope.correctness = 0
+		var userID = $.trim($scope.uid);
+		for (var j = 0; j < $scope.modelAnswer.length; j++){
+			if ($scope.modelAnswer[j] == $scope.param.answer[j]){
+				$scope.correctness += 1
 			}
-
-			$scope.submitFunc = function() {
-				var correctness = 0
-				var userID = $.trim($scope.uid);
-				for (var j = 0; j < $scope.modelanswer.length; j++){
-					if ($scope.modelanswer[j] == $scope.param.answer[j]){
-						correctness += 1
-						}
-					}
-				var mark = correctness / $scope.quiz.length * 100
-				var refPath = getURLParameter("q") +"/member/" + userID + "/ability/Java";
-				var ref = firebase.database().ref(refPath);
-				ref.update({marks: mark})
-				var url = "member.html?q=" + getURLParameter("q");
-				window.location.href= url
-			};
-		})
+		}
+		var mark = $scope.correctness / $scope.quiz.length * 100
+		var refPath = getURLParameter("q") +"/member/" + userID + "/ability/Java";
+		var ref = firebase.database().ref(refPath);
+		ref.update({marks: mark})
+		var url = "member.html?q=" + getURLParameter("q");
+		window.location.href= url
+	};
+	
 }]);
