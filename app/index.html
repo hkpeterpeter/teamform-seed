@@ -390,8 +390,9 @@
   <script>
   var stateChange = function(user) {
     if (user) {
-      var url = "search.html";
-      window.location.href = url;
+      // var url = "search.html";
+      // window.location.href = url;
+      alert("it will go to search page because you are logged in");
     } else {
     }
 };
@@ -401,4 +402,3 @@ firebase.auth().onAuthStateChanged(stateChange);
 </body>
 
 </html>
-
