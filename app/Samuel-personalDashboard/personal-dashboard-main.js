@@ -15,20 +15,8 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     $scope.newSkill = '';
     $scope.receiveNewSikll = function () {
-        var existingSkills = [];
-        for (var i=0; i< $scope.skillsList.length; i++){
-            existingSkills.push($scope.skillsList[i].$value);
-        }
-        if (existingSkills.indexOf($scope.newSkill) === -1){
-            try{
-                $scope.skillsList.$add($scope.newSkill);
-                $scope.newSkill = '';
-            }
-            catch(err){
-                $scope.skillsList.push($scope.newSkill);
-                $scope.newSkill = '';
-            }
-        }
+        $scope.skillsList.$add($scope.newSkill);
+        $scope.newSkill = '';
     };
 
     $scope.retrieveEvents = function(){
