@@ -22,11 +22,11 @@ Maximum number of team member: {{teamMax}} in js: $scope.teamMax
             <div class="col s6">
               <p>Minimum number of team member</p>
               <div range-spinner
-                range-min="1" 
-                range-step="1"  
-                range-max="50" 
+                range-min="1"
+                range-step="1"
+                range-max="50"
                 range-default-value="1"
-                range-decimal-precision="1"       
+                range-decimal-precision="1"
                 range-model="teamMin"
                 accept-decimal=false
                 name-of-field="rangeFieldName"
@@ -37,11 +37,11 @@ Maximum number of team member: {{teamMax}} in js: $scope.teamMax
             <div class="col s6">
               <p>Maximum number of team member</p>
               <div range-spinner
-                range-min="1" 
-                range-step="1"  
-                range-max="50" 
+                range-min="1"
+                range-step="1"
+                range-max="50"
                 range-default-value="1"
-                range-decimal-precision="1"       
+                range-decimal-precision="1"
                 range-model="teamMax"
                 accept-decimal=false
                 name-of-field="rangeFieldName"
@@ -65,15 +65,15 @@ Maximum number of team member: {{teamMax}} in js: $scope.teamMax
             </div>
 
             <div class="row">
-                <div class="col m3 skillbutton" ng-repeat="skill in skillsList">
+                <div class="col m3 skillbuttion" ng-repeat="skill in skillsList">
                     <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="removeSkill(skill)">delete</i>{{skill}}</a>
                 </div>
             </div>
           </div>
-          <button class="btn waves-effect waves-light" type="submit" name="action">Create <i class="material-icons right">send</i>
+          <!-- <button class="btn waves-effect waves-light" type="submit" name="action">Create <i class="material-icons right">send</i>
           </button>
           <button class="btn waves-effect waves-light red" type="submit" >Cancel<i class="material-icons right">cancel</i>
-          </button>
+          </button> -->
         </form>
     </div>
 </div>
