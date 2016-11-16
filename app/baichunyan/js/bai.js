@@ -8,7 +8,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   $scope.users = $rootScope.users;
   $scope.teams = $rootScope.teams;
   $scope.showTeams = true;
-	$scope.showTeamForm = false;
+  $scope.showTeamForm = false;
   $scope.create_team = "create team";
 
 
@@ -67,16 +67,20 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
 
   allData.$loaded().then(function(data) {
 
-    for (var candidate in allData.users[$scope.currentUser].teamsAsMember) {
-      if (allData.teams[candidate].belongstoEvent == $scope.currentEvent) {
+    $scope.preprocessData(data);
+  });
+
+  $scope.preprocessData = function(allData) {
+    for (var i in allData.users[$scope.currentUser].teamsAsMember) {
+      candidate = allData.users[$scope.currentUser].teamsAsMember[i];
+      if (allData.teams[candidate] != undefined && allData.teams[candidate].belongstoEvent == $scope.currentEvent) {
         $scope.currentTeam = candidate;
         break;
       }
     }
 
     $scope.readyData = $scope.processData(allData, $scope.currentEvent, $scope.currentTeam, $scope.currentUser);
-  });
-
+  };
 
   $scope.initShowBody = function(id) {
     if ($scope.clickCount == 0) {
@@ -85,24 +89,24 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   };
 
   $scope.createTeam = function($event, id) {
-		$scope.showTeams = !$scope.showTeams;
-		$scope.showTeamForm = !$scope.showTeamForm;
-		$scope.create_team = $scope.showTeams ? "create team" : "cancel";
-		$event.stopPropagation();
+    $scope.showTeams = !$scope.showTeams;
+    $scope.showTeamForm = !$scope.showTeamForm;
+    $scope.create_team = $scope.showTeams ? "create team" : "cancel";
+    $event.stopPropagation();
   };
 
-	$scope.removeTeam = function($event, id) {
-		for (var j = 0; j < $scope.readyData.team.length; ++j) {
-			if ($scope.readyData.team[j].teamID == id) {
-				break;
-			}
-		}
-		$scope.readyData.team.splice(j, 1);
-		$event.stopPropagation();
+  $scope.removeTeam = function($event, id) {
+    for (var j = 0; j < $scope.readyData.team.length; ++j) {
+      if ($scope.readyData.team[j].teamID == id) {
+        break;
+      }
+    }
+    $scope.readyData.team.splice(j, 1);
+    $event.stopPropagation();
   };
 
-	$scope.joinTeam = function($event, id) {
-		$event.stopPropagation();
+  $scope.joinTeam = function($event, id) {
+    $event.stopPropagation();
   };
 
 }]);
