@@ -1,0 +1,24 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+	margin-bottom: 20px;
+}
+
+th{
+	text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 24;
+	padding: 9px;
+} 
+td {
+    text-align: left;
+	font-family: "Lucida Console", Monaco, monospace;
+	font-size: 20;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #ffff99}
+
+th {
+    background-color: #3333ff;
+    color: white;
