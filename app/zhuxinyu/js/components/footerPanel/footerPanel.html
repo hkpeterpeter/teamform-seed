@@ -3,7 +3,9 @@
 
         <!-- This image is for current user -->
       
-		   <a href="#profile"><img ng-src="{{currenpic}}" height="50px" width="50px"/></a>
+		   <a onclick="window.location.href = '#profile';$('html, body').animate({
+            scrollTop: $('body').offset().top
+            },0);"><img ng-src="{{currenpic}}" height="80px" width="80px"/></a>
 		            <h5 class="white-text">
             	{{ftitle}}
             </h5>
