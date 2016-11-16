@@ -9,18 +9,29 @@
 	<div ng-controller="random_Event">           
 		Here is a list of event picked up randomly: <br>
 		<div ng-model="randomizedEvent" >
-			<table width="400">
+			<table width="400" >
 				<tr align="center">
 					<td align="center"><b>Name:</b></td>
 					<td align="center"><b>Intro.</b></td>
 					<td><b>Join(In Person)</b></td>
 				</tr>
-				
+				<tr data-ng-repeat="x in event | orderBy:random  | limitTo:10" >
+					<td align="center">{{x.name}}</td>
+					<td align="center">{{x.intro}}</td>
+					<td align="center">
+						<div ng-controller="joinTeam">
+							<button ng-click="joinTeamInPerson(x.name,x.name)">Join</button>
+						</div>
+					</td>
+				</tr>			
 				
 			</table>
 		</div>
 		<br><br><br>	
-
+		
+		<button ng-click="">
+			tap me to see another set of events
+		</button>
         
 	</div>
          
