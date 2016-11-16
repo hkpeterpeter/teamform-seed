@@ -146,8 +146,9 @@ teamapp.directive("footerPanel",function(){
         transclude: true,
         scope:{
             ftitle:"@",
-            
+            currenpic:"@"
         }
+
     };
 
 });
@@ -206,7 +207,7 @@ teamapp.directive('eventCard', function($compile) {
                 //is Admin
 
                    
-                    window.location.href = '#admin';
+                    window.location.href = '#/admin';
                 }else{
                     var isLeader=false;
                     var isMember=false;
@@ -217,14 +218,14 @@ teamapp.directive('eventCard', function($compile) {
                         if(data.allTeams[i].leader==$rootScope.currentUser.id){
                             isLeader=true;
                          
-                             window.location.href = '#teamleader';
+                             window.location.href = '#/teamleader';
                            return;
                         }
                        for(var j=0;j<data.allTeams[i].member.length;j++){
                             if(data.allTeams[i].member[j]==$rootScope.currentUser.id){
                                 isMember=true;
                             
-                                window.location.href = '#team';
+                                window.location.href = '#/team';
                               return;
                             }
                        }
@@ -232,7 +233,7 @@ teamapp.directive('eventCard', function($compile) {
                     }
                     if(!(isLeader||isMember)){
                      
-                        window.location.href = '#eventx';
+                        window.location.href = '#/eventx';
                     }
 
                 
