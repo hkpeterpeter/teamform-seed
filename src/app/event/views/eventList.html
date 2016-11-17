@@ -4,34 +4,26 @@
 </div>
 <div class="clearfix"></div>
 <div class="divider"></div>
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Event Name</th>
-            <th>User Joined</th>
-            <th>Team Joined</th>
-            <th>Created By</th>
-            <th>Created At</th>
-        </tr>
-    </thead>
-    <tbody dir-paginate="event in eventList.events | itemsPerPage: 2">
-        <tr>
-            <td>
+<table ng-table="eventList.eventListTableParams" show-filter="true" class="table table-hover">
+    <tbody>
+        <tr ng-repeat="event in $data track by event.$id">
+            <td data-title="'Event Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
                 <a ui-sref="event.detail({eventId: event.$id})">{{event.data.name}}</a>
             </td>
-            <td>
+            <td data-title="'User Joined'" sortable="'getTotalEventUsers()'">
                 {{event.getTotalEventUsers()}}
             </td>
-            <td>
+            <td data-title="'Team Joined'" sortable="'getTotalTeams()'">
                 {{event.getTotalTeams()}}
             </td>
-            <td>
+            <td data-title="'Created By'" filter="{'getCreatedByUser().name': 'text'}" sortable="'getCreatedByUser().name'">
                 <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().name}}</a>
             </td>
-            <td>
+            <td data-title="'Created At'" filter="{'data.createdAt': 'text'}" sortable="'data.createdAt'">
                 {{event.data.createdAt | date:'medium'}}
             </td>
         </tr>
     </tbody>
 </table>
-<dir-pagination-controls />
+<!-- dir-paginate="event in eventList.events | itemsPerPage: 2" -->
+<!-- <dir-pagination-controls /> -->
