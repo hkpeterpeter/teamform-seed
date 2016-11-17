@@ -21,7 +21,7 @@ app.controller("chatRoomCtrl",
 			message: "",
 			date: "",
 			userName: ""
-		}
+		};
 		var eventName = getURLParameter("q");
 		var ref = firebase.database().ref("chatRoom" + eventName);
 		$scope.chatList = $firebaseArray(ref);
@@ -45,11 +45,11 @@ app.controller("chatRoomCtrl",
 				return  true;
 			}
 			return false;
-		}
+		};
 
 		$scope.addMessage = function() {
 			// update the date
-			if ( $scope.input.message !== "" ) {
+			if($scope.input.message !== "" ) {
 				firebase.auth().onAuthStateChanged(function(firebaseUser) {
 					if(firebaseUser) {
 						var user = firebase.auth().currentUser;
@@ -63,23 +63,23 @@ app.controller("chatRoomCtrl",
 		$scope.timeSince = function(date) {
 		    var seconds = Math.floor((new Date() - new Date(date)) / 1000);
 		    var interval = Math.floor(seconds / 31536000);
-		    if (interval >= 1) {
+		    if(interval >= 1) {
 		        return interval + " years ago";
 		    }
 		    interval = Math.floor(seconds / 2592000);
-		    if (interval >= 1) {
+		    if(interval >= 1) {
 		        return interval + " months ago";
 		    }
 		    interval = Math.floor(seconds / 86400);
-		    if (interval >= 1) {
+		    if(interval >= 1) {
 		        return interval + " days ago";
 		    }
 		    interval = Math.floor(seconds / 3600);
-		    if (interval >= 1) {
+		    if(interval >= 1) {
 		         return interval + " hours ago";
 		    }
 		    interval = Math.floor(seconds / 60);
-		    if (interval >= 1) {
+		    if(interval >= 1) {
 		        return interval + " minutes ago";
 		    }
 		    return Math.floor(seconds) + " seconds ago";

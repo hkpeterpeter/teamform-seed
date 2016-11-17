@@ -110,7 +110,7 @@
 		</div>
 	</div>
 
-	<div class="container marketing">
+	<div class="container marketing" ng-controller="indexCtrl">
 		<div class="row featurette" id="page_about">
 			<div class="col-md-12">
 				<h2 class="featurette-heading">What is teamform?
@@ -153,71 +153,15 @@
 					<span class="text-muted">Team Anonymous</span>
 				</h2>
 				<div class="row">
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
+					<div class="tmember col-xs-6 col-sm-4 col-md-3" ng-repeat="t in dteam">
+						<div class="thumbnail text-center" style="word-wrap: break-word;">
+							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member{{$index+1}}&w=150&h=150" class="img-circle img-responsive">
 							<div class="caption">
-								<h4>Jacky CHEUNG</h4>
-								<p>cycheungar@connect.ust.hk</p>
+								<h4>{{t.name}}</h4>
+								<p>{{t.email}}</p>
 							</div>
 						</div>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
-							<div class="caption">
-								<h4>Carson CHOW</h4>
-								<p>ccchowae@connect.ust.hk</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member3&w=150&h=150" class="img-circle img-responsive">
-							<div class="caption">
-								<h4>Andy LAM</h4>
-								<p>cflamad@connect.ust.hk</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member4&w=150&h=150" class="img-circle img-responsive">
-							<div class="caption">
-								<h4>Raymond LUI</h4>
-								<p>kkluiaa@connect.ust.hk</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member5&w=150&h=150" class="img-circle img-responsive">
-							<div class="caption">
-								<h4>Brian TSE</h4>
-								<p>cytseab@connect.ust.hk</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member6&w=150&h=150" class="img-circle img-responsive">
-							<div class="caption">
-								<h4>Tom WONG</h4>
-								<p>cwwongau@connect.ust.hk</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member7&w=150&h=150" class="img-circle img-responsive">
-							<div class="caption">
-								<h4>Steven YAU</h4>
-								<p>kcyauac@connect.ust.hk</p>
-							</div>
-						</div>
-					</div>
+					</div>					
 				</div>
 
 			</div>

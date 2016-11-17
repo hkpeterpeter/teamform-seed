@@ -43,9 +43,7 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.uid = user.uid;
 			refPath = $scope.eventName + "/member/" + $scope.uid;
 			$scope.currentUser = $firebaseObject(firebase.database().ref(refPath));	
-			// if($scope.currentUser.$value != null) {
-				$scope.loadFunc();
-			// }
+			$scope.loadFunc();
 		}
 	});
 	
@@ -144,7 +142,7 @@ angular.module('teamform-team-app', ['firebase'])
 	        }
 	    }
 	    return maxIndex;		
-	}
+	};
 
 	$scope.refreshViewRequestsReceived = function() {
 		$scope.requests = [];
@@ -270,13 +268,12 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.param.weight.splice(k,1);
 		}
 	};
+
 	$scope.openCategory = function(dVal){
 		document.getElementById(dVal).classList.toggle("show");
-	};
-
-
-	
+	};	
 	//tagsfunctionendshere
+
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;		
 		if($scope.param.teamMembers.indexOf(r) < 0 && 
@@ -310,8 +307,7 @@ angular.module('teamform-team-app', ['firebase'])
 			}
 			$scope.saveFunc();
 		}
-	};
-	
+	};	
 
 	$scope.checkTeam = function(){
 		//check if teamName exist
@@ -326,8 +322,7 @@ angular.module('teamform-team-app', ['firebase'])
 			}
 		}
 		return false;
-	}
-	
+	};	
 	
 	//invite function
 	$scope.sendInvite = function(id) {
@@ -363,6 +358,6 @@ angular.module('teamform-team-app', ['firebase'])
 			data.invitedBy = $scope.invitedBy;
 			window.alert("Invitation sent!");
 		}
-	}
+	};
 
 }]);

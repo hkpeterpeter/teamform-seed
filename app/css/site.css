@@ -135,3 +135,21 @@ ul.list-unstyled li:hover {
 .teamList{
     padding: 5px;
 }
+
+@media (max-width: 767px) {
+    .tmember:nth-child(2n+1) {
+        clear: left;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .tmember:nth-child(3n+1) {
+        clear: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .tmember:nth-child(4n+1) {
+        clear: left;
+    }
+}
