@@ -36,8 +36,9 @@ export default class MessageService {
                 if(event.event == 'child_added') {
                     let user = await this.authService.getUser();
                     let message = messages.$getRecord(event.key);
-                    if(user && user.uid == message.data.receiver) {
+                    if(user && user.uid == message.data.receiver && !message.notified) {
                         let sender = await message.getSender();
+                        message.notified = true;
                         this.notificationService.create('New Message From ' + sender.name, message.data.content);
                     }
                 }

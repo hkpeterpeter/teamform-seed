@@ -9,9 +9,7 @@
             <div class="col-sm-3">
                 <div class="row">
                     <div ng-class="[message.style['search-input']]">
-                        <div class="input-group col-md-12">
-                            <input type="text" ng-class="[message.style['search-query']]" class="form-control" placeholder="Conversation" />
-                        </div>
+                        <input type="text" class="form-control" ng-model="message.user" typeahead-on-select="message.onSelectUser($item, $model, $label)" uib-typeahead="user as user.name for user in message.users | filter:{name:$viewValue} | limitTo:8" typeahead-show-hint="true" typeahead-min-length="0" typeahead-editable="false">
                     </div>
                     <div ng-class="[message.style['member-list']]">
                         <ul class="list-unstyled">
@@ -34,9 +32,7 @@
 
             <div class="col-sm-9">
                 <div class="row">
-                    <div ng-class="[message.style['new_message_head']]">
-                        <div><button><i class="fa fa-plus-square-o" aria-hidden="true"></i> New Message</button></div>
-                    </div>
+                    <div ng-class="[message.style['new_message_head']]">Message to {{message.conversation.user.name}}</div>
 
                     <div ng-class="[message.style['chat_area']]" scroll-glue>
                         <ul class="list-unstyled">

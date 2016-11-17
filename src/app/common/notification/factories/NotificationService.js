@@ -3,7 +3,6 @@ export default class NotificationService {
         this.$window = window;
         this.supported = ('Notification' in this.$window);
         this.requestPermission();
-        console.log(this.supported);
     }
     requestPermission() {
         if (this.supported) {
@@ -11,9 +10,7 @@ export default class NotificationService {
         }
     }
     create(title, body, timeout = 7000) {
-        console.log(this.$window.Notification.permission);
         if (this.supported && this.$window.Notification.permission === 'granted') {
-            console.log('create');
             let notification = new this.$window.Notification(title, {
                 body: body,
                 vibrate: [
