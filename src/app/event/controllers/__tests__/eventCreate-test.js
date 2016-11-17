@@ -25,6 +25,11 @@ describe('EventCreateController', () => {
         $timeout.flush();
         expect($controller.$state.current.name).toEqual('event.detail');
         expect($controller.$stateParams.eventId).toEqual('1');
+        $controller.event.eventDate = null;
+        await $controller.createEvent();
+        $timeout.flush();
+        expect($controller.$state.current.name).toEqual('event.detail');
+        expect($controller.$stateParams.eventId).toEqual('1');
         done();
     });
 

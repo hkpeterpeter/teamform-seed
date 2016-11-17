@@ -49,7 +49,7 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
                 }
             },
             ncyBreadcrumb: {
-                label: '{{ eventDetail.event.name || eventEdit.event.name }}',
+                label: '{{ eventDetail.event.data.name || eventEdit.event.data.name }}',
                 parent: 'event.list'
             }
         })

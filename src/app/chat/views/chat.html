@@ -1,3 +1,44 @@
-<div class="container">
-    <ui-alert message="{{chat.error.message}}"></ui-alert>
+<ui-alert message="{{chat.error.message}}"></ui-alert>
+<div class="panel">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Chat</h3>
+    </div>
+    <div class="panel-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-2">
+            <div>
+              Chatroom select:
+            </div>
+            <div ng-repeat ="chatroomList in chat.chatrooms">
+            <button type="button" class="btn btn-primary">{{chatroomList.name}}</button>
+            </div>
+            <div>
+              <div>
+                Create chatroom
+              </div>
+              <form ng-submit="chat.create()">
+                  <input type="text" class="form-control" ng-model="chat.chatroom.name">
+              </form>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div>
+                {{chat.message.data}}:
+            </div>
+            <div ng-repeat="showMessage in chat.messages">
+                {{showMessage.createdBy}}:
+                {{showMessage.data}}
+                <!-- {{chat.messages.createdBy}}:
+                {{chat.messages.data}} -->
+            </div>
+            <form ng-submit="chat.send()">
+                <input type="text" class="form-control" ng-model="chat.message.data">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

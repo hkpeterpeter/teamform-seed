@@ -14,7 +14,7 @@ export default class TeamCreateCtrl {
             eventId: '',
             users: [],
             private: false,
-            invite: false
+            directJoin: true
         };
         this.error = null;
         this.selectedEvent = null;
@@ -84,17 +84,17 @@ export default class TeamCreateCtrl {
     updateTeamUsers() {
         if (this.selectedEvent) {
             this.$timeout(() => {
-                for (let i = 0; i < this.selectedEvent.teamMax; i++) {
+                for (let i = 0; i < this.selectedEvent.data.teamMax; i++) {
                     this.team.users.push({id: null, role: 'Any'});
                 }
-                this.team.users = this.team.users.slice(0, this.selectedEvent.teamMax);
+                this.team.users = this.team.users.slice(0, this.selectedEvent.data.teamMax);
             });
         }
     }
     updateAvailableUsers() {
         if (this.selectedEvent) {
             this.$timeout(() => {
-                this.availablieUsers = Object.values(this.selectedEvent.users).filter((user) => {
+                this.availablieUsers = Object.values(this.selectedEvent.getEventUsers()).filter((user) => {
                     for (let tUser of this.team.users) {
                         if (tUser.id == user.id) {
                             return false;
