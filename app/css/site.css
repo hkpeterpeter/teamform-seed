@@ -116,12 +116,22 @@ p {
 
 .show {display:block;}
 
-.checkbox label{
+ul.list-unstyled li {
     padding: 5px;
     border: 2px solid #888888;
-    margin-bottom:5px;
-    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);    
 }
+
+ul.list-unstyled li:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.col-xs-2, .col-xs-5 {
+    padding: 0;
+}
+
 .teamList{
     padding: 5px;
 }

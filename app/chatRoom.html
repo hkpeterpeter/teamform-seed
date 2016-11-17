@@ -63,7 +63,6 @@
 		<div class="chat-box" ng-controller="chatRoomCtrl">
       <div class="chat-header">
         <div class="user-profile active"></div>
-        <h5>Event name:</h5>
         <h5 id="event_name"></h5>
       </div>
       <div class="chat-container">
@@ -75,10 +74,11 @@
           <span class="datestamp">{{timeSince(text.date)}}</span>
         </div>
       </div>
-      <div class="chat-control">
-        <button type="button" id="sendBtn" ng-click="addMessage()" style="float: right;">Send</button>
-        <div style="overflow: hidden;">
-          <input class="chat-input" type="text" name="message" ng-model="input.message" placeholder="Enter your message..." />
+      <div class="chat-control">     
+        <div class="input-group">   
+          <input class="form-control" type="text" name="message" ng-model="input.message" placeholder="Enter your message..." />
+          <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="addMessage()">Send</button></span>
         </div>
       </div>
     </div>

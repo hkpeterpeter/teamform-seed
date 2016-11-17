@@ -85,11 +85,11 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.retrieveTagsFromID = function(id) {
 		for(var tmpIdx = 0; tmpIdx < $scope.member.length; tmpIdx++) {
 			if($scope.member[tmpIdx].$id === id) {
-				if(angular.isDefined($scope.member[tmpIdx].tags) === false) {return "null"};
+				if(angular.isDefined($scope.member[tmpIdx].tags) === false) {return "none"};
 				return $scope.member[tmpIdx].tags ;
 			}
 		}
-		return "null";
+		return "none";
 	};
 	
 	$scope.retrieveScoreFromTags = function(mtags) {

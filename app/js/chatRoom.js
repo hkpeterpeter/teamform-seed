@@ -3,7 +3,7 @@ $(document).ready(function(){
 	$('#event_name').text("Error: Invalid event name ");
 	var eventName = getURLParameter("q");
 	if (eventName != null && eventName !== '' ) {
-		$('#event_name').text(eventName);
+		$('#event_name').text("Event name: " + eventName);
 	}
 });
 
