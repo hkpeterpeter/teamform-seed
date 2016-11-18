@@ -150,9 +150,28 @@
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto auto auto;
+    margin: 3vh auto auto auto;
     border: 1px solid #888;
     width: 55%;
+}
+
+@media (max-width: 767px) {
+	.modal-content {
+		width: 90%;
+	}	
+}
+
+@media (min-width: 767px) and (max-width: 991px) {
+	.modal-content {
+		width: 80%;
+	}
+}
+
+
+@media (min-width: 991px) and (max-width: 1200px) {
+	.modal-content {
+		width: 65%;
+	}
 }
 
 .animate {

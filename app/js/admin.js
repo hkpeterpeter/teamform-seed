@@ -49,11 +49,14 @@ angular.module('teamform-admin-app', ['firebase'])
 		if(typeof $scope.param.eventAdmin == "undefined") {
 			$scope.paramTest += " noAdmin";
 			var user = firebase.auth().currentUser;
-			if(user) {
+			if(user && eventName != null) {
 				$scope.param.eventAdmin = user.uid;
 				$scope.param.$save();
 				alert("Created new event " + eventName);
 				firebase.database().ref("eventList/" + eventName).set({ status: "active" }).then(reload);
+			}
+			else {	// invalid event name or not logged in
+				$("#admin_page_controller button").hide();	
 			}
 		} else if($scope.param.eventAdmin !== firebase.auth().currentUser.uid) {
 			$("#admin_page_controller button").hide();

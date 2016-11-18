@@ -136,15 +136,25 @@ ul.list-unstyled li:hover {
     padding: 5px;
 }
 
+#input_text {
+    width:30vw;
+}
+
 @media (max-width: 767px) {
     .tmember:nth-child(2n+1) {
         clear: left;
     }
+    #input_text {
+        width: 50vw;
+    }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 767px) and (max-width: 991px) {
     .tmember:nth-child(3n+1) {
         clear: left;
+    }
+    #input_text {
+        width: 40%;
     }
 }
 
