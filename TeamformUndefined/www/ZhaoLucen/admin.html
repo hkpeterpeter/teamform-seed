@@ -1,0 +1,297 @@
+<!--
+<!DOCTYPE html>
+<html lang="en" ng-app="teamapp">
+<head>
+	<meta charset="UTF-8">
+	<title>Admin Page</title>
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="../lib/materialize/css/materialize.min.css"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<script src="../lib/angular.min.js"></script>
+	<script src="admin.js"></script>
+</head>
+<body>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="../lib/materialize/js/materialize.min.js"></script>
+  <script src="adminAnimate.js"></script>
+-->
+  <div ng-controller="admin_ctrl">
+    <div class="container">
+    	<!-- Admin Page Title -->
+    	<div class="section admin-title">
+    		<div class="grey lighten-4">
+    			<h1>{{ eventInfo.name }}</h1>
+    			<h5>Administrator: {{ eventInfo.admin }}</h5>
+    		</div>
+    	</div>
+    	<!-- Admin Page Title Ends -->
+    	<div class="divider"></div>
+    	<!-- Description & Tutorial -->
+    	  <ul class="collapsible popout" data-collapsible="accordion" watch>
+    	    <li class="active">
+			      <div class="collapsible-header active"><i class="material-icons">description</i>Introduction</div>
+			      <div class="collapsible-body" style="display: block;"><p>As an administrator, you can easily manipulate teams and participants in this admin page. To learn more details, Please click on the titles of collapsible items.</p></div>
+			    </li>
+    	    <li>
+			      <div class="collapsible-header"><i class="material-icons">comment</i>Check Team or Member Information</div>
+			      <div class="collapsible-body"><p>As an administrator, you can check the information of a group or member by...</p></div>
+			    </li>
+    			<li>
+      			<div class="collapsible-header"><i class="material-icons">library_add</i>Add Member to A Group</div>
+      			<div class="collapsible-body"><p>Administrator can add a member to a group by...</p></div>
+    			</li>
+    			<li>
+      			<div class="collapsible-header"><i class="material-icons">import_export</i>Merge Teams</div>
+			      <div class="collapsible-body"><p>To merge two teams, ...</p></div>
+    			</li>
+			  </ul>
+    	<!-- Description & Tutorial Ends -->
+    	<div class="divider"></div>
+    	<div class="row admin-lists">
+    	<!-- Teams List -->
+
+    		<div class="col s12 m6">
+
+    			<h2>Formed Teams</h2>
+    			<div class="divider"></div>
+
+          <!-- Team Filter -->
+          <div class="admin-filter">
+            <span>Full Or Not: </span>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-full-team" checked="checked" ng-model="adminTeamFull"/>
+              <label for="admin-full-team">No Quota</label>
+            </div>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-unfull-team" checked="checked" ng-model="adminTeamNotFull"/>
+              <label for="admin-unfull-team">Quota Open</label>
+            </div>
+          </div>
+          <!--
+          <div class="admin-filter">
+            <span>Prefererence: </span>
+            <div class="admin-one-filter" ng-repeat="i in getNumber(size) track by $index">
+              <input type="checkbox" class="filled-in" id="admin-team-size-{{$index+minSize}}" checked="checked" ng-model="adminTeam{{$index+minSize}}"/>
+              <label for="admin-team-size-{{$index+minSize}}">{{$index+minSize}}</label>
+            </div>
+          </div>
+          -->
+          <div class="input-field">
+            <input id="admin-team-search" type="text" class="validate"  ng-model="adminTeamSearch">
+            <label for="admin-team-search">Search By Name Or Skill</label>
+          </div>
+
+
+          <!-- Team Filter Ends -->
+<!-- js functions -->
+<script type="text/javascript">
+  $scope.adminAddUser = function(teamID, curTeamSize, curTeamMember, user) {
+    if (curTeamSize < parseInt($scope.maxSize)) {
+      //Add user to team member
+      curTeamMember.$add(user.$id.toString());
+
+      var curUser = $rootScope.user_ref.child(user.$id.toString());
+
+      //Add user to teamAsMember
+      var curUserIn = curUser.child("teamsAsMember");
+      var curUserInList = $firebaseArray(curUserIn);
+      curUserInList.$add(teamID);
+
+      //Delete this request from teamsApplying
+      var curUserOut = $firebaseObject(curUser);
+      curUserOut.$loaded().then(function(){
+        for (var key in curUserOut.teamsApplying) {
+          if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
+            $rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
+          }
+        };
+      });
+
+      var index = $scope.users.indexOf(user);
+      $scope.users.splice(index, 1);  
+      // Remove waiting user from database-event
+      for (var key in $scope.event.waitingUsers) {
+        if($scope.event.waitingUsers[key] == user.$id) {
+          $rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
+          break;
+        };
+      };
+      
+    } else {
+      console.log("the team is full");
+      return false;
+    }   
+    return true;
+  };
+
+// Functions - USER
+  $scope.adminAddUserToTeam = function(key, request, user) {
+    var curTeamSize = $scope.getLength($scope.teams.$getRecord(request.teamID.toString()));
+    var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
+    var teamID = request.teamID;
+    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
+
+
+  };
+
+  $scope.adminAddUserToOtherTeam = function(user) {
+    console.log("test");
+    var teamName = user.adminAdd;
+    var curTeamSize;
+
+    var team = $scope.findTeamByName(teamName);
+
+    if (team == null || teamName == null) {
+      console.log("No Such Team");
+      return;
+    }
+    var teamID = team.$id;
+    var curTeamSize = $scope.getLength(team);
+    var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
+    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
+
+  };  
+
+</script>
+<!-- js functions ends -->
+
+
+    			<!-- A Single Card -->
+          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams | filter:teamFilter">
+            <div class="card-content white-text">
+              <span class="card-title activator">{{ team.teamName }}<i class="material-icons right">more_vert</i></span>
+              <br/>
+              <div class="admin-card-text">
+                <span class="admin-card-subtitle grey-text text-lighten-2">Team Size:</span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members" ng-bind="getLength(team)"></span>
+              </div>
+              <div class="admin-card-text">
+                <span class="admin-card-subtitle grey-text text-lighten-2">Preferred Size:</span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members">{{ team.preferedSize }}</span>
+              </div>
+              <div class="admin-card-text">
+                <span class="admin-card-subtitle grey-text text-lighten-2">Required Skills:</span>
+                <span class="new badge white-text admin-skill-badge" data-badge-caption="" ng-repeat="skill in team.desiredSkills">{{ skill }}</span>
+              </div>
+            </div>
+            <div class="card-action">
+              <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge">
+              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="remove(team)">Delete</button>
+              <button class="btn-flat orange-text admin-team-btn" ng-click="adminMergeTeam(team)">Merge</button>
+              <button class="btn-flat orange-text admin-team-btn" ng-click="findSuitableUser(team)">Recommend</button>
+            </div>
+
+            <div class="card-reveal blue-grey darken-1 white-text">
+            	<span class="card-title">Team Name<i class="material-icons right">close</i></span>
+            	<p>Team Members: <span ng-repeat="member in team.membersID">{{ member }} </span></p>
+            	<p>Other infomation about this team.</p>
+            </div>
+          </div>
+          <!-- A Single Card Ends -->
+
+    		</div>
+    	<!-- Team List Ends -->
+
+    	<!-- Participant List -->
+    		<div class="col s12 m6">
+
+    			<h2>Waiting Participants</h2>
+    			<div class="divider"></div>
+
+          <!-- User Filter -->
+          <div class="admin-filter">
+            <span>Applied Or Not: </span>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-request-user" checked="checked" ng-model="adminUserRequest"/>
+              <label for="admin-request-user">Requested</label>
+            </div>
+            <div class="admin-one-filter">
+              <input type="checkbox" class="filled-in" id="admin-unrequest-user" checked="checked" ng-model="adminUserNotRequest"/>
+              <label for="admin-unrequest-user">Not Requested</label>
+            </div>
+          </div>
+          <div class="input-field">
+            <input id="admin-user-search" type="text" class="validate" ng-model="adminUserSearch">
+            <label for="admin-user-search">Search By Name Or Skill</label>
+          </div>
+
+
+          <!-- User Filter Ends -->
+
+    			<!-- A Single Card -->
+
+          <!-- Changing Toolkit to enable html -->
+          <script type="text/javascript">
+              $(document).ready(function(){
+                $('.tooltipped').tooltip({html: true});
+              });
+          </script>
+          <!-- Finish enabling Toolkit html -->
+    				<div class="card admin-user-card sticky-action" ng-repeat="user in users | filter:userFilter">
+							<div class="card-content">
+								<span class="card-title activator grey-text text-darken-4">{{ user.name }}<i class="material-icons right">more_vert</i></span>
+                <p class="grey-text">{{ user.email }}</p>
+								<div>
+									<div class="chip admin-card-chip" ng-repeat="skill in user.skills">{{ skill }}</div>
+								</div>
+          			
+        			</div>
+       				<div class="card-action">
+         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn tooltipped" data-tooltip="Current size: 5<br>Preferred size: 6-7<br>Required skills: JavaScript" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)">{{ request.teamName }}</a>
+                <!--<a class="btn waves-effect waves-teal admin-card-btn">Other</a>-->
+         				
+                <div class="divider admin-incard-divider"></div>
+                
+         				<div class="row">
+         					<div class="input-field col s8">
+          					<input id="team_name" type="text" class="validate" ng-model="user.adminAdd">
+          					<label for="team_name">Name of Another Team</label>
+        					</div>
+        					<button class="btn waves-effect waves-teal admin-card-btn admin-add-btn" ng-click="adminAddUserToOtherTeam(user)">Add</button>
+        				</div>
+                
+       				</div>
+       				<div class="card-reveal">
+       					<div class="col s3 admin-profile-photo">
+       					<!-- This image should be replaced by profile photo afterwards -->
+       						<img src="http://lorempixel.com/100/190/nature/6">
+       					</div>
+
+       					<div class="col s9">
+       						<span class="card-title grey-text text-darken-4">Username<i class="material-icons right">close</i></span>
+       						<p>Detailed profile infomation will be displayed here.</p>
+       					</div>
+       				</div>
+    				</div>
+
+            <!-- AdminJoinTeam Modal -->
+            <!--
+            <div id="adminJoinTeam" class="modal">
+              <div class="modal-content">
+                <h4>Modal Header</h4>
+                <p>A bunch of text</p>
+              </div>
+              <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+              </div>
+            </div>
+            -->
+            <!-- AdminJoinTeam Modal Ends -->
+  			<!-- A Single Card Ends -->
+
+
+
+    		</div>
+    	<!-- Participant List Ends -->
+    	</div>
+    </div>
+    <event-footer></event-footer>
+    <script type="text/javascript">
+      $('.collapsible').collapsible();
+    </script>
+  </div>
+<!--    
+</body>
+</html>
+-->
