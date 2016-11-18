@@ -1,12 +1,13 @@
 import Message from './Message.js';
 export default class MessageService {
-    constructor($rootScope, $firebaseArray, $firebaseObject, $database, authService, userService) {
+    constructor($rootScope, $firebaseArray, $firebaseObject, $database, authService, userService, notificationService) {
         this.$rootScope = $rootScope;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
         this.authService = authService;
         this.userService = userService;
+        this.notificationService = notificationService;
         this.messages = null;
     }
     async getMessages() {
@@ -30,8 +31,17 @@ export default class MessageService {
                 },
             });
             let messages = await messageFirebaseArray(this.$database.ref('messages')).$loaded();
-            messages.$watch(() => {
+            messages.$watch(async (event) => {
                 this.$rootScope.$broadcast('messageChanged');
+                if(event.event == 'child_added') {
+                    let user = await this.authService.getUser();
+                    let message = messages.$getRecord(event.key);
+                    if(user && user.uid == message.data.receiver && !message.notified) {
+                        let sender = await message.getSender();
+                        message.notified = true;
+                        this.notificationService.create('New Message From ' + sender.name, message.data.content);
+                    }
+                }
             });
             this.messages = messages;
         }
@@ -49,4 +59,4 @@ export default class MessageService {
     }
 }
 MessageService.Instance = null;
-MessageService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService'];
+MessageService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService', 'NotificationService'];

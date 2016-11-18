@@ -20,14 +20,14 @@ import app from './common/app';
 
 angular.module('app', [uirouter, app, home, register, login, logout, passwordreset, event, user, team, chat, message, error, auth, ngprogress])
     .config(routes)
-    .run(['$rootScope', '$state', 'ngProgressLite', 'AuthService', ($root, $state, ngProgressLite, authService) => {
-        $root.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
+    .run(['$rootScope', '$state', 'ngProgressLite', 'AuthService', 'MessageService', ($rootScope, $state, ngProgressLite, authService, messageService) => {
+        $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
             ngProgressLite.inc();
         });
-        $root.$on('$stateChangeSuccess', () => {
+        $rootScope.$on('$stateChangeSuccess', () => {
             ngProgressLite.done();
         });
-        $root.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
+        $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
             ngProgressLite.done();
             if (error === 'AUTH_REQUIRED') {
                 $state.go('login', {
