@@ -5,7 +5,7 @@ teamapp.factory("allteams", ["$firebaseArray",
     // create a reference to the database where we will store our data
     var ref = firebase.database().ref("teams");
 
-    return $firebaseArray(ref);
+    return $firebaseArray(ref); 
   }
 ]);
 
@@ -186,8 +186,7 @@ teamapp.directive('eventCard', function($compile) {
 
           
                  
-                $firebaseObject($rootScope.event_ref.child($scope.eid)).$bindTo($rootScope,"bindedclickedEvent");
-
+             
                 $rootScope.clickedEvent=$firebaseObject($rootScope.event_ref.child($scope.eid));
                
                 $rootScope.clickedEvent.$loaded().then(function(data){
@@ -315,48 +314,20 @@ teamapp.directive("zhuNavi", function() {
         restrict: "E",
         templateUrl: "zhuxinyu/js/components/fish-navi.html",
          controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
-           
-             try{
+            $scope.allnoti=$firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs"));
 
-            $firebaseObject($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs")).$bindTo($scope,"allNotif");
-
-            $scope.shownotify=function(){
-                $scope.ntList=[];
-
-
-                $scope.invite_ntList=[];
-
-                $.each($scope.allNotif, function(i,n) {
-
-                    if(n!=null&&n.content!=null&&n.read==false){
-
-                        if(n.type=="invitation"){
-
-                             $scope.invite_ntList.push(n);
-                          
-                        }else{
-
-                             $scope.ntList.push(n);
-                            
-
-                        }
-                        //n.read=true;
-                       
-                    }
-                });
-              
-            }
-        }catch(err){}
-
-             
-          
-     
+            $scope.markRead=function(id){
+                console.log(id);
+            var temp=$firebaseObject($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs").child(id).child("read"));
+           temp.$loaded().then(function(data){
+                temp.$value=true;
+                temp.$save();
+            });
+            }   
        }
          
     };
 });
-
-
 
 teamapp.directive("notifyBar",function(){
     return {
