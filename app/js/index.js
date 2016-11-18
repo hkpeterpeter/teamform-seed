@@ -89,6 +89,15 @@ angular.module('teamform-index-app', ['firebase'])
             //return false;
         }
     }
+    $scope.btn_enter = function (eventId) {
+        var val = eventId;
+        if (val !== '') {
+            var url;
+            if ($scope.fb) { url = "member.html?q=" + val; } else { url = "admin.html?q=" + val; };
+            window.location.href = url;
+            //return false;
+        }
+    }
 
     $scope.refreshEvents = function () {
         var ref = firebase.database().ref("event/");

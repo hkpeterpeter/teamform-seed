@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" ng-app="teamform-team-app">
    <head>
       <meta charset="utf-8">
@@ -64,52 +64,34 @@
 						 </div>
 
 						<div class="col-md-1 col-xs-1">
-						   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
+						   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Save</button>
 						 </div>
 
 						 <div class="col-md-1 col-xs-1">
 							<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
 						</div>
 					</div>
-
+                      <label for="inputTeamSize" class="control-label">Team Size <span class="required " ng-show="(param.currentTeamSize < range.minTeamSize) || (param.currentTeamSize > range.maxTeamSize)">*Has to be between {{range.minTeamSize}} and {{range.maxTeamSize}}</span></label>
+                      <br>
+                      <div class="row">
+                          <div class="col-md-3 col-xs-3">
+                              <input type="text" class="form-control" id="inputTeamSize" placeholder="Enter your team size" ng-model="param.currentTeamSize">
+                          </div>
+                      </div>
 
 
                   </div>
 
 
-				  <div class="row">
-					  <strong>Preferred Team Size: </strong>
-					  <span>
-						 <span class="badge">
-						   <input type="text" class="form-control" id="inputTeamName" placeholder="{{param.currentTeamSize}}" ng-model="param.currentTeamSize"></span>
 
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-
-					   </span>
-              <div class="checkbox">
-                  <label>
-                      <input type="checkbox" value="priority"
-                             ng-checked="param.priority"
-                             ng-click="changePriority()">
-                      Priority
-                  </label>
-              </div>
-
-              <!--Team Preference-->
-              <div class="checkbox">
-                <h1> Team Preference </h1>
-                  <label>
-                      <input type="checkbox" value="priority"
-                             ng-checked="param.priority"
-                             ng-click="changePriority()">
-                      Priority
-                  </label>
-              </div>
-				   </div>
-
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="priority"
+                                   ng-checked="param.priority"
+                                   ng-click="$apply(param.priority=!param.priority);">
+                            Priority
+                        </label>
+                    </div>
 
 
                   </form>

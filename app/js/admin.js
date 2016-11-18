@@ -63,22 +63,19 @@ angular.module('teamform-admin-app', ['firebase'])
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
-		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
-			$scope.param.minTeamSize = newVal;
+		if ((newVal >=1) && (newVal <= $scope.param.maxTeamSize) ) {
+			$scope.$apply($scope.param.minTeamSize = newVal);
 		} 
-		
-		$scope.param.$save();
 
 		
 	}
 
 	$scope.changeMaxTeamSize = function(delta) {
 		var newVal = $scope.param.maxTeamSize + delta;
-		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
+		if ((newVal >=1) && (newVal >= $scope.param.minTeamSize )) {
 			$scope.param.maxTeamSize = newVal;
 		} 
 		
-		$scope.param.$save();
 		
 		
 	}

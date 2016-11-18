@@ -50,7 +50,6 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
-	
 	$scope.requests = [];
 	$scope.refreshViewRequestsReceived = function() {
 		
@@ -80,56 +79,50 @@ angular.module('teamform-team-app', ['firebase'])
 	
 	
 
-	$scope.changeCurrentTeamSize = function(delta) {
-		var newVal = $scope.param.currentTeamSize + delta;
-		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
-			$scope.param.currentTeamSize = newVal;
-		} 
-	}
-
 	$scope.saveFunc = function() {
 		
 		
 		var teamID = $.trim( $scope.param.teamName );
-		
-		if ( teamID !== '' ) {
-			
-			var newData = {				
-				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers,
-                'priority':  $scope.param.priority
-			};		
-			
-			var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
-			var ref = firebase.database().ref(refPath);
-			
-			
-			// for each team members, clear the selection in /[eventName]/team/
-			
-			$.each($scope.param.teamMembers, function(i,obj){
-				
-				
-				//$scope.test += obj;
-				var rec = $scope.member.$getRecord(obj);
-				rec.selection = [];
-				$scope.member.$save(rec);
-				
-				
-				
-			});
-			
-			
-			
-			ref.set(newData, function(){			
+		if (($scope.param.currentTeamSize >= $scope.range.minTeamSize) && ($scope.param.currentTeamSize <= $scope.range.maxTeamSize)) {
+		    if (teamID !== '') {
 
-				// console.log("Success..");
-				
-				// Finally, go back to the front-end
-				// window.location.href= "index.html";
-			});
-			
-			
-			
+		        var newData = {
+		            'size': $scope.param.currentTeamSize,
+		            'teamMembers': $scope.param.teamMembers,
+		            'priority': $scope.param.priority
+		        };
+
+		        var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
+		        var ref = firebase.database().ref(refPath);
+
+
+		        // for each team members, clear the selection in /[eventName]/team/
+
+		        $.each($scope.param.teamMembers, function (i, obj) {
+
+
+		            //$scope.test += obj;
+		            var rec = $scope.member.$getRecord(obj);
+		            rec.selection = [];
+		            $scope.member.$save(rec);
+
+
+
+		        });
+
+
+
+		        ref.set(newData, function () {
+
+		            // console.log("Success..");
+
+		            // Finally, go back to the front-end
+		            // window.location.href= "index.html";
+		        });
+
+
+
+		    }
 		}
 		
 		
