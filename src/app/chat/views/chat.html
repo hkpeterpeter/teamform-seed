@@ -11,8 +11,10 @@
             <div>
               Chatroom select:
             </div>
-            <div ng-repeat ="chatroomList in chat.chatrooms">
-            <button type="button" class="btn btn-primary">{{chatroomList.name}}</button>
+            <div class="pre-scrollable">
+              <div ng-repeat ="chatroomList in chat.chatrooms">
+                <button type="button" class="btn btn-primary">{{chatroomList.name}}</button>
+              </div>
             </div>
             <div>
               <div>
@@ -23,15 +25,14 @@
               </form>
             </div>
           </div>
-          <div class="col-md-8">
-            <div>
-                {{chat.message.data}}:
-            </div>
-            <div ng-repeat="showMessage in chat.messages">
-                {{showMessage.createdBy}}:
-                {{showMessage.data}}
-                <!-- {{chat.messages.createdBy}}:
-                {{chat.messages.data}} -->
+          <div class="col-md-8 ">
+            <div class="pre-scrollable">
+              <div ng-repeat="showMessage in chat.messages">
+                  {{showMessage.createdBy}}:
+                  {{showMessage.data}}
+                  <!-- {{chat.messages.createdBy}}:
+                  {{chat.messages.data}} -->
+              </div>
             </div>
             <form ng-submit="chat.send()">
                 <input type="text" class="form-control" ng-model="chat.message.data">
