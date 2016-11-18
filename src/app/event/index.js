@@ -4,6 +4,7 @@ import angularfire from 'angularfire';
 import pagination from 'angular-utils-pagination';
 import datepicker from 'angular-ui-bootstrap/src/datepicker';
 import datepickerPopup from 'angular-ui-bootstrap/src/datepickerPopup';
+import { ngTable } from 'ng-table';
 
 import routes from './config/routes';
 import alert from '../common/alert';
@@ -17,7 +18,7 @@ import EventCreateCtrl from './controllers/eventCreate';
 import EventEditCtrl from './controllers/eventEdit';
 import EventService from './factories/EventService';
 
-export default angular.module('event', [uirouter, angularfire, firebase, pagination, user, alert, datepicker, datepickerPopup, auth])
+export default angular.module('event', [uirouter, angularfire, firebase, pagination, user, alert, datepicker, datepickerPopup, ngTable.name, auth])
     .config(routes)
     .controller('EventDetailCtrl', EventDetailCtrl)
     .controller('EventListCtrl', EventListCtrl)

@@ -1,5 +1,5 @@
 export default class EventListCtrl {
-    constructor($location, $state, $timeout, eventService) {
+    constructor($location, $state, $timeout, NgTableParams, eventService) {
         this.$location = $location;
         this.$state = $state;
         this.$timeout = $timeout;
@@ -7,12 +7,25 @@ export default class EventListCtrl {
         this.events = [];
         this.error = null;
         this.getEvents();
+        this.eventListTableParams = new NgTableParams({
+            page: 1,
+            count: 2
+        }, {
+            counts: [],
+            dataset: []
+        });
     }
     async getEvents() {
         try {
             let events = await this.eventService.getEvents();
             this.$timeout(() => {
                 this.events = events;
+                this.eventListTableParams.settings({
+                    dataset: this.events
+                });
+                events.$watch(() => {
+                    this.eventListTableParams.reload();
+                });
             });
         } catch (error) {
             this.$timeout(() => {
@@ -22,4 +35,4 @@ export default class EventListCtrl {
     }
 }
 
-EventListCtrl.$inject = ['$location', '$state', '$timeout', 'EventService'];
+EventListCtrl.$inject = ['$location', '$state', '$timeout', 'NgTableParams', 'EventService'];
