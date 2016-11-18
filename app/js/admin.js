@@ -1,4 +1,4 @@
-$(document).ready(function(){
+var onReady = function(){
 	
 	$('#admin_page_controller').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
@@ -8,7 +8,9 @@ $(document).ready(function(){
 		
 	}
 
-});
+};
+
+$(document).ready(onReady);
 
 angular.module('teamform-admin-app', ['firebase'])
 .controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {

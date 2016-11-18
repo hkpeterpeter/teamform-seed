@@ -1,5 +1,12 @@
 describe('teamform-admin-app', function() {
 	
+	describe('ready test', function(){
+		it('test ready function', function(){
+			onReady();
+			
+
+		});
+	});
    //
    // Example: A test case of getRandomIntInclusive
    //

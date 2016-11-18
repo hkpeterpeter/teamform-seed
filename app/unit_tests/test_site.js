@@ -25,15 +25,20 @@ describe('Test site.js', function() {
       });
    });
 
-  describe('initalizeFirebase', function(){
+  describe('initializeFirebase', function(){
       it('test firebase',function(){
         var config = {
-      apiKey: "AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY",
-      authDomain: "lab-firebase-d860e.firebaseapp.com",
-      databaseURL: "https://lab-firebase-d860e.firebaseio.com",
-      storageBucket: "lab-firebase-d860e.appspot.com",
+          apiKey: "AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY",
+          authDomain: "lab-firebase-d860e.firebaseapp.com",
+          databaseURL: "https://lab-firebase-d860e.firebaseio.com",
+          storageBucket: "lab-firebase-d860e.appspot.com",
         };
-        expect(initializeFirebase(config)).toBe(true);
+        expect(initializeFirebase()).toBe(true);
+        expect(config.apiKey).toEqual("AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY");
+        expect(config.authDomain).toEqual("lab-firebase-d860e.firebaseapp.com");
+        expect(config.databaseURL).toEqual("https://lab-firebase-d860e.firebaseio.com");
+        expect(config.storageBucket).toEqual("lab-firebase-d860e.appspot.com");
+        expect(firebase.initializeApp(config)).toBe(true);
       });
    }); 
 //not correct//
