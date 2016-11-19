@@ -1,22 +1,42 @@
 import style from '../../../assets/stylesheets/message.scss';
 export default class MessageCtrl {
-    constructor($location, $scope, $state, $timeout, authService, messageService) {
+    constructor($location, $scope, $state, $timeout, authService, messageService, userService) {
         this.$location = $location;
         this.$scope = $scope;
         this.$state = $state;
         this.$timeout = $timeout;
         this.authService = authService;
         this.messageService = messageService;
+        this.userService = userService;
         this.messages = [];
         this.conversation = null;
         this.conversations = [];
         this.style = style;
         this.error = null;
         this.messageContent = '';
+        this.users = [];
+        this.user = '';
         this.updateMessages();
         this.$scope.$on('messageChanged', () => {
             this.updateMessages();
         });
+        this.getUsers();
+    }
+    onSelectUser($item) {
+        this.conversation = {user: $item, messages: []};
+        this.user = '';
+    }
+    async getUsers() {
+        try {
+            let users = await this.userService.getUsers();
+            this.$timeout(() => {
+                this.users = users;
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
     }
     async updateMessages() {
         try {
@@ -42,12 +62,17 @@ export default class MessageCtrl {
             });
             let conversations = await allMessage.reduce(async(newConversations, message) => {
                 newConversations = await newConversations;
-                let conversationUser = await message.getSender();
-                if (conversationUser.$id == user.uid) {
+                let conversationUser;
+                if(message.sent === true) {
                     conversationUser = await message.getReceiver();
+                } else {
+                    conversationUser = await message.getSender();
                 }
                 for (let newConversation of newConversations) {
                     if (newConversation.user.$id == conversationUser.$id) {
+                        if(message.sent && message.recv && newConversation.messages[newConversation.messages.length-1].$id == message.$id) {
+                            return newConversations;
+                        }
                         newConversation.messages.push(message);
                         return newConversations;
                     }
@@ -57,7 +82,7 @@ export default class MessageCtrl {
             }, []);
             this.$timeout(() => {
                 this.conversations = conversations;
-                if(this.conversation) {
+                if (this.conversation) {
                     this.getConversation(this.conversation.user.$id);
                 }
             });
@@ -100,5 +125,6 @@ MessageCtrl.$inject = [
     '$state',
     '$timeout',
     'AuthService',
-    'MessageService'
+    'MessageService',
+    'UserService'
 ];
