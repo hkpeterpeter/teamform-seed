@@ -9,20 +9,32 @@ export default class EventCreateCtrl {
         this.event = {
             teamMin: 1,
             teamMax: 1,
-            eventDate: new Date()
+            eventStartDate: new Date(),
+            eventEndDate: new Date(),
+            eventDeadline: new Date(),
         };
         this.error = null;
-        this.eventDatepickerOptions = {
+        this.eventStartDatepickerOptions = {
             minDate: Date.now(),
             showWeeks: false
         };
-        this.eventDatePopupOpened = false;
+        this.eventStartDatePopupOpened = false;
+        this.eventEndDatepickerOptions = {
+            minDate: Date.now(),
+            showWeeks: false
+        };
+        this.eventEndDatePopupOpened = false;
+        this.eventDeadlinepickerOptions = {
+            minDate: Date.now(),
+            showWeeks: false
+        };
+        this.eventDeadlinePopupOpened = false;
     }
     async createEvent() {
         this.loading = true;
-        if (this.event.eventDate instanceof Date) {
-            this.event.eventDate = this.event.eventDate.getTime();
-        }
+        this.event.eventStartDate = this.event.eventStartDate.getTime();
+        this.event.eventEndDate = this.event.eventEndDate.getTime();
+        this.event.eventDeadline = this.event.eventDeadline.getTime();
         try {
             let result = await this.eventService.createEvent(this.event);
             this.$timeout(() => {
@@ -48,8 +60,14 @@ export default class EventCreateCtrl {
             this.event.teamMax = value;
         }
     }
-    toggleEventDatePopup() {
-        this.eventDatePopupOpened = !this.eventDatePopupOpened;
+    toggleEventStartDatePopup() {
+        this.eventStartDatePopupOpened = !this.eventStartDatePopupOpened;
+    }
+    toggleEventEndDatePopup() {
+        this.eventEndDatePopupOpened = !this.eventEndDatePopupOpened;
+    }
+    toggleEventDeadlinePopup() {
+        this.eventDeadlinePopupOpened = !this.eventDeadlinePopupOpened;
     }
 }
 

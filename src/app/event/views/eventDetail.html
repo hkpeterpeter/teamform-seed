@@ -29,8 +29,16 @@
                                     <td>{{eventDetail.event.data.name}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Event Date</th>
-                                    <td>{{eventDetail.event.data.eventDate | date: 'medium'}}</td>
+                                    <th>Event Start Date</th>
+                                    <td>{{eventDetail.event.data.eventStartDate | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Event End Date</th>
+                                    <td>{{eventDetail.event.data.eventEndDate | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Application Deadline</th>
+                                    <td>{{eventDetail.event.data.eventDeadline | date: 'medium'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Team Size</th>
@@ -163,7 +171,7 @@
                 Failed Users:
                 <ul>
                     <li ng-repeat="failedUser in eventDetail.autoTeam.failed">
-                        <a ui-serf="user.detail({userId: failedUser.user.$id})">{{failedUser.user.name}}</a>
+                        <a ui-sref="user.detail({userId: failedUser.user.$id})">{{failedUser.user.name}}</a>
                     </li>
                 </ul>
             </div>
