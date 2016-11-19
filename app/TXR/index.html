@@ -25,123 +25,20 @@
     <!-- draw pie chart -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../jzhangbs/drawPie.js"></script>
-    <script type="text/javascript">
+    
+<script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCI2oKMFJECxHD11aRCxzVNG5M-Uvm8X20",
+      authDomain: "teamform-ad42e.firebaseapp.com",
+      databaseURL: "https://teamform-ad42e.firebaseio.com",
+      storageBucket: "teamform-ad42e.appspot.com",
+      messagingSenderId: "609768855060"
+    };
+    firebase.initializeApp(config);
+  </script>
 
-      app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
-      // Implementation the todoCtrl
-      $scope.new;
-      var list_users=["ikari1","ikari2","shinji","van","andyw"];
-
-      $scope.users = $firebaseObject(firebase.database().ref("users")); //before: $firebaseArray
-
-      $scope.selected = $firebaseObject(firebase.database().ref("selected"));   // .selected[0]: selected
-
-      $scope.tag = $firebaseObject(firebase.database().ref("tag"));
-
-      var ref_teamtag = firebase.database().ref("teamtags");
-      $scope.currentTag = $firebaseArray(ref_teamtag);
-      $scope.resultTag = [];
-      //users filtered by the tags, initialized with $scope.users
-      $scope.filtered = $firebaseObject(firebase.database().ref("filtered"));
-
-      $scope.filtered.ikari1={"name":"ikari","intro":"My hands stuck to my face again!","img":"./img/ikari.jpg","select":"glyphicon glyphicon-unchecked","tag":["cpp","java","sql"]};
-      $scope.filtered.shinji={"name":"shinji","intro":"I am not a pussy","img":"./img/shinji.jpg","select":"glyphicon glyphicon-unchecked","tag":["angularjs","html","css","sql"]};
-      $scope.filtered.ikari2={"name":"ikari","intro":"someone make me my sandwich!","img":"./img/ikari.jpg","select":"glyphicon glyphicon-unchecked","tag":["firebase","css"]};
-      $scope.filtered.van={"name":"van","intro":"ddf","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["html","sql"]};
-      $scope.filtered.andyw={"name":"andy","intro":"boxing","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["javascript","sql"]};
-      $scope.filtered.$save();
-
-      //add current tag to chosen tag
-      $scope.reset = function(index){
-        var key;
-        $scope.resultTag.push($scope.currentTag[index]);
-        var temp = $scope.currentTag;
-        $scope.currentTag = [];
-        for(var i = 0;i < temp.length;i++){
-          if(i != index){
-            $scope.currentTag.push(temp[i]);
-          }
-        }
-
-        //filtered: if user does not have tag, remove the user
-        angular.forEach($scope.filtered, function(value,key){
-          if($scope.filtered[key].tag.indexOf(temp[index].$value) === -1){
-            delete $scope.filtered[key];
-          }
-        });
-        $scope.filtered.$save();
-      };
-      //delete from chosen tag and move to current tag
-      $scope.delete = function(index){
-        var temp = $scope.resultTag;
-
-        $scope.resultTag = [];
-        for(var i = 0;i < temp.length;i++){
-          if(i != index){
-            $scope.resultTag.push(temp[i]);
-          }
-          else{
-            $scope.currentTag.push(temp[i]);
-          }
-        };
-
-        //filtered: add all users, then filter with tags
-
-        angular.forEach($scope.users, function(value,key){
-          $scope.filtered[key] = $scope.users[key];
-        });
-        //filter the users
-        for (var i=0; i<$scope.resultTag.length; i++){
-          angular.forEach($scope.filtered, function(value,key){
-            if($scope.filtered[key].tag.indexOf($scope.resultTag[i].$value) === -1){
-              delete $scope.filtered[key];
-            }
-          });
-        }
-        $scope.filtered.$save();
-
-      };
-
-
-      $scope.clickButton = function(event) {
-        var username = event.target.id;
-        //alert(event.target.id);
-        if ($scope.users[username].select == "glyphicon glyphicon-check"){
-          //alert(event.target.id+' before: check');
-
-              $scope.users[username].select = "glyphicon glyphicon-unchecked";
-              $scope.users.$save();
-
-              delete $scope.selected[username];
-              //alert("change to uncheck");
-            $scope.selected.$save();
-            //put at last in case username not in filtered
-            $scope.filtered[username].select = "glyphicon glyphicon-unchecked";
-              $scope.filtered.$save();
-          }
-          else if ($scope.users[username].select == "glyphicon glyphicon-unchecked"){
-              //alert(event.target.id+' before: uncheck');
-              $scope.users[username].select = "glyphicon glyphicon-check";
-              $scope.users.$save();
-
-
-              $scope.selected[username]=$scope.users[username];
-              //alert("change to check");
-            $scope.selected.$save();
-
-            //put at last in case username is not in filtered
-          $scope.filtered[username].select = "glyphicon glyphicon-check";
-            $scope.filtered.$save();
-
-          }
-
-
-      };
-
-  });
-
-    </script>
-
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

@@ -118,11 +118,161 @@
             <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "IsVisibleCOMP3111"> Delete Team</button>
             <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "IsVisibleCOMP3511"> Quit Team</button>
 
+
+
+
             <!--invite users with pop up window-->
 
                   <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "IsVisibleCOMP3111">Invite Users</button>
                      </h2>
+                     <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
 
+                        <div ng-controller = "clickCtrl">
+                        <div class="modal-header">
+                        <!--tag-->
+                           <div class = "row filter-bar">
+                            <div class="col-sm-3 ">
+                              <h5>Add tags to filter users: </h5>
+                              <!--pre>{{filtered|json}}</pre-->
+                            </div>
+                            <div class = "col-sm-9  " id = "predefineTag"   >
+                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
+                              
+                            </div>
+                          </div>
+                          
+                          <hr>
+                          
+                          <div class = "row filter-bar">
+                            <div class = "col-sm-3 ">
+                              <h5>Current tags: </h5>
+                            </div>
+                            <div class = "col-sm-9" id = "searchTag" >
+                              <div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
+                                {{y}}
+                                <span>&nbsp&nbsp</span>
+                                <span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="modal-body">
+                          <!--main body-->
+                          <div class = "container">
+                          <!--user list + add button + chosen list-->
+                          <div class="row">
+                          <div class="col-md-4 col-xs-4">
+                          <h2>Users</h2>
+                          <!--to choose-->
+                          <div class="pre-scrollable">
+                            <div class="container">
+                              <div class="col-md-4 col-xs-4">
+                                  <div class="list-group" >
+                                  <!--one user-->
+                              
+                                  <label ng-repeat="(username, content) in filtered">
+                                    <div class="row">
+                                  <div class="col-xs-12">
+                                    <!--button id="{{user.name}}" type="button" class="list-group-item" data-ng-click = "clickButton($event)"-->
+                                      <div class="media">
+                                        <div class="media-left">
+
+                                          <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
+
+                                        </div>
+                                        <div class="media-body">
+                                          <h4 class="media-heading">{{content.name}}</h4>
+                                          {{content.description}}
+                                        </div>
+
+                                        <div class="media-right">
+                                          <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
+                                        </div>
+                                      </div>
+                                    <!--/button-->
+
+                                    </div>
+                                    </div>
+                                    </label>
+                                  
+
+                                  </div>
+                              </div> <!--end of to be chosen-->
+                              </div>
+                          </div>
+
+
+                          </div>
+                          <!--chosen-->
+                          <div class="col-md-4 col-xs-4">
+                          <h2>Selected</h2>
+                          <!--chosen-->
+                            <div class = "pre-scrollable">
+                              <div class="container">
+                                <div class="col-md-6 col-xs-6">
+                                    <div class="list-group" >
+                                    <!--one user-->
+
+                                    <label  ng-repeat="(username,content) in selected">
+                                      <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="media">
+                                          <div class="media-left">
+                                            <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
+
+                                          </div>
+                                          <div class="media-body">
+                                            <h4 class="media-heading">{{content.name}}</h4>
+                                            {{content.description}}
+                                          </div>
+
+                                          <div class="media-right">
+                                            <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
+
+                                          </div>
+
+                                        </div>
+                                      <!--/button-->
+
+                                      </div>
+                                      </div>
+                                      </label>
+
+                                      <!--pre>{{users[0]|json}}</pre-->
+                                    </div>
+
+                                </div>
+                                </div> <!--end of chosed-->
+                                </div>
+                            </div>
+                           </div>
+                           </div>
+                           <!--invite button-->
+                            <br>
+                            <div class="row">
+                              <!--invited button-->
+                                <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary">
+                                  Invite
+                                </button>
+                              </div>
+                            </div>
+                            </div>
+                              currentTag:
+                              <pre>{{currentTag|json}}</pre>
+                              filtered:
+                              <pre>{{filtered|json}}</pre>
+                           </div>
+
+                           </div>
+                           </div>
+                        </div>
+                      
 
 
 
@@ -267,80 +417,7 @@
 
 
 
-                  <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                           <!--tag-->
-                           <div ng-controller="clickCtrl">
-                           
-                           <div class = "row filter-bar">
-                            <div class="col-sm-3 ">
-                              <h5>Add tags to filter users: </h5>
-                              <!--pre>{{filtered|json}}</pre-->
-                            </div>
-                            <div class = "col-sm-9  " id = "predefineTag"   >
-                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x.$value}}</div>
-                              
-                            </div>
-                          </div>
-                          
-                          <hr/>
-                          
-                          <div class = "row filter-bar">
-                            <div class = "col-sm-3 ">
-                              <h5>Current tags: </h5>
-                            </div>
-                            <div class = "col-sm-9" id = "searchTag" >
-                              <div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
-                                {{y.$value}}
-                                <span>&nbsp&nbsp</span>
-                                <span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
-                              </div>
-                            </div>
-                          </div>
-                        
-                        </div>
-                        </div>
-                        <div class="modal-body">
-                          <!--main body-->
-                          <!--user list + add button + chosen list-->
-                          <div class="row">
-                          <!--to be chosen-->
-                          <div class="col-md-6 col-xs-6 col-sm-6">
-                          <h2>Users</h2>
-                          <iframe src="../zwangbm/user_to_choose.html" width="100%" height="200" align="right">
-                          </iframe>
-                          </div>
-                          <!--chosed-->
-                          <div class="col-md-6 col-xs-6 col-sm-6">
-                          <h2>Selected</h2>
-                          <iframe src="../zwangbm/user_chosen.html" width="100%" height="200" align="right">
-                          </iframe>
-                          </div>
-
-                          </div>
-                          <!--invite button-->
-                          <br>
-                          <div class="row">
-                            <!--invited button-->
-                              <div class="col-md-9 col-xs-9 col-sm-9"></div>
-                              <div class="col-md-3 col-xs-3 col-sm-3">
-                              <button class="btn btn-primary">
-                                Invite
-                              </button>
-                            </div>
-                          </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+                  
 
 
 
