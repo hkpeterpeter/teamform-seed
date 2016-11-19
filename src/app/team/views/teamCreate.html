@@ -20,13 +20,13 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">Private Team</label>
         <div class="col-sm-10">
-          <input bs-switch ng-model="teamCreate.team.private" type="checkbox" />
+            <input bs-switch ng-model="teamCreate.team.private" type="checkbox" />
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Direct Join</label>
         <div class="col-sm-10">
-          <input bs-switch ng-model="teamCreate.team.directJoin" type="checkbox" />
+            <input bs-switch ng-model="teamCreate.team.directJoin" type="checkbox" />
         </div>
     </div>
     <div class="form-group">
@@ -38,21 +38,37 @@
                         <tr>
                             <th>User</th>
                             <th>Position</th>
+                            <th>Perferred Skills</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="user in teamCreate.team.users track by $index">
                             <td>
-                                <ui-select on-select="teamCreate.onTeamUserChange($item)" ng-model="user.id" ng-if="$index > 0" ng-disabled="$index == 0">
+                                <ui-select on-select="teamCreate.onTeamUserChange($item)" ng-model="user.id" ng-if="$index > 0">
                                     <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.user.name}}</ui-select-match>
                                     <ui-select-choices repeat="eventUser.id as eventUser in teamCreate.availablieUsers | filter:$select.search">
-                                        {{eventUser.user.name}}
+                                        <div>
+                                          {{eventUser.user.name}}
+                                          <p>Skills: <span ng-repeat="skill in eventUser.user.skills" class="label label-success">{{skill}}</span></p>
+                                        </div>
                                     </ui-select-choices>
+                                    <ui-select-no-choice>
+                                        No User Available
+                                    </ui-select-no-choice>
                                 </ui-select>
-                                <input type="text" ng-if="$index == 0" class="form-control" placeholder="Role" ng-model="user.id" ng-disabled="$index == 0" required>
+                                <input type="text" ng-if="$index == 0" class="form-control" value="{{teamCreate.user.data.name}}" ng-disabled="true" required>
                             </td>
                             <td>
                                 <input type="text" class="form-control" placeholder="Role" ng-model="user.role" ng-disabled="$index == 0" required>
+                            </td>
+                            <td>
+                                <ui-select multiple tagging tagging-label="" ng-model="user.preferredSkills" ng-if="$index > 0" ng-disabled="user.id != null">
+                                    <ui-select-match placeholder="Add Preferred skills">{{$item}}</ui-select-match>
+                                    <ui-select-choices repeat="skill as skill in teamCreate.skills | filter:$select.search">
+                                        {{skill}}
+                                    </ui-select-choices>
+                                </ui-select>
+                                <input type="text"  ng-if="$index == 0" class="form-control" ng-model="user.preferredSkills" ng-disabled="true" required>
                             </td>
                         </tr>
                     </tbody>

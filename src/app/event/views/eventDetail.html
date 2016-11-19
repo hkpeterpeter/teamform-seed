@@ -14,7 +14,8 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 col-sm-3">
-                    <img class="img-responsive img-circle center-block" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTgzM2ZiMDVlYiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ODMzZmIwNWViIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=">
+                    <img class="img-responsive img-circle center-block" ng-if="!eventDetail.event.data.imageUrl" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTgzM2ZiMDVlYiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1ODMzZmIwNWViIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=">
+                    <img class="img-responsive img-circle center-block" ng-if="eventDetail.event.data.imageUrl" ng-src="{{eventDetail.event.data.imageUrl}}">
                 </div>
                 <div class="col-xs-12 col-sm-9">
                     <div class="table-responsive">
@@ -29,8 +30,16 @@
                                     <td>{{eventDetail.event.data.name}}</td>
                                 </tr>
                                 <tr>
-                                    <th>Event Date</th>
-                                    <td>{{eventDetail.event.data.eventDate | date: 'medium'}}</td>
+                                    <th>Event Start Date</th>
+                                    <td>{{eventDetail.event.data.eventStartDate | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Event End Date</th>
+                                    <td>{{eventDetail.event.data.eventEndDate | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Application Deadline</th>
+                                    <td>{{eventDetail.event.data.eventDeadline | date: 'medium'}}</td>
                                 </tr>
                                 <tr>
                                     <th>Team Size</th>
@@ -77,13 +86,13 @@
                 <tbody>
                     <tr dir-paginate="team in eventDetail.event.getTeams() | itemsPerPage: 5" pagination-id="teams">
                         <td>
-                            <span class="label label-danger" ng-if="team.data.private">Private</span>
-                            <span class="label label-success" ng-if="!team.data.private">Public</span>
+                            <span class="label label-danger" ng-if="team.private">Private</span>
+                            <span class="label label-success" ng-if="!team.private">Public</span>
                             <a ui-sref="team.detail({teamId: team.$id})">{{team.name}}</a>
                         </td>
                         <td>
-                            <span class="text-success glyphicon glyphicon-ok" ng-if="team.data.directJoin"></span>
-                            <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
+                            <span class="text-success glyphicon glyphicon-ok" ng-if="team.directJoin"></span>
+                            <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.directJoin"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -148,8 +157,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="teamUser in team.users">
-                                        <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{teamUser.user.name}}</a></td>
+                                    <tr ng-repeat="teamUser in team.users" ng-if="teamUser.id != null">
+                                        <td><a ui-sref="user.detail({userId: teamUser.user.$id})">{{teamUser.user.name}}</a></td>
                                         <td>{{teamUser.role}}</td>
                                     </tr>
                                 </tbody>
@@ -159,11 +168,12 @@
                     <div ng-if="$odd" class="clearfix"></div>
                 </div>
             </div>
+            <button type="button" class="btn btn-primary" ng-if="eventDetail.autoTeam && eventDetail.autoTeam.teams.length > 0" ng-click="eventDetail.createTeam();">Create</button>
             <div ng-if="eventDetail.autoTeam.failed">
                 Failed Users:
                 <ul>
                     <li ng-repeat="failedUser in eventDetail.autoTeam.failed">
-                        <a ui-serf="user.detail({userId: failedUser.user.$id})">{{failedUser.user.name}}</a>
+                        <a ui-sref="user.detail({userId: failedUser.user.$id})">{{failedUser.user.name}}</a>
                     </li>
                 </ul>
             </div>

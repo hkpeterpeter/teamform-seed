@@ -7,15 +7,33 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="inputImage" class="col-sm-2 control-label">Icon</label>
+        <div class="col-sm-10">
+            <div class="well well-lg" ngf-select="userEdit.upload($file)" ngf-drop="userEdit.upload($file)" ng-model="userEdit.image" ngf-pattern="'.jpg,.jpeg,.png'" ngf-accept="'image/*'"
+                ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:userEdit.fileUploadStyle['drop-success'], reject:userEdit.fileUploadStyle['drop-danger'], delay:100}" ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200}">
+                <div ng-if="!userEdit.user.data.imageUrl">
+                    <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+                </div>
+                <img ng-if="userEdit.user.data.imageUrl != null" ngf-src="userEdit.user.data.imageUrl" class="img-responsive">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="inputName" class="col-sm-2 control-label">Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="userEdit.user.name">
+            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="userEdit.user.data.name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="inputDescription" placeholder="Description" ng-model="userEdit.user.data.description"></textarea>
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-2 control-label">Skills</label>
         <div class="col-sm-10">
-            <ui-select multiple tagging tagging-label="" ng-model="userEdit.user.skills">
+            <ui-select multiple tagging tagging-label="" ng-model="userEdit.user.data.skills">
                 <ui-select-match placeholder="Add your skills">{{$item}}</ui-select-match>
                 <ui-select-choices repeat="skill as skill in userEdit.skills | filter:$select.search">
                     {{skill}}

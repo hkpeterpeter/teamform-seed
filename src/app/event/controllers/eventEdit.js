@@ -1,26 +1,61 @@
-import EventDetailCtrl from './eventDetail';
+import fileUploadStyle from '../../../assets/stylesheets/fileUpload.scss';
 
-export default class EventEditCtrl extends EventDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, eventService) {
-        super($location, $state, $stateParams, $timeout, eventService);
-        this.eventDatepickerOptions = {
+export default class EventEditCtrl {
+    constructor($location, $state, $stateParams, $timeout, Upload, eventService) {
+        this.$location = $location;
+        this.$state = $state;
+        this.$stateParams = $stateParams;
+        this.$timeout = $timeout;
+        this.Upload = Upload;
+        this.eventService = eventService;
+        this.event = null;
+        this.input = {};
+        this.error = null;
+        this.eventStartDatepickerOptions = {
             minDate: Date.now(),
             showWeeks: false
         };
-        this.eventDatePopupOpened = false;
+        this.eventStartDatePopupOpened = false;
+        this.eventEndDatepickerOptions = {
+            minDate: Date.now(),
+            showWeeks: false
+        };
+        this.eventEndDatePopupOpened = false;
+        this.eventDeadlinepickerOptions = {
+            minDate: Date.now(),
+            showWeeks: false
+        };
+        this.eventDeadlinePopupOpened = false;
+        this.fileUploadStyle = fileUploadStyle;
+        this.getEvent();
+    }
+    async getEvent() {
+        try {
+            let event = await this.eventService.getEvent(this.$stateParams.eventId);
+            this.$timeout(() => {
+                this.event = event;
+                this.input = {
+                    eventStartDate: new Date(this.event.data.eventStartDate),
+                    eventEndDate: new Date(this.event.data.eventEndDate),
+                    eventDeadline: new Date(this.event.data.eventDeadline)
+                };
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
     }
     async edit() {
         this.loading = true;
-        if (this.event.data.eventDate instanceof Date) {
-            this.event.data.eventDate = this.event.data.eventDate.getTime();
-        }
+        this.event.data.eventStartDate = this.input.eventStartDate.getTime();
+        this.event.data.eventEndDate = this.input.eventEndDate.getTime();
+        this.event.data.eventDeadline = this.input.eventDeadline.getTime();
         try {
             let result = await this.eventService.editEvent(this.event);
             this.$timeout(() => {
                 this.loading = false;
-                this.$state.go('event.detail', {
-                    eventId: result.key
-                });
+                this.$state.go('event.detail', {eventId: result.key});
             });
         } catch (error) {
             this.$timeout(() => {
@@ -28,6 +63,12 @@ export default class EventEditCtrl extends EventDetailCtrl {
                 this.loading = false;
             });
         }
+    }
+    async upload(file) {
+        let imageUrl = await this.Upload.base64DataUrl(file);
+        this.$timeout(() => {
+            this.event.data.imageUrl = imageUrl;
+        });
     }
     setTeamMin(value) {
         if (value > 0 && value <= this.event.data.teamMax) {
@@ -39,9 +80,15 @@ export default class EventEditCtrl extends EventDetailCtrl {
             this.event.data.teamMax = value;
         }
     }
-    toggleEventDatePopup() {
-        this.eventDatePopupOpened = !this.eventDatePopupOpened;
+    toggleEventStartDatePopup() {
+        this.eventStartDatePopupOpened = !this.eventStartDatePopupOpened;
+    }
+    toggleEventEndDatePopup() {
+        this.eventEndDatePopupOpened = !this.eventEndDatePopupOpened;
+    }
+    toggleEventDeadlinePopup() {
+        this.eventDeadlinePopupOpened = !this.eventDeadlinePopupOpened;
     }
 }
 
-EventEditCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];
+EventEditCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'Upload', 'EventService'];

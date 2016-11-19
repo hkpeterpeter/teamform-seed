@@ -1,0 +1,12 @@
+@import './bootstrap';
+.drop {
+    composes: well well-lg;
+}
+.drop-success {
+    composes: drop;
+    background-color: $brand-success;
+}
+.drop-danger {
+    composes: drop;
+    background-color: $brand-danger;
+}

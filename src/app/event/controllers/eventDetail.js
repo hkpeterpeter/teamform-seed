@@ -1,10 +1,11 @@
 export default class EventDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, eventService) {
+    constructor($location, $state, $stateParams, $timeout, eventService, teamService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
         this.eventService = eventService;
+        this.teamService = teamService;
         this.event = null;
         this.error = null;
         this.autoTeam = {};
@@ -45,6 +46,9 @@ export default class EventDetailCtrl {
             }
             teams.push(_.pullAt(users, _.range(rand)));
         }
+        if (teams.length == 0) {
+            return;
+        }
         let lastTeam = teams[teams.length - 1];
         if (lastTeam.length < this.event.data.teamMin) {
             for (let i = 0; i < teams.length && lastTeam.length > 0; i++) {
@@ -54,24 +58,59 @@ export default class EventDetailCtrl {
                 }
             }
             _.pull(teams, lastTeam);
-            if(lastTeam.length > 0) {
+            if (lastTeam.length > 0) {
                 failed = lastTeam;
             }
         }
         teams = teams.map((team) => {
-            team = {users: team};
-            team.name = 'Team #'+_.random(1000, 9999);
-            for(let teamUser of team.users) {
+            team = {
+                users: team
+            };
+            team.name = 'Team #' + _.random(1000, 9999);
+            team.directJoin = true;
+            team.private = false;
+            team.eventId = this.event.$id;
+            for (let teamUser of team.users) {
                 teamUser.role = 'Any';
             }
             team.users[0].role = 'Leader';
+            for (let i = team.users.length; i < this.event.data.teamMax; i++) {
+                team.users.push({id: null, role: 'Any', perferredSkills: []});
+            }
             return team;
         });
         this.$timeout(() => {
-            this.autoTeam = {teams: teams, failed: failed};
+            this.autoTeam = {
+                teams: teams,
+                failed: failed
+            };
         });
         console.log(teams);
     }
+    async createTeam() {
+        try {
+            let teams = await Promise.all(this.autoTeam.teams.map((team) => {
+                return this.teamService.createTeam(team);
+            }));
+            this.$timeout(() => {
+                this.autoTeam = {
+                    teams: [],
+                    failed: null
+                };
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
 }
 
-EventDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];
+EventDetailCtrl.$inject = [
+    '$location',
+    '$state',
+    '$stateParams',
+    '$timeout',
+    'EventService',
+    'TeamService'
+];

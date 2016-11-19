@@ -1,14 +1,16 @@
 import Message from './Message.js';
 export default class MessageService {
-    constructor($rootScope, $firebaseArray, $firebaseObject, $database, authService, userService, notificationService) {
+    constructor($rootScope, $firebaseArray, $firebaseObject, $state, $database, authService, userService, notificationService) {
         this.$rootScope = $rootScope;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
+        this.$state = $state;
         this.$database = $database;
         this.authService = authService;
         this.userService = userService;
         this.notificationService = notificationService;
         this.messages = null;
+        this.getMessages();
     }
     async getMessages() {
         if (!this.messages) {
@@ -39,7 +41,11 @@ export default class MessageService {
                     if(user && user.uid == message.data.receiver && !message.notified) {
                         let sender = await message.getSender();
                         message.notified = true;
-                        this.notificationService.create('New Message From ' + sender.name, message.data.content);
+                        let onClick = (notification) => {
+                            this.$state.go('message', {conversationId: sender.$id});
+                            notification.close();
+                        };
+                        this.notificationService.create('New Message From ' + sender.name, message.data.content, onClick);
                     }
                 }
             });
@@ -59,4 +65,4 @@ export default class MessageService {
     }
 }
 MessageService.Instance = null;
-MessageService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService', 'NotificationService'];
+MessageService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', '$state', 'database', 'AuthService', 'UserService', 'NotificationService'];

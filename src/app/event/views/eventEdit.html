@@ -7,18 +7,58 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="inputName" class="col-sm-2 control-label">Event Name</label>
+        <label for="inputImage" class="col-sm-2 control-label">Event Image</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="eventEdit.event.data.name">
+            <div class="well well-lg" ngf-select="eventEdit.upload($file)" ngf-drop="eventEdit.upload($file)" ng-model="eventEdit.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'"
+                ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventEdit.fileUploadStyle['drop-success'], reject:eventEdit.fileUploadStyle['drop-danger'], delay:100}" ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200}">
+                <div ng-if="!eventEdit.event.data.imageUrl">
+                    <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+                </div>
+                <img ng-if="eventEdit.event.data.imageUrl != null" ngf-src="eventEdit.event.data.imageUrl" class="img-responsive">
+            </div>
         </div>
     </div>
     <div class="form-group">
-        <label for="inputEventDate" class="col-sm-2 control-label">Event Date</label>
+        <label for="inputName" class="col-sm-2 control-label">Event Name</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="eventEdit.event.data.name" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputDescription" class="col-sm-2 control-label">Event Description</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="inputDescription" placeholder="Description" ng-model="eventEdit.event.data.description"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEventStartDate" class="col-sm-2 control-label">Event Start Date</label>
         <div class="col-sm-10">
             <div class="input-group">
-                <input type="text" class="form-control" id="inputEventDate" uib-datepicker-popup="yyyy/MM/dd" datepicker-options="eventEdit.eventDatepickerOptions" ng-click="eventEdit.toggleEventDatePopup()" ng-model="eventEdit.event.data.eventDate" is-open="eventEdit.eventDatePopupOpened" ng-required="true" close-text="Close" />
+                <input type="text" class="form-control" id="inputEventStartDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventEdit.eventStartDatepickerOptions" ng-click="eventEdit.toggleEventStartDatePopup()" ng-model="eventEdit.input.eventStartDate" is-open="eventEdit.eventStartDatePopupOpened" ng-required="true" close-text="Close" />
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="eventEdit.toggleEventDatePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default" ng-click="eventEdit.toggleEventStartDatePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEventEndDate" class="col-sm-2 control-label">Event End Date</label>
+        <div class="col-sm-10">
+            <div class="input-group">
+                <input type="text" class="form-control" id="inputEventEndDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventEdit.eventEndDatepickerOptions" ng-click="eventEdit.toggleEventEndDatePopup()" ng-model="eventEdit.input.eventEndDate" is-open="eventEdit.eventEndDatePopupOpened" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="eventEdit.toggleEventEndDatePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputEventDeadline" class="col-sm-2 control-label">Application Deadline</label>
+        <div class="col-sm-10">
+            <div class="input-group">
+                <input type="text" class="form-control" id="inputEventDeadline" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventEdit.eventDeadlinepickerOptions" ng-click="eventEdit.toggleEventDeadlinePopup()" ng-model="eventEdit.input.eventDeadline" is-open="eventEdit.eventDeadlinePopupOpened" ng-required="true" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="eventEdit.toggleEventDeadlinePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
             </div>
         </div>

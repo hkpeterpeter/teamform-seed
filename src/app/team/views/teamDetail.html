@@ -103,7 +103,7 @@
                 <thead>
                     <tr>
                         <th>Role</th>
-                        <th>Skills</th>
+                        <th>Peferred Skills</th>
                         <th ng-if="!teamDetail.team.data.private"></th>
                     </tr>
                 </thead>
@@ -111,7 +111,7 @@
                     <tr dir-paginate="teamUser in teamDetail.team.getTeamUsers() | filter:teamDetail.filterAvailable | itemsPerPage: 5">
                         <td>{{teamUser.role}}</td>
                         <td>
-                            <span ng-repeat="skill in teamUser.user.skills" class="label label-success">{{skill}}</span>
+                            <span ng-repeat="skill in teamUser.preferredSkills" class="label label-success">{{skill}}</span>
                         </td>
                         <td>
                             <button type="button" class="btn btn-xs btn-success" ng-if="!teamDetail.team.data.private" ng-click="teamDetail.joinTeam(teamUser.$id)">Join</button>

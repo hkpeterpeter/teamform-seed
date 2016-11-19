@@ -1,9 +1,10 @@
 import style from '../../../assets/stylesheets/message.scss';
 export default class MessageCtrl {
-    constructor($location, $scope, $state, $timeout, authService, messageService, userService) {
+    constructor($location, $scope, $state, $stateParams, $timeout, authService, messageService, userService) {
         this.$location = $location;
         this.$scope = $scope;
         this.$state = $state;
+        this.$stateParams = $stateParams;
         this.$timeout = $timeout;
         this.authService = authService;
         this.messageService = messageService;
@@ -22,9 +23,11 @@ export default class MessageCtrl {
         });
         this.getUsers();
     }
-    onSelectUser($item) {
-        this.conversation = {user: $item, messages: []};
-        this.user = '';
+    onSelectUser($item, $model) {
+        this.getConversation($item.$id);
+        this.$timeout(() => {
+            this.user = '';
+        });
     }
     async getUsers() {
         try {
@@ -84,6 +87,8 @@ export default class MessageCtrl {
                 this.conversations = conversations;
                 if (this.conversation) {
                     this.getConversation(this.conversation.user.$id);
+                } else if(this.$stateParams.conversationId) {
+                    this.getConversation(this.$stateParams.conversationId);
                 }
             });
         } catch (error) {
@@ -92,7 +97,7 @@ export default class MessageCtrl {
             });
         }
     }
-    getConversation(id) {
+    async getConversation(id) {
         for (let conversation of this.conversations) {
             if (conversation.user.$id == id) {
                 this.$timeout(() => {
@@ -101,6 +106,10 @@ export default class MessageCtrl {
                 return;
             }
         }
+        let user = await this.userService.getUser(id);
+        this.$timeout(() => {
+            this.conversation = {user: user, messages: []};
+        });
     }
     async sendMessage() {
         let user = await this.authService.getUser();
@@ -123,6 +132,7 @@ MessageCtrl.$inject = [
     '$location',
     '$scope',
     '$state',
+    '$stateParams',
     '$timeout',
     'AuthService',
     'MessageService',
