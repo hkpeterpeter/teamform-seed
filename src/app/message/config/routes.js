@@ -10,7 +10,7 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
                     });
                 }]
             },
-            url: '/message',
+            url: '/message/:conversationId?',
             template: MessageView,
             controller: 'MessageCtrl',
             controllerAs: 'message',

@@ -15,8 +15,8 @@ export default class UserService {
     async getUsers() {
         let users = await this.$firebaseArray(this.$database.ref('users')).$loaded();
         let init = async() => {
-            users = await Promise.all(users.map(async(user) => {
-                return await this.getUser(user.$id);
+            users = await Promise.all(users.map((user) => {
+                return this.getUser(user.$id);
             }));
             return Promise.resolve();
         };

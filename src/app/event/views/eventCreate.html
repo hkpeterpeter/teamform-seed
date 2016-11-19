@@ -1,6 +1,18 @@
 <ui-alert message="{{eventCreate.error.message}}" />
 <form class="form-horizontal">
     <div class="form-group">
+        <label for="inputImage" class="col-sm-2 control-label">Event Image</label>
+        <div class="col-sm-10">
+            <div class="well well-lg" ngf-select="eventCreate.upload($file)" ngf-drop="eventCreate.upload($file)" ng-model="eventCreate.image" ngf-model-invalid="invalidFiles" ngf-model-options="modelOptionsObj" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'"
+                ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventCreate.fileUploadStyle['drop-success'], reject:eventCreate.fileUploadStyle['drop-danger'], delay:100}" ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200}">
+                <div ng-if="!eventCreate.event.imageUrl">
+                    <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+                </div>
+                <img ng-if="eventCreate.event.imageUrl != null" ngf-src="eventCreate.event.imageUrl" class="img-responsive">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="inputName" class="col-sm-2 control-label">Event Name</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="eventCreate.event.name" required>
@@ -10,7 +22,8 @@
         <label for="inputEventStartDate" class="col-sm-2 control-label">Event Start Date</label>
         <div class="col-sm-10">
             <div class="input-group">
-                <input type="text" class="form-control" id="inputEventStartDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventStartDatepickerOptions" ng-click="eventCreate.toggleEventStartDatePopup()" ng-model="eventCreate.event.eventStartDate" is-open="eventCreate.eventStartDatePopupOpened" close-text="Close" />
+                <input type="text" class="form-control" id="inputEventStartDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventStartDatepickerOptions" ng-click="eventCreate.toggleEventStartDatePopup()" ng-model="eventCreate.event.eventStartDate"
+                    is-open="eventCreate.eventStartDatePopupOpened" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="eventCreate.toggleEventStartDatePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -21,7 +34,8 @@
         <label for="inputEventEndDate" class="col-sm-2 control-label">Event End Date</label>
         <div class="col-sm-10">
             <div class="input-group">
-                <input type="text" class="form-control" id="inputEventEndDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventEndDatepickerOptions" ng-click="eventCreate.toggleEventEndDatePopup()" ng-model="eventCreate.event.eventEndDate" is-open="eventCreate.eventEndDatePopupOpened" close-text="Close" />
+                <input type="text" class="form-control" id="inputEventEndDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventEndDatepickerOptions" ng-click="eventCreate.toggleEventEndDatePopup()" ng-model="eventCreate.event.eventEndDate" is-open="eventCreate.eventEndDatePopupOpened"
+                    close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="eventCreate.toggleEventEndDatePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
@@ -32,7 +46,8 @@
         <label for="inputEventDeadline" class="col-sm-2 control-label">Application Deadline</label>
         <div class="col-sm-10">
             <div class="input-group">
-                <input type="text" class="form-control" id="inputEventDeadline" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventDeadlinepickerOptions" ng-click="eventCreate.toggleEventDeadlinePopup()" ng-model="eventCreate.event.eventDeadline" is-open="eventCreate.eventDeadlinePopupOpened" close-text="Close" />
+                <input type="text" class="form-control" id="inputEventDeadline" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventDeadlinepickerOptions" ng-click="eventCreate.toggleEventDeadlinePopup()" ng-model="eventCreate.event.eventDeadline"
+                    is-open="eventCreate.eventDeadlinePopupOpened" close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="eventCreate.toggleEventDeadlinePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>

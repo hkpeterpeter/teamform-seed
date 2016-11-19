@@ -1,9 +1,12 @@
+import fileUploadStyle from '../../../assets/stylesheets/fileUpload.scss';
+
 export default class EventCreateCtrl {
-    constructor($location, $state, $stateParams, $timeout, eventService) {
+    constructor($location, $state, $stateParams, $timeout, Upload, eventService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
+        this.Upload = Upload;
         this.eventService = eventService;
         this.loading = false;
         this.event = {
@@ -29,6 +32,7 @@ export default class EventCreateCtrl {
             showWeeks: false
         };
         this.eventDeadlinePopupOpened = false;
+        this.fileUploadStyle = fileUploadStyle;
     }
     async createEvent() {
         this.loading = true;
@@ -49,6 +53,12 @@ export default class EventCreateCtrl {
                 this.loading = false;
             });
         }
+    }
+    async upload(file) {
+        let imageUrl = await this.Upload.base64DataUrl(file);
+        this.$timeout(() => {
+            this.event.imageUrl = imageUrl;
+        });
     }
     setTeamMin(value) {
         if (value > 0 && value <= this.event.teamMax) {
@@ -71,4 +81,4 @@ export default class EventCreateCtrl {
     }
 }
 
-EventCreateCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'EventService'];
+EventCreateCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'Upload', 'EventService'];

@@ -9,7 +9,7 @@ export default class NotificationService {
             this.$window.Notification.requestPermission();
         }
     }
-    create(title, body, timeout = 7000) {
+    create(title, body, onClick, timeout = 7000) {
         if (this.supported && this.$window.Notification.permission === 'granted') {
             let notification = new this.$window.Notification(title, {
                 body: body,
@@ -19,7 +19,9 @@ export default class NotificationService {
                 timestamp: Math.floor(Date.now() / 1000)
             });
             notification.onclick = () => {
-                this.$window.focus();
+                if(onClick) {
+                    onClick(notification);
+                }
                 notification.close();
             };
             let closeTimeout = setTimeout(() => {
