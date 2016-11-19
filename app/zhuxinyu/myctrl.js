@@ -61,9 +61,9 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
         if($scope.event.name!=""){
             var resultList=[];
             for(var i=0;i<$rootScope.events.length;i++){
-             
+               
                 if($rootScope.events[i].eventName!=null && $rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
-                    
+                   
                     resultList.push($rootScope.events[i]);
                 }
             } 
@@ -260,7 +260,7 @@ teamapp.directive("subcan", function() {
                 eventCreating.min_num=$scope.eventMin;
                 eventCreating.max_num=$scope.eventMax;
                 eventCreating.adminID=$rootScope.currentUser.id;
-                eventCreating.evnetName=$scope.event.name;
+                eventCreating.eventName=$scope.event.name;
                 eventCreating.imageUrl=$rootScope.currentUser.profilePic;
                 console.log(eventCreating);
 
@@ -271,7 +271,7 @@ teamapp.directive("subcan", function() {
                     $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("eventsManaging")).$add(eventID);
 
 
-                    $rootScope.addNotify($rootScope.currentUser.id,"A new Event "+eventCreating.evnetName+" has been created","","","System");
+                    $rootScope.addNotify($rootScope.currentUser.id,"A new Event "+eventCreating.eventName+" has been created","","","System");
 
                      Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
 
