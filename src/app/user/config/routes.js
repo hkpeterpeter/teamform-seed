@@ -31,7 +31,7 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
                 }
             },
             ncyBreadcrumb: {
-                label: '{{ userDetail.user.name || userEdit.user.name }}',
+                label: '{{ userDetail.user.data.name || userEdit.user.data.name }}',
                 parent: 'user.list'
             }
         })

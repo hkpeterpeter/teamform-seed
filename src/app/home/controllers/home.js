@@ -3,6 +3,7 @@ export default class HomeCtrl {
         this.$timeout = $timeout;
         this.eventService = eventService;
         this.events = [];
+        this.developTeam = {members: []};
         this.getEvents();
     }
     async getEvents() {

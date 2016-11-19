@@ -19,7 +19,7 @@ export default class UserEditCtrl {
     async getUser() {
         try {
             let user = await this.userService.getUser(this.$stateParams.userId);
-            user.skills = Object.values(user.skills);
+            user.data.skills = Object.values(user.data.skills || {});
             this.$timeout(() => {
                 this.user = user;
             });
@@ -53,7 +53,7 @@ export default class UserEditCtrl {
     async upload(file) {
         let imageUrl = await this.Upload.base64DataUrl(file);
         this.$timeout(() => {
-            this.user.imageUrl = imageUrl;
+            this.user.data.imageUrl = imageUrl;
         });
     }
 }

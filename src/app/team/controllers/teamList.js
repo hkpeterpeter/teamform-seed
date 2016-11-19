@@ -1,5 +1,5 @@
 export default class TeamListCtrl {
-    constructor($location, $state, $timeout, teamService, eventService) {
+    constructor($location, $state, $timeout, NgTableParams, teamService, eventService) {
         this.$location = $location;
         this.$state = $state;
         this.$timeout = $timeout;
@@ -9,6 +9,13 @@ export default class TeamListCtrl {
         this.events = [];
         this.search = {};
         this.error = null;
+        this.teamListTableParams = new NgTableParams({
+            page: 1,
+            count: 2
+        }, {
+            counts: [],
+            dataset: []
+        });
         this.getTeams();
         this.getEvents();
     }
@@ -17,6 +24,12 @@ export default class TeamListCtrl {
             let teams = await this.teamService.getTeams();
             this.$timeout(() => {
                 this.teams = teams;
+                this.teamListTableParams.settings({
+                    dataset: this.teams
+                });
+                teams.$watch(() => {
+                    this.teamListTableParams.reload();
+                });
             });
         } catch (error) {
             this.$timeout(() => {
@@ -38,4 +51,4 @@ export default class TeamListCtrl {
     }
 }
 
-TeamListCtrl.$inject = ['$location', '$state', '$timeout', 'TeamService', 'EventService'];
+TeamListCtrl.$inject = ['$location', '$state', '$timeout', 'NgTableParams', 'TeamService', 'EventService'];

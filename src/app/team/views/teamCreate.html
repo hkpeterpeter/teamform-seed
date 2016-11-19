@@ -56,7 +56,7 @@
                                         No User Available
                                     </ui-select-no-choice>
                                 </ui-select>
-                                <input type="text" ng-if="$index == 0" class="form-control" value="{{teamCreate.user.name}}" ng-disabled="true" required>
+                                <input type="text" ng-if="$index == 0" class="form-control" value="{{teamCreate.user.data.name}}" ng-disabled="true" required>
                             </td>
                             <td>
                                 <input type="text" class="form-control" placeholder="Role" ng-model="user.role" ng-disabled="$index == 0" required>

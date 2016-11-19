@@ -48,40 +48,29 @@
 <div class="clearfix"></div>
 <div class="divider"></div>
 <div class="table-responsive">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Team Name</th>
-                <th>Event</th>
-                <th>Created By</th>
-                <th>Created At</th>
-                <th>Vacancy</th>
-                <th>Direct Join</th>
-            </tr>
-        </thead>
-        <tbody dir-paginate="team in teamList.teams | filter:teamList.search | itemsPerPage: 2">
-            <tr>
-                <td>
+    <table ng-table="teamList.teamListTableParams" show-filter="false" class="table table-hover">
+        <tbody>
+            <tr ng-repeat="team in $data track by team.$id">
+                <td data-title="''" sortable="'data.private'">
                     <span class="label label-danger" ng-if="team.data.private">Private</span>
                     <span class="label label-success" ng-if="!team.data.private">Public</span>
                 </td>
-                <td>
-                    <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
+                <td data-title="'Team Name'" sortable="'data.name'">
+                    <a ui-sref="team.detail({eventId: team.$id})">{{team.data.name}}</a>
                 </td>
-                <td>
+                <td data-title="'Event Name'" sortable="'getEvent().data.name'">
                     <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>
                 </td>
-                <td>
+                <td data-title="'Created By'" sortable="'data.createdBy'">
                     <a ui-sref="user.detail({userId: team.data.createdBy})">{{team.getCreatedByUser().name}}</a>
                 </td>
-                <td>
+                <td data-title="'Created At'">
                     {{team.data.createdAt | date:'medium'}}
                 </td>
-                <td>
+                <td data-title="'Vacancy'" sortable="'getVacancy()'">
                     {{team.getVacancy()}}
                 </td>
-                <td>
+                <td data-title="'Direct Join'" sortable="'data.directJoin'">
                     <span class="text-success glyphicon glyphicon-ok" ng-if="team.data.directJoin"></span>
                     <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
                 </td>
