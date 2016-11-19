@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html ng-app="clickApp">  
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -36,22 +35,22 @@
         obj.style.color = color;
       }
     </script>
-    <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCI2oKMFJECxHD11aRCxzVNG5M-Uvm8X20",
-    authDomain: "teamform-ad42e.firebaseapp.com",
-    databaseURL: "https://teamform-ad42e.firebaseio.com",
-    storageBucket: "teamform-ad42e.appspot.com",
-    messagingSenderId: "609768855060"
-  };
-  firebase.initializeApp(config);
-</script>
-  </head>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCI2oKMFJECxHD11aRCxzVNG5M-Uvm8X20",
+      authDomain: "teamform-ad42e.firebaseapp.com",
+      databaseURL: "https://teamform-ad42e.firebaseio.com",
+      storageBucket: "teamform-ad42e.appspot.com",
+      messagingSenderId: "609768855060"
+    };
+    firebase.initializeApp(config);
+  </script>
+</head>
 
 
-<body>
-<div ng-controller="clickCtrl">
+<body ng-app = "clickApp">
    <!--invite users with pop up window-->
             <div class="container">
               <div class="row clearfix">
@@ -60,6 +59,8 @@
                   <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
+
+                        <div ng-controller = "clickCtrl">
                         <div class="modal-header">
                         <!--tag-->
                            <div class = "row filter-bar">
@@ -68,12 +69,12 @@
                               <!--pre>{{filtered|json}}</pre-->
                             </div>
                             <div class = "col-sm-9  " id = "predefineTag"   >
-                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x.$value}}</div>
+                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
                               
                             </div>
                           </div>
                           
-                          <hr/>
+                          <hr>
                           
                           <div class = "row filter-bar">
                             <div class = "col-sm-3 ">
@@ -81,12 +82,13 @@
                             </div>
                             <div class = "col-sm-9" id = "searchTag" >
                               <div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
-                                {{y.$value}}
+                                {{y}}
                                 <span>&nbsp&nbsp</span>
                                 <span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
                               </div>
                             </div>
                           </div>
+
                         </div>
 
                         <div class="modal-body">
@@ -94,17 +96,90 @@
                           <div class = "container">
                           <!--user list + add button + chosen list-->
                           <div class="row">
-                          <!--to be chosen-->
                           <div class="col-md-6 col-xs-6">
                           <h2>Users</h2>
-                          <iframe src="../zwangbm/user_to_choose.html" width="100%" height="200" align="right">
-                          </iframe>
+                          <!--to choose-->
+                          <div class="pre-scrollable">
+                            <div class="container">
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="list-group" >
+                                  <!--one user-->
+                              
+                                  <label ng-repeat="(username, content) in filtered">
+                                    <div class="row">
+                                  <div class="col-xs-12">
+                                    <!--button id="{{user.name}}" type="button" class="list-group-item" data-ng-click = "clickButton($event)"-->
+                                      <div class="media">
+                                        <div class="media-left">
+
+                                          <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
+
+                                        </div>
+                                        <div class="media-body">
+                                          <h4 class="media-heading">{{content.name}}</h4>
+                                          {{content.description}}
+                                        </div>
+
+                                        <div class="media-right">
+                                          <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
+                                        </div>
+                                      </div>
+                                    <!--/button-->
+
+                                    </div>
+                                    </div>
+                                    </label>
+                                  
+
+                                  </div>
+                              </div> <!--end of to be chosen-->
+                              </div>
+                          </div>
+
+
                           </div>
                           <!--chosed-->
                           <div class="col-md-6 col-xs-6">
                           <h2>Selected</h2>
-                          <iframe src="../zwangbm/user_chosen.html" width="100%" height="200" align="right">
-                          </iframe>
+                          <!--chosen-->
+                            <div class = "pre-scrollable">
+                              <div class="container">
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="list-group" >
+                                    <!--one user-->
+
+                                    <label  ng-repeat="(username,content) in selected">
+                                      <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="media">
+                                          <div class="media-left">
+                                            <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
+
+                                          </div>
+                                          <div class="media-body">
+                                            <h4 class="media-heading">{{content.name}}</h4>
+                                            {{content.description}}
+                                          </div>
+
+                                          <div class="media-right">
+                                            <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
+
+                                          </div>
+
+                                        </div>
+                                      <!--/button-->
+
+                                      </div>
+                                      </div>
+                                      </label>
+
+                                      <!--pre>{{users[0]|json}}</pre-->
+                                    </div>
+
+                                </div>
+                                </div> <!--end of chosed-->
+                                </div>
+                            </div>
                            </div>
                            </div>
                            <!--invite button-->
@@ -119,18 +194,22 @@
                               </div>
                             </div>
                             </div>
+                              currentTag:
+                              <pre>{{currentTag|json}}</pre>
+                              filtered:
+                              <pre>{{filtered|json}}</pre>
                            </div>
+
                            </div>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
-            </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>   
-</div>       
 </body>
 </html>
