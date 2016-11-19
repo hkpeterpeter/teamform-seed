@@ -97,7 +97,12 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
                   $("#searching").fadeOut(1000,function(){
                      $("#eventCardList").show(1000);
 
-                  });       
+                       $('html, body').animate({
+                        scrollTop: $("#event_list").offset().top
+                        }, 1000);   
+
+                  });    
+                  
            });
        }else{
             Materialize.toast("Sorry We didn't find your event! You may create this event.", 3000);
