@@ -18,7 +18,7 @@
         <li class="divider">
         </li>
         <li style="width:400px;">
-            <a>
+            <a onclick="window.location.href = '#/profile';$('html,body').animate({scropTop:$('#notify_center'.offset().top)});">
                 Show All
             </a>
         </li>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#/team">
+                    <a href="#/eventx">
                         Events
                     </a>
                 </li>
@@ -74,7 +74,7 @@
                         <i class="material-icons left">
                             notifications_none
                         </i>
-                        <span class="new badge">
+                        <span class="new badge red" ng-show="(allnoti|filter:{read:false}).length!=0">
                             {{(allnoti|filter:{read:false}).length}}
                         </span>
                     </a>
@@ -89,44 +89,81 @@
                     </a>
                 </li>
             </ul>
-            <ul class="side-nav" id="mobile-demo">
+
+
+            <ul class="side-nav teal" id="mobile-demo">
                 <li>
-                    <a>
+                    <a style="color:#fff;">
                         {{currentUser.email}}
                     </a>
                 </li>
                 <li>
-                    <a href="#/home">
+                    <a href="#/home" style="color:#fff;">
                         Home
                     </a>
                 </li>
                 <li>
-                    <a href="#/team">
+                    <a href="#/eventx" style="color:#fff;">
                         Events
                     </a>
                 </li>
                 <li>
-                    <a href="#/notifications">
+                    <a onclick="$('#side_notifications').slideToggle();" style="color:#fff;">
                         <i class="material-icons left">
                             notifications_none
                         </i>
                         Notifications
-                        <span class="new badge" data-badge-caption="">
-                            4
+                        <span class="new badge red" ng-show="(allnoti|filter:{read:false}).length!=0">
+                            {{(allnoti|filter:{read:false}).length}}
                         </span>
                     </a>
                 </li>
+
+                <ul id="side_notifications" style="display: none">
+                <li ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'}">
+               
+                <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
+                {{x.content}}
+                </a>
+              
+                </li>
+                <li  ng-repeat="x in allnoti  |  filter:{read:false,type:'System'}">
+              
+                <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
+                {{x.content}}
+                </a>
+             
+                </li>
+                <li class="divider">
+                </li>
                 <li>
-                    <a href="#/profile">
+                <div align="center">
+                <a onclick="window.location.href = '#/profile';$('html,body').animate({scropTop:$('#notify_center'.offset().top)});" style="color:#009688; width: 40%;font-size: 12px;"  class="waves-effect waves-light btn white">
+                Show All
+                </a>
+                </div>
+                </li>
+                </ul>
+
+                <li>
+                    <a href="#/profile" style="color:#fff;">
                         My Profile
                     </a>
                 </li>
                 <li>
-                    <a href="#/home">
-                        Sign Out
+                    <a href="#/search" style="color:#fff;">
+                        Search
                     </a>
                 </li>
+               <div align="center">
+    
+                    <a class="waves-effect waves-light btn white" href="#/home" style="color:#009688; width: 50%">
+                        Sign Out
+                    </a>
+               
+            </div>
             </ul>
+           
         </div>
     </nav>
 </div>
