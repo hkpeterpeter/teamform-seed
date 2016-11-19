@@ -21,12 +21,15 @@ export default class TeamCreateCtrl {
         this.availablieUsers = [];
         this.setLeader();
         this.getEvents();
+        this.user = {};
+        this.skills = require('json!../../../assets/data/skills.json');
     }
     async setLeader() {
         let user = await this.authService.getUser();
         if (user) {
+            this.user = await this.userService.getUser(user.uid);
             this.$timeout(() => {
-                this.team.users.unshift({id: user.uid, role: 'Leader'});
+                this.team.users.unshift({id: user.uid, role: 'Leader', perferredSkills: []});
                 this.updateTeamUsers();
             });
         }
@@ -55,6 +58,9 @@ export default class TeamCreateCtrl {
         try {
             let me = await this.authService.getUser();
             this.team.users.map((user) => {
+                if(typeof user.id === 'undefined') {
+                    user.id = null;
+                }
                 if (user.id && user.id != me.uid) {
                     user.pending = true;
                     user.accepted = false;
@@ -85,7 +91,7 @@ export default class TeamCreateCtrl {
         if (this.selectedEvent) {
             this.$timeout(() => {
                 for (let i = 0; i < this.selectedEvent.data.teamMax; i++) {
-                    this.team.users.push({id: null, role: 'Any'});
+                    this.team.users.push({id: null, role: 'Any', perferredSkills: []});
                 }
                 this.team.users = this.team.users.slice(0, this.selectedEvent.data.teamMax);
             });
@@ -94,7 +100,10 @@ export default class TeamCreateCtrl {
     updateAvailableUsers() {
         if (this.selectedEvent) {
             this.$timeout(() => {
-                this.availablieUsers = Object.values(this.selectedEvent.getEventUsers()).filter((user) => {
+                this.availablieUsers = this.selectedEvent.getEventUsers().filter((user) => {
+                    if(!user.id) {
+                        return false;
+                    }
                     for (let tUser of this.team.users) {
                         if (tUser.id == user.id) {
                             return false;

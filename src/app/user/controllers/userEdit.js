@@ -2,7 +2,7 @@ import UserDetailCtrl from './userDetail';
 export default class UserEditCtrl extends UserDetailCtrl {
     constructor($location, $state, $stateParams, $timeout, userService) {
         super($location, $state, $stateParams, $timeout, userService);
-        this.skills = require('json!../data/skills.json');
+        this.skills = require('json!../../../assets/data/skills.json');
     }
     async edit() {
         this.loading = true;
