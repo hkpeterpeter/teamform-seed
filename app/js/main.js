@@ -54,7 +54,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	$rootScope.teams=$firebaseArray($rootScope.team_ref);
 
 
-	$rootScope.addNofify=function(receiverID, _content, _eventName , _teamName ,_type){
+	$rootScope.addNotify=function(receiverID, _content, _eventName , _teamName ,_type){
 		 //_type is chosen from {System, invitation}
     	//If it is any System notification, just input "" for _eventName , _teamName , 
 

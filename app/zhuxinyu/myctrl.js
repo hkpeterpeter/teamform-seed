@@ -61,9 +61,9 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
         if($scope.event.name!=""){
             var resultList=[];
             for(var i=0;i<$rootScope.events.length;i++){
-             
+               
                 if($rootScope.events[i].eventName!=null && $rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
-                    
+                   
                     resultList.push($rootScope.events[i]);
                 }
             } 
@@ -90,14 +90,19 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
 
                 for(var i=0;i<eventlist.length;i++){
                   
-                    $rootScope.addEventCard(eventlist[i]);
+                    $rootScope.addSuperEventCard(eventlist[i]);
                 }
                  $("#eventCardList").hide();
 
                   $("#searching").fadeOut(1000,function(){
                      $("#eventCardList").show(1000);
 
-                  });       
+                       $('html, body').animate({
+                        scrollTop: $("#event_list").offset().top
+                        }, 1000);   
+
+                  });    
+                  
            });
        }else{
             Materialize.toast("Sorry We didn't find your event! You may create this event.", 3000);
@@ -160,94 +165,90 @@ teamapp.directive('eventSearchPanel', function() {
         replace: true
     };
 });
+
+
 teamapp.directive('eventCard', function($compile) {
-    return {
-        scope: {
-            eventTitle: "@etitle",
-            eventPicture: "@epicture",
-            eadmin: "@",
-            eminSize: "@",
-            emaxSize: "@",
-            edescription: "@",   
+    return{
+        scope:{
             eid:"@"
         },
-        restrict: 'E',
+        restrict:"E",
         templateUrl: 'zhuxinyu/js/components/eventCard/eventCard.html',
-        replace: true,
-        controller: function ($rootScope,$scope, $element,$firebaseObject,allteams,allevents,allusers) {
-            $rootScope.addEventCard = function (cardInfo) {
-                var el = $compile("<event-card eid='"+cardInfo.$id+"'etitle='"+cardInfo.eventName+"' epicture='"+cardInfo.imageUrl+"' eadmin='"+cardInfo.adminID+"' emin-size='"+cardInfo.minSize+"' emax-size='"+cardInfo.maxSize+"' edescription='"+cardInfo.description+"'></event-card>")($scope);
+        replace:true,
+        controller: function($rootScope,$scope, $element,$firebaseObject){
+            
+            $scope.eventPicture="zhuxinyu/img/load"+Math.ceil(Math.random()*5)+".gif";
+            
+            $scope.element=$firebaseObject(firebase.database().ref("events").child($scope.eid));
+            $scope.element.$loaded().then(function(data){
+                $scope.eventTitle=data.eventName;
+                
+                $scope.eminSize=data.minSize;
+                $scope.emaxSize=data.maxSize;
+                $scope.edescription=data.description;
+                $scope.eadmin=$firebaseObject(firebase.database().ref("users").child(data.adminID));
+                $scope.eadmin.$loaded().then(function(data){
+                    $scope.eadmin=data.name;
+                });
+                $scope.eventPicture=data.imageUrl;
+            });
+
+
+             $rootScope.addSuperEventCard = function (cardInfo) {
+                var el = $compile("<event-card eid="+cardInfo.$id+"></event-card>")($scope);
                 $("#eventCardList").prepend(el);
 
             };
-
-
             $scope.goToEvent =function(){
-
-          
-                 
-             
-                $rootScope.clickedEvent=$firebaseObject($rootScope.event_ref.child($scope.eid));
+                $rootScope.clickedEvent=$scope.element;
                
-                $rootScope.clickedEvent.$loaded().then(function(data){
-                    console.log(data);
+             
+                    console.log($scope.element);
                     console.log($rootScope.currentUser.id);
 
-                if($rootScope.currentUser.id==data.adminID){
+                if($rootScope.currentUser.id==$scope.element.adminID){
                 //is Admin
 
                     console.log("An Admin");
                     window.location.href = '#/admin';
+                    $(window).scrollTop(0);
+                     console.log("to top");
+                     return;
                 }else{
                     var isLeader=false;
                     var isMember=false;
 
-                    console.log("All teams are "+data.allTeams);
+                    console.log("All teams are "+$scope.element.allTeams);
 
-                    for(var i=0;i<data.allTeams.length;i++){
-                        if(data.allTeams[i].leader==$rootScope.currentUser.id){
+                    for(var i=0;i<$scope.element.allTeams.length;i++){
+                        if($scope.element.allTeams[i].leader==$rootScope.currentUser.id){
                             isLeader=true;
                             console.log("a leader");
                              window.location.href = '#/teamleader';
+                             $(window).scrollTop(0);
                            return;
                         }
-                       for(var j=0;j<data.allTeams[i].member.length;j++){
-                            if(data.allTeams[i].member[j]==$rootScope.currentUser.id){
+                       for(var j=0;j<$scope.element.allTeams[i].member.length;j++){
+                            if($scope.element.allTeams[i].member[j]==$rootScope.currentUser.id){
                                 isMember=true;
                                 console.log("a member");
                                 window.location.href = '#/team';
+                               $(window).scrollTop(0);
                               return;
                             }
                        }
-
                     }
                     if(!(isLeader||isMember)){
                         console.log("a people");
                         window.location.href = '#/eventx';
+                        $(window).scrollTop(0);
                     }
-
-                
-
                 }
-
-
-                },function(err){
-
-                });
-              
                
-
-                //Determine the relarion ship between the current user and the event
-
-                
-                //redirect to the correct page
-
-
             }
-        },
-        link: function($scope, iElm, iAttrs, controller) {
-
+            
         }
+
     };
 });
 teamapp.directive("subcan", function() {
@@ -264,7 +265,7 @@ teamapp.directive("subcan", function() {
                 eventCreating.min_num=$scope.eventMin;
                 eventCreating.max_num=$scope.eventMax;
                 eventCreating.adminID=$rootScope.currentUser.id;
-                eventCreating.evnetName=$scope.event.name;
+                eventCreating.eventName=$scope.event.name;
                 eventCreating.imageUrl=$rootScope.currentUser.profilePic;
                 console.log(eventCreating);
 
@@ -275,11 +276,7 @@ teamapp.directive("subcan", function() {
                     $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("eventsManaging")).$add(eventID);
 
 
-                    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs")).$add({
-                        content: "An new event "+ $scope.event.name +" has been created",
-                        read: false,
-                        type:"System"
-                    });
+                    $rootScope.addNotify($rootScope.currentUser.id,"A new Event "+eventCreating.eventName+" has been created","","","System");
 
                      Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
 
