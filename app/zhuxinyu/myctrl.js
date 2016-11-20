@@ -221,6 +221,7 @@ teamapp.directive('eventCard', function($compile) {
                
                 $('#second'+ $scope.eid).slideToggle(800);
                 $('#first'+ $scope.eid).slideToggle(800);
+              
                 $('#sideButton'+$scope.eid).fadeToggle(800);
                 $('#sideButton2'+$scope.eid).fadeToggle(800);
 
