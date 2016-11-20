@@ -17,8 +17,8 @@ app1.controller("clickCtrl",
 				event_list.$loaded(function(){
 					$scope.users = user_list;
 					//alert($scope.users["iamauthur"]["name"]);
-					user_event1 = event_list["event1"]["inEventUser"];
-					$scope.event1 = event_list["event1"];
+					user_event1 = event_list["comp3111"]["inEventUser"];
+					$scope.event1 = event_list["comp3111"];
 					//alert($scope.event1["skills"]["angular"]);
 					for (var i=0; i<user_event1.length; i++) {
 						var user_name = user_event1[i];
@@ -28,7 +28,7 @@ app1.controller("clickCtrl",
 						$scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
 					}		
 					//alert(event_list["event1"]);
-					$scope.tag = event_list["event1"]["skills"];
+					$scope.tag = event_list["comp3111"]["skills"];
 					angular.forEach($scope.tag, function(value,key){
 						$scope.currentTag.push(key);
 					});
