@@ -193,6 +193,44 @@ teamapp.directive('eventCard', function($compile) {
                 $scope.eventPicture=data.imageUrl;
             });
 
+            //A very smart function developed by ZHU Xinyu on 2016/11/20
+            $scope.getTeamInfo=function(index){
+                var team={};
+                 try{
+                    team.member=$scope.element.allTeams[index].member.length;
+                }catch(err){
+                    team.member=0;
+                }
+                 var leaderName=$firebaseObject(firebase.database().ref("users").child($scope.element.allTeams[index].leader).child("name"));
+                  leaderName.$loaded().then(function(data){
+                        team.leader=data.$value;
+                     
+                        var teamName=$firebaseObject(firebase.database().ref("teams").child($scope.element.allTeams[index].teamID).child('teamName'));
+                        teamName.$loaded().then(function(data2){
+                            team.teamName=data2.$value;
+                             $scope.Teams.push(team);
+                             if(index<$scope.element.allTeams.length-1){
+                                $scope.getTeamInfo(index+1);
+                             }
+                        });
+                });
+            }
+
+            //Magic code here. This function use recursion instead of itration for a asynchronous process to get all team name in the event
+            $scope.showMore=function(){
+               
+                $('#second'+ $scope.eid).slideToggle();
+                $('#first'+ $scope.eid).slideToggle();
+                if($scope.Teams==null){
+                    $scope.Teams=[];
+                    if($scope.element.allTeams==null){
+                        return;
+                    }
+                    if($scope.element.allTeams.length>0){
+                        $scope.getTeamInfo(0);//The recursive function
+                    }
+                }
+            }
 
              $rootScope.addSuperEventCard = function (cardInfo) {
                 var el = $compile("<event-card eid="+cardInfo.$id+"></event-card>")($scope);
