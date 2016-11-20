@@ -108,16 +108,58 @@ p {
     display: block;
 }
 
+.dropdown-content:hover {
+    cursor: pointer;
+}
+
 .dropdown a:hover {background-color: #ddd}
 
 .show {display:block;}
 
-.checkbox label{
+ul.list-unstyled li {
     padding: 5px;
     border: 2px solid #888888;
-    margin-bottom:5px;
-    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);    
 }
+
+ul.list-unstyled li:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.col-xs-2, .col-xs-5 {
+    padding: 0;
+}
+
 .teamList{
     padding: 5px;
+}
+
+#input_text {
+    width:30vw;
+}
+
+@media (max-width: 767px) {
+    .tmember:nth-child(2n+1) {
+        clear: left;
+    }
+    #input_text {
+        width: 50vw;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 991px) {
+    .tmember:nth-child(3n+1) {
+        clear: left;
+    }
+    #input_text {
+        width: 40%;
+    }
+}
+
+@media (min-width: 992px) {
+    .tmember:nth-child(4n+1) {
+        clear: left;
+    }
 }

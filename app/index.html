@@ -44,8 +44,11 @@
 						<ul class="dropdown-menu">
 							<li><a href="coverage/index.html" target="_blank">Report</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a></li>
-							<li><a href="#">TODO: Add more test cases here... </a></li>
+							<li><a href="unit_tests/test_site.js" target="_blank">test_site.js</a></li>
+							<li><a href="unit_tests/test_admin.js" target="_blank">test_admin.js</a></li>
+							<li><a href="unit_tests/test_member.js" target="_blank">test_member.js</a></li>
+							<li><a href="unit_tests/test_team.js" target="_blank">test_team.js</a></li>
+							<li><a href="unit_tests/test_index.js" target="_blank">test_index.js</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -86,13 +89,16 @@
 						</div>
 						<br>
 						<div class="text-center">
-							<input id="input_text" type="text" class="input-lg" style="width:25%;"><br>
+							<input id="input_text" type="text" class="input-lg"><br>
 							<em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
 							<br><br>
-							<div>
-								<button id="btn_admin" type="button" class="btn btn-primary">Administrator</button>
-								<button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button>
-								<button id="btn_member" type="button" class="btn btn-primary">Member</button>
+							<div class="btn-group" role="group">
+								<div class="btn-group" role="group">
+								<button id="btn_admin" type="button" class="btn btn-primary">Administrator</button></div>
+								<div class="btn-group" role="group">
+								<button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button></div>
+								<div class="btn-group" role="group">
+								<button id="btn_member" type="button" class="btn btn-primary">Member</button></div>
 							</div>
 						</div>
 						<br>
@@ -104,7 +110,7 @@
 		</div>
 	</div>
 
-	<div class="container marketing">
+	<div class="container marketing" ng-controller="indexCtrl">
 		<div class="row featurette" id="page_about">
 			<div class="col-md-12">
 				<h2 class="featurette-heading">What is teamform?
@@ -118,21 +124,24 @@
 						<h3 class="text-center">Administrator</h3>
 						<ul>
 							<li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
-							<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members
-								in COMP3111H)</li>
+							<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
+							<li>Be able to do smart assignment on members with no teams in accordance of the team's preferences and the member's skills</li>
 						</ul>
 					</div>
 					<div class="col-md-4">
 						<h3 class="text-center">Team</h3>
 						<ul>
 							<li>Be able to add and remove requests made by members</li>
-							<li>Once a member joins the team, all his/her requests will be deleted</li>
+							<li>Be able to invite unassigned members to their team</li>
+							<li>Once a member joins the team, all his/her requests and received invitations will be deleted</li>
 						</ul>
 					</div>
 					<div class="col-md-4">
 						<h3 class="text-center">Member</h3>
 						<ul>
 							<li>Be able to request to join multiple teams</li>
+							<li>Be able to accept or decline invitations from teams</li>
+							<li>Be able to join the chat room for that event to exchange ideas with each other</li>
 						</ul>
 					</div>
 				</div>
@@ -144,27 +153,18 @@
 			<div class="col-md-12">
 				<h2 class="featurette-heading">Development Team
 					<br>
-					<span class="text-muted">[Your Team Name]</span>
+					<span class="text-muted">Team Anonymous</span>
 				</h2>
 				<div class="row">
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
+					<div class="tmember col-xs-6 col-sm-4 col-md-3" ng-repeat="t in dteam">
+						<div class="thumbnail text-center" style="word-wrap: break-word;">
+							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member{{$index+1}}&w=150&h=150" class="img-circle img-responsive">
 							<div class="caption">
-								<h4>[Your name]</h4>
-								<p>[ITSC email]</p>
+								<h4>{{t.name}}</h4>
+								<p>{{t.email}}</p>
 							</div>
 						</div>
-					</div>
-					<div class="col-xs-6 col-md-3">
-						<div class="thumbnail text-center">
-							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
-							<div class="caption">
-								<h4>[Your name]</h4>
-								<p>[ITSC email]</p>
-							</div>
-						</div>
-					</div>
+					</div>					
 				</div>
 
 			</div>

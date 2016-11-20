@@ -27,8 +27,8 @@ angular.module('teamform-member-app', ['firebase'])
     };
 })
 .controller('MemberCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
-	
-	// TODO: implementation of MemberCtrl	
+
+	// TODO: implementation of MemberCtrl
 
 	$scope.teams = {};
 	$scope.memberInfo = "";
@@ -62,15 +62,15 @@ angular.module('teamform-member-app', ['firebase'])
 			$scope.selection = [];
 		}
 		if(typeof $scope.memberInfo.tags != 'undefined') {
-			$scope.tags = $scope.memberInfo.tags;			
+			$scope.tags = $scope.memberInfo.tags;
 		} else {
 			$scope.tags = [];
 		}
 		if(typeof $scope.memberInfo.ability != 'undefined') {
-			$scope.ability = $scope.memberInfo.ability;			
+			$scope.ability = $scope.memberInfo.ability;
 		} else {
 			$scope.ability = [];
-		}				
+		}
 		if($scope.memberInfo.inTeam != null) {
 			$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam + ".");
 			$scope.loadFuncTest = "inTeam";
@@ -93,20 +93,20 @@ angular.module('teamform-member-app', ['firebase'])
     };
 
 	$scope.loadFunc = function() {
-		var refPath = $scope.eventName + "/member/" + $scope.uid;		
+		var refPath = $scope.eventName + "/member/" + $scope.uid;
 		$scope.memberInfo = $firebaseObject(firebase.database().ref(refPath));
 		$scope.memberInfo.$loaded().then($scope.loadFuncCallback);
 	};
-	
+
 	$scope.addTag = function() {
 		 var tag = $.trim($scope.tag);
-				
+
 		if(tag !== '' && $scope.tags.indexOf(tag) === -1 && $scope.checkTag(tag)) {
 			$scope.tags.push(tag);
 		}
 		$scope.tag = "";
 	};
-	
+
 	$scope.checkTag = function(tag) {
 		if (tag == "Java") {
 			if($scope.ability.Java.marks < 50) {
@@ -116,12 +116,12 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		return true;
 	}
-	
+
 	$scope.saveFunc = function() {
 		var newData = {
 			'tags' : $scope.tags,
 			'selection': $scope.selection,
-			'weight': 0 
+			'weight': 0
 		};
 		var refPath = $scope.eventName + "/member/" + $scope.uid;
 		var ref = firebase.database().ref(refPath);
@@ -129,11 +129,11 @@ angular.module('teamform-member-app', ['firebase'])
 			window.location.href = "index.html";
 		});
 	};
-	
+
 	$scope.refreshTeams = function() {
 		var refPath = $scope.eventName + "/team";
 		var ref = firebase.database().ref(refPath);
-		
+
 		// Link and sync a firebase object
 		$scope.selection = [];
 		$scope.toggleSelection = function (item) {
@@ -147,9 +147,24 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		$scope.teams = $firebaseArray(ref);
 	};
-	
-	$scope.atFunc = function() {
-		var url = "abilitytest.html?q=" + $scope.eventName;
+
+	$scope.javaFunc = function() {
+		var url = "abilitytest.html?q=" + $scope.eventName + "&u=java";
+		window.location.href = url;
+	};
+
+	$scope.cppFunc = function() {
+		var url = "abilitytest.html?q=" + $scope.eventName + "&u=cpp";
+		window.location.href = url;
+	};
+
+	$scope.htmlFunc = function() {
+		var url = "abilitytest.html?q=" + $scope.eventName + "&u=html";
+		window.location.href = url;
+	};
+
+	$scope.pythonFunc = function() {
+		var url = "abilitytest.html?q=" + $scope.eventName + "&u=python";
 		window.location.href = url;
 	};
 
@@ -179,15 +194,15 @@ angular.module('teamform-member-app', ['firebase'])
 				var refPath = $scope.eventName + "/team/" + teamName;
 				$scope.teamMember = $firebaseObject(firebase.database().ref(refPath));
 				$scope.teamMember.$loaded(function(data){
-					acceptInvCallback(data);
+					$scope.acceptInvCallback(data);
 				});
-			}	
-		}		
+			}
+		}
 	};
 
 	$scope.acceptInvCallback = function(data) {
 		console.log("data: ",data);
-					
+
 		$scope.newMemberList = [];
 		$scope.team = data;
 		console.log("$scope.team ",$scope.team);
@@ -219,7 +234,7 @@ angular.module('teamform-member-app', ['firebase'])
 			inTeam: $scope.team.$id
 		});
 	};
-	
+
 	$scope.declineInv = function(teamName){
 		var x;
 		x = confirm("Are you sure?");
@@ -231,10 +246,10 @@ angular.module('teamform-member-app', ['firebase'])
 				var ref = firebase.database().ref(refPath);
 				ref.update({
 					invitedBy: $scope.memberInfo.invitedBy
-				}); 
+				});
 		}}
-		
-	};	
+
+	};
 	$scope.refreshTeams(); // call to refresh teams...
 }])
 
