@@ -7,7 +7,6 @@ export default class TeamListCtrl {
         this.eventService = eventService;
         this.teams = [];
         this.events = [];
-        this.search = {};
         this.error = null;
         this.teamListTableParams = new NgTableParams({
             page: 1,
