@@ -221,6 +221,7 @@ teamapp.directive('eventCard', function($compile) {
                
                 $('#second'+ $scope.eid).slideToggle();
                 $('#first'+ $scope.eid).slideToggle();
+              
                 if($scope.Teams==null){
                     $scope.Teams=[];
                     if($scope.element.allTeams==null){
