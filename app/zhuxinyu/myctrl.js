@@ -219,8 +219,11 @@ teamapp.directive('eventCard', function($compile) {
             //Magic code here. This function use recursion instead of itration for a asynchronous process to get all team name in the event
             $scope.showMore=function(){
                
-                $('#second'+ $scope.eid).slideToggle();
-                $('#first'+ $scope.eid).slideToggle();
+                $('#second'+ $scope.eid).slideToggle(800);
+                $('#first'+ $scope.eid).slideToggle(800);
+                $('#sideButton'+$scope.eid).fadeToggle(800);
+                $('#sideButton2'+$scope.eid).fadeToggle(800);
+
               
                 if($scope.Teams==null){
                     $scope.Teams=[];

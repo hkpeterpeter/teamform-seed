@@ -14,15 +14,20 @@
 
 
                 <div class="card-content" id="first{{eid}}" style="height: 200px;overflow: hidden">
+                 <a class="btn-floating btn-large waves-effect waves-light red" id="sideButton{{eid}}" ng-click="showMore()" style="position: absolute; top:0; right:0; font-size:20px;font-weight: 600;color: #5B5B5B; border-radius: 0px; "><i class="material-icons" style="background: #009688">view_list</i></a>
                     <div>
                     This event is created by {{eadmin}}, the min group size is {{eminSize}}, max size is {{emaxSize}}<br>The following are the description:<br><br>{{edescription}}
                     </div> 
+
+
 
                   
                   
                 </div>
 
-                  <div class="card-content" id="second{{eid}}" style="height: 200px;overflow: hidden;display: none;  background:#009688; color:#fff;  ">
+                  <div class="card-content" id="second{{eid}}" style="height: 200px;overflow: hidden;display: none;  background:#009688; color:#fff;  widows: 100%;">
+    
+                     <a class="btn-floating btn-large waves-effect waves-light red" id="sideButton2{{eid}}" ng-click="showMore()" style="position: absolute; top:0; right:0; font-size:20px;font-weight: 600;color: #009688; border-radius: 0px; z-index: 200;display: none"><i class="material-icons" style="background: #fff;color: #009688;">view_list</i></a>
                    
                     <div>
                         People in the event<br>
@@ -35,6 +40,8 @@
 
 
                     </div>
+
+
                 
                   
                 </div>
@@ -48,7 +55,7 @@
                 </div>
                  </a>
             </div>
-            <a class="btn-floating btn-large waves-effect waves-light red" ng-click="showMore()" style="position: relative; top:0; right:0; font-size:20px;font-weight: 600;color: #5B5B5B; border-radius: 0px; "><i class="material-icons" style="background: #009688">view_list</i></a>
+           
         </div>
     </div>
 </div>
