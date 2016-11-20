@@ -35,10 +35,11 @@ export default class UserService {
         let newUserSkills = user.data.skills || [];
         user.data.skills = null;
         let userSkills = await this.$firebaseArray(this.$database.ref('users/'+user.$id+'/skills')).$loaded();
+        let result = await this.users.$save(user);
         for (let newUserSkill of newUserSkills) {
             await userSkills.$add(newUserSkill);
         }
-        return this.users.$save(user);
+        return result;
     }
     static instance(...args) {
         if (!UserService.Instance) {

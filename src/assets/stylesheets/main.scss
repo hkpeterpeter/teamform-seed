@@ -1,4 +1,4 @@
-@import './bootstrap';
+@import './bootstrap.global';
 @import './message.scss';
 @import './fileUpload.scss';
 .panel-footer .pagination {
@@ -10,4 +10,8 @@
 .skill {
     composes: label label-success;
     margin: 5px;
+}
+body {
+    background-color: #F1F1F2;
+    font-family: 'Open Sans' !important;
 }

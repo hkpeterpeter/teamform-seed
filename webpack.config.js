@@ -55,22 +55,22 @@ module.exports = function makeWebpackConfig() {
         }, {
             test: /\.scss$/,
             loaders: ['style', 'css', 'postcss', 'sass'],
-            include: /bootstrap/
+            include: /(global)/
         }, {
             test: /\.scss$/,
             loaders: ['style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass'],
-            exclude: /bootstrap/
+            exclude: /(global)/
         }, {
-            test: /\.woff$/,
+            test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/assets/font/[hash].[ext]'
         }, {
-            test: /\.woff2$/,
+            test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/,
             loader: 'url-loader?limit=10000&mimetype=application/font-woff2&name=/assets/font/[hash].[ext]'
         }, {
-            test: /\.(eot|ttf)$/,
-            loader: 'url-loader?limit=10000&name=/assets/font/[hash].[ext]'
+            test: /\.(svg|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: 'file-loader'
         }, {
-            test: /\.(svg|gif|png|jpe?g)$/,
+            test: /\.(gif|png|jpe?g)$/,
             loader: 'url-loader?limit=1024&name=/assets/images/[hash].[ext]'
         }, {
             test: /\.html$/,

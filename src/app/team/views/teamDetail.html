@@ -2,9 +2,7 @@
 <div ng-if="teamDetail.team">
     <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="pull-left panel-title">{{teamDetail.team.data.name}}</h3>
-            <div class="pull-right"><a class="label label-info" ui-sref="team.detail.edit({teamId: teamDetail.team.$id})">Edit</a></div>
-            <div class="clearfix"></div>
+            <h4 class="panel-title">{{teamDetail.team.data.name}}</h4>
         </div>
         <div class="panel-body">
             <div class="row">
@@ -54,6 +52,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <button type="button" class="btn btn-block btn-info" ui-sref="team.detail.edit({teamId: teamDetail.team.$id})">Edit Team</button>
                 </div>
             </div>
         </div>
@@ -61,7 +60,7 @@
 
     <div class="panel panel-warning">
         <div class="panel-heading">
-            <h3 class="panel-title">Team Member</h3>
+            <h4 class="panel-title">Team Member</h4>
         </div>
 
         <div class="table-responsive">
@@ -75,10 +74,10 @@
                 </thead>
                 <tbody>
                     <tr dir-paginate="teamUser in teamDetail.team.getTeamUsers() | filter:teamDetail.filterJoined | itemsPerPage: 5">
-                        <td><a ui-sref="user.detail({userId: teamUser.user.id})">{{teamUser.user.name}}</a></td>
+                        <td><a ui-sref="user.detail({userId: teamUser.user.id})">{{teamUser.user.data.name}}</a></td>
                         <td>{{teamUser.role}}</td>
                         <td>
-                            <span ng-repeat="skill in teamUser.user.skills" class="label label-success">{{skill}}</span>
+                            <span ng-repeat="skill in teamUser.user.data.skills" class="label label-success">{{skill}}</span>
                         </td>
                     </tr>
                 </tbody>
@@ -95,7 +94,7 @@
 
     <div class="panel panel-success">
         <div class="panel-heading">
-            <h3 class="panel-title">Available Team Position</h3>
+            <h4 class="panel-title">Available Team Position</h4>
         </div>
 
         <div class="table-responsive">
@@ -130,7 +129,7 @@
     </div>
     <div class="panel panel-danger">
         <div class="panel-heading">
-            <h3 class="panel-title">Team Waiting List</h3>
+            <h4 class="panel-title">Team Waiting List</h4>
         </div>
 
         <div class="table-responsive">

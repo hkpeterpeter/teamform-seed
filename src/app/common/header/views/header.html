@@ -1,1 +1,96 @@
-<ui-menu></ui-menu>
+<header class="navbar" id="header-navbar">
+			<div class="container">
+				<a ui-sref="home" class="navbar-brand">
+					<span>Teamform</span>
+				</a>
+
+				<div class="clearfix">
+				<button type="button" class="navbar-toggle" data-target="#sidebar-nav" data-toggle="collapse" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="fa fa-bars"></span>
+				</button>
+
+				<div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+					<ul class="nav navbar-nav pull-left">
+						<li>
+							<a class="btn" ng-click="toggleSidebar()">
+								<i class="fa fa-bars"></i>
+							</a>
+						</li>
+						<li class="dropdown hidden-xs" ng-if="isAuth">
+							<a class="btn dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-bell"></i>
+								<span class="count">8</span>
+							</a>
+							<ul class="dropdown-menu notifications-list">
+								<li class="pointer">
+									<div class="pointer-inner">
+										<div class="arrow"></div>
+									</div>
+								</li>
+								<li class="item-header">You have 6 new notifications</li>
+								<li class="item">
+									<a href="#">
+										<i class="fa fa-eye"></i>
+										<span class="content">New order</span>
+										<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+									</a>
+								</li>
+								<li class="item-footer">
+									<a href="#">
+										View all notifications
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="dropdown hidden-xs" ng-if="isAuth">
+							<a class="btn dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-envelope-o"></i>
+							</a>
+							<ul class="dropdown-menu notifications-list messages-list">
+								<li class="pointer">
+									<div class="pointer-inner">
+										<div class="arrow"></div>
+									</div>
+								</li>
+								<li class="item" ng-repeat="message in messages | orderBy: '-createdAt' | limitTo: 5 track by $index ">
+									<a ui-sref="message({conversationId: message.user.$id})">
+										<img ng-src="{{message.user.getImageUrl()}}" class="img-responsive img-circle">
+										<span class="content">
+											<span class="content-headline">
+												{{message.user.data.name}}
+											</span>
+											<span class="content-text">
+												{{message.content}}
+											</span>
+										</span>
+										<span class="time"><i class="fa fa-clock-o"></i>{{message.createdAt | relativeDate}}</span>
+									</a>
+								</li>
+								<li class="item-footer">
+									<a ui-sref="message">
+										View all messages
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+				<div class="nav-no-collapse pull-right" id="header-nav">
+					<ul class="nav navbar-nav pull-right">
+						<li class="dropdown profile-dropdown" ng-if="isAuth">
+							<a href="!#" class="dropdown-toggle" data-toggle="dropdown">
+								<span class="hidden-xs">{{user.email}}</span> <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li><a ui-sref="user.detail({userId: user.uid})"><i class="fa fa-address-card-o"></i>Profile</a></li>
+								<li><a ui-sref="message"><i class="fa fa-envelope-o"></i>Messages</a></li>
+								<li><a ui-sref="logout"><i class="fa fa-power-off"></i>Logout</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</header>

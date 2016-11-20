@@ -1,10 +1,11 @@
 import angular from 'angular';
 export default class Team {
-    constructor(snap, $firebaseArray, $firebaseObject, $database, eventService) {
+    constructor(snap, $firebaseArray, $firebaseObject, $database, eventService, userService) {
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
         this.eventService = eventService;
+        this.userService = userService;
         this.$id = snap.key;
         this.update(snap);
     }
@@ -15,7 +16,11 @@ export default class Team {
         this._teamUsers = await this.$firebaseArray(snap.ref.child('users')).$loaded();
         this._event = await this.eventService.getEvent(this.data.eventId);
         for (let teamUser of this._teamUsers) {
-            teamUser.user = await this.$firebaseObject(this.$database.ref('users/' + teamUser.id));
+            if(teamUser.id) {
+                teamUser.user = await this.userService.getUser(teamUser.id);
+            } else {
+                teamUser.user = null;
+            }
         }
         return !angular.equals(this.data, oldData);
     }
@@ -23,7 +28,10 @@ export default class Team {
         if (!this.getEvent()) {
             return 0;
         }
-        return this.getEvent().data.teamMax - (this.getTeamUsers() || []).reduce((count, teamUser) => {
+        return this.getEvent().data.teamMax - this.getTotalTeamUsers();
+    }
+    getTotalTeamUsers() {
+        return (this.getTeamUsers() || []).reduce((count, teamUser) => {
             if (teamUser.id) {
                 count++;
             }

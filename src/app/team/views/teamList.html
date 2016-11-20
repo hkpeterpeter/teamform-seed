@@ -1,8 +1,8 @@
 <ui-alert message="{{teamList.error.message}}" />
-<h2 class="page-header">Team Search</h2>
+<h1 class="page-header">Team Search</h1>
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title">Search</h3>
+        <h4 class="panel-title">Search</h4>
     </div>
 
     <div class="panel panel-body">
@@ -45,7 +45,7 @@
 <div class="page-header">
     <div class="row">
         <div class="col-sm-6">
-            <h2>Team List</h2>
+            <h1>Team List</h1>
         </div>
         <div class="col-sm-6 text-right">
             <a ui-sref="team.create"><button type="button" class="btn btn-primary">Create</button></a>
@@ -63,7 +63,7 @@
                     <span class="label label-success" ng-if="!team.data.private">Public</span>
                 </td>
                 <td data-title="'Team Name'" sortable="'data.name'">
-                    <a ui-sref="team.detail({eventId: team.$id})">{{team.data.name}}</a>
+                    <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
                 </td>
                 <td data-title="'Event Name'" sortable="'getEvent().data.name'">
                     <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>

@@ -69,7 +69,7 @@ export default class TeamService {
         if (!this.teams) {
             let teamFirebaseArray = this.$firebaseArray.$extend({
                 $$added: async(snap) => {
-                    return new Team(snap, this.$firebaseArray, this.$firebaseObject, this.$database, this.eventService);
+                    return new Team(snap, this.$firebaseArray, this.$firebaseObject, this.$database, this.eventService, this.userService);
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
