@@ -21,9 +21,9 @@ angular.module('ability-test-app', ['firebase'])
 	      }
 	    });
 
-
+		var quizPath = "quiz/" + getURLParameter("u")
     $scope.quiz = [];
-  	$scope.quiz = $firebaseArray(firebase.database().ref("quiz/java"));
+  	$scope.quiz = $firebaseArray(firebase.database().ref(quizPath));
 
 	$scope.param = {
 		"answer" : []
@@ -38,13 +38,13 @@ angular.module('ability-test-app', ['firebase'])
 	$scope.quiz.$loaded(function(list) {
 		$scope.loadModelAnswer(list);
 	});
-	
+
 	$scope.loadModelAnswer = function(quizList) {
 		for (var i = 0; i < $scope.quiz.length; i++){
 			$scope.modelAnswer.push($scope.quiz[i].answer)
 		}
 	};
-	
+
 	$scope.submitFunc = function() {
 		$scope.correctness = 0
 		var userID = $.trim($scope.uid);
@@ -54,11 +54,17 @@ angular.module('ability-test-app', ['firebase'])
 			}
 		}
 		var mark = $scope.correctness / $scope.quiz.length * 100
-		var refPath = getURLParameter("q") +"/member/" + userID + "/ability/Java";
+		var refPath = getURLParameter("q") +"/member/" + userID + "/ability/" + getURLParameter("u");
 		var ref = firebase.database().ref(refPath);
 		ref.update({marks: mark})
+		if (mark >= 50){
+				window.alert("You pass the ability test, your marks is " + mark)
+		}
+		else{
+				window.alert("You fail the ability test, your marks is " + mark)
+		}
 		var url = "member.html?q=" + getURLParameter("q");
 		window.location.href= url
 	};
-	
+
 }]);
