@@ -1,32 +1,30 @@
 $(document).ready(function() {
-  $("#fblogin").hide();
-  $("#fblogout").hide();
+  $("#blogin").hide();
+  $("#blogout").hide();
 
-  initalizeFirebase();
-
-  $("#fblogin").click(function() {
-     window.location.href = "login.html";  
-  });
-
-  $("#logout").click(function(){
+  $("#blogout").click(function(){
       firebase.auth().signOut().then(function() {
         location.reload();
       });
   });
 
+  if(firebase.apps.length === 0) {
+    initalizeFirebase();
+  }
+
   firebase.auth().onAuthStateChanged(function(firebaseUser) {
     if(firebaseUser) {
       var user = firebase.auth().currentUser;
-      $("#fblogout").show();
-      $("#fblogin").hide();
+      $("#blogout").show();
+      $("#blogin").hide();
       $("#userName").text(user.displayName);
       if(user.photoURL) {
         $("#fbicon").attr("src", user.photoURL); 
       }
     }
     else {
-      $("#fblogout").hide();
-      $("#fblogin").show();
+      $("#blogout").hide();
+      $("#blogin").show();
     }
   });
 
@@ -80,5 +78,23 @@ function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 function getUserWithId(id) {
 	var refPath = "user/" + id;
 	return firebase.database().ref(refPath);
+}
+
+function getUserName(id, users) {
+	for(var tmpIdx = 0; tmpIdx < users.length; tmpIdx++) {
+		if(users[tmpIdx].$id == id) {
+			return users[tmpIdx].name;
+		}
+	}
+	return "null";
+}
+
+function getTeamMembersName(teamMembers, users) {
+	var result = [];
+	var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
+	for(var idx = 0; idx < length; idx++) {
+		result.push(getUserName(teamMembers[idx], users));
+	}
+	return result;
 }
 

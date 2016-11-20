@@ -1,14 +1,16 @@
-angular.module('loginapp', [])
-.controller('loginCtrl', ['$scope', function($scope) {
-
-
-}]);
-
 $(document).ready(function() {
 
-	initalizeFirebase();
+	// initalizeFirebase();
 
 	$(".alert.alert-danger").hide();
+
+	var modal = document.getElementById('login-form');
+
+	window.onclick = function(event) {
+    	if(event.target == modal) {
+        	modal.style.display = "none";
+    	}
+	};
 
 	$(".facebook").click(function() {
 		var provider = new firebase.auth.FacebookAuthProvider();
@@ -139,13 +141,13 @@ $(document).ready(function() {
 
 });
 
-function initalizeFirebase() {
-  var config = {
-    apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
-    authDomain: "team-anonymous-team-forming.firebaseapp.com",
-    databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
-    storageBucket: "team-anonymous-team-forming.appspot.com",
-    messagingSenderId: "903294276428"
-  };
-  firebase.initializeApp(config);
-}
+// function initalizeFirebase() {
+//   var config = {
+//     apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
+//     authDomain: "team-anonymous-team-forming.firebaseapp.com",
+//     databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
+//     storageBucket: "team-anonymous-team-forming.appspot.com",
+//     messagingSenderId: "903294276428"
+//   };
+//   firebase.initializeApp(config);
+// }
