@@ -90,6 +90,11 @@ angular.module('teamform-member-app', ['firebase'])
 			$("#inviteStatus").html("You have no invitation.");
 			$scope.loadFuncTest += " noinvite";
 		}
+		// check quiz
+		if($scope.ability.java.marks >= 50) {$scope.addTag2("Java");}
+		if($scope.ability.cpp.marks >= 50) {$scope.addTag2("C++");}
+		if($scope.ability.python.marks >= 50) {$scope.addTag2("Python");}
+		if($scope.ability.html.marks >= 50) {$scope.addTag2("HTML");}
     };
 
 	$scope.loadFunc = function() {
@@ -106,13 +111,16 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		$scope.tag = "";
 	};
+	
+	$scope.addTag2 = function(tag) {
+		if(tag !== '' && $scope.tags.indexOf(tag) === -1) {
+			$scope.tags.push(tag);
+		}
+	};
 
 	$scope.checkTag = function(tag) {
-		if (tag == "Java") {
-			if($scope.ability.Java.marks < 50) {
-				$scope.errMsg = "Failure in Java Quiz";
-				return false;
-			}
+		if (tag == "C++" || tag == "Java" || tag == "HTML" || tag == "Python") {
+			return false;
 		}
 		return true;
 	}
