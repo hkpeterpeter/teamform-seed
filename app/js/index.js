@@ -7,25 +7,25 @@ angular.module('teamform-index-app', ['firebase'])
     // Call Firebase initialization code defined in site.js
     initializeFirebase();
     $scope.eventID = "";
-    var user = firebase.auth().user;
-    if (user) {
-        // User is signed in.
-        $scope.$apply($scope.logined = true);
-        $scope.$apply($scope.username = user.displayName);
-        if ($scope.username == null) { $scope.$apply($scope.fb = false); $scope.$apply($scope.username = user.email); } else { $scope.$apply($scope.fb = true); };
-    } else {
-        // No user is signed in.
-    };
+
+  ;
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // User is signed in.
             $scope.$apply($scope.logined = true);
             $scope.$apply($scope.username = user.displayName);
+            $scope.$apply($scope.uid = user.uid);
             if ($scope.username == null) { $scope.$apply($scope.fb = false); $scope.$apply($scope.username = user.email); } else { $scope.$apply($scope.fb = true); };
         } else {
             // No user is signed in.
         }
     });
+    $scope.info = {
+        "major": '',
+        "native": '',
+        "hall": '',
+        "name": $scope.username
+        }
     $scope.btn_fb = function () {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
@@ -129,7 +129,65 @@ angular.module('teamform-index-app', ['firebase'])
 
 
     }
+   $scope.btn_save = function () {
+        if ($scope.uid !== '') {
+
+                var refPath = "info/" + $scope.uid;
+                var ref = firebase.database().ref(refPath);
 
 
+                // for each team members, clear the selection in /[eventName]/team/
+
+
+
+
+                ref.set($scope.info, function () {
+
+                    // console.log("Success..");
+
+                    // Finally, go back to the front-end
+                    window.location.href= "index.html";
+                });
+
+
+
+        }
+
+
+    }
+
+    $scope.loadFunc = function () {
+        if ($scope.uid !== '') {
+            var refPath = "info/" + $scope.uid;
+            retrieveOnceFirebase(firebase, refPath, function (data) {
+                if (data.child("major").val() != null) {
+
+                    $scope.info.major = data.child("major").val();
+
+                    $scope.refreshViewRequestsReceived();
+
+
+                }
+
+                if (data.child("native").val() != null) {
+
+                    $scope.info.native = data.child("native").val();
+
+
+
+                }
+                if (data.child("hall").val() != null) {
+
+                    $scope.info.hall = data.child("hall").val();
+
+
+
+                }
+
+                $scope.$apply(); // force to refresh
+            });
+        }
+    }
+    if ($scope.uid != undefined) { $scope.loadFunc() };
     $scope.refreshEvents(); // call to refresh teams...
 }]);

@@ -78,53 +78,53 @@
           <form>
             <div class="jumbotron" >
               <p> Describe Who You Are</p>
-            <textarea class="form-control" rows="3" style="max-width: 80%;"></textarea>
+            <textarea class="form-control" rows="3" style="max-width: 80%;" ng-model="info.intro"></textarea>
             </div>
            <div class="lightblue">
              <p> Which school are you from?</p>
 
-               <input type="radio" name="major" value="SENG" > School of Engineering<br>
-               <input type="radio" name="major" value="SBM"> School of Business and Management<br>
-               <input type="radio" name="major" value="SSC"> School of Science<br>
-               <input type="radio" name="major" value="SHSS"> School of Humanities and Social Science<br>
+               <input type="radio" value="SENG" ng-model="info.major"> School of Engineering<br>
+               <input type="radio" value="SBM" ng-model="info.major"> School of Business and Management<br>
+               <input type="radio" value="SSC" ng-model="info.major"> School of Science<br>
+               <input type="radio" value="SHSS" ng-model="info.major"> School of Humanities and Social Science<br>
 
                </div>
 
             <div class="lightgrey">
                <p> Where are you from?</p>
 
-                 <input type="radio" name="home" value="HK" > Hong Kong<br>
-                 <input type="radio" name="home" value="China"> China<br>
-                 <input type="radio" name="home" value="Asia"> Asia<br>
-                 <input type="radio" name="home" value="NA"> North America<br>
-                 <input type="radio" name="home" value="EU"> Europe<br>
-                 <input type="radio" name="home" value="Other"> Other
+                 <input type="radio" value="HK" ng-model="info.native"> Hong Kong<br>
+                 <input type="radio" value="China" ng-model="info.native"> China<br>
+                 <input type="radio" value="Asia" ng-model="info.native"> Asia<br>
+                 <input type="radio" value="NA" ng-model="info.native"> North America<br>
+                 <input type="radio" value="EU" ng-model="info.native"> Europe<br>
+                 <input type="radio" value="Other" ng-model="info.native"> Other
 
              </div>
 
              <div class="lightblue">
                <p> Which hall do you live in?</p>
 
-                 <input type="radio" name="hall" value="hall1" > Hall I<br>
-                 <input type="radio" name="hall" value="hall2" > Hall II<br>
-                 <input type="radio" name="hall" value="hall3" > Hall III<br>
-                 <input type="radio" name="hall" value="hall4" > Hall IV<br>
-                 <input type="radio" name="hall" value="hall5" > Hall V<br>
-                 <input type="radio" name="hall" value="hall6" > Hall VI<br>
-                 <input type="radio" name="hall" value="hall7" > Hall VII<br>
-                 <input type="radio" name="hall" value="hall8" > Hall VIII<br>
-                 <input type="radio" name="hall" value="hall9" > Hall IX<br>
-                 <input type="radio" name="hall" value="nohall" > I don't live in hall
+                 <input type="radio" value="hall1" ng-model="info.hall"> Hall I<br>
+                 <input type="radio" value="hall2" ng-model="info.hall"> Hall II<br>
+                 <input type="radio" value="hall3" ng-model="info.hall"> Hall III<br>
+                 <input type="radio" value="hall4" ng-model="info.hall"> Hall IV<br>
+                 <input type="radio" value="hall5" ng-model="info.hall"> Hall V<br>
+                 <input type="radio" value="hall6" ng-model="info.hall"> Hall VI<br>
+                 <input type="radio" value="hall7" ng-model="info.hall"> Hall VII<br>
+                 <input type="radio" value="hall8" ng-model="info.hall"> Hall VIII<br>
+                 <input type="radio" value="hall9" ng-model="info.hall"> Hall IX<br>
+                 <input type="radio" value="nohall" ng-model="info.hall"> I don't live in hall
 
                  </div>
 
                  <div class="lightgrey">
                     <p> What kind of group are you looking for?</p>
 
-                      <input type="radio" name="gptype" value="gradeA" > Elite<br>
-                      <input type="radio" name="gptype" value="gradeB"> Work hard together !<br>
-                      <input type="radio" name="gptype" value="gradeC"> Making new friends<br>
-                      <input type="radio" name="gptype" value="gradeD"> I don't care !
+                      <input type="radio" value="gradeA" ng-model="info.aim"> Elite<br>
+                      <input type="radio" value="gradeB" ng-model="info.aim"> Work hard together !<br>
+                      <input type="radio" value="gradeC" ng-model="info.aim"> Making new friends<br>
+                      <input type="radio" value="gradeD" ng-model="info.aim"> I don't care !
 
                   </div>
 
@@ -132,7 +132,7 @@
 
 
                  <div style="text-align: center;">
-                 <input type="submit" value="Confirm">
+                 <input type="submit" value="Confirm" ng-click="btn_save();"><br ><br >
                  </div>
                 </form>
               </div>
