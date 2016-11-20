@@ -18,7 +18,7 @@
                     </div>
                         <p align="left">{{user.Info}}</p>
                         <div align="right">
-                        <button type="button" class="btn btn-sm btn-success">Reply</button>
+                        <button type="button" class="btn btn-sm btn-success" ng-if="whetherfromteam($index)"><a ng-href="#/MyConversation/{{user.Name}}">Reply</a></button>
                         <button type="button" class="btn btn-sm btn-danger" ng-click="removeuser($index)">Delete</button></div>
                     </div>
                     </div>

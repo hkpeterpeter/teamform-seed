@@ -1,0 +1,82 @@
+<!--
+	This file is used to demonstrate the function of finding longest common sequence
+	of two words,these algorithm will be applied to search function and user adding tag 
+	function.
+	This function use $scope.tag as input search key to compare with all the tags in $scope.tagList,if 
+	the LCS is larger than 60%，the tag will be pushed to $sccope.resultList
+-->
+
+<html>
+	<head>
+		
+		<!--angular js library-->
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+		<script>
+			angular.module("a",[])
+			.controller("actrl",function($scope){
+				$scope.tagList = ["java","javascript","database","gogogo"];
+				$scope.resultList = [];
+				$scope.tag;
+				$scope.addTag = function(){
+					$scope.resultList = [];
+					
+					var m = $scope.tag.length;
+					
+					//retrive every tags in tagList
+					for(var i = 0;i < $scope.tagList.length;i++){
+						var n = $scope.tagList[i].length;
+						
+						//create a new 2D array,initialize with all 0
+						var arr = []
+						for (var row = 0; row < m+1; row++) {
+							arr[row] = [];
+							for(var column = 0; column < n+1; column++){
+								arr[row].push(0);
+							}
+						}
+						
+						
+						//record the maximum number of matched subsequence in two strings
+						var max = 0;
+						
+						//start to fill the 2D array
+						for(var x = 1;x <= m; x++){
+							for(var y = 1;y <= n;y++){
+								if($scope.tag.charAt(x-1) == $scope.tagList[i].charAt(y-1)){
+									arr[x][y] = arr[x-1][y-1] + 1;
+									if(arr[x][y] > max){
+										max = arr[x][y];
+									}
+								}
+								else if(arr[x-1][y] > arr[x][y-1]){
+									arr[x][y] = arr[x-1][y];
+								}	
+								else{
+									arr[x][y] = arr[x][y-1];
+								}
+							}
+						}
+						var match = arr[m][n]/$scope.tag.length
+						if(match>= 0.6){
+							$scope.resultList.push($scope.tagList[i] + "  |  " + match*100 + "% matched");
+						}
+					}
+			
+			
+				}
+			});
+		</script>
+	</head>
+	<body ng-app = "a" ng-controller = "actrl">
+		<input ng-model = "tag" type = "text"/>
+		<button  ng-click = "addTag()">search</button>
+		<div>
+			<h5>Sample tag list here</h5>
+			<div ng-repeat = "x in tagList">{{x}}</div>
+		</div>
+		<div>
+			<h5>Search result here</h5>
+			<div ng-repeat = "x in resultList">{{x}}</div>
+		</div>
+	</body>
+</html>
