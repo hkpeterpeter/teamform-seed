@@ -83,11 +83,13 @@ app.controller("NotificationController", function($scope){
 app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray) {
       // Implementation the todoCtrl
+      var event_name = "comp3111";
       var user_list = $firebaseObject(firebase.database().ref("userList"));
       var event_list = $firebaseObject(firebase.database().ref("eventList"));
       //don't put the reference on the $scope until $loaded is done.
       //initialize the variables and scope
       var user_event1;
+      $scope.hideMember = "glyphicon glyphicon-unchecked";
       $scope.users = {};
       $scope.filtered = {};
       $scope.selected = {};
@@ -96,20 +98,22 @@ app.controller("clickCtrl",
       $scope.tag={};
       user_list.$loaded(function() {
         event_list.$loaded(function(){
-          $scope.users = user_list;
           //alert($scope.users["iamauthur"]["name"]);
-          user_event1 = event_list["event1"]["inEventUser"];
-          $scope.event1 = event_list["event1"];
+          user_event1 = event_list[event_name]["inEventUser"];
+          $scope.event1 = event_list[event_name];
           //alert($scope.event1["skills"]["angular"]);
           for (var i=0; i<user_event1.length; i++) {
             var user_name = user_event1[i];
-            $scope.users[user_name] = user_list[user_name];
-            $scope.users[user_name]["select"] = "glyphicon glyphicon-unchecked";
-            $scope.filtered[user_name] = user_list[user_name];
-            $scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
+            //only show users not in a team
+            if(user_list[user_name]["Membership"][event_name]["identity"] === "user"){
+              $scope.users[user_name] = user_list[user_name];
+              $scope.users[user_name]["select"] = "glyphicon glyphicon-unchecked";
+              $scope.filtered[user_name] = user_list[user_name];
+              $scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
+            }
           }   
           //alert(event_list["event1"]);
-          $scope.tag = event_list["event1"]["skills"];
+          $scope.tag = event_list[event_name]["skills"];
           angular.forEach($scope.tag, function(value,key){
             $scope.currentTag.push(key);
           });
@@ -172,6 +176,7 @@ app.controller("clickCtrl",
             //put at last in case username not in filtered
             $scope.filtered[username].select = "glyphicon glyphicon-unchecked";
           }
+          //must use else if. only use if: both cases might be run
           else if ($scope.users[username].select == "glyphicon glyphicon-unchecked"){
               //alert(event.target.id+' before: uncheck');
               $scope.users[username].select = "glyphicon glyphicon-check";
@@ -180,5 +185,6 @@ app.controller("clickCtrl",
           $scope.filtered[username].select = "glyphicon glyphicon-check";           
           }
       };
+
     }
 );
