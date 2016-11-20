@@ -12,18 +12,6 @@ app.config(function($routeProvider){
 
 });
 
-app.controller("searchController",function($scope){
- $scope.searchType = "Search Team";
- $scope.setSearchT = function(){
-   $scope.searchType = "Search Team";
- };
- $scope.setSearchP = function(){
-   $scope.searchType = "Search Person";
- };
- $scope.setSearchE = function(){
-   $scope.searchType = "Search Event";
- };
-});
 
 
 app.controller("EventController",function($scope,$routeParams){
@@ -70,9 +58,8 @@ app.controller("NotificationController", function($scope){
       	else if($scope.userList[i].type=="Application"){
       		$scope.userList[i].Info="He wants to join your team.";
       	}
-      	else if($scope.userList[i].type=="Information"){
-      		$scope.userList[i].Info="Someone left the team.";
-      	}
+      	else $scope.userList[i].Info="Someone left the team.";
+      	
       }
 
       $scope.whetherfromteam=function(user){
@@ -86,38 +73,49 @@ app.controller("NotificationController", function($scope){
        			$scope.userList.splice(user,1);
       }
 
-/*      $scope.reply=function(user){
-        return "#MyConversation/"+ "Peter";
-      }
 
-      $scope.adduser=function(){
+
+   /*   $scope.adduser=function(){
 
       }*/
   });
 
-app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
+app.controller("clickCtrl",
+    function($scope, $firebaseObject, $firebaseArray) {
       // Implementation the todoCtrl
-      $scope.new;
-      var list_users=["ikari1","ikari2","shinji","van","andyw"];
-
-      $scope.users = $firebaseObject(firebase.database().ref("users")); //before: $firebaseArray
-
-      $scope.selected = $firebaseObject(firebase.database().ref("selected"));   // .selected[0]: selected
-
-      $scope.tag = $firebaseObject(firebase.database().ref("tag"));
-
-      var ref_teamtag = firebase.database().ref("teamtags");
-      $scope.currentTag = $firebaseArray(ref_teamtag);
+      var user_list = $firebaseObject(firebase.database().ref("userList"));
+      var event_list = $firebaseObject(firebase.database().ref("eventList"));
+      //don't put the reference on the $scope until $loaded is done.
+      //initialize the variables and scope
+      var user_event1;
+      $scope.users = {};
+      $scope.filtered = {};
+      $scope.selected = {};
+      $scope.currentTag = [];
       $scope.resultTag = [];
-      //users filtered by the tags, initialized with $scope.users
-      $scope.filtered = $firebaseObject(firebase.database().ref("filtered"));
-
-      $scope.filtered.ikari1={"name":"ikari","intro":"My hands stuck to my face again!","img":"./img/ikari.jpg","select":"glyphicon glyphicon-unchecked","tag":["cpp","java","sql"]};
-      $scope.filtered.shinji={"name":"shinji","intro":"I am not a pussy","img":"./img/shinji.jpg","select":"glyphicon glyphicon-unchecked","tag":["angularjs","html","css","sql"]};
-      $scope.filtered.ikari2={"name":"ikari","intro":"someone make me my sandwich!","img":"./img/ikari.jpg","select":"glyphicon glyphicon-unchecked","tag":["firebase","css"]};
-      $scope.filtered.van={"name":"van","intro":"ddf","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["html","sql"]};
-      $scope.filtered.andyw={"name":"andy","intro":"boxing","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["javascript","sql"]};
-      $scope.filtered.$save();
+      $scope.tag={};
+      user_list.$loaded(function() {
+        event_list.$loaded(function(){
+          $scope.users = user_list;
+          //alert($scope.users["iamauthur"]["name"]);
+          user_event1 = event_list["event1"]["inEventUser"];
+          $scope.event1 = event_list["event1"];
+          //alert($scope.event1["skills"]["angular"]);
+          for (var i=0; i<user_event1.length; i++) {
+            var user_name = user_event1[i];
+            $scope.users[user_name] = user_list[user_name];
+            $scope.users[user_name]["select"] = "glyphicon glyphicon-unchecked";
+            $scope.filtered[user_name] = user_list[user_name];
+            $scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
+          }   
+          //alert(event_list["event1"]);
+          $scope.tag = event_list["event1"]["skills"];
+          angular.forEach($scope.tag, function(value,key){
+            $scope.currentTag.push(key);
+          });
+        });
+      });
+          
 
       //add current tag to chosen tag
       $scope.reset = function(index){
@@ -130,19 +128,16 @@ app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
             $scope.currentTag.push(temp[i]);
           }
         }
-
         //filtered: if user does not have tag, remove the user
         angular.forEach($scope.filtered, function(value,key){
-          if($scope.filtered[key].tag.indexOf(temp[index].$value) === -1){
+          if($scope.filtered[key].skills.indexOf(temp[index]) === -1){
             delete $scope.filtered[key];
           }
         });
-        $scope.filtered.$save();
       };
       //delete from chosen tag and move to current tag
       $scope.delete = function(index){
         var temp = $scope.resultTag;
-
         $scope.resultTag = [];
         for(var i = 0;i < temp.length;i++){
           if(i != index){
@@ -152,22 +147,18 @@ app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
             $scope.currentTag.push(temp[i]);
           }
         };
-
         //filtered: add all users, then filter with tags
-
         angular.forEach($scope.users, function(value,key){
           $scope.filtered[key] = $scope.users[key];
         });
         //filter the users
         for (var i=0; i<$scope.resultTag.length; i++){
           angular.forEach($scope.filtered, function(value,key){
-            if($scope.filtered[key].tag.indexOf($scope.resultTag[i].$value) === -1){
+            if($scope.filtered[key].skills.indexOf($scope.resultTag[i]) === -1){
               delete $scope.filtered[key];
             }
           });
         }
-        $scope.filtered.$save();
-
       };
 
 
@@ -176,34 +167,18 @@ app.controller("clickCtrl", function($scope, $firebaseObject, $firebaseArray) {
         //alert(event.target.id);
         if ($scope.users[username].select == "glyphicon glyphicon-check"){
           //alert(event.target.id+' before: check');
-
-              $scope.users[username].select = "glyphicon glyphicon-unchecked";
-              $scope.users.$save();
-
+              $scope.users[username].select = "glyphicon glyphicon-unchecked";          
               delete $scope.selected[username];
-              //alert("change to uncheck");
-            $scope.selected.$save();
             //put at last in case username not in filtered
             $scope.filtered[username].select = "glyphicon glyphicon-unchecked";
-              $scope.filtered.$save();
           }
           else if ($scope.users[username].select == "glyphicon glyphicon-unchecked"){
               //alert(event.target.id+' before: uncheck');
               $scope.users[username].select = "glyphicon glyphicon-check";
-              $scope.users.$save();
-
-
               $scope.selected[username]=$scope.users[username];
-              //alert("change to check");
-            $scope.selected.$save();
-
             //put at last in case username is not in filtered
-          $scope.filtered[username].select = "glyphicon glyphicon-check";
-            $scope.filtered.$save();
-
+          $scope.filtered[username].select = "glyphicon glyphicon-check";           
           }
-
-
       };
-
-  });
+    }
+);

@@ -67,6 +67,24 @@ describe('Test angular_invite.js', function() {
 	   		$scope.reset(index);// html
 	   		expect($scope.resultTag).toEqual(["html"]);
 	   		expect($scope.currentTag).toEqual(["javascript","angularjs","css","java","cpp","sql"]);
+	   		/*expect($scope.filtered).toEqual({
+			"shinji":{"name":"shinji","intro":"I am not a pussy","img":"./img/shinji.jpg","select":"glyphicon glyphicon-unchecked","tag":["angularjs","html","css","sql"]},
+			"van":{"name":"van","intro":"ddf","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["html","sql"]}
+			});*/
+		});
+		it('reset angularEach else',function(){
+			var index = 5;
+			/*angular.forEach($scope.filtered, function(value,key){
+				delete $scope.filtered[key];
+			});*/	
+			$scope.currentTag[5] = {"$value":"cpp"};
+			$scope.filtered.shinji = {"name":"shinji","intro":"","img":"","select":"","tag":["cpp"]};
+	   		$scope.reset(index);// html
+	   		expect($scope.resultTag.length).toEqual(1);
+	   		expect($scope.currentTag).toEqual(["javascript","angularjs","html","css","java","sql"]);
+	   		/*expect($scope.filtered).toEqual({
+			"andyw":{"name":"andy","intro":"boxing","img":"./img/na.jpg","select":"glyphicon glyphicon-unchecked","tag":["javascript","sql"]}
+			});*/
 		});
    		it('delete',function(){
 	   		var index = 0;
@@ -76,12 +94,30 @@ describe('Test angular_invite.js', function() {
 	   		expect($scope.resultTag).toEqual(["angularjs"]);
 	   		expect($scope.currentTag).toEqual(["javascript","css","java","cpp","sql","html"]);
    		});
-   		it('click button',function(){
+   		it('delete angularEach else',function(){
+	   		var index = 0;
+	   		$scope.resultTag=["html",{"$value":"angularjs"}];
+	   		$scope.filtered.shinji={"name":"shinji","intro":"","img":"","select":"","tag":["angularjs"]};
+	   		$scope.currentTag=["javascript","css","java","cpp","sql"];
+	   		$scope.delete(index);// html
+	   		expect($scope.resultTag.length).toEqual(1);
+	   		expect($scope.currentTag.length).toEqual(6);
+   		});
+   		it('click button if and else if',function(){
 	   		var event = {"target":{"id":"van"}};
+	   		$scope.users.van.select = "glyphicon glyphicon-unchecked";
 	   		$scope.clickButton(event);
 	   		expect($scope.users.van.select).toEqual("glyphicon glyphicon-check");
 	   		$scope.clickButton(event);
 	   		expect($scope.users.van.select).toEqual("glyphicon glyphicon-unchecked");
+   			
+   		});
+   		it('click button else',function(){
+	   		var event = {"target":{"id":"van"}};
+	   		$scope.users.van.select = "other";
+	   		$scope.clickButton(event);
+	   		//expect($scope.users.van.select).toEqual("glyphicon glyphicon-unchecked");
+
    		});
 
    });

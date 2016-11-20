@@ -1,20 +1,11 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" >
-      <script>
-		app.controller("logoutctrl",function($cookies,$window){
-			$scope.logout = function() {
-					$cookies.remove("username",{path:"/"});
-					gotoURL("/jzhangbs/index.html",[],$window);
-				};
-		
-		});
-		
-	  </script>
+      
       <div class="container-fluid">
         <div class="navbar-header">
 			<a class="navbar-brand" href="#/" >
 				<div>
 					<!--use firebase to get the user picture and user name-->
-					<img alt="Brand" style = "height:30px;width:30px" src="../search/peter.jpg"/> <span>Peter Cheung     </span>
+					<img alt="Brand" style = "height:30px;width:30px" src="https://course.cse.ust.hk/comp3111/images/sung.png"/> <span>Kim Sung    </span>
 
 					<!--not yet dicided-->
 					<div ng-controller = "logoutctrl">
