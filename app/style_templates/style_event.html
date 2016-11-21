@@ -21,60 +21,70 @@
 
 	<div class="jumbotron">
 		<h2>Event</h2>	
-		<p>This is the event page. Just say something here.</p>	
-		<p><button class="btn btn-danger" ng-click="createEventDialog()"><i class="icon-flag"></i>&nbsp;&nbsp;&nbsp;Create an Event</button></p>
+		<p>This is the event page. Just say something here.</p>
+		<p>
+			<button class="btn btn-danger" ng-click="createEventDialog()">
+				<i class="icon-flag"></i>&nbsp;&nbsp;&nbsp;Create an Event
+			</button>
+		</p>
 	</div> <!--jumbotron-->
 	
 	<div class="col-md-8">
 		<div class="thumbnail">
 		  <div class="caption">
 		    <h4>My Events</h4>
-		    <p>Events you participate in.</p>
-		    <p><input class="form-control" placeholder="Search by event name" type="text" name="searchName" ng-model = "searchText"/></p>
-        <ul style="list-style-type:none; margin-left:-30px" ng-controller="IconDisplayController">
-        	<li>
-        		<i class="icon-home"></i>&nbsp;&nbsp;&nbsp;
-        		<a>Event Name 1</a>
-        	</li>
-        	<li ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}">
-						<i class="icon-{{mapping({{myEvent.position}})}}"></i>&nbsp;&nbsp;&nbsp;
-						<a ng-href="/#/dashboard/event/{{Event.$id}}">
-						    {{Event.eventInfo.name}}
-						</a>
-					</li>
-				</ul>
-			</div>
-	</div>
+		    <p>Events you participate in.</p>    
+				<!-- For display only -->
+				<div ng-controller="IconDisplayController">
+        	<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left"> 
+						<i class="icon-star"></i>&nbsp;&nbsp;&nbsp;Event 1
+					</a>
+					<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left">
+						<i class="icon-star-empty"></i>&nbsp;&nbsp;&nbsp;Event 2
+					</a>
+					<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left">
+						<i class="icon-desktop"></i>&nbsp;&nbsp;&nbsp;Event 3
+					</a>
+     			<!--
+        	<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" ng-repeat="(myEventId, myEvent) in myEvents" style="text-align:left">
+						<i class="icon-{{mapping({{myEvent.position}})}}"></i>&nbsp;&nbsp;&nbsp;{{Event.eventInfo.name}}
+					</a>
+					-->
+				</div> <!--ng-controller-->
+			</div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-8-->
 	
-</div>
-</div>
+	<div class="col-md-8">
+		<div class="thumbnail">
+		  <div class="caption">
+			  <h4>Search Events</h4>
+				<p>Explore fascinating events!</p>
+		  	<p><input class="form-control" placeholder="Search by event name" type="text" name="searchName" ng-model = "searchText"/></p>
+		  	<div ng-controller="IconDisplayController">
+	  			<!-- For display only -->
+	  			<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event4</a>
+	  			<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event5</a>
+	  			<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event6</a>
+	  			<!--
+					<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}" style="text-align:left">
+						{{Event.eventInfo.name}}
+					</a>
+					-->
+				</div> <!--ng-controller-->
+		  </div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-8-->
 
+</div> <!--container-->
 
-<script>
-	function IconDisplayController($scope) {
-		$scope.mapping = function(role) {
-			if(role == 'admin') {
-				return 'desktop'
-			}
-			if(role == 'leader') {
-				return 'star'
-			}
-			if(role == 'member') {
-				return 'star-empty'
-			}
-			if(role == 'tba') {
-				return 'umbrella'
-			}
-			return 'home';
-		}
-	}
-</script>
+<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+<script src="../js/vendor/jquery.min.js"></script>
 
-	<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-	<script src="../js/vendor/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="../js/vendor/video.js"></script>
-	<script src="../js/flat-ui.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../js/vendor/video.js"></script>
+<script src="../js/flat-ui.min.js"></script>
+<script src="../js/display.js"></script>
 
 </body>
 

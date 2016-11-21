@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<!-- Loading Bootstrap -->
+	<link href="../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Loading Flat UI -->
+	<link href="../css/flat-ui.min.css" rel="stylesheet">
+	
+	<!-- Loading Font Awesome -->
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="jumbotron">
+		<!-- For display only -->
+		<h2>Event 1</h2>
+		<p>Event description, lalala</p>
+		<!--<h2>{{eventObj.eventInfo.name}}</h2>-->
+		<!--<p ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</p>-->
+		<p>
+
+			<!-- For display only -->
+			<div class="btn-group">
+				<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
+					<i class="icon-star"></i>&nbsp;&nbsp;&nbsp;Leader
+					<span class="caret"></span>
+				</button>
+				<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
+				  <li><a href="#">Action 1</a></li>
+				  <li><a href="#">Action 2</a></li>
+				</ul>
+      </div> <!--btn-group-->
+      
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team size">
+				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;4 ~ 6
+			</button>
+			
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team-forming deadline">
+				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;2018-4-8 17:03
+			</button>
+
+			<!--
+			<div class="btn-group">
+				<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
+					<i class="icon-{{mapping({{myEvents[eventID] | role}})}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
+					<span class="caret"></span>
+				</button>
+				<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
+				  <li><a ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">Create a team</a></li>
+					<li><a ng-click="quit()" ng-if="(myEvent | role)=='tba'">Leave the event</a></li>
+				  <li><a ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join the event</a></li>
+				  <li><a ng-click="manage()" ng-if="myEvent.position=='admin'">Manage the event</a></li>
+				  admin改teamsize，admin改team description
+				</ul>
+      </div> <!--btn-group-->
+      
+			<!--
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team size">
+				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.min}} ~ {{eventObj.eventInfo.max}}
+			</button>
+			
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team-forming deadline">
+				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}
+			</button>
+			-->
+		</p>
+		
+		<p>
+			<!-- For display only -->
+			<button class="btn btn-danger" ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' " ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">
+				<i class="icon-group"></i>&nbsp;&nbsp;&nbsp;My Group: Group 27
+			</button>
+			<!--
+			<button class="btn btn-danger" ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' " ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">
+				<i class="icon-group"></i>&nbsp;&nbsp;&nbsp;My Group: {{eventObj.teams[myEvent.team].name}}
+			</button>
+			-->
+		</p>
+		
+	</div> <!--jumbotron-->
+
+	<div class="col-md-6">
+		<div class="thumbnail">
+		  <div class="caption">
+		    <h4>Group List</h4>
+		    <p>Groups in the event.</p>   
+		    <hr>
+		    <div class="container">	
+		    	<!-- For display only -->
+		    	<div class="row">
+	    			<div class="col-md-3">
+	    				<a class="btn btn-info btn-block" type="button" style="text-align:left">Team 1</a>	
+	      		</div>
+	      		<div class="col-md-1">
+	      			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size"><i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;3 / 5</button>
+	       		</div>
+	       		<div class="col-md-1">
+			      	<button class="btn btn-danger btn-block">
+			      		<i class="icon-trash"></i>
+			      	</button>
+			      </div>
+			    </div> <!--row-->
+			    
+			    <div class="row">
+	    			<div class="col-md-3">
+	    				<a class="btn btn-info btn-block" type="button" style="text-align:left">Team 2</a>	
+	      		</div>
+	      		<div class="col-md-1">
+	      			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size"><i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;4 / 4</button>
+	       		</div>
+	       		<div class="col-md-1">
+			      	<button class="btn btn-danger btn-block">
+			      		<i class="icon-play"></i>
+			      	</button>
+			      </div>
+			    </div> <!--row-->
+			    
+		      <!--
+		      <div class="row" ng-repeat="(key, team) in eventObj.teams">
+				    <div class="col-md-3">
+		      		<a class="btn btn-info btn-block" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{key}}" style="text-align:left">
+		      			{{team.name}}
+		      		</a>
+		    		</div>
+		    		
+		    		<div class="col-md-1">
+		    			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
+		    				{{team.currentSize}}/{{team.max}}
+		    			</button>
+		     		</div>
+		     		
+		     		<div class="col-md-1">
+				    	<button class="btn btn-danger btn-block" ng-click="deleteTeam(key)" ng-if="isManaging">
+				    		<i class="icon-trash"></i>
+				    	</button>
+				    	<button class="btn btn-danger btn-block" ng-click="toTeam(key)" ng-if="isManaging && selectTeam">
+				    		<i class="icon-play"></i>
+				    	</button>
+				    </div>
+		      </div> <!--row ng-repeat
+		      -->
+			     
+        </div> <!--container-->
+			</div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-6-->
+	
+	
+	<div class="col-md-4">
+		<div class="thumbnail">
+		  <div class="caption">
+		    <h4>Announcement Board</h4>
+		    <p>Important announcement posted by the system or the admin.</p>
+		    <hr>
+		    <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
+					<i type="button" class="icon-remove-sign" ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'"></i>{{name.content}}
+        </div> 
+			</div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-4-->
+
+</div> <!--container-->
+
+<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+<script src="../js/vendor/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../js/vendor/video.js"></script>
+<script src="../js/flat-ui.min.js"></script>
+<script src="../js/display.js"></script>
+
+</body>
+
+</html>
