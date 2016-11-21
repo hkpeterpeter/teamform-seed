@@ -140,32 +140,8 @@
 					<div class="col-xs-2"></div>
 				</div>
 
-				<div class="row">
-					<div class="col-xs-offset-1 col-sm-offset-2 col-xs-6 col-sm-4 text-left">
-						<h3>All members:</h3>
-						<div class="row">
-						 <button ng-click="openCategory('dropdownCategory1');" class="dropbtn">Search member by tags</button>
-  			             <div id="dropdownCategory1" class="dropdown-content">
-			              <div ng-repeat="category in tags"  ng-click = "openCategory(category.$id+1000);" class="dropdown-text" >
-			               <u1>{{category.$id}}</u1>
-			                <div id= {{category.$id+1000}} class="dropdown-tags">
-				            <div ng-repeat ="tt in category">
-    		                <label><input type="checkbox" ng-click="addSearchTags(tt);">
-				            <span>{{tt}}</span>
-			               </label>
-				          </div>
-			             </div>
-		                </div>
-                       </div>
-                      </div>
-					  <br>
-					  <span ng-repeat="ttt in searchTags">
-					   <button type="button" class="btn" ng-click="addSearchTags(ttt);">
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
-					   </button>
-					  </span>
+				
 						<p>Click once to invite member.</p><div id = "invite"></div>
-<<<<<<< HEAD
 						<ul ng-repeat="m in member">
 							<div class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" ng-show ="filterByTag(m.tags);">
 								<label>
@@ -177,7 +153,6 @@
 								<p ng-repeat="s in m.selection">
 								{{ $index+1 }}. {{s}}
 								</p>
-=======
 						<ul class="list-unstyled" style="word-wrap: break-word;">
 							<li ng-repeat="m in member" value="{{m.$id}}" ng-click="sendInvite(m.$id)">
 								<span>
@@ -189,7 +164,6 @@
 									<p ng-repeat="s in m.selection">
 										{{ $index+1 }}. {{s}}
 									</p>
->>>>>>> origin/master
 								</span>
 							</li>
 						</ul>
