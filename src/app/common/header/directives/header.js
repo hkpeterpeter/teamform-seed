@@ -1,5 +1,5 @@
 export default class Header {
-    constructor($state, $timeout, authService, messageService) {
+    constructor($state, $timeout, authService, messageService, userService) {
         this.template = require('../views/header.html');
         this.restrict = 'E';
         this.scope = {};
@@ -7,6 +7,7 @@ export default class Header {
         this.$timeout = $timeout;
         this.authService = authService;
         this.messageService = messageService;
+        this.userService = userService;
     }
 
     toggleSidebar() {
@@ -26,8 +27,15 @@ export default class Header {
 
     async updateAuth(scope) {
         let user = await this.authService.getUser();
+        let detail;
+        if(user) {
+            detail = await this.userService.getUser(user.uid);
+        }
         this.$timeout(() => {
             scope.user = user;
+            if(user) {
+                scope.user.user = detail;
+            }
             this.updateMessages(scope);
             scope.isAuth = scope.user != null;
         });
@@ -52,4 +60,4 @@ export default class Header {
         return new Header(...args);
     }
 }
-Header.instance.$inject = ['$state', '$timeout', 'AuthService', 'MessageService'];
+Header.instance.$inject = ['$state', '$timeout', 'AuthService', 'MessageService', 'UserService'];

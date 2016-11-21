@@ -1,6 +1,6 @@
 import User from './User.js';
 export default class UserService {
-    constructor($firebaseArray, $firebaseObject, $database, authService) {
+    constructor($firebaseArray, $firebaseObject, $database, authService, eventService) {
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;

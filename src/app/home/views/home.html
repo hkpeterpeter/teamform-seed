@@ -18,7 +18,7 @@
         <div class="row">
             <div ng-repeat="event in home.events | orderBy: '-data.createdAt' | limitTo: 6">
                 <div class="col-sm-6 col-md-4">
-                    <div class="main-box project-box green-box animated">
+                    <div class="main-box project-box green-box animated fadeIn">
                         <div class="main-box-body">
                             <div class="project-box-header green-bg">
                                 <div class="name">
@@ -37,11 +37,11 @@
                             <div class="project-box-footer clearfix">
                                 <a ui-sref="event.detail({eventId: event.$id})">
                                     <span class="value">{{event.getTotalEventUsers()}}</span>
-                                    <span class="label">Users</span>
+                                    <span class="label"><ng-pluralize count="event.getTotalEventUsers()" when="{one:'User',other:'Users'}"></<ng-pluralize></span>
                                 </a>
                                 <a ui-sref="event.detail({eventId: event.$id})">
                                     <span class="value">{{event.getTotalTeams()}}</span>
-                                    <span class="label">Teams</span>
+                                    <span class="label"><ng-pluralize count="event.getTotalTeams()" when="{one:'Team',other:'Teams'}"></<ng-pluralize></span>
                                 </a>
                             </div>
                             <div class="project-box-ultrafooter clearfix">
@@ -64,7 +64,7 @@
         <div class="row">
             <div ng-repeat="team in home.teams | orderBy: '-data.createdAt' | limitTo: 6">
                 <div class="col-sm-6 col-md-4">
-                    <div class="main-box project-box emerald-box animated">
+                    <div class="main-box project-box emerald-box animated fadeIn">
                         <div class="main-box-body">
                             <div class="project-box-header emerald-bg">
                                 <div class="name">
@@ -83,7 +83,7 @@
                             <div class="project-box-footer clearfix">
                                 <a ui-sref="team.detail({teamId: team.$id})">
                                     <span class="value">{{team.getTotalTeamUsers()}}</span>
-                                    <span class="label">Users</span>
+                                    <span class="label"><ng-pluralize count="team.getTotalTeamUsers()" when="{one:'User',other:'Users'}"></<ng-pluralize></span>
                                 </a>
                                 <a ui-sref="team.detail({teamId: team.$id})">
                                     <span class="value">{{team.getVacancy()}}</span>
@@ -115,40 +115,54 @@
     </div>
 </div>
 
-<div class="page-header">
-    <h2 class="featurette-heading">
-        What is teamform?
-        <small>A real-time online team forming app!</small>
-    </h2>
-</div>
+
+<h1>
+    What is teamform?
+    <small>A real-time online team forming app!</small>
+</h1>
 <p class="lead">The following roles and their capabilities are supported in teamform:</p>
 <div class="row">
     <div class="col-md-4">
-        <h3 class="text-center">Administrator</h3>
-        <ul>
-            <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
-            <li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
-            <li>Be able to merge teams of smaller sizes(smaller than minimum size)</li>
-        </ul>
+        <div class="main-box clearfix">
+            <div class="main-box-header">
+                <h2>Administrator</h2>
+            </div>
+            <div class="main-box-body">
+                <ul>
+                    <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
+                    <li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
+                    <li>Be able to merge teams of smaller sizes(smaller than minimum size)</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
-        <h3 class="text-center">Team</h3>
-        <ul>
-            <li>Be able to accept and remove requests made by members</li>
-            <li>Once a member joins the team, all his/her requests will be deleted</li>
-        </ul>
+        <div class="main-box clearfix">
+            <div class="main-box-header">
+                <h2>Team</h2>
+            </div>
+            <div class="main-box-body">
+                <ul>
+                    <li>Be able to accept and remove requests made by members</li>
+                    <li>Once a member joins the team, all his/her requests will be deleted</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
-        <h3 class="text-center">Member</h3>
-        <ul>
-            <li>Be able to request to join multiple teams</li>
-            <li>Be able to remove his/her join request</li>
-        </ul>
+        <div class="main-box clearfix">
+            <div class="main-box-header">
+                <h2>Member</h2>
+            </div>
+            <div class="main-box-body">
+                <ul>
+                    <li>Be able to request to join multiple teams</li>
+                    <li>Be able to remove his/her join request</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
-</div>
-</div>
-
 
 <div class="page-header">
     <h2>

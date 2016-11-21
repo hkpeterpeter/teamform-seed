@@ -81,13 +81,26 @@
 					<ul class="nav navbar-nav pull-right">
 						<li class="dropdown profile-dropdown" ng-if="isAuth">
 							<a href="!#" class="dropdown-toggle" data-toggle="dropdown">
-								<span class="hidden-xs">{{user.email}}</span> <b class="caret"></b>
+								<img ng-src="{{user.user.getImageUrl()}}" alt="">
+								<span class="hidden-xs">{{user.user.data.name}}</span> <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu dropdown-menu-right">
 								<li><a ui-sref="user.detail({userId: user.uid})"><i class="fa fa-address-card-o"></i>Profile</a></li>
 								<li><a ui-sref="message"><i class="fa fa-envelope-o"></i>Messages</a></li>
 								<li><a ui-sref="logout"><i class="fa fa-power-off"></i>Logout</a></li>
 							</ul>
+						</li>
+						<li ng-if="!isAuth" class="hidden-xs">
+							<a ui-sref="register">
+								<i class="fa fa-key"></i>
+								<span>Register<span>
+							</a>
+						</li>
+						<li ng-if="!isAuth" class="hidden-xs">
+							<a ui-sref="login">
+								<i class="fa fa-sign-in"></i>
+								<span>Login<span>
+							</a>
 						</li>
 					</ul>
 				</div>

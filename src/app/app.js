@@ -20,9 +20,10 @@ import app from './common/app';
 
 angular.module('app', [uirouter, app, home, register, login, logout, passwordreset, event, user, team, chat, message, error, auth, ngprogress])
     .config(routes)
-    .run(['$rootScope', '$state', 'ngProgressLite', 'AuthService', 'MessageService', ($rootScope, $state, ngProgressLite, authService, messageService) => {
+    .run(['$rootScope', '$state', '$window', 'ngProgressLite', 'AuthService', 'MessageService', ($rootScope, $state, $window, ngProgressLite, authService, messageService) => {
         $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams, options) => {
             ngProgressLite.inc();
+            $window.scrollTo(0, 0);
         });
         $rootScope.$on('$stateChangeSuccess', () => {
             ngProgressLite.done();

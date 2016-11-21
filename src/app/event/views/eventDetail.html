@@ -1,5 +1,6 @@
 <ui-alert message="{{eventDetail.error.message}}" />
 <div ng-if="eventDetail.event">
+    <h1>{{eventDetail.event.data.name}}</h1>
     <div class="main-box clearfix">
         <div class="main-box-header clearfix">
             <div class="row">
@@ -28,6 +29,10 @@
                                 <tr>
                                     <th>Name</th>
                                     <td>{{eventDetail.event.data.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{eventDetail.event.data.description}}</td>
                                 </tr>
                                 <tr>
                                     <th>Event Start Date</th>
