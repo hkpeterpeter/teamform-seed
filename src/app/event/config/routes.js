@@ -24,7 +24,7 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
         })
         .state('event.create', {
             resolve: {
-                auth: ['AuthService', 'UserService', (authService, userService) => {
+                auth: ['UserService', (userService) => {
                     return userService.checkRules({admin: true});
                 }]
             },
@@ -54,9 +54,7 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
         .state('event.detail.edit', {
             resolve: {
                 auth: ['UserService', (userService) => {
-                    return userService.checkRules({
-                        signIn: true
-                    });
+                    return userService.checkRules({admin: true});
                 }]
             },
             url: '/edit',
