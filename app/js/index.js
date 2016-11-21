@@ -7,25 +7,25 @@ angular.module('teamform-index-app', ['firebase'])
     // Call Firebase initialization code defined in site.js
     initializeFirebase();
     $scope.eventID = "";
-
-  ;
+    $scope.uid = getURLParameter("uid");
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
             // User is signed in.
             $scope.$apply($scope.logined = true);
             $scope.$apply($scope.username = user.displayName);
-            $scope.$apply($scope.uid = user.uid);
+            if ($scope.uid == null) { $scope.$apply($scope.uid = user.uid); }
+            $scope.$apply($scope.user = user);
+            $scope.info = {
+                "major": '',
+                "native": '',
+                "hall": '',
+                "name": $scope.username
+            }
             if ($scope.username == null) { $scope.$apply($scope.fb = false); $scope.$apply($scope.username = user.email); } else { $scope.$apply($scope.fb = true); };
         } else {
             // No user is signed in.
         }
     });
-    $scope.info = {
-        "major": '',
-        "native": '',
-        "hall": '',
-        "name": $scope.username
-        }
     $scope.btn_fb = function () {
         var provider = new firebase.auth.FacebookAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
@@ -157,14 +157,11 @@ angular.module('teamform-index-app', ['firebase'])
     }
 
     $scope.loadFunc = function () {
-        if ($scope.uid !== '') {
             var refPath = "info/" + $scope.uid;
             retrieveOnceFirebase(firebase, refPath, function (data) {
                 if (data.child("major").val() != null) {
 
                     $scope.info.major = data.child("major").val();
-
-                    $scope.refreshViewRequestsReceived();
 
 
                 }
@@ -183,11 +180,31 @@ angular.module('teamform-index-app', ['firebase'])
 
 
                 }
+                if (data.child("aim").val() != null) {
+
+                    $scope.info.aim = data.child("aim").val();
+
+
+
+                }
+                if (data.child("intro").val() != null) {
+
+                    $scope.info.intro = data.child("intro").val();
+
+
+
+                }
+                if (data.child("name").val() != null) {
+
+                    $scope.info.name = data.child("name").val();
+
+
+
+                }
 
                 $scope.$apply(); // force to refresh
             });
-        }
     }
-    if ($scope.uid != undefined) { $scope.loadFunc() };
+    if ($scope.uid != "") { $scope.loadFunc(); }
     $scope.refreshEvents(); // call to refresh teams...
 }]);

@@ -30,10 +30,12 @@ function initializeFirebase() {
 	
   // Initialize Firebase
     var config = {
-      apiKey: "AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY",
-      authDomain: "lab-firebase-d860e.firebaseapp.com",
-      databaseURL: "https://lab-firebase-d860e.firebaseio.com",
-      storageBucket: "lab-firebase-d860e.appspot.com",
+        apiKey: "AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY",
+        authDomain: "lab-firebase-d860e.firebaseapp.com",
+        databaseURL: "https://lab-firebase-d860e.firebaseio.com",
+        storageBucket: "lab-firebase-d860e.appspot.com",
+        messagingSenderId: "869332816452"
+
     };
 
    firebase.initializeApp(config);

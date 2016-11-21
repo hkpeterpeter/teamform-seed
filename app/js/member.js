@@ -17,7 +17,7 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	initializeFirebase();
 	
 	$scope.userID = "";
 	$scope.userName = "";	
@@ -27,6 +27,7 @@ angular.module('teamform-member-app', ['firebase'])
 	    if (user) {
 	        // User is signed in.
 	        $scope.userName = user.displayName;
+	        $scope.uid = user.uid;
 	    } else {
 	        // No user is signed in.
 	    }
@@ -68,7 +69,8 @@ angular.module('teamform-member-app', ['firebase'])
 									
 			var newData = {				
 				'name': userName,
-				'selection': $scope.selection
+				'selection': $scope.selection,
+				'uid': $scope.uid
 			};
 			
 			var refPath = "event/" + getURLParameter("q") + "/member/" + userID;

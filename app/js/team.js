@@ -15,7 +15,7 @@ angular.module('teamform-team-app', ['firebase'])
     function($scope, $firebaseObject, $firebaseArray) {
 		
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	initializeFirebase();
 
 	var refPath = "";
 	var eventName = getURLParameter("q");	
@@ -65,7 +65,7 @@ angular.module('teamform-team-app', ['firebase'])
 			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1 ) {
 				//$scope.test += userID + " " ;
 				
-				$scope.requests.push(userID);
+			    $scope.requests.push({ "id": userID, "uid": obj.uid, "name": obj.name});
 			}
 		});
 		
@@ -90,11 +90,11 @@ angular.module('teamform-team-app', ['firebase'])
 		            'size': $scope.param.currentTeamSize,
 		            'teamMembers': $scope.param.teamMembers,
 		            'priority': $scope.param.priority
+		            //,'$$hashkey': $scope.param.$$hashkey
 		        };
 
 		        var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
 		        var ref = firebase.database().ref(refPath);
-
 
 		        // for each team members, clear the selection in /[eventName]/team/
 
@@ -102,7 +102,7 @@ angular.module('teamform-team-app', ['firebase'])
 
 
 		            //$scope.test += obj;
-		            var rec = $scope.member.$getRecord(obj);
+		            var rec = $scope.member.$getRecord(obj.id);
 		            rec.selection = [];
 		            $scope.member.$save(rec);
 
@@ -163,7 +163,7 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.param.teamMembers.length < $scope.param.currentTeamSize  ) {
 				
 			// Not exists, and the current number of team member is less than the preferred team size
-			$scope.param.teamMembers.push(r);
+		    $scope.param.teamMembers.push(r);
 			
 			$scope.saveFunc();
 		}

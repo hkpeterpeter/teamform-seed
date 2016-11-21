@@ -30,7 +30,7 @@
    </head>
    <body>
 
-    <a href="index.html"
+    <a href="index.html">
    <button id="btn_admin" type="button" class="btn btn-primary" >
    <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
    Back</button></a>
@@ -104,7 +104,7 @@
 
 					 <div ng-repeat="member in param.teamMembers">
 						<button type="button" class="btn" ng-click="removeMember(member);">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member.name}}
 						</button>
 					 </div>
 
@@ -117,8 +117,9 @@
 
 					 <div ng-repeat="r in requests">
 						<button type="button" class="btn" ng-click="processRequest(r);">
-							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
+							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r.id}}
 						</button>
+                        <a href="personalpage.html?uid={{r.uid}}">{{r.name}}</a>
 					 </div>
 
                   </div>

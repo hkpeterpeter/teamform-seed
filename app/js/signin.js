@@ -5,7 +5,7 @@
 
 
     // Call Firebase initialization code defined in site.js
-    initalizeFirebase();
+    initializeFirebase();
     $scope.btn_signin = function () {
         firebase.auth().signInWithEmailAndPassword($scope.email, $scope.password).then(function () { window.location.href = "index.html"; }).catch(function (error) {
             // Handle Errors here.

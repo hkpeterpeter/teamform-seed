@@ -75,20 +75,18 @@
         <!--Personal Data -->
         <div>
           <h2> Personal Data</h2>
-          <form>
+          <form ng-show="uid==user.uid">
             <div class="jumbotron" >
               <p> Describe Who You Are</p>
             <textarea class="form-control" rows="3" style="max-width: 80%;" ng-model="info.intro"></textarea>
             </div>
-           <div class="lightblue">
-             <p> Which school are you from?</p>
-
-               <input type="radio" value="SENG" ng-model="info.major"> School of Engineering<br>
-               <input type="radio" value="SBM" ng-model="info.major"> School of Business and Management<br>
-               <input type="radio" value="SSC" ng-model="info.major"> School of Science<br>
-               <input type="radio" value="SHSS" ng-model="info.major"> School of Humanities and Social Science<br>
-
-               </div>
+              <div class="lightblue">
+                  <p> Which school are you from?</p>
+                  <input type="radio" value="SENG" ng-model="info.major"> School of Engineering<br>
+                  <input type="radio" value="SBM" ng-model="info.major"> School of Business and Management<br>
+                  <input type="radio" value="SSC" ng-model="info.major"> School of Science<br>
+                  <input type="radio" value="SHSS" ng-model="info.major"> School of Humanities and Social Science<br>
+              </div>
 
             <div class="lightgrey">
                <p> Where are you from?</p>
@@ -135,6 +133,14 @@
                  <input type="submit" value="Confirm" ng-click="btn_save();"><br ><br >
                  </div>
                 </form>
+            <div class="panel panel-success" ng-show="info!==null">
+                <div class="panel-heading">
+                    {{info.name}}
+                </div>
+                <div class="panel-body">{{info.intro}}</div>
+                <div class="panel-footer">
+                </div>
+            </div>
               </div>
 
 
