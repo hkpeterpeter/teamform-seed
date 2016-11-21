@@ -256,6 +256,39 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
+	$scope.searchTags = [];
+	$scope.filterByTag =function(memTag){
+		if ($scope.searchTags.length == 0){return true;}
+		var length = (typeof memTag != "undefined")? memTag.length: 0;
+		var slength = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
+		for (var i=0;i<slength;i++){
+			for (var j=0; j<length;j++){
+				if(memTag[j] == $scope.searchTags[i]){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	$scope.addSearchTags = function(tagval){
+		var addOrNot = true;
+		var k = 0;
+		var length = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
+		for(; k < length; k++){
+			if(tagval == $scope.searchTags[k]){
+				addOrNot = false;
+				break;
+			}
+		}
+		if(addOrNot){
+			$scope.searchTags.push(tagval);
+			var div = document.getElementById("filterMember");
+		}
+		else{
+			$scope.searchTags.splice(k,1);
+		}
+
+	};
 	$scope.tagChecked = function(tagval){
 		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
 		for(var j =0; j < length; j++){
