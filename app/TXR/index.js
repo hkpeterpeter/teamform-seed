@@ -193,31 +193,46 @@ app.controller("clickCtrl",
 
       $scope.sendInvitation = function(message){
         //for each user selected
+        alert("here");
+        var keep_going = true;
         angular.forEach($scope.selected, function(value,key){
-          //1. conversation
-          //if conversation does not exist, create a new one
-          var conversation_name = key + "_" + this_user;
-          if (!(conversation_name in conversation)){
-            conversation[conversation_name]=
-            {
-              "event":"",
-              "log":[],
-              "type":"invite"
+          
+            //1. conversation
+            //if conversation does not exist, create a new one
+            var conversation_name = key + "_" + this_user;
+            if (!(conversation_name in conversation)) {
+              conversation[conversation_name]={
+                "event":"",
+                "log":[],
+                "type":"invite"
+              };
+            };
+            
+            if ( conversation[conversation_name]["type"] !== "invite") {
+              var tempcontent="You have already got a request from user: "+key+", please check the request first. This invitation will not be sent unless you deal with the request.";
+              alert(tempcontent);
+              keep_going = false;
+           };
+
+          if(keep_going){
+            conversation[conversation_name]["event"]=event_name;
+            var one_log = {};
+            one_log["message"] = message;
+            one_log["sender"] = this_user;
+            conversation[conversation_name]["log"].push(one_log);
+            conversation.$save();
+            //2. notification in userList
+            var one_noti = {};
+            one_noti["isRead"] = false;
+            one_noti["link"] = "some_link";
+            one_noti["message"] = message;
+            if (!("notification" in user_list[key])) {
+              user_list[key]["notification"]=[];
             }
-          }
-          conversation[conversation_name]["event"]=event_name;
-          var one_log = {};
-          one_log["message"] = message;
-          one_log["sender"] = this_user;
-          conversation[conversation_name]["log"].push(one_log);
-          conversation.$save();
-          //2. notification in userList
-          var one_noti = {};
-          one_noti["isRead"] = false;
-          one_noti["link"] = "some_link";
-          one_noti["message"] = message;
-          user_list[key]["notification"].push(one_noti);
-          user_list.$save();
+            user_list[key]["notification"].push(one_noti);
+            alert("mess1");
+            user_list.$save();
+         }
         });
 
       };
