@@ -139,25 +139,39 @@
 					</div>
 					<div class="col-xs-2"></div>
 				</div>
+				<div class="row">
+				<div class="col-xs-offset-1 col-sm-offset-2 col-xs-6 col-sm-4 text-left">
+						<h3>All members:</h3>
+						<div class="row">
+						 <button ng-click="openCategory('dropdownCategory1');" class="dropbtn">Search member by Tags</button>
+						  <div id="dropdownCategory1" class="dropdown-content">
+						   <div ng-repeat="category in tags" ng-click = "openCategory(category.$id+1000);" class="dropdown-text" >
+							<u1>{{category.$id}}</u1>
+							 <div id= {{category.$id+1000}} class="dropdown-tags">
+							  <div ng-repeat ="tt in category">
+								<label><input type="checkbox"	ng-click="addSearchTags(tt);">
+								 <span>{{tt}}</span>
+								</label>
+							  </div>
+							  </div>
+							</div>
+						    </div>
+						   </div>
+						<br>
+						<span ng-repeat="ttt in searchTags">
+						 <button type="button" class="btn btn-default" ng-click="addSearchTags(ttt);" style="text-align: left;">
+						  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
+						 </button>
+						</span>
 
-				
 						<p>Click once to invite member.</p><div id = "invite"></div>
-						<ul ng-repeat="m in member">
-							<div class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" ng-show ="filterByTag(m.tags);">
-								<label>
-								<span>
-								Name = {{retrieveNameFromID(m.$id)}} <br>
-								Tags : <br><span ng-repeat = "tag in m.tags"> {{tag}} <br></span>
-								Score = {{retrieveScoreFromTags(retrieveTagsFromID(m.$id))}} <br>
-								request to join the following teams: 
-								<p ng-repeat="s in m.selection">
-								{{ $index+1 }}. {{s}}
-								</p>
+
 						<ul class="list-unstyled" style="word-wrap: break-word;">
-							<li ng-repeat="m in member" value="{{m.$id}}" ng-click="sendInvite(m.$id)">
+							<li ng-repeat="m in member" value="{{m.$id}}" ng-click="sendInvite(m.$id)" ng-show = "filterByTag(m.tags);">
 								<span>
 									<p>Name: {{retrieveNameFromID(m.$id)}}</p>
-									<p>Tags: {{retrieveTagsFromID(m.$id)}}</p>
+									Tags:<p ng-show="retrieveTagsFromID(m.$id) === 'none'">none</p>
+									<p ng-repeat ="t in m.tags">{{t}}</p>
 									<p ng-hide="retrieveTagsFromID(m.$id) === 'none'">
 									Score: {{retrieveScoreFromTags(retrieveTagsFromID(m.$id))}}</p>
 									<p ng-hide="!m.selection">request to join the following teams: </p>
