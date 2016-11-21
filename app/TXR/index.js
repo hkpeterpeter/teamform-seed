@@ -100,7 +100,7 @@ app.controller("clickCtrl",
       $scope.tag={};
       user_list.$loaded(function() {
         event_list.$loaded(function(){
-          conversation.$loaded(function()){
+          conversation.$loaded(function(){
             //alert($scope.users["iamauthur"]["name"]);
             user_event1 = event_list[event_name]["inEventUser"];
             $scope.event1 = event_list[event_name];
