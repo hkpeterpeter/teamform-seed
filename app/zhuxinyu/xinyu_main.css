@@ -66,15 +66,15 @@ z-index:2;
 }
 
 .hoverChange{
-	color:#ee8e6d; 
+	color:#ee8e6d !important; 
 	-webkit-transition: all .25s ease-in-out;
        -moz-transition: all .25s ease-in-out;
          -o-transition: all .25s ease-in-out;
             transition: all .25s ease-in-out;
 }
 .hoverChange:hover{
-	background: #ee8e6d;
-	color:#fff;
+	background: #ee8e6d !important;
+	color:#fff !important;
 }
 
 @media (max-width: 600px) {
@@ -169,4 +169,65 @@ z-index:2;
   55%  {transform: rotate(0deg);left:300px;}
   70%  {transform: rotate(0deg);left:300px;}
   100% {transform: rotate(-360deg);left:0px;}
+  }
+
+
+
+
+
+
+.animated_div2
+  {
+ 
+  position:relative;
+  font-weight:bold;
+  
+ 
+  animation:animated_div2 3s 1;
+  -moz-animation:animated_div2 3s 1;
+  -webkit-animation:animated_div2 3s 1;
+  -o-animation:animated_div2 3s 1;
+  
+  
+  }
+
+@keyframes animated_div2
+  {
+  0%    {transform: rotate(0deg);right:0px;}
+  25%   {transform: rotate(20deg);right:0px;}
+  50%   {transform: rotate(0deg);right:300px;}
+  55%   {transform: rotate(0deg);right:300px;}
+  70%   {transform: rotate(0deg);right:300px;}
+  100%  {transform: rotate(-360deg);right:0px;}
+  }
+
+
+@-webkit-keyframes animated_div2
+  {
+  0%    {-webkit-transform: rotate(0deg);right:0px;}
+  25%   {-webkit-transform: rotate(20deg);right:0px;}
+  50%   {-webkit-transform: rotate(0deg);right:300px;}
+  55%   {-webkit-transform: rotate(0deg);right:300px;}
+  70%   {-webkit-transform: rotate(0deg);right:300px;}
+  100%  {-webkit-transform: rotate(-360deg);right:0px;}
+  }
+
+@-moz-keyframes animated_div2
+  {
+  0%   {-moz-transform: rotate(0deg);right:0px;}
+  25%  {-moz-transform: rotate(20deg);right:0px;}
+  50%  {-moz-transform: rotate(0deg);right:300px;}
+  55%  {-moz-transform: rotate(0deg);right:300px;}
+  70%  {-moz-transform: rotate(0deg);right:300px;}
+  100% {-moz-transform: rotate(-360deg);right:0px;}
+  }
+
+@-o-keyframes animated_div2
+  {
+  0%   {transform: rotate(0deg);right:0px;}
+  25%  {transform: rotate(20deg);right:0px;}
+  50%  {transform: rotate(0deg);right:300px;}
+  55%  {transform: rotate(0deg);right:300px;}
+  70%  {transform: rotate(0deg);right:300px;}
+  100% {transform: rotate(-360deg);right:0px;}
   }
