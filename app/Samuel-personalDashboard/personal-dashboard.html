@@ -105,7 +105,8 @@
         </div>
         <div id="teamsApplying">
             <h4>I have pending applications to these teams:</h4>
-            <div ng-repeat="pendingTeam in applyingList">ID of this team:{{pendingTeam.teamID}}         <br>Name of this team:{{pendingTeam.teamName}}  <a class="waves-effect waves-light btn">WITHDRAW</a></div>
+            <p>{{applyingList}}</p>
+            <div ng-repeat="pendingTeam in applyingList">ID of this team: {{pendingTeam.$value}}         <br>Name of this team:{{pendingTeam.teamName}}  <a class="waves-effect waves-light btn" ng-click="withdrawApplication($index)">WITHDRAW</a></div>
         </div>
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

@@ -77,7 +77,6 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
             console.log("this team before adding him, has " + thisteamMemberList);
             thisteamMemberList.$add($rootScope.currentUser.id);
         });
-
         //To remove him from the "invited people" list
         var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
         thisteamInvitedPeople.$loaded().then(function(){
@@ -87,17 +86,15 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
                 }
             }
         });
-
         //To update his own copy of "teams as member"
         $scope.memberList.$add($scope.invitedList[index].$value);
-
         //To remove this team from his "being invited list"
         $scope.invitedList.$remove(index);
     };
 
-    $scope.turndownInvitation = function(index){
 
-        //To remove him from the "invited people" list
+    $scope.turndownInvitation = function(index){
+        //To remove her from the "invited people" list
         var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
         thisteamInvitedPeople.$loaded().then(function(){
             for (var i = 0; i<thisteamInvitedPeople.length; i++){
@@ -107,6 +104,21 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
             }
         });
         $scope.invitedList.$remove(index);
+    };
+
+    $scope.withdrawApplication = function(index){
+        //To remove her from that team's
+        var thatteamid = $scope.applyingList[index].$value;
+        var thatteamsPendingApplicants = $firebaseArray(firebase.database().ref('/teams/' + thatteamid + '/pendingApplicants'));
+        thatteamsPendingApplicants.$loaded().then(function(){
+           for (var i=0; i<thatteamsPendingApplicants.length; i++){
+               if (thatteamsPendingApplicants[i].$value == $rootScope.currentUser.id){
+                   thatteamsPendingApplicants.$remove(i);
+               }
+           }
+        });
+        //To remove that team from her teamsApplying array
+        $scope.applyingList.$remove(index);
     }
 
 
