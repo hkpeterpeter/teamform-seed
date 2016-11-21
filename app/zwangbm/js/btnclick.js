@@ -99,5 +99,8 @@ app1.controller("clickCtrl",
 					$scope.filtered[username].select = "glyphicon glyphicon-check";				    
 			    }
 			};
+
+			var this_user = "iamauthur";
+			
 		}
 );
