@@ -40,8 +40,8 @@
         <div class="main-box clearfix">
             <div class="tabs-wrapper profile-tabs">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="!#" data-target="#tab-event" data-toggle="tab">Events Joined</a></li>
-                    <li class=""><a href="!#"  data-target="#tab-team" data-toggle="tab">Teams Joined</a></li>
+                    <li class="active"><a href="javascript:void(0);" data-target="#tab-event" data-toggle="tab">Events Joined</a></li>
+                    <li class=""><a href="javascript:void(0);" data-target="#tab-team" data-toggle="tab">Teams Joined</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade active in" id="tab-event">
@@ -67,29 +67,31 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="tab-team">
-                        <table ng-table="userDetail.teamListTableParams" show-filter="false" class="table table-hover">
-                            <tbody>
-                                <tr ng-repeat="team in $data track by team.$id">
-                                    <td data-title="''">
-                                        <span class="label label-danger" ng-if="team.data.private">Private</span>
-                                        <span class="label label-success" ng-if="!team.data.private">Public</span>
-                                    </td>
-                                    <td data-title="'Team Name'" sortable="'data.name'">
-                                        <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
-                                    </td>
-                                    <td data-title="'Event Name'" sortable="'getEvent().data.name'">
-                                        <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>
-                                    </td>
-                                    <td data-title="'Vacancy'" sortable="'getVacancy()'">
-                                        {{team.getVacancy()}}
-                                    </td>
-                                    <td data-title="'Direct Join'" sortable="'data.directJoin'">
-                                        <span class="text-success glyphicon glyphicon-ok" ng-if="team.data.directJoin"></span>
-                                        <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table ng-table="userDetail.teamListTableParams" show-filter="false" class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="team in $data track by team.$id">
+                                        <td data-title="''">
+                                            <span class="label label-danger" ng-if="team.data.private">Private</span>
+                                            <span class="label label-success" ng-if="!team.data.private">Public</span>
+                                        </td>
+                                        <td data-title="'Team Name'" sortable="'data.name'">
+                                            <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
+                                        </td>
+                                        <td data-title="'Event Name'" sortable="'getEvent().data.name'">
+                                            <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>
+                                        </td>
+                                        <td data-title="'Vacancy'" sortable="'getVacancy()'">
+                                            {{team.getVacancy()}}
+                                        </td>
+                                        <td data-title="'Direct Join'" sortable="'data.directJoin'">
+                                            <span class="text-success glyphicon glyphicon-ok" ng-if="team.data.directJoin"></span>
+                                            <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
