@@ -11,11 +11,13 @@
       <script src="lib/jquery.min.js"></script>
       <script src="lib/bootstrap.min.js"></script>
       
+      <link rel="stylesheet" href="css/normalize.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
       <link rel="stylesheet" href="css/site.css" >
       <link rel="stylesheet" href="css/login.css">
+
 
       <script src="js/site.js"></script>
 	
@@ -55,22 +57,47 @@
          </div>
       </div>
     </nav>
-		<div ng-controller="chatRoomCtrl">		
+
+    <div login id="login-form" class="modal"></div>
+
+		<div class="chat-box" ng-controller="chatRoomCtrl">
+      <div class="chat-header">
+        <div class="user-profile active"></div>
+        <h5 id="event_name"></h5>
+      </div>
+      <div class="chat-container">
+        <div class="message {{msgAlt(text.userName)}}" ng-repeat="text in chatList">
+          <div class="bubble {{bubbleAlt(text.userName)}}">
+            <h5 ng-hide="ownMsg(text.userName)" class="sender"><strong>{{text.userName}}</strong></h5>
+            <p>{{text.message}}</p>
+          </div>
+          <span class="datestamp">{{timeSince(text.date)}}</span>
+        </div>
+      </div>
+      <div class="chat-control">     
+        <div class="input-group">   
+          <input class="form-control" type="text" name="message" ng-model="input.message" placeholder="Enter your message..." />
+          <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="addMessage()">Send</button></span>
+        </div>
+      </div>
+    </div>
 			<!-- Chat List -->
-			<div class="list-messages" id="listMessages">
+			<!-- <div class="list-messages" id="listMessages">
 				<p>Messages:</p>
 				<ul ng-repeat="text in chatList">
 					{{text.userName}}:
 					{{text.message}} </br>
 					{{text.date}}
 				</ul>
-			</div>
+			</div> -->
 			<!-- Input -->
-			<div class="new-message" id="newMessage">
-			<input id="message" type="text" name="message" ng-model="input.message" <textarea class="form-control" rows="5"></textarea>	
-			<button type="button" ng-click="addMessage()"  class="btn btn-success">Sent</button>		
+			<!-- <div class="new-message" id="newMessage">
+			<input id="message" type="text" name="message" ng-model="input.message" placeholder="Enter your message..."> -->
+      <!-- <textarea class="form-control" rows="5"></textarea>	 -->
+			<!-- <button type="button" ng-click="addMessage()"  class="btn btn-success">Sent</button>		
 			</div>
-		</div>
+		</div> -->
 		<!-- Controller -->
 		<script src="lib/angular.min.js"></script>
 		<script src="lib/angular-route.min.js"></script>

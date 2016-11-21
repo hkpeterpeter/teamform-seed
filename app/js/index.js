@@ -51,4 +51,14 @@ angular.module('teamform-app', [])
         restrict: 'A',
         templateUrl: 'login.html'
     };
-});
+}).controller('indexCtrl', ['$scope', function($scope) {
+    $scope.dteam = [
+        {name: "Jacky CHEUNG", email: "cycheungar@connect.ust.hk"},
+        {name: "Carson CHOW", email: "ccchowae@connect.ust.hk"},
+        {name: "Andy LAM", email: "cflamad@connect.ust.hk"},
+        {name: "Raymond LUI", email: "kkluiaa@connect.ust.hk"},
+        {name: "Brian TSE", email: "cytseab@connect.ust.hk"},
+        {name: "Tom WONG", email: "cwwongau@connect.ust.hk"},
+        {name: "Steven YAU", email: "kcyauac@connect.ust.hk"}
+    ];
+}]);

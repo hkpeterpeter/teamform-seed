@@ -9,6 +9,10 @@ $(document).ready(function(){
 
 });
 
+function reload() {
+	location.reload();
+}
+
 angular.module('teamform-admin-app', ['firebase'])
 .directive('login', function() {
     return {
@@ -22,6 +26,7 @@ angular.module('teamform-admin-app', ['firebase'])
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
+	$scope.event = "";
 	
 	var refPath, ref, eventName;
 
@@ -44,11 +49,14 @@ angular.module('teamform-admin-app', ['firebase'])
 		if(typeof $scope.param.eventAdmin == "undefined") {
 			$scope.paramTest += " noAdmin";
 			var user = firebase.auth().currentUser;
-			if(user) {
+			if(user && eventName != null) {
 				$scope.param.eventAdmin = user.uid;
 				$scope.param.$save();
 				alert("Created new event " + eventName);
-				location.reload();
+				firebase.database().ref("eventList/" + eventName).set({ status: "active" }).then(reload);
+			}
+			else {	// invalid event name or not logged in
+				$("#admin_page_controller button").hide();	
 			}
 		} else if($scope.param.eventAdmin !== firebase.auth().currentUser.uid) {
 			$("#admin_page_controller button").hide();
@@ -85,10 +93,13 @@ angular.module('teamform-admin-app', ['firebase'])
 	};
 	
 	$scope.terminateEvent = function() {
-		var eventName = getURLParameter("q");
-		var refPath = eventName;
-		firebase.database().ref(refPath).remove();
-		window.location.href= "index.html";
+		alert("Closed event " + eventName);
+		firebase.database().ref(eventName).remove();
+		firebase.database().ref("eventList/" + eventName).update({
+			status: "inactive"
+		}, function() {
+			window.location.href = "index.html";
+		});
 	};
 	
 	$scope.hasTeam = function(member) {
@@ -121,6 +132,18 @@ angular.module('teamform-admin-app', ['firebase'])
 		window.location.href= "index.html";
 	};
 	
+	$scope.willEnableSmartAssignment = function() {
+		if($scope.member.length == 1) return false; // only the admin itself
+		
+		var nbMemHasTeam = 0;
+		for(var idx = 0; idx < $scope.member.length; idx++) {
+			nbMemHasTeam += typeof $scope.member[idx].inTeam == 'undefined'? 0: 1;
+		}
+		console.log("NoMemHasTeam: ", nbMemHasTeam, $scope.member.length);
+		return nbMemHasTeam != $scope.member.length;
+		
+	}
+	
 	$scope.smartAssignment = function() {
 		if($scope.member.length < 1) return;
 
@@ -139,7 +162,7 @@ angular.module('teamform-admin-app', ['firebase'])
 			if(a.weight > b.weight) return 1;
 			return 0;
 		});
-		
+
 		// calculate weighted sum of each non-full group
 		var teamWeight = [];
 		var teams = [];
@@ -159,8 +182,8 @@ angular.module('teamform-admin-app', ['firebase'])
 			teamWeight.push(sum);
 			teams.push(team);
 		}
-		
 		while(teams.length > 0 && members.length > 0) {
+			console.log("Inside");
 			// get the team with minimum weighted sum
 			var teamIdx = 0;
 			var minWeight = teamWeight[teamIdx];
@@ -190,11 +213,12 @@ angular.module('teamform-admin-app', ['firebase'])
 			var memPath = getURLParameter("q") + "/member/" + member.$id;
 			var memRef = firebase.database().ref(memPath);
 			
-			memRef.update({inTeam: member.inTeam});
+			memRef.update({inTeam: member.inTeam, invitedBy: []});
 			teamRef.update({teamMembers: team.teamMembers});
 		}
-		
+
 		while(members.length > 0) {
+			console.log("Inside2");
 			// create new team(s) and assign remaining members to the team
 			var team = {size: $scope.param.maxTeamSize, teamMembers:[]};
 			var leader = members[0];
@@ -221,6 +245,8 @@ angular.module('teamform-admin-app', ['firebase'])
 				members.splice(0, 1);
 			}
 			teamRef.set(team);
+			
+			team.$id = teamId;
 			$scope.team.push(team);
 		}
 	};

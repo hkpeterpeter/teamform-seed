@@ -61,17 +61,17 @@
 			<div id="team_page_controller" ng-controller="TeamCtrl">
 
 				<div class="row">
-					<div class="col-md-3 col-xs-3"></div>
-					<div class="col-md-6 col-xs-6 text-left panel">
+					<div class="col-xs-2"></div>
+					<div class="col-xs-8 text-left panel">
 						<form class="form-horizontal text-left">
 							<div class="form-group">
 								<label for="inputTeamName" class="control-label">Team Name</label>
 								<br>
 								<div class="row">
-									<div class="col-md-8 col-xs-8">
+									<div class="col-xs-8">
 										<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">
 									</div>
-									<div class="col-md-2 col-xs-2">
+									<div class="col-xs-2">
 										<button type="button" class="btn btn-primary" id="add" ng-click="saveFunc();">Add</button>
 									</div>
 								</div>
@@ -85,47 +85,47 @@
 								</span>
 							</div> 
 
-		<div class="row">
-			<button ng-click="openCategory('dropdownCategory');" class="dropbtn">Add Tags for Your Team</button>
-  			 <div id="dropdownCategory" class="dropdown-content">
-			  <div ng-repeat="category in tags"  ng-click = "openCategory(category.$id);" class="dropdown-text" >
-			   <h5>{{category.$id}}</h5>
-			    <div id= {{category.$id}} class="dropdown-tags">
-				 <div ng-repeat ="tt in category">
-    		      <label><input type="checkbox"	ng-checked="tagChecked(tt);"	 ng-click="addTags(tt);">
-				   <span>{{tt}}</span>
-			      </label>
-				</div>
-			   </div>
-		    </div>
-         </div>
-       </div>
-	  </form>
+							<div class="row">
+								<button ng-click="openCategory('dropdownCategory');" class="dropbtn">Add Tags for Your Team</button>
+								<div id="dropdownCategory" class="dropdown-content">
+									<div ng-repeat="category in tags" ng-click = "openCategory(category.$id);" class="dropdown-text" >
+										<h5>{{category.$id}}</h5>
+										<div id= {{category.$id}} class="dropdown-tags">
+											<div ng-repeat ="tt in category">
+												<label><input type="checkbox"	ng-checked="tagChecked(tt);" ng-click="addTags(tt);">
+													<span>{{tt}}</span>
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
 						<div class="row">
-							<div class="col-sm-4">
+							<div class="col-xs-4 col-md-3">
 								<h4>Team members</h4>
 								<!-- TODO: Show the current team member list -->
 								<div ng-repeat="member in param.teamMembers">
-									<button type="button" class="btn" ng-click="removeMember(member);">
+									<button type="button" class="btn btn-default" ng-click="removeMember(member);">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ retrieveNameFromID(member) }}
 									</button>
 								</div>
 							</div>
-							<div class="col-sm-2">
+							<div class="col-xs-5 col-md-4">
 								<h4>Tags</h4>
 								<div ng-repeat="ttt in param.tags">
-									<button type="button" class="btn" ng-click="addTags(ttt);">
+									<button type="button" class="btn btn-default col-xs-12" ng-click="addTags(ttt);" style="text-align: left;">
 										<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
 									</button>
 								</div>
 							</div>
-							<div class="col-sm-2" novalidate>
+							<div class="col-xs-2 col-md-1" novalidate>
 								<h4>Weight</h4>
 								<div ng-repeat="ttt in param.tags">
 									<input type="number" class="form-control" id="changeWeight" ng-model="param.weight[$index]" >
 								</div>
 							</div>
-							<div class="col-sm-4">
+							<div class="col-xs-1 col-md-4">
 								<h4>Requests received:</h4>
 								<button type="button" class="btn btn-primary" id="smartAdd" ng-click="smartAdd();">Smart Add</button>
 								<!--TODO: Show the requests -->	        
@@ -137,9 +137,11 @@
 							</div>
 						</div>
 					</div>
+					<div class="col-xs-2"></div>
+				</div>
 
-
-					<div class="col-sm-offset-3 col-sm-4 text-left">
+				<div class="row">
+					<div class="col-xs-offset-1 col-sm-offset-2 col-xs-6 col-sm-4 text-left">
 						<h3>All members:</h3>
 						<div class="row">
 						 <button ng-click="openCategory('dropdownCategory1');" class="dropbtn">Search member by tags</button>
@@ -163,6 +165,7 @@
 					   </button>
 					  </span>
 						<p>Click once to invite member.</p><div id = "invite"></div>
+<<<<<<< HEAD
 						<ul ng-repeat="m in member">
 							<div class="checkbox" value="{{m.$id}}" ng-click="sendInvite(m.$id)" ng-show ="filterByTag(m.tags);">
 								<label>
@@ -174,41 +177,51 @@
 								<p ng-repeat="s in m.selection">
 								{{ $index+1 }}. {{s}}
 								</p>
+=======
+						<ul class="list-unstyled" style="word-wrap: break-word;">
+							<li ng-repeat="m in member" value="{{m.$id}}" ng-click="sendInvite(m.$id)">
+								<span>
+									<p>Name: {{retrieveNameFromID(m.$id)}}</p>
+									<p>Tags: {{retrieveTagsFromID(m.$id)}}</p>
+									<p ng-hide="retrieveTagsFromID(m.$id) === 'none'">
+									Score: {{retrieveScoreFromTags(retrieveTagsFromID(m.$id))}}</p>
+									<p ng-hide="!m.selection">request to join the following teams: </p>
+									<p ng-repeat="s in m.selection">
+										{{ $index+1 }}. {{s}}
+									</p>
+>>>>>>> origin/master
 								</span>
-								</label>
-							</div>
+							</li>
 						</ul>
 					</div>
-
-					<div class="col-md-4 col-xs-4 text-left">
+					<div class="col-sm-1"></div>
+					<div class="col-xs-5 col-sm-4 text-left">
 						<h3>All teams:</h3>
 						<ul ng-repeat="t in team" class = "teamList">
 							<span>
 								Team Name: {{t.$id}}  <br>
 								Preferred team size: <span class="badge">{{t.size}}</span> <br>
-								Tags:
-								<p ng-repeat ="tag in t.tags">{{tag}}<p>
-								<p ng-show="!t.tags"> none </p>
-								Current team members: 
-								<p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
-								{{ $index+1 }}. {{ member }}
-								</p>
-								<span ng-show="!t.teamMembers"> none </span>
-							</span>
-						</ul>
+								Tags: {{t.tags}}<span ng-show="!t.tags">none</span><br>
+									Current team members: 
+									<p ng-repeat="member in retrieveNamesFromJSON(t.teamMembers) track by $index">
+										{{ $index+1 }}. {{ member }}
+									</p>
+									<span ng-show="!t.teamMembers"> none </span>
+								</span>
+							</ul>
+						</div>
+						
 					</div>
-
 				</div>
 			</div>
-		</div>
 
-	<script src="lib/angular.min.js"></script>
-	<script src="lib/angular-route.min.js"></script>
+			<script src="lib/angular.min.js"></script>
+			<script src="lib/angular-route.min.js"></script>
 
-	<script src="lib/firebase.js"></script>
-	<script src="lib/angularfire.min.js"></script>
-	
-	<script src="js/team.js"></script>
+			<script src="lib/firebase.js"></script>
+			<script src="lib/angularfire.min.js"></script>
 
-</body>
-</html>
+			<script src="js/team.js"></script>
+
+		</body>
+		</html>
