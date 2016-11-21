@@ -18,7 +18,12 @@ p {
 .button-collapse {
   color: #26a69a;
 }
-
+.redtrue{
+  background: #009688 !important;
+}
+.redfalse{
+  background: #ff0000 !important;
+}
 .parallax-container { 
   min-height: 380px;
   line-height: 0;

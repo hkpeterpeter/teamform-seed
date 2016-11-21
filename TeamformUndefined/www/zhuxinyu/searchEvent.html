@@ -1,0 +1,97 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+
+
+<div ng-controller="search_controll">
+
+<div class="flip-container" style="background: #fff;margin-bottom: 50px;">
+    <div class="flipper" id="myflipper">
+        <div class="front" style="margin-bottom: 100px">
+            <section id="search_create">
+                <div class="parallax-container" id="index-banner" style="height: 600px;">
+                    <div class="section no-pad-bot" style="margin-bottom: 100px;">
+                        <div class="container">
+                            <event-search-panel>
+                            </event-search-panel>
+                        </div>
+                    </div>
+                    <div class="parallax" id="frontImage">
+                        <img alt="Unsplashed background img 1" ng-src="zhuxinyu/background3.jpg" style=" display: block;"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="back" style="margin-bottom: 100px">
+            <section id="create_event">
+                <div class="parallax-container" id="index-banner" style="height:600px">
+                    <div class="section no-pad-bot">
+                        <div class="container">
+                            <h1 class="header center teal-text text-lighten-2">
+                                {{event.name}}
+                            </h1>
+                            <!-- To be replaced by panel -->
+                            <event-form>
+                            </event-form>
+                            <!--To Be replaced by panel -->
+                            <subcan>
+                            </subcan>
+                        </div>
+                    </div>
+                    <div class="parallax" id="backImage">
+                        <img alt="Unsplashed background img 1" ng-src="zhuxinyu/background1.jpg" style=" display: block;"/>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<section id="event_list" style="background: #fff; margin-top: 10px;">
+    <div class="section" id="eventCardList">
+        <!--   Icon Section   -->
+        <event-card emax-size="10" emin-size="5" edescription="Event 1" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/12109238_1656263351287356_1864357102807069265_n.jpg?oh=29b8245a109516606c82c7127d8ce0c0&oe=58946C3D" etitle="OOOkkk">
+        </event-card>
+        <event-card emax-size="10" emin-size="5" edescription="Event 2" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSsEZ_4BkG3GNQ2Dd7B8RyX1JMgp4rxKhJRSJd2-7usYVznbm2rmK-gDA" etitle="OK">
+        </event-card>
+        <event-card emax-size="10" emin-size="5" edescription="Event 3" e-skill="App developmen, Computer Sciene" eadmin="Peter" epicture="zhuxinyu/background2.jpg" etitle="OK">
+        </event-card>
+    </div>
+    <div id="searching" align="center" style="text-align: center; display: none;">
+        <img src="zhuxinyu/load.gif" width="50%"/>
+        <div class="row">
+          <div class="div col s8 offset-s2">
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- <basic-card ctitle="I am a Card" cpic="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcROAxjcxosTwQLGFK5n13_aorErUL8Jo-oQqBbi13jEVB3XVCUo" clink="#">
+
+<span class="card-title activator grey-text text-darken-3">Leader Name</span>
+<br/>
+<span class="team-text-span grey-text text-darken-3">Skills:
+<div class="chip focus teal lighten-1 white-text">Java</div>
+<div class="chip focus teal lighten-1 white-text">Angularjs</div>
+</span>
+
+</basic-card> -->
+
+ 
+<event-footer>
+</event-footer>
+<script>
+ 
+
+
+</script>
+</div>
+
+
+

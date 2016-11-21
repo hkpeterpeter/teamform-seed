@@ -1,0 +1,79 @@
+<!--
+Team name: {{teamName}} in js: $scope.teamName
+Team description: {{teamDescription}} in js: $scope.teamDescription
+Is a private team: {{privateTeam}} (true or false) in js: $scope.privateTeam
+Minimum number of team member: {{teamMin}} in js: $scope.teamMin
+Maximum number of team member: {{teamMax}} in js: $scope.teamMax
+-->
+
+<div class="container">
+    <div class="row">
+        <form>
+          <simple-field id-of-field="team_name" label="Team name" field-model="teamName"></simple-field>
+          <textarea-field id-of-field="team_description" label="Team description" field-model="teamDescription"></textarea-field>
+          <image-upload label="Choose team image"></image-upload>
+          <br>
+          <div>
+              <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="privateTeam"/>
+              <label for="filled-in-box">Is a private team</label>
+          </div>
+          <br><br>
+          <div class="row">
+            <div class="col s6">
+              <p>Minimum number of team member</p>
+              <div range-spinner
+                range-min="1"
+                range-step="1"
+                range-max="50"
+                range-default-value="1"
+                range-decimal-precision="1"
+                range-model="teamMin"
+                accept-decimal=false
+                name-of-field="rangeFieldName"
+                id-of-field="rangeFieldId">
+              </div>
+              <br><br><br><br>
+            </div>
+            <div class="col s6">
+              <p>Maximum number of team member</p>
+              <div range-spinner
+                range-min="1"
+                range-step="1"
+                range-max="50"
+                range-default-value="1"
+                range-decimal-precision="1"
+                range-model="teamMax"
+                accept-decimal=false
+                name-of-field="rangeFieldName"
+                id-of-field="rangeFieldId">
+              </div>
+              <br><br><br><br>
+            </div>
+          </div>
+          <div id="skillset" ng-controller="formController">
+
+            <div class="row" id="skillManager">
+                <p>Wanted skills:</p>
+                <div>
+                    <div class="input-field col s6">
+                        <input id="newSkill" type="text" class="validate" ng-model="newSkill">
+                    </div>
+                    <button class="btn waves-effect waves-light" name="action" ng-click="receiveNewSikll()">Add Skill
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col m3 skillbuttion" ng-repeat="skill in skillsList">
+                    <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="removeSkill(skill)">delete</i>{{skill}}</a>
+                </div>
+            </div>
+          </div>
+          <!-- <button class="btn waves-effect waves-light" type="submit" name="action">Create <i class="material-icons right">send</i>
+          </button>
+          <button class="btn waves-effect waves-light red" type="submit" >Cancel<i class="material-icons right">cancel</i>
+          </button> -->
+        </form>
+    </div>
+</div>
