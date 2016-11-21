@@ -2,7 +2,7 @@
 teamapp.controller('fishCtrl', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($scope,$rootScope, $firebaseObject, $firebaseArray) {
 
 //FAKE $rootScope.clickedEvent
-$scope.currentEvent = 0;
+$scope.currentEvent =  $rootScope.clickedEvent.$id;
 
 $scope.currentUser = $rootScope.currentUser.id;
 $scope.events = $rootScope.events;
