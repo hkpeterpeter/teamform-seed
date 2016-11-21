@@ -20,12 +20,20 @@
 <div class="container">
 
 	<div class="jumbotron">
-		<h2>Event</h2>	
-		<p>This is the event page. Just say something here.</p>	
+		<h2>{{eventObj.eventInfo.name}}</h2>	
+		<p ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</p>	
 		<p>
-			<button class="btn btn-danger" ng-click="createEventDialog()">
-				<i class="icon-flag"></i>&nbsp;&nbsp;&nbsp;Create an Event
+			<!--
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Your Role">
+				<i class="icon-{{mapping({{myEvents[eventID] | role}})}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
 			</button>
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team size">
+				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;[{{eventObj.eventInfo.min}} ~ {{eventObj.eventInfo.max}}]
+			</button>
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team-forming deadline">
+				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}
+			</button>
+			-->
 		</p>
 	</div> <!--jumbotron-->
 	
@@ -35,25 +43,14 @@
 		    <h4>My Events</h4>
 		    <p>Events you participate in.</p>    
 				<ul style="list-style-type:none; margin-left:-30px" ng-controller="IconDisplayController">
-					<!-- For display only -->
         	<li>
-        		<i class="icon-desktop"></i>&nbsp;&nbsp;&nbsp;
+        		<i class="icon-home"></i>&nbsp;&nbsp;&nbsp;
         		<a>Event Name 1</a>
         	</li>
-        	<li>
-        		<i class="icon-user"></i>&nbsp;&nbsp;&nbsp;
-        		<a>Event Name 2</a>
-        	</li>
-        	<li>
-        		<i class="icon-star"></i>&nbsp;&nbsp;&nbsp;
-        		<a>Event Name 3</a>
-        	</li>
-     			<!--
         	<li ng-repeat="(myEventId, myEvent) in myEvents">
 						<i class="icon-{{mapping({{myEvent.position}})}}"></i>&nbsp;&nbsp;&nbsp;
 						<a ng-href="/#/dashboard/event/{{myEventId}}">{{Event.eventInfo.name}}</a>
 					</li>
-					-->
 				</ul>
 			</div> <!--caption-->
 		</div> <!--thumbnail-->
@@ -66,15 +63,10 @@
 				<p>Explore fascinating events!</p>
 		  	<p><input class="form-control" placeholder="Search by event name" type="text" name="searchName" ng-model = "searchText"/></p>
 	  		<ul style="list-style-type:none; margin-left:-30px" ng-controller="IconDisplayController">
-	  			<!-- For display only -->
-	  			<li><a>Event Name 4</a></li>
-        	<li><a>Event Name 5</a></li>
-        	<li><a>Event Name 6</a></li>
-	  			<!--
 		    	<li ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}">
+						<i class="icon-{{mapping({{myEvent.position}})}}"></i>&nbsp;&nbsp;&nbsp;
 						<a ng-href="/#/dashboard/event/{{Event.$id}}">{{Event.eventInfo.name}}</a>
 					</li>
-					-->
 				</ul>
 		  </div> <!--caption-->
 		</div> <!--thumbnail-->
