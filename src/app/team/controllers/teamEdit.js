@@ -6,6 +6,7 @@ export default class TeamEditCtrl {
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
+        this.Upload = Upload;
         this.teamService = teamService;
         this.team = null;
         this.error = null;
