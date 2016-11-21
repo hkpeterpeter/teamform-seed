@@ -18,6 +18,8 @@ app.controller("teamCtrl",
 		$scope.modifyLanguageTags = false;
 		$scope.modifyMannerTags = false;
 
+		$scope.newTeaminfo = {};
+
 		$scope.statusList = {
 			0 : "pending",
 			1 : "accepted",
@@ -61,35 +63,19 @@ app.controller("teamCtrl",
 
 
 							//check whether user has already applied for a team
-							var user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid  + '/writable/' + $scope.eventID + '/applications');
-									user_appli_ref.once('value', function (snapshot) {
-									   if (snapshot.hasChild($scope.teamID)) {
+						var user_appli_ref = firebase.database().ref('users/' + $scope.userData.uid  + '/writable/' + $scope.eventID + '/applications');
+						$scope.user_appli = $firebaseObject(user_appli_ref);
+							// 		user_appli_ref.once('value', function (snapshot) {
+							// 		   if (snapshot.hasChild($scope.teamID)) {
 
-												$scope.alreadyApplied = true;
-									  	}
-											else{
-												$scope.alreadyApplied = false;
-											}
-										}
-								);
-						// eventref.once('value', function (snapshot) {
-	    	// 				if (!snapshot.hasChild($scope.eventID)) {
-		    //     				$scope.inthisteam = false;
-		    // 				}
-						// 	else{
-						// 			teamref=firebase.database().ref('users/' + $scope.userData.uid + '/writable/' + $scope.eventID );
-						// 			$scope.team_id = $firebaseObject(teamref);
-						// 			$scope.team_id.$loaded().then(function(){
-						// 				// console.log(team_id);
-						// 				if($scope.team_id.team == $scope.teamID){
-						// 					$scope.inthisteam = true;
-						// 				}
-						// 				else{
-						// 					$scope.inthisteam = false;
-						// 				}
-						// 			})
-						// 		}
-						// });
+							// 					$scope.alreadyApplied = true;
+							// 		  	}
+							// 				else{
+							// 					$scope.alreadyApplied = false;
+							// 				}
+							// 			}
+							// 	);
+
 				} else console.log("signed out");
 		});
 		//
@@ -135,6 +121,11 @@ app.controller("teamCtrl",
 		// 	memref.child("2RB6DFylc1ZEoVFsuCsgbIYOaSz2").remove();
 		// }
 
+		$scope.alreadyApplied = function(){
+			if ($scope.user_appli[$scope.teamID] != undefined) return true;
+			else return false;
+		}
+
 		$scope.ApplyTeam = function(){
 			Helper.sendApplicationTo($scope.userData.uid, $scope.eventID, $scope.teamID);
 			window.alert("Your application is received");
@@ -142,7 +133,7 @@ app.controller("teamCtrl",
 				// 	Helper.pushNotificationTo(leaderuid, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
 				// }
 				Helper.pushNotificationTo($scope.teamdata.leader, $scope.eventID, Helper.getUsername($scope.userData.uid) + " has applied for your team.")
-				window.location.reload();
+				// window.location.reload();
 		}
 
 
@@ -156,12 +147,12 @@ app.controller("teamCtrl",
 		// }
 
 		$scope.DeleteMember = function(uid){
-			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID).then(function(){
+			Helper.deletePersonFromTeam(uid, $scope.eventID, $scope.teamID)
 				Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, Helper.getUsername(uid) + " has been kicked off the team");
 				for (memberuid in $scope.teamdata.members){
 						Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has been kicked off the team.");
 				}
-			})
+
 		}
 
 		$scope.QuitTeam = function(){
@@ -199,8 +190,6 @@ app.controller("teamCtrl",
 
 		$scope.ChangeTeamName = function(newname){
 
-
-$scope.test = $scope.teamdata.members;
 
 			var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID);
 			ref.child('name').set(newname);
@@ -269,7 +258,7 @@ $scope.test = $scope.teamdata.members;
 
 
 
-				$scope.newTeaminfo.max=parseInt($scope.newTeaminfo.max);
+				// $scope.newTeaminfo.max=parseInt($scope.newTeaminfo.max);
 				// console.log($scope.teamdata.name);
 				// console.log($scope.newTeaminfo.name);
 				if($scope.teamdata.name !== $scope.newTeaminfo.name){
@@ -491,7 +480,7 @@ $scope.filterByStatus = function(items, filter_model) {
 				$scope.accept_Application = function(uid){
 					Helper.acceptApplication(uid, $scope.eventID, $scope.teamID);
 
-					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teams.$getRecord($scope.teamID).name +  " has been accepted.");
+					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teamdata.name+  " has been accepted.");
 					for (memberuid in  $scope.teamdata.members){
 							Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has joined the team.");
 					}
@@ -499,7 +488,7 @@ $scope.filterByStatus = function(items, filter_model) {
 
 				$scope.decline_Application = function(uid){
 					Helper.declineApplication(uid, $scope.eventID, $scope.teamID);
-					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teams.$getRecord($scope.teamID).name +  " has been declined.");
+					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teamdata.name +  " has been declined.");
 				}
 
 });
