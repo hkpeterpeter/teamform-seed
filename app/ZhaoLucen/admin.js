@@ -248,7 +248,72 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 
 	};
 
+  $scope.adminAddUser = function(teamID, curTeamSize, curTeamMember, user) {
+    if (curTeamSize < parseInt($scope.maxSize)) {
+      //Add user to team member
+      curTeamMember.$add(user.$id.toString());
 
+      var curUser = $rootScope.user_ref.child(user.$id.toString());
+
+      //Add user to teamAsMember
+      var curUserIn = curUser.child("teamsAsMember");
+      var curUserInList = $firebaseArray(curUserIn);
+      curUserInList.$add(teamID);
+
+      //Delete this request from teamsApplying
+      var curUserOut = $firebaseObject(curUser);
+      curUserOut.$loaded().then(function(){
+        for (var key in curUserOut.teamsApplying) {
+          if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
+            $rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
+          }
+        };
+      });
+
+      var index = $scope.users.indexOf(user);
+      $scope.users.splice(index, 1);  
+      // Remove waiting user from database-event
+      for (var key in $scope.event.waitingUsers) {
+        if($scope.event.waitingUsers[key] == user.$id) {
+          $rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
+          break;
+        };
+      };
+      
+    } else {
+      console.log("the team is full");
+      return false;
+    }   
+    return true;
+  };
+
+// Functions - USER
+  $scope.adminAddUserToTeam = function(key, request, user) {
+    var curTeamSize = $scope.getLength($scope.teams.$getRecord(request.teamID.toString()));
+    var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
+    var teamID = request.teamID;
+    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
+
+
+  };
+
+  $scope.adminAddUserToOtherTeam = function(user) {
+    console.log("test");
+    var teamName = user.adminAdd;
+    var curTeamSize;
+
+    var team = $scope.findTeamByName(teamName);
+
+    if (team == null || teamName == null) {
+      console.log("No Such Team");
+      return;
+    }
+    var teamID = team.$id;
+    var curTeamSize = $scope.getLength(team);
+    var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
+    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
+
+  };  
 
 
 // Filter - team
