@@ -193,8 +193,8 @@ app.controller("clickCtrl",
 
       $scope.sendInvitation = function(message){
         //for each user selected
-        alert("here");
         var keep_going = true;
+        var alert_content = "Invitation(s) have been sent";
         angular.forEach($scope.selected, function(value,key){
           
             //1. conversation
@@ -209,8 +209,8 @@ app.controller("clickCtrl",
             };
             
             if ( conversation[conversation_name]["type"] !== "invite") {
-              var tempcontent="You have already got a request from user: "+key+", please check the request first. This invitation will not be sent unless you deal with the request.";
-              alert(tempcontent);
+              //change alert_content
+              alert_content="You have already got a request from user: "+user_list[key]["name"]+", please check the request first. This invitation will not be sent unless you deal with the request.";
               keep_going = false;
            };
 
@@ -230,10 +230,10 @@ app.controller("clickCtrl",
               user_list[key]["notification"]=[];
             }
             user_list[key]["notification"].push(one_noti);
-            alert("mess1");
             user_list.$save();
          }
         });
+        alert(alert_content);
 
       };
 
