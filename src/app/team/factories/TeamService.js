@@ -1,6 +1,7 @@
 import Team from './Team.js';
 export default class TeamService {
-    constructor($firebaseArray, $firebaseObject, $database, authService, userService, eventService, messageService) {
+    constructor($injector, $firebaseArray, $firebaseObject, $database, authService, userService, eventService, messageService) {
+        this.$injector = $injector;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
@@ -69,7 +70,7 @@ export default class TeamService {
         if (!this.teams) {
             let teamFirebaseArray = this.$firebaseArray.$extend({
                 $$added: async(snap) => {
-                    return new Team(snap, this.$firebaseArray, this.$firebaseObject, this.$database, this.eventService, this.userService);
+                    return new Team(snap, this.$injector);
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
@@ -142,6 +143,7 @@ export default class TeamService {
 }
 
 TeamService.instance.$inject = [
+    '$injector',
     '$firebaseArray',
     '$firebaseObject',
     'database',

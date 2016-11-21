@@ -1,7 +1,8 @@
 import Message from './Message.js';
 export default class MessageService {
-    constructor($rootScope, $firebaseArray, $firebaseObject, $state, $database, authService, userService, notificationService) {
+    constructor($rootScope, $injector, $firebaseArray, $firebaseObject, $state, $database, authService, userService, notificationService) {
         this.$rootScope = $rootScope;
+        this.$injector = $injector;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$state = $state;
@@ -16,7 +17,7 @@ export default class MessageService {
         if (!this.messages) {
             let messageFirebaseArray = this.$firebaseArray.$extend({
                 $$added: async(snap) => {
-                    return new Message(snap, this.$firebaseArray, this.$firebaseObject, this.$database, this.userService);
+                    return new Message(snap, this.$injector);
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
@@ -65,4 +66,4 @@ export default class MessageService {
     }
 }
 MessageService.Instance = null;
-MessageService.instance.$inject = ['$rootScope', '$firebaseArray', '$firebaseObject', '$state', 'database', 'AuthService', 'UserService', 'NotificationService'];
+MessageService.instance.$inject = ['$rootScope', '$injector', '$firebaseArray', '$firebaseObject', '$state', 'database', 'AuthService', 'UserService', 'NotificationService'];

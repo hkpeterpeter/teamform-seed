@@ -1,6 +1,7 @@
 import User from './User.js';
 export default class UserService {
-    constructor($firebaseArray, $firebaseObject, $database, authService, eventService) {
+    constructor($injector, $firebaseArray, $firebaseObject, $database, authService) {
+        this.$injector = $injector;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
@@ -19,7 +20,7 @@ export default class UserService {
         if (!this.users) {
             let userFirebaseArray = this.$firebaseArray.$extend({
                 $$added: async(snap) => {
-                    return new User(snap, this.$firebaseArray, this.$firebaseObject, this.$database);
+                    return new User(snap, this.$injector, this.$firebaseArray, this.$firebaseObject, this.$database);
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
@@ -49,4 +50,4 @@ export default class UserService {
     }
 }
 UserService.Instance = null;
-UserService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService'];
+UserService.instance.$inject = ['$injector', '$firebaseArray', '$firebaseObject', 'database', 'AuthService'];

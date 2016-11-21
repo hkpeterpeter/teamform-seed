@@ -1,11 +1,11 @@
 import angular from 'angular';
 export default class Team {
-    constructor(snap, $firebaseArray, $firebaseObject, $database, eventService, userService) {
-        this.$firebaseArray = $firebaseArray;
-        this.$firebaseObject = $firebaseObject;
-        this.$database = $database;
-        this.eventService = eventService;
-        this.userService = userService;
+    constructor(snap, $injector) {
+        this.$firebaseArray = $injector.get('$firebaseArray');
+        this.$firebaseObject = $injector.get('$firebaseObject');
+        this.$database = $injector.get('database');
+        this.eventService = $injector.get('EventService');
+        this.userService = $injector.get('UserService');
         this.$id = snap.key;
         this.update(snap);
     }

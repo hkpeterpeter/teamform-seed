@@ -1,9 +1,9 @@
 import angular from 'angular';
 export default class User {
-    constructor(snap, $firebaseArray, $firebaseObject, $database) {
-        this.$firebaseArray = $firebaseArray;
-        this.$firebaseObject = $firebaseObject;
-        this.$database = $database;
+    constructor(snap, $injector) {
+        this.$firebaseArray = $injector.get('$firebaseArray');
+        this.$firebaseObject = $injector.get('$firebaseObject');
+        this.$database = $injector.get('database');
         this.$id = snap.key;
         this.update(snap);
     }

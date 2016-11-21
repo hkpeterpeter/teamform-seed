@@ -17,7 +17,7 @@
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
-.btn-default.active, 
+.btn-default.active,
 .open .dropdown-toggle.btn-default,
 .wizard-cancel:hover,
 .wizard-cancel:focus,
@@ -37,7 +37,7 @@
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
-.btn-default.active, 
+.btn-default.active,
 .open .dropdown-toggle.btn-default {
 	background-color: $gray-color-dark;
 	border-color: #5c6667;
@@ -49,7 +49,7 @@
 .btn-info:hover,
 .btn-info:focus,
 .btn-info:active,
-.btn-info.active, 
+.btn-info.active,
 .open .dropdown-toggle.btn-info {
 	background-color: #0298d1;
 	border-color: #0178a5;
@@ -64,7 +64,7 @@
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
-.btn-primary.active, 
+.btn-primary.active,
 .open .dropdown-toggle.btn-primary {
 	background-color: #2980b9;
 	border-color: #1c5c87;
@@ -76,7 +76,7 @@
 .btn-success:hover,
 .btn-success:focus,
 .btn-success:active,
-.btn-success.active, 
+.btn-success.active,
 .open .dropdown-toggle.btn-success {
 	background-color: $green-color-dark;
 }
@@ -87,7 +87,7 @@
 .btn-danger:hover,
 .btn-danger:focus,
 .btn-danger:active,
-.btn-danger.active, 
+.btn-danger.active,
 .open .dropdown-toggle.btn-danger {
 	background-color: $red-color-dark;
 }
@@ -98,7 +98,7 @@
 .btn-warning:hover,
 .btn-warning:focus,
 .btn-warning:active,
-.btn-warning.active, 
+.btn-warning.active,
 .open .dropdown-toggle.btn-warning {
 	background-color: #e0b50a;
 	border-color: #bd9804;
@@ -130,7 +130,7 @@
 		border: 2px solid #e1e1e1;
 		margin-left: 3px;
 		margin-right: 0;
-	
+
 		&:hover {
 			background-color: #eee;
 			color: $primary-color;
@@ -246,14 +246,14 @@
 .pagination {
 	margin: 5px 0;
 
-	> li:first-child > a, 
+	> li:first-child > a,
 	> li:first-child > span,
-	> li:last-child > a, 
+	> li:last-child > a,
 	> li:last-child > span {
 		@include border-radius($border-radius-base);
 	}
 	> li {
-		> a, 
+		> a,
 		> span,
 		> a:hover,
 		> span:hover,
@@ -267,11 +267,11 @@
 		}
 	}
 	> .active {
-		> a, 
-		> span, 
-		> a:hover, 
-		> span:hover, 
-		> a:focus, 
+		> a,
+		> span,
+		> a:hover,
+		> span:hover,
+		> a:focus,
 		> span:focus {
 			background-color: $primary-color;
 			border-color: $primary-color;
@@ -290,8 +290,8 @@
 	border-width: 2px;
 	margin-bottom: -2px;
 }
-a.list-group-item.active, 
-a.list-group-item.active:hover, 
+a.list-group-item.active,
+a.list-group-item.active:hover,
 a.list-group-item.active:focus {
 	background-color: $primary-color;
 	border-color: $primary-color;
@@ -336,8 +336,8 @@ a.list-group-item.active:focus {
 		border-bottom: 0;
 		background: rgba(219, 221, 223, 0.46);
 	}
-	> li.active > a, 
-	> li.active > a:hover, 
+	> li.active > a,
+	> li.active > a:hover,
 	> li.active > a:focus {
 		@include border-radius(3px 3px 0 0);
 		border-left: 0;
@@ -345,8 +345,8 @@ a.list-group-item.active:focus {
 		border-right: 0;
 	}
 }
-.nav .open > a, 
-.nav .open > a:hover, 
+.nav .open > a,
+.nav .open > a:hover,
 .nav .open > a:focus {
 	border-color: $main-bg-color;
 }
@@ -455,19 +455,19 @@ a.list-group-item.active:focus {
 
 /* POPOVER */
 .popover {
-	
+
 }
 .popover.right .arrow {
-	
+
 }
 .popover.left .arrow {
-	
+
 }
 .popover.bottom .arrow {
-	
+
 }
 .popover.top .arrow {
-	
+
 }
 .popover-content {
 	font-size: 0.875em;
@@ -555,19 +555,19 @@ blockquote.pull-right:before {
 /* DROPDOWN OPEN EFFECT */
 .open > .dropdown-menu {
 	-webkit-transform: scale(1, 1);
-	transform: scale(1, 1);  
+	transform: scale(1, 1);
 	opacity:1;
     visibility: visible;
 }
-.dropdown-menu {
-	opacity: 0;
-	transform-origin: top;
-	animation-fill-mode: forwards; 
-	transform: scale(1, 0);
-	transition: all 0.14s linear;
-	display: block;
-	visibility: hidden;
-}
+// .dropdown-menu {
+// 	opacity: 0;
+// 	transform-origin: top;
+// 	animation-fill-mode: forwards;
+// 	transform: scale(1, 0);
+// 	transition: all 0.14s linear;
+// 	display: block;
+// 	visibility: hidden;
+// }
 .datepicker.dropdown-menu,
 .daterangepicker.dropdown-menu,
 .bootstrap-timepicker-widget.dropdown-menu {

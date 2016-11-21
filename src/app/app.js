@@ -35,6 +35,7 @@ angular.module('app', [uirouter, app, home, register, login, logout, passwordres
                     toState: toState.name,
                     toParams: toParams
                 });
+                return;
             }
             if (error === 'GUEST_REQUIRED') {
                 $state.go('error', {error: error});

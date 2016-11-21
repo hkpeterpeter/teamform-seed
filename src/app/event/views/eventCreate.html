@@ -1,93 +1,98 @@
-<ui-alert message="{{eventCreate.error.message}}" />
-<form class="form-horizontal">
-    <div class="form-group">
-        <label for="inputImage" class="col-sm-2 control-label">Event Image</label>
-        <div class="col-sm-10">
-            <div class="well well-lg" ngf-select="eventCreate.upload($file)" ngf-drop="eventCreate.upload($file)" ng-model="eventCreate.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'"
-                ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventCreate.fileUploadStyle['drop-success'], reject:eventCreate.fileUploadStyle['drop-danger'], delay:100}" ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200}">
-                <div ng-if="!eventCreate.event.imageUrl">
-                    <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+<h1>Event Create</h1>
+<div class="main-box no-header">
+    <div class="main-box-body clearfix">
+        <form class="form-horizontal">
+            <ui-alert message="{{eventCreate.error.message}}" />
+            <div class="form-group">
+                <label for="inputImage" class="col-sm-2 control-label">Event Image</label>
+                <div class="col-sm-10">
+                    <div class="well well-lg" ngf-select="eventCreate.upload($file)" ngf-drop="eventCreate.upload($file)" ng-model="eventCreate.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'" ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventCreate.fileUploadStyle['drop-success'], reject:eventCreate.fileUploadStyle['drop-danger'], delay:100}"
+                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200}">
+                        <div ng-if="!eventCreate.event.imageUrl">
+                            <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+                        </div>
+                        <img ng-if="eventCreate.event.imageUrl != null" ngf-src="eventCreate.event.imageUrl" class="img-responsive">
+                    </div>
                 </div>
-                <img ng-if="eventCreate.event.imageUrl != null" ngf-src="eventCreate.event.imageUrl" class="img-responsive">
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputName" class="col-sm-2 control-label">Event Name</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="eventCreate.event.name" required>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputDescription" class="col-sm-2 control-label">Event Description</label>
-        <div class="col-sm-10">
-            <textarea class="form-control" id="inputDescription" placeholder="Description" ng-model="eventCreate.event.description"></textarea>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputEventStartDate" class="col-sm-2 control-label">Event Date</label>
-        <div class="col-sm-10">
-            <div class="input-group">
-                <input type="text" class="form-control" id="inputEventStartDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventStartDatepickerOptions" ng-click="eventCreate.toggleEventStartDatePopup()" ng-model="eventCreate.event.eventStartDate"
-                    is-open="eventCreate.eventStartDatePopupOpened" close-text="Close" />
-                <span class="input-group-btn">
+            <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">Event Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="eventCreate.event.name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDescription" class="col-sm-2 control-label">Event Description</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" id="inputDescription" placeholder="Description" ng-model="eventCreate.event.description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputEventStartDate" class="col-sm-2 control-label">Event Date</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputEventStartDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventStartDatepickerOptions" ng-click="eventCreate.toggleEventStartDatePopup()" ng-model="eventCreate.event.eventStartDate"
+                            is-open="eventCreate.eventStartDatePopupOpened" close-text="Close" />
+                        <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="eventCreate.toggleEventStartDatePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputEventEndDate" class="col-sm-2 control-label">Event End Date</label>
-        <div class="col-sm-10">
-            <div class="input-group">
-                <input type="text" class="form-control" id="inputEventEndDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventEndDatepickerOptions" ng-click="eventCreate.toggleEventEndDatePopup()" ng-model="eventCreate.event.eventEndDate" is-open="eventCreate.eventEndDatePopupOpened"
-                    close-text="Close" />
-                <span class="input-group-btn">
+            <div class="form-group">
+                <label for="inputEventEndDate" class="col-sm-2 control-label">Event End Date</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputEventEndDate" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventEndDatepickerOptions" ng-click="eventCreate.toggleEventEndDatePopup()" ng-model="eventCreate.event.eventEndDate" is-open="eventCreate.eventEndDatePopupOpened"
+                            close-text="Close" />
+                        <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="eventCreate.toggleEventEndDatePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputEventDeadline" class="col-sm-2 control-label">Application Deadline</label>
-        <div class="col-sm-10">
-            <div class="input-group">
-                <input type="text" class="form-control" id="inputEventDeadline" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventDeadlinepickerOptions" ng-click="eventCreate.toggleEventDeadlinePopup()" ng-model="eventCreate.event.eventDeadline"
-                    is-open="eventCreate.eventDeadlinePopupOpened" close-text="Close" />
-                <span class="input-group-btn">
+            <div class="form-group">
+                <label for="inputEventDeadline" class="col-sm-2 control-label">Application Deadline</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputEventDeadline" datetime-picker="dd MMM yyyy HH:mm" datepicker-options="eventCreate.eventDeadlinepickerOptions" ng-click="eventCreate.toggleEventDeadlinePopup()" ng-model="eventCreate.event.eventDeadline"
+                            is-open="eventCreate.eventDeadlinePopupOpened" close-text="Close" />
+                        <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="eventCreate.toggleEventDeadlinePopup()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-xs-12 col-sm-2 control-label">Team Size</label>
-        <div class="col-xs-6 col-sm-3">
-            <div class="input-group">
-                <span class="input-group-btn">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 control-label">Team Size</label>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="eventCreate.setTeamMin(eventCreate.event.teamMin-1)"><span class="glyphicon glyphicon-minus"></span></button>
-                </span>
-                <input type="text" class="form-control" ng-model="eventCreate.event.teamMin">
-                <span class="input-group-btn">
+                        </span>
+                        <input type="text" class="form-control" ng-model="eventCreate.event.teamMin">
+                        <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="eventCreate.setTeamMin(eventCreate.event.teamMin+1)"><span class="glyphicon glyphicon-plus"></span></button>
-                </span>
-            </div>
-        </div>
-        <div class="col-xs-6 col-sm-3">
-            <div class="input-group">
-                <span class="input-group-btn">
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="input-group">
+                        <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="eventCreate.setTeamMax(eventCreate.event.teamMax-1)"><span class="glyphicon glyphicon-minus"></span></button>
-                </span>
-                <input type="text" class="form-control" ng-model="eventCreate.event.teamMax">
-                <span class="input-group-btn">
+                        </span>
+                        <input type="text" class="form-control" ng-model="eventCreate.event.teamMax">
+                        <span class="input-group-btn">
                     <button class="btn btn-default" type="button" ng-click="eventCreate.setTeamMax(eventCreate.event.teamMax+1)"><span class="glyphicon glyphicon-plus"></span></button>
-                </span>
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-block btn-primary" ng-click="eventCreate.createEvent()">Create</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-block btn-primary" ng-click="eventCreate.createEvent()">Create</button>
-        </div>
-    </div>
-</form>
+</div>

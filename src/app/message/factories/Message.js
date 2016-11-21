@@ -1,10 +1,10 @@
 import angular from 'angular';
 export default class Message {
-    constructor(snap, $firebaseArray, $firebaseObject, $database, userService) {
-        this.$firebaseArray = $firebaseArray;
-        this.$firebaseObject = $firebaseObject;
-        this.$database = $database;
-        this.userService = userService;
+    constructor(snap, $injector) {
+        this.$firebaseArray = $injector.get('$firebaseArray');
+        this.$firebaseObject = $injector.get('$firebaseObject');
+        this.$database = $injector.get('database');
+        this.userService = $injector.get('UserService');
         this.$id = snap.key;
         this.update(snap);
     }
