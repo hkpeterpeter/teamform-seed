@@ -84,8 +84,10 @@ app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray) {
       // Implementation the todoCtrl
       var event_name = "comp3111";
+      var this_user = "iamauthur";
       var user_list = $firebaseObject(firebase.database().ref("userList"));
       var event_list = $firebaseObject(firebase.database().ref("eventList"));
+      var conversation = $firebaseObject(firebase.database().ref("conversation"));
       //don't put the reference on the $scope until $loaded is done.
       //initialize the variables and scope
       var user_event1;
@@ -98,24 +100,27 @@ app.controller("clickCtrl",
       $scope.tag={};
       user_list.$loaded(function() {
         event_list.$loaded(function(){
-          //alert($scope.users["iamauthur"]["name"]);
-          user_event1 = event_list[event_name]["inEventUser"];
-          $scope.event1 = event_list[event_name];
-          //alert($scope.event1["skills"]["angular"]);
-          for (var i=0; i<user_event1.length; i++) {
-            var user_name = user_event1[i];
-            //only show users not in a team
-            if(user_list[user_name]["Membership"][event_name]["identity"] === "user"){
-              $scope.users[user_name] = user_list[user_name];
-              $scope.users[user_name]["select"] = "glyphicon glyphicon-unchecked";
-              $scope.filtered[user_name] = user_list[user_name];
-              $scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
-            }
-          }   
-          //alert(event_list["event1"]);
-          $scope.tag = event_list[event_name]["skills"];
-          angular.forEach($scope.tag, function(value,key){
-            $scope.currentTag.push(key);
+          conversation.$loaded(function()){
+            //alert($scope.users["iamauthur"]["name"]);
+            user_event1 = event_list[event_name]["inEventUser"];
+            $scope.event1 = event_list[event_name];
+            //alert($scope.event1["skills"]["angular"]);
+            for (var i=0; i<user_event1.length; i++) {
+              var user_name = user_event1[i];
+              //only show users not in a team, also hide the user himself/herself
+              if(user_list[user_name]["Membership"][event_name]["identity"] === "user" &&
+                user_name !== this_user){
+                $scope.users[user_name] = user_list[user_name];
+                $scope.users[user_name]["select"] = "glyphicon glyphicon-unchecked";
+                $scope.filtered[user_name] = user_list[user_name];
+                $scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
+              }
+            }   
+            //alert(event_list["event1"]);
+            $scope.tag = event_list[event_name]["skills"];
+            angular.forEach($scope.tag, function(value,key){
+              $scope.currentTag.push(key);
+            });
           });
         });
       });
@@ -184,6 +189,37 @@ app.controller("clickCtrl",
             //put at last in case username is not in filtered
           $scope.filtered[username].select = "glyphicon glyphicon-check";           
           }
+      };
+
+      $scope.sendInvitation = function(message){
+        //for each user selected
+        angular.forEach($scope.selected, function(value,key){
+          //1. conversation
+          //if conversation does not exist, create a new one
+          var conversation_name = key + "_" + this_user;
+          if (!(conversation_name in conversation)){
+            conversation[conversation_name]=
+            {
+              "event":"",
+              "log":[],
+              "type":"invite"
+            }
+          }
+          conversation[conversation_name]["event"]=event_name;
+          var one_log = {};
+          one_log["message"] = message;
+          one_log["sender"] = this_user;
+          conversation[conversation_name]["log"].push(one_log);
+          conversation.$save();
+          //2. notification in userList
+          var one_noti = {};
+          one_noti["isRead"] = false;
+          one_noti["link"] = "some_link";
+          one_noti["message"] = message;
+          user_list[key]["notification"].push(one_noti);
+          user_list.$save();
+        });
+
       };
 
     }
