@@ -47,7 +47,7 @@ export default class Header {
             let myMessages = await messages.getRecv(scope.user.uid).reduce(async (messages, message) => {
                 messages = await messages;
                 let user = await message.getSender();
-                messages.push({user: user, content: message.data.content, createdAt: message.data.createAt});
+                messages.push({user: user, content: message.data.content, createdAt: message.data.createdAt});
                 return messages;
             }, []);
             this.$timeout(() => {

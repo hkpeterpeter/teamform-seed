@@ -55,7 +55,7 @@ export default class Team {
         if(this.data.imageUrl) {
             return this.data.imageUrl;
         }
-        return 'https://placeholdit.imgix.net/~text?txtsize=33&txt='+this.data.name+'&w=200&h=200';
+        return 'https://placeholdit.imgix.net/~text?txtsize=33&txt='+encodeURIComponent(this.data.name)+'&w=200&h=200';
     }
     toJSON() {
         return this.data;

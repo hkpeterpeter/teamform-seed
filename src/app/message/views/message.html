@@ -17,7 +17,7 @@
                                 <div ng-class="[message.style['chat-body']]" class="clearfix">
                                     <div>
                                         <div class="pull-left">{{conversation.user.data.name}}</div>
-                                        <div class="pull-right">{{conversation.createAt | date: 'medium'}}</div>
+                                        <div class="pull-right">{{conversation.createdAt | date: 'medium'}}</div>
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                       </span>
                                         <div ng-class="[message.style['chat-body1']]" class="clearfix">
                                             <p><span>{{msg.data.content}}</span></p>
-                                            <div class="pull-left">{{msg.data.createAt | date: 'medium'}}</div>
+                                            <div class="pull-left">{{msg.data.createdAt | date: 'medium'}}</div>
                                         </div>
                                     </div>
                                     <div ng-if="msg.sent" ng-class="[message.style['sender-chat']]">
@@ -50,7 +50,7 @@
                                         </span>
                                         <div ng-class="[message.style['chat-body1']]" class="clearfix">
                                             <p class="text-right"><span>{{msg.data.content}}</span></p>
-                                            <div class="pull-right">{{msg.data.createAt | date: 'medium'}}</div>
+                                            <div class="pull-right">{{msg.data.createdAt | date: 'medium'}}</div>
                                         </div>
                                     </div>
                                 </div>

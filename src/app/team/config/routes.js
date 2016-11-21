@@ -24,8 +24,8 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
         })
         .state('team.create', {
             resolve: {
-                auth: ['AuthService', (authService) => {
-                    return authService.checkRules({
+                auth: ['UserService', (userService) => {
+                    return userService.checkRules({
                         signIn: true
                     });
                 }]
@@ -55,9 +55,11 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
         })
         .state('team.detail.edit', {
             resolve: {
-                auth: ['AuthService', (authService) => {
-                    return authService.checkRules({
-                        signIn: true
+                auth: ['UserService', 'TeamService', '$stateParams', async (userService, teamService, $stateParams) => {
+                    let team = await teamService.getTeam($stateParams.teamId);
+                    return userService.checkRules({
+                        signIn: true,
+                        userId: team.data.createdBy
                     });
                 }]
             },

@@ -9,6 +9,7 @@
                         <td data-title="'Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
                             <img class="img-responsive img-circle" ng-src="{{user.getImageUrl()}}">
                             <a ui-sref="user.detail({userId: '{{user.$id}}'})" class="user-link">{{user.data.name}}</a>
+                            <span class="user-subhead capitalize">{{user.data.role}}</span>
                         </td>
                         <td data-title="'Skills'">
                             <ul class="list-unstyled">

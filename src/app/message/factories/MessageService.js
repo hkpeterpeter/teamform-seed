@@ -46,7 +46,7 @@ export default class MessageService {
                             this.$state.go('message', {conversationId: sender.$id});
                             notification.close();
                         };
-                        this.notificationService.create('New Message From ' + sender.name, message.data.content, onClick);
+                        this.notificationService.create('New Message From ' + sender.data.name, message.data.content, onClick);
                     }
                 }
             });
@@ -56,7 +56,7 @@ export default class MessageService {
     }
     async sendMessage(sender, receiver, content) {
         let messages = await this.getMessages();
-        return messages.$add({sender: sender, receiver: receiver, content: content, createAt: Date.now()});
+        return messages.$add({sender: sender, receiver: receiver, content: content, createdAt: Date.now()});
     }
     static instance(...args) {
         if (!MessageService.Instance) {

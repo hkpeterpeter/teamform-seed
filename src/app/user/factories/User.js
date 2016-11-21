@@ -16,7 +16,10 @@ export default class User {
         if(this.data.imageUrl) {
             return this.data.imageUrl;
         }
-        return 'https://placeholdit.imgix.net/~text?txtsize=33&txt='+this.data.name+'&w=200&h=200';
+        return 'https://placeholdit.imgix.net/~text?txtsize=33&txt='+encodeURIComponent(this.data.name)+'&w=200&h=200';
+    }
+    isAdmin() {
+        return this.data.role === 'admin';
     }
     toJSON() {
         return this.data;

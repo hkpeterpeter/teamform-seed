@@ -4,8 +4,8 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
     $stateProvider
         .state('message', {
             resolve: {
-                auth: ['AuthService', '$stateParams', (authService, $stateParams) => {
-                    return authService.checkRules({
+                auth: ['UserService', '$stateParams', (userService, $stateParams) => {
+                    return userService.checkRules({
                         signIn: true
                     });
                 }]

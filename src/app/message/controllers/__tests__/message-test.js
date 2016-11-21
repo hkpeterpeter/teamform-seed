@@ -29,7 +29,7 @@ describe('MessageController', () => {
                     return [{
                         id: 1,
                         data: {
-                            createAt: Date.now()
+                            createdAt: Date.now()
                         },
                         getSender: () => {
                             return {$id: 1};
@@ -43,7 +43,7 @@ describe('MessageController', () => {
                     return [{
                         id: 2,
                         data: {
-                            createAt: Date.now()
+                            createdAt: Date.now()
                         },
                         getSender: () => {
                             return {$id: 1};

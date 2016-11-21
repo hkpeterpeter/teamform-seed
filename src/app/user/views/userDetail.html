@@ -20,6 +20,9 @@
                 <div class="text-center">
                     {{userDetail.user.data.description}}
                 </div>
+                <div class="profile-label">
+                    <span ng-class="{'label-danger': userDetail.user.data.role == 'admin', 'label-success': userDetail.user.data.role != 'admin'}" class="label capitalize">{{userDetail.user.data.role}}</span>
+                </div>
                 <div class="profile-details">
                     <h4>Skills:</h4>
                     <ul class="fa-ul">
