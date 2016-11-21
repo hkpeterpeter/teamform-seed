@@ -52,6 +52,12 @@ export default class Event {
     getEventUsers() {
         return this._eventUsers;
     }
+    getImageUrl() {
+        if(this.data.imageUrl) {
+            return this.data.imageUrl;
+        }
+        return 'https://placeholdit.imgix.net/~text?txtsize=33&txt='+this.data.name+'&w=200&h=200';
+    }
     toJSON() {
         return this.data;
     }

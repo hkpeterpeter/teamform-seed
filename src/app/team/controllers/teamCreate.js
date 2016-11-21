@@ -1,12 +1,15 @@
+import fileUploadStyle from '../../../assets/stylesheets/fileUpload.scss';
+
 export default class TeamCreateCtrl {
-    constructor($location, $state, $stateParams, $timeout, teamService, eventService, authService, userService) {
+    constructor($location, $state, $stateParams, $timeout, Upload, authService, eventService, teamService, userService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
-        this.teamService = teamService;
-        this.eventService = eventService;
+        this.Upload = Upload;
         this.authService = authService;
+        this.eventService = eventService;
+        this.teamService = teamService;
         this.userService = userService;
         this.loading = false;
         this.events = [];
@@ -23,6 +26,13 @@ export default class TeamCreateCtrl {
         this.getEvents();
         this.user = {};
         this.skills = require('json!../../../assets/data/skills.json');
+        this.fileUploadStyle = fileUploadStyle;
+    }
+    async upload(file) {
+        let imageUrl = await this.Upload.base64DataUrl(file);
+        this.$timeout(() => {
+            this.team.imageUrl = imageUrl;
+        });
     }
     async setLeader() {
         let user = await this.authService.getUser();
@@ -121,8 +131,9 @@ TeamCreateCtrl.$inject = [
     '$state',
     '$stateParams',
     '$timeout',
-    'TeamService',
-    'EventService',
+    'Upload',
     'AuthService',
+    'EventService',
+    'TeamService',
     'UserService'
 ];

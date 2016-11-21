@@ -26,21 +26,21 @@ $turquoiseSidebarLinkColor: #484848;
 	#nav-col-submenu li .submenu > li.open > a {
 	    background-color: darken($turquoiseNavColBg, 8%);
 	}
-	.nav-pills > li.active > a, 
-	.nav-pills > li.active > a:hover, 
+	.nav-pills > li.active > a,
+	.nav-pills > li.active > a:hover,
 	.nav-pills > li.active > a:focus,
-	#sidebar-nav .nav-pills > li.active > a, 
-	#sidebar-nav .nav-pills > li.active > a:hover, 
+	#sidebar-nav .nav-pills > li.active > a,
+	#sidebar-nav .nav-pills > li.active > a:hover,
 	#sidebar-nav .nav-pills > li.active > a:focus,
-	.nav-pills > li.open > a, 
-	.nav-pills > li.open > a:hover, 
+	.nav-pills > li.open > a,
+	.nav-pills > li.open > a:hover,
 	.nav-pills > li.open > a:focus,
-	#sidebar-nav .nav-pills > li.open > a, 
-	#sidebar-nav .nav-pills > li.open > a:hover, 
+	#sidebar-nav .nav-pills > li.open > a,
+	#sidebar-nav .nav-pills > li.open > a:hover,
 	#sidebar-nav .nav-pills > li.open > a:focus,
 	.nav-small #nav-col #sidebar-nav .nav-pills > li.open > a,
 	.nav-small #nav-col #sidebar-nav .nav-pills > li.active > a,
-	.nav-small #nav-col-submenu .submenu > .open > a, 
+	.nav-small #nav-col-submenu .submenu > .open > a,
 	.nav-small #nav-col-submenu .submenu > .active > a,
 	.nav-small #nav-col-submenu .submenu > li > a:hover {
 		background-color: darken($turquoiseNavColBg, 4%);
@@ -62,8 +62,8 @@ $turquoiseSidebarLinkColor: #484848;
 	}
 	#header-navbar .nav > li > a:hover,
 	#header-navbar .nav > li > a:focus,
-	#header-navbar .nav .open > a, 
-	#header-navbar .nav .open > a:hover, 
+	#header-navbar .nav .open > a,
+	#header-navbar .nav .open > a:hover,
 	#header-navbar .nav .open > a:focus {
 		background-color: $turquoise-color-dark;
 	}
@@ -75,10 +75,10 @@ $turquoiseSidebarLinkColor: #484848;
 	.nav-small #nav-col-submenu .submenu > li > a {
 		color: #16191c;
 	}
-	#sidebar-nav .nav > .open > .submenu > .open > a, 
-	#sidebar-nav .nav > .active > .submenu > .open > a, 
+	#sidebar-nav .nav > .open > .submenu > .open > a,
+	#sidebar-nav .nav > .active > .submenu > .open > a,
 	#sidebar-nav .nav > .active > .submenu > .active > a,
-	#nav-col-submenu .submenu > .open > a, 
+	#nav-col-submenu .submenu > .open > a,
 	#nav-col-submenu .submenu > .active > a {
 		border-bottom-color: transparent;
 	    box-shadow: 0 -1px 0 transparent inset;
@@ -94,15 +94,15 @@ $turquoiseSidebarLinkColor: #484848;
 	#sidebar-nav .nav li .submenu > li > a:hover,
 	#sidebar-nav .nav li .submenu > li > a.active,
 	#sidebar-nav .nav li .submenu > li.active > a,
-	.nav-small #nav-col-submenu .submenu > .open > a, 
+	.nav-small #nav-col-submenu .submenu > .open > a,
 	.nav-small #nav-col-submenu .submenu > .active > a,
 	.nav-small #nav-col-submenu .submenu > li > a:hover,
 	.nav-small #nav-col-submenu .submenu > li > a.active,
 	.nav-small #nav-col-submenu .submenu > li.active > a {
 		background-color: darken($turquoiseNavColBg, 8%);
 	}
-	#sidebar-nav .nav > .open > .submenu > li > .submenu > li a:hover, 
-	#sidebar-nav .nav > .active > .submenu > li > .submenu > li a:hover, 
+	#sidebar-nav .nav > .open > .submenu > li > .submenu > li a:hover,
+	#sidebar-nav .nav > .active > .submenu > li > .submenu > li a:hover,
 	#sidebar-nav .nav > .active > .submenu > li > .submenu > li a.active,
 	.nav-small #nav-col-submenu .submenu > li > .submenu > li a:hover,
 	.nav-small #nav-col-submenu .submenu > li > .submenu > li a.active {
@@ -122,7 +122,7 @@ $turquoiseSidebarLinkColor: #484848;
 		border-left: 2px solid #e7ebee;
 	}
 	#user-left-box {
-	
+
 		.user-box,
 		.user-box a {
 			color: #16191c;
@@ -139,8 +139,8 @@ $turquoiseSidebarLinkColor: #484848;
 	.nav-tabs {
 		background-color: #f9f9f9;
 
-		> li.active > a, 
-		> li.active > a:hover, 
+		> li.active > a,
+		> li.active > a:hover,
 		> li.active > a:focus {
 			border-top-color: $turquoise-color;
 		}
@@ -150,11 +150,11 @@ $turquoiseSidebarLinkColor: #484848;
 	}
 	#header-navbar .nav > li > a:hover,
 	#header-navbar .nav > li > a:focus,
-	#header-navbar .nav .open > a, 
-	#header-navbar .nav .open > a:hover, 
+	#header-navbar .nav .open > a,
+	#header-navbar .nav .open > a:hover,
 	#header-navbar .nav .open > a:focus,
 	.navbar-toggle:hover,
-	.navbar-toggle:focus, 
+	.navbar-toggle:focus,
 	.mobile-search.active > .btn {
 		background-color: $turquoise-color-dark;
 	}
@@ -163,7 +163,7 @@ $turquoiseSidebarLinkColor: #484848;
 	}
 	a,
 	.fc-state-default,
-	.jvectormap-zoomin, 
+	.jvectormap-zoomin,
 	.jvectormap-zoomout,
 	#user-profile .profile-details ul > li > span {
 		color: $turquoise-color;
@@ -179,7 +179,7 @@ $turquoiseSidebarLinkColor: #484848;
 	}
 	.pagination {
 		> li {
-			> a, 
+			> a,
 			> span,
 			> a:hover,
 			> span:hover,
@@ -191,11 +191,11 @@ $turquoiseSidebarLinkColor: #484848;
 			}
 		}
 		> .active {
-			> a, 
-			> span, 
-			> a:hover, 
-			> span:hover, 
-			> a:focus, 
+			> a,
+			> span,
+			> a:hover,
+			> span:hover,
+			> a:focus,
 			> span:focus {
 				background-color: $turquoise-color;
 				border-color: $turquoise-color;
@@ -206,20 +206,20 @@ $turquoiseSidebarLinkColor: #484848;
 	.notifications-list {
 		.item-footer {
 			background-color: #272d33;
-		
+
 			a:hover {
 				background-color: #0f1114;
 			}
 		}
 	}
 	.btn-primary,
-	.btn-default,
+	// .btn-default,
 	.btn-info,
 	.btn-success,
 	.btn-warning,
 	.btn-danger,
 	.btn-primary:hover,
-	.btn-default:hover,
+	// .btn-default:hover,
 	.btn-info:hover,
 	.btn-success:hover,
 	.btn-warning:hover,
@@ -233,7 +233,7 @@ $turquoiseSidebarLinkColor: #484848;
 	.btn-primary:hover,
 	.btn-primary:focus,
 	.btn-primary:active,
-	.btn-primary.active, 
+	.btn-primary.active,
 	.open .dropdown-toggle.btn-primary {
 		background-color: $turquoise-color-dark;
 		border-color: darken($turquoise-color-dark, 7%);
@@ -244,12 +244,12 @@ $turquoiseSidebarLinkColor: #484848;
 	.widget-users li > .details > .time {
 		color: $turquoise-color;
 	}
-	blockquote, 
+	blockquote,
 	blockquote.pull-right {
 		border-color: $turquoise-color;
 	}
-	a.list-group-item.active, 
-	a.list-group-item.active:hover, 
+	a.list-group-item.active,
+	a.list-group-item.active:hover,
 	a.list-group-item.active:focus {
 		background-color: $turquoise-color;
 		border-color: $turquoise-color;
@@ -278,7 +278,7 @@ $turquoiseSidebarLinkColor: #484848;
 			&.active {
 				border-left-color: $turquoise-color;
 				border-right-color: $turquoise-color;
-			
+
 				a {
 					color: $turquoise-color;
 				}

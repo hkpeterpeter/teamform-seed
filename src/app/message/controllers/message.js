@@ -16,7 +16,7 @@ export default class MessageCtrl {
         this.error = null;
         this.messageContent = '';
         this.users = [];
-        this.selectedUser = '';
+        this.selectedUser = null;
         this.user = null;
         this.updateMessages();
         this.$scope.$on('messageChanged', () => {
@@ -28,7 +28,7 @@ export default class MessageCtrl {
     onSelectUser($item, $model) {
         this.getConversation($item.$id);
         this.$timeout(() => {
-            this.selectedUser = '';
+            this.selectedUser = null;
         });
     }
     async getUser() {

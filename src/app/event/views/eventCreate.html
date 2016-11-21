@@ -4,10 +4,10 @@
         <form class="form-horizontal">
             <ui-alert message="{{eventCreate.error.message}}" />
             <div class="form-group">
-                <label for="inputImage" class="col-sm-2 control-label">Event Image</label>
+                <label class="col-sm-2 control-label">Event Image</label>
                 <div class="col-sm-10">
                     <div class="well well-lg" ngf-select="eventCreate.upload($file)" ngf-drop="eventCreate.upload($file)" ng-model="eventCreate.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'" ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventCreate.fileUploadStyle['drop-success'], reject:eventCreate.fileUploadStyle['drop-danger'], delay:100}"
-                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200}">
+                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200, centerCrop: true}">
                         <div ng-if="!eventCreate.event.imageUrl">
                             <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
                         </div>

@@ -10,9 +10,11 @@
 .btn-default,
 .wizard-cancel,
 .wizard-back {
-	background-color: $gray-color;
-	border-color: $gray-color-dark;
-	color: #fff;
+	// background-color: $gray-color;
+	// border-color: $gray-color-dark;
+	background-color: #fff;
+	color: #333;
+	border: 1px solid #ccc;
 }
 .btn-default:hover,
 .btn-default:focus,
@@ -27,9 +29,8 @@
 .wizard-back:focus,
 .wizard-back:active,
 .wizard-back.active {
-	background-color: #949e9f;
-	border-color: #748182;
-	color: #fff;
+	background-color: #e6e6e6;
+	border-color: #adadad;
 }
 .btn-default .caret {
 	border-top-color: #FFFFFF;
@@ -39,8 +40,8 @@
 .btn-default:active,
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
-	background-color: $gray-color-dark;
-	border-color: #5c6667;
+	background-color: #e6e6e6;
+	border-color: #adadad;
 }
 .btn-info {
 	background-color: #01b9fe;

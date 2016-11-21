@@ -13,9 +13,33 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputName" class="col-sm-2 control-label">Name</label>
+                <label for="inputImage" class="col-sm-2 control-label">Team Image</label>
+                <div class="col-sm-10">
+                    <div class="well well-lg" ngf-select="teamEdit.upload($file)" ngf-drop="teamEdit.upload($file)" ng-model="teamEdit.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'" ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:teamEdit.fileUploadStyle['drop-success'], reject:teamEdit.fileUploadStyle['drop-danger'], delay:100}"
+                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200, centerCrop: true}">
+                        <div ng-if="!teamEdit.team.data.imageUrl">
+                            <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+                        </div>
+                        <img ng-if="teamEdit.team.data.imageUrl != null" ngf-src="teamEdit.team.data.imageUrl" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">Team Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="teamEdit.team.data.name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Private Team</label>
+                <div class="col-sm-10">
+                    <input bs-switch ng-model="teamEdit.team.data.private" type="checkbox" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Direct Join</label>
+                <div class="col-sm-10">
+                    <input bs-switch ng-model="teamEdit.team.data.directJoin" type="checkbox" />
                 </div>
             </div>
             <div class="form-group">

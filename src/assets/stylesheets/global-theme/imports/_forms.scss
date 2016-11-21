@@ -41,7 +41,7 @@ input[type="radio"] {
 	line-height: normal;
 	@include box-sizing(border-box);
 }
-.radio input[type=radio], 
+.radio input[type=radio],
 .radio-inline input[type=radio] {
 	float: left;
 	margin-left: -20px;
@@ -90,7 +90,7 @@ input[type="radio"] {
 	.form-control {
 		border-color: $green-color;
 	}
-	.help-block, 
+	.help-block,
 	.control-label {
 		color: $green-color-dark;
 	}
@@ -108,7 +108,7 @@ input[type="radio"] {
 	.form-control {
 		border-color: $yellow-color;
 	}
-	.help-block, 
+	.help-block,
 	.control-label {
 		color: $yellow-color-dark;
 	}
@@ -126,7 +126,7 @@ input[type="radio"] {
 	.form-control {
 		border-color: $red-color;
 	}
-	.help-block, 
+	.help-block,
 	.control-label {
 		color: $red-color-dark;
 	}
@@ -141,13 +141,12 @@ input[type="radio"] {
 	}
 }
 
-.input-group > .form-control, 
-.input-group > .input-group-addon, 
+.input-group > .form-control,
+.input-group > .input-group-addon,
 .input-group > .input-group-btn > .btn {
 	line-height: 1;
 }
 .input-group > .input-group-btn > .btn {
-	border: 0;
 	height: 34px;
 }
 .input-group-addon {
@@ -164,8 +163,8 @@ input[type="radio"] {
 .checkbox-inline > input {
 	margin-top: 0;
 }
-.dropdown-menu > .active > a, 
-.dropdown-menu > .active > a:hover, 
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
 	background-color: $primary-color;
 }
@@ -176,10 +175,10 @@ input[type="radio"] {
 		width: 30px !important;
 		height: 30px;
 	}
-	a.btn, 
+	a.btn,
 	input,
 	table td a:hover {
-		
+
 	}
 }
 .form-group-select2 label {
@@ -258,7 +257,7 @@ input[type="radio"] {
 		}
 	}
 }
-.select2-container--default.select2-container--open.select2-container--below .select2-selection--single, 
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--single,
 .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
 	border-bottom-width: 1px !important;
 }
@@ -300,11 +299,11 @@ input[type="radio"] {
 	max-height: 250px;
 	height: 250px;
 	background-color: #fff;
-	border-collapse: separate; 
+	border-collapse: separate;
 	border: 1px solid $main-bg-color;
-	@include border-radius($border-radius-base); 
-	padding: 10px; 
-	@include box-sizing(content-box); 
+	@include border-radius($border-radius-base);
+	padding: 10px;
+	@include box-sizing(content-box);
 	overflow: scroll;
 	outline: none;
 }
@@ -403,7 +402,7 @@ input[type="radio"] {
 .onoffswitch-switch {
 	width: 18px; margin: 6px;
 	background: #FFFFFF;
-	border: 1px solid #999999; 
+	border: 1px solid #999999;
 	@include border-radius(20px);
 	position: absolute; top: 0; bottom: 0; right: 56px;
 	@include box-sizing(content-box);
@@ -412,7 +411,7 @@ input[type="radio"] {
 	margin-left: 0;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-	right: 0px; 
+	right: 0px;
 }
 
 /* AUTOCOMPLETE */
@@ -505,9 +504,9 @@ input[type="radio"] {
 .daterangepicker {
 	z-index:2200 !important;
 }
-.datepicker td, 
+.datepicker td,
 .datepicker th,
-.daterangepicker td, 
+.daterangepicker td,
 .daterangepicker th {
 	text-transform: uppercase;
 	font-size: 0.875em;
@@ -525,7 +524,7 @@ input[type="radio"] {
 	@include border-radius(0 !important);
 	color: $primary-color !important;
 }
-.daterangepicker .ranges li.active, 
+.daterangepicker .ranges li.active,
 .daterangepicker .ranges li:hover {
 	background-color: $primary-color !important;
 	border-color: $primary-color !important;

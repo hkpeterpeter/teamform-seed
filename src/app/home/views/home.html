@@ -29,8 +29,7 @@
                             </div>
                             <div class="project-box-content">
                                 <a ui-sref="event.detail({eventId: event.$id})">
-                                    <img ng-if="!event.data.imageUrl" ng-src="https://placeholdit.imgix.net/~text?txtsize=33&txt={{event.data.name}}&w=200&h=200" class="img-responsive img-circle center-block">
-                                    <img ng-if="event.data.imageUrl" ng-src="{{event.data.imageUrl}}" class="img-responsive center-block">
+                                    <img ng-src="{{event.getImageUrl()}}" class="img-responsive center-block">
                                 </a>
                                 <p>{{event.data.description}}</p>
                             </div>
@@ -75,8 +74,7 @@
                             </div>
                             <div class="project-box-content">
                                 <a ui-sref="team.detail({teamId: team.$id})">
-                                    <img ng-if="!team.data.imageUrl" ng-src="https://placeholdit.imgix.net/~text?txtsize=33&txt={{team.data.name}}&w=200&h=200" class="img-responsive img-circle center-block">
-                                    <img ng-if="team.data.imageUrl" ng-src="{{team.data.imageUrl}}" class="img-responsive center-block">
+                                    <img ng-src="{{team.getImageUrl()}}" class="img-responsive center-block">
                                 </a>
                                 <p>{{team.data.description}}</p>
                             </div>

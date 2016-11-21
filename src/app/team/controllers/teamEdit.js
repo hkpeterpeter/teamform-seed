@@ -1,7 +1,7 @@
-import TeamDetailCtrl from './teamDetail';
+import fileUploadStyle from '../../../assets/stylesheets/fileUpload.scss';
 
 export default class TeamEditCtrl {
-    constructor($location, $state, $stateParams, $timeout, teamService) {
+    constructor($location, $state, $stateParams, $timeout, Upload, teamService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
@@ -9,6 +9,7 @@ export default class TeamEditCtrl {
         this.teamService = teamService;
         this.team = null;
         this.error = null;
+        this.fileUploadStyle = fileUploadStyle;
         this.getTeam();
     }
     async getTeam() {
@@ -22,6 +23,12 @@ export default class TeamEditCtrl {
                 this.error = error;
             });
         }
+    }
+    async upload(file) {
+        let imageUrl = await this.Upload.base64DataUrl(file);
+        this.$timeout(() => {
+            this.team.data.imageUrl = imageUrl;
+        });
     }
     async edit() {
         this.loading = true;
@@ -40,4 +47,4 @@ export default class TeamEditCtrl {
     }
 }
 
-TeamEditCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'TeamService'];
+TeamEditCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'Upload', 'TeamService'];

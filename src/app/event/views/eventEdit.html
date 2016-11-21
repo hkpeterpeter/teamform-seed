@@ -16,7 +16,7 @@
                 <label for="inputImage" class="col-sm-2 control-label">Event Image</label>
                 <div class="col-sm-10">
                     <div class="well well-lg" ngf-select="eventEdit.upload($file)" ngf-drop="eventEdit.upload($file)" ng-model="eventEdit.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'" ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventEdit.fileUploadStyle['drop-success'], reject:eventEdit.fileUploadStyle['drop-danger'], delay:100}"
-                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200}">
+                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200, centerCrop: true}">
                         <div ng-if="!eventEdit.event.data.imageUrl">
                             <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
                         </div>

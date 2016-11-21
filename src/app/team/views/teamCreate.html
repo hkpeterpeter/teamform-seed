@@ -15,6 +15,18 @@
                 </div>
             </div>
             <div class="form-group">
+                <label class="col-sm-2 control-label">Team Image</label>
+                <div class="col-sm-10">
+                    <div class="well well-lg" ngf-select="teamCreate.upload($file)" ngf-drop="teamCreate.upload($file)" ng-model="teamCreate.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'" ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventCreate.fileUploadStyle['drop-success'], reject:eventCreate.fileUploadStyle['drop-danger'], delay:100}"
+                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200, centerCrop: true}">
+                        <div ng-if="!teamCreate.team.imageUrl">
+                            <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+                        </div>
+                        <img ng-if="teamCreate.team.imageUrl != null" ngf-src="teamCreate.team.imageUrl" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="inputName" class="col-sm-2 control-label">Team Name</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="teamCreate.team.name" required>
@@ -51,7 +63,7 @@
                                             <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.user.name}}</ui-select-match>
                                             <ui-select-choices repeat="eventUser.id as eventUser in teamCreate.availablieUsers | filter:$select.search">
                                                 <div>
-                                                    {{eventUser.user.name}}
+                                                    <p>{{eventUser.user.name}}</p>
                                                     <p>Skills: <span ng-repeat="skill in eventUser.user.skills" class="label label-success">{{skill}}</span></p>
                                                 </div>
                                             </ui-select-choices>
