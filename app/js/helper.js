@@ -311,7 +311,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
   		ref.child('applications').update(temp);
 
         helper.addPersonToTeam(uid, eventID,teamID, "member").then(function(){
-          helper.postTeamAnnouncement(eventID, teamID, users.$getRecord(uid).readOnly.name + " has joined the team");
+          helper.postTeamAnnouncement(eventID, teamID, helper.getUsername(uid) + " has joined the team");
 
           userref = firebase.database().ref("users/"+uid +"/writable/" + eventID);
           appli_ref = userref.child("applications/"+teamID);
@@ -392,6 +392,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
       return users.$getRecord(uid).readOnly.name;
     }
+
 
     var ref=firebase.database().ref("users");
     var users = $firebaseArray(ref);

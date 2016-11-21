@@ -32,9 +32,9 @@
   				{{teamdata.desc}}
           <!-- {{memberlist}} -->
   			</p>
-        <!-- {{alreadyApplied}} -->
-        <button type = "button" class = "btn btn-primary" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied" ng-click = "ApplyTeam()">Apply for this team</button>
-        <button type = "button" class = "btn btn-primary" disabled="disabled" ng-if="((myEvents[eventID] | role)=='tba' ) && alreadyApplied " ng-click = "ApplyTeam()">Aleady Applied</button>
+        <!-- {{alreadyApplied()}} -->
+        <button type = "button" class = "btn btn-primary" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()" ng-click = "ApplyTeam()">Apply for this team</button>
+        <button type = "button" class = "btn btn-primary" disabled="disabled" ng-if="((myEvents[eventID] | role)=='tba' ) && alreadyApplied() " ng-click = "ApplyTeam()">Aleady Applied</button>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID" ng-click = "QuitTeam()">Quit this team</button>
         <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" ng-click = "Change_Leader()">Change team leader</button>
   			<!-- <form class="form-search">
