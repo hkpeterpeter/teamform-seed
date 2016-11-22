@@ -1,16 +1,14 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" >
-      
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
       <div class="container-fluid">
         <div class="navbar-header">
 			<a class="navbar-brand" href="#/" >
-				<div>
+				<div ng-controller = "navCtrl">
 					<!--use firebase to get the user picture and user name-->
-					<img alt="Brand" style = "height:30px;width:30px" src="https://course.cse.ust.hk/comp3111/images/sung.png"/> <span>Kim Sung    </span>
+					<img alt="Brand" style = "height:30px;width:30px" ng-src="{{avaUrl}}" ng-show="avaUrl"/> <span>{{name}}    </span>
 
 					<!--not yet dicided-->
-					<div ng-controller = "logoutctrl">
-						<button type="button" class="btn btn-default btn-xs" ng-click="logout()">Logout</button>
-					</div>
+					<button type="button" class="btn btn-default btn-xs" ng-click="logout()">Logout</button>
 				</div>
 			</a>
         </div>

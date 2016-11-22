@@ -21,7 +21,7 @@ app.controller("indexCtrl",
     var accounts;
     if (isTest == false) {
       initalizeFirebase();
-      var ref = firebase.database().ref("usersx");
+      var ref = firebase.database().ref("userList");
       accounts = $firebaseObject(ref);
     }
     else {
@@ -46,11 +46,12 @@ app.controller("indexCtrl",
       if (accounts[user.username] === undefined){
         var userTemplate = {
           password: "",
-          intro: "",
+          description: "default description",
           img: "",
-          tags: "",
-          member: {},
-          notif: []
+          skills: [],
+          Membership: {},
+          notif: [],
+          name: "default name"
         };
         userTemplate.password = user.password;
         accounts[user.username] = userTemplate;
