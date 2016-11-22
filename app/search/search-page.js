@@ -19,21 +19,25 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			this.dataObj = _dataObj;
 		});
 
-		//controll navigation bar and search page
-		app.controller("searchPage",function($scope,divToggle,$cookies,$window){
+		app.factory('Search',function(){
+			return {search:true,text:""};
+		});
 
-				
+		//controll navigation bar and search page
+		app.controller("searchPage",function($scope,Search,divToggle,$cookies,$window){
+
+
 
 			$scope.currentTag = [];
 			$scope.resultTag = [];
 			//$scope.new;
-			$scope.startSearch = divToggle.dataObj.search;
+			$scope.startSearch = Search;
 			$scope.sidebar = divToggle.dataObj.sidebar;
 			/*for(key in tag){
 				$scope.currentTag.push(key);
 			};*/
 			$scope.start = function(){
-				$scope.startSearch = false;
+				$scope.startSearch.search = false;
 				$scope.sidebar = true;
 			};
 			$scope.searchType = "Search Team";
@@ -97,7 +101,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						var k = 0;
 						var valid = false;
 						for(var j = 0;j < reg.length;j++){
-						
+
 							while(k < tag[i].length){
 								if(tag[i].charAt(k) == reg.charAt(j)){
 									k++;
@@ -108,13 +112,13 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 								}else{
 									k++;
 								}
-								
+
 							}
 						}
 						if(valid){
 							$scope.currentTag.push(tag[i]);
 						}
-						
+
 					}
 				}else{
 					$scope.resultTag = [];
@@ -126,13 +130,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			};
 		});
 
-app.controller("logoutctrl",function($scope, $cookies, $window){
-			$scope.logout = function() {
-					$cookies.remove("username",{path:"/"});
-					gotoURL("/jzhangbs/index.html",[],$window);
-				};
-		
-		});
+
 
 
 
