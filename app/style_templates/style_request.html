@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<!-- Loading Bootstrap -->
+	<link href="../css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Loading Flat UI -->
+	<link href="../css/flat-ui.min.css" rel="stylesheet">
+	
+	<!-- Loading Font Awesome -->
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+	
+	<!--###############Head###############-->
+	
+	<div class="jumbotron">
+		<h2>Request</h2>	
+		<p>This is the request page. Just say something here.</p>
+	</div> <!--jumbotron-->
+	
+	<!--###############My Requests###############-->
+	
+	<div class="col-md-8" ng-controller="requestCtrl">
+		<div class="thumbnail">
+		  <div class="caption">
+		  	<!--###Title###-->
+		    <h4>My Requests</h4>
+		    <p>Your applications and invitations.</p>    
+				<form name="myForm">
+					<button class="btn btn-danger">
+						<i class="icon-filter"></i>
+	          <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model">
+	              <option value = "all">All events</option>
+	              <option ng-repeat="(eid, myEvent) in myEventList" value="{{eid}}">{{allEvents.$getRecord(eid).eventInfo.name}}</option>
+	          </select>
+          </button>
+      	</form>       	
+      	<hr>
+      	<!--###Content###-->       	
+				<div class="thumbnail caption" ng-repeat="(eid, myEvent) in filterEvent(myEventList, search_model)">
+					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">
+						{{allEvents.$getRecord(eid).eventInfo.name}}
+					</a>
+					<span ng-show="myEvent.applications == null && myEvent.invitations == null">(No request)</span>					
+					<div ng-repeat="(teamKey, tid) in myEvent.applications">
+						Application in progress: <a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a>.				
+						<button class="btn btn-danger btn-sm" ng-click="withdrawApp(eid, tid)" data-toggle="tooltip" data-placement="bottom" title="Withdraw the application">
+				    	<i class="icon-undo"></i>
+				    </button>
+					</div> <!--ng-repeat-->						
+					<div ng-repeat="(teamKey, tid) in myEvent.invitations">
+						Invitation from: <a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a>.
+						<button class="btn btn-danger btn-sm" ng-click="acceptInvi(eid, tid)" data-toggle="tooltip" data-placement="bottom" title="Accept the invitation">
+				    	<i class="icon-ok-sign"></i>
+				    </button>
+				    <button class="btn btn-danger btn-sm" ng-click="declineInvi(eid, tid)" data-toggle="tooltip" data-placement="bottom" title="Decline the invitation">
+				    	<i class="icon-remove-sign"></i>
+				    </button>
+					</div> <!--ng-repeat-->					
+				</div> <!--thumbnail caption ng-repeat-->
+			</div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-8 requestCtrl-->
+
+</div> <!--container-->
+
+<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+<script src="../js/vendor/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../js/vendor/video.js"></script>
+<script src="../js/flat-ui.min.js"></script>
+<script src="../js/display.js"></script>
+
+</body>
+
+</html>

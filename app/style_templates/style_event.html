@@ -19,6 +19,8 @@
 
 <div class="container">
 
+	<!--###############Head###############-->
+	
 	<div class="jumbotron">
 		<h2>Event</h2>	
 		<p>This is the event page. Just say something here.</p>
@@ -29,24 +31,29 @@
 		</p>
 	</div> <!--jumbotron-->
 	
-	<div class="col-md-8">
+	<!--###############My Events###############-->
+	
+	<div class="col-md-6">
 		<div class="thumbnail">
 		  <div class="caption">
+		  	<!--###Title###-->
 		    <h4>My Events</h4>
-		    <p>Events you participate in.</p>    
-				<!-- For display only -->
+		    <p>Events you participate in.</p>
+		    <hr>
+		    <!--###Content###-->
 				<div ng-controller="IconDisplayController">
-        	<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left"> 
+				<!-- For display only -->
+        	<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left"> 
 						<i class="icon-star"></i>&nbsp;&nbsp;&nbsp;Event 1
 					</a>
-					<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left">
+					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left">
 						<i class="icon-star-empty"></i>&nbsp;&nbsp;&nbsp;Event 2
 					</a>
-					<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left">
+					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" style="text-align:left">
 						<i class="icon-desktop"></i>&nbsp;&nbsp;&nbsp;Event 3
 					</a>
      			<!--
-        	<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" ng-repeat="(myEventId, myEvent) in myEvents" style="text-align:left">
+        	<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" ng-repeat="(myEventId, myEvent) in myEvents" style="text-align:left">
 						<i class="icon-{{mapping({{myEvent.position}})}}"></i>&nbsp;&nbsp;&nbsp;{{Event.eventInfo.name}}
 					</a>
 					-->
@@ -55,19 +62,24 @@
 		</div> <!--thumbnail-->
 	</div> <!--col-md-8-->
 	
-	<div class="col-md-8">
+	<!--###############Search Events###############-->
+	
+	<div class="col-md-6">
 		<div class="thumbnail">
 		  <div class="caption">
+		  	<!--###Title###-->
 			  <h4>Search Events</h4>
 				<p>Explore fascinating events!</p>
 		  	<p><input class="form-control" placeholder="Search by event name" type="text" name="searchName" ng-model = "searchText"/></p>
+		  	<hr>
+		  	<!--###Content###-->
 		  	<div ng-controller="IconDisplayController">
 	  			<!-- For display only -->
-	  			<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event4</a>
-	  			<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event5</a>
-	  			<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event6</a>
+	  			<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event4</a>
+	  			<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event5</a>
+	  			<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">Event6</a>
 	  			<!--
-					<a class="btn btn-info btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}" style="text-align:left">
+					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}" style="text-align:left">
 						{{Event.eventInfo.name}}
 					</a>
 					-->
