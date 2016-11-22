@@ -433,18 +433,18 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
             Thoughtful:false
         },
         SkillTags:{
-            C : 0,
-            Cpp : 0,
-            CSS: 0,
-            FLEX: 0,
-            HTML: 0,
-            Java: 0,
-            JavaScript: 0,
-            Objective_C: 0,
-            PHP: 0,
-            Python: 0,
-            SML: 0,
-            SQL: 0
+            C : {value:0,color:"green"},
+            Cpp : {value:0,color:"green"},
+            CSS: {value:0,color:"green"},
+            FLEX: {value:0,color:"green"},
+            HTML: {value:0,color:"green"},
+            Java: {value:0,color:"green"},
+            JavaScript: {value:0,color:"green"},
+            Objective_C: {value:0,color:"green"},
+            PHP: {value:0,color:"green"},
+            Python: {value:0,color:"green"},
+            SML: {value:0,color:"green"},
+            SQL: {value:0,color:"green"}
         }
     };
 
