@@ -1,4 +1,4 @@
-app.controller("navCtrl",function($scope, $cookies, $window){
+app.controller("navCtrl",function($scope, $cookies, $window, $firebaseObject){
 			$scope.logout = function() {
 					$cookies.remove("username",{path:"/"});
 					gotoURL("/jzhangbs/index.html",[],$window);
@@ -14,6 +14,8 @@ app.controller("navCtrl",function($scope, $cookies, $window){
         avaRef = storageRef.child('user/'+avaFilename);
         avaRef.getMetadata().then(function(metadata){
           $scope.avaUrl = metadata.downloadURLs[0];
+					// console.log($scope.avaUrl);
+					$scope.$apply();
         });
       });
 });
