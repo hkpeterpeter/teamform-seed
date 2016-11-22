@@ -2,7 +2,7 @@
 <h3> - {{myEvents[eventID] | role}}</h3>
 <h4 ng-if="!editingInfo">Event Info: {{eventObj.eventInfo.desc}}</h4>
 <h4>Team size: [{{eventObj.eventInfo.min}}, {{eventObj.eventInfo.max}}]</h4>
-<h4>Team forming deadline: <span style="color: red;">{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}</span></h4>
+<h4>Team forming deadline: <span style="color: red;">{{ eventObj.eventInfo.ddl | stringToDate | date: 'yyyy-MM-dd'}}</span></h4>
 <!--<textarea ng-model="eventObj.eventInfo.desc" ng-if="editingInfo" ng-value="eventObj.eventInfo.desc"></textarea>-->
 <button class="btn btn-primary" ng-click="editInfo()" ng-if="myEvent.position=='admin'">Edit Info</button>
 

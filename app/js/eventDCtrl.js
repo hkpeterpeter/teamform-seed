@@ -334,3 +334,13 @@ app.filter('teamId', function(){
         }
     }
 });
+
+
+app.filter('stringToDate', function($filter){
+    return function(obj) {
+        date = new Date();
+        date.setTime(Date.parse(obj));
+        // return $filter('date')(date,"yyyy-MM-dd");
+        return date;
+    }
+});
