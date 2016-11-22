@@ -181,7 +181,7 @@
 		        		{{users[name].readOnly.name}}
 		        	</a>
 		        </div>
-			      <button class="btn btn-danger btn-sm" ng-click="addToTeam(name)" ng-if="isManaging" data-toggle="tooltip" data-placement="bottom" title="Add to">
+			      <button class="btn btn-danger btn-sm" ng-click="addToTeam(name)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to">
 			      	<i class="icon-double-angle-right"></i>
 			      </button>
 			      <button class="btn btn-danger btn-sm" ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)" data-toggle="tooltip" data-placement="bottom" title="Invite">
