@@ -19,21 +19,25 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			this.dataObj = _dataObj;
 		});
 
+		app.factory('Search',function(){
+			return {search:true,text:""};
+		});
+
 		//controll navigation bar and search page
-		app.controller("searchPage",function($scope,divToggle,$cookies,$window){
+		app.controller("searchPage",function($scope,Search,divToggle,$cookies,$window){
 
 
 
 			$scope.currentTag = [];
 			$scope.resultTag = [];
 			//$scope.new;
-			$scope.startSearch = divToggle.dataObj.search;
+			$scope.startSearch = Search;
 			$scope.sidebar = divToggle.dataObj.sidebar;
 			/*for(key in tag){
 				$scope.currentTag.push(key);
 			};*/
 			$scope.start = function(){
-				$scope.startSearch = false;
+				$scope.startSearch.search = false;
 				$scope.sidebar = true;
 			};
 			$scope.searchType = "Search Team";
