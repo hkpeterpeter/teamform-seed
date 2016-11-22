@@ -16,6 +16,15 @@
         </div>
         <div class="col m6 s6">
             <h4 width="100%">Username: {{displayUser.name}}</h4>
+            <form ng-submit="receiveNewName()">
+                <div class="input-field col s12">
+                    <input id="newName" type="text" class="validate" ng-model="newName" required>
+                    <label for="newSkill">Set my username</label>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Change Name
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
             <h5 width="100%">My email address: {{displayUser.email}}</h5>
             <h5 width="100%">My system ID: {{currentUser.id}}</h5>
         </div>
@@ -63,10 +72,11 @@
                 <!--</div>-->
             <!--</div>-->
             <div id="allInvitations">
-                <h5>All of my invitations:</h5>
+                <h5>I am invited to join the following teams:</h5>
                 <div ng-repeat="display in invitedList">
-                    <p>{{display.$value}} <a class="waves-effect waves-light btn" ng-click="acceptInvitation($index)">Accept</a>
-                        <a class="waves-effect waves-light btn" ng-click="turndownInvitation($index)">Turn down</a></p>
+                    <team-card team-id="{{display.$value}}"></team-card>
+                        <a class="waves-effect waves-light btn" ng-click="acceptInvitation($index)">Accept Invitation</a>
+                        <a class="waves-effect waves-light btn" ng-click="turndownInvitation($index)">Turn down Invitation</a>
                 </div>
             </div>
             <div id="allNotifs">
@@ -100,16 +110,24 @@
         </div>
         <div id="teamsAsLeader">
             <h4>I am team leader</h4>
-            <div ng-repeat="team in leadingList">{{team.$value}}</div>
+            <div ng-repeat="team in leadingList">
+                {{team.$value}}
+                <team-card team-id="{{team.$value}}"></team-card>
+            </div>
         </div>
         <div id="teamsAsMember">
             <h4>I am a member in these teams</h4>
-            <div ng-repeat="team in memberList">{{team.$value}}</div>
+            <div ng-repeat="team in memberList">
+                {{team.$value}}
+                <team-card team-id="{{team.$value}}"></team-card>
+            </div>
         </div>
         <div id="teamsApplying">
             <h4>I have pending applications to these teams:</h4>
-            <p>{{applyingList}}</p>
-            <div ng-repeat="pendingTeam in applyingList">ID of this team: {{pendingTeam.$value}}<br>Name of this team:{{pendingTeam.teamName}}  <a class="waves-effect waves-light btn" ng-click="withdrawApplication($index)">WITHDRAW</a></div>
+            <div ng-repeat="pendingTeam in applyingList">
+                <team-card team-id="{{pendingTeam.$value}}"></team-card>
+                <a class="waves-effect waves-light btn" ng-click="withdrawApplication($index)">WITHDRAW Application</a>
+            </div>
         </div>
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

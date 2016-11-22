@@ -11,6 +11,21 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     $scope.displayUser = $firebaseObject(userRef);
 
+
+    $scope.newName = '';
+    $scope.receiveNewName = function(){
+        var nameFirebaseRef = $firebaseObject(userRef.child('/name'));
+        nameFirebaseRef.$loaded().then(function () {
+           nameFirebaseRef.$value = $scope.newName;
+            nameFirebaseRef.$save().then(function() {
+            }, function(error) {
+                console.log("Error:", error);
+            });
+            $scope.newName = '';
+        });
+    };
+
+
     $scope.skillsList = $firebaseArray(skillsRef);
 
     $scope.newSkill = '';
