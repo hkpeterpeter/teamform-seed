@@ -8,7 +8,7 @@
 
     <div class="form-group">
         <label><span style="font: red;">New Deadline: </label>
-        <input class="form-control" name="ddl" ng-model="newEventInfo.ddl" placeholder="yyyy-mm-dd" type="date" required>
+        <input class="form-control" name="ddl" ng-model="newEventInfo.ddl" ng-init="newEventInfo.ddl=$filter('stringToDate')(eventObj.eventInfo.ddl)" type="date" required>
         <!--{{eventObj.eventInfo.ddl}},,,
         {{Date.parse("EEE, MMM dd yyyy hh:mm:ss +5",eventObj.eventInfo.ddl)}}
         {{SimpleDateFormat("yyyy-MM-dd ").parse("2015-10-06")}}  -->
