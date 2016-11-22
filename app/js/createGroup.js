@@ -2,11 +2,11 @@ var app = angular.module("createGroupApp", ["firebase"]);
 
 app.controller("createGroupCtrl",
  function($scope, $firebaseArray){
-	//init Firebase
-	//initalizeFirebase();
 
     var ref = firebase.database().ref('createGroup');
-    $scope.allTeam = $firebaseArray(ref);
+    $scope.teamArr = $firebaseArray(ref);
+    var ref = firebase.database().ref('test_members');
+    $scope.members = $firebaseArray(ref);
 
 	$scope.team = {
 		id: "",
@@ -24,7 +24,7 @@ app.controller("createGroupCtrl",
 	};
 
 	$scope.tempTeam = {
-		//id: "",
+		id: "",
 		name: "",
 		max: 2,
 		destination: "",
@@ -32,11 +32,29 @@ app.controller("createGroupCtrl",
 		returnDate: "",
 		preference: "N",
 		estimatedBudgetPerPerson: 100,
-		//descriptions: "",
+		descriptions: "",
 		languageForCommunication: "",
-		//members: [],
-		//tags: []
-	};	
+		members: [],
+		tags: []
+	};
+
+	$scope.tempMember = {
+		id: "0001"
+	};
+
+	$scope.setId = function(){
+		var numOfTeam = $scope.teamArr.length;
+		if(numOfTeam < 10){
+			$scope.tempTeam.id = "g000" + numOfTeam;
+		}else if(numOfTeam < 100){
+			$scope.tempTeam.id = "g00" + numOfTeam;
+		}else if(numOfTeam < 1000){
+			$scope.tempTeam.id = "g0" + numOfTeam;
+		}else if(numOfTeam.id < 10000){
+			$scope.tempTeam.id = "g" + numOfTeam;
+		} 
+	};
+
 	/***********************************************************************
 		set team name:
 		1. can't be empty
@@ -207,17 +225,89 @@ app.controller("createGroupCtrl",
     	}
 
     	return true;
-    };    
+    }; 
+
+    $scope.setMember = function(){
+    	var memberId = document.getElementById('memberId').value;
+
+    	if(memberId == ""){
+    		alert("memberId cannot be empty.");
+    		return;
+    	}
+
+    	if(memberId.length != 4){
+    		alert("invaild member Id.");
+    		return;
+    	}
+
+    	var inGroup = false;
+
+    	$scope.tempTeam.members.forEach(function(element){
+    		if(element == memberId){
+    			inGroup = true;
+    			return;
+    		}
+    	})
+
+    	if(inGroup == true){
+    		alert("Member " + memberId + " already in your group.");
+    		return;    		
+    	}
+
+    	var haveMember = false;
+
+    		angular.forEach($scope.members, function(value){
+
+    			if(value.id == memberId){   				    		
+    				haveMember = true;
+    			}
+    		});
+
+    	if(haveMember == false){
+    		alert("Member cannot be found");
+    		return;
+    	}
+
+    	$scope.tempTeam.members.push(memberId);
+    }; 
+
+    $scope.setTag = function(){
+    	var tag = document.getElementById('tags').value;
+
+    	if(tag == ""){
+    		alert("Tag cannot be empty.");
+    		return;
+    	}
+
+    	var inTags = false;
+
+    	$scope.tempTeam.tags.forEach(function(element){
+    		if(element == tag){
+    			inTags = true;
+    			return;
+    		}
+    	})
+
+    	if(inTags == true){
+    		alert(tag + " have already been added");
+    		return;
+    	}
+
+    	$scope.tempTeam.tags.push(tag);
+    };
 
 	// add group into firebase
 	$scope.createGroup = function(){
 		if($scope.setTeamName() && $scope.setEstimateBudgetPerPerson() && $scope.setDestination() &&
 		$scope.setLanguageForCommunication() && $scope.setDepartureDate() && $scope.setReturnDate() ){
-			$scope.allTeam.$add($scope.tempTeam);
+			$scope.setId();
+			$scope.teamArr.$add($scope.tempTeam);
 		} else {
 			alert("Please enter the information again.");
 		}
 
 	};
+
+
 
 });
