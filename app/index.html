@@ -35,7 +35,7 @@
 							<li><a href="#page_about">About teamform</a></li>
 							<li><a href="#page_team">Development team</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#">TODO: Add menu items here... </a></li>
+							<li><a href="#page_event">Events</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -147,6 +147,59 @@
 				</div>
 			</div>
 		</div>
+		<hr class="featurette-divider">
+
+		<div class="row">
+			<div class="panel panel-default" id="page_event">
+				<div class="panel-heading">Events</div>
+				<div class="panel-body">
+					<table class="table">
+						<tr style="background-color: lightgray">
+							<th>#</th>
+							<th>Name</th>
+							<th class="col-xs-2">Preferred team size</th>
+							<th class="col-xs-2">No. of teams</th>
+							<th class="col-xs-2">No. of members</th>
+							<th>Actions</th>
+						</tr>
+						<tr ng-repeat="event in activeEventList" ng-click="showEventDetail(event.name)" ng-show="$index/5 < pageNum && $index/5 >= pageNum-1">
+							<td>{{$index+1}}</td>
+							<td>{{event.name}}</td>
+							<td>{{event.minTeamSize}} to {{event.maxTeamSize}}</td>
+							<td>{{event.numTeams}}</td>
+							<td>{{event.numMembers}}</td>
+							<td>
+								<button class="btn btn-default" ng-click="joinEvent(event.name)">JOIN</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="text-center">
+					<ul class="pager">
+						<li ng-click="pageNum = (pageNum <= 1)? 1: pageNum-1"><a href="#page_event">Previous</a></li>
+						<li ng-click="pageNum = (pageNum >= activeEventList.length/5)? pageNum: pageNum+1"><a href="#page_event">Next</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="eventDetail" class="modal">
+			<div class="container animate modal-content">
+			<span onclick="document.getElementById('eventDetail').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<h4 class="text-center">Team List</h4>
+				<table class="table">
+					<tr><th>Name</th><th>Preferred size</th><th>Current size</th><th>Preferred traits/skills</th></tr>
+					<tr ng-repeat="team in teamList" id="teamInfo">
+						<td>{{team.name}}</td>
+						<td>{{team.size}}</td>
+						<td>{{team.numMembers}}</td>
+						<td>
+						<button type="button" class="btn btn-default btn-xs pull-left" ng-repeat="t in team.tags">{{t}}</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
 		<hr class="featurette-divider">
 
 		<div class="row featurette" id="page_team">

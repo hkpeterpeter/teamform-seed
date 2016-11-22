@@ -43,15 +43,23 @@ $(document).ready(function() {
         }
     });
 
+    var eventDetail = document.getElementById('eventDetail');
+
+    window.onclick = function(event) {
+        if(event.target == eventDetail) {
+            eventDetail.style.display = "none";
+        }
+    };
+
 });
 
-angular.module('teamform-app', [])
+angular.module('teamform-app', ['firebase'])
 .directive('login', function() {
     return {
         restrict: 'A',
         templateUrl: 'login.html'
     };
-}).controller('indexCtrl', ['$scope', function($scope) {
+}).controller('indexCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
     $scope.dteam = [
         {name: "Jacky CHEUNG", email: "cycheungar@connect.ust.hk"},
         {name: "Carson CHOW", email: "ccchowae@connect.ust.hk"},
@@ -61,4 +69,58 @@ angular.module('teamform-app', [])
         {name: "Tom WONG", email: "cwwongau@connect.ust.hk"},
         {name: "Steven YAU", email: "kcyauac@connect.ust.hk"}
     ];
+    $scope.pageNum = 1;
+
+    $scope.eventList = $firebaseArray(firebase.database().ref().child("eventList"));
+    console.log($scope.eventList);
+
+    $scope.activeEventList = [];
+    $scope.eventList.$loaded().then(function(data) {
+        angular.forEach(data, function(event) {
+            if(event.status === "active") {
+                var eventRef = firebase.database().ref().child(event.$id);
+                var adminRefObj = $firebaseObject(eventRef.child("admin").child("param"));
+                var memberRefObj = $firebaseArray(eventRef.child("member"));
+                var teamRefObj = $firebaseArray(eventRef.child("team"));
+                adminRefObj.$loaded().then(function() {
+                    memberRefObj.$loaded().then(function() {
+                        teamRefObj.$loaded().then(function() {
+                            var eventInfo = {
+                                name: event.$id,
+                                maxTeamSize: adminRefObj.maxTeamSize,
+                                minTeamSize: adminRefObj.minTeamSize,
+                                numTeams: teamRefObj.length,
+                                numMembers: memberRefObj.length
+                            };
+                            $scope.activeEventList.push(eventInfo);
+                        });
+                    });
+                });
+            }
+        });
+        console.log($scope.activeEventList);
+    });
+    $scope.joinEvent = function(eventName) {
+        window.location.href = "admin.html?q=" + eventName;
+    };
+
+    $scope.teamList = [];
+    $scope.showEventDetail = function(eventName) {
+        $scope.teamList = [];
+        document.getElementById('eventDetail').style.display = 'block';
+        var eventRef = firebase.database().ref().child(eventName);
+        var teamRefObj = $firebaseArray(eventRef.child("team"));
+        teamRefObj.$loaded().then(function(data) {
+            angular.forEach(data, function(team) {
+                var teamInfo = {
+                    name: team.$id,
+                    size: team.size,
+                    numMembers: team.teamMembers.length,
+                    tags: team.tags
+                };
+                $scope.teamList.push(teamInfo);
+            });
+        });
+    };
+
 }]);
