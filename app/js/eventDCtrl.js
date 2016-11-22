@@ -12,7 +12,7 @@ app.controller("eventDCtrl",
         $scope.eventID = $stateParams.eid;
         personToBeAdded="";
         $scope.editingInfo=false;
-        $scope.editButton="Edit";
+        // $scope.editButton="Edit";
         $scope.isDeletingAnn = false;
         this.Object=Object;
         Auth.$onAuthStateChanged(function(authData) {
@@ -55,6 +55,8 @@ app.controller("eventDCtrl",
          // eventID = $stateParams.eid;
         eventRef = firebase.database().ref("events/" + $scope.eventID);
         $scope.eventObj = $firebaseObject(eventRef);
+        ref = firebase.database().ref("events/" + $scope.eventID+"/eventInfo");
+        $scope.eventInfo = $firebaseObject(ref);
         // $scope.eventObj.$loaded().then(function(data){
         //     console.log(Object.keys(data.teams).length);
         // })
@@ -161,18 +163,144 @@ app.controller("eventDCtrl",
         };
         console.log({position:"tba",team:null});
         $scope.editInfo=function(){
-            if($scope.editButton=="Edit")
-            {
-                $scope.editButton="Save";
-                $scope.editingInfo=true;
+            // if($scope.editButton=="Edit")
+            // {
+            //     $scope.editButton="Save";
+            //     $scope.editingInfo=true;
+            // }
+            // else{
+            //     $scope.editButton="Edit";
+            //     $scope.editingInfo=false;
+            //     $scope.eventObj.$save();
+            // }
+            console.log("miaomiaomiao");
+			dialogue = ngDialog.open({
+				template: 'templates/changeEventInfo.html',
+				className: 'ngdialog-theme-plain',
+				scope: $scope
+			});
+        }
+
+        $scope.newEventInfo={
+                name:"",
+                desc: "",
+                max: 0,
+                min: 0,
+                ddl:""
+        };
+
+		console.log($scope.newEventInfo);
+
+		$scope.changeEventInfo=function(){
+            console.log("eventInfo");
+            console.log($scope.eventInfo);
+			$scope.eventInfo.$loaded().then(function(){
+                console.log("1111");
+				$scope.eventName = $scope.eventInfo.name;
+                $scope.eventDesc = $scope.eventInfo.desc;
+                $scope.eventMax = $scope.eventInfo.max;
+                $scope.eventMin = $scope.eventInfo.min;
+                $scope.eventDdl = $scope.eventInfo.ddl; //Date.parse($scope.eventInfo.ddl);
+
+                // SimpleDateFormat sdf;
+                // sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                // formater.applyPattern(formaterString);  
+                // try {  
+                //     date = formater.parse(dateStr);  
+                // } catch (ParseException e) {  
+                //     e.printStackTrace();  
+                // }  
+                // return date;  
+                // $scope.eventDdl = sdf.parse("2008-08-08 12:10:12");//$scope.eventInfo.ddl;
+
+                console.log("3");
+                $scope.newEventInfo.max=parseInt($scope.newEventInfo.max);
+                $scope.newEventInfo.min=parseInt($scope.newEventInfo.min);
+                $scope.newEventInfo.ddl=$scope.newEventInfo.ddl.toString();
+
+                console.log($scope.newEventInfo);
+                console.log($scope.newEventInfo.name+"  "+$scope.eventName);
+                if($scope.eventName !== $scope.newEventInfo.name){
+                    console.log("name different!");
+                    $scope.ChangeEventName($scope.eventName, $scope.newEventInfo.name);
+                }
+                if($scope.eventDesc !== $scope.newEventInfo.desc){
+                    $scope.ChangeEventDesc($scope.newEventInfo.desc);
+                }
+                if($scope.eventMax !== $scope.newEventInfo.max){
+                    $scope.ChangeEventMax($scope.newEventInfo.max);
+                }
+                if($scope.eventMin !== $scope.newEventInfo.min){
+                    $scope.ChangeEventMin($scope.newEventInfo.min);
+                }
+                if($scope.eventDdl !== $scope.newEventInfo.ddl){
+                    $scope.ChangeEventDdl($scope.newEventInfo.ddl);
+                }
+                dialogue.close();
+			 });
+		}
+        $scope.ChangeEventName = function(oldName,newName){
+            var ref = firebase.database().ref('events/'+$scope.eventID+'/eventInfo');
+            ref.child('name').set(newName);
+            Helper.postEventAnnouncement($scope.eventID, "The event name "+oldName+" has been changed to "+newName+" by admin.");
+            for ( team in $scope.eventObj.teams){
+                // console.log(team);
+                // ref = firebase.database().ref('events/'+$scope.eventID+'/teams/'+team+'/members');
+                $scope.members = $scope.eventObj.teams[team].members;//$firebaseObject(ref);
+                //$scope.members.$loaded().then(function(){
+                    console.log($scope.members);
+                    for ( uid in $scope.members){
+                        Helper.pushNotificationTo(uid, $scope.eventID, "Your event "+oldName+"'s name has been changed to "+newName+".");
+                    }
+                //});
             }
-            else{
-                $scope.editButton="Edit";
-                $scope.editingInfo=false;
-                $scope.eventObj.$save();
+        }
+        $scope.ChangeEventDesc = function(newDesc){
+            var ref = firebase.database().ref('events/'+$scope.eventID+'/eventInfo');
+            ref.child('desc').set(newDesc);
+            Helper.postEventAnnouncement($scope.eventID, "The description of event has been changed to "+newDesc);
+        }
+
+        $scope.ChangeEventMax = function(newMax){
+            var ref = firebase.database().ref('events/'+$scope.eventID+'/eventInfo');
+            ref.child('max').set(newMax);
+            Helper.postEventAnnouncement($scope.eventID, "The maximun size of the event "+$scope.newEventInfo.name+" has been changed to "+newMax+" by admin.");
+            for ( team in $scope.eventObj.teams){
+                $scope.members = $scope.eventObj.teams[team].members;//$firebaseObject(ref);
+                    console.log($scope.members);
+                    for ( uid in $scope.members){
+                        Helper.pushNotificationTo(uid, $scope.eventID, "The maximum size of the event has been changed to "+newMax+" by admin.");
+                        console.log(uid);
+                    }
             }
         }
 
+        $scope.ChangeEventMin = function(newMin){
+            var ref = firebase.database().ref('events/'+$scope.eventID+'/eventInfo');
+            ref.child('min').set(newMin);
+            Helper.postEventAnnouncement($scope.eventID, "The minimun size of the event "+$scope.newEventInfo.name+" has been changed to "+newMin+" by admin.");
+            for ( team in $scope.eventObj.teams){
+                $scope.members = $scope.eventObj.teams[team].members;//$firebaseObject(ref);
+                    console.log($scope.members);
+                    for (uid in $scope.members){
+                        Helper.pushNotificationTo(uid, $scope.eventID, "The minimum size of the event has been changed to "+newMin+" by admin.");
+                        console.log(uid);
+                    }
+            }
+        }
+
+        $scope.ChangeEventDdl = function(newDate){
+            var ref = firebase.database().ref('events/'+$scope.eventID+'/eventInfo')
+            ref.child('ddl').set(newDate);
+            Helper.postEventAnnouncement($scope.eventID, "The ddl of event "+$scope.newEventInfo.name+" has been changed to "+newDate+" by admin.");
+            for (team in $scope.eventObj.teams){
+                $scope.members = $scope.eventObj.teams[team].members;//$firebaseObject(ref);
+                for (uid in  $scope.members)
+                    Helper.pushNotificationTo(uid, $scope.eventID, "Deadline of event "+$scope.newEventInfo.name+" has been hanged to "+newDate+".");
+                    console.log(uid);
+            }
+        }
+        
     }
 );
 
