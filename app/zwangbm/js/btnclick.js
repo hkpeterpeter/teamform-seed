@@ -43,7 +43,18 @@ app1.controller("clickCtrl",
           });
         });
       });
-          
+      
+      //suggested users for leaders
+      alert('loaded');
+      $scope.suggested = {};
+      //1. users in this event, not in teams, not the user himself/herself => $scope.users
+      //user_list.$loaded(function() {});
+      var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
+      var requirements = event_list[event_name]["teamList"][team_name]["requirement"];
+      angular.forEach($scope.users, function(value,key){
+      	
+      });
+
 
       $scope.uploadPicture = function(){
 		  // Create a root reference

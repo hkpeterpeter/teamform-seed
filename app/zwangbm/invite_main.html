@@ -52,7 +52,7 @@
 
 <body ng-app = "clickApp">
    <!--invite users with pop up window-->
-            
+  
             <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = true>Invite Users</button>
           </h2> 
                   <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -220,7 +220,46 @@
 
                            </div>
                            </div>
-                        </div>        
+                        </div>      
+
+
+
+
+     <div ng-controller = "clickCtrl">
+      <div class="col-lg-6" id="suggestion">
+        <h2>Suggested Users</h2>
+       
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+            <label  ng-repeat="(username,content) in users">
+            {{content.name}}
+              <tbody>
+                
+             <tr>
+             
+                  <td style="font-size: 30px">3</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/empty.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">{{content.name}}</a></td>
+                      <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
+                  </td>
+                </tr>
+       
+              </tbody>
+
+              </label>
+            </table>
+          </div>
+        </div>
+        </div>
+
+
+
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
