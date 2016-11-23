@@ -1,54 +1,55 @@
+
 <div class="container">
-	
+
 	<!--###############Head###############-->
-	
+
 	<div class="jumbotron">
 		<!-- For display only -->
 		<h2>Team 1</h2>
 		<p>Team description, papapa</p>
 		<!--<h2>{{teamdata.name}}</h2>-->
-		<!--<p>{{teamdata.desc}}</p>-->	
+		<!--<p>{{teamdata.desc}}</p>-->
 		<p>
 			<div class="btn-group" ng-if="( (myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member' || (myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor' )">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
 						<i class="icon-{{mapping({{myEvents[eventID] | role}})}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
 						<span class="caret"></span>
-					</button>			
+					</button>
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
 						<li><a ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team description</a></li>
 						<li><a ng-click = "ApplyTeam()" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()">Apply for this team</a></li>
 						<li><a ng-click="QuitTeam()" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID">Leave this team</a></li>
 						<li><a ng-click="Change_Leader()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team leader</a></li>
-						<li><a ng-click="" ng-if=""></a></li>			
+						<li><a ng-click="" ng-if=""></a></li>
 					</ul>
 				</div>
-      </div> <!--btn-group-->      
+      </div> <!--btn-group-->
 			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
 				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;{{teamdata.currentSize}} / {{teamdata.max}}
-			</button>		
+			</button>
 			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team leader" ng-href="/#/dashboard/profile/{{teamdata.leader}}">
 				<i class="icon-star"></i>&nbsp;&nbsp;&nbsp;{{users.$getRecord(teamdata.leader).readOnly.name}}
-			</button>	
-		</p>	
-	</div> <!--jumbotron-->	
-	
+			</button>
+		</p>
+	</div> <!--jumbotron-->
+
 	<div class="row">
-		
+
 		<!--###############Members###############-->
-		
+
 		<div class="col-md-3">
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
 				  <h4>Members</h4>
-				  <p>Members in the team.</p>   
+				  <p>Members in the team.</p>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container">	
+				  <div class="container">
 				    <div class="row" ng-repeat="(id,uid) in filterLeader(members,teamdata.leader)">
 							<div class="col-md-2">
-								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">	    
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}}
 				      	</a>
 				      </div>
@@ -63,9 +64,9 @@
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-3-->
-		
+
 		<!--###############Tags###############-->
-		
+
 		<div class="col-md-5">
 			<div class="thumbnail">
 				<div class="caption">
@@ -85,14 +86,14 @@
 						<span ng-repeat="(name,value) in filterSkillTags(skilltags)">
 							<button class="btn btn-xs btn-default">{{name}} : {{value}}</button>
 						</span>
-					</div> <!--thumbnail caption-->			
+					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">
 						<button class="btn btn-xs btn-primary">Language</button>
 						<br>
 						<span ng-repeat="(name,value) in filterLanguageTags(languagetags)">
 							<button class="btn btn-xs btn-default">{{name}} : {{value}}</button>
 						</span>
-					</div> <!--thumbnail caption-->			
+					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">
 						<button class="btn btn-xs btn-primary">Manner</button>
 						<br>
@@ -103,9 +104,9 @@
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-5-->
-		
+
 		<!--###############Announcement###############-->
-		
+
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
@@ -129,42 +130,49 @@
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
-		
+
 	</div> <!--row-->
-	
+
 	<hr>
-	
+
 	<div class="row">
-	
+
 	<div class="col-md-12">
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
 				  <h4>Chart</h4>
-				  <p>Statistics on tags.</p>   
+				  <p>Statistics on tags.</p>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container" ng-init = "initchart()">
-				  	<canvas id="myChart" width="200" height="200"></canvas>
-				  </div> <!--container-->	  
+				  <div class="container" ng-init = "initchart_skilltags()">
+				  	<canvas id="myChart_skill" width="200" height="200"></canvas>
+				  </div> <!--container-->
+          <div class="container" ng-init = "initchart_languagetags()">
+				  	<canvas id="myChart_language" width="200" height="200"></canvas>
+				  </div> <!--container-->
+          <div class="container" ng-init = "initchart_mannertags()">
+				  	<canvas id="myChart_manners" width="200" height="200"></canvas>
+				  </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
 
+
 	</div> <!--row-->
-	
+
 	<hr>
-	
+
 	<div class="row" ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
-		
+
 		<!--###############Applications###############-->
-		
+
 		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
 				  <h4>Applications</h4>
-				  <p>Accept or decline?</p>			  
+				  <p>Accept or decline?</p>
 				  <form name="myForm">
 						<button class="btn btn-danger">
 							<i class="icon-filter"></i>
@@ -173,36 +181,36 @@
 			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
 			        </select>
 		        </button>
-		    	</form>		    	
+		    	</form>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container">			
+				  <div class="container">
 				    <div class="row" ng-repeat="(uid,status) in filterByStatus(applications,search_model)">
 							<div class="col-md-2">
-								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">	    
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
 				      	</a>
-				      </div> 
+				      </div>
 							<button class="btn btn-danger btn-sm" ng-click="accept_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Accept the application">
 								<i class="icon-ok-sign"></i>
 							</button>
 							<button class="btn btn-danger btn-sm" ng-click="decline_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Decline the application">
 								<i class="icon-remove-sign"></i>
 							</button>
-						</div> <!--row ng-repeat-->  			    
+						</div> <!--row ng-repeat-->
 			    </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
-		
+
 		<!--###############Invitations###############-->
-		
+
 		<div class="col-md-3">
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
 				  <h4>Invitations</h4>
-				  <p>Accepted or declined?</p>			  
+				  <p>Accepted or declined?</p>
 				  <form name="myForm">
 						<button class="btn btn-danger">
 							<i class="icon-filter"></i>
@@ -211,22 +219,22 @@
 			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
 			        </select>
 		        </button>
-		    	</form>		    	
+		    	</form>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container">			
+				  <div class="container">
 				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model)">
-							<div class="col-md-2">						
-								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">	    
+							<div class="col-md-2">
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
 				      	</a>
 				      </div>
-						</div> <!--row ng-repeat--> 			    
+						</div> <!--row ng-repeat-->
 			    </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
-		</div> <!--col-md-3-->		
-	
+		</div> <!--col-md-3-->
+
 	</div> <!--row-->
 
 </div> <!--container-->
