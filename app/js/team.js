@@ -183,7 +183,8 @@ angular.module('teamform-team-app', ['firebase'])
 			'size': $scope.param.currentTeamSize,
 			'teamMembers': $scope.param.teamMembers,
 			'tags': $scope.param.tags,
-			'weight' : $scope.param.weight
+			'weight' : $scope.param.weight,
+			'description': $scope.param.teamDescription
 		};
 		$.each($scope.param.teamMembers, function(i, obj) {
 			var rec = $scope.member.$getRecord(obj);

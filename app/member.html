@@ -1,150 +1,164 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="teamform-member-app">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="teamform, team">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="teamform, team">
 
-	<title>teamform - member page</title>
+  <title>teamform - member page</title>
 
-	<script src="lib/jquery.min.js"></script>
-	<script src="lib/bootstrap.min.js"></script>
+  <script src="lib/jquery.min.js"></script>
+  <script src="lib/bootstrap.min.js"></script>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/site.css">
-	<link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/login.css">
 
-	<script src="js/site.js"></script>
+  <script src="js/site.js"></script>
 </head>
 
 <body ng-controller="MemberCtrl">
 
-	<nav class="navbar navbar-default">
-		<div class="container">
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-left">
-					<li><a href="index.html">
-					<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-					Back to the front-end</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-        		  <li class="dropdown" id="blogout">
-           		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
-           		  <div>
-           			<span id="userName"></span>
-           			<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-           			<img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
-           		  </div>
-           		  </a>
-           		  <ul class="dropdown-menu">
-             		<li id="logOut"><a href="#">Log out</a></li>
-           		  </ul>
-       			  </li>
-       			  <li>
-          		  <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
-          		  </button>
-       			  </li>
-    			</ul>
-			</div>
-		</div>
-	</nav>
+  <nav class="navbar navbar-default">
+    <div class="container">
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="index.html">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          Back to the front-end</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown" id="blogout">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                 <div>
+                 <span id="userName"></span>
+                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                 <img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
+                 </div>
+                 </a>
+                 <ul class="dropdown-menu">
+                 <li id="logOut"><a href="#">Log out</a></li>
+                 </ul>
+               </li>
+               <li>
+                <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
+                </button>
+               </li>
+          </ul>
+      </div>
+    </div>
+  </nav>
 
-	<div login id="login-form" class="modal"></div>
-		<br>
+  <div login id="login-form" class="modal"></div>
+    <br>
 
-		<div class="row text-center" id="member_page_controller">
-			<h1>Member Page</h1>
-			<h2 id="text_event_name"></h2>
-			<br>
-			<div class="row">
-				<div class="col-sm-3 col-xs-2"></div>
-				<div class="col-sm-6 col-xs-8 panel">
-					<button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
-					<li class="dropdown">
-						<a href="#" class="btn btn-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ability Test <span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a id="atbtn" ng-click="javaFunc();" >Java tests</a></li>
-							<li><a id="atbtn" ng-click="cppFunc();" >C++ test</a></li>
-							<li><a id="atbtn" ng-click="htmlFunc();" >Html test</a></li>
-							<li><a id="atbtn" ng-click="pythonFunc();" >Python test</a></li>
-						</ul>
-					</li>
-					<button type="button" class="btn btn-primary" id="btn_chat">Join the chat room</button>
-				</div>
-				<div class="col-sm-3 col-xs-2"></div>
-			</div>
-			<div class="row">
-				<div class="col-sm-5 col-sm-offset-2">
-					<form name="form" class="css-form" novalidate>
-						<div class="input-group">
-							<span class="input-group-addon">Tags:</span>
-							<input class="form-control" type="text" name="title" ng-model="tag" placeholder="Tags for your traits">
-							<span class="input-group-btn">
-							<button type="button" class="btn btn-default" id="addbtn" ng-click="addTag();" >Add</button>
-							</span>
-						</div>
-					</form>
-				</div>
-				<div class="col-sm-3 panel">Tags added:
-					<div ng-repeat="t in tags track by $index">
-						<button type="button" class="btn btn-default btn-xs pull-left" id="delbtn" ng-click="tags.splice(tags.indexOf(t), 1);" ><span class="glyphicon glyphicon-remove"></span> {{t}}</button>
-	    			</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2 col-xs-1"></div>
-				<div class="col-md-8 col-xs-10">
-					<h4 class="text-center" id="teamStatus"></h4>
-					<br>
-					<h4 class="text-center" id="inviteStatus"></h4>
-					<div ng-show="memberInfo.invitedBy">
-						<h3>Invitations:</h3>
-						<h4>Choose one to accept the invitation.</h4>
-						<div id = "invitation"></div>
-						<div ng-repeat="teamName in memberInfo.invitedBy">
-							{{teamName|json}}
-							<button type="button" value="{{teamName}}" ng-click="acceptInv(teamName)">Accept</button>
-							<button type="button" value="{{teamName}}" ng-click="declineInv(teamName)">Decline</button>
-						</div>
-					</div>
-					<div class="col-sm-12 text-left" ng-hide="memberInfo.inTeam">
-						<h3>Your team preference:</h3>
-						<div ng-repeat="team in teams">
-							<div class="checkbox">
-								<input type="checkbox" value="{{team.$id}}" ng-checked="selection.indexOf(team.$id) > -1" ng-click="toggleSelection(team.$id)">
-								<label>{{team.$id}}</label>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-2 col-xs-1"></div>
-			</div>
-		</div>
-		<!-- <div class="row">
-			<div class="col-sm-5 col-sm-offset-2">
-				{{ntags}}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-5 col-sm-offset-2">
-				{{errMsg}}
-				</div>
-		</div> -->
+    <div class="row text-center" id="member_page_controller">
+      <h1>Member Page</h1>
+      <h2 id="text_event_name"></h2>
+      <br>
+      <div class="row">
+        <div class="col-sm-3 col-xs-2"></div>
+        <div class="col-sm-6 col-xs-8 panel">
+          <button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
+          <button type="button" class="btn btn-primary" ng-disabled="memberInfo.inTeam === undefined" ng-click="leaveTeam();" >leave team</button>
+          <li class="dropdown">
+            <a href="#" class="btn btn-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ability Test <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a id="atbtn" ng-click="javaFunc();" >Java tests</a></li>
+              <li><a id="atbtn" ng-click="cppFunc();" >C++ test</a></li>
+              <li><a id="atbtn" ng-click="htmlFunc();" >Html test</a></li>
+              <li><a id="atbtn" ng-click="pythonFunc();" >Python test</a></li>
+            </ul>
+          </li>
+          <button type="button" class="btn btn-primary" id="btn_chat">Join the chat room</button>
+        </div>
+        <div class="col-sm-3 col-xs-2"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5 col-sm-offset-2">
+          <form name="form" class="css-form" novalidate>
+            <div class="input-group">
+              <span class="input-group-addon">Tags:</span>
+              <input class="form-control" type="text" name="title" ng-model="tag" placeholder="Tags for your traits">
+              <span class="input-group-btn">
+              <button type="button" class="btn btn-default" id="addbtn" ng-click="addTag();" >Add</button>
+              </span>
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-3 panel">Tags added:
+          <div ng-repeat="t in tags track by $index">
+            <button type="button" class="btn btn-default btn-xs pull-left" id="delbtn" ng-click="tags.splice(tags.indexOf(t), 1);" ><span class="glyphicon glyphicon-remove"></span> {{t}}</button>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2 col-xs-1"></div>
+        <div class="col-md-8 col-xs-10">
+          <h4 class="text-center" id="teamStatus"></h4>
+          <br>
+          <h4 class="text-center" id="inviteStatus"></h4>
+          <div ng-show="memberInfo.invitedBy">
+            <h3>Invitations:</h3>
+            <h4>Choose one to accept the invitation.</h4>
+            <div id = "invitation"></div>
+            <div ng-repeat="teamName in memberInfo.invitedBy">
+              {{teamName|json}}
+              <button type="button" value="{{teamName}}" ng-click="acceptInv(teamName)">Accept</button>
+              <button type="button" value="{{teamName}}" ng-click="declineInv(teamName)">Decline</button>
+            </div>
+          </div>
+          <div class="col-sm-12 text-left" ng-hide="memberInfo.inTeam">
+            <h3>Your team preference:</h3>
+            <table>
+            
+            <thead>
+              <tr>
+                <td><label>Team name</label></td>
+                <td><label>Description</label></td>
+                <td><label>Tags</label></td>
+              </tr>
+            </thead>
+            <tr ng-repeat="team in teams">
+              <td class="col-md-2">
+                <div class="checkbox">
+                  <input type="checkbox" value="{{team.$id}}" ng-checked="selection.indexOf(team.$id) > -1" ng-click="toggleSelection(team.$id)">
+                  <label>{{team.$id}}</label>
+                </div>
+              </td>
+              <td class="col-md-4">{{team.description}}</td>
+              <td class="col-md-3">{{team.tags}}</td>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-2 col-xs-1"></div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-sm-5 col-sm-offset-2">
+        {{ntags}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 col-sm-offset-2">
+        {{errMsg}}
+        </div>
+    </div> -->
 
 
 
 
 
-	<script src="lib/angular.min.js"></script>
-	<script src="lib/angular-route.min.js"></script>
+  <script src="lib/angular.min.js"></script>
+  <script src="lib/angular-route.min.js"></script>
 
-	<script src="lib/firebase.js"></script>
-	<script src="lib/angularfire.min.js"></script>
+  <script src="lib/firebase.js"></script>
+  <script src="lib/angularfire.min.js"></script>
 
-	<script src="js/member.js"></script>
+  <script src="js/member.js"></script>
 
 </body>
 </html>

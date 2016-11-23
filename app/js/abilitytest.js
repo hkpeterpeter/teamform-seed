@@ -14,14 +14,14 @@ angular.module('ability-test-app', ['firebase'])
 .controller('AbilityTestCtrl', ['$scope', '$firebaseObject', '$firebaseArray',
 	function($scope, $firebaseObject, $firebaseArray) {
 
-		firebase.auth().onAuthStateChanged(function(firebaseUser) {
-	      if(firebaseUser) {
-	      	var user = firebase.auth().currentUser;
-	        $scope.uid = user.uid;
-	      }
-	    });
+	firebase.auth().onAuthStateChanged(function(firebaseUser) {
+      if(firebaseUser) {
+      	var user = firebase.auth().currentUser;
+        $scope.uid = user.uid;
+      }
+    });
 
-		var quizPath = "quiz/" + getURLParameter("u")
+	var quizPath = "quiz/" + getURLParameter("u");
     $scope.quiz = [];
   	$scope.quiz = $firebaseArray(firebase.database().ref(quizPath));
 

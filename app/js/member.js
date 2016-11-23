@@ -125,6 +125,22 @@ angular.module('teamform-member-app', ['firebase'])
 		return true;
 	}
 
+	$scope.leaveTeam = function() {
+		if($scope.memberInfo.inTeam === undefined) return;
+		var refPath = $scope.eventName + "/member/" + $scope.uid + "/inTeam";
+		var teamRefPath = $scope.eventName + "/team/" + $scope.memberInfo.inTeam;
+		var ref = firebase.database().ref(refPath);
+		ref.remove();
+		
+		ref = firebase.database().ref(teamRefPath);
+		var team = $firebaseObject(ref);
+		team.$loaded(function(data) {
+			var idx = data.teamMembers.indexOf($scope.uid);
+			data.teamMembers.splice(idx, 1);
+			ref.update({teamMembers: data.teamMembers});
+		});
+	};
+	
 	$scope.saveFunc = function() {
 		var newData = {
 			'tags' : $scope.tags,
