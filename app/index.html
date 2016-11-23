@@ -9,17 +9,21 @@
     <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>teamform - A real-time online team forming app</title>
 
-
+		<!-- js -->
+    
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/flat-ui.min.js"></script>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
     <script src="https://cdn.firebase.com/libs/angularfire/2.0.2/angularfire.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.0-alpha.1/angular-ui-router.js"></script>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+		
+		<!-- css -->
+		
+		<link href="css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/flat-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/font-awesome.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.4.0/css/ngDialog-theme-default.min.css">
@@ -28,7 +32,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="lib/tc-angular-chartjs.js"></script>
-
 
     <!-- Customized libraries shared by pages -->
     <script src="js/site.js"></script>
@@ -43,8 +46,7 @@
     <script src="js/requestCtrl.js"></script>
     <script src="js/teamCtrl.js"></script>
     <script src="js/profileCtrl.js"></script>
-
-
+    <script src="js/display.js"></script>
 </head>
 
 <body ng-app="tfApp">

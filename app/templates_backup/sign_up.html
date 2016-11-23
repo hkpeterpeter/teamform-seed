@@ -1,0 +1,19 @@
+<form name="form2" novalidate>
+   <div class="form-group">
+      <label>Email: <span class="required " ng-show="form2.email.$error.required">*required</span> </label>
+      <input class="form-control" type="email" name="email" ng-model="input.email" placeholder="User email" required>
+   </div>
+
+   <div class="form-group">
+      <label>User Name: <span class="required" ng-show="form2.name.$error.required">*required</span></label>
+      <input class="form-control" type="text" name="name" ng-model="input.name" placeholder="User Name" required>
+      
+   </div>   
+
+   <div class="form-group">
+      <label>Password: <span class="required" ng-show="form2.pwd.$error.required">*required</span></label>
+      <input class="form-control" name="pwd" ng-model="input.pwd" type="password" required>
+      <br>
+      <input class="btn btn-primary" type="button" value="Register" ng-click="register()">
+   </div>   
+</form>   
