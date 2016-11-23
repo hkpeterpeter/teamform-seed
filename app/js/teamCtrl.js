@@ -974,6 +974,8 @@ $scope.filterByStatus = function(items, filter_model) {
 
 				};
 
+
+
 });
 
 app.filter('DateFormat', function(){
