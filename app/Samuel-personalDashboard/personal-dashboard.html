@@ -100,16 +100,34 @@
                 </div>
             </div>
             <div id="allNotifs">
-                <h5>All of my notifications:</h5>
-               <!--  <a class="waves-effect waves-light btn" ng-click="showLess()">Show Less</a> -->
-                <ul>
-                <li  ng-repeat="notif in notifs | orderBy:'$index':true">
-                <div class="chip" style="float:none; margin-top: 20px; width: 100%">
-                 <img src="{{notif.imageURL}}" alt="Contact Person">
-                    {{notif.content}}
+
+
+
+                <div ng-show="showAllNotifs">
+                    <h5>All of my notifications:</h5>
+                    <ul>
+                        <li  ng-repeat="notif in notifs | orderBy:'$index':true">
+                            <div class="chip" style="float:none; margin-top: 20px; width: 100%">
+                                <img src="{{notif.imageURL}}" alt="Contact Person">
+                                {{notif.content}}
+                            </div>
+                        </li>
+                    </ul>
+                    <!--<a class="waves-effect waves-light btn" ng-click="showLess()">Show Only 10</a>-->
                 </div>
-                </li>
-                </ul>
+                <div ng-show="show10Notifs">
+                    <h5>My most recent 10 notifications:</h5>
+                    <ul>
+                        <li  ng-repeat="notif in last10Notifs | orderBy:'$index':true">
+                            <div class="chip" style="float:none; margin-top: 20px; width: 100%">
+                                <img src="{{notif.imageURL}}" alt="Contact Person">
+                                {{notif.content}}
+                            </div>
+                        </li>
+                    </ul>
+                    <a class="waves-effect waves-light btn" ng-click="showAll()">Show All</a>
+                </div>
+
             </div>
         </div>
     </div>
