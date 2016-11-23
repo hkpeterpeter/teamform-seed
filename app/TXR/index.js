@@ -3,7 +3,7 @@ var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
 //initalizeFirebase();
 
 app.config(function($routeProvider){
-     $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"ProfileController"})
+     $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
      .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
@@ -12,72 +12,19 @@ app.config(function($routeProvider){
 
 });
 
-app.controller("sidebarController",function($scope, $firebaseArray,$firebaseObject,$cookies){
-  //var thisuser=$cookies.get("username",{path:"/"});
-  var thisuser="kimsung";
-  var userlist = $firebaseObject(firebase.database().ref("userList"));
-  userlist.$loaded(function() {
-     $scope.eventlist=userlist[thisuser]["Membership"];
-  })
-  
-
- 
- 
 
 
-
-
-
-});
-
-app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray){
-
-      $scope.eventname = $routeParams.p;
-      $scope.photolist = [];
-      var i;
-       var thisuser = "kimsung";
-       var userlist = $firebaseObject(firebase.database().ref("userList"));
-       var eventlist = $firebaseObject(firebase.database().ref("eventList"));
-      userlist.$loaded(function() {
-       $scope.identity = userlist[thisuser]["Membership"][$scope.eventname]["identity"];
-       $scope.leader = angular.equals($scope.identity, 'leader');
-       $scope.member = angular.equals($scope.identity, 'member');
-       $scope.user = angular.equals($scope.identity, 'user');
-       $scope.teamname = userlist[thisuser]["Membership"][$scope.eventname]["team"];
-       })
-     
-      eventlist.$loaded(function(){
-       $scope.event = eventlist[$scope.eventname];
-       $scope.team = eventlist[$scope.eventname]["TeamList"][$scope.teamname];
-       $scope.teamskills = eventlist[$scope.eventname]["TeamList"][$scope.teamname]["Skills"];
-       $scope.memberlist = eventlist[$scope.eventname]["TeamList"][$scope.teamname]["MemberList"];
-
-      })
-
-
-
-      $scope.getimg=function(num,member){
-        var photo;
-        userlist.$loaded(function() {
-          photo=userlist[member]["Img"];
-       })
-            return photo;
-      }
-
-      
-
-
-
-
-});
-
-app.controller("ProfileController",function($scope,$firebaseObject, $firebaseArray){
-      
-      $scope.thisuser = "kimsung";
-      var userlist = $firebaseObject(firebase.database().ref("userList"));
-      $scope.name = userlist["kimsung"].Name;
-
-
+app.controller("EventController",function($scope,$routeParams){
+        //   $scope.param = $routeParams.p;
+            $scope.IsVisibleCOMP3111 = false;
+            $scope.IsVisibleCOMP3511 = false;
+            $scope.IsVisibleCOMP2012 = false;
+  //          $scope.show=function(a){
+        //       $scope.IsVisibleCOMP3111 = angular.equals($scope.param, a);
+      //      }
+          $scope.IsVisibleCOMP3111 = angular.equals($routeParams.p, 'COMP3111');
+          $scope.IsVisibleCOMP3511 = angular.equals($routeParams.p, 'COMP3511');
+          $scope.IsVisibleCOMP2012 = angular.equals($routeParams.p, 'COMP2012');
 
 
 });
@@ -112,7 +59,7 @@ app.controller("NotificationController", function($scope){
       		$scope.userList[i].Info="He wants to join your team.";
       	}
       	else $scope.userList[i].Info="Someone left the team.";
-      	
+
       }
 
       $scope.whetherfromteam=function(user){
@@ -129,7 +76,6 @@ app.controller("NotificationController", function($scope){
 
 
    /*   $scope.adduser=function(){
-
       }*/
   });
 
@@ -168,7 +114,7 @@ app.controller("clickCtrl",
                 $scope.filtered[user_name] = user_list[user_name];
                 $scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
               }
-            }   
+            }
             //alert(event_list["event1"]);
             $scope.tag = event_list[event_name]["skills"];
             angular.forEach($scope.tag, function(value,key){
@@ -177,7 +123,7 @@ app.controller("clickCtrl",
           });
         });
       });
-          
+
 
       //add current tag to chosen tag
       $scope.reset = function(index){
@@ -229,7 +175,7 @@ app.controller("clickCtrl",
         //alert(event.target.id);
         if ($scope.users[username].select == "glyphicon glyphicon-check"){
           //alert(event.target.id+' before: check');
-              $scope.users[username].select = "glyphicon glyphicon-unchecked";          
+              $scope.users[username].select = "glyphicon glyphicon-unchecked";
               delete $scope.selected[username];
             //put at last in case username not in filtered
             $scope.filtered[username].select = "glyphicon glyphicon-unchecked";
@@ -240,7 +186,7 @@ app.controller("clickCtrl",
               $scope.users[username].select = "glyphicon glyphicon-check";
               $scope.selected[username]=$scope.users[username];
             //put at last in case username is not in filtered
-          $scope.filtered[username].select = "glyphicon glyphicon-check";           
+          $scope.filtered[username].select = "glyphicon glyphicon-check";
           }
       };
 
@@ -249,7 +195,7 @@ app.controller("clickCtrl",
         var keep_going = true;
         var alert_content = "Invitation(s) have been sent";
         angular.forEach($scope.selected, function(value,key){
-          
+
             //1. conversation
             //if conversation does not exist, create a new one
             var conversation_name = key + "_" + this_user;
@@ -260,7 +206,7 @@ app.controller("clickCtrl",
                 "type":"invite"
               };
             };
-            
+
             if ( conversation[conversation_name]["type"] !== "invite") {
               //change alert_content
               alert_content="You have already got a request from user: "+user_list[key]["name"]+", please check the request first. This invitation will not be sent unless you deal with the request.";
@@ -291,4 +237,13 @@ app.controller("clickCtrl",
       };
 
     }
+);
+
+app.controller("profileController",function($scope,$routeParams,$firebaseObject){
+	  var event_name = $routeParams.p;
+      var this_user = "iamauthur";
+      $scope.user_list = $firebaseObject(firebase.database().ref("userList"));
+      $scope.event_list = $firebaseObject(firebase.database().ref("eventList"));
+      var conversation = $firebaseObject(firebase.database().ref("conversation"));
+}
 );
