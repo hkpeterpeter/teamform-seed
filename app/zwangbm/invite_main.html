@@ -18,7 +18,7 @@
     
     <script src="./js/btnclick.js" ></script>
     <script src="./fonts/glyphicons-halflings-regular.woff" ></script>
-    <script src="../TXR/index.js"></script>
+    <!--script src="../TXR/index.js"></script-->
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -50,17 +50,21 @@
 </head>
 
 
-<body ng-app = "mainApp">
+<body ng-app = "clickApp">
    <!--invite users with pop up window-->
-            
-            <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "IsVisibleCOMP3111">Invite Users</button>
-          </h2> 
+
+            <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = true>Invite Users</button>
+          </h2>
+
                   <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
 
                         <div ng-controller = "clickCtrl">
 
+
+<input type="file" id="picture" name="file"/>
+<button class="btn btn-default" ng-click="uploadPicture()">Upload</button>
 
                         <div class="modal-header">
                         <!--tag-->
@@ -70,12 +74,12 @@
                               <!--pre>{{filtered|json}}</pre-->
                             </div>
                             <div class = "col-sm-9  " id = "predefineTag"   >
-                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div> 
+                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
                             </div>
                           </div>
-                          
+
                           <hr>
-                          
+
                           <div class = "row filter-bar">
                             <div class = "col-sm-3 ">
                               <h5>Current tags: </h5>
@@ -94,7 +98,7 @@
                         <div class="modal-body">
                           <!--main body-->
                           <!--user list + add button + chosen list; delete container and change row to row filter-bar-->
-                          <div class="row filter-bar">                          
+                          <div class="row filter-bar">
                           <div class="col-md-6 col-xs-6">
                           <h2>Users</h2>
                           <!--to choose-->
@@ -103,7 +107,7 @@
                               <div class="col-md-12 col-xs-12">
                                   <div class="list-group" >
                                   <!--one user-->
-                              
+
                                   <label ng-repeat="(username, content) in filtered">
                                     <div class="row">
                                   <div class="col-xs-12">
@@ -128,7 +132,7 @@
                                     </div>
                                     </div>
                                     </label>
-                                  
+
 
                                   </div>
                               </div> <!--end of to be chosen-->
@@ -180,7 +184,7 @@
                                 </div>
                             </div>
                            </div>
-                           
+
                            <!--invite button-->
                             <br>
 
@@ -196,7 +200,7 @@
                                 <div class="col-md-1 col-xs-1"></div>
                             </div>
                             {{newMessage}}
-                  
+
 
                             <div class="row filter-bar">
                               <!--invited button-->
@@ -219,9 +223,47 @@
                            </div>
                         </div>
 
+
+
+
+     <div ng-controller = "clickCtrl">
+      <div class="col-lg-6" id="suggestion">
+        <h2>Suggested Users</h2>
+
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+            <label  ng-repeat="(username,content) in users">
+            {{content.name}}
+              <tbody>
+
+             <tr>
+
+                  <td style="font-size: 30px">3</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/empty.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                  </td>
+                  <td style="font-size: 30px"><a href="#">{{content.name}}</a></td>
+                      <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
+                  </td>
+                </tr>
+
+              </tbody>
+
+              </label>
+            </table>
+          </div>
+        </div>
+        </div>
+
+
+
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>   
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
