@@ -173,7 +173,7 @@
           			
         			</div>
        				<div class="card-action">
-         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn tooltipped" data-tooltip="Current size: 5<br>Preferred size: 6-7<br>Required skills: JavaScript" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)">{{ request.teamName }}</a>
+         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)" ng-class="adminrequestbtn">{{ request.teamName }}</a>
                 <!--<a class="btn waves-effect waves-teal admin-card-btn">Other</a>-->
          				
                 <div class="divider admin-incard-divider"></div>
