@@ -24,7 +24,7 @@
 		    <!--###Content###-->
 				<div ng-controller="IconDisplayController">
         	<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" ng-repeat="(myEventId, myEvent) in myEvents" style="text-align:left">
-						<i class="icon-{{mapping({{myEvent.position}})}}"></i>&nbsp;&nbsp;&nbsp;{{Event.eventInfo.name}}
+						<i class="icon-{{mapping({{myEvent.position}})}}"></i>&nbsp;&nbsp;&nbsp;{{events.$getRecord(myEventId).eventInfo.name}}
 					</a>
 				</div> <!--ng-controller-->
 			</div> <!--caption-->
