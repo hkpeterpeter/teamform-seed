@@ -1,23 +1,35 @@
-<div>
-   <h1>Team forming</h1>
-   <input class="btn btn-primary" type="button" value="Logout" ng-click="logout()">
-   <div class="container-fluid">
-      <div class="row">
-         <div class="col-md-4">
-            <ul>
-               <li><a ng-href="/#/dashboard/home">HOME</a></li>
-               <li><a ng-href="/#/dashboard/event">EVENT</a></li>
-               <li><a ng-href="/#/dashboard/notification">NOTIFICATION</a></li>
-               <li><a ng-href="/#/dashboard/request">REQUEST</a></li>
-               <li><a ng-href="/#/dashboard/profile/{{authData.uid}}">PROFILE</a></li>
-            </ul>
-         </div>
-         <div class="col-md-8">
-            <div ui-view></div>
-         </div>
-      </div>
-   </div>
+<nav class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+	  <a class="navbar-brand" href="#">Team Forming</a>
+	</div>
+	<div class="navbar-right">
+	  <ul class="nav navbar-nav">
+	    <li><a href="#fakelink">About</a></li>
+	    <li><button class="btn btn-danger navbar-btn" type="button" ng-click="logout()"><i class="icon-signout"></i>&nbsp;&nbsp;&nbsp;Logout</button></li>
+	  </ul>
+	</div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
+
+<div class="container-fluid">	
+	<div class="row">
+		<div class="col-md-4">
+			<div class="btn-group-vertical">
+				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/home">
+					<br><i class="icon-home icon-2x"></i><br><p>Home</p></a>
+				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/event">
+					<br><i class="icon-flag icon-2x"></i><br><p>Event</p></a>
+				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/notification">
+					<br><i class="icon-bell icon-2x"></i><br><p>Notification</p></a>
+				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/request">
+					<br><i class="icon-inbox icon-2x"></i><br><p>Request</p></a>
+				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/profile">
+					<br><i class="icon-list-alt icon-2x"></i><br><p>Profile</p></a>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div ui-view></div>
+		</div>
+	</div>
 </div>
 
-  
-   
+ 

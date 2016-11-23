@@ -214,6 +214,27 @@
 	
 	<hr>
 	
+	<div class="row">
+	
+	<div class="col-md-12">
+			<div class="thumbnail">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4>Chart</h4>
+				  <p>Statistics on tags.</p>   
+				  <hr>
+				  <!--###Content###-->
+				  <div class="container" ng-init = "initchart()">
+				  	<canvas id="myChart" width="200" height="200"></canvas>
+				  </div> <!--container-->	  
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-4-->
+
+	</div> <!--row-->
+	
+	<hr>
+	
 	<div class="row" ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
 		
 		<!--###############Applications###############-->
