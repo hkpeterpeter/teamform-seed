@@ -162,17 +162,19 @@
 							<th class="col-xs-2">No. of members</th>
 							<th>Actions</th>
 						</tr>
-						<tr ng-repeat="event in activeEventList" ng-click="showEventDetail(event.name)" ng-show="$index/5 < pageNum && $index/5 >= pageNum-1">
+						<tr ng-repeat="event in activeEventList" ng-show="$index/5 < pageNum && $index/5 >= pageNum-1" ng-click="showEventDetail(event.name)">
 							<td>{{$index+1}}</td>
 							<td>{{event.name}}</td>
 							<td>{{event.minTeamSize}} to {{event.maxTeamSize}}</td>
 							<td>{{event.numTeams}}</td>
 							<td>{{event.numMembers}}</td>
 							<td>
-								<button class="btn btn-default" ng-click="joinEvent(event.name)">JOIN</button>
+								<button class="btn btn-default" ng-click="joinEvent(event.name, 'admin')">Manage</button>
+								<button class="btn btn-info" ng-click="joinEvent(event.name, 'member')">Join</button>
 							</td>
 						</tr>
 					</table>
+					<button class="btn btn-success" onclick="document.getElementById('createNewEvent').style.display='block'">Create new event</button>
 				</div>
 				<div class="text-center">
 					<ul class="pager">
@@ -183,20 +185,46 @@
 			</div>
 		</div>
 
+		<div id="createNewEvent" class="modal">
+			<div class="container animate modal-content" style="padding-bottom: 10px;">
+			<h3>Create a new event</h3>
+			<input type="text" placeholder="Event Name..." class="form-control" ng-model="newEvent"><br>
+			<button class="btn btn-warning" ng-click="createNewEvent()">Confirm</button>
+			<button class="btn btn-default" onclick="document.getElementById('createNewEvent').style.display='none'">Cancel</button>			
+			</div>
+		</div>
+
 		<div id="eventDetail" class="modal">
 			<div class="container animate modal-content">
-			<span onclick="document.getElementById('eventDetail').style.display='none'" class="close" title="Close Modal">&times;</span>
-				<h4 class="text-center">Team List</h4>
-				<table class="table">
-					<tr><th>Name</th><th>Preferred size</th><th>Current size</th><th>Preferred traits/skills</th></tr>
-					<tr ng-repeat="team in teamList" id="teamInfo">
-						<td>{{team.name}}</td>
-						<td>{{team.size}}</td>
-						<td>{{team.numMembers}}</td>
-						<td>
-						<button type="button" class="btn btn-default btn-xs pull-left" ng-repeat="t in team.tags">{{t}}</button></td>
-					</tr>
-				</table>
+				<span onclick="document.getElementById('eventDetail').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<h4 class="text-center">Team List of {{eventName}} </h4>
+				<div id="teamlist">
+					<table class="table" id="teamListTable">
+						<tr><th>Name</th><th>Preferred size</th><th>Current size</th><th>Preferred traits/skills</th><th>Actions</th></tr>
+						<tr ng-repeat="team in teamList" id="teamInfo" ng-click="displayMembersInTeam(team.name, eventName)">
+							<td>{{team.name}}</td>
+							<td>{{team.size}}</td>
+							<td>{{team.numMembers}}</td>
+							<td>
+							<button type="button" class="btn btn-default btn-xs pull-left" ng-repeat="t in team.tags">{{t}}</button></td>
+							<td>
+							<button type="button" class="btn btn-info" ng-click="joinTeam(team.name, eventName)">Request to join</button></td>
+						</tr>
+					</table>
+				</div>
+				<div class="animate" id="memberlist" style="display: none">
+					<span onclick="document.getElementById('memberlist').style.display='none'" class="close" title="Close Modal">&times;</span>
+					<h4>Member List of {{teamName}} </h4>
+					<table class="table" id="memberListTable">
+						<tr><th>Name</th><th>Tags</th></tr>
+						<tr ng-repeat="member in memberList" id="memberInfo">
+							<td>{{member.name}}</td>
+							<td>
+							<button type="button" class="btn btn-success btn-xs pull-left" ng-repeat="t in member.tags">{{t}}</button></td>
+						</tr>
+					</table>
+					<div id="manageTeam"></div>
+				</div>
 			</div>
 		</div>
 
