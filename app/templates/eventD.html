@@ -9,7 +9,7 @@
 			<div class="btn-group">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
-						<i class="icon-{{mapping({{myEvents[eventID] | role}})}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
+						<i class="icon-{{mapping($filter('role')(myEvents[eventID]))}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
 						<span class="caret"></span>
 					</button>			
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
