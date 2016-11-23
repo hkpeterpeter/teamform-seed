@@ -8,9 +8,14 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
     var userRef = firebase.database().ref('users/' + $rootScope.currentUser.id);
 
     var skillsRef = userRef.child('/skills');
-
+    $scope.displayUser={};
+    console.log($scope.displayUser);
     $scope.displayUser = $firebaseObject(userRef);
-
+    $scope.displayUser.profilePic="zhuxinyu/img/load5.gif";
+    $scope.displayUser.name="Loading...";
+     $scope.displayUser.email="Loading...";
+     
+   
 
     $scope.newName = '';
     $scope.receiveNewName = function(){
