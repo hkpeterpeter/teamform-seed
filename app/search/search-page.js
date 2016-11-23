@@ -9,47 +9,89 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 		//central angular app
 		//var app = angular.module("profile",[]);
-
-		//shared data among controllers,toggle sidebar and search page
-		app.service('divToggle', function() {
-			// private variable
-			var _dataObj = {search:true,sidebar:false};
-
-			// public API
-			this.dataObj = _dataObj;
-		});
-
+		
 		app.factory('Search',function(){
 			return {search:true,text:""};
 		});
+		
+		app.factory('Naruto',function(){
+			return {Sasuke:""};
+		});
+		
+		//controll search page
+		app.controller("searchPage",function($scope,Search,Naruto,$cookies,$window,$firebaseObject){
 
-		//controll navigation bar and search page
-		app.controller("searchPage",function($scope,Search,divToggle,$cookies,$window){
 
-
-
+			//data lists got from firebase	
+			var tag = [];
+			var users = [];
+			var teams = [];
+			
+			var tagini;
+			$scope.teamini;
+			
+			//initialize data lists
+			var ref = firebase.database().ref("eventList");
+			var event_list = $firebaseObject(ref);
+			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
+			//get tags,teams and users from tag list in firebase
+			$scope.userList.$loaded(function(){
+				event_list.$loaded(function(){
+					tagini = event_list["comp3111"]["skills"];
+					
+					$scope.teamini = event_list["comp3111"]["teamList"];
+					angular.forEach(tagini, function(value,key){
+						tag.push(key);
+					});
+					angular.forEach($scope.teamini,function(value,key){
+						teams.push(key);
+					});
+					
+					angular.forEach($scope.userList,function(value,key){
+						//only get the user that belongs to current event
+						if($scope.userList[key].Membership.hasOwnProperty("comp3111")){
+							users.push($scope.userList[key].name);
+							
+						}
+					
+					});
+					
+				});
+			});
+			
+			$scope.teamyeah = false;
+			$scope.useryeah = true;
+			searchKey = Naruto.Sasuke;
 			$scope.currentTag = [];
 			$scope.resultTag = [];
-			//$scope.new;
+			$scope.searchResult = [];
+			$scope.filterResult = [];
+			$scope.hehe = "";
 			$scope.startSearch = Search;
-			$scope.sidebar = divToggle.dataObj.sidebar;
 			/*for(key in tag){
 				$scope.currentTag.push(key);
 			};*/
 			$scope.start = function(){
 				$scope.startSearch.search = false;
-				$scope.sidebar = true;
+				
 			};
 			$scope.searchType = "Search Team";
 			$scope.setSearchT = function(){
 				$scope.searchType = "Search Team";
+				$scope.teamyeah = false;
+				$scope.useryeah = true;
+				$scope.clear();
 			};
 			$scope.setSearchP = function(){
 				$scope.searchType = "Search Person";
+				$scope.useryeah = false;
+				$scope.teamyeah = true;
+				$scope.clear();
 			};
 			$scope.setSearchE = function(){
 				$scope.searchType = "Search Event";
 			};
+			
 			$scope.reset = function(index){
 				var key;
 				$scope.resultTag.push($scope.currentTag[index]);
@@ -60,6 +102,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						$scope.currentTag.push(temp[i]);
 					}
 				}
+				filterFunction();
 			};
 
 			$scope.delete = function(index){
@@ -74,34 +117,36 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						$scope.currentTag.push(temp[i]);
 					}
 				}
+				filterFunction();
 
 			};
 
 			$scope.clear = function(){
-				$scope.new = "";
+				$scope.hehe = "";
 				$scope.currentTag = [];
 				$scope.resultTag = [];
+				$scope.filterResult = [];
 			};
 
-			$scope.autocomplete = function(newx){
+			$scope.autocomplete = function(){
 				var iChars = "~`!@#$%^&*+=-[]\\\';,/{}|\":<>?";
-				for (var i = 0; i < newx.length; i++){
-					if (iChars.indexOf(newx.charAt(i)) != -1){
+				for (var i = 0; i < $scope.hehe.length; i++){
+					if (iChars.indexOf($scope.hehe.charAt(i)) != -1){
 						alert ("File name has special characters ~`!@#$%^&*+=-[]\\\';,/{}|\":<>? \nThese are not allowed\n");
-						$scope.newx = "";
+						$scope.hehe = "";
 						break;
 					}
 
 				}
 				$scope.currentTag = [];
-				var reg = newx;
+				var reg = $scope.hehe;
 				reg.replace(' ','');
 				if(reg !== ""){
 					for(var i = 0;i < tag.length;i++){
 						var k = 0;
 						var valid = false;
 						for(var j = 0;j < reg.length;j++){
-
+						
 							while(k < tag[i].length){
 								if(tag[i].charAt(k) == reg.charAt(j)){
 									k++;
@@ -112,27 +157,169 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 								}else{
 									k++;
 								}
-
+								
 							}
 						}
 						if(valid){
 							$scope.currentTag.push(tag[i]);
 						}
-
+						
 					}
-				}else{
-					$scope.resultTag = [];
 				}
 			};
-
-			$scope.test = function(){
-				$scope.currentTag.push("java");
-			};
+			
+			var filterFunction = function(){
+				$scope.filterResult = [];
+				if($scope.searchType == "Search Team"){
+					for(var i = 0;i < tagini[$scope.resultTag[0]].teams.length;i++){
+						$scope.filterResult.push(tagini[$scope.resultTag[0]].teams[i]);
+					}
+					for(var i = 1;i < $scope.resultTag.length;i++){
+						//get the team list related to current result tag
+						var list = tagini[$scope.resultTag[i]].teams;
+						for(var k = 0;k < $scope.filterResult.length;k++){
+							var bingo = false;
+							for(var j = 0;j < list.length;j++){
+								if(list[j] == $scope.filterResult[k]){
+									bingo = true;
+									break;
+								}
+							}
+							if(!bingo){
+								$scope.filterResult[k] = "@";
+							}
+						}
+						var temp = [];
+						for(var k = 0;k <　$scope.filterResult.length;k++){
+							if($scope.filterResult[k] != "@"){
+								temp.push($scope.filterResult[k]);
+							}
+						}
+						$scope.filterResult = temp;
+					}
+				}else{
+					for(var i = 0;i < tagini[$scope.resultTag[0]].users.length;i++){
+						$scope.filterResult.push(tagini[$scope.resultTag[0]].users[i]);
+					}
+					for(var i = 1;i < $scope.resultTag.length;i++){
+						//get the team list related to current result tag
+						var list = tagini[$scope.resultTag[i]].users;
+						for(var k = 0;k < $scope.filterResult.length;k++){
+							var bingo = false;
+							for(var j = 0;j < list.length;j++){
+								if(list[j] == $scope.filterResult[k]){
+									bingo = true;
+									break;
+								}
+							}
+							if(!bingo){
+								$scope.filterResult[k] = "@";
+							}
+						}
+						var temp = [];
+						for(var k = 0;k <　$scope.filterResult.length;k++){
+							if($scope.filterResult[k] != "@"){
+								temp.push($scope.filterResult[k]);
+							}
+						}
+						$scope.filterResult = temp;
+					}
+				}
+			}
+			
+			//private search method
+			var findResult = function(type){
+				var list = [];
+				if(type == "team"){
+					list = teams;
+				}
+				else if(type == "user"){
+					list = users;
+				}
+				else{}//event list is not yet defined
+				var m = searchKey.length;
+					
+				//retrive every tags in tagList
+				for(var i = 0;i < list.length;i++){
+					var n = list[i].length;
+						
+					//create a new 2D array,initialize with all 0
+					var arr = []
+					for (var row = 0; row < m+1; row++) {
+						arr[row] = [];
+						for(var column = 0; column < n+1; column++){
+							arr[row].push(0);
+						}
+					}
+						
+						
+					//record the maximum number of matched subsequence in two strings
+					var max = 0;
+						
+					//start to fill the 2D array
+					for(var x = 1;x <= m; x++){
+						for(var y = 1;y <= n;y++){
+							if(searchKey.charAt(x-1) == list[i].charAt(y-1)){
+								arr[x][y] = arr[x-1][y-1] + 1;
+								if(arr[x][y] > max){
+									max = arr[x][y];
+								}
+							}
+							else if(arr[x-1][y] > arr[x][y-1]){
+								arr[x][y] = arr[x-1][y];
+							}	
+							else{
+								arr[x][y] = arr[x][y-1];
+							}
+						}
+					}
+					var match = arr[m][n]/searchKey.length
+					if(match>= 0.6){
+						$scope.searchResult.push(list[i]);
+					}
+				}
+				
+				tag = $scope.searchResult;
+			}
+			
+			var searchName = function(){
+				$scope.searchResult = [];
+				if($scope.resultTag.length == 0){
+					if($scope.searchType == "Search Team"){
+						findResult('team');
+						
+						$scope.filterResult = $scope.searchResult;
+					}
+					else{
+						findResult('user');
+						var idList = [];
+						for(var i = 0;i < $scope.searchResult.length;i++){
+							angular.forEach($scope.userList,function(value,key){
+								//only get the user that belongs to current event
+								if($scope.userList[key].name == $scope.searchResult[i]){
+									idList.push(key);
+								}
+							});
+						}
+						$scope.filterResult = idList;
+					}
+				}
+				else{
+					
+				}
+			}
 		});
 
 
 
-
+		//controll navigation bar
+		app.controller("navbar",function($scope,Naruto){
+			$scope.searchKey = "";
+			Naruto.Sasuke = $scope.searchKey;
+			$scope.searchName = function(){
+				searchName();
+			}
+		});
 
 
 		/*

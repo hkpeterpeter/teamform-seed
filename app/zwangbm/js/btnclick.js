@@ -9,6 +9,7 @@ app1.controller("clickCtrl",
       var conversation = $firebaseObject(firebase.database().ref("conversation"));
       //don't put the reference on the $scope until $loaded is done.
       //initialize the variables and scope
+      
       var user_event1;
       $scope.hideMember = "glyphicon glyphicon-unchecked";
       $scope.users = {};
@@ -34,7 +35,7 @@ app1.controller("clickCtrl",
                 $scope.filtered[user_name] = user_list[user_name];
                 $scope.filtered[user_name]["select"] = "glyphicon glyphicon-unchecked";
               }
-            }   
+            }
             //alert(event_list["event1"]);
             $scope.tag = event_list[event_name]["skills"];
             angular.forEach($scope.tag, function(value,key){
@@ -43,7 +44,7 @@ app1.controller("clickCtrl",
           });
         });
       });
-      
+
       //suggested users for leaders
       alert('loaded');
       $scope.suggested = {};
@@ -52,7 +53,7 @@ app1.controller("clickCtrl",
       var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
       var requirements = event_list[event_name]["teamList"][team_name]["requirement"];
       angular.forEach($scope.users, function(value,key){
-      	
+
       });
 
 
@@ -120,7 +121,7 @@ app1.controller("clickCtrl",
         //alert(event.target.id);
         if ($scope.users[username].select == "glyphicon glyphicon-check"){
           //alert(event.target.id+' before: check');
-              $scope.users[username].select = "glyphicon glyphicon-unchecked";          
+              $scope.users[username].select = "glyphicon glyphicon-unchecked";
               delete $scope.selected[username];
             //put at last in case username not in filtered
             $scope.filtered[username].select = "glyphicon glyphicon-unchecked";
@@ -131,7 +132,7 @@ app1.controller("clickCtrl",
               $scope.users[username].select = "glyphicon glyphicon-check";
               $scope.selected[username]=$scope.users[username];
             //put at last in case username is not in filtered
-          $scope.filtered[username].select = "glyphicon glyphicon-check";           
+          $scope.filtered[username].select = "glyphicon glyphicon-check";
           }
       };
 
@@ -140,7 +141,7 @@ app1.controller("clickCtrl",
         var keep_going = true;
         var alert_content = "Invitation(s) have been sent";
         angular.forEach($scope.selected, function(value,key){
-          
+
             //1. conversation
             //if conversation does not exist, create a new one
             var conversation_name = key + "_" + this_user;
@@ -151,7 +152,7 @@ app1.controller("clickCtrl",
                 "type":"invite"
               };
             };
-            
+
             if ( conversation[conversation_name]["type"] !== "invite") {
               //change alert_content
               alert_content="You have already got a request from user: "+user_list[key]["name"]+", please check the request first. This invitation will not be sent unless you deal with the request.";
