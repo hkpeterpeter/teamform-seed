@@ -9,30 +9,47 @@
 
 
 <div ng-controller="dashboardController">
-<div class="container" style="padding-top: 20px">
-    <div class="row" id="infoDisplay">
+<div class="container" style="padding-top: 50px; width:80%;">
+    <div class="row" id="infoDisplay" >
         <div class="col m6 s6">
-            <img src="{{displayUser.profilePic}}" style="height: 100%; width: 100%">
+            <img src="{{displayUser.profilePic}}" style="height: 512px; width: 100%;border-radius: 20px" >
         </div>
-        <div class="col m6 s6">
-            <h4 width="100%">Username: {{displayUser.name}}</h4>
+        <div class="col m6 s6 teal" style="height:512px; border-radius: 20px">
+           
+            
+    <ul class="collection with-header" style="text-align: center; border: none">
+      <li class="collection-header teal" onclick="$('#reset_userName_panel').slideToggle();$(this).css('border','none')" style="color:#fff;cursor:pointer;"><h4>{{displayUser.name}}</h4></li>
+    <li class="collection-header" id="reset_userName_panel" style="display: none;border-radius: 20px">
+
             <form ng-submit="receiveNewName()">
-                <div class="input-field col s12">
+                <div class="row">
+                <div class="input-field col s6 offset-s1">
                     <input id="newName" type="text" class="validate" ng-model="newName" required>
                     <label for="newSkill">Set my username</label>
                 </div>
+                <div class="input-field col s4">
                 <button class="btn waves-effect waves-light" type="submit" name="action">Change Name
                     <i class="material-icons right">send</i>
                 </button>
+                </div>
             </form>
-            <h5 width="100%">My email address: {{displayUser.email}}</h5>
-            <h5 width="100%">My system ID: {{currentUser.id}}</h5>
+    </li>
+        <li class="collection-header teal" onclick="$('#user_email_panel').slideToggle();$(this).css('border','none')" style="color:#fff;cursor:pointer"><h5> <i class="material-icons right">email</i>My email address</h5></li>
+        <li class="collection-header" id="user_email_panel"  style="display: none;border-radius: 20px"><h5>{{displayUser.email}}</h5></li>
+        <li class="collection-header teal" onclick="$('#user_id_panel').slideToggle();$(this).css('border','none')" style="color:#fff;cursor:pointer"><h5><i class="material-icons right">perm_identity</i>My system ID</h5></li>
+        <li class="collection-header" id="user_id_panel"  style="display: none;border-radius: 20px"><h5>{{currentUser.id}}</h5></li>
+     
+      </ul>
+            
+       
+            
+          
         </div>
     </div>
     <!--<p width="100%">{{currentUser}}</p>-->
     <div class="divider"></div>
-
-    <div class="row" id="skillManager">
+    
+    <div class="row" id="skillManager" style="margin-top: 50px;margin-bottom: 50px;">
         <h4>Manage my Skills:</h4>
         <form ng-submit="receiveNewSikll()">
             <div class="input-field col s6">
@@ -43,10 +60,10 @@
                 <i class="material-icons right">send</i>
             </button>
         </form>
-    </div>
-
-    <div class="row">
-        <div class="col m3" ng-repeat="skill in skillsList">
+   
+  </div>
+    <div class="row" style="margin-bottom: 50px">
+        <div class="col m3" ng-repeat="skill in skillsList" style="margin-bottom: 10px">
             <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skillsList.$remove(skill)">delete</i>{{skill.$value}}</a>
         </div>
 
@@ -55,11 +72,13 @@
 
 
 
+
+
     <!-- NOTIFICATION CENTER -->
-    <div class="row">
+    <div class="row" style="margin-top:50px;">
         <h3 id="notification_center">Notification Center</h3>
         <div class="row">
-            <div class="col s12">
+            <div class="col s12" style="margin-bottom: 30px">
                 <ul class="tabs">
                     <li class="tab col s3"><a class="active" href="#allInvitations">Invitations</a></li>
                     <li class="tab col s3"><a href="#allNotifs">Notifs</a></li>
@@ -81,10 +100,15 @@
             </div>
             <div id="allNotifs">
                 <h5>All of my notifications:</h5>
-                <a class="waves-effect waves-light btn" ng-click="showLess()">Show Less</a></p>
-                <div ng-repeat="notif in notifs track by $index">
-                    <p>{{notif.content}}</p>
+               <!--  <a class="waves-effect waves-light btn" ng-click="showLess()">Show Less</a> -->
+                <ul>
+                <li  ng-repeat="notif in notifs track by $index">
+                <div class="chip" style="float:none; margin-top: 20px; width: 100%">
+                 <img src="{{notif.imageURL}}" alt="Contact Person">
+                    {{notif.content}}
                 </div>
+                </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -93,11 +117,12 @@
 
 
     <!-- MANAGEMENT TABS -->
-    <div class="row">
-        <div class="col s12">
+    <div class="row" style="margin-top: 50px">
+    <h3>Teams and events related to you</h3>
+        <div class="col s12" style="margin-bottom: 30px">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#eventsAsAdmin">Admin</a></li>
-                <li class="tab col s3"><a class="active" href="#teamsAsLeader">Leader</a></li>
+                <li class="tab col s3"><a class="active" href="#eventsAsAdmin">Admin</a></li>
+                <li class="tab col s3"><a href="#teamsAsLeader">Leader</a></li>
                 <li class="tab col s3"><a href="#teamsAsMember">Member</a></li>
                 <li class="tab col s3"><a href="#teamsApplying">Applying</a></li>
             </ul>
@@ -111,14 +136,14 @@
         <div id="teamsAsLeader">
             <h4>I am team leader</h4>
             <div ng-repeat="team in leadingList">
-                {{team.$value}}
+              
                 <team-card team-id="{{team.$value}}"></team-card>
             </div>
         </div>
         <div id="teamsAsMember">
             <h4>I am a member in these teams</h4>
             <div ng-repeat="team in memberList">
-                {{team.$value}}
+               
                 <team-card team-id="{{team.$value}}"></team-card>
             </div>
         </div>
@@ -130,10 +155,12 @@
             </div>
         </div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+    
 
 
 
 </div>
+ 
+<event-footer>
+</event-footer>
 </div>

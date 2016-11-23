@@ -355,6 +355,14 @@ teamapp.directive("zhuNavi", function() {
         templateUrl: "zhuxinyu/js/components/fish-navi.html",
          controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
             $scope.allnoti=$firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs"));
+             $scope.allnoti.$loaded().then(function(data){
+                for(var i=0;i<data.length;i++){
+                    if(data[i].type!='invitation'){
+                        data[i].type='System';
+                    }
+                    
+                }
+             });
 
             $scope.markRead=function(id){
                 console.log(id);
@@ -416,6 +424,7 @@ teamapp.directive('teamCard',function(){
                
                 $scope.element=$firebaseObject(firebase.database().ref("teams").child($scope.teamId));
                 $scope.element.$loaded().then(function(data){
+                    
                     $scope.list=[];
                     $scope.map={};
                     for(var i=0;i<data.desiredSkills.length;i++){
@@ -435,21 +444,26 @@ teamapp.directive('teamCard',function(){
                         $scope.countMember(0);
                     });
 
+
                    
                 });
                 $scope.goToTeam=function(){
-                    if($rootScope.currentUser.id==$scope.element.leaderID){
-                        //Team leader
-                         $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
-                          window.location.href = '#/teamleader';
-                         return;
-                    }else{
-                        for(var i=0;i<$scope.element.membersID.length;i++){
-                            if($rootScope.currentUser.id==$scope.element.membersID[i]){
-                               $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
-                                window.location.href = '#/team';
+                    if($scope.invited){
 
-                               return
+                    }else{
+                        if($rootScope.currentUser.id==$scope.element.leaderID){
+                            //Team leader
+                             $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
+                              window.location.href = '#/teamleader';
+                             return;
+                        }else{
+                            for(var i=0;i<$scope.element.membersID.length;i++){
+                                if($rootScope.currentUser.id==$scope.element.membersID[i]){
+                                   $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
+                                    window.location.href = '#/team';
+
+                                   return
+                                }
                             }
                         }
                     }
