@@ -1,6 +1,6 @@
-function IconDisplayController($scope) {
-	$scope.mapping = function(role) {
-		String icon = "ban-circle";
+app.filter('IconDisplayMapping',function() {
+	return function(role){
+		icon = "ban-circle";
 		switch(role) {
 			case "admin":	icon = "desktop"; break;
 			case "leader": 	icon = "star"; break;
@@ -10,4 +10,4 @@ function IconDisplayController($scope) {
 		}
 		return icon;
 	}
-}
+})
