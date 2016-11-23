@@ -118,9 +118,9 @@
             </div>
 
             <div class="card-reveal blue-grey darken-1 white-text">
-            	<span class="card-title">Team Name<i class="material-icons right">close</i></span>
-            	<p>Team Members: <span ng-repeat="member in team.membersID">{{ member }} </span></p>
-            	<p>Other infomation about this team.</p>
+            	<span class="card-title">{{ team.teamName }}<i class="material-icons right">close</i></span>
+              <p>ID of Team Leader: <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="">{{ team.leaderID }}</span></p>
+            	<p>IDs of Team Members: <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="" ng-repeat="member in team.membersID">{{ member }}</span></p>
             </div>
           </div>
           <!-- A Single Card Ends -->
