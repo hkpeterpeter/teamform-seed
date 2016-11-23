@@ -182,10 +182,32 @@
     <div class="span4">
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Chart</h3>
+            <h3 class="panel-title">Chart for skill tags</h3>
           </div>
-          <div class="panel-body" ng-init = "initchart()">
-<canvas id="myChart" width="200" height="200"></canvas>
+          <div class="panel-body" ng-init = "initchart_skilltags()">
+            <canvas id="myChart_skill" width="200" height="200"></canvas>
+          </div>
+        </div>
+    </div>
+
+    <div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Chart for language tags</h3>
+          </div>
+          <div class="panel-body" ng-init = "initchart_languagetags()">
+            <canvas id="myChart_language" width="200" height="200"></canvas>
+          </div>
+        </div>
+    </div>
+
+    <div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Chart for manner tags</h3>
+          </div>
+          <div class="panel-body" ng-init = "initchart_mannertags()">
+            <canvas id="myChart_manners" width="200" height="200"></canvas>
           </div>
         </div>
     </div>

@@ -431,7 +431,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         MannerTags:{
             Cool:false,
             Creative:false,
-            Oncampus:false,
+            OnCampus:false,
             Outgoing:false,
             Pretty:false,
             SleepLate:false,
