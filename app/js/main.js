@@ -2,7 +2,7 @@
 initalizeFirebase();
 
 
-var app = angular.module("tfApp", ["firebase", "ui.router", 'ngDialog']);
+var app = angular.module("tfApp", ["firebase", "ui.router", 'ngDialog', 'tc.chartjs']);
 
 
 app.config(function($stateProvider, $urlRouterProvider) {

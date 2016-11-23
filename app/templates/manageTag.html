@@ -1,10 +1,11 @@
 <h1>Manage Tags</h1>
 <form>
 	<h3>Skill Tags</h3>
-  <ul ng-repeat="(name,value) in skilltags">
-      <li ng-if = "!modifySkillTags">{{name}} : {{value}}</li>
+  <ul ng-repeat="(name,content) in skilltags">
+      <li ng-if = "!modifySkillTags">{{name}} : {{content.value}}</li>
       <li ng-if = "modifySkillTags">{{name}} :
-      <input type="number" placeholder="e.g. 70" ng-model = "newSkillTags[name]">
+      <input type="number" placeholder="e.g. 70" ng-model = "newSkillTags[name].value">
+			{{newSkillTags[name].value}}
       </li>
   </ul>
   <button type = "button" class = "btn btn-primary"  ng-click = "modifySkillTagsChoice()">Modify Skill Tags Values</button>

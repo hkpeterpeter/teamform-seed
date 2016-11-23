@@ -388,14 +388,19 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
         // return helper.postTeamAnnouncement(eventID, teamID, "Team Leader change from " + helper.getUsername(fromuid) + " to " + helper.getUsername(touid));
     }
 
+    var ref=firebase.database().ref("users");
+    var users = $firebaseArray(ref);
+
     helper.getUsername  = function(uid){
 
       return users.$getRecord(uid).readOnly.name;
     }
 
+    helper.getTeamname  = function(teamID){
 
-    var ref=firebase.database().ref("users");
-    var users = $firebaseArray(ref);
+      return teams.$getRecord(teamID).name;
+    }
+
 
     helper.joinEvent = function(uid, eventID) {
         ref=firebase.database().ref("users/"+uid+"/writable/"+eventID);

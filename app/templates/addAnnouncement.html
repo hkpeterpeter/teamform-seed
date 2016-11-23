@@ -1,0 +1,9 @@
+<h1>Add an announcement</h1>
+<form>
+	<h3>New Announcement</h3>
+	<textarea type="text" placeholder="Description of your team" ng-model="form.announcementmsg" rows="5"></textarea>
+	<br>
+  {{message}}
+	<button class="btn btn-primary" ng-click="addAnnouncement(form.announcementmsg)">Confirm</button>
+
+</form>

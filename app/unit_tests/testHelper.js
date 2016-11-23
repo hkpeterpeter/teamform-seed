@@ -1,9 +1,22 @@
 describe('Helper', function () {
   // Load your module.
   beforeEach(module('tfApp'));
+  module(function($provide){
+
+       $provide.factory('$firebaseArray', function(){
+          return function(params){
+              var dummyObj={};
+              console.log("!!!!!!!!!!!!!!!!!!!!!");
+              dummyObj.$getRecord = function(key){
+                  return {readOnly:{name: "dummy"}};
+              }
+              return dummyObj;
+          }
+       });
+     });
 
   // Setup the mock service in an anonymous module.
-  var $controller, $filter, firebase, $firebaseObject, $firebaseArray;
+  var $controller, $filter, firebase, $firebaseObject, $firebaseArray, $rootScope;
 
   // var config = {
   //   apiKey: "AIzaSyDo8JkS1VWAV6K1c3zNev7LVUu6qNtB8t4",
@@ -12,13 +25,17 @@ describe('Helper', function () {
   //   storageBucket: "todoappfirebase-a2dc5.appspot.com",
   // };
 
-  beforeEach(inject(function(_$controller_, _$filter_, $firebase, _$firebaseObject_, _$firebaseArray_){
+  beforeEach(inject(function(_$controller_, _$filter_, $firebase, _$firebaseObject_, _$firebaseArray_, _$rootScope_, $q){
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $controller = _$controller_;
     $filter = _$filter_;
     firebase = $firebase;
     $firebaseObject = _$firebaseObject_;
     $firebaseArray = _$firebaseArray_;
+    $rootScope = _$rootScope_;
+
+    var deferred = $q.defer();
+      deferred.resolve('somevalue');
   }));
 
 
@@ -123,7 +140,12 @@ describe('Helper', function () {
     }));
 
     // it('get user name', inject(function(Helper,  $firebase) {
-    //   Helper.getUsername("user1");
+    //   var users = {
+    //     $getRecord : function(key){
+    //         return {readOnly:{name: "dummy"}};
+    //     }
+    //   };
+    //   expect(Helper.getUsername("user1")).toEqual("dummy");
     // }));
     //
     // it('get team name', inject(function(Helper,  $firebase) {
