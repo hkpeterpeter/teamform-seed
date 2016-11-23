@@ -89,6 +89,17 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     var notifsRef = userRef.child('/notifs');
     $scope.notifs = $firebaseArray(notifsRef);
+    $scope.last10Notifs = $firebaseArray(notifsRef.orderByKey().limitToLast(10));
+    $scope.showAllNotifs = false;
+    $scope.show10Notifs = true;
+    $scope.showAll = function(){
+        $scope.showAllNotifs = true;
+        $scope.show10Notifs = false;
+    };
+    $scope.showLess = function () {
+        $scope.showAllNotifs = false;
+        $scope.show10Notifs = true;
+    };
 
     $scope.acceptInvitation = function(index){
         //To add him to the member list
