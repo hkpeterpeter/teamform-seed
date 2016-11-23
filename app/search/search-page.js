@@ -9,27 +9,27 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 		//central angular app
 		//var app = angular.module("profile",[]);
-		
+
 		app.factory('Search',function(){
 			return {search:true,text:""};
 		});
-		
+
 		app.factory('Naruto',function(){
 			return {Sasuke:"",Sakura:"Search Team"};
 		});
-		
+
 		//controll search page
 		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject){
 
 
-			//data lists got from firebase	
+			//data lists got from firebase
 			var tag = [];
 			var users = [];
 			var teams = [];
-			
+
 			var tagini;
 			$scope.teamini;
-			
+
 			//initialize data lists
 			var ref = firebase.database().ref("eventList");
 			var event_list = $firebaseObject(ref);
@@ -38,7 +38,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.userList.$loaded(function(){
 				event_list.$loaded(function(){
 					tagini = event_list["comp3111"]["skills"];
-					
+
 					$scope.teamini = event_list["comp3111"]["teamList"];
 					angular.forEach(tagini, function(value,key){
 						tag.push(key);
@@ -46,19 +46,19 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					angular.forEach($scope.teamini,function(value,key){
 						teams.push(key);
 					});
-					
+
 					angular.forEach($scope.userList,function(value,key){
 						//only get the user that belongs to current event
 						if($scope.userList[key].Membership.hasOwnProperty("comp3111")){
 							users.push($scope.userList[key].name);
-							
+
 						}
-					
+
 					});
-					
+
 				});
 			});
-			
+
 			$scope.teamyeah = false;
 			$scope.useryeah = true;
 			searchKey = Naruto.Sasuke;
@@ -67,11 +67,11 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.searchResult = [];
 			$scope.filterResult = [];
 			$scope.hehe = "";
-			$scope.startSearch = Search;
+			// $scope.startSearch = Search;
 			/*for(key in tag){
 				$scope.currentTag.push(key);
 			};*/
-			
+
 			$scope.searchType = Naruto.Sakura;
 			var setSearchT = function(){
 				Naruto.Sakura = "Search Team";
@@ -88,7 +88,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.setSearchE = function(){
 				$scope.searchType = "Search Event";
 			};
-			
+
 			$scope.reset = function(index){
 				var key;
 				$scope.resultTag.push($scope.currentTag[index]);
@@ -143,7 +143,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						var k = 0;
 						var valid = false;
 						for(var j = 0;j < reg.length;j++){
-						
+
 							while(k < tag[i].length){
 								if(tag[i].charAt(k) == reg.charAt(j)){
 									k++;
@@ -154,17 +154,17 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 								}else{
 									k++;
 								}
-								
+
 							}
 						}
 						if(valid){
 							$scope.currentTag.push(tag[i]);
 						}
-						
+
 					}
 				}
 			};
-			
+
 			var filterFunction = function(){
 				$scope.filterResult = [];
 				if($scope.searchType == "Search Team"){
@@ -223,7 +223,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 				}
 			}
-			
+
 			//private search method
 			var findResult = function(type){
 				var list = [];
@@ -235,11 +235,11 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				}
 				else{}//event list is not yet defined
 				var m = searchKey.length;
-					
+
 				//retrive every tags in tagList
 				for(var i = 0;i < list.length;i++){
 					var n = list[i].length;
-						
+
 					//create a new 2D array,initialize with all 0
 					var arr = []
 					for (var row = 0; row < m+1; row++) {
@@ -248,11 +248,11 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							arr[row].push(0);
 						}
 					}
-						
-						
+
+
 					//record the maximum number of matched subsequence in two strings
 					var max = 0;
-						
+
 					//start to fill the 2D array
 					for(var x = 1;x <= m; x++){
 						for(var y = 1;y <= n;y++){
@@ -264,7 +264,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							}
 							else if(arr[x-1][y] > arr[x][y-1]){
 								arr[x][y] = arr[x-1][y];
-							}	
+							}
 							else{
 								arr[x][y] = arr[x][y-1];
 							}
@@ -275,16 +275,16 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						$scope.searchResult.push(list[i]);
 					}
 				}
-				
+
 				tag = $scope.searchResult;
 			}
-			
+
 			var searchName = function(){
 				$scope.searchResult = [];
 				if($scope.resultTag.length == 0){
 					if($scope.searchType == "Search Team"){
 						findResult('team');
-						
+
 						$scope.filterResult = $scope.searchResult;
 					}
 					else{
@@ -302,7 +302,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 				}
 				else{
-					
+
 				}
 			}
 		});
@@ -314,7 +314,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.searchKey = "";
 			$scope.searchType = Naruto.Sakura;
 			Naruto.Sasuke = $scope.searchKey;
-			
+
 			$scope.setThisSearchP = function(){
 				setSearchP();
 			};
@@ -326,7 +326,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			};
 			$scope.start = function(){
 				Search.search = false;
-				
+
 			};
 		});
 
