@@ -42,11 +42,11 @@
 		  	<p><input class="form-control" placeholder="Search by event name" type="text" name="searchName" ng-model = "searchText"/></p>
 		  	<hr>
 		  	<!--###Content###-->
-		  	<div ng-controller="IconDisplayController">	  			
+  			
 					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}" style="text-align:left">
 						{{Event.eventInfo.name}}
 					</a>
-				</div> <!--ng-controller-->
+
 		  </div> <!--caption-->
 		</div> <!--thumbnail-->
 	</div> <!--col-md-8-->
