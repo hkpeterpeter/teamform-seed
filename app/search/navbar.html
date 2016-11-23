@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top" >
 
       <div class="container-fluid">
         <div class="navbar-header">
@@ -13,7 +13,7 @@
 			</a>
         </div>
 
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse" ng-controller = "navbar">
 			<ul class="nav navbar-nav navbar-right">
 				<li>
 					<!-- not yet decided -->
@@ -32,13 +32,13 @@
 							<span class="caret"></span>
 						</button>
 					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						<li><a href="#" ng-click = "setSearchT()">Search Team</a></li>
-						<li><a href="#" ng-click = "setSearchP()">Search Person</a></li>
+						<li><a href="#" ng-click = "setThisSearchT()">Search Team</a></li>
+						<li><a href="#" ng-click = "setThisSearchP()">Search Person</a></li>
 					</ul>
 					</div>
 				</label>
-            <input name = "search" type="text" class="form-control" ng-focus = "start()" placeholder="Search...">
-			<button type="button" class="btn btn-default" aria-label="Left Align">
+            <input name = "search" type="text" class="form-control" ng-model = "searchKey" ng-focus = "start()" placeholder="Search...">
+			<button type="button" class="btn btn-default" aria-label="Left Align" ng-click = "SearchThisName()">
 				<span class="glyphicon glyphicon-search" aria-hidden="true">
 			</button>
           </form>
