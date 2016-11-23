@@ -93,13 +93,13 @@
 
 
     			<!-- A Single Card -->
-          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams | filter:teamFilter">
+          <div class="card admin-team-card sticky-action blue-grey darken-1" id="{{team.teamName}}" ng-repeat="team in teams | filter:teamFilter">
             <div class="card-content white-text">
               <span class="card-title activator">{{ team.teamName }}<i class="material-icons right">more_vert</i></span>
               <br/>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Team Size:</span>
-                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members" ng-bind="getLength(team)"></span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" id="{{team.teamName}}num" data-badge-caption="members" ng-bind="getLength(team)"></span>
               </div>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Preferred Size:</span>
@@ -112,7 +112,7 @@
             </div>
             <div class="card-action">
               <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge">
-              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="remove(team)">Delete</button>
+              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="setactive($index); remove(team)">Delete</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="adminMergeTeam(team)">Merge</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="findSuitableUser(team)">Recommend</button>
             </div>
