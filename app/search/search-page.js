@@ -15,11 +15,11 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		});
 		
 		app.factory('Naruto',function(){
-			return {Sasuke:""};
+			return {Sasuke:"",Sakura:"Search Team"};
 		});
 		
 		//controll search page
-		app.controller("searchPage",function($scope,Search,Naruto,$cookies,$window,$firebaseObject){
+		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject){
 
 
 			//data lists got from firebase	
@@ -71,19 +71,16 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			/*for(key in tag){
 				$scope.currentTag.push(key);
 			};*/
-			$scope.start = function(){
-				$scope.startSearch.search = false;
-				
-			};
-			$scope.searchType = "Search Team";
-			$scope.setSearchT = function(){
-				$scope.searchType = "Search Team";
+			
+			$scope.searchType = Naruto.Sakura;
+			var setSearchT = function(){
+				Naruto.Sakura = "Search Team";
 				$scope.teamyeah = false;
 				$scope.useryeah = true;
 				$scope.clear();
 			};
-			$scope.setSearchP = function(){
-				$scope.searchType = "Search Person";
+			var setSearchP = function(){
+				Naruto.Sakura = "Search Person";
 				$scope.useryeah = false;
 				$scope.teamyeah = true;
 				$scope.clear();
@@ -313,12 +310,24 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 
 		//controll navigation bar
-		app.controller("navbar",function($scope,Naruto){
+		app.controller("navbar",function($scope,Naruto,Search){
 			$scope.searchKey = "";
+			$scope.searchType = Naruto.Sakura;
 			Naruto.Sasuke = $scope.searchKey;
-			$scope.searchName = function(){
-				searchName();
+			
+			$scope.setThisSearchP = function(){
+				setSearchP();
+			};
+			$scope.setThisSearchT = function(){
+				setSearchT();
 			}
+			$scope.searchThisName = function(){
+				searchName();
+			};
+			$scope.start = function(){
+				Search.search = false;
+				
+			};
 		});
 
 
