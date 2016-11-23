@@ -27,6 +27,7 @@ app.controller("teamCtrl",
 			3 : "withdrawn"
 		}
 
+
 		Auth.$onAuthStateChanged(function(authData) {
 				// console.log($scope.obj);
 				if (authData) {
@@ -315,14 +316,15 @@ app.controller("teamCtrl",
 
 //language tag functions
 
-
 		$scope.filterSkillTags = function(items) {
 				var result = {};
-				angular.forEach(items, function(value, key) {
-						if (value !== 0) {
-								result[key] = value;
+				angular.forEach(items, function(name, key) {
+					// console.log(name);
+						if (name.value !== 0) {
+								result[key] = name.value;
 						}
 				});
+				// console.log(result);
 				// console.log(Object.keys(result).length + "skill");
 				if (Object.keys(result).length == 0){
 					$scope.noSkillTags = true;
@@ -330,8 +332,14 @@ app.controller("teamCtrl",
 				else{
 						$scope.noSkillTags = false;
 				}
+				// console.log($scope.noSkillTags);
 				return result;
+
 		}
+
+		//
+		// console.log($scope.noSkillTags);
+		// console.log($scope.namelist2);
 
 		$scope.filterLanguageTags = function(items) {
 				var result = {};
@@ -368,23 +376,21 @@ app.controller("teamCtrl",
 				return result;
 		}
 
-		$scope.aaa = $scope.teamdata.leader;
-
 		$scope.modifySkillTagsChoice = function(){
 			$scope.modifySkillTags = !$scope.modifySkillTags;
 			$scope.newSkillTags = {
-				"JavaScript" : $scope.skilltags.JavaScript,
-				 "HTML" : $scope.skilltags.HTML,
-				 "CSS" : $scope.skilltags.CSS,
-				"Cpp" : $scope.skilltags.Cpp,
-				"Python" : $scope.skilltags.Python,
-				"SQL" : $scope.skilltags.SQL,
-				"SML" : $scope.skilltags.SML,
-				"C" : $scope.skilltags.C,
-				"Java" : $scope.skilltags.Java,
-				"Objective_C" : $scope.skilltags.Objective_C,
-				"FLEX" : $scope.skilltags.FLEX,
-				"PHP" : $scope.skilltags.PHP
+				"JavaScript" : {color:$scope.skilltags.JavaScript.color, value:$scope.skilltags.JavaScript.value},
+				 "HTML" : {color:$scope.skilltags.HTML.color, value:$scope.skilltags.HTML.value},
+				 "CSS" : {color:$scope.skilltags.CSS.color, value:$scope.skilltags.CSS.value},
+				"Cpp" : {color:$scope.skilltags.Cpp.color, value:$scope.skilltags.Cpp.value},
+				"Python" : {color:$scope.skilltags.Python.color, value:$scope.skilltags.Python.value},
+				"SQL" : {color:$scope.skilltags.SQL.color, value:$scope.skilltags.SQL.value},
+				"SML" : {color:$scope.skilltags.SML.color, value:$scope.skilltags.SML.value},
+				"C" : {color:$scope.skilltags.C.color, value:$scope.skilltags.C.value},
+				"Java" : {color:$scope.skilltags.Java.color, value:$scope.skilltags.Java.value},
+				"Objective_C" : {color:$scope.skilltags.Objective_C.color, value:$scope.skilltags.Objective_C.value},
+				"FLEX" : {color:$scope.skilltags.FLEX.color, value:$scope.skilltags.FLEX.value},
+				"PHP" : {color:$scope.skilltags.PHP.color, value:$scope.skilltags.PHP.value}
 			}
 
 			console.log($scope.newSkillTags);
@@ -425,27 +431,43 @@ app.controller("teamCtrl",
 		$scope.changeSkillTags = function(){
 			Helper.updateSkillTags($scope.eventID, $scope.teamID, $scope.newSkillTags);
 			$scope.modifySkillTags = !$scope.modifySkillTags;
+			$scope.initchart();
 		}
 
 		$scope.changeLanguageTags = function(){
 			Helper.updateLanguageTags($scope.eventID, $scope.teamID, $scope.newLanguageTags);
 			$scope.modifyLanguageTags = !$scope.modifyLanguageTags;
+				$scope.initchart();
 		}
 
 		$scope.changeMannerTags = function(){
 			Helper.updateMannerTags($scope.eventID, $scope.teamID, $scope.newMannerTags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
+				$scope.initchart();
 		}
 		//get announcements
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/announcements');
 		$scope.announcements = $firebaseArray(ref);
 
 //announcement functions
+
+var dialogue;
+$scope.addAnnouncementDialogue = function(){
+		dialogue = ngDialog.open({
+				template: 'templates/addAnnouncement.html',
+				className: 'ngdialog-theme-plain',
+				scope: $scope
+		});
+
+};
+
 		$scope.addAnnouncement = function(msg){
 			Helper.postTeamAnnouncement($scope.eventID, $scope.teamID, msg);
 			for (memberuid in  $scope.teamdata.members){
 					Helper.pushNotificationTo(memberuid, $scope.eventID, "Team leader has post a new message:\"" + msg + "\"" );
 			}
+
+			dialogue.close();
 		}
 
 		$scope.deleteTeamAnnouncementChoice=function(){
@@ -490,6 +512,156 @@ $scope.filterByStatus = function(items, filter_model) {
 					Helper.declineApplication(uid, $scope.eventID, $scope.teamID);
 					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teamdata.name +  " has been declined.");
 				}
+
+				$scope.initchart = function(){
+
+					var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
+					$scope.tags = $firebaseObject(tagref);
+					$scope.tags.$loaded().then(function(){
+						console.log($scope.tags.SkillTags);
+						$scope.skilltagnames = $scope.tags.SkillTags;
+						// console.log($scope.skilltagnames);
+
+									var stnames = [];
+									var stvalues = [];
+									// var values = {name: 'misko', gender: 'male'};
+									for(key in $scope.skilltagnames){
+										if($scope.skilltagnames[key].value!==0){
+											stnames.push(key);
+											stvalues.push($scope.skilltagnames[key].value);
+										}
+									}
+
+									var chartdata = {
+									type: 'bar',
+									data: {
+											labels: stnames,
+											datasets: [{
+													label: 'Rating of Team Skill Tags',
+													data: stvalues,
+													backgroundColor: [
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)',
+															'rgba(250, 128, 114,1.0)'
+													],
+													borderColor: [
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)',
+														'rgba(250, 128, 114,1.0)'
+													],
+													borderWidth: 1
+											}
+										]
+									},
+									options: {
+											scales: {
+													yAxes: [{
+															ticks: {
+																	beginAtZero:true
+															}
+													}]
+											}
+									}
+							};
+
+							angular.forEach($scope.teamdata.members,function(value,key){
+								// console.log(uid);
+									var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
+									var user_tags = $firebaseObject(ref);
+									console.log(user_tags);
+
+									ref.once("value")
+									  .then(function(snapshot) {
+										var user_skilltags = snapshot.child('SkillTags').val()
+										console.log(user_skilltags);
+
+										var userstvalues = [];
+										// var user_skilltags = user_tags;
+										// console.log(user_skilltags);
+										for(key in $scope.skilltagnames){
+											if($scope.skilltagnames[key].value!==0){
+												if(user_skilltags[key] === undefined){
+													userstvalues.push(0);
+												}
+												else{
+												userstvalues.push(user_skilltags[key]);
+												}
+											}
+										};
+										console.log(userstvalues);
+			console.log(value);
+										//  console.log(userstvalues);
+										chartdata.data.datasets.push({
+
+												label: 'Rating of ' + Helper.getUsername(value),
+												data: userstvalues,
+												backgroundColor: [
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)'
+												],
+												borderColor: [
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)',
+														'rgba(54, 162, 235, 1)'
+												],
+												borderWidth: 1
+										});
+											});
+							});
+
+									// for(number in $scope.skilltagnames){
+									// 	stvalues.push(number);
+									// 	console.log(stvalues);
+									// }
+
+
+									// var list = [4,9,9,9];
+									console.log(	chartdata.data.datasets);
+							//["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
+									//Get the context of the canvas element we want to select
+									var ctx = document.getElementById("myChart").getContext("2d");
+									var myChart = new Chart(ctx, chartdata);
+											console.log(	chartdata.data.datasets);
+					});
+
+				};
 
 });
 

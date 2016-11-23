@@ -1,6 +1,6 @@
-app.controller("dashboardCtrl", 
+app.controller("dashboardCtrl",
 
-	// Implementation the todoCtrl 
+	// Implementation the todoCtrl
 	function($scope, Auth, $firebaseArray, $firebaseObject, $window) {
 
 
@@ -22,10 +22,7 @@ app.controller("dashboardCtrl",
 				console.log(error);
 			});
 		};
-		
+
 
 	}
 );
-
-
-
