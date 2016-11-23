@@ -235,6 +235,29 @@
 			</div> <!--thumbnail-->
 		</div> <!--col-md-3-->
 
+    <!--##############Recommend TBA###############-->
+
+		<div class="col-md-3">
+			<div class="thumbnail">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4>Recommend TBA</h4>
+				  <p>People who may fit your team</p>
+				  <hr>
+				  <!--###Content###-->
+				  <div class="container">
+				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model)">
+							<div class="col-md-2">
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
+				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
+				      	</a>
+				      </div>
+						</div> <!--row ng-repeat-->
+			    </div> <!--container-->
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-3-->
+
 	</div> <!--row-->
 
 </div> <!--container-->
