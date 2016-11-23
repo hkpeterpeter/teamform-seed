@@ -18,7 +18,7 @@
     
     <script src="./js/btnclick.js" ></script>
     <script src="./fonts/glyphicons-halflings-regular.woff" ></script>
-    <script src="../TXR/index.js"></script>
+    <!--script src="../TXR/index.js"></script-->
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -50,10 +50,10 @@
 </head>
 
 
-<body ng-app = "mainApp">
+<body ng-app = "clickApp">
    <!--invite users with pop up window-->
             
-            <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "IsVisibleCOMP3111">Invite Users</button>
+            <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = true>Invite Users</button>
           </h2> 
                   <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -61,6 +61,9 @@
 
                         <div ng-controller = "clickCtrl">
 
+
+<input type="file" id="picture" name="file"/>
+<button class="btn btn-default" ng-click="uploadPicture()">Upload</button>
 
                         <div class="modal-header">
                         <!--tag-->
@@ -217,8 +220,7 @@
 
                            </div>
                            </div>
-                        </div>
-
+                        </div>        
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
