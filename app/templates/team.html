@@ -145,8 +145,14 @@
 				  <p>Statistics on tags.</p>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container" ng-init = "initchart()">
-				  	<canvas id="myChart" width="200" height="200"></canvas>
+				  <div class="container" ng-init = "initchart_skilltags()">
+				  	<canvas id="myChart_skill" width="200" height="200"></canvas>
+				  </div> <!--container-->
+          <div class="container" ng-init = "initchart_languagetags()">
+				  	<canvas id="myChart_language" width="200" height="200"></canvas>
+				  </div> <!--container-->
+          <div class="container" ng-init = "initchart_mannertags()">
+				  	<canvas id="myChart_manners" width="200" height="200"></canvas>
 				  </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
