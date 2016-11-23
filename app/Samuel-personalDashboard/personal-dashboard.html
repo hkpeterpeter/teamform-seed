@@ -102,7 +102,7 @@
                 <h5>All of my notifications:</h5>
                <!--  <a class="waves-effect waves-light btn" ng-click="showLess()">Show Less</a> -->
                 <ul>
-                <li  ng-repeat="notif in notifs track by $index">
+                <li  ng-repeat="notif in notifs | orderBy:'$index':true">
                 <div class="chip" style="float:none; margin-top: 20px; width: 100%">
                  <img src="{{notif.imageURL}}" alt="Contact Person">
                     {{notif.content}}

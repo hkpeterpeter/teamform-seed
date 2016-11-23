@@ -5,12 +5,12 @@
     $('.collapsible').collapsible();
     </script>
     <ul class="dropdown-content" id="notifications">
-        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'}">
+        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'} | orderBy:'$index':true">
             <invitation-bar cpic="{{x.imageURL}}" event="{{x.eventName}}" from="{{x.senderName}}" team="{{x.teamName}}" type="{{x.type}}">
                 {{x.content}}
             </invitation-bar>
         </li>
-        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'System'}">
+        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'System'} | orderBy:'$index':true">
             <notify-bar cpic="{{x.imageURL}}" type="{{x.type}}">
                 {{x.content}}
             </notify-bar>
