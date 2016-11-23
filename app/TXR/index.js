@@ -3,7 +3,7 @@ var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
 //initalizeFirebase();
 
 app.config(function($routeProvider){
-     $routeProvider.when("/",{templateUrl:"MyProfile.html"})
+     $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
      .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
@@ -238,4 +238,13 @@ app.controller("clickCtrl",
       };
 
     }
+);
+
+app.controller("profileController",function($scope,$routeParams,$firebaseObject){
+	  var event_name = $routeParams.p;
+      var this_user = "iamauthur";
+      $scope.user_list = $firebaseObject(firebase.database().ref("userList"));
+      $scope.event_list = $firebaseObject(firebase.database().ref("eventList"));
+      var conversation = $firebaseObject(firebase.database().ref("conversation"));
+}
 );
