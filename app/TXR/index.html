@@ -79,9 +79,9 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" ng-controller="sidebarCtrl">
-            <ul class="nav nav-sidebar" ng-controller="sidebarController">
+            <ul class="nav nav-sidebar" ng-click="startSearch.search=true" ng-controller="sidebarController">
             <li class="active"><a href="#/">My Profile<span class="sr-only">(current)</span></a></li>
-            		<li><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">My Events</a>
+            		<li><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false" ng-click="startSearch.search=true">My Events</a>
                     <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
                
                     <li ng-repeat="(event,value) in eventlist"><a ng-href="#/MyEvents/{{event}}">{{event}}</a></li>

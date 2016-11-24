@@ -58,13 +58,13 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
 
 
-      $scope.getimg=function(num,member){
-        var photo;
-        userlist.$loaded(function() {
-          photo=userlist[member]["Img"];
-       })
-            return photo;
-      }
+      // $scope.getimg=function(num,member){
+      //   var photo;
+      //   userlist.$loaded(function() {
+      //     photo=userlist[member]["Img"];
+      //  })
+      //       return photo;
+      // }
 
       
 
