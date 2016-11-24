@@ -1,15 +1,15 @@
 teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScope,$scope) {
 
-  $scope.loginStatus = false;
+
 
   // For stupid test case, comment out the only useful function here
-  /*
+  
   $scope.loginhelper = function(result) {
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
   // The signed-in user info.
   // var user = result.user;
-
+  localStorage.setItem('loginStatus', true);
 
   successFlag = true;
 
@@ -39,8 +39,8 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
       console.log("user added");
       $rootScope.loginWithEmail(data['email']);
     }
-    $scope.loginStatus = true;
-    // console.log($rootScope.currentUser);
+
+    console.log($rootScope.currentUser['name']);
     // $rootScope.test();
 
   };
@@ -55,10 +55,14 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
   var credential = error.credential;
   console.log(error);
   if (errorCode == 'auth/account-exists-with-different-credential') {
-    $('.loginB').toggle();
+    // $('.loginB').toggle();
+    $rootScope.loginWithEmail(email);
+    localStorage.setItem('loginStatus', true);
+    console.log($rootScope.currentUser['name']);
+    location.assign('#');
   }
 };
-*/ 
+
   // Login helper functions
   $scope.login = function(providerName) {
     var successFlag = false;
@@ -83,10 +87,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
       return;
     }
 
-
-    // *** Here goes the side effect of stupid test case
-
-    // firebase.auth().signInWithPopup(provider).then($scope.loginhelper).catch($scope.loginErrorHandler);
+    firebase.auth().signInWithPopup(provider).then($scope.loginhelper).catch($scope.loginErrorHandler);
 
 };
 
@@ -131,11 +132,11 @@ $scope.login_selected = function() {
       // tabSignup.addClass('selected');
     };
 
-    $scope.switcher = function(event) {
-      event.preventDefault();
-      // $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected();
-      $scope.login_selected();
-    }
+    // $scope.switcher = function(event) {
+    //   event.preventDefault();
+    //   $(event.target).is( $('.cd-switcher').children('li').eq(0).children('a') ) ? $scope.login_selected() : $scope.signup_selected();
+    //   // $scope.login_selected();
+    // }
 
 // $scope.changeVisible = function(event) {
 
@@ -143,7 +144,6 @@ $scope.login_selected = function() {
 //      $('.cd-user-modal').removeClass('is-visible');
 //   }
 // }
-
 
 $scope.features = [
 {
