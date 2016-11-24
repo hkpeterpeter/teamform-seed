@@ -111,7 +111,7 @@
 				  <h4>Announcement</h4>
 				  <p>Please check regularly.</p>
 				  <p>
-						<button class="btn btn-danger" ng-click="???" ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="New announcement">
+						<button class="btn btn-danger" ng-click="addAnnouncementDialogue()" ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="New announcement">
 							<i class="icon-plus-sign"></i>
 						</button>
 						<button class="btn btn-danger" ng-click="deleteTeamAnnouncementChoice()" ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Delete an announcement">
