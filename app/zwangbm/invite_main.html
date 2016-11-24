@@ -229,11 +229,13 @@
      <div ng-controller = "clickCtrl">
       <div class="col-lg-6" id="suggestion">
         <h2>Suggested Users</h2>
-
+        <pre>suggested:{{suggested|json}}</pre>
 
           <div class="table-responsive">
             <table class="table table-striped">
+
             <label  ng-repeat="(username,content) in users">
+
             {{content.name}}
               <tbody>
 
