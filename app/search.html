@@ -213,7 +213,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <span class="font-size-sm">{{(r.tags!=""?"Tags: ":"")}}
-                                <span ng-repeat="t in r.tags"><span class="badge tags-style" ng-bind-html="trustAsHtml(t)"></span></span>
+                                <span ng-repeat="t in r.tags"><span class="badge tags-style" ng-click="searchTags(t)" ng-bind-html="trustAsHtml(t)"></span></span>
                             </span>
                         </div>
                     </div>

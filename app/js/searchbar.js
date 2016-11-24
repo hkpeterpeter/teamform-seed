@@ -76,6 +76,38 @@ app.controller("searchCtrl",
             }
         };
 
+        function parseTeamToresultElement(_team, _eid) {
+            // teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
+            console.log(_team);
+            this.name = _team.name;
+            this.id = "Team ID: " + _team.id;
+            this.description = _team.descriptions;
+            this.eid = "searchResultElement-" + _eid;
+            this.language = _team.language_for_communication;
+            this.country = _team.destination;
+            this.tags = _team.tags;
+            this.email = "";
+            this.gender = _team.preference;
+            this.full = _team.full;
+            this.depart = _team.departure_date;
+            this.desireToGo = "";
+        }
+
+        function resultElement(_id, _name, _description, _eid, _language, _country, _tags, _email, _gender, _full, _depart, _desireToGo) {
+            this.name = _name;
+            this.id = _id;
+            this.description = _description;
+            this.eid = _eid;
+            this.language = _language;
+            this.country = _country;
+            this.tags = _tags;
+            this.email = _email;
+            this.gender = _gender;
+            this.full = _full;
+            this.depart = _depart;
+            this.desireToGo = _desireToGo;
+        }
+
         $scope.$watch("constraint.tm", function (newVal, oldVal) {
             if (newVal == "0") {
                 $scope.constraint.mDis = false;
@@ -167,21 +199,6 @@ app.controller("searchCtrl",
             //create a local array to store result
             var teamsAndMembers = [];
 
-            $scope.resultElement = function (_id, _name, _description, _eid, _language, _country, _tags, _email, _gender, _full, _depart, _desireToGo) {
-                this.name = _name;
-                this.id = _id;
-                this.description = _description;
-                this.eid = _eid;
-                this.language = _language;
-                this.country = _country;
-                this.tags = _tags;
-                this.email = _email;
-                this.gender = _gender;
-                this.full = _full;
-                this.depart = _depart;
-                this.desireToGo = _desireToGo;
-            }
-
             //clear the previos search results
             $scope.result = [];
 
@@ -227,7 +244,7 @@ app.controller("searchCtrl",
                 for (var i = 0; i < teams.length; i++) {
                     //constraints
                     if (keywords.join("") == "" && $scope.constraint.tm == 1 && !$scope.constraint.hasTeamConstraints()) {
-                        teamsAndMembers.push(new $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                        teamsAndMembers.push(new resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
                             teams[i].language_for_communication, teams[i].destination, teams[i].tags, "", teams[i].preference,
                             teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : ""),
                             new Date(teams[i].departure_date).getUTCFullYear() + "-" + (new Date(teams[i].departure_date).getUTCMonth() + 1) + "-" + new Date(teams[i].departure_date).getUTCDate(), ""));
@@ -294,7 +311,7 @@ app.controller("searchCtrl",
                             continue;
                         }
 
-                        teamsAndMembers.push(new $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
+                        teamsAndMembers.push(new resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
                             lang, dest, teams[i].tags, "", pref, full, depart, ""));
                         if (teams.length - 1 == i)
                             $scope.constraint.clearT();
@@ -345,7 +362,7 @@ app.controller("searchCtrl",
                         var e7 = hightlight(teams[i].preference, keywords);
                         var e8 = teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : "");
                         var e9 = new Date(teams[i].departure_date).getUTCFullYear() + "-" + (new Date(teams[i].departure_date).getUTCMonth() + 1) + "-" + new Date(teams[i].departure_date).getUTCDate();
-                        teamsAndMembers.push(new $scope.resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
+                        teamsAndMembers.push(new resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
                     }
                 }
             }
@@ -383,7 +400,7 @@ app.controller("searchCtrl",
                 for (var i = 0; i < members.length; i++) {
                     //constraint
                     if (keywords.join("") == "" && $scope.constraint.tm == 2 && !$scope.constraint.hasMemberConstraints()) {
-                        teamsAndMembers.push(new $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                        teamsAndMembers.push(new resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
                             "searchResultElement-" + (i + resultCount), members[i].language.join(", "), members[i].from, "", members[i].email, members[i].gender, "", "", members[i].want_to_travel.join(", ")));
                         continue;
                     }
@@ -470,7 +487,7 @@ app.controller("searchCtrl",
                             continue;
                         }
 
-                        teamsAndMembers.push(new $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
+                        teamsAndMembers.push(new resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
                             "searchResultElement-" + (i + resultCount), lang, country, "", members[i].email, gender, "", "", desireToGo));
                         if (members.length - 1 == i)
                             $scope.constraint.clearM();
@@ -523,7 +540,7 @@ app.controller("searchCtrl",
                         var e6 = hightlight(members[i].email, keywords);
                         var e7 = hightlight(members[i].gender, keywords);
                         var e8 = hightlight(members[i].want_to_travel.join(" * "), keywords).split(" * ").join(", ");
-                        teamsAndMembers.push(new $scope.resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
+                        teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
                     }
                 }
             }
@@ -543,6 +560,24 @@ app.controller("searchCtrl",
             $("#advancedSearchPanel").hide();
         }
         //Search function end
+
+        //search Tags start
+        $scope.searchTags = function (tagName) {
+            console.log("Receive tag name: " + tagName);
+            tagName = tagName.replace(/<\w{1,}>/gi, "");
+            tagName = tagName.toLowerCase();
+            var teams = $scope.teamData;
+            $scope.result = [];
+            for (var i = 0; i < teams.length; i++)
+                for (var j = 0; j < teams[i].tags.length; j++)
+                    if (teams[i].tags[j].toLowerCase() == tagName) {
+                        $scope.result.push(new parseTeamToresultElement(teams[i], $scope.result.length));
+                        break;
+                    }
+            if ($scope.result.length == 0)
+                $scope.result.push(false);
+        };
+        //search Tags End
     }
 );
 
