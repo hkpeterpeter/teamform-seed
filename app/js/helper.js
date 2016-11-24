@@ -456,3 +456,82 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
     return helper;
 })
+
+
+app.filter('IconDisplayMapping',function() {
+    return function(role){
+        icon = "ban-circle";
+        switch(role) {
+            case "admin":   icon = "desktop"; break;
+            case "leader":  icon = "star"; break;
+            case "member": icon = "star-empty"; break;
+            case "tba": icon = "umbrella"; break;
+            case "guest": icon = "user"; break;
+        }
+        return icon;
+    }
+})
+
+app.filter('numKeys', function() {
+    return function(json) {
+        if(json===undefined)
+            return 0;
+        var keys = Object.keys(json)
+        return keys.length;
+    }
+});
+
+app.filter('role', function(){
+    return function(obj) {
+        if (obj === undefined){
+            return 'visitor';
+        }
+        else
+            return obj.position;
+    }
+});
+
+app.filter('teamId', function(){
+    return function(obj) {
+        if (obj == undefined){
+            return null;
+        }
+        else{
+            //console.log(obj.team);
+            return obj.team;
+        }
+    }
+});
+
+
+app.filter('stringToDate', function($filter){
+    return function(obj) {
+        date = new Date();
+        date.setTime(Date.parse(obj));
+        // return $filter('date')(date,"yyyy-MM-dd");
+        return date;
+    }
+});
+
+app.filter('tagColor', function(){
+    return function(obj) {
+        if(obj == "green")
+            return "success";
+        else if(obj =="red")
+            return "danger";
+        else
+            return "default";
+    }
+});
+
+app.filter('DateFormat', function(){
+        return function(obj) {
+            if (obj == undefined){
+                    return null;
+            }
+            else{
+                var datefiltered = new Date(obj);
+                return datefiltered;
+            }
+        }
+});
