@@ -12,7 +12,7 @@
 
 <div class="container-fluid">	
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-2">
 			<div class="btn-group-vertical">
 				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/home">
 					<br><i class="icon-home icon-2x"></i><br><p>Home</p></a>
@@ -24,11 +24,11 @@
 					<br><i class="icon-inbox icon-2x"></i><br><p>Request</p></a>
 				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/profile/{{authData.uid}}">
 					<br><i class="icon-list-alt icon-2x"></i><br><p>Profile</p></a>
-			</div>
-		</div>
-		<div class="col-md-8">
+			</div> <!--btn-group-vertical-->
+		</div> <!--col-md-2-->
+		<div class="col-md-10">
 			<div ui-view></div>
-		</div>
+		</div> <!--col-md-10-->
 	</div>
 </div>
 
