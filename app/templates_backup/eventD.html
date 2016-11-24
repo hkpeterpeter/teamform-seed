@@ -44,7 +44,9 @@
     <div class="panel-heading"><h2 class="panel-title">Announcments</h2></div>
     <div class="panel-body">
         <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
-            {{name.content}}
+            <h5 ng-hide="{{name.timeStamp|judgeDate}}<{{myEvent.lastLogin|judgeDate}}"><b>{{name.content}}</b></h5>
+            <span ng-show="{{name.timeStamp|judgeDate}}<{{myEvent.lastLogin|judgeDate}}">{{name.content}}</span>
+            <span>{{name.timeStamp | stringToDate | date: 'yyyy-MM-dd hh:mm'}}</span>
             <button class="btn btn-primary"  ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'">Delete</button>
         </div>
     </div>

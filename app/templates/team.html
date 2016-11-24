@@ -7,18 +7,18 @@
 		<h2>{{teamdata.name}}</h2>
 		<p>{{teamdata.desc}}</p>
 		<p>	
-			<div class="btn-group" ng-if="(myEvents[eventID] | teamId)==teamID"">
+			<div class="btn-group" ng-if="(myEvents[eventID] | teamId)==teamID || (myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='admin'">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
 						<i class="icon-{{myEvents[eventID] | role | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
 						<span class="caret"></span>
 					</button>
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
-						<li><a ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team description</a></li>
-						<li><a ng-click = "ApplyTeam()" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()">Apply for this team</a></li>
-						<li><a ng-click="QuitTeam()" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID">Leave this team</a></li>
-						<li><a ng-click="Change_Leader()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team leader</a></li>
-						<li><a ng-click="" ng-if=""></a></li>
+						<li><a class="btn" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team description</a></li>
+						<li><a class="btn" ng-click = "ApplyTeam()" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()">Apply for this team</a></li>
+						<li><a class="btn" ng-click="QuitTeam()" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID">Leave this team</a></li>
+						<li><a class="btn" ng-click="Change_Leader()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team leader</a></li>
+					
 					</ul>
 				</div>
       </div> <!--btn-group-->
@@ -144,13 +144,13 @@
 				  <!--###Content###-->
 				  <div class="container" ng-init = "initchart_skilltags()">
 				  	<canvas id="myChart_skill" width="200" height="200"></canvas>
-				  </div> <!--container-->
-          <div class="container" ng-init = "initchart_languagetags()">
+				  </div> 
+          <!-- <div class="container" ng-init = "initchart_languagetags()">
 				  	<canvas id="myChart_language" width="200" height="200"></canvas>
-				  </div> <!--container-->
+				  </div> 
           <div class="container" ng-init = "initchart_mannertags()">
 				  	<canvas id="myChart_manners" width="200" height="200"></canvas>
-				  </div> <!--container-->
+				  </div>  -->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
