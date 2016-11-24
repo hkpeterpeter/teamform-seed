@@ -44,7 +44,7 @@
 		  	<!--###Content###-->
   			
 					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" ng-repeat="Event in events | filter: {eventInfo: {name: searchText}}" style="text-align:left">
-						<i class="icon-{{myEvent.position | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{Event.eventInfo.name}}
+						{{Event.eventInfo.name}}
 					</a>
 
 		  </div> <!--caption-->
