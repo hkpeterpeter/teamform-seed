@@ -92,6 +92,7 @@ angular.module('teamform-app', ['firebase'])
             }
         });
     });
+
     $scope.joinEvent = function(eventName, mode) {
         uid = firebase.auth().currentUser.uid;
         //check the user has already joined the team (the child member should have his/her record)

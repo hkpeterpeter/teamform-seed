@@ -27,17 +27,40 @@ angular.module('teamform-admin-app', ['firebase'])
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
 	$scope.event = "";
+	$scope.joinedEvent = [];
 	
 	var refPath, ref, eventName;
 
 	eventName = getURLParameter("q");
 	refPath = eventName + "/admin/param";
 	ref = firebase.database().ref(refPath);
+
+	firebase.auth().onAuthStateChanged(function(firebaseUser) {
+		if(firebaseUser) {
+			var user = firebase.auth().currentUser;
+			$scope.uid = user.uid;
+			$scope.userInfo = $firebaseObject(firebase.database().ref().child("user").child($scope.uid));
+			$scope.userInfo.$loaded().then(function() {
+				if(typeof $scope.userInfo.joinedEvent != "undefined") {
+					$scope.joinedEvent = $scope.userInfo.joinedEvent;
+					if($scope.joinedEvent.indexOf(eventName) == -1) {
+						$scope.joinedEvent.push(eventName);
+					}
+				}
+				else {
+					$scope.joinedEvent = [];
+					$scope.joinedEvent.push(eventName);
+				}
+				firebase.database().ref().child("user").child($scope.uid).update({joinedEvent: $scope.joinedEvent});
+			});
+		}
+	});
 		
 	// Link and sync a firebase object	
 	$scope.param = $firebaseObject(ref);
 	$scope.paramTest = "";
 	$scope.paramLoadedCallback = function() {
+		var user = firebase.auth().currentUser;
 		if(typeof $scope.param.maxTeamSize == "undefined") {
 			$scope.param.maxTeamSize = 10;
 			$scope.paramTest = "maxUndefined";
@@ -47,8 +70,7 @@ angular.module('teamform-admin-app', ['firebase'])
 			$scope.paramTest += " minUndefined";
 		}
 		if(typeof $scope.param.eventAdmin == "undefined") {
-			$scope.paramTest += " noAdmin";
-			var user = firebase.auth().currentUser;
+			$scope.paramTest += " noAdmin";			
 			if(user && eventName != null) {
 				$scope.param.eventAdmin = user.uid;
 				$scope.param.$save();
@@ -62,6 +84,13 @@ angular.module('teamform-admin-app', ['firebase'])
 			$("#admin_page_controller button").hide();
 		}
 		$('#admin_page_controller').show();
+		var addMemberEntryRef = firebase.database().ref().child(eventName).child("member").child(user.uid);
+		var addMemberEntry = $firebaseObject(addMemberEntryRef);
+		addMemberEntry.$loaded().then(function() {
+			if(typeof addMemberEntry.weight === "undefined") {
+				addMemberEntryRef.set({weight: 0});
+			}
+		});
 	};
 
 	$scope.param.$loaded().then($scope.paramLoadedCallback);
