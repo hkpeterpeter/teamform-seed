@@ -27,12 +27,18 @@ app.controller("eventDCtrl",
                 $scope.myEvents = $firebaseObject(ref);
                 ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable/"+$scope.eventID);
                 $scope.myEvent = $firebaseObject(ref);
-                $scope.myEvent.$loaded().then(function(data){
-                    loginDate = new Date();
-                    $scope.myEvent.lastLogin = loginDate.toString();
-                    $scope.myEvent.$save();
+                $scope.myEvents.$loaded().then(function(data){
+                    $scope.myEvent.$loaded().then(function(data){
+                        if($scope.myEvents[$scope.eventID]!==undefined)
+                        {
+                            loginDate = new Date();
+                            $scope.myEvent.lastLogin = loginDate.toString();
+                            $scope.myEvent.$save();
+                        }
 
-                });
+                    });
+                })
+                
                 // $scope.myEvents.$loaded().then(function(){
                 //     //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
                 //     invref = firebase.database().ref('events/' + $scope.eventID + "/teams/" + $filter('teamId')($scope.myEvents[$scope.eventID]) + "/invitations");
