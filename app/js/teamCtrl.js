@@ -585,8 +585,8 @@ $scope.filterByStatus = function(items, filter_model) {
 					});
 
 
-					var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
-					$scope.tags = $firebaseObject(tagref);
+					// var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
+					// $scope.tags = $firebaseObject(tagref);
 					$scope.tags.$loaded().then(function(){
 						// console.log($scope.tags.SkillTags);
 						//  console.log($scope.languagetagnames);
@@ -666,8 +666,8 @@ $scope.filterByStatus = function(items, filter_model) {
 									});
 					});
 
-					var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
-					$scope.tags = $firebaseObject(tagref);
+					// var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
+					// $scope.tags = $firebaseObject(tagref);
 					$scope.tags.$loaded().then(function(){
 
 									$scope.mtnames = [];
@@ -737,45 +737,72 @@ $scope.filterByStatus = function(items, filter_model) {
 			var eventRef = firebase.database().ref("events/" + $scope.eventID);
 			$scope.eventObj = $firebaseObject(eventRef);
 
-			$scope.RecommendTBA = function(people) {
-					var result = {};
-					var tba_featurelist = {};
-					angular.forEach(people, function(name, uid) {
-						// console.log(name);
-						console.log(uid);
-						var key = uid;
-						console.log(key);
-						angular.extend(tba_featurelist, {[key]: 0});
-					});
-					console.log(tba_featurelist);
+			$scope.eventObj.$loaded().then(function(){
+				// $scope.RecommendTBA = function(people) {
+				// 		var result = {};
+						$scope.tba_featurelist = {};
+						angular.forEach($scope.eventObj.tba, function(name, uid) {
+							// console.log(name);
+							// console.log(uid);
+							var key = uid;
+							// console.log(key);
+							angular.extend($scope.tba_featurelist, {[key]: 0});
+						});
+						console.log($scope.tba_featurelist);
 
-					angular.forEach(tba_featurelist,function(score,uid){
-						//... gg
+						angular.forEach($scope.tba_featurelist,function(score,uid){
+							//... gg
 
-						var ref = firebase.database().ref('users/' + uid+ '/readOnly/info/tags');
-						var user_tags = $firebaseObject(ref);
-						user_tags.$loaded().then(function(){
-							var team_skilltags = $scope.filterSkillTags($scope.skilltags);
-							angular.forEach(user_tags.SkillTags, function(value,key){
-								console.log(key);
-								console.log(team_skilltags);
-								if(team_skilltags[key] !== undefined && team_skilltags[key].color =='green' && value >= team_skilltags[key].value){
-									// console.log(team_skilltags[key]);
-									// console.log(team_skilltags[key].color );
-									// console.log(team_skilltags[key].value);
-									//
-									// console.log("a");
-									tba_featurelist[uid] = tba_featurelist[uid] + 3;
-								}
-							});
-							console.log(tba_featurelist);
-						})
+							var ref = firebase.database().ref('users/' + uid+ '/readOnly/info/tags');
+							var user_tags = $firebaseObject(ref);
+							user_tags.$loaded().then(function(){
+								var team_skilltags = $scope.filterSkillTags($scope.skilltags);
+								var team_languagetags = $scope.filterLanguageTags($scope.languagetags);
+								var team_mannertags = $scope.filterMannerTags($scope.mannertags);
+								angular.forEach(user_tags.SkillTags, function(value,key){
+									console.log(key);
+									console.log(team_skilltags);
+									if(team_skilltags[key] !== undefined && team_skilltags[key].color =='green' && value >= team_skilltags[key].value){
+										// console.log(team_skilltags[key]);
+										// console.log(team_skilltags[key].color );
+										// console.log(team_skilltags[key].value);
+										//
+										// console.log("a");
+										$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 3;
+									}
+								});
+								angular.forEach(user_tags.LanguageTags, function(value,key){
+									console.log(key);
+									console.log(team_languagetags);
+									if(team_languagetags[key] == true){
+										// console.log(team_skilltags[key]);
+										// console.log(team_skilltags[key].color );
+										// console.log(team_skilltags[key].value);
+										//
+										// console.log("a");
+										$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 2;
+									}
+								});
+								angular.forEach(user_tags.MannerTags, function(value,key){
+									console.log(key);
+									console.log(team_mannertags);
+									if(team_mannertags[key] == true){
+										// console.log(team_skilltags[key]);
+										// console.log(team_skilltags[key].color );
+										// console.log(team_skilltags[key].value);
+										//
+										// console.log("a");
+										$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 1;
+									}
+								});
+								console.log($scope.tba_featurelist);
+							})
+						});
+			})
 
-						console.log(tba_featurelist);
-					});
 
-					return result;
-
-			}
+			// 		return result;
+			//
+			// }
 
 });
