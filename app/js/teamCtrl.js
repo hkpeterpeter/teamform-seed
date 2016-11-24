@@ -749,10 +749,29 @@ $scope.filterByStatus = function(items, filter_model) {
 					});
 					console.log(tba_featurelist);
 
-					angular.forEach(tba_featurelist,function(value,key){
+					angular.forEach(tba_featurelist,function(score,uid){
 						//... gg
-						var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
+
+						var ref = firebase.database().ref('users/' + uid+ '/readOnly/info/tags');
 						var user_tags = $firebaseObject(ref);
+						user_tags.$loaded().then(function(){
+							var team_skilltags = $scope.filterSkillTags($scope.skilltags);
+							angular.forEach(user_tags.SkillTags, function(value,key){
+								console.log(key);
+								console.log(team_skilltags);
+								if(team_skilltags[key] !== undefined && team_skilltags[key].color =='green' && value >= team_skilltags[key].value){
+									// console.log(team_skilltags[key]);
+									// console.log(team_skilltags[key].color );
+									// console.log(team_skilltags[key].value);
+									//
+									// console.log("a");
+									tba_featurelist[uid] = tba_featurelist[uid] + 3;
+								}
+							});
+							console.log(tba_featurelist);
+						})
+
+						console.log(tba_featurelist);
 					});
 
 					return result;
