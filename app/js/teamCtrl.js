@@ -27,7 +27,6 @@ app.controller("teamCtrl",
 			3 : "withdrawn"
 		}
 
-
 		Auth.$onAuthStateChanged(function(authData) {
 				// console.log($scope.obj);
 				if (authData) {
@@ -321,7 +320,7 @@ app.controller("teamCtrl",
 				angular.forEach(items, function(name, key) {
 					// console.log(name);
 						if (name.value !== 0) {
-								result[key] = name.value;
+								result[key] = name;
 						}
 				});
 				// console.log(result);
@@ -496,466 +495,259 @@ $scope.filterByStatus = function(items, filter_model) {
 }
 
 //get application
-	var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/applications');
-	$scope.applications = $firebaseObject(ref);
+		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/applications');
+		$scope.applications = $firebaseObject(ref);
 
-			$scope.accept_Application = function(uid){
-				Helper.acceptApplication(uid, $scope.eventID, $scope.teamID);
+				$scope.accept_Application = function(uid){
+					Helper.acceptApplication(uid, $scope.eventID, $scope.teamID);
 
-				Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teamdata.name+  " has been accepted.");
-				for (memberuid in  $scope.teamdata.members){
-						Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has joined the team.");
+					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teamdata.name+  " has been accepted.");
+					for (memberuid in  $scope.teamdata.members){
+							Helper.pushNotificationTo(memberuid, $scope.eventID, Helper.getUsername(uid) +  " has joined the team.");
+					}
 				}
-			}
 
-			$scope.decline_Application = function(uid){
-				Helper.declineApplication(uid, $scope.eventID, $scope.teamID);
-				Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teamdata.name +  " has been declined.");
-			}
+				$scope.decline_Application = function(uid){
+					Helper.declineApplication(uid, $scope.eventID, $scope.teamID);
+					Helper.pushNotificationTo(uid, $scope.eventID, "Your application to team " + $scope.teamdata.name +  " has been declined.");
+				}
 
-			$scope.initchart_skilltags = function(){
+				// chart for skill tags
 
-				var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
-				$scope.tags = $firebaseObject(tagref);
-				$scope.tags.$loaded().then(function(){
-					// console.log($scope.tags.SkillTags);
-					$scope.skilltagnames = $scope.tags.SkillTags;
-					// console.log($scope.skilltagnames);
+					var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
+					$scope.tags = $firebaseObject(tagref);
+					$scope.tags.$loaded().then(function(){
+						// console.log($scope.tags.SkillTags);
+						// $scope.skilltagnames = $scope.tags.SkillTags;
+						// console.log($scope.skilltagnames);
+									$scope.stnames = [];
+									$scope.stvalues = [];
+									$scope.stseries = [];
+									$scope.stcolors = [];
+									$scope.stoptions = {scales: {
+													yAxes: [{
+															ticks: {
+																	beginAtZero:true,
+																	steps: 10,
+																// stepValue: 5,
+																max:100
+															}
 
-								var stnames = [];
-								var stvalues = [];
-								// var values = {name: 'misko', gender: 'male'};
-								for(key in $scope.skilltagnames){
-									if($scope.skilltagnames[key].value!==0){
-										stnames.push(key);
-										stvalues.push($scope.skilltagnames[key].value);
-									}
-								}
+													}]
+											}};
 
-								var chartdata = {
-								type: 'bar',
-								data: {
-										labels: stnames,
-										datasets: [{
-												label: 'Rating of Team Skill Tags',
-												data: stvalues,
-												backgroundColor: [
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)',
-														'rgba(250, 128, 114,1.0)'
-												],
-												borderColor: [
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)',
-													'rgba(250, 128, 114,1.0)'
-												],
-												borderWidth: 1
-
+									var team_stvalues = [];
+									// var values = {name: 'misko', gender: 'male'};
+									angular.forEach($scope.tags.SkillTags,function(value,key){
+										if(value.value!==0){
+											$scope.stnames.push(key);
+											team_stvalues.push(value.value);
 										}
-									]
-								},
-								options: {
-										scales: {
-												yAxes: [{
-														ticks: {
-																beginAtZero:true,
-																steps: 10,
-                            // stepValue: 5,
-                            max: 100
-
-														}
-
-												}]
-										}
-								}
-						};
-
-						angular.forEach($scope.teamdata.members,function(value,key){
-							// console.log(uid);
-								var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
-								var user_tags = $firebaseObject(ref);
-								// console.log(user_tags);
-
-								ref.once("value")
-								  .then(function(snapshot) {
-									var user_skilltags = snapshot.child('SkillTags').val()
-									// console.log(user_skilltags);
-
-									var userstvalues = [];
-									// var user_skilltags = user_tags;
-									// console.log(user_skilltags);
-									for(key in $scope.skilltagnames){
-										if($scope.skilltagnames[key].value!==0){
-											if(user_skilltags[key] === undefined){
-												userstvalues.push(0);
-											}
-											else{
-											userstvalues.push(user_skilltags[key]);
-											}
-										}
-									};
-		// 							console.log(userstvalues);
-		// console.log(value);
-									//  console.log(userstvalues);
-									chartdata.data.datasets.push({
-
-											label: 'Rating of ' + Helper.getUsername(value),
-											data: userstvalues,
-											backgroundColor: [
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)'
-											],
-											borderColor: [
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)',
-													'rgba(54, 162, 235, 1)'
-											],
-											borderWidth: 1
 									});
+									//
+									// console.log($scope.stnames);
+									$scope.stvalues.push(team_stvalues);
+									$scope.stseries.push('Team skill tags');
+									$scope.stcolors.push("#c44133");
+									// console.log($scope.stvalues);
+									// console.log($scope.stseries);
+// console.log($scope.stvalues);
+							angular.forEach($scope.teamdata.members,function(value,key){
+								// console.log(uid);
+									var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
+									var user_tags = $firebaseObject(ref);
+									// console.log(user_tags);
+									user_tags.$loaded()
+									  .then(function() {
+										// var user_skilltags = user_tags.SkillTags;
+										// console.log(user_skilltags);
+										var userstvalues = [];
+										// var user_skilltags = user_tags;
+										// console.log(user_skilltags);
+										angular.forEach($scope.stnames,function(name) {
+												if(user_tags.SkillTags[name] === undefined){
+													userstvalues.push(0);
+												}
+												else{
+												userstvalues.push(user_tags.SkillTags[name]);
+												}
 										});
-						});
-
-								// for(number in $scope.skilltagnames){
-								// 	stvalues.push(number);
-								// 	console.log(stvalues);
-								// }
-
-
-								// var list = [4,9,9,9];
-								// console.log(	chartdata.data.datasets);
-						//["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
-								//Get the context of the canvas element we want to select
-								var ctx = document.getElementById("myChart_skill").getContext("2d");
-								var myChart_skill = new Chart(ctx, chartdata);
-										// console.log(	chartdata.data.datasets);
-				});
-
-			};
-
-
-			$scope.initchart_languagetags = function(){
-
-				var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
-				$scope.tags = $firebaseObject(tagref);
-				$scope.tags.$loaded().then(function(){
-					// console.log($scope.tags.SkillTags);
-					$scope.languagetagnames = $scope.tags.LanguageTags;
-					//  console.log($scope.languagetagnames);
-					 //
-
-								var ltnames = [];
-
-								// var values = {name: 'misko', gender: 'male'};
-								for(key in $scope.languagetagnames){
-									if($scope.languagetagnames[key]!==false){
-										ltnames.push(key);
-										// ltvalues.push($scope.skilltagnames[key].value);
-									}
-								}
-
-								// console.log(ltnames);
-								var lt_matching_list = {
-									"Mandarin" : 0,
-									"Korean" : 0,
-									"Cantonese" : 0,
-									"English" : 0,
-									"Japanese" : 0,
-									"German" : 0,
-									"Spanish" : 0
-								}
-								angular.forEach($scope.teamdata.members,function(value,key){
-									// console.log(uid);
-										var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
-										var user_tags = $firebaseObject(ref);
-										// console.log(user_tags);
-										var user_languagetags;
-										ref.once("value")
-											.then(function(snapshot) {
-											user_languagetags = snapshot.child('LanguageTags').val()
-											// console.log(user_skilltags);
-
-
-											// var user_skilltags = user_tags;
-											// console.log(user_skilltags);
-											angular.forEach(lt_matching_list,function(value,key){
-												// console.log(key);
-													if(user_languagetags[key] !== undefined){
-														lt_matching_list[key] = lt_matching_list[key] + 1;
-													}
+			// 							console.log(userstvalues);
+			// console.log(value);
+										//  console.log(userstvalues);
+										$scope.stvalues.push(userstvalues);
+										$scope.stseries.push(Helper.getUsername(value));
+										$scope.stcolors.push("#16a085");
 
 
 											});
-											// console.log(lt_matching_list);
-								// 							console.log(userstvalues);
-								// console.log(value);
-											//  console.log(userstvalues);
-														// console.log(lt_matching_list);
-														// console.log(lt_matching_list);
+							});
+					});
 
-															var ltvalues = [];
-															for(i=0;i<ltnames.length;i++){
 
-																var key = ltnames[i];
-																// console.log(key);
-																ltvalues.push(lt_matching_list[key]);
-																// console.log(lt_matching_list);
-															};
+					var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
+					$scope.tags = $firebaseObject(tagref);
+					$scope.tags.$loaded().then(function(){
+						// console.log($scope.tags.SkillTags);
+						//  console.log($scope.languagetagnames);
+									$scope.ltnames = [];
+									$scope.ltseries = [];
+									$scope.ltvalues = [];
+									$scope.ltcolors = [];
+									$scope.ltoptions = {scales: {
+													yAxes: [{
+															ticks: {
+																	beginAtZero:true,
+																	steps: 1,
+                                // stepValue: 5,
+                                max: $scope.teamdata.max
+															}
 
-														// console.log(lt_matching_list);
+													}]
+											}};
 
-														var chartdata = {
-														type: 'bar',
-														data: {
-																labels: ltnames,
-																datasets: [{
-																		label: 'Data of Team Language Tags',
-																		data: ltvalues,
-																		backgroundColor: [
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)'
-																		],
-																		borderColor: [
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)'
-																		],
-																		borderWidth: 1
+									// var values = {name: 'misko', gender: 'male'};
+									angular.forEach($scope.tags.LanguageTags,function(value,key){
+										if(value!==false){
+												$scope.ltnames.push(key);
+											// ltvalues.push($scope.skilltagnames[key].value);
+											$scope.ltseries.push(key);
+												$scope.ltvalues.push(0);
+												$scope.ltcolors.push("#16a085");
+										}
+									});
 
-																}
-															]
-														},
-														options: {
-																scales: {
-																		yAxes: [{
-																				ticks: {
-																						beginAtZero:true,
-																						steps: 1,
+									// console.log(ltnames);
+									var lt_matching_list = {
+										"Mandarin" : 0,
+										"Korean" : 0,
+										"Cantonese" : 0,
+										"English" : 0,
+										"Japanese" : 0,
+										"German" : 0,
+										"Spanish" : 0
+									}
+									angular.forEach($scope.teamdata.members,function(value,key){
+										// console.log(uid);
+											var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
+											var user_tags = $firebaseObject(ref);
+											// console.log(user_tags);
+										user_tags.$loaded()
+												.then(function() {
+												// var user_languagetags = user_tags.LanguageTags;
+												// console.log(user_skilltags);
 
-					                                max: $scope.teamdata.max
 
-																				}
+												// var user_skilltags = user_tags;
+												// console.log(user_skilltags);
+												angular.forEach(lt_matching_list,function(value,key){
+													// console.log(key);
+													// console.log(user_tags.LanguageTags[key]);
+														if(user_tags.LanguageTags[key] !== undefined){
+															lt_matching_list[key] = lt_matching_list[key]+ 1;
 
-																		}]
-																}
+
 														}
+												});
+												// console.log(lt_matching_list);
+									// 							console.log(userstvalues);
+									// console.log(value);
+												//  console.log(userstvalues);
+															// console.log(lt_matching_list);
+															// console.log(lt_matching_list);
+												for(i=0;i<$scope.ltnames.length;i++){
+													var key = $scope.ltnames[i];
+													// console.log(key);
+													$scope.ltvalues[i] = (lt_matching_list[key]);
+													// console.log(mt_matching_list);
 												};
 
+											});
+									});
+					});
+
+					var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
+					$scope.tags = $firebaseObject(tagref);
+					$scope.tags.$loaded().then(function(){
+
+									$scope.mtnames = [];
+									$scope.mtseries = [];
+									$scope.mtvalues = [];
+									$scope.mtcolors = [];
+									$scope.mtoptions = {scales: {
+													yAxes: [{
+															ticks: {
+																	beginAtZero:true,
+																	steps: 1,
+																// stepValue: 5,
+																max: $scope.teamdata.max
+															}
+
+													}]
+											}};
+
+									angular.forEach($scope.tags.MannerTags,function(value,key){
+										if(value!==false){
+												$scope.mtnames.push(key);
+
+											$scope.mtseries.push(key);
+												$scope.mtvalues.push(0);
+												$scope.mtcolors.push("#16a085");
+										}
+									});
 
 
-														// for(number in $scope.skilltagnames){
-														// 	stvalues.push(number);
-														// 	console.log(stvalues);
-														// }
+									var mt_matching_list = {
+											"Cool" : 0,
+											"Creative" : 0,
+											"OnCampus" : 0,
+											"Outgoing" : 0,
+											"Pretty" : 0,
+											"SleepLate" : 0,
+											"Thoughtful" : 0
+										}
+									angular.forEach($scope.teamdata.members,function(value,key){
+										// console.log(uid);
+											var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
+											var user_tags = $firebaseObject(ref);
+											// console.log(user_tags);
+										user_tags.$loaded()
+												.then(function() {
 
-
-														// var list = [4,9,9,9];
-														// console.log(	chartdata.data.datasets);
-												//["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
-														//Get the context of the canvas element we want to select
-														var ctx = document.getElementById("myChart_language").getContext("2d");
-														var myChart_language = new Chart(ctx, chartdata);
-																// console.log(	chartdata.data.datasets);
+												angular.forEach(mt_matching_list,function(value,key){
+													// console.log(key);
+													// console.log(user_tags.LanguageTags[key]);
+														if(user_tags.MannerTags[key] !== undefined){
+															mt_matching_list[key] = mt_matching_list[key]+ 1;
+														}
 												});
 
-								});
-
-
-				});
-
-			};
-
-
-			$scope.initchart_mannertags = function(){
-
-				var tagref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/tags');
-				$scope.tags = $firebaseObject(tagref);
-				$scope.tags.$loaded().then(function(){
-					// console.log($scope.tags.SkillTags);
-					$scope.mannertagnames = $scope.tags.MannerTags;
-					//  console.log($scope.languagetagnames);
-					 //
-
-								var mtnames = [];
-
-								// var values = {name: 'misko', gender: 'male'};
-								for(key in $scope.mannertagnames){
-									if($scope.mannertagnames[key]!==false){
-										mtnames.push(key);
-										// ltvalues.push($scope.skilltagnames[key].value);
-									}
-								}
-
-								// console.log(mtnames);
-								var mt_matching_list = {
-									"Cool" : 0,
-									"Creative" : 0,
-									"OnCampus" : 0,
-									"Outgoing" : 0,
-									"Pretty" : 0,
-									"SleepLate" : 0,
-									"Thoughtful" : 0
-								}
-								angular.forEach($scope.teamdata.members,function(value,key){
-									// console.log(uid);
-										var ref = firebase.database().ref('users/' + value+ '/readOnly/info/tags');
-										var user_tags = $firebaseObject(ref);
-										// console.log(user_tags);
-
-										ref.once("value")
-											.then(function(snapshot) {
-											var user_mannertags = snapshot.child('MannerTags').val()
-											// console.log(user_skilltags);
-
-
-											// var user_skilltags = user_tags;
-											// console.log(user_skilltags);
-											// console.log(mt_matching_list);
-											angular.forEach(mt_matching_list,function(value,key){
-
-													if(user_mannertags[key] !== undefined){
-														mt_matching_list[key] = mt_matching_list[key] + 1;
-													}
-
-
-											});
-											// console.log(lt_matching_list);
-								// 							console.log(userstvalues);
-								// console.log(value);
-											//  console.log(userstvalues);
-
-														// console.log(mt_matching_list);
-
-															var mtvalues = [];
-															for(i=0;i<mtnames.length;i++){
-
-																var key = mtnames[i];
-																// console.log(key);
-																mtvalues.push(mt_matching_list[key]);
-																// console.log(mt_matching_list);
-															};
-														//
-														// console.log(mt_matching_list);
-
-														var chartdata = {
-														type: 'bar',
-														data: {
-																labels: mtnames,
-																datasets: [{
-																		label: 'Data of Team Manner Tags',
-																		data: mtvalues,
-																		backgroundColor: [
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)'
-																		],
-																		borderColor: [
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)',
-																			'rgba(54, 162, 235, 1)'
-																		],
-																		borderWidth: 1
-
-																}
-															]
-														},
-														options: {
-																scales: {
-																		yAxes: [{
-																				ticks: {
-																						beginAtZero:true,
-																					// 	steps: 10,
-																					// stepValue: 5,
-																					// max: 100
-																					steps: 1,
-
-																					max: $scope.teamdata.max
-																				}
-
-																		}]
-																}
-														}
+												for(i=0;i<$scope.mtnames.length;i++){
+													var key = $scope.mtnames[i];
+													// console.log(key);
+													$scope.mtvalues[i] = (mt_matching_list[key]);
+													// console.log(mt_matching_list);
 												};
+											});
+									});
+					});
 
 
+			// Recommend TBAs
+			var eventRef = firebase.database().ref("events/" + $scope.eventID);
+			$scope.eventObj = $firebaseObject(eventRef);
 
-														// for(number in $scope.skilltagnames){
-														// 	stvalues.push(number);
-														// 	console.log(stvalues);
-														// }
+			$scope.RecommendTBA = function(people) {
+					var result = {};
+					var tba_featurelist = {};
+					angular.forEach(people, function(name, uid) {
+						// console.log(name);
+						console.log(uid);
+						var key = uid;
+						console.log(key);
+						angular.extend(tba_featurelist, {[key]: 0});
+					});
+					console.log(tba_featurelist);
 
 					angular.forEach(tba_featurelist,function(score,uid){
 						//... gg
@@ -982,21 +774,8 @@ $scope.filterByStatus = function(items, filter_model) {
 						console.log(tba_featurelist);
 					});
 
+					return result;
 
-														// var list = [4,9,9,9];
-														// console.log(	chartdata.data.datasets);
-												//["Red", "Blue", "Yellow", "Green", "Purple", "Orange"]
-														//Get the context of the canvas element we want to select
-														var ctx = document.getElementById("myChart_manners").getContext("2d");
-														var myChart_manners = new Chart(ctx, chartdata);
-																// console.log(	chartdata.data.datasets);
-												});
-
-								});
-
-
-				});
-
-			};
+			}
 
 });
