@@ -57,10 +57,6 @@ app.controller("createGroupCtrl",
 			this.tags = _tags;
 		};
 
-		// $scope.tempMember = {
-		// 	id: "0001"
-		// };
-
 		$scope.setId = function () {
 			var numOfTeam = $scope.teamArr.length + 1;
 			if (numOfTeam < 10) {
@@ -173,13 +169,11 @@ app.controller("createGroupCtrl",
 								-if day <= today day return
 								-if day > today day store
   	*****************************************************************************/
-		// var testInVaildDate = function (selectedDate, todayDate) {
-		// 	if (selectedDate >= todayDate) {
-		// 		return false;
-		// 	} else if (selectedDate < todayDate) {
-		// 		return true;
-		// 	}
-		// };
+		var testInVaildDate = function (selectedDate, departureDate) {
+			if (Utils.compareDate(departureDate, selectedDate) >= 0)
+				return true;
+			return false;
+		};
 		var testInVaildDate = function (selectedDate) {
 			if (Utils.compareDate(new Date().toUTCString(), selectedDate) >= 0)
 				return true;
@@ -197,20 +191,9 @@ app.controller("createGroupCtrl",
 				alert("Departure date: Cannot be empty.");
 				return false;
 			} else if (testInVaildDate(new Date(Date.UTC(intPartitionDate[2], intPartitionDate[0] - 1, intPartitionDate[1], 0, 0, 0, 0)))) {
-				alert("Cannot choose a date in the past!");
+				alert("Departure date: Cannot choose a date in the past!");
 				return false;
 			}
-			//  else if (testInVaildDate(intPartitionDate[2], yyyy)) {
-			// 	alert("Departure date: Cannot choose a year in the past.");
-			// 	return false;
-			// } else if (testInVaildDate(intPartitionDate[0], mm)) {
-			// 	alert("Departure date: Cannot choose a month in the past.");
-			// 	return false;
-			// } else if (testInVaildDate((intPartitionDate[1] - 1), dd)) {
-			// 	alert("Departure date: Cannot choose a day in the past.");
-			// 	return false;
-			// }
-
 			return true;
 		};
 
@@ -237,20 +220,12 @@ app.controller("createGroupCtrl",
 			if ($scope.tempTeam.returnDate == "") {
 				alert("Return date: Cannot be empty.");
 				return false;
-			} else {
-
+			} else if (testInVaildDate(new Date(Date.UTC(returnDateArray[2], returnDateArray[0] - 1, returnDateArray[1], 0, 0, 0, 0)),
+				new Date(Date.UTC(departureDateArray[2], departureDateArray[0] - 1, departureDateArray[1], 0, 0, 0, 0))
+			)) {
+				alert("Return date: Cannot choose a date in the past!");
+				return false;
 			}
-			// } else if (testInVaildDate(returnDateArray[2], departureDateArray[2])) {
-			// 	alert("Return date: Cannot choose a year in the past.");
-			// 	return false;
-			// } else if (testInVaildDate(returnDateArray[0], departureDateArray[0])) {
-			// 	alert("Return date: Cannot choose a month in the past.");
-			// 	return false;
-			// } else if (testInVaildDate((returnDateArray[1] - 1), departureDateArray[1])) {
-			// 	alert("Return date: Cannot choose a day in the past.");
-			// 	return false;
-			// }
-
 			return true;
 		};
 
@@ -325,18 +300,6 @@ app.controller("createGroupCtrl",
 
 		// add group into firebase
 		$scope.createGroup = function () {
-			// id: "",
-			// name: "",
-			// max: 2,
-			// destination: "",
-			// departureDate: "",
-			// returnDate: "",
-			// preference: "N",
-			// estimatedBudgetPerPerson: 100,
-			// descriptions: "",
-			// languageForCommunication: "",
-			// members: [],
-			// tags: []
 			if ($scope.setTeamName() && $scope.setEstimateBudgetPerPerson() && $scope.setDestination() &&
 				$scope.setLanguageForCommunication() && $scope.setDepartureDate() && $scope.setReturnDate()) {
 				$scope.setId();

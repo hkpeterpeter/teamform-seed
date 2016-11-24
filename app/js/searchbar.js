@@ -109,7 +109,7 @@ app.controller("searchCtrl",
             }
         }
 
-        $scope.suggestionElement = function (suggestions, i) {
+        var suggestionElement = function (suggestions, i) {
             this.class = "suggestionElement";
             this.text = suggestions[i];
             this.action = function () {
@@ -151,7 +151,7 @@ app.controller("searchCtrl",
                 //screen suggestions
                 for (var i = 0; i < scores.length; i++)
                     if (scores[i] > 0)
-                        $scope.suggestions.push(new $scope.suggestionElement(suggestions, i));
+                        $scope.suggestions.push(new suggestionElement(suggestions, i));
                     else
                         break;
 
@@ -286,7 +286,9 @@ app.controller("searchCtrl",
                         }
                         // constraint on depart
                         num = $scope.constraint.t[4];
-                        if (num && compareDate(new Date().toUTCString(), teams[i].departure_date) > 0) {
+                        var tempDateData = teams[i].departure_date.split("-");
+                        tempDateData = tempDateData[0] + "-" + (parseInt(tempDateData[1]) - 1) + "-" + tempDateData[2];
+                        if (num && Utils.compareDate(new Date().toUTCString(), tempDateData) > 0) {
                             if (teams.length - 1 == i)
                                 $scope.constraint.clearT();
                             continue;
@@ -380,7 +382,7 @@ app.controller("searchCtrl",
                 //loop through the whole member list
                 for (var i = 0; i < members.length; i++) {
                     //constraint
-                    if (keywords.join("") == "" && $scope.constraint.tm == 2) {
+                    if (keywords.join("") == "" && $scope.constraint.tm == 2 && !$scope.constraint.hasMemberConstraints()) {
                         teamsAndMembers.push(new $scope.resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
                             "searchResultElement-" + (i + resultCount), members[i].language.join(", "), members[i].from, "", members[i].email, members[i].gender, "", "", members[i].want_to_travel.join(", ")));
                         continue;
@@ -548,75 +550,63 @@ app.controller("searchCtrl",
 var countrylist;
 var languagelist;
 
-$(document).ready(jQueryDocReady);
-
-//jquery init functions
-var toggleAdvancedSearchPanel = function () {
-    $("#advancedSearchPanel").toggle();
-};
-var hideAdvancedSearchCancelBtn = function () {
-    $("#advancedSearchPanel").hide();
-};
-var hideSearchSuggestion = function () {
-    $("#searchSuggestion").hide();
-};
-
-var keyDownEvent = function (event) {
-    //keycode 13 is "enter"
-    //keycode 27 is "esc"
-    switch (event.which) {
-        case 13:
-            $("#searchBtnContainer").find("input[type='button']").click();
-            break;
-
-        case 27:
-            $("#searchSuggestion").hide();
-            break;
-
-        default:
-            //Do Nothing
-            break;
-    }
-};
-
-var readCountryJson = function (data) {
-    countrylist = data.country_list;
-    for (var i = 0; i < countrylist.length; i++)
-        $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]'], select[ng-model='constraint.t[0]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
-};
-
-var readLanguageJson = function (data) {
-    languagelist = data.languages;
-    languagelist = sortArray(languagelist, "English");
-    for (var i = 0; i < languagelist.length; i++)
-        $("select[ng-model='constraint.m[3]'], select[ng-model='constraint.t[1]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
-};
-
-//jquery init
-function jQueryDocReady() {
+$(document).ready(function () {
     //initialization
     $("#searchSuggestion").hide();
     $("#advancedSearchPanel").hide();
 
     //show and hide
 
-    $("#advancedSearchBtn").click(toggleAdvancedSearchPanel);
+    $("#advancedSearchBtn").click(function () {
+        $("#advancedSearchPanel").toggle();
+    });
 
-    $("#advancedSearchCancelBtn").click(hideAdvancedSearchCancelBtn);
+    $("#advancedSearchCancelBtn").click(function () {
+        $("#advancedSearchPanel").hide();
+    });
 
-    $("body").click(hideSearchSuggestion);
+    $("body").click(function () {
+        $("#searchSuggestion").hide();
+    });
 
     //load the Json file to the html
-    $.getJSON("https://gist.githubusercontent.com/timfb/551d3ed641435fd15c25b99ea9647922/raw/ce3b3d8459491d38fafe69020bd3535bfd11d334/countrylist.json", readCountryJson);
-    $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/116c838a8df916d72fed37c6a4123b2891f88eef/languagelist.json", readLanguageJson);
+    $.getJSON("https://gist.githubusercontent.com/timfb/551d3ed641435fd15c25b99ea9647922/raw/ce3b3d8459491d38fafe69020bd3535bfd11d334/countrylist.json",
+        function (data) {
+            countrylist = data.country_list;
+            for (var i = 0; i < countrylist.length; i++)
+                $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]'], select[ng-model='constraint.t[0]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
+        });
+    $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/116c838a8df916d72fed37c6a4123b2891f88eef/languagelist.json",
+        function (data) {
+            languagelist = data.languages;
+            languagelist = sortArray(languagelist, "English");
+            for (var i = 0; i < languagelist.length; i++)
+                $("select[ng-model='constraint.m[3]'], select[ng-model='constraint.t[1]']").append("<option value='" + i + "'>" + languagelist[i] + "</option>");
+        });
 
     //keydown handling
-    $("#searchTextField").keydown(keyDownEvent);
-}
+    $("#searchTextField").keydown(function (event) {
+        //keycode 13 is "enter"
+        //keycode 27 is "esc"
+        switch (event.which) {
+            case 13:
+                $("#searchBtnContainer").find("input[type='button']").click();
+                break;
+
+            case 27:
+                $("#searchSuggestion").hide();
+                break;
+
+            default:
+                //Do Nothing
+                break;
+        }
+    });
+});
 
 //===some helper functions===
 
-//layout changesfunction disableCentralize() {
+//layout changesfunction
 function disableCentralize() {
     $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
     $("#searchBtnContainer").hide();
@@ -625,15 +615,6 @@ function disableCentralize() {
     var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
     $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
 }
-
-//Compare two dates
-var compareDate = Utils.compareDate;
-// function compareDate(d1, d2) {
-//     var day = new Date(d1).getUTCDate() - new Date(d2).getUTCDate();
-//     var month = new Date(d1).getUTCMonth() - new Date(d2).getUTCMonth();
-//     var year = new Date(d1).getUTCFullYear() - new Date(d2).getUTCFullYear();
-//     return day + (month * 30) + (year * 365);
-// }
 
 //remove symbols in text
 function removeSymbols(text) {

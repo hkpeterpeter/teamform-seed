@@ -5,6 +5,5 @@ Utils.compareDate = function (d1, d2) {
     var day = new Date(d1).getUTCDate() - new Date(d2).getUTCDate();
     var month = new Date(d1).getUTCMonth() - new Date(d2).getUTCMonth();
     var year = new Date(d1).getUTCFullYear() - new Date(d2).getUTCFullYear();
-    console.log(day + (month * 30) + (year * 365));
     return day + (month * 30) + (year * 365);
 }
