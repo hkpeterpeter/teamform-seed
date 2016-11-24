@@ -56,7 +56,18 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
       })
 
+      $scope.deletemember = function(i){
+        
+          
+            
+            eventlist[$scope.eventname]["TeamList"][$scope.teamname]["MemberList"].splice(i,1);
+            eventlist.$save();
+         
+        
+     
+      }
 
+   
 
       // $scope.getimg=function(num,member){
       //   var photo;
