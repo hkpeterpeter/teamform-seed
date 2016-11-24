@@ -1,19 +1,15 @@
-
 <div class="container">
 
 	<!--###############Head###############-->
 
 	<div class="jumbotron">
-		<!-- For display only -->
-		<h2>Team 1</h2>
-		<p>Team description, papapa</p>
-		<!--<h2>{{teamdata.name}}</h2>-->
-		<!--<p>{{teamdata.desc}}</p>-->
+		<h2>{{teamdata.name}}</h2>
+		<p>{{teamdata.desc}}</p>
 		<p>
 			<div class="btn-group" ng-if="( (myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member' || (myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor' )">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
-						<i class="icon-{{myEvents[eventID] | role | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
+						<i class="icon-{{(myEvents[eventID] | role | IconDisplayMapping)}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
 						<span class="caret"></span>
 					</button>
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
