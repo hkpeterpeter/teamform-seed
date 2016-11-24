@@ -460,7 +460,7 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
 
 app.filter('IconDisplayMapping',function() {
     return function(role){
-        icon = "ban-circle";
+        icon = "user";
         switch(role) {
             case "admin":   icon = "desktop"; break;
             case "leader":  icon = "star"; break;
