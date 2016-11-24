@@ -5,30 +5,21 @@
               <div class="row">
                 <div class="col-sm-2 col-md-2">
                   <br><br><br>
-                   <img src="http://www.cheerscreative.com/wp-content/uploads/2015/03/Starbucks_Corporation_Logo_2011.svg_.png"  
-                   alt="" class="img-rounded img-responsive" ng-show = "IsVisibleCOMP3111"/>
-                    <img src="https://afraaltayer.files.wordpress.com/2014/03/logo-linux.png" 
-                   alt="" class="img-rounded img-responsive" ng-show = "IsVisibleCOMP3511"/>
-                   <img src="http://20dollarlogo.com/wp-content/uploads/2016/08/Logo_TV_2015.png" 
-                   alt="" class="img-rounded img-responsive" ng-show = "IsVisibleCOMP2012"/>
+                   <img src={{event.Img}} 
+                   alt="" class="img-rounded img-responsive"/>
                 </div>
         <div class="col-sm-4 col-md-4">
           <br><br><br>
-          <h2 ng-show = "IsVisibleCOMP3111">COMP3111</h2>
-          <h2 ng-show = "IsVisibleCOMP3511">COMP3511</h2>
-          <h2 ng-show = "IsVisibleCOMP2012">COMP2012</h2>
+          <h2>{{eventname}}</h2>
 
+          
         </div>
 </div>
           </div>
 <br><br><br><br>
       <h2 align="left">Introduction:</h2>
       <hr>
-       <p align="left" ng-show = "IsVisibleCOMP3111">Methods and tools for planning, designing, implementing, validating, and maintaining large software systems. Project work to build a software system as a team, using appropriate software engineering tools and techniques.</p>
-       
-        <p align="left" ng-show = "IsVisibleCOMP3511">This is an introductory course on operating systems. The topics will include the basic concepts of operating systems, process and threads, inter-process communications, process synchronization, scheduling, memory allocation, page and segmentation, secondary storage, file systems, security and protection. It contains the key concepts as well as examples drawn from a variety of real systems such as Microsoft Windows and Linux.</p>
-      
-      <p align="left" ng-show = "IsVisibleCOMP2012">To learn the fundamental concepts and techniques behind object-oriented programming. They include: abstract data types; creation, initialization, and destruction of objects; class hierarchies; polymorphism, inheritance and dynamic binding; generic programming using templates. To learn the object-oriented view of data structures: linked lists, queues, stacks, trees, and algorithms such as searching, sorting, and hashing algorithms</p>
+       <p align="left">{{event.Introduction}}</p>
       <br>
 
 
@@ -38,8 +29,8 @@
          <br>
              <div align="left">
 
-    <button class="btn btn-default btn-lg" type="button" ng-show = "IsVisibleCOMP2012"> Create a team</button>
-    <button class="btn btn-default btn-lg" type="button" ng-show = "IsVisibleCOMP2012"> Quit Event</button>
+    <button class="btn btn-default btn-lg" type="button" ng-show = "user"> Create a team</button>
+    <button class="btn btn-default btn-lg" type="button" ng-show = "user"> Quit Event</button>
     </div>
 
     </div></div>
@@ -50,8 +41,8 @@
 
 
 
-    <h2 class="page-header" ng-show = "IsVisibleCOMP3111">Team Information
-    <h2 class="page-header" ng-show = "IsVisibleCOMP3511">Team Information
+    <h2 class="page-header" ng-hide="user">Team Information
+   
   
 
     </h2>
@@ -61,69 +52,61 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm-2 col-md-2">
-                   <img src="http://www.telegraph.co.uk/content/dam/technology/2016/05/11/new-instagram-logo_1-large_trans++qVzuuqpFlyLIwiB6NTmJwfSVWeZ_vEN7c6bHu2jJnT8.jpg"
-                    alt="" class="img-rounded img-responsive" ng-show = "IsVisibleCOMP3111"/>
-                    <img src="http://logok.org/wp-content/uploads/2014/03/BMW-logo.png" 
-                    alt="" class="img-rounded img-responsive" ng-show = "IsVisibleCOMP3511" />
+                   <img src={{team.Img}}
+                    alt="" class="img-rounded img-responsive"/>
+
  
                 </div>
-        <div class="col-sm-4 col-md-4">
-          <p ng-show = "IsVisibleCOMP3111"> COMP3111 L2</p>
-          <p ng-show = "IsVisibleCOMP3511"> COMP3511 L2</p>
+        <div class="col-sm-4 col-md-4" ng-hide="user">
+          <p>{{teamname}}</p>
+  
     
-          <p ng-show = "IsVisibleCOMP3111"> Edit </p>
-          <p ng-show = "IsVisibleCOMP3111"> Email: <a href="mailto:someone@example.com?Subject=Hello%20again", target="_top">hunkim@cse.ust.hk</a></p>
-          <p ng-show = "IsVisibleCOMP3111"> Team Website: <a href="hhhh.com">http://course.cse.ust.hk/comp3111/</a></p>
+          <p ng-show = "leader"> Edit </p>
 
-          <p ng-show = "IsVisibleCOMP3511"> Desmond</p>
-          <p ng-show = "IsVisibleCOMP3511"> Email: <a href="mailto:someone@example.com?Subject=Hello%20again", target="_top">hunkim@cse.ust.hk</a></p>
-          <p ng-show = "IsVisibleCOMP3511"> Team Website: <a href="hhhh.com">http://course.cse.ust.hk/comp3511/</a></p>
+    
+
+          <p> {{Leader}}</p>
+          <p> Team Website: <a href="hhhh.com">{{team.Teamwebsite}}</a></p>
 
         </div>
 </div>
           </div>
 
 
-      <h2 align="left" ng-show = "IsVisibleCOMP3111">Introduction</h2>
-      <h2 align="left" ng-show = "IsVisibleCOMP3511">Introduction</h2>
+      <h2 align="left" ng-hide="user">Introduction</h2>
+
 
       <hr>
-      <p align="left" ng-show = "IsVisibleCOMP3111">Methods and tools for planning, designing, implementing, validating, and maintaining large software systems. Project work to build a software system as a team, using appropriate software engineering tools and techniques. </p>
-      <p align="left" ng-show = "IsVisibleCOMP3511">This is an introductory course on operating systems. The topics will include the basic concepts of operating systems, process and threads, inter-process communications, process synchronization, scheduling, memory allocation, page and segmentation, secondary storage, file systems, security and protection. It contains the key concepts as well as examples drawn from a variety of real systems such as Microsoft Windows and Linux.</p>
+      <p align="left">{{team.Introduction}}</p>
       <br>
 
-      <p align="right" ng-show = "IsVisibleCOMP3111">edit</p>
+      <p align="right" ng-show = "leader">edit</p>
 
-      <h2 align="left" ng-show = "IsVisibleCOMP3111">Skills</h2>
-      <h2 align="left" ng-show = "IsVisibleCOMP3511">Skills</h2>
+      <h2 align="left" ng-hide="user">Skills</h2>
+
     <hr>
         <h2>
       <div align="left">
     <div class="hero-unit">
-        <span class="label label-default" ng-show = "IsVisibleCOMP3111">COMP 2012<span class="glyphicon glyphicon-remove"></span></span>
-        <span class="label label-warning" ng-show = "IsVisibleCOMP3111">COMP 2012H<span class="glyphicon glyphicon-remove"></span></span>
+        <span class="label label-warning" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove"></span></span>
 
-        <span class="label label-default" ng-show = "IsVisibleCOMP3511">COMP 2611<span class="glyphicon glyphicon-remove"></span></span>
-        <span class="label label-warning" ng-show = "IsVisibleCOMP3511">ELEC 2300<span class="glyphicon glyphicon-remove"></span></span>
-        <span class="label label-danger"  ng-show = "IsVisibleCOMP3511">COMP 1002<span class="glyphicon glyphicon-remove"></span></span>
-        <span class="label label-success" ng-show = "IsVisibleCOMP3511">COMP 1004<span class="glyphicon glyphicon-remove"></span></span>
 
          <br>  <br> </div>
     </div></h2>
-         <p align="right" ng-show = "IsVisibleCOMP3111">edit</p>
+         <p align="right" ng-show = "leader">edit</p>
 
 
-          <h2 align="left" ng-hide="IsVisibleCOMP2012">Team Members
+          <h2 align="left" ng-hide="user">Team Members
          
-            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "IsVisibleCOMP3111"> Delete Team</button>
-            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "IsVisibleCOMP3511"> Quit Team</button>
+            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "leader"> Delete Team</button>
+            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "member"> Quit Team</button>
 
 
 
 
             <!--invite users with pop up window-->
             
-            <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "IsVisibleCOMP3111">Invite Users</button>
+            <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Invite Users</button>
           </h2> 
                   <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -287,7 +270,7 @@
 
                            </div>
                            </div>
-                        </div>                   
+                        </div>                  
 
                       
                       
@@ -296,26 +279,26 @@
 
  <hr>
         
-          <div class="row" ng-show = "IsVisibleCOMP3111">
+          <div class="row" ng-show = "leader">
          <div class="col-lg-6" id="teammembers">
         <h2>Current Members</h2>
        
 
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" ng-repeat = "(num,member) in memberlist">
 
               <tbody>
                 <tr>
-                  <td style="font-size: 30px">1</td>
+                  <td style="font-size: 30px">{{num}}</td>
                   <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                      <img src=https://course.cse.ust.hk/comp3111/images/peter.jpg class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
                   </td>
-                  <td style="font-size: 30px"><a href="#">Peter</a></td>
+                  <td style="font-size: 30px"><a href="#">{{member}}</a></td>
                  <td>
                       <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
                   </td>
                 </tr>
-                 <tr>
+                 <!--<tr>
                   <td style="font-size: 30px">2</td>
                   <td>
                       <img src="https://course.cse.ust.hk/comp3111/images/jason.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
@@ -334,7 +317,7 @@
                  <td>
                       <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
                   </td>
-                </tr>
+                </tr>-->
        
               </tbody>
             </table>
@@ -385,39 +368,24 @@
         </div>
 
       </div>
-          <div class="row" ng-show = "IsVisibleCOMP3511">
+          <div class="row" ng-show = "member">
          <div class="col-lg-10" id="teammembers">
 
        
 
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table table-striped" ng-repeat = "(num,members) in memberlist">
 
               <tbody>
                 <tr>
-                  <td style="font-size: 30px">1</td>
+                  <td style="font-size: 30px">{{num}}</td>
                   <td>
                       <img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
                   </td>
-                  <td style="font-size: 30px"><a href="#">Peter</a></td>
+                  <td style="font-size: 30px"><a href="#">{{members}}</a></td>
             
                 </tr>
-                 <tr>
-                  <td style="font-size: 30px">2</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/jason.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Jason</a></td>
-           
-                </tr>
-             <tr>
-                  <td style="font-size: 30px">3</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/ken.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Ken</a></td>
-          
-                </tr>
+
        
               </tbody>
             </table>
