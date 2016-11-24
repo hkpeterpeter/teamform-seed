@@ -6,7 +6,7 @@
 	<div class="jumbotron">
 		<h2>{{eventObj.eventInfo.name}}</h2>
 		<p ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</p>
-		<div class="row">
+		<div class="row padding">
 			<div class="btn-group">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
@@ -28,7 +28,7 @@
 				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}
 			</button>
 		</div>		
-		<div class="row">			
+		<div class="row padding">			
 			<a class="btn btn-danger" ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' " ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">
 				<i class="icon-group"></i>&nbsp;&nbsp;&nbsp;My Team: {{eventObj.teams[myEvent.team].name}}
 			</a>
