@@ -348,7 +348,8 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     helper.postEventAnnouncement = function(eventID, msg) {
         //lby
         ref=firebase.database().ref("events/"+eventID+"/eventInfo/announcements");
-        return $firebaseArray(ref).$add({content: msg, timeStamp: new Date().toString()}).then(function(){});
+        AnnDate = new Date();
+        return $firebaseArray(ref).$add({content: msg, timeStamp: AnnDate.toString()}).then(function(){});
     }
     helper.postTeamAnnouncement = function(eventID, teamID, msg) {
         //wyz
@@ -525,13 +526,19 @@ app.filter('tagColor', function(){
 });
 
 app.filter('DateFormat', function(){
-        return function(obj) {
-            if (obj == undefined){
-                    return null;
-            }
-            else{
-                var datefiltered = new Date(obj);
-                return datefiltered;
-            }
+    return function(obj) {
+        if (obj == undefined){
+                return null;
         }
+        else{
+            var datefiltered = new Date(obj);
+            return datefiltered;
+        }
+    }
+});
+
+app.filter('judgeDate', function(){
+    return function(str) {
+        return Date.parse(str);
+    }
 });
