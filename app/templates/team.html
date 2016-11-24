@@ -120,7 +120,7 @@
 					</p>
 				  <hr>
 				  <!--###Content###-->
-				  <div ng-repeat="x in announcements">
+				  <div ng-repeat="x in announcements.slice().reverse()">
 				  	{{x.content}}&nbsp;({{x.timeStamp | DateFormat | date:'yyyy-MM-dd HH:mm' }})
 						<button class="btn btn-danger btn-sm" ng-click="deleteAnnouncement(x.$id)" ng-if="isDeletingTeamAnn && (myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="icon-remove-sign"></i></button>
 		      </div>  <!--ng-repeat-->
@@ -137,11 +137,10 @@
 	<div class="col-md-6">
 			<div class="thumbnail">
 				<div class="caption">
-					<!--###Title###-->
+
 				  <h4>Chart</h4>
 				  <p>Statistics on tags.</p>
 				  <hr>
-				  <!--###Content###-->
 
 
 						<canvas id="bar" class="chart chart-bar"
@@ -156,48 +155,49 @@
 						chart-data="mtvalues" chart-labels="mtnames" chart-series="mtseries" chart-colors="mtcolors" chart-options = "mtoptions">
 					</canvas>
 
-				</div> <!--caption-->
-			</div> <!--thumbnail-->
-		</div> <!--col-md-4-->
+				</div>
+			</div>
+		</div>
 
 
 
 
   </div> <!--row-->
-  <!--###############TBAs###############-->
 
-  <div class="col-md-3">
-    <div class="thumbnail">
-      <div class="caption">
-        <!--###Title###-->
-        <h4>Recommend TBAs</h4>
-        <p>People may fit your team</p>
-        <hr>
-        <!--###Content###-->
-        <div class="container">
-          <div class="row" ng-repeat="(key, name) in eventObj.tba">
-						{{users.$getRecord(name).readOnly.name}}
-						{{RecommendTBA(eventObj.tba)}}
-            <div class="col-md-2">
-              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
-								{{users.$getRecord(name).readOnly.name}}
-              </a>
-            </div>
-            <button class="btn btn-danger btn-sm" ng-click="addToTeam(name)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to">
-              <i class="icon-double-angle-right"></i>
-            </button>
-            <button class="btn btn-danger btn-sm" ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)" data-toggle="tooltip" data-placement="bottom" title="Invite">
-              <i class="icon-leaf"></i>
-            </button>
-          </div> <!--row ng-repeat-->
-        </div> <!--container-->
-      </div> <!--caption-->
-    </div> <!--thumbnail-->
-  </div> <!--col-md-4-->
+
 	<hr>
 
 	<div class="row" ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
 
+
+		  <!--###############TBAs###############-->
+		  <div class="col-md-4">
+		    <div class="thumbnail">
+		      <div class="caption">
+
+		        <h4>Recommend TBAs</h4>
+		        <p>People may fit your team</p>
+		        <hr>
+
+		        <div class="container">
+		          <div class="row" ng-repeat="(uid, score) in tba_featurelist">
+								<!-- {{RecommendTBA(eventObj.tba)}} -->
+		            <div class="col-md-2">
+		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left" ng-if="score >= 6">
+										{{users.$getRecord(uid).readOnly.name}}
+		              </a>
+		            </div>
+		            <button class="btn btn-danger btn-sm" ng-click="addToTeam(name)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to">
+		              <i class="icon-double-angle-right"></i>
+		            </button>
+		            <button class="btn btn-danger btn-sm" ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)" data-toggle="tooltip" data-placement="bottom" title="Invite">
+		              <i class="icon-leaf"></i>
+		            </button>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
 		<!--###############Applications###############-->
 
 		<div class="col-md-4">
