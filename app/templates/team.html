@@ -5,8 +5,8 @@
 	<div class="jumbotron">
 		<h2>{{teamdata.name}}</h2>
 		<p>{{teamdata.desc}}</p>
-		<p>
-			<div class="btn-group" ng-if="( (myEvents[eventID] | teamId)==teamID && )(myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member' || (myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor' ))">
+		<p>	
+			<div class="btn-group" ng-if="(myEvents[eventID] | teamId)==teamID"">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
 						<i class="icon-{{(myEvents[eventID] | role | IconDisplayMapping)}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
