@@ -15,7 +15,13 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		});
 
 		app.factory('Naruto',function(){
-			return {Sasuke:"",Sakura:"Search Team"};
+			return {
+				Sasuke:"",
+				Sakura:"Search Team",
+				setSearchE: function(){},
+				setSearchP: function(){},
+				setSearchT: function(){}
+			};
 		});
 
 		//controll search page
@@ -49,7 +55,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 					angular.forEach($scope.userList,function(value,key){
 						//only get the user that belongs to current event
-						if($scope.userList[key].Membership.hasOwnProperty("comp3111")){
+						if($scope.userList[key].Membership !== undefined &&
+								$scope.userList[key].Membership["comp3111"] !== undefined){
 							users.push($scope.userList[key].name);
 
 						}
@@ -72,6 +79,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				$scope.currentTag.push(key);
 			};*/
 
+			$scope.Naruto = Naruto;
 			$scope.searchType = Naruto.Sakura;
 			var setSearchT = function(){
 				Naruto.Sakura = "Search Team";
@@ -88,6 +96,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.setSearchE = function(){
 				$scope.searchType = "Search Event";
 			};
+			// Naruto.setSearchE = $scope.setSearchE;
+			Naruto.setSearchP = setSearchP;
+			Naruto.setSearchT = setSearchT;
 
 			$scope.reset = function(index){
 				var key;
@@ -167,7 +178,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 			var filterFunction = function(){
 				$scope.filterResult = [];
-				if($scope.searchType == "Search Team"){
+				if(Naruto.Sakura == "Search Team"){
 					for(var i = 0;i < tagini[$scope.resultTag[0]].teams.length;i++){
 						$scope.filterResult.push(tagini[$scope.resultTag[0]].teams[i]);
 					}
@@ -234,7 +245,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					list = users;
 				}
 				else{}//event list is not yet defined
-				var m = searchKey.length;
+				var m = Naruto.Sasuke.length;
 
 				//retrive every tags in tagList
 				for(var i = 0;i < list.length;i++){
@@ -256,7 +267,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					//start to fill the 2D array
 					for(var x = 1;x <= m; x++){
 						for(var y = 1;y <= n;y++){
-							if(searchKey.charAt(x-1) == list[i].charAt(y-1)){
+							if(Naruto.Sasuke.charAt(x-1) == list[i].charAt(y-1)){
 								arr[x][y] = arr[x-1][y-1] + 1;
 								if(arr[x][y] > max){
 									max = arr[x][y];
@@ -270,19 +281,19 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							}
 						}
 					}
-					var match = arr[m][n]/searchKey.length
+					var match = arr[m][n]/Naruto.Sasuke.length
 					if(match>= 0.6){
 						$scope.searchResult.push(list[i]);
 					}
 				}
 
-				tag = $scope.searchResult;
+				// tag = $scope.searchResult;
 			}
 
 			var searchName = function(){
 				$scope.searchResult = [];
 				if($scope.resultTag.length == 0){
-					if($scope.searchType == "Search Team"){
+					if(Naruto.Sakura == "Search Team"){
 						findResult('team');
 
 						$scope.filterResult = $scope.searchResult;
@@ -305,25 +316,27 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 				}
 			}
+			Naruto.searchName = searchName;
 		});
 
 
 
 		//controll navigation bar
 		app.controller("navbar",function($scope,Naruto,Search){
-			$scope.searchKey = "";
-			$scope.searchType = Naruto.Sakura;
-			Naruto.Sasuke = $scope.searchKey;
+			// $scope.searchKey = "";
+			// $scope.searchType = Naruto.Sakura;
+			// Naruto.Sasuke = $scope.searchKey;
+			$scope.Naruto = Naruto;
 
-			$scope.setThisSearchP = function(){
-				setSearchP();
-			};
-			$scope.setThisSearchT = function(){
-				setSearchT();
-			}
-			$scope.searchThisName = function(){
-				searchName();
-			};
+			// $scope.setThisSearchP = function(){
+			// 	Naruto.setSearchP();
+			// };
+			// $scope.setThisSearchT = function(){
+			// 	Naruto.setSearchT();
+			// }
+			// $scope.searchThisName = function(){
+			// 	Naruto.searchName();
+			// };
 			$scope.start = function(){
 				Search.search = false;
 
