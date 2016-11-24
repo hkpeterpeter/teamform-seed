@@ -28,8 +28,10 @@ app.controller("eventDCtrl",
                 ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable/"+$scope.eventID);
                 $scope.myEvent = $firebaseObject(ref);
                 $scope.myEvent.$loaded().then(function(data){
-                    console.log("Test");
-                    console.log(data);
+                    loginDate = new Date();
+                    $scope.myEvent.lastLogin = loginDate.toString();
+                    $scope.myEvent.$save();
+
                 });
                 // $scope.myEvents.$loaded().then(function(){
                 //     //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
