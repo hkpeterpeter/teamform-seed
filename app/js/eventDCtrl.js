@@ -14,6 +14,7 @@ app.controller("eventDCtrl",
         $scope.editingInfo=false;
         // $scope.editButton="Edit";
         $scope.isDeletingAnn = false;
+        $scope.recommandTeams = {};
         this.Object=Object;
         Auth.$onAuthStateChanged(function(authData) {
             // console.log($scope.obj);
@@ -307,6 +308,22 @@ app.controller("eventDCtrl",
                     Helper.pushNotificationTo(uid, $scope.eventID, "Deadline of event "+$scope.newEventInfo.name+" has been hanged to "+newDate+".");
                     console.log(uid);
             }
+        }
+
+        $scope.recommand = function(){
+            $scope.recommandTeams = eventObj.teams;
+            for( key in $scope.recommandTeams )
+            {
+                if($scope.recommandTeams.hasOwnProperty(key))
+                {
+                    $scope.recommandTeams[key].score = calscore($scope.recommandTeams[key].tags)
+                }
+            }
+        }
+
+        calscore = function(teamTags){
+            userTags = $scope.users[$scope.userData.uid].readOnly.tags;
+            
         }
         
     }
