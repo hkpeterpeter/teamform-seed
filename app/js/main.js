@@ -1,4 +1,4 @@
-var teamapp = angular.module('teamapp', ["ngRoute","firebase","chart.js"]);
+var teamapp = angular.module('teamapp', ["ngRoute","firebase","chart.js","ngDragDrop"]);
 
 
 
