@@ -5,6 +5,7 @@
 	<div class="navbar-right">
 	  <ul class="nav navbar-nav">
 	    <li><a href="#fakelink">About</a></li>
+	    <li><a href="/#/dashboard/profile/{{authData.uid}}">{{user.readOnly.name}}</a></li>
 	    <li><button class="btn btn-danger navbar-btn" type="button" ng-click="logout()"><i class="icon-signout"></i>&nbsp;&nbsp;&nbsp;Logout</button></li>
 	  </ul>
 	</div><!-- /.navbar-collapse -->
@@ -12,23 +13,23 @@
 
 <div class="container-fluid">	
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-1">
 			<div class="btn-group-vertical">
-				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/home">
+				<a class="btn btn-danger btn-sm" type="button" ng-href="/#/dashboard/home">
 					<br><i class="icon-home icon-2x"></i><br><p>Home</p></a>
-				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/event">
+				<a class="btn btn-danger btn-sm" type="button" ng-href="/#/dashboard/event">
 					<br><i class="icon-flag icon-2x"></i><br><p>Event</p></a>
-				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/notification">
+				<a class="btn btn-danger btn-sm" type="button" ng-href="/#/dashboard/notification">
 					<br><i class="icon-bell icon-2x"></i><br><p>Notification</p></a>
-				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/request">
+				<a class="btn btn-danger btn-sm" type="button" ng-href="/#/dashboard/request">
 					<br><i class="icon-inbox icon-2x"></i><br><p>Request</p></a>
-				<a class="btn btn-danger" type="button" ng-href="/#/dashboard/profile/{{authData.uid}}">
+				<a class="btn btn-danger btn-sm" type="button" ng-href="/#/dashboard/profile/{{authData.uid}}">
 					<br><i class="icon-list-alt icon-2x"></i><br><p>Profile</p></a>
-			</div>
-		</div>
-		<div class="col-md-8">
+			</div> <!--btn-group-vertical-->
+		</div> <!--col-md-2-->
+		<div class="col-md-10">
 			<div ui-view></div>
-		</div>
+		</div> <!--col-md-10-->
 	</div>
 </div>
 

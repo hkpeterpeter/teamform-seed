@@ -1,130 +1,62 @@
-<div class="container">
+<h1>{{eventObj.eventInfo.name}}</h1>
+<h3> - {{myEvents[eventID] | role}}</h3>
+<h4 ng-if="!editingInfo">Event Info: {{eventObj.eventInfo.desc}}</h4>
+<h4>Team size: [{{eventObj.eventInfo.min}}, {{eventObj.eventInfo.max}}]</h4>
+<h4>Team forming deadline: <span style="color: red;">{{ eventObj.eventInfo.ddl | stringToDate | date: 'yyyy-MM-dd'}}</span></h4>
+<!--<textarea ng-model="eventObj.eventInfo.desc" ng-if="editingInfo" ng-value="eventObj.eventInfo.desc"></textarea>-->
+<button class="btn btn-primary" ng-click="editInfo()" ng-if="myEvent.position=='admin'">Edit Info</button>
 
-	<!--###############Head###############-->
-	
-	<div class="jumbotron">
-		<h2>{{eventObj.eventInfo.name}}</h2>
-		<p ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</p>
-		<p>
-			<div class="btn-group">
-				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
-					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
-						<i class="icon-{{mapping({{myEvents[eventID] | role}})}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
-						<span class="caret"></span>
-					</button>			
-					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
-						<li><a ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">Create a team</a></li>
-						<li><a ng-click="quit()" ng-if="(myEvent | role)=='tba'">Leave the event</a></li>
-						<li><a ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join the event</a></li>
-						<li><a ng-click="manage()" ng-if="myEvent.position=='admin'">Manage the event</a></li>
-					</ul>
-				</div>
-      </div> <!--btn-group-->      
-			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team size">
-				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.min}} ~ {{eventObj.eventInfo.max}}
-			</button>			
-			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team-forming deadline">
-				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}
-			</button>
-		</p>		
-		<p>			
-			<button class="btn btn-danger" ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' " ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">
-				<i class="icon-group"></i>&nbsp;&nbsp;&nbsp;My Team: {{eventObj.teams[myEvent.team].name}}
-			</button>
-		</p>		
-	</div> <!--jumbotron-->
-	
-	<!--###############Teams###############-->
-	
-	<div class="col-md-5">
-		<div class="thumbnail">
-		  <div class="caption">
-		  	<!--###Title###-->
-		    <h4>Teams</h4>
-		    <p>Teams in the event.</p>   
-		    <hr>
-		    <!--###Content###-->
-		    <div class="container">	
-		      <div class="row" ng-repeat="(key, team) in eventObj.teams">
-				    <div class="col-md-3">
-		      		<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{key}}" style="text-align:left">
-		      			{{team.name}}
-		      		</a>
-		    		</div>
-	    			<button class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
-	    				{{team.currentSize}}/{{team.max}}
-	    			</button>
-			    	<button class="btn btn-danger btn-sm" ng-click="deleteTeam(key)" ng-if="isManaging" data-toggle="tooltip" data-placement="bottom" title="Delete">
-			    		<i class="icon-trash"></i>
-			    	</button>
-			    	<button class="btn btn-danger btn-sm" ng-click="toTeam(key)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to this team">
-			    		<i class="icon-play"></i>
-			    	</button>
-		      </div> <!--row ng-repeat-->			     
-        </div> <!--container-->
-			</div> <!--caption-->
-		</div> <!--thumbnail-->
-	</div> <!--col-md-4-->
-	
-	<!--###############TBAs###############-->
-	
-	<div class="col-md-3">
-		<div class="thumbnail">
-		  <div class="caption">
-		  	<!--###Title###-->
-		    <h4>TBAs</h4>
-		    <p>They belong to nowhere.</p>
-		    <hr>
-		    <!--###Content###-->
-				<div class="container">
-					<div class="row" ng-repeat="(key, name) in eventObj.tba">
-						<div class="col-md-2">
-							<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">	    
-		        		{{users[name].readOnly.name}}
-		        	</a>
-		        </div>
-			      <button class="btn btn-danger btn-sm" ng-click="addToTeam(name)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to">
-			      	<i class="icon-double-angle-right"></i>
-			      </button>
-			      <button class="btn btn-danger btn-sm" ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)" data-toggle="tooltip" data-placement="bottom" title="Invite">
-			      	<i class="icon-leaf"></i>
-			      </button>
-		      </div> <!--row ng-repeat-->
-	      </div> <!--container-->
-			</div> <!--caption-->
-		</div> <!--thumbnail-->
-	</div> <!--col-md-4-->
-	
-	<!--###############Annoucement###############-->
-	
-	<div class="col-md-4">
-		<div class="thumbnail">
-		  <div class="caption">
-		  	<!--###Title###-->
-		    <h4>Announcement</h4>
-		    <p>Please check regularly.</p>
-		    <p>
-				  <button class="btn btn-danger" ng-click="createAnnouncementDialogue()" ng-if="(myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="New announcement">
-				  	<i class="icon-plus-sign"></i>
-				  </button>
-					<button class="btn btn-danger" ng-click="deleteAnnouncementChoice()" ng-if="(myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="Delete an announcement">
-						<i class="icon-trash"></i>
-					</button>
-				</p>
-		    <hr>
-		    <!--###Content###-->
-		    <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
-		    	{{name.content}}
-					<button class="btn btn-danger btn-sm" ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="icon-remove-sign"></i></button>
-        </div> 
-			</div> <!--caption-->
-		</div> <!--thumbnail-->
-	</div> <!--col-md-4-->
-
-</div> <!--container-->
-
-
-
+<!-- <h1 ng-if="(myEvent | role)=='admin'">testing</h1> -->
+<div ng-if="!(myEvent===undefined)">
+    <button class="btn btn-primary" ng-click="manage()" ng-if="myEvent.position=='admin'">Manage</button>
+</div>
+<br>
+<div ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' ">
+    <h3>My team: <a ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">{{eventObj.teams[myEvent.team].name}}</a><h3>
+</div>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">Teams</h2></div>
+    <div class="panel-body">
+        <div ng-repeat="(key, team) in eventObj.teams">
+            <a ng-href="#/dashboard/event/{{eventID}}/team/{{key}}">{{team.name}}</a>
+            <span class="text-right">{{team.currentSize}}/{{team.max}}</span>
+            <span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.SkillTags" ng-if="tagContent.value != 0"><span  class="label label-{{tagContent.color | tagColor}}">{{tagKey}}</span>&nbsp;</span>
+            <span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.LanguageTags" ng-if="tagContent == true"><span  class="label label-default">{{tagKey}}</span>&nbsp;</span>
+            <span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.MannerTags" ng-if="tagContent == true"><span  class="label label-default">{{tagKey}}</span>&nbsp;</span>
+            <button class="btn btn-primary" ng-click="deleteTeam(key)" ng-if="isManaging">delete</button>
+            <button class="btn btn-primary" ng-click="toTeam(key)" ng-if="isManaging && selectTeam">addTo</button>
+        </div>
+    </div>
+<div/>
+<br>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">TBA</h2></div>
+    <div class="panel-body">
+        <div ng-repeat="(key, name) in eventObj.tba">
+            {{users[name].readOnly.name}}
+            <button class="btn btn-primary"  ng-click="addToTeam(name)" ng-if="isManaging">addToTeam</button>
+            <button class="btn btn-primary"  ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)">invite</button>
+        </div>
+    </div>
+<div/>
+<div class="panel panel-default">
+    <div class="panel-heading"><h2 class="panel-title">Announcments</h2></div>
+    <div class="panel-body">
+        <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
+            <h5 ng-hide="{{name.timeStamp|judgeDate}}<{{myEvent.lastLogin|judgeDate}}"><b>{{name.content}}</b></h5>
+            <span ng-show="{{name.timeStamp|judgeDate}}<{{myEvent.lastLogin|judgeDate}}">{{name.content}}</span>
+            <span>{{name.timeStamp | stringToDate | date: 'yyyy-MM-dd hh:mm'}}</span>
+            <button class="btn btn-primary"  ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'">Delete</button>
+        </div>
+    </div>
+<div/>
+<button class="btn btn-primary" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">createTeam</button>
+<button class="btn btn-primary" ng-click="quit()" ng-if="(myEvent | role)=='tba'">Quit Event</button>
+<button class="btn btn-primary" ng-click="createAnnouncementDialogue()" ng-if="(myEvent | role)=='admin'">post an announcement</button>
+<button class="btn btn-primary" ng-click="deleteAnnouncementChoice()" ng-if="(myEvent | role)=='admin'">delete an announcement</button>
+<button class="btn btn-primary" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join Event</button>
+<br><br><br><br>
 <!--<h1>Debug</h1>-->
 <!--<button class="btn btn-primary" ng-click="createEventList(userData)">createEventList</button>-->
 

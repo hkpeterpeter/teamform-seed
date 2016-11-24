@@ -760,15 +760,3 @@ $scope.filterByStatus = function(items, filter_model) {
 			}
 
 });
-
-app.filter('DateFormat', function(){
-		return function(obj) {
-			if (obj == undefined){
-					return null;
-			}
-			else{
-				var datefiltered = new Date(obj);
-				return datefiltered;
-			}
-		}
-});

@@ -27,10 +27,18 @@ app.controller("eventDCtrl",
                 $scope.myEvents = $firebaseObject(ref);
                 ref = firebase.database().ref("users/" + $scope.userData.uid + "/writable/"+$scope.eventID);
                 $scope.myEvent = $firebaseObject(ref);
-                $scope.myEvent.$loaded().then(function(data){
-                    console.log("Test");
-                    console.log(data);
-                });
+                $scope.myEvents.$loaded().then(function(data){
+                    $scope.myEvent.$loaded().then(function(data){
+                        if($scope.myEvents[$scope.eventID]!==undefined)
+                        {
+                            loginDate = new Date();
+                            $scope.myEvent.lastLogin = loginDate.toString();
+                            $scope.myEvent.$save();
+                        }
+
+                    });
+                })
+                
                 // $scope.myEvents.$loaded().then(function(){
                 //     //console.log($filter('teamId')($scope.myEvents[$scope.eventID]));
                 //     invref = firebase.database().ref('events/' + $scope.eventID + "/teams/" + $filter('teamId')($scope.myEvents[$scope.eventID]) + "/invitations");
@@ -303,56 +311,4 @@ app.controller("eventDCtrl",
         
     }
 );
-
-app.filter('numKeys', function() {
-    return function(json) {
-        if(json===undefined)
-            return 0;
-        var keys = Object.keys(json)
-        return keys.length;
-    }
-});
-
-app.filter('role', function(){
-    return function(obj) {
-        if (obj === undefined){
-            return 'visitor';
-        }
-        else
-            return obj.position;
-    }
-});
-
-app.filter('teamId', function(){
-    return function(obj) {
-        if (obj == undefined){
-            return null;
-        }
-        else{
-            //console.log(obj.team);
-            return obj.team;
-        }
-    }
-});
-
-
-app.filter('stringToDate', function($filter){
-    return function(obj) {
-        date = new Date();
-        date.setTime(Date.parse(obj));
-        // return $filter('date')(date,"yyyy-MM-dd");
-        return date;
-    }
-});
-
-app.filter('tagColor', function(){
-    return function(obj) {
-        if(obj == "green")
-            return "success";
-        else if(obj =="red")
-            return "danger";
-        else
-            return "default";
-    }
-});
 

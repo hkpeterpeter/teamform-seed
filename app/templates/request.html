@@ -1,5 +1,6 @@
 <div class="container">
-	
+<div class="col-md-12">
+
 	<!--###############Head###############-->
 	
 	<div class="jumbotron">
@@ -27,7 +28,7 @@
       	<hr>
       	<!--###Content###-->       	
 				<div class="thumbnail caption" ng-repeat="(eid, myEvent) in filterEvent(myEventList, search_model)">
-					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{Event.$id}}" style="text-align:left">
+					<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{eid}}" style="text-align:left">
 						{{allEvents.$getRecord(eid).eventInfo.name}}
 					</a>
 					<span ng-show="myEvent.applications == null && myEvent.invitations == null">(No request)</span>					
@@ -51,4 +52,5 @@
 		</div> <!--thumbnail-->
 	</div> <!--col-md-8 requestCtrl-->
 
+</div>
 </div> <!--container-->
