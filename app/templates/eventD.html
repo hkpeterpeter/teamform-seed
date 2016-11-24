@@ -11,7 +11,7 @@
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
 						<i class="icon-{{myEvents[eventID] | role | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
-						<span class="caret" ng-if="(myEvent[eventID] | role)=='tba' || (myEvent[eventID] | role)=='visitor' || (myEvent[eventID] | role)=='admin' || (myEvent[eventID] | role)=='visitor'"></span>
+						<span class="caret" ng-if="(myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor' || (myEvents[eventID] | role)=='admin'"></span>
 					</button>			
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
 						<li><a class="btn" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">Create a team</a></li>

@@ -178,6 +178,9 @@
 		        <h4>Recommend TBAs</h4>
 		        <p>People may fit your team</p>
 		        <hr>
+		        <button class="btn btn-danger" ng-click="recommand()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Recommand">
+							Recommand
+						</button>
 
 		        <div class="container">
 		          <div class="row" ng-repeat="(uid, score) in tba_featurelist">

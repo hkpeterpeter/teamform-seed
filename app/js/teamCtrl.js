@@ -430,19 +430,19 @@ app.controller("teamCtrl",
 		$scope.changeSkillTags = function(){
 			Helper.updateSkillTags($scope.eventID, $scope.teamID, $scope.newSkillTags);
 			$scope.modifySkillTags = !$scope.modifySkillTags;
-			$scope.initchart();
+			// $scope.initchart();
 		}
 
 		$scope.changeLanguageTags = function(){
 			Helper.updateLanguageTags($scope.eventID, $scope.teamID, $scope.newLanguageTags);
 			$scope.modifyLanguageTags = !$scope.modifyLanguageTags;
-				$scope.initchart();
+				// $scope.initchart();
 		}
 
 		$scope.changeMannerTags = function(){
 			Helper.updateMannerTags($scope.eventID, $scope.teamID, $scope.newMannerTags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
-				$scope.initchart();
+				// $scope.initchart();
 		}
 		//get announcements
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/announcements');
@@ -737,68 +737,68 @@ $scope.filterByStatus = function(items, filter_model) {
 			var eventRef = firebase.database().ref("events/" + $scope.eventID);
 			$scope.eventObj = $firebaseObject(eventRef);
 
-			$scope.eventObj.$loaded().then(function(){
 				// $scope.RecommendTBA = function(people) {
 				// 		var result = {};
 						$scope.tba_featurelist = {};
-						angular.forEach($scope.eventObj.tba, function(name, uid) {
-							// console.log(name);
-							// console.log(uid);
-							var key = uid;
-							// console.log(key);
-							angular.extend($scope.tba_featurelist, {[key]: 0});
-						});
-						console.log($scope.tba_featurelist);
+						$scope.recommand = function(){
+							angular.forEach($scope.eventObj.tba, function(name, uid) {
+								// console.log(name);
+								// console.log(uid);
+								var key = uid;
+								// console.log(key);
+								angular.extend($scope.tba_featurelist, {[key]: 0});
+							});
+							console.log($scope.tba_featurelist);
 
-						angular.forEach($scope.tba_featurelist,function(score,uid){
-							//... gg
+							angular.forEach($scope.tba_featurelist,function(score,uid){
+								//... gg
 
-							var ref = firebase.database().ref('users/' + uid+ '/readOnly/info/tags');
-							var user_tags = $firebaseObject(ref);
-							user_tags.$loaded().then(function(){
-								var team_skilltags = $scope.filterSkillTags($scope.skilltags);
-								var team_languagetags = $scope.filterLanguageTags($scope.languagetags);
-								var team_mannertags = $scope.filterMannerTags($scope.mannertags);
-								angular.forEach(user_tags.SkillTags, function(value,key){
-									console.log(key);
-									console.log(team_skilltags);
-									if(team_skilltags[key] !== undefined && team_skilltags[key].color =='green' && value >= team_skilltags[key].value){
-										// console.log(team_skilltags[key]);
-										// console.log(team_skilltags[key].color );
-										// console.log(team_skilltags[key].value);
-										//
-										// console.log("a");
-										$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 3;
-									}
-								});
-								angular.forEach(user_tags.LanguageTags, function(value,key){
-									console.log(key);
-									console.log(team_languagetags);
-									if(team_languagetags[key] == true){
-										// console.log(team_skilltags[key]);
-										// console.log(team_skilltags[key].color );
-										// console.log(team_skilltags[key].value);
-										//
-										// console.log("a");
-										$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 2;
-									}
-								});
-								angular.forEach(user_tags.MannerTags, function(value,key){
-									console.log(key);
-									console.log(team_mannertags);
-									if(team_mannertags[key] == true){
-										// console.log(team_skilltags[key]);
-										// console.log(team_skilltags[key].color );
-										// console.log(team_skilltags[key].value);
-										//
-										// console.log("a");
-										$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 1;
-									}
-								});
-								console.log($scope.tba_featurelist);
-							})
-						});
-			})
+								var ref = firebase.database().ref('users/' + uid+ '/readOnly/info/tags');
+								var user_tags = $firebaseObject(ref);
+								user_tags.$loaded().then(function(){
+									var team_skilltags = $scope.filterSkillTags($scope.skilltags);
+									var team_languagetags = $scope.filterLanguageTags($scope.languagetags);
+									var team_mannertags = $scope.filterMannerTags($scope.mannertags);
+									angular.forEach(user_tags.SkillTags, function(value,key){
+										console.log(key);
+										console.log(team_skilltags);
+										if(team_skilltags[key] !== undefined && team_skilltags[key].color =='green' && value >= team_skilltags[key].value){
+											// console.log(team_skilltags[key]);
+											// console.log(team_skilltags[key].color );
+											// console.log(team_skilltags[key].value);
+											//
+											// console.log("a");
+											$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 3;
+										}
+									});
+									angular.forEach(user_tags.LanguageTags, function(value,key){
+										console.log(key);
+										console.log(team_languagetags);
+										if(team_languagetags[key] == true){
+											// console.log(team_skilltags[key]);
+											// console.log(team_skilltags[key].color );
+											// console.log(team_skilltags[key].value);
+											//
+											// console.log("a");
+											$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 2;
+										}
+									});
+									angular.forEach(user_tags.MannerTags, function(value,key){
+										console.log(key);
+										console.log(team_mannertags);
+										if(team_mannertags[key] == true){
+											// console.log(team_skilltags[key]);
+											// console.log(team_skilltags[key].color );
+											// console.log(team_skilltags[key].value);
+											//
+											// console.log("a");
+											$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 1;
+										}
+									});
+									console.log($scope.tba_featurelist);
+								})
+							});
+					}
 
 
 			// 		return result;
