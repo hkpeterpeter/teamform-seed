@@ -3,7 +3,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
   $scope.loginStatus = false;
 
   // For stupid test case, comment out the only useful function here
-  /*
+  
   $scope.loginhelper = function(result) {
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
@@ -58,7 +58,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
     $('.loginB').toggle();
   }
 };
-*/ 
+
   // Login helper functions
   $scope.login = function(providerName) {
     var successFlag = false;
@@ -83,10 +83,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
       return;
     }
 
-
-    // *** Here goes the side effect of stupid test case
-
-    // firebase.auth().signInWithPopup(provider).then($scope.loginhelper).catch($scope.loginErrorHandler);
+    firebase.auth().signInWithPopup(provider).then($scope.loginhelper).catch($scope.loginErrorHandler);
 
 };
 

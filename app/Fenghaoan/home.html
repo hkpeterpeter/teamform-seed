@@ -21,8 +21,8 @@
     <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
       <ul class="cd-switcher" ng-click="switcher(event)">
       <!-- <ul class="cd-switcher"> -->
-        <li><a>Sign in</a></li>
-        <li><a>New account</a></li>
+        <li><a>OAthen Login</a></li>
+        <!-- <li><a>Login with Email</a></li> -->
       </ul>
 
       <div id="cd-login"> <!-- log in form -->
@@ -52,12 +52,14 @@
           <!-- <p class="fieldset">
             <input class="full-width" type="button" value="Login">
           </p>  -->
-          <a class="btn btn-block btn-social btn-google" ng-click="login('google')" >
-            <span class="fa fa-google"></span> Sign in with Google
-          </a>
-          <a class="btn btn-block btn-social btn-facebook" ng-click="login('facebook')">
-            <span class="fa fa-facebook"></span> Sign in with Facebook
-          </a>
+          <!-- <a class="btn btn-block btn-social btn-google" ng-click="login('google')" > -->
+          <i class="btn btn-block fa fa-google" aria-hidden="true" ng-click="login('google')">
+            Sign in with Google
+          </i>
+          <br>
+          <i class="btn btn-block fa fa-facebook" aria-hidden="true" ng-click="login('facebook')">
+            Sign in with Facebook
+          </i>
           <!-- <a class="btn btn-block btn-social btn-twitter" ng-click="login('twitter')">
             <span class="fa fa-twitter"></span> Sign in with Twitter
           </a>
