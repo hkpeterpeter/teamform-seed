@@ -1,4 +1,4 @@
-var teamapp = angular.module('teamapp', ["ngRoute","firebase"]);
+var teamapp = angular.module('teamapp', ["ngRoute","firebase","chart.js"]);
 
 
 
@@ -119,6 +119,10 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
         id:"0",
         profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
         email:"abc@connect.ust.hk"
+    }
+
+    $rootScope.clickedEvent={
+    	$id:"0"
     }
                 
 	var exampleNewUser={
