@@ -11,7 +11,7 @@ teamapp.filter('adminRequest', function ($rootScope, $firebaseObject) {
 			return filtered;
 	};
 });
-teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $firebaseArray, filterFilter) {
+teamapp.controller('admin_ctrl', function($scope, $rootScope, $timeout, $firebaseObject, $firebaseArray, filterFilter) {
 	$rootScope.user_ref=firebase.database().ref("users");
 	$rootScope.event_ref=firebase.database().ref("events");
 	$rootScope.team_ref=firebase.database().ref("teams");
@@ -22,11 +22,13 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
   $scope.adminTeamNotFull = true;
 
   $rootScope.admintesting = '0';
-  if ($rootScope.clickedEvent != null)
+  if ($rootScope.clickedEvent != null) {
+  	console.log("not null");
   	$scope.event = $rootScope.clickedEvent; //$firebaseObject($rootScope.event_ref.child('0'));
+  };
   //$scope.event.$loaded().then(function(){
   	
-  	//$rootScope.eventTeams = event.allTeams;
+  //$rootScope.eventTeams = event.allTeams;
   $scope.minSize = $scope.event.minSize;
   $scope.maxSize = $scope.event.maxSize;
   $scope.size = $scope.maxSize - $scope.minSize + 1;
@@ -61,10 +63,34 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 	}
 
 	// Delete a team
+	$scope.setactive = function($index) {
+		$scope.activeclass=$index;
+	};
+
 	$scope.remove = function(team) { 
-  		var index = $scope.teams.indexOf(team);
-  		$scope.teams.splice(index, 1); 
-  		$rootScope.team_ref.child(team.$id.toString()).remove();    
+  		//var index = $scope.teams.indexOf(team);
+  		//$scope.teams.splice(index, 1); 
+  		angular.element(document.querySelector("#"+team.teamName)).addClass("animated flipOutY");
+  		console.log("called");
+  		//$scope.teamclass="animated flipOutY";
+  		console.log(team);
+
+		for (var waituser in $scope.users) {
+			console.log(waituser);
+			if ($scope.users[waituser].teamsApplying != null) {
+				for (var waitteam in $scope.users[waituser].teamsApplying) {
+					if ($scope.users[waituser].teamsApplying[waitteam].teamID == team.$id) {
+						delete $scope.users[waituser].teamsApplying[waitteam];
+						$rootScope.user_ref.child($scope.users[waituser].$id).child("teamsApplying").child(waitteam).remove();
+					}
+				};
+				console.log(waituser);
+			};
+		};
+
+  		$timeout(function(){
+  			$rootScope.team_ref.child(team.$id.toString()).remove();
+  		}, 500);
 	};
 
 	$scope.findTeamByName = function(teamName) {
@@ -95,18 +121,28 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 
 
 		if (mergedTeam == null || teamName == null) {
-			console.log("No Such Team");
+			Materialize.toast('Cannot find a team named ' + teamName, 4000);
+			angular.element(document.querySelector("#"+team.teamName)).addClass("animated tada");
+			$timeout(function(){
+				angular.element(document.querySelector("#"+team.teamName)).removeClass("animated tada");
+			}, 500);
 			return;
 		};
 
 		if ($scope.canMergeTeams(mergedTeam, team) == false) {
-			console.log("exceed team member limit");
+			Materialize.toast(teamName + ' is a full team!', 4000);
+			angular.element(document.querySelector("#"+team.teamName)).addClass("animated tada");
+			$timeout(function(){
+				angular.element(document.querySelector("#"+team.teamName)).removeClass("animated tada");
+			}, 500);
 			return;
 		};
 		
 		var newMembers = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("membersID"));
 		newMembers.$add(team.leaderID);
 		for (var key in team.membersID) {
+			//var curMemTeam = $firebaseArray($rootScope.user_ref.child(team.membersID[key].toString()).child("teamsAsMember"));
+			//curMemTeam.$add(team.$id.toString());
 			newMembers.$add(team.membersID[key]);
 		};
 
@@ -115,7 +151,46 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $firebaseObject, $
 			newInvites.$add(team.invitedPeople[key]);
 		};
 
+		for (var waituser in $scope.users) {
+			console.log(waituser);
+			if ($scope.users[waituser].teamsApplying != null) {
+				var exist = false;
+				for (var waitteam in $scope.users[waituser].teamsApplying) {
+					if ($scope.users[waituser].teamsApplying[waitteam].teamID == mergedTeam.$id) {
+						exist = true;
+					}
+				};
+				if (!exist) {
+					$scope.users[waituser].teamsApplying.push({eventID: $scope.event.$id, teamID: mergedTeam.$id, teamName: mergedTeam.teamName})
+					$firebaseArray($rootScope.user_ref.child($scope.users[waituser].$id).child("teamsApplying")).$add({eventID: $scope.event.$id, teamID: mergedTeam.$id, teamName: mergedTeam.teamName});
+				}
+				console.log(waituser);
+			};
+		};
+
 		$scope.remove(team);
+		
+/*
+				for (var waitteam in waituser.teamsApplying) {
+					if (waitteam.teamID == team.$id) {
+						if (exist = false) {
+							waitteam.teamID = mergedTeam.$id;
+							waitteam.teamName = mergedTeam.teamName;
+						} else {
+      var index = $scope.users.indexOf(waituser);
+      $scope.users.splice(index, 1);
+						}
+					}
+				};
+*/
+
+		$timeout(function(){
+		Materialize.toast('Success! The member of ' + teamName + ' is updated!', 4000);
+		angular.element(document.querySelector("#"+teamName+"num")).addClass("animated rubberBand");
+		$scope.adminrequestbtn="animated rubberBand";
+		}, 800);
+		
+
 	
 	};
 

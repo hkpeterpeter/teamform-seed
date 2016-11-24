@@ -93,13 +93,13 @@
 
 
     			<!-- A Single Card -->
-          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams | filter:teamFilter">
+          <div class="card admin-team-card sticky-action blue-grey darken-1" id="{{team.teamName}}" ng-repeat="team in teams | filter:teamFilter">
             <div class="card-content white-text">
               <span class="card-title activator">{{ team.teamName }}<i class="material-icons right">more_vert</i></span>
               <br/>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Team Size:</span>
-                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members" ng-bind="getLength(team)"></span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" id="{{team.teamName}}num" data-badge-caption="members" ng-bind="getLength(team)"></span>
               </div>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Preferred Size:</span>
@@ -112,15 +112,15 @@
             </div>
             <div class="card-action">
               <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge">
-              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="remove(team)">Delete</button>
+              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="setactive($index); remove(team)">Delete</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="adminMergeTeam(team)">Merge</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="findSuitableUser(team)">Recommend</button>
             </div>
 
             <div class="card-reveal blue-grey darken-1 white-text">
-            	<span class="card-title">Team Name<i class="material-icons right">close</i></span>
-            	<p>Team Members: <span ng-repeat="member in team.membersID">{{ member }} </span></p>
-            	<p>Other infomation about this team.</p>
+            	<span class="card-title">{{ team.teamName }}<i class="material-icons right">close</i></span>
+              <p>ID of Team Leader: <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="">{{ team.leaderID }}</span></p>
+            	<p>IDs of Team Members: <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="" ng-repeat="member in team.membersID">{{ member }}</span></p>
             </div>
           </div>
           <!-- A Single Card Ends -->
@@ -173,7 +173,7 @@
           			
         			</div>
        				<div class="card-action">
-         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn tooltipped" data-tooltip="Current size: 5<br>Preferred size: 6-7<br>Required skills: JavaScript" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)">{{ request.teamName }}</a>
+         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)" ng-class="adminrequestbtn">{{ request.teamName }}</a>
                 <!--<a class="btn waves-effect waves-teal admin-card-btn">Other</a>-->
          				
                 <div class="divider admin-incard-divider"></div>
