@@ -226,11 +226,11 @@ app.controller("searchCtrl",
                 //loop through the team list
                 for (var i = 0; i < teams.length; i++) {
                     //constraints
-                    if (keywords.join("") == "" && $scope.constraint.tm == 1) {
+                    if (keywords.join("") == "" && $scope.constraint.tm == 1 && !$scope.constraint.hasTeamConstraints()) {
                         teamsAndMembers.push(new $scope.resultElement("Team ID: " + teams[i].id, teams[i].name, teams[i].descriptions, "searchResultElement-" + i,
                             teams[i].language_for_communication, teams[i].destination, teams[i].tags, "", teams[i].preference,
                             teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : ""),
-                            new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay(), ""));
+                            new Date(teams[i].departure_date).getUTCFullYear() + "-" + (new Date(teams[i].departure_date).getUTCMonth() + 1) + "-" + new Date(teams[i].departure_date).getUTCDate(), ""));
                         continue;
                     }
 
@@ -242,7 +242,7 @@ app.controller("searchCtrl",
                         var lang = teams[i].language_for_communication;
                         var pref = teams[i].preference;
                         var full = teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : "");
-                        var depart = new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay();
+                        var depart = new Date(teams[i].departure_date).getUTCFullYear() + "-" + (new Date(teams[i].departure_date).getUTCMonth() + 1) + "-" + new Date(teams[i].departure_date).getUTCDate();
 
                         //constraint on destination
                         var num = parseInt($scope.constraint.t[0]);
@@ -342,7 +342,7 @@ app.controller("searchCtrl",
                         var e6 = hightlight(teams[i].tags.join(" * "), keywords).split(" * ");
                         var e7 = hightlight(teams[i].preference, keywords);
                         var e8 = teams[i].members.length + "/" + teams[i].max + ((teams[i].members.length == teams[i].max) ? "<span style='color:red;'>&nbsp;(FULL)</span>" : "");
-                        var e9 = new Date(teams[i].departure_date).getUTCFullYear() + "-" + new Date(teams[i].departure_date).getUTCMonth() + "-" + new Date(teams[i].departure_date).getUTCDay();
+                        var e9 = new Date(teams[i].departure_date).getUTCFullYear() + "-" + (new Date(teams[i].departure_date).getUTCMonth() + 1) + "-" + new Date(teams[i].departure_date).getUTCDate();
                         teamsAndMembers.push(new $scope.resultElement("Team ID: " + e2, e1, e3, ("searchResultElement-" + i), e4, e5, e6, "", e7, e8, e9, ""));
                     }
                 }
@@ -627,12 +627,13 @@ function disableCentralize() {
 }
 
 //Compare two dates
-function compareDate(d1, d2) {
-    var day = new Date(d1).getUTCDay() - new Date(d2).getUTCDay();
-    var month = new Date(d1).getUTCMonth() - new Date(d2).getUTCMonth();
-    var year = new Date(d1).getUTCFullYear() - new Date(d2).getUTCFullYear();
-    return day + (month * 30) + (year * 365);
-}
+var compareDate = Utils.compareDate;
+// function compareDate(d1, d2) {
+//     var day = new Date(d1).getUTCDate() - new Date(d2).getUTCDate();
+//     var month = new Date(d1).getUTCMonth() - new Date(d2).getUTCMonth();
+//     var year = new Date(d1).getUTCFullYear() - new Date(d2).getUTCFullYear();
+//     return day + (month * 30) + (year * 365);
+// }
 
 //remove symbols in text
 function removeSymbols(text) {

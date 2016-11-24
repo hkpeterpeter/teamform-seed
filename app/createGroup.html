@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="teamform, team">
 
-   	<title>teamform - A real-time online team forming app</title>
+    <title>teamform - A real-time online team forming app</title>
 
     <script src="lib/jquery.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
@@ -24,30 +24,30 @@
 </head>
 
 <body>
-	<div class="createGroup" ng-controller="createGroupCtrl">
+    <div class="createGroup" ng-controller="createGroupCtrl">
 
-		<div class="teamName">
+        <div class="teamName">
             <strong>Team name:</strong>
-			<input type="text" ng-model="tempTeam.name" placeholder="Type in your team name">
-            <span class="debug">{{tempTeam.name}}</span>            
-		</div>
+            <input type="text" ng-model="tempTeam.name" placeholder="Type in your team name">
+            <span class="debug">{{tempTeam.name}}</span>
+        </div>
 
         <div clasa="max">
             <strong>Maximun number of groupmates</strong>
             <span>
                 <span class="badge">{{tempTeam.max}}</span>
-                <button><span class="glyphicon glyphicon-plus" ng-click="setMaxTeamMember(1);"></span></button>
-                <button><span class="glyphicon glyphicon-minus" ng-click="setMaxTeamMember(-1);"></span></button>                
+            <button ng-click="setMaxTeamMember(1);"><span class="glyphicon glyphicon-plus"></span></button>
+            <button ng-click="setMaxTeamMember(-1);"><span class="glyphicon glyphicon-minus"></span></button>
             </span>
 
         </div>
 
         <div class="sexPreference">
             <strong>Sex Preference</strong>
-            <button type="button" class="btn btn-primary" ng-click="setSexPreference('M')";> Male only</button>
-            <button type="button" class="btn btn-primary" ng-click="setSexPreference('F')";> Female only</button>
-            <button type="button" class="btn btn-primary" ng-click="setSexPreference('N')";> No preference</button>
-            <span class="debug">{{tempTeam.preference}}</span>            
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('M')" ;> Male only</button>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('F')" ;> Female only</button>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('N')" ;> No preference</button>
+            <span class="debug">{{tempTeam.preference}}</span>
         </div>
 
         <div class="budget">
@@ -315,7 +315,7 @@
 
         <div class="language">
             <strong>Main language for communication</strong>
-                <select ng-model="tempTeam.languageForCommunication"> 
+            <select ng-model="tempTeam.languageForCommunication"> 
                     <option ="">Language...</option> 
                     <option>Afrikaans</option>
                     <option>Albanian</option>
@@ -422,7 +422,7 @@
                     <option>Zulu</option>
                 </select>
 
-                <span class="debug">{{tempTeam.languageForCommunication}}</span>
+            <span class="debug">{{tempTeam.languageForCommunication}}</span>
         </div>
 
         <div class="departureDate">
@@ -456,16 +456,16 @@
             <button type="button" class="btn btn-primary" ng-click="setTag();"> Add tag</button>
             <span class="debug">{{tempTeam.tags}}</span>
 
-		<div class="creatGroupButton">
-			<button type="button" class="btn btn-primary" ng-click="createGroup();"> create group </button>
-		</div>
-	</div>
+            <div class="creatGroupButton">
+                <button type="button" class="btn btn-primary" ng-click="createGroup();"> create group </button>
+            </div>
+        </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+        <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
-    <script>
+        <script>
       // Initialize Firebase
       var config = {
         apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
@@ -477,10 +477,11 @@
       firebase.initializeApp(config);
     </script>
 
-    <!-- JavaScript of this page -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- JavaScript of this page -->
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-    <script src="js/createGroup.js"></script>
+        <script src="js/sharedScript.js"></script>
+        <script src="js/createGroup.js"></script>
 </body>
 
 </html>
