@@ -83,22 +83,22 @@
 					<div class="thumbnail caption">
 						<button class="btn btn-xs btn-primary">Skill</button>
 						<br>
-						<span ng-repeat="(name,value) in filterSkillTags(skilltags)">
-							<button class="btn btn-xs btn-default">{{name}} : {{value}}</button>
+						<span ng-repeat="(name,content) in filterSkillTags(skilltags)" >
+							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}} : {{content.value}}</button>
 						</span>
 					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">
 						<button class="btn btn-xs btn-primary">Language</button>
 						<br>
 						<span ng-repeat="(name,value) in filterLanguageTags(languagetags)">
-							<button class="btn btn-xs btn-default">{{name}} : {{value}}</button>
+							<button class="btn btn-xs btn-default">{{name}}</button>
 						</span>
 					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">
 						<button class="btn btn-xs btn-primary">Manner</button>
 						<br>
 						<span ng-repeat="(name,value) in filterMannerTags(mannertags)">
-							<button class="btn btn-xs btn-default">{{name}} : {{value}}</button>
+							<button class="btn btn-xs btn-default">{{name}}</button>
 						</span>
 					</div> <!--thumbnail caption-->
 				</div> <!--caption-->
@@ -154,6 +154,9 @@
           <div class="container" ng-init = "initchart_mannertags()">
 				  	<canvas id="myChart_manners" width="200" height="200"></canvas>
 				  </div> <!--container-->
+					<canvas id="bar" class="chart chart-bar"
+  				chart-data="data" chart-labels="labels" chart-series="series">
+				</canvas>
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
