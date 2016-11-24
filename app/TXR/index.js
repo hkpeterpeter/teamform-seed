@@ -128,7 +128,6 @@ app.controller("clickCtrl",
       // Implementation the todoCtrl
       var event_name = "comp3111";
       var this_user = $cookies.get("username",{path:"/"});//"iamauthur";
-      alert(this_user);
       var user_list = $firebaseObject(firebase.database().ref("userList"));
       var event_list = $firebaseObject(firebase.database().ref("eventList"));
       var conversation = $firebaseObject(firebase.database().ref("conversation"));
@@ -191,7 +190,7 @@ app.controller("clickCtrl",
               //alert("fulfill= "+fulfill+" user= "+key);
               suggested_users[fulfill.toString()].push($scope.users[key]);
             });
-            alert(suggested_users["1"].length);
+            //alert(suggested_users["1"].length);
             for (var i = requirements.length; i>0 ;i--) {
               var str_i = i.toString();
               if (str_i in suggested_users){
