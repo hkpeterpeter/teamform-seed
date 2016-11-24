@@ -55,7 +55,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 					angular.forEach($scope.userList,function(value,key){
 						//only get the user that belongs to current event
-						if($scope.userList[key].Membership.hasOwnProperty("comp3111")){
+						if($scope.userList[key].Membership !== undefined &&
+								$scope.userList[key].Membership["comp3111"] !== undefined){
 							users.push($scope.userList[key].name);
 
 						}
@@ -177,7 +178,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 			var filterFunction = function(){
 				$scope.filterResult = [];
-				if($scope.searchType == "Search Team"){
+				if(Naruto.Sakura == "Search Team"){
 					for(var i = 0;i < tagini[$scope.resultTag[0]].teams.length;i++){
 						$scope.filterResult.push(tagini[$scope.resultTag[0]].teams[i]);
 					}
@@ -286,13 +287,13 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 				}
 
-				tag = $scope.searchResult;
+				// tag = $scope.searchResult;
 			}
 
 			var searchName = function(){
 				$scope.searchResult = [];
 				if($scope.resultTag.length == 0){
-					if($scope.searchType == "Search Team"){
+					if(Naruto.Sakura == "Search Team"){
 						findResult('team');
 
 						$scope.filterResult = $scope.searchResult;
