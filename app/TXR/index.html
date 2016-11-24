@@ -59,8 +59,6 @@
 				$scope.searchType = "Search Event";
 			};
 		});
-
-
 	 </script>-->
 	 <!--temporary css of search tag-->
    <script src="../jzhangbs/site.js"></script>
@@ -81,15 +79,12 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" ng-controller="sidebarCtrl">
-          <ul class="nav nav-sidebar" ng-click="startSearch.search=true">
+            <ul class="nav nav-sidebar" ng-click="startSearch.search=true" ng-controller="sidebarController">
             <li class="active"><a href="#/">My Profile<span class="sr-only">(current)</span></a></li>
             		<li><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false" ng-click="startSearch.search=true">My Events</a>
                     <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
-                    <li><a href="#MyEvents/COMP3111">COMP3111</a></li>
-
-                    <li><a href="#MyEvents/COMP3511">COMP3511</a></li>
-
-                    <li><a href="#MyEvents/COMP2012">COMP2012</a></li>
+               
+                    <li ng-repeat="(event,value) in eventlist"><a ng-href="#/MyEvents/{{event}}">{{event}}</a></li>
                     </ul>
                   </li>
 
