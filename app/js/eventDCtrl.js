@@ -344,3 +344,15 @@ app.filter('stringToDate', function($filter){
         return date;
     }
 });
+
+app.filter('tagColor', function(){
+    return function(obj) {
+        if(obj == "green")
+            return "success";
+        else if(obj =="red")
+            return "danger";
+        else
+            return "default";
+    }
+});
+

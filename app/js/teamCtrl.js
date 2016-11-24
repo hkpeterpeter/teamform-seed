@@ -973,7 +973,9 @@ $scope.filterByStatus = function(items, filter_model) {
 					});
 
 				};
-
+			// Recommend TBAs
+			eventRef = firebase.database().ref("events/" + $scope.eventID);
+			$scope.eventObj = $firebaseObject(eventRef);
 
 
 });
