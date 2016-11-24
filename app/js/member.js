@@ -142,6 +142,20 @@ angular.module('teamform-member-app', ['firebase'])
 	};
 	
 	$scope.saveFunc = function() {
+		$scope.userInfo = $firebaseObject(firebase.database().ref().child("user").child($scope.uid));
+		$scope.userInfo.$loaded().then(function() {
+			if(typeof $scope.userInfo.joinedEvent != "undefined") {
+				$scope.joinedEvent = $scope.userInfo.joinedEvent;
+				if($scope.joinedEvent.indexOf(eventName) == -1) {
+					$scope.joinedEvent.push(eventName);
+				}
+			}
+			else {
+				$scope.joinedEvent = [];
+				$scope.joinedEvent.push(eventName);
+			}
+			firebase.database().ref().child("user").child($scope.uid).update({joinedEvent: $scope.joinedEvent});
+		});
 		var newData = {
 			'tags' : $scope.tags,
 			'selection': $scope.selection,

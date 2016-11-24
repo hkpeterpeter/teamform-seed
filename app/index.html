@@ -195,6 +195,21 @@
 			<button class="btn btn-default" onclick="document.getElementById('createNewEvent').style.display='none'">Cancel</button>			
 			</div>
 		</div>
+		<div id="createNewTeam" class="modal">
+			<div class="container animate modal-content" style="padding-bottom: 10px;">
+			<h3>Create a new team for {{eventName}}</h3>
+			<select ng-model="preferredTeamSize" style="float: right;">
+				<option value="" disabled selected hidden>Team Size...</option>
+				<option ng-repeat="size in teamSize" value="{{size}}">{{size}}</option>
+			</select>
+			<div style="overflow: hidden;">
+				<input type="text" placeholder="Team Name..." ng-model="newTeam" style="width: 100%">
+			</div>
+			<br>
+			<button class="btn btn-warning" ng-click="createNewTeam(eventName)">Confirm</button>
+			<button class="btn btn-default" onclick="$('#createNewTeam').hide();$('#eventDetail').show();">Cancel</button>			
+			</div>
+		</div>
 
 		<div id="eventDetail" class="modal">
 			<div class="container animate modal-content">
@@ -213,6 +228,7 @@
 							<button type="button" class="btn btn-info" ng-click="joinTeam(team.name, eventName)">Request to join</button></td>
 						</tr>
 					</table>
+					<button type="button" class="btn btn-success" ng-click="showEventTeamSize(eventName)">Create new team</button>
 				</div>
 				<div class="animate" id="memberlist" style="display: none">
 					<span onclick="document.getElementById('memberlist').style.display='none'" class="close" title="Close Modal">&times;</span>

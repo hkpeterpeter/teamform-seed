@@ -41,6 +41,20 @@ angular.module('teamform-team-app', ['firebase'])
 		if(firebaseUser) {
 			var user = firebase.auth().currentUser;
 			$scope.uid = user.uid;
+			$scope.userInfo = $firebaseObject(firebase.database().ref().child("user").child($scope.uid));
+			$scope.userInfo.$loaded().then(function() {
+				if(typeof $scope.userInfo.joinedEvent != "undefined") {
+					$scope.joinedEvent = $scope.userInfo.joinedEvent;
+					if($scope.joinedEvent.indexOf($scope.eventName) == -1) {
+						$scope.joinedEvent.push($scope.eventName);
+					}
+				}
+				else {
+					$scope.joinedEvent = [];
+					$scope.joinedEvent.push($scope.eventName);
+				}
+				firebase.database().ref().child("user").child($scope.uid).update({joinedEvent: $scope.joinedEvent});
+			});
 			refPath = $scope.eventName + "/member/" + $scope.uid;
 			$scope.currentUser = $firebaseObject(firebase.database().ref(refPath));	
 			$scope.loadFunc();

@@ -109,6 +109,32 @@ angular.module('teamform-app', ['firebase'])
         else if(mode === 'member') {
             window.location.href = "member.html?q=" + eventName;
         }
+        else if(mode === 'team') {
+            window.location.href = "team.html?q=" + eventName;
+        }
+    };
+
+    $scope.teamSize = [];
+    $scope.showEventTeamSize = function(eventName) {
+        uid = firebase.auth().currentUser.uid;
+        var member = $firebaseObject(firebase.database().ref().child(eventName).child("member").child(uid));
+        member.$loaded().then(function() {
+            if(typeof member.inTeam !== "undefined") {
+                alert("You are already in a team!");
+                return;
+            }
+            else {
+                $scope.teamSize = [];
+                var param = $firebaseObject(firebase.database().ref().child(eventName).child("admin").child("param"));
+                param.$loaded().then(function() {
+                    for(var i = param.minTeamSize; i <= param.maxTeamSize; i++) {
+                        $scope.teamSize.push(i);
+                    }
+                });
+                $('#eventDetail').hide();
+                $('#createNewTeam').show();
+            }
+        });        
     };
 
     $scope.teamList = [];
@@ -189,6 +215,29 @@ angular.module('teamform-app', ['firebase'])
         }
     };
 
+    $scope.createNewTeam = function(eventName) {
+        // assume the member has no team when this function calls
+        if($scope.preferredTeamSize !== "" && $scope.newTeam !== "") {
+            uid = firebase.auth().currentUser.uid;
+            //newData include size and teamMembers(with the team leaders him/herself)
+            var newData = {
+                'size': parseInt($scope.preferredTeamSize),
+                'teamMembers': [uid]
+            };
+            //reference eventName/team/$scope.newTeam
+            firebase.database().ref().child(eventName).child("team").child($scope.newTeam).set(newData);
+            var memberInfoRef = firebase.database().ref().child(eventName).child("member").child(uid);
+            var memberInfo = $firebaseObject(memberInfoRef);
+            memberInfo.$loaded().then(function() {
+                if(typeof memberInfo.weight === "undefined") {
+                    memberInfoRef.update({weight: 0});
+                }
+                memberInfoRef.update({inTeam: $scope.newTeam});
+                window.location.href = "team.html?q=" + eventName;
+            });
+        }
+    };
+
     $scope.joinTeam = function(teamName, eventName) {
         uid = firebase.auth().currentUser.uid;
         var memberRef = firebase.database().ref().child(eventName).child("member").child(uid);
@@ -196,18 +245,19 @@ angular.module('teamform-app', ['firebase'])
         memberRefObj.$loaded().then(function() {
             if(typeof memberRefObj.inTeam !== "undefined") {
                 alert("You are already in team " + memberRefObj.inTeam + "!");
+                return;
             }
-            else if(confirm("Are you sure to request to join the team: " + teamName + " in event " + eventName + "?")) {            
+            else if(typeof memberRefObj.selection !== "undefined") {
+                if(memberRefObj.selection.indexOf(teamName) > -1) {
+                    alert("You have sent the request to this team already!");
+                    return;
+                }
+            }
+            if(confirm("Are you sure to request to join the team: " + teamName + " in event " + eventName + "?")) {            
                 if(typeof memberRefObj.weight === "undefined") {
                     memberRef.set({weight: 0});
                 }
-                else if(typeof memberRefObj.selection !== "undefined") {
-                    angular.forEach(memberRefObj.selection, function(team) {
-                        if(team === teamName) {
-                            alert("You have sent the request to this team already!");
-                            return;
-                        }
-                    });
+                else if(typeof memberRefObj.selection !== "undefined") {                    
                     memberRefObj.selection.push(teamName);
                     memberRefObj.$save();
                 }
