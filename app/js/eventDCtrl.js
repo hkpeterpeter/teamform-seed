@@ -85,8 +85,14 @@ app.controller("eventDCtrl",
             Helper.deleteTeam($scope.eventID,key);
         };
         $scope.addToTeam = function(id){
-            $scope.selectTeam=!$scope.selectTeam;
-            personToBeAdded=id;
+            if ($scope.selectTeam && personToBeAdded != id){
+                personToBeAdded=id; 
+            }
+            else
+            {
+                $scope.selectTeam=!$scope.selectTeam;   
+                personToBeAdded=id;              
+            }
 
         }
         $scope.toTeam=function(key){
