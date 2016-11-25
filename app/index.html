@@ -2,287 +2,288 @@
 <html lang="en" ng-app="teamform-app">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="teamform, team">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="teamform, team">
 
-  <title>teamform - A real-time online team forming app</title>
+	<title>teamform - A real-time online team forming app</title>
 
-  <script src="lib/jquery.min.js"></script>
-  <script src="lib/bootstrap.min.js"></script>
+	<script src="lib/jquery.min.js"></script>
+	<script src="lib/bootstrap.min.js"></script>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/site.css">
-  <link rel="stylesheet" href="css/login.css">     
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/site.css">
+	<link rel="stylesheet" href="css/login.css">   	
 
-     <script src="js/site.js"></script>
+   	<script src="js/site.js"></script>
 
 </head>
 
 <body>
 
-  <nav class="navbar navbar-static-top navbar-default">
-    <div class="container">
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-left">
-          <li id="teamform"><a class="navbar-brand" href="#">teamform</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="profile.html">Profile</a></li>
-              <li><a href="taglist.html">Tag list/Ability Quiz</a></li>
-              <li><a href="#page_about">About teamform</a></li>
-              <li><a href="#page_team">Development team</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="#page_event">Events</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
+	<nav class="navbar navbar-static-top navbar-default">
+		<div class="container">
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-left">
+					<li id="teamform"><a class="navbar-brand" href="#">teamform</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="profile.html">Profile</a></li>
+							<li><a href="taglist.html">Tag list/Ability Quiz</a></li>
+							<li><a href="#page_about">About teamform</a></li>
+							<li><a href="#page_team">Development team</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#page_event">Browse Events</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
 
-            <ul class="dropdown-menu">
-              <li><a href="coverage/index.html" target="_blank">Report</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a href="unit_tests/test_site.js" target="_blank">test_site.js</a></li>
-              <li><a href="unit_tests/test_admin.js" target="_blank">test_admin.js</a></li>
-              <li><a href="unit_tests/test_member.js" target="_blank">test_member.js</a></li>
-              <li><a href="unit_tests/test_team.js" target="_blank">test_team.js</a></li>
-              <li><a href="unit_tests/test_index.js" target="_blank">test_index.js</a></li>
-            </ul>
-          </li>
-        </ul>
+						<ul class="dropdown-menu">
+							<li><a href="coverage/index.html" target="_blank">Report</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="unit_tests/test_site.js" target="_blank">test_site.js</a></li>
+							<li><a href="unit_tests/test_admin.js" target="_blank">test_admin.js</a></li>
+							<li><a href="unit_tests/test_member.js" target="_blank">test_member.js</a></li>
+							<li><a href="unit_tests/test_team.js" target="_blank">test_team.js</a></li>
+							<li><a href="unit_tests/test_index.js" target="_blank">test_index.js</a></li>
+						</ul>
+					</li>
+				</ul>
 
-        <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown" id="blogout">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
-                 <div>
-                 <span id="userName"></span>
-                 <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
-                 <img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
-                 </div>
-                 </a>
-                 <ul class="dropdown-menu">
-                 <li id="logOut"><a href="#">Log out</a></li>
-                 </ul>
-               </li>               
-               <li>
-                <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
-                </button>
-               </li>
-          </ul>
-      </div>
-    </div>
-  </nav>
+				<ul class="nav navbar-nav navbar-right">
+        		  <li class="dropdown" id="blogout">
+           		  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
+           		  <div>
+           			<span id="userName"></span>
+           			<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+           			<img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
+           		  </div>
+           		  </a>
+           		  <ul class="dropdown-menu">
+             		<li id="logOut"><a href="#">Log out</a></li>
+           		  </ul>
+       			  </li>               
+       			  <li>
+          		  <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
+          		  </button>
+       			  </li>
+    			</ul>
+			</div>
+		</div>
+	</nav>
 
-  <div login id="login-form" class="modal"></div>
+	<div login id="login-form" class="modal"></div>
 
-  <div class="container" id="page_home">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
+	<div class="container" id="page_home">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-12">
 
-            <div class="text-center">
-              <h1>teamform</h1>
-              <p>A real-time online team forming app for any event</p>
-            </div>
-            <br>
-            <div class="text-center">
-              <input id="input_text" type="text" class="input-lg"><br>
-              <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-              <br><br>
-              <div class="btn-group" role="group">
-                <div class="btn-group" role="group">
-                <button id="btn_admin" type="button" class="btn btn-primary">Administrator</button></div>
-                <div class="btn-group" role="group">
-                <button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button></div>
-                <div class="btn-group" role="group">
-                <button id="btn_member" type="button" class="btn btn-primary">Member</button></div>
-              </div>
-            </div>
-            <br>
-            <br>
-          </div>
-        </div>
-        <hr>
-      </div>
-    </div>
-  </div>
+						<div class="text-center">
+							<h1>teamform</h1>
+							<p>A real-time online team forming app for any event</p>
+						</div>
+						<br>
+						<div class="text-center">
+							<input id="input_text" type="text" class="input-lg"><br>
+							<em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
+							<br><br>
+							<div class="btn-group" role="group">
+								<div class="btn-group" role="group">
+								<button id="btn_admin" type="button" class="btn btn-primary">Administrator</button></div>
+								<div class="btn-group" role="group">
+								<button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button></div>
+								<div class="btn-group" role="group">
+								<button id="btn_member" type="button" class="btn btn-primary">Member</button></div>
+							</div>
+						</div>
+						<br>
+						<br>
+					</div>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
 
-  <div class="container marketing" ng-controller="indexCtrl">
-    <div class="row featurette" id="page_about">
-      <div class="col-md-12">
-        <h2 class="featurette-heading">What is teamform?
-        <br>
-        <span class="text-muted">A real-time online team forming app</span>
-        </h2>
-        <p class="lead"> The following roles are supported in teamform:
-        </p>
-        <div class="row">
-          <div class="col-md-4">
-            <h3 class="text-center">Administrator</h3>
-            <ul>
-              <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
-              <li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
-              <li>Be able to do smart assignment on members with no teams in accordance of the team's preferences and the member's skills</li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h3 class="text-center">Team</h3>
-            <ul>
-              <li>Be able to add and remove requests made by members</li>
-              <li>Be able to invite unassigned members to their team</li>
-              <li>Once a member joins the team, all his/her requests and received invitations will be deleted</li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <h3 class="text-center">Member</h3>
-            <ul>
-              <li>Be able to request to join multiple teams</li>
-              <li>Be able to accept or decline invitations from teams</li>
-              <li>Be able to join the chat room for that event to exchange ideas with each other</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr class="featurette-divider">
+	<div class="container marketing" ng-controller="indexCtrl">
+		<div class="row featurette" id="page_about">
+			<div class="col-xs-12">
+				<p class="lead"> The following roles are supported in teamform:</p>
+				<ul class="nav nav-tabs">
+				  <li role="presentation" ng-class="{active: tab == 1}" ng-click="tab = 1"><a>Administrator</a></li>
+				  <li role="presentation" ng-class="{active: tab == 2}" ng-click="tab = 2"><a>Team Leader</a></li>
+				  <li role="presentation" ng-class="{active: tab == 3}" ng-click="tab = 3"><a>Members</a></li>
+				</ul>
+				<div class="row" ng-init="tab = 1">
+					<div class="col-xs-12" ng-if="tab == 1">
+						<h3 class="text-center">Administrator</h3>
+						<ul>
+							<li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
+							<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
+							<li>Be able to do smart assignment on members with no teams in accordance of the team's preferences and the member's skills</li>
+						</ul>
+					</div>
+					<div class="col-xs-12" ng-if="tab == 2">
+						<h3 class="text-center">Team</h3>
+						<ul>
+							<li>Be able to add and remove requests made by members</li>
+							<li>Be able to invite unassigned members to their team</li>
+							<li>Once a member joins the team, all his/her requests and received invitations will be deleted</li>
+						</ul>
+					</div>
+					<div class="col-xs-12" ng-if="tab == 3">
+						<h3 class="text-center">Member</h3>
+						<ul>
+							<li>Be able to request to join multiple teams</li>
+							<li>Be able to accept or decline invitations from teams</li>
+							<li>Be able to join the chat room for that event to exchange ideas with each other</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr class="featurette-divider">
 
-    <div class="row">
-      <div class="panel panel-default" id="page_event">
-        <div class="panel-heading">Events</div>
-        <div class="panel-body">
-          <table class="table">
-            <tr style="background-color: lightgray">
-              <th>#</th>
-              <th>Name</th>
-              <th class="col-xs-2">Preferred team size</th>
-              <th class="col-xs-2">No. of teams</th>
-              <th class="col-xs-2">No. of members</th>
-              <th>Actions</th>
-            </tr>
-            <tr ng-repeat="event in activeEventList" ng-show="$index/5 < pageNum && $index/5 >= pageNum-1" ng-click="showEventDetail(event.name)">
-              <td>{{$index+1}}</td>
-              <td>{{event.name}}</td>
-              <td>{{event.minTeamSize}} to {{event.maxTeamSize}}</td>
-              <td>{{event.numTeams}}</td>
-              <td>{{event.numMembers}}</td>
-              <td>
-                <button class="btn btn-default" ng-click="joinEvent(event.name, 'admin')">Manage</button>
-                <button class="btn btn-info" ng-click="joinEvent(event.name, 'member')">Join</button>
-              </td>
-            </tr>
-          </table>
-          <button class="btn btn-success" onclick="document.getElementById('createNewEvent').style.display='block'">Create new event</button>
-        </div>
-        <div class="text-center">
-          <ul class="pager">
-            <li ng-click="pageNum = (pageNum <= 1)? 1: pageNum-1"><a href="#page_event">Previous</a></li>
-            <li ng-click="pageNum = (pageNum >= activeEventList.length/5)? pageNum: pageNum+1"><a href="#page_event">Next</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+		<div class="row">
+			<div class="panel panel-default" id="page_event">
+				<div class="panel-heading">Events</div>
+				<div class="panel-body">
+					<table class="table">
+						<tr style="background-color: lightgray">
+							<th>#</th>
+							<th>Name</th>
+							<th class="col-xs-2">Preferred team size</th>
+							<th class="col-xs-2">No. of teams</th>
+							<th class="col-xs-2">No. of members</th>
+							<th>Actions</th>
+						</tr>
+						<tr ng-repeat="event in activeEventList" ng-show="$index/5 < pageNum && $index/5 >= pageNum-1" ng-click="showEventDetail(event.name)">
+							<td>{{$index+1}}</td>
+							<td>{{event.name}}</td>
+							<td>{{event.minTeamSize}} to {{event.maxTeamSize}}</td>
+							<td>{{event.numTeams}}</td>
+							<td>{{event.numMembers}}</td>
+							<td>
+								<button class="btn btn-default" ng-click="joinEvent(event.name, 'admin')">Manage</button>
+								<button class="btn btn-info" ng-click="joinEvent(event.name, 'member')">Join</button>
+							</td>
+						</tr>
+					</table>
+					<button class="btn btn-success" onclick="document.getElementById('createNewEvent').style.display='block'">Create new event</button>
+				</div>
+				<div class="text-center">
+					<ul class="pager">
+						<li ng-click="pageNum = (pageNum <= 1)? 1: pageNum-1"><a href="#page_event">Previous</a></li>
+						<li ng-click="pageNum = (pageNum >= activeEventList.length/5)? pageNum: pageNum+1"><a href="#page_event">Next</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 
-    <div id="createNewEvent" class="modal">
-      <div class="container animate modal-content" style="padding-bottom: 10px;">
-      <h3>Create a new event</h3>
-      <input type="text" placeholder="Event Name..." class="form-control" ng-model="newEvent"><br>
-      <button class="btn btn-warning" ng-click="createNewEvent()">Confirm</button>
-      <button class="btn btn-default" onclick="document.getElementById('createNewEvent').style.display='none'">Cancel</button>      
-      </div>
-    </div>
-    <div id="createNewTeam" class="modal">
-      <div class="container animate modal-content" style="padding-bottom: 10px;">
-      <h3>Create a new team for {{eventName}}</h3>
-      <select ng-model="preferredTeamSize" style="float: right;">
-        <option value="" disabled selected hidden>Team Size...</option>
-        <option ng-repeat="size in teamSize" value="{{size}}">{{size}}</option>
-      </select>
-      <div style="overflow: hidden;">
-        <input type="text" placeholder="Team Name..." ng-model="newTeam" style="width: 100%">
-      </div>
-      <br>
-      <button class="btn btn-warning" ng-click="createNewTeam(eventName)">Confirm</button>
-      <button class="btn btn-default" onclick="$('#createNewTeam').hide();$('#eventDetail').show();">Cancel</button>      
-      </div>
-    </div>
+		<div id="createNewEvent" class="modal">
+			<div class="container animate modal-content" style="padding-bottom: 10px;">
+			<h3>Create a new event</h3>
+			<input type="text" placeholder="Event Name..." class="form-control" ng-model="newEvent"><br>
+			<button class="btn btn-warning" ng-click="createNewEvent()">Confirm</button>
+			<button class="btn btn-default" onclick="document.getElementById('createNewEvent').style.display='none'">Cancel</button>			
+			</div>
+		</div>
+		<div id="createNewTeam" class="modal">
+			<div class="container animate modal-content" style="padding-bottom: 10px;">
+			<h3>Create a new team for {{eventName}}</h3>
+			<select ng-model="preferredTeamSize" style="float: right;">
+				<option value="" disabled selected hidden>Team Size...</option>
+				<option ng-repeat="size in teamSize" value="{{size}}">{{size}}</option>
+			</select>
+			<div style="overflow: hidden;">
+				<input type="text" placeholder="Team Name..." ng-model="newTeam" style="width: 100%">
+			</div>
+			<br>
+			<button class="btn btn-warning" ng-click="createNewTeam(eventName)">Confirm</button>
+			<button class="btn btn-default" onclick="$('#createNewTeam').hide();$('#eventDetail').show();">Cancel</button>			
+			</div>
+		</div>
 
-    <div id="eventDetail" class="modal">
-      <div class="container animate modal-content">
-        <span onclick="document.getElementById('eventDetail').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <h4 class="text-center">Team List of {{eventName}} </h4>
-        <div id="teamlist">
-          <table class="table" id="teamListTable">
-            <tr><th>Name</th><th>Preferred size</th><th>Current size</th><th>Preferred traits/skills</th><th>Actions</th></tr>
-            <tr ng-repeat="team in teamList" id="teamInfo" ng-click="displayMembersInTeam(team.name, eventName)">
-              <td>{{team.name}}</td>
-              <td>{{team.size}}</td>
-              <td>{{team.numMembers}}</td>
-              <td>
-              <button type="button" class="btn btn-default btn-xs pull-left" ng-repeat="t in team.tags">{{t}}</button></td>
-              <td>
-              <button type="button" class="btn btn-info" ng-click="joinTeam(team.name, eventName)">Request to join</button></td>
-            </tr>
-          </table>
-          <button type="button" class="btn btn-success" ng-click="showEventTeamSize(eventName)">Create new team</button>
-        </div>
-        <div class="animate" id="memberlist" style="display: none">
-          <span onclick="document.getElementById('memberlist').style.display='none'" class="close" title="Close Modal">&times;</span>
-          <h4>Member List of {{teamName}} </h4>
-          <table class="table" id="memberListTable">
-            <tr><th>Name</th><th>Tags</th></tr>
-            <tr ng-repeat="member in memberList" id="memberInfo">
-              <td>{{member.name}}</td>
-              <td>
-              <button type="button" class="btn btn-success btn-xs pull-left" ng-repeat="t in member.tags">{{t}}</button></td>
-            </tr>
-          </table>
-          <div id="manageTeam"></div>
-        </div>
-      </div>
-    </div>
+		<div id="eventDetail" class="modal">
+			<div class="container animate modal-content">
+				<span onclick="document.getElementById('eventDetail').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<h4 class="text-center">Team List of {{eventName}} </h4>
+				<div id="teamlist">
+					<table class="table" id="teamListTable">
+						<tr><th>Name</th><th>Preferred size</th><th>Current size</th><th>Preferred traits/skills</th><th>Actions</th></tr>
+						<tr ng-repeat="team in teamList" id="teamInfo" ng-click="displayMembersInTeam(team.name, eventName)">
+							<td>{{team.name}}</td>
+							<td>{{team.size}}</td>
+							<td>{{team.numMembers}}</td>
+							<td>
+							<button type="button" class="btn btn-default btn-xs pull-left" ng-repeat="t in team.tags">{{t}}</button></td>
+							<td>
+							<button type="button" class="btn btn-info" ng-click="joinTeam(team.name, eventName)">Request to join</button></td>
+						</tr>
+					</table>
+					<button type="button" class="btn btn-success" ng-click="showEventTeamSize(eventName)">Create new team</button>
+				</div>
+				<div class="animate" id="memberlist" style="display: none">
+					<span onclick="document.getElementById('memberlist').style.display='none'" class="close" title="Close Modal">&times;</span>
+					<h4>Member List of {{teamName}} </h4>
+					<h5>Team description: {{teamDescription}}</h5>
+					<table class="table" id="memberListTable">
+						<tr><th>Name</th><th>Tags</th></tr>
+						<tr ng-repeat="member in memberList" id="memberInfo">
+							<td>{{member.name}}</td>
+							<td>
+							<button type="button" class="btn btn-success btn-xs pull-left" ng-repeat="t in member.tags">{{t}}</button></td>
+						</tr>
+					</table>
+					<div id="manageTeam"></div>
+				</div>
+			</div>
+		</div>
 
-    <hr class="featurette-divider">
+		<hr class="featurette-divider">
 
-    <div class="row featurette" id="page_team">
-      <div class="col-md-12">
-        <h2 class="featurette-heading">Development Team
-          <br>
-          <span class="text-muted">Team Anonymous</span>
-        </h2>
-        <div class="row">
-          <div class="tmember col-xs-6 col-sm-4 col-md-3" ng-repeat="t in dteam">
-            <div class="thumbnail text-center" style="word-wrap: break-word;">
-              <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member{{$index+1}}&w=150&h=150" class="img-circle img-responsive">
-              <div class="caption">
-                <h4>{{t.name}}</h4>
-                <p>{{t.email}}</p>
-              </div>
-            </div>
-          </div>          
-        </div>
+		<div class="row featurette" id="page_team">
+			<div class="col-md-12">
+				<h2 class="featurette-heading">Development Team
+					<br>
+					<span class="text-muted">Team Anonymous</span>
+				</h2>
+				<div class="row">
+					<div class="tmember col-xs-6 col-sm-4 col-md-3" ng-repeat="t in dteam">
+						<div class="thumbnail text-center" style="word-wrap: break-word;">
+							<img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member{{$index+1}}&w=150&h=150" class="img-circle img-responsive">
+							<div class="caption">
+								<h4>{{t.name}}</h4>
+								<p>{{t.email}}</p>
+							</div>
+						</div>
+					</div>					
+				</div>
 
-      </div>
-    </div>
+			</div>
+		</div>
 
-    <footer>
-      <p class="pull-right"><a href="#">Back to top</a></p>
-      <p>&copy; 2017 COMP3111/H teaching team </p>
-      <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
-    </footer>
-  </div>
+		<footer>
+			<p class="pull-right"><a href="#">Back to top</a></p>
+			<p>&copy; 2017 COMP3111/H teaching team </p>
+			<p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
+		</footer>
+	</div>
 
-  <script src="lib/angular.min.js"></script>
-     <script src="lib/angular-route.min.js"></script>        
+	<script src="lib/angular.min.js"></script>
+   	<script src="lib/angular-route.min.js"></script>        
      
-     <script src="lib/firebase.js"></script>     
-     <script src="lib/angularfire.min.js"></script>
+   	<script src="lib/firebase.js"></script>     
+   	<script src="lib/angularfire.min.js"></script>
 
-  <script src="js/index.js"></script>
+	<script src="js/index.js"></script>
 
 </body>
 

@@ -75,7 +75,7 @@ angular.module('teamform-admin-app', ['firebase'])
 				$scope.param.eventAdmin = user.uid;
 				$scope.param.$save();
 				alert("Created new event " + eventName);
-				firebase.database().ref("eventList/" + eventName).set({ status: "active" }).then(reload);
+				firebase.database().ref("eventList/" + eventName).set({ status: "active" });
 			}
 			else {	// invalid event name or not logged in
 				$("#admin_page_controller button").hide();	

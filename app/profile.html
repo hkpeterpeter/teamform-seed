@@ -96,14 +96,28 @@
         <div class="row">
           <div class="col-md-2 col-xs-2"></div>
           	<div class="col-md-8 col-xs-8 text-left panel">
+<!-- <<<<<<< HEAD
           	  <div ng-if="inEventInfo.length > 0">
           	    <ul>
           	      <li ng-repeat="eventInfo in inEventInfo">
           	        {{"Event "}}<a href="member.html?q={{eventInfo.eventId}}">{{eventInfo.eventId}}</a>
           	        {{": " + (eventInfo.inTeam !== undefined? "in team " + eventInfo.inTeam: "no team yet")}}
           	      </li>
+======= -->
+              <table class="table" ng-if="inEventInfo.length > 0">
+                <tr><th>Event Name</th><th>Joined Team</th></tr>
+                <tr ng-repeat="eventInfo in inEventInfo">
+                <td>{{eventInfo.eventId}}</td>
+                <td>{{(eventInfo.inTeam !== undefined? eventInfo.inTeam: "None")}}</td>
+                </tr>
+              </table>
+          	  <!-- <div ng-if="inEventInfo.length > 0">
+          	    <ul ng-repeat="eventInfo in inEventInfo">
+          	      <li>{{"Event " + eventInfo.eventId + ": "
+          	      	+ }</li>
+>>>>>>> 027532fcd3d77b39b8fbd3fba4f1b0634278e40c
           	    </ul>
-          	  </div>
+          	  </div> -->
           	  <div ng-if="inEventInfo.length <= 0">No event joined yet.</div>
         	</div>    
         </div>

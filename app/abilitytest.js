@@ -53,7 +53,7 @@ angular.module('ability-test-app', ['firebase'])
 				$scope.correctness += 1
 			}
 		}
-		var mark = Math.round($scope.correctness / $scope.quiz.length * 100)
+		var mark = $scope.correctness / $scope.quiz.length * 100
 		var refPath = "user/" + userID + "/ability/" + getURLParameter("u");
 		var ref = firebase.database().ref(refPath);
 		ref.update({marks: mark})

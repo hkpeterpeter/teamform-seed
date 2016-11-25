@@ -71,7 +71,25 @@ angular.module('teamform-member-app', ['firebase'])
 		} else {
 			$scope.ability = [];
 		}
-
+		if($scope.memberInfo.inTeam != null) {
+			$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam + ".");
+			$scope.loadFuncTest = "inTeam";
+		}
+		else {
+			$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
+			 the team or <a href=\"team.html?q=" + $scope.eventName + "\">Click here</a> to create\
+			  a team.");
+			$scope.loadFuncTest = "notinTeam";
+		}
+		//check for invitation
+		if($scope.memberInfo.invitedBy != null){
+			$("#inviteStatus").html("You are invited by " + $scope.memberInfo.invitedBy.length + " teams in the event " + $scope.eventName + ".");
+			$scope.loadFuncTest += " invite";
+		}
+		else{
+			$("#inviteStatus").html("You have no invitation.");
+			$scope.loadFuncTest += " noinvite";
+		}
 		// check quiz
 		if($scope.ability.java.marks >= 50) {$scope.addTag2("Java");}
 		if($scope.ability.cpp.marks >= 50) {$scope.addTag2("C++");}
@@ -106,43 +124,7 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		return true;
 	}
-	//tagFiltering
-	$scope.searchTags = [];
-	$scope.openCategory = function(dVal){
-		document.getElementById(dVal).classList.toggle("show");
-	};	
-	$scope.filterByTag =function(teamTag){
-		if ($scope.searchTags.length == 0){return true;}
-		var length = (typeof teamTag != "undefined")? teamTag.length: 0;
-		var slength = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
-		for (var i=0;i<slength;i++){
-			for (var j=0; j<length;j++){
-				if(teamTag[j] == $scope.searchTags[i]){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	$scope.addSearchTags = function(tagval){
-		var addOrNot = true;
-		var k = 0;
-		var length = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
-		for(; k < length; k++){
-			if(tagval == $scope.searchTags[k]){
-				addOrNot = false;
-				break;
-			}
-		}
-		if(addOrNot){
-			$scope.searchTags.push(tagval);
-		}
-		else{
-			$scope.searchTags.splice(k,1);
-		}
 
-	};
-	//tagFiltering ends
 	$scope.leaveTeam = function() {
 		if($scope.memberInfo.inTeam === undefined) return;
 		var refPath = $scope.eventName + "/member/" + $scope.uid + "/inTeam";
@@ -208,7 +190,6 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.acceptInv = function(teamName){
 		//Get the index of teamName in team
 		var index;
-		console.log("teams: ", $scope.teams);
 		for(var i=0; i<$scope.teams.length; i++){
 			if(teamName === $scope.teams[i].$id){
 				index = i;
@@ -270,7 +251,6 @@ angular.module('teamform-member-app', ['firebase'])
 			invitedBy: [],
 			inTeam: $scope.team.$id
 		});
-		reload();
 	};
 
 	$scope.declineInv = function(teamName){
