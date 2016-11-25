@@ -65,13 +65,12 @@
               <span class="badge">{{param.minTeamSize}}</span>
               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
               <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+              <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
               <br><br>
               <strong>Maximum Team Size: </strong>
               <span class="badge">{{param.maxTeamSize}}</span>
               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
               <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
-              <br><br>
-              <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
               <br></br>
               <button type="button" class="btn btn-primary" ng-disabled="!willEnableSmartAssignment()" ng-click="smartAssignment();" >Smart Assignment</button>
               <button type="button" class="btn btn-primary" ng-click="terminateEvent();" >Terminate</button>
@@ -86,26 +85,32 @@
 		           	<thead>
 		           		<tr>
 		           			<td>Team name</td>
+		           			<td>Size</td>
+		           			<td>Total Weight</td>
 		           		</tr>
 		           	</thead>
 		           	<tbody ng-repeat="t in team">
-						<tr class="team_row">
-							<td colspan="3">
-								<p>
-									<button ng-if="t.expanded" ng-click="t.expanded = false">-</button>
-									<button ng-if="!t.expanded" ng-click="t.expanded = true">+</button>
-									{{t.$id + "(size: " + t.size + ")"}}
-								</p>
-							</td>
-						</tr>
-						<tr ng-if="t.expanded" ng-repeat-end="">
-							<td>#</td>
-							<td>Member name</td>
-						</tr>
-						<tr class="member-row" ng-if="t.expanded" ng-repeat="tm in t.teamMembers track by $index">
-							<td>{{$index + 1}}</td>
-							<td colspan="2">{{getMemberName(tm)}}</td>
-						</tr>
+		           	  <tr>
+		           	    <td>
+		           	      <p>
+		           	        <button ng-if="t.expanded" ng-click="t.expanded = false">-</button>
+		           	        <button ng-if="!t.expanded" ng-click="t.expanded = true">+</button>
+		           	        {{t.$id}}
+		           	      </p>
+		           	    </td>
+		           	    <td>{{t.teamMembers.length + "/"+ t.size}}</td>
+		           	    <td>{{getTotalWeight(t.teamMembers)}}</td>
+		           	  </tr>
+		           	  <tr ng-if="t.expanded" ng-repeat-end="">
+		           	    <td>#</td>
+		           	    <td>Member name</td>
+		           	    <td>Weight</td>
+		           	  </tr>
+		           	  <tr ng-if="t.expanded" ng-repeat="tm in t.teamMembers track by $index">
+		           	    <td>{{$index + 1}}</td>
+		           	    <td>{{getMemberName(tm)}}</td>
+		           	    <td>{{getMemberWeight(tm)}}</td>
+		           	  </tr>
 					</tbody>
 					<tbody>
 						<tr>

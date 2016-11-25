@@ -32,10 +32,12 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li><a href="profile.html">Profile</a></li>
+							<li><a href="taglist.html">Tag list/Ability Quiz</a></li>
 							<li><a href="#page_about">About teamform</a></li>
 							<li><a href="#page_team">Development team</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="#">TODO: Add menu items here... </a></li>
+							<li><a href="#page_event">Events</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -147,6 +149,103 @@
 				</div>
 			</div>
 		</div>
+		<hr class="featurette-divider">
+
+		<div class="row">
+			<div class="panel panel-default" id="page_event">
+				<div class="panel-heading">Events</div>
+				<div class="panel-body">
+					<table class="table">
+						<tr style="background-color: lightgray">
+							<th>#</th>
+							<th>Name</th>
+							<th class="col-xs-2">Preferred team size</th>
+							<th class="col-xs-2">No. of teams</th>
+							<th class="col-xs-2">No. of members</th>
+							<th>Actions</th>
+						</tr>
+						<tr ng-repeat="event in activeEventList" ng-show="$index/5 < pageNum && $index/5 >= pageNum-1" ng-click="showEventDetail(event.name)">
+							<td>{{$index+1}}</td>
+							<td>{{event.name}}</td>
+							<td>{{event.minTeamSize}} to {{event.maxTeamSize}}</td>
+							<td>{{event.numTeams}}</td>
+							<td>{{event.numMembers}}</td>
+							<td>
+								<button class="btn btn-default" ng-click="joinEvent(event.name, 'admin')">Manage</button>
+								<button class="btn btn-info" ng-click="joinEvent(event.name, 'member')">Join</button>
+							</td>
+						</tr>
+					</table>
+					<button class="btn btn-success" onclick="document.getElementById('createNewEvent').style.display='block'">Create new event</button>
+				</div>
+				<div class="text-center">
+					<ul class="pager">
+						<li ng-click="pageNum = (pageNum <= 1)? 1: pageNum-1"><a href="#page_event">Previous</a></li>
+						<li ng-click="pageNum = (pageNum >= activeEventList.length/5)? pageNum: pageNum+1"><a href="#page_event">Next</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div id="createNewEvent" class="modal">
+			<div class="container animate modal-content" style="padding-bottom: 10px;">
+			<h3>Create a new event</h3>
+			<input type="text" placeholder="Event Name..." class="form-control" ng-model="newEvent"><br>
+			<button class="btn btn-warning" ng-click="createNewEvent()">Confirm</button>
+			<button class="btn btn-default" onclick="document.getElementById('createNewEvent').style.display='none'">Cancel</button>			
+			</div>
+		</div>
+		<div id="createNewTeam" class="modal">
+			<div class="container animate modal-content" style="padding-bottom: 10px;">
+			<h3>Create a new team for {{eventName}}</h3>
+			<select ng-model="preferredTeamSize" style="float: right;">
+				<option value="" disabled selected hidden>Team Size...</option>
+				<option ng-repeat="size in teamSize" value="{{size}}">{{size}}</option>
+			</select>
+			<div style="overflow: hidden;">
+				<input type="text" placeholder="Team Name..." ng-model="newTeam" style="width: 100%">
+			</div>
+			<br>
+			<button class="btn btn-warning" ng-click="createNewTeam(eventName)">Confirm</button>
+			<button class="btn btn-default" onclick="$('#createNewTeam').hide();$('#eventDetail').show();">Cancel</button>			
+			</div>
+		</div>
+
+		<div id="eventDetail" class="modal">
+			<div class="container animate modal-content">
+				<span onclick="document.getElementById('eventDetail').style.display='none'" class="close" title="Close Modal">&times;</span>
+				<h4 class="text-center">Team List of {{eventName}} </h4>
+				<div id="teamlist">
+					<table class="table" id="teamListTable">
+						<tr><th>Name</th><th>Preferred size</th><th>Current size</th><th>Preferred traits/skills</th><th>Actions</th></tr>
+						<tr ng-repeat="team in teamList" id="teamInfo" ng-click="displayMembersInTeam(team.name, eventName)">
+							<td>{{team.name}}</td>
+							<td>{{team.size}}</td>
+							<td>{{team.numMembers}}</td>
+							<td>
+							<button type="button" class="btn btn-default btn-xs pull-left" ng-repeat="t in team.tags">{{t}}</button></td>
+							<td>
+							<button type="button" class="btn btn-info" ng-click="joinTeam(team.name, eventName)">Request to join</button></td>
+						</tr>
+					</table>
+					<button type="button" class="btn btn-success" ng-click="showEventTeamSize(eventName)">Create new team</button>
+				</div>
+				<div class="animate" id="memberlist" style="display: none">
+					<span onclick="document.getElementById('memberlist').style.display='none'" class="close" title="Close Modal">&times;</span>
+					<h4>Member List of {{teamName}} </h4>
+					<table class="table" id="memberListTable">
+						<tr><th>Name</th><th>Tags</th></tr>
+						<tr ng-repeat="member in memberList" id="memberInfo">
+							<td>{{member.name}}</td>
+							<td>
+							<button type="button" class="btn btn-success btn-xs pull-left" ng-repeat="t in member.tags">{{t}}</button></td>
+						</tr>
+					</table>
+					<div id="manageTeam"></div>
+				</div>
+			</div>
+		</div>
+
 		<hr class="featurette-divider">
 
 		<div class="row featurette" id="page_team">
