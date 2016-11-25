@@ -147,6 +147,12 @@
     background-color: rgba(0,0,0,0.4);
     padding-top: 60px;
 }
+.modal#createNewEvent {
+	padding-top: 150px;
+}
+.modal#createNewTeam {
+	padding-top: 150px;
+}
 
 .modal-content {
     background-color: #fefefe;

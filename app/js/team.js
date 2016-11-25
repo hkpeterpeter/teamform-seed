@@ -41,6 +41,20 @@ angular.module('teamform-team-app', ['firebase'])
 		if(firebaseUser) {
 			var user = firebase.auth().currentUser;
 			$scope.uid = user.uid;
+			$scope.userInfo = $firebaseObject(firebase.database().ref().child("user").child($scope.uid));
+			$scope.userInfo.$loaded().then(function() {
+				if(typeof $scope.userInfo.joinedEvent != "undefined") {
+					$scope.joinedEvent = $scope.userInfo.joinedEvent;
+					if($scope.joinedEvent.indexOf($scope.eventName) == -1) {
+						$scope.joinedEvent.push($scope.eventName);
+					}
+				}
+				else {
+					$scope.joinedEvent = [];
+					$scope.joinedEvent.push($scope.eventName);
+				}
+				firebase.database().ref().child("user").child($scope.uid).update({joinedEvent: $scope.joinedEvent});
+			});
 			refPath = $scope.eventName + "/member/" + $scope.uid;
 			$scope.currentUser = $firebaseObject(firebase.database().ref(refPath));	
 			$scope.loadFunc();
@@ -183,7 +197,8 @@ angular.module('teamform-team-app', ['firebase'])
 			'size': $scope.param.currentTeamSize,
 			'teamMembers': $scope.param.teamMembers,
 			'tags': $scope.param.tags,
-			'weight' : $scope.param.weight
+			'weight' : $scope.param.weight,
+			'description': $scope.param.teamDescription
 		};
 		$.each($scope.param.teamMembers, function(i, obj) {
 			var rec = $scope.member.$getRecord(obj);
@@ -240,6 +255,39 @@ angular.module('teamform-team-app', ['firebase'])
 		});		
 	};
 	//tagsfunctions
+	$scope.searchTags = [];
+	$scope.filterByTag =function(memTag){
+		if ($scope.searchTags.length == 0){return true;}
+		var length = (typeof memTag != "undefined")? memTag.length: 0;
+		var slength = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
+		for (var i=0;i<slength;i++){
+			for (var j=0; j<length;j++){
+				if(memTag[j] == $scope.searchTags[i]){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	$scope.addSearchTags = function(tagval){
+		var addOrNot = true;
+		var k = 0;
+		var length = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
+		for(; k < length; k++){
+			if(tagval == $scope.searchTags[k]){
+				addOrNot = false;
+				break;
+			}
+		}
+		if(addOrNot){
+			$scope.searchTags.push(tagval);
+			var div = document.getElementById("filterMember");
+		}
+		else{
+			$scope.searchTags.splice(k,1);
+		}
+
+	};
 	$scope.tagChecked = function(tagval){
 		var length = (typeof $scope.param.tags != "undefined")? $scope.param.tags.length: 0;
 		for(var j =0; j < length; j++){

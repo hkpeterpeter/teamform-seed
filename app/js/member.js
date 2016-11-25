@@ -90,6 +90,11 @@ angular.module('teamform-member-app', ['firebase'])
 			$("#inviteStatus").html("You have no invitation.");
 			$scope.loadFuncTest += " noinvite";
 		}
+		// check quiz
+		if($scope.ability.java.marks >= 50) {$scope.addTag2("Java");}
+		if($scope.ability.cpp.marks >= 50) {$scope.addTag2("C++");}
+		if($scope.ability.python.marks >= 50) {$scope.addTag2("Python");}
+		if($scope.ability.html.marks >= 50) {$scope.addTag2("HTML");}
     };
 
 	$scope.loadFunc = function() {
@@ -106,18 +111,51 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		$scope.tag = "";
 	};
+	
+	$scope.addTag2 = function(tag) {
+		if(tag !== '' && $scope.tags.indexOf(tag) === -1) {
+			$scope.tags.push(tag);
+		}
+	};
 
 	$scope.checkTag = function(tag) {
-		if (tag == "Java") {
-			if($scope.ability.Java.marks < 50) {
-				$scope.errMsg = "Failure in Java Quiz";
-				return false;
-			}
+		if (tag == "C++" || tag == "Java" || tag == "HTML" || tag == "Python") {
+			return false;
 		}
 		return true;
 	}
 
+	$scope.leaveTeam = function() {
+		if($scope.memberInfo.inTeam === undefined) return;
+		var refPath = $scope.eventName + "/member/" + $scope.uid + "/inTeam";
+		var teamRefPath = $scope.eventName + "/team/" + $scope.memberInfo.inTeam;
+		var ref = firebase.database().ref(refPath);
+		ref.remove();
+		
+		ref = firebase.database().ref(teamRefPath);
+		var team = $firebaseObject(ref);
+		team.$loaded(function(data) {
+			var idx = data.teamMembers.indexOf($scope.uid);
+			data.teamMembers.splice(idx, 1);
+			ref.update({teamMembers: data.teamMembers});
+		});
+	};
+	
 	$scope.saveFunc = function() {
+		$scope.userInfo = $firebaseObject(firebase.database().ref().child("user").child($scope.uid));
+		$scope.userInfo.$loaded().then(function() {
+			if(typeof $scope.userInfo.joinedEvent != "undefined") {
+				$scope.joinedEvent = $scope.userInfo.joinedEvent;
+				if($scope.joinedEvent.indexOf(eventName) == -1) {
+					$scope.joinedEvent.push(eventName);
+				}
+			}
+			else {
+				$scope.joinedEvent = [];
+				$scope.joinedEvent.push(eventName);
+			}
+			firebase.database().ref().child("user").child($scope.uid).update({joinedEvent: $scope.joinedEvent});
+		});
 		var newData = {
 			'tags' : $scope.tags,
 			'selection': $scope.selection,

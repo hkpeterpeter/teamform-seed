@@ -116,6 +116,22 @@ p {
 
 .show {display:block;}
 
+#page_event table tr:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+#eventDetail table tr#teamInfo:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+.panel-body {
+    padding-bottom: 0;
+}
+.pager {
+    margin: 0;
+}
+
 ul.list-unstyled li {
     padding: 5px;
     border: 2px solid #888888;
