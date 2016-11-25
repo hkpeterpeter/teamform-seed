@@ -213,6 +213,13 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			};
 
 			var filterFunction = function(){
+				var templist = [];
+				if(Naruto.Sakura.length != 0){
+					for(var i = 0;i < $scope.filterResult.length;i++){
+						templist.push($scope.filterResult[i]);
+					}
+				}	
+				
 				$scope.filterResult = [];
 				if(Naruto.Sakura == "Search Team"){
 					for(var i = 0;i < tagini[$scope.resultTag[0]].teams.length;i++){
@@ -241,6 +248,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						}
 						$scope.filterResult = temp;
 					}
+					
 				}else{
 					for(var i = 0;i < tagini[$scope.resultTag[0]].users.length;i++){
 						$scope.filterResult.push(tagini[$scope.resultTag[0]].users[i]);
@@ -268,6 +276,28 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						}
 						$scope.filterResult = temp;
 					}
+					
+				}
+				//conbine filter and search name function
+				if(templist.length != 0){
+					for(var i = 0;i < templist.length;i++){
+						var bingo = false;
+						for(var j = 0;j <$scope.filterResult.length;j++){
+							if($scope.filterResult[j] == templist[i]){
+								bingo = true;
+								break;
+							}
+							if(!bingo){
+								templist[i] = "@";
+							}
+						}
+						$scope.filterResult = [];
+						for(var k = 0;k < templist.length;k++){
+							if(templist[k] != "@"){
+								$scope.filterResult.push(templist[k]);
+							}
+						}
+					}
 				}
 			}
 
@@ -280,7 +310,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				else if(type == "user"){
 					list = users;
 				}
-				else{}//event list is not yet defined
+				else{
+					alert("unknown error occur");
+				}//event list is not yet defined
 				var m = Naruto.Sasuke.length;
 
 				//retrive every tags in tagList
@@ -354,7 +386,52 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 				}
 				else{
-
+					if(Naruto.Sakura == "Search Team"){
+						findResult('team');
+						for(var i = 0;i < $scope.filterResult.length;i++){
+							var bingo = false;
+							for(var j = 0;j < $scope.searchResult.length;j++){
+								if($scope.searchResult[j] == $scope.filterResult[i]){
+									bingo = true;
+								}
+							}
+							if(!bingo){
+								$scope.filterResult[i] = "@";
+							}
+						}
+							var temp = [];
+							for(var k = 0;k <　$scope.filterResult.length;k++){
+								if($scope.filterResult[k] != "@"){
+									temp.push($scope.filterResult[k]);
+								}
+							}
+							$scope.filterResult = temp;
+					
+					}else{
+						
+						findResult('user');
+						
+						for(var i = 0;i < $scope.filterResult.length;i++){
+							var bingo = false;
+							for(var j = 0;j < $scope.searchResult.length;j++){
+								if($scope.searchResult[j] == $scope.userList[$scope.filterResult[i]].name){
+									bingo = true;
+									alert($scope.searchResult[j]);
+									break;
+								}
+							}
+							if(!bingo){
+								$scope.filterResult[i] = "@";
+							}
+						}
+						var temp = [];
+						for(var k = 0;k <　$scope.filterResult.length;k++){
+							if($scope.filterResult[k] != "@"){
+								temp.push($scope.filterResult[k]);
+							}
+						}
+						$scope.filterResult = temp;
+					}					
 				}
 			}
 			Naruto.searchName = searchName;
@@ -384,9 +461,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				Search.search = false;
 
 			};
-			$scope.haha = function(){
-				alert("hah");
-			}
+
 		});
 
 
