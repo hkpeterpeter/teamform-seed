@@ -20,9 +20,12 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				Sakura:"Search Team",
 				setSearchE: function(){},
 				setSearchP: function(){},
-				setSearchT: function(){}
+				setSearchT: function(){},
+				searchName: function(){}
 			};
 		});
+		
+		
 
 		//controll search page
 		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject){
@@ -35,17 +38,44 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 			var tagini;
 			$scope.teamini;
-
+			
 			//initialize data lists
 			var ref = firebase.database().ref("eventList");
 			var event_list = $firebaseObject(ref);
 			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
 			//get tags,teams and users from tag list in firebase
+			$scope.loadData = function(){
+				$scope.hehe = "";
+				$scope.currentTag = [];
+				$scope.resultTag = [];
+				$scope.filterResult = [];
+				Naruto.Saskue = "";
+
+				tagini = event_list[Naruto.Luffy]["skillTable"];
+
+				$scope.teamini = event_list[Naruto.Luffy]["teamList"];
+				angular.forEach(tagini, function(value,key){
+					tag.push(key);
+				});
+				angular.forEach($scope.teamini,function(value,key){
+					teams.push(key);
+				});
+
+				angular.forEach($scope.userList,function(value,key){
+					//only get the user that belongs to current event
+					if($scope.userList[key].Membership !== undefined && $scope.userList[key].Membership[Naruto.Luffy] !== undefined){
+						users.push($scope.userList[key].name);
+						
+					}
+				});
+			}
+			
+			/*
 			$scope.userList.$loaded(function(){
 				event_list.$loaded(function(){
-					tagini = event_list["comp3111"]["skills"];
+					tagini = event_list[Naruto.luffy]["skills"];
 
-					$scope.teamini = event_list["comp3111"]["teamList"];
+					$scope.teamini = event_list[Naruto.luffy]["teamList"];
 					angular.forEach(tagini, function(value,key){
 						tag.push(key);
 					});
@@ -65,10 +95,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 				});
 			});
-
+			*/
 			$scope.teamyeah = false;
 			$scope.useryeah = true;
-			searchKey = Naruto.Sasuke;
 			$scope.currentTag = [];
 			$scope.resultTag = [];
 			$scope.searchResult = [];
@@ -135,8 +164,15 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				$scope.resultTag = [];
 				$scope.filterResult = [];
 			};
-
+			
+			var currentEvent;
 			$scope.autocomplete = function(){
+				
+				if(currentEvent != Naruto.Luffy){
+					currentEvent = Naruto.Luffy;
+					$scope.loadData();
+					
+				}
 				var iChars = "~`!@#$%^&*+=-[]\\\';,/{}|\":<>?";
 				for (var i = 0; i < $scope.hehe.length; i++){
 					if (iChars.indexOf($scope.hehe.charAt(i)) != -1){
@@ -291,11 +327,16 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			}
 
 			var searchName = function(){
+				if(currentEvent != Naruto.Luffy){
+					currentEvent = Naruto.Luffy;
+					$scope.loadData();
+					
+				}
 				$scope.searchResult = [];
 				if($scope.resultTag.length == 0){
 					if(Naruto.Sakura == "Search Team"){
 						findResult('team');
-
+						
 						$scope.filterResult = $scope.searchResult;
 					}
 					else{
@@ -322,12 +363,14 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 
 		//controll navigation bar
-		app.controller("navbar",function($scope,Naruto,Search){
+		app.controller("navbar",function($scope,Naruto,Search,$firebaseObject){
 			// $scope.searchKey = "";
 			// $scope.searchType = Naruto.Sakura;
 			// Naruto.Sasuke = $scope.searchKey;
+			var ref = firebase.database().ref("eventList");
+			$scope.event_list = $firebaseObject(ref);
 			$scope.Naruto = Naruto;
-
+			
 			// $scope.setThisSearchP = function(){
 			// 	Naruto.setSearchP();
 			// };
@@ -341,6 +384,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				Search.search = false;
 
 			};
+			$scope.haha = function(){
+				alert("hah");
+			}
 		});
 
 
