@@ -1,34 +1,48 @@
-<h1>Notifications:</h1>
+<div class="container">
+<div class="col-md-12">
 
-<div ng-controller="notificationCtrl">
-
-    <form name="myForm">
-        <label for="repeatSelect"> filter: </label>
-        <select name="repeatSelect" id="repeatSelect" ng-model="search_model">
-            <option value = "all">All Events</option>
-            <option ng-repeat="(eid, myEvent) in myEvents" value="{{eid}}">{{events.$getRecord(eid).eventInfo.name}}</option>
-        </select>
-    </form>
-    <!-- <h3>Unread Notifications</h3> -->
-
-    <ul>
-        <li ng-repeat="(eid, myEvent) in filterEvent(myEvents, search_model)">
-            <h4>{{events.$getRecord(eid).eventInfo.name}}</h4>
-            <div ng-show="myEvent.notifications== null">No notifications!</div>
-            <ul>
-                <li ng-repeat="(nid,notification) in myEvent.notifications">
-                    <span ng-show="!notification.isRead">(Unread)</span>
-                    {{notification.content}}
-
-                    <span class="glyphicon glyphicon-ok" ng-show ="!notification.isRead" ng-click = "changeState(eid,nid)" aria-hidden="true"></span>
-
-                </li>
-            </ul>
-        </li>
-    </ul>
-
-</div>
-
+	<!--###############Head###############-->
+	
+	<div class="jumbotron">
+		<h2>Notification</h2>	
+		<p>This is the notification page. Just say something here.</p>
+	</div> <!--jumbotron-->
+	
+	<!--###############My Notifications###############-->
+	
+	<div class="col-md-8" ng-controller="notificationCtrl">
+		<div class="thumbnail">
+		  <div class="caption">
+		  	<!--###Title###-->
+		    <h4>My Notifications</h4>
+		    <p>Some important or unimportant messages.</p>
+		    <form name="myForm">
+					<button class="btn btn-danger">
+						<i class="icon-filter"></i>
+	          <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model">
+	              <option value = "all">All events</option>
+	              <option ng-repeat="(eid, myEvent) in myEvents" value="{{eid}}">{{events.$getRecord(eid).eventInfo.name}}</option>
+	          </select>
+          </button>
+      	</form>    
+				<hr>
+      	<!--###Content###-->
+      	<div class="thumbnail caption" ng-repeat="(eid, myEvent) in filterEvent(myEvents, search_model)">
+      		<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{eid}}" style="text-align:left">
+      			{{events.$getRecord(eid).eventInfo.name}}
+					</a>
+					<span ng-show="myEvent.notifications == null">(No notification)</span>
+					<div ng-repeat="(nid,notification) in myEvent.notifications">
+          	<span ng-show="!notification.isRead">(Unread)</span> {{notification.content}}
+						<button class="btn btn-danger btn-sm" ng-show ="!notification.isRead" ng-click = "changeState(eid,nid)" data-toggle="tooltip" data-placement="bottom" title="I have read this notification">
+				    	<i class="icon-ok-sign"></i>
+				    </button>
+			    </div> <!--ng-repeat-->	    
+				</div> <!--thumbnail caption ng-repeat-->
+			</div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-8 notificationCtrl-->
+	
 <!-- <h3>Read Notifications</h3>
 
 <ul>
