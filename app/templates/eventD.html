@@ -165,7 +165,7 @@
 			   		
 			    	{{name.content}}
 			    	<span style="color:gray"><small>({{name.timeStamp | stringToDate | date: 'yyyy-MM-dd HH:mm'}})</small></span>
-						<button class="btn btn-danger btn-sm" ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="Delete">
+						<button class="btn btn-danger btn-sm" ng-click="deleteAnn(name.$id)" ng-if="isDeletingAnn && (myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="Delete">
 							<i class="icon-remove-sign"></i>
 						</button>
 	        </div> <!--ng-repeat-->

@@ -11,7 +11,7 @@
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
 						<i class="icon-{{myEvents[eventID] | role | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
-						<span class="caret"></span>
+						<span class="caret" ng-if="(myEvents[eventID] | role)!='admin'"></span>
 					</button>
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
 						<li><a class="btn" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team description</a></li>
@@ -81,7 +81,7 @@
 						<button class="btn btn-xs btn-primary">Skill</button>
 						<br>
 						<span ng-repeat="(name,content) in filterSkillTags(skilltags)" >
-							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}}{{content.value}}</button>
+							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}} [{{content.value}}]</button>
 						</span>
 					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">
