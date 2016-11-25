@@ -418,11 +418,12 @@ app.controller("teamCtrl",
 
 		}
 		$scope.modifyMannerTagsChoice = function(){
+			console.log($scope.mannertags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
 			$scope.newMannerTags = {
 				"Cool" : $scope.mannertags.Cool ,
 				"Creative" : $scope.mannertags.Creative,
-				"OnCampus" : $scope.mannertags.Oncampus,
+				"OnCampus" : $scope.mannertags.OnCampus,
 				"Outgoing" : $scope.mannertags.Outgoing,
 				"Pretty" : $scope.mannertags.Pretty,
 				"SleepLate" : $scope.mannertags.SleepLate,

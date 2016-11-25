@@ -101,7 +101,8 @@ app.controller("eventDCtrl",
             console.log(key);
         }
         $scope.deleteAnn = function(key){
-            Helper.deleteEventAnnouncement($scope.eventID,key)
+            // console.log(key);
+            Helper.deleteEventAnnouncement($scope.eventID,key);
             console.log(key + " been deleted");
         }
         $scope.invite=function(uid){
