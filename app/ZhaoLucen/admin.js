@@ -11,7 +11,7 @@ teamapp.filter('adminRequest', function ($rootScope, $firebaseObject) {
 			return filtered;
 	};
 });
-teamapp.controller('admin_ctrl', function($scope, $rootScope, $timeout, $firebaseObject, $firebaseArray, filterFilter) {
+teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $firebaseObject, $firebaseArray, filterFilter) {
 	$rootScope.user_ref=firebase.database().ref("users");
 	$rootScope.event_ref=firebase.database().ref("events");
 	$rootScope.team_ref=firebase.database().ref("teams");
@@ -126,16 +126,16 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $timeout, $firebas
 			$timeout(function(){
 				angular.element(document.querySelector("#"+team.teamName)).removeClass("animated tada");
 			}, 500);
-			return;
+			return false;
 		};
 
 		if ($scope.canMergeTeams(mergedTeam, team) == false) {
-			Materialize.toast(teamName + ' is a full team!', 4000);
+			Materialize.toast("It exceeds maximum number of team members!", 4000);
 			angular.element(document.querySelector("#"+team.teamName)).addClass("animated tada");
 			$timeout(function(){
 				angular.element(document.querySelector("#"+team.teamName)).removeClass("animated tada");
 			}, 500);
-			return;
+			return false;
 		};
 		
 		var newMembers = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("membersID"));
@@ -190,19 +190,27 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $timeout, $firebas
 		$scope.adminrequestbtn="animated rubberBand";
 		}, 800);
 		
-
+		return true;
 	
 	};
 	$scope.startdragging = function(event, ui, team1) {
 		$rootScope.draggedteam = team1;
 	}
 	$scope.stopdragging = function(event, ui, team1) {
+		var deferred = $q.defer();
 		$rootScope.droppedteam = team1;
 		var confirmtext = "Are you sure to merge team " + $rootScope.draggedteam.teamName + " into team " + $rootScope.droppedteam.teamName + "?";
 		if (confirm(confirmtext)) {
 			$rootScope.draggedteam.adminMerge = $rootScope.droppedteam.teamName;
-			$scope.adminMergeTeam($rootScope.draggedteam);
+			if ($scope.adminMergeTeam($rootScope.draggedteam) == false){
+				deferred.reject();
+			} else {
+				deferred.resolve();
+			}
+		} else {
+			deferred.reject();
 		}
+		return deferred.promise;
 	}
 /*
 	$scope.beforeDrop = function(event, ui, team1) {
