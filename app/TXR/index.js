@@ -64,7 +64,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        $scope.member = angular.equals($scope.identity, 'member');
        $scope.user = angular.equals($scope.identity, 'user');
        $scope.teamname = userlist[thisuser]["Membership"][$scope.eventname]["teamName"];
-        
+
      //  team="L1";
        })
 
@@ -78,31 +78,31 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       })
 
       $scope.deletemember = function(i){
-        
-          
+
+
             var membertodelete=eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"][i];
             eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].splice(i,1);
             eventlist.$save();
             userlist[membertodelete]["Membership"][$scope.eventname]["identity"]="user";
             userlist[membertodelete]["Membership"][$scope.eventname]["teamName"]="Null";
             userlist.$save();
-         
-        
-     
+
+
+
       }
 
       $scope.deleteteam = function(){
-        
-          
-            
+
+
+
             delete eventlist[$scope.eventname]["teamList"][$scope.teamname];
             eventlist.$save();
             userlist[thisuser]["Membership"][$scope.eventname]["identity"] = "user";
             userlist[thisuser]["Membership"][$scope.eventname]["teamName"] = "Null";
             userlist.$save();
-         
-        
-     
+
+
+
       }
 
     $scope.quitevent = function(){
@@ -134,14 +134,14 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       //    var alert_content = "Your team has been created";
 
             //if (!(teamname in eventlist[$scope.eventname]["teamList"])) {
-    
+
               eventlist[$scope.eventname]["teamList"][newteamname]={
                      "leader": thisuser,
                      "introduction": introduction,
                      "teamWebsite": teamWebsite,
                      "memberList":[thisuser]
               };
-                  
+
               eventlist.$save();
 
             userlist[thisuser]["Membership"][$scope.eventname]["identity"] = "leader";
@@ -165,10 +165,10 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       eventlist.$save();
     }
     $scope.editteamskills = function(teamskills){
-      
+
       eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"]=teamskills.split(",");
        eventlist.$save();
-  
+
     }
 
 
@@ -278,8 +278,8 @@ app.controller("clickCtrl",
             angular.forEach($scope.tag, function(value,key){
               $scope.currentTag.push(key);
             });
-            
-            
+
+
             var user_identity = user_list[this_user]["Membership"][event_name]["identity"];
             //suggested users for leaders
             $scope.suggested = [];
@@ -292,16 +292,16 @@ app.controller("clickCtrl",
               //user_list.$loaded(function() {});
               var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
               var team_skills = event_list[event_name]["teamList"][team_name]["skills"];
-              //2. count the number of requirements the users fulfilled 
+              //2. count the number of requirements the users fulfilled
               angular.forEach($scope.users, function(value,key){
                 var fulfill = $scope.users[key]["skills"].length;
                 for (var i = 0; i<team_skills.length; i++) {
                     //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
                   if ($scope.users[key]["skills"].indexOf(team_skills[i]) != -1){
                     fulfill -= 1;
-                  } 
+                  }
                 }
-                
+
                 // $scope.suggested["2"] = [{userobject},{userobject}...]
                 if (!(fulfill.toString() in suggested_users)){
                   suggested_users[fulfill.toString()]=[];
@@ -313,7 +313,7 @@ app.controller("clickCtrl",
               for (var i = team_skills.length; i>0 ;i--) {
                 var str_i = i.toString();
                 if (str_i in suggested_users){
-                  $scope.suggested.push.apply($scope.suggested, suggested_users[str_i]);        
+                  $scope.suggested.push.apply($scope.suggested, suggested_users[str_i]);
                   /*for (var j=0; j < suggested_users[str_i].length; j++){
                     //extend the users to $scope.suggested
                     $scope.suggested.push(suggested_users[str_i][j]);
@@ -333,7 +333,7 @@ app.controller("clickCtrl",
                     //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
                   if (user_skills.indexOf(team_skills[i]) != -1){
                     fulfill -= 1;
-                  } 
+                  }
                 }
                 //alert("fulfill= "+fulfill);
                 // $scope.suggested["2"] = [{userobject},{userobject}...]
@@ -354,7 +354,7 @@ app.controller("clickCtrl",
               }
               //alert($scope.suggested_teams.length);
             }
-            
+
           });
         });
       });
@@ -475,7 +475,7 @@ app.controller("clickCtrl",
 );
 
 app.controller("profileController",function($scope,$firebaseArray,$firebaseObject){
-      
+
        var userlist = $firebaseObject(firebase.database().ref("userList"));
         $scope.thisuser = "kimsung";
        userlist.$loaded(function() {
@@ -485,25 +485,25 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       $scope.skills = userlist[$scope.thisuser]["skills"];
 
 
-        
+
      //  team="L1";
        })
        $scope.editprofileinfo = function(Website,email){
        userlist[$scope.thisuser]["personalWebsite"] = Website;
        userlist[$scope.thisuser]["email"] = email;
-      userlist.$save();        
+      userlist.$save();
        }
       $scope.editprofileintro = function(introduction){
        userlist[$scope.thisuser]["introduction"] = introduction;
-      
-      userlist.$save();        
+
+      userlist.$save();
        }
 
     $scope.editprofileskills = function(skills){
-      
+
       userlist[$scope.thisuser]["skills"]=skills.split(",");
       userlist.$save();
-  
+
     }
 
 }
