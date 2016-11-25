@@ -1,51 +1,57 @@
 <h1>Profile Page</h1>
 <div>
-	<label>Name:</label>
-	<input name="name" value ={{profile_info.name}}  ng-readonly="profile_readOnly" ng-model = "profile_info.name">
-	<hr /> <hr />
-	<label>Age:</label>
-	<input name="age" type = "number" value={{profile_info.age}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.age">
-	<hr /><hr />
-	<label>Company:</label>
-	<input name="company" value = {{profile_info.company}} ng-readonly = "profile_readOnly" ng-model = "profile_info.company">
-	<hr /><hr />
+
+	<label>Name: {{profile_info.name}}</label>
+	<hr />
+	<label>Age: {{profile_info.age}} </label>
+	<hr />
+	<label>Company: {{profile_info.company}}</label>
+	<hr />
+	<label>Email: {{profile_info.email}}</label>
+	<hr />
+	<label>Phone: {{profile_info.phone}}</label>
+	<hr />
+	<label>Nationality: {{profile_info.nationality}}</label>
+	<hr />
+	<label>Facebook: {{profile_info.facebook}}</label>
+	<hr />
 	<label>Tags:</label>
 	<ul>
 		<li><label>Language:</label></li>
 		<ul style="list-style-type:none">
-			<li><input type="checkbox" name="Mandarin" value={{profile_info.tags.LanguageTags.Mandarin}} ng-model="profile_info.tags.LanguageTags.Mandarin"  ng-disabled=profile_readOnly />Mandarin</li>
-			<li><input type="checkbox" name="Cantonese" value={{profile_info.tags.LanguageTags.Cantonese}} ng-model="profile_info.tags.LanguageTags.Cantonese"  ng-disabled=profile_readOnly />Cantonese</li>
-			<li><input type="checkbox" name="Korean" value={{profile_info.tags.LanguageTags.Korean}} ng-model="profile_info.tags.LanguageTags.Korean"  ng-disabled=profile_readOnly />Korean</li>
-			<li><input type="checkbox" name="English"  value={{profile_info.tags.LanguageTags.English}} ng-model="profile_info.tags.LanguageTags.English"  ng-disabled=profile_readOnly />English</li>
-			<li><input type="checkbox" name="Japanses"  value={{profile_info.tags.LanguageTags.Japanses}} ng-model="profile_info.tags.LanguageTags.Japanses"  ng-disabled=profile_readOnly />Japanses</li>
-			<li><input type="checkbox" name="German"  value={{profile_info.tags.LanguageTags.German}} ng-model="profile_info.tags.LanguageTags.German"  ng-disabled=profile_readOnly />German</li>
-			<li><input type="checkbox" name="Spanish"  value={{profile_info.tags.LanguageTags.Spanish}} ng-model="profile_info.tags.LanguageTags.Spanish"  ng-disabled=profile_readOnly />Spanish</li>
+			<li>Mandarin: {{profile_info.tags.LanguageTags.Mandarin}}</li>
+			<li>Cantonese: {{profile_info.tags.LanguageTags.Cantonese}}</li>
+			<li>Korean: {{profile_info.tags.LanguageTags.Korean}}</li>
+			<li>English: {{profile_info.tags.LanguageTags.English}}</li>
+			<li>Japanses: {{profile_info.tags.LanguageTags.Japanses}}</li>
+			<li>German: {{profile_info.tags.LanguageTags.German}}</li>
+			<li>Spanish: {{profile_info.tags.LanguageTags.Spanish}}</li>
 		</ul>
 		<li><label>Manner:</label></li>
 		<ul style="list-style-type:none">
-			<li><input type="checkbox" name="Outgoing" value={{profile_info.tags.MannerTags.Outgoing}} ng-model="profile_info.tags.MannerTags.Outgoing"  ng-disabled=profile_readOnly />Outgoing</li>
-			<li><input type="checkbox" name="OnCampus" value={{profile_info.tags.MannerTags.OnCampus}} ng-model="profile_info.tags.MannerTags.OnCampus"  ng-disabled=profile_readOnly />OnCampus</li>
-			<li><input type="checkbox" name="Pretty" value={{profile_info.tags.MannerTags.Pretty}} ng-model="profile_info.tags.MannerTags.Pretty"  ng-disabled=profile_readOnly />Pretty</li>
-			<li><input type="checkbox" name="Thoughtful" value={{profile_info.tags.MannerTags.Thoughtful}} ng-model="profile_info.tags.MannerTags.Thoughtful"  ng-disabled=profile_readOnly />Thoughtful</li>
-			<li><input type="checkbox" name="Cool" value={{profile_info.tags.MannerTags.Cool}} ng-model="profile_info.tags.MannerTags.Cool"  ng-disabled=profile_readOnly />Cool</li>
-			<li><input type="checkbox" name="SleepLate" value={{profile_info.tags.MannerTags.SleepLate}} ng-model="profile_info.tags.MannerTags.SleepLate"  ng-disabled=profile_readOnly />SleepLate</li>
-			<li><input type="checkbox" name="Creative" value={{profile_info.tags.MannerTags.Creative}} ng-model="profile_info.tags.MannerTags.Creative"  ng-disabled=profile_readOnly />Creative</li>
+			<li>Outgoing: {{profile_info.tags.MannerTags.Outgoing}}</li>
+			<li>OnCampus: {{profile_info.tags.MannerTags.OnCampus}}</li>
+			<li>Pretty: {{profile_info.tags.MannerTags.Pretty}}</li>
+			<li>Thoughtful: {{profile_info.tags.MannerTags.Thoughtful}}</li>
+			<li>Cool: {{profile_info.tags.MannerTags.Cool}}</li>
+			<li>SleepLate: {{profile_info.tags.MannerTags.SleepLate}}</li>
+			<li>Creative: {{profile_info.tags.MannerTags.Creative}}</li>
 		</ul>
 		<li><label>Skill:</label></li>
 		<ul style="list-style-type:none">
-			<li><label>JavaScript:</label><input name="JavaScript" type = "number" value={{profile_info.tags.SkillTags.JavaScript}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.Javascript"></li>
-			<li><label>HTML:</label><input name="HTML" type = "number" value={{profile_info.tags.SkillTags.HTML}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.HTML"></li>
-			<li><label>CSS:</label><input name="CSS" type = "number" value={{profile_info.tags.SkillTags.CSS}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.CSS"></li>
-			<li><label>C:</label><input name="C" type = "number" value={{profile_info.tags.SkillTags.C}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.C"></li>
-			<li><label>Python:</label><input name="Python" type = "number" value={{profile_info.tags.SkillTags.Python}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.Python"></li>
-			<li><label>SQL:</label><input name="SQL" type = "number" value={{profile_info.tags.SkillTags.SQL}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.SQL"></li>
-			<li><label>SML:</label><input name="SML" type = "number" value={{profile_info.tags.SkillTags.SML}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.SML"></li>
-			<li><label>Java:</label><input name="Java" type = "number" value={{profile_info.tags.SkillTags.Java}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.Java"></li>
-			<li><label>Objective-C:</label><input name="Objective" type = "number" value={{profile_info.tags.SkillTags.Objective}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.Objective"></li>
-			<li><label>FLEX:</label><input name="FLEX" type = "number" value={{profile_info.tags.SkillTags.FLEX}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.FLEX"></li>
-			<li><label>PHP:</label><input name="PHP" type = "number" value={{profile_info.tags.SkillTags.PHP}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.PHP"></li>
-			<li><label>C++:</label><input name="Cpp" type = "number" value={{profile_info.tags.SkillTags.Cpp}}  ng-readonly = "profile_readOnly" ng-model = "profile_info.tags.SkillTags.Cpp"></li>
+			<li>JavaScript: {{profile_info.tags.SkillTags.Javascript}}</li>
+			<li>HTML: {{profile_info.tags.SkillTags.HTML}}</li>
+			<li>CSS: {{profile_info.tags.SkillTags.CSS}}</li>
+			<li>C: {{profile_info.tags.SkillTags.C}}</li>
+			<li>Python: {{profile_info.tags.SkillTags.Python}}</li>
+			<li>SQL: {{profile_info.tags.SkillTags.SQL}}</li>
+			<li>SML: {{profile_info.tags.SkillTags.SML}}</li>
+			<li>Java: {{profile_info.tags.SkillTags.Java}}</li>
+			<li>Objective-C: {{profile_info.tags.SkillTags.Objective}}</li>
+			<li>FLEX: {{profile_info.tags.SkillTags.FLEX}}</li>
+			<li>PHP: {{profile_info.tags.SkillTags.PHP}}</li>
+			<li>C++: {{profile_info.tags.SkillTags.Cpp}}</li>
 		</ul>
 	</ul>
-	<input  class="btn btn-primary" type="button" value={{button_name}} ng-click = "edit()" ng-if="button_visible">
+	<input  class="btn btn-primary" type="button" value="edit" ng-click = "profile_edit()" ng-if="button_visible">
 </div>
