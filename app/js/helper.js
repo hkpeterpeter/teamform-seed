@@ -420,37 +420,37 @@ app.factory("Helper", function($firebaseArray, $firebaseObject) {
     }
 
     helper.tags={
-        LanguageTags:{
-            Cantonese: false,
-            English: false,
-            German: false,
-            Japanese: false,
-            Korean: false,
-            Mandarin: false,
-            Spanish: false
+        "LanguageTags":{
+            "Cantonese": false,
+            "English": false,
+            "German": false,
+            "Japanese": false,
+            "Korean": false,
+            "Mandarin": false,
+            "Spanish": false
         },
-        MannerTags:{
-            Cool:false,
-            Creative:false,
-            OnCampus:false,
-            Outgoing:false,
-            Pretty:false,
-            SleepLate:false,
-            Thoughtful:false
+        "MannerTags":{
+            "Cool":false,
+            "Creative":false,
+            "OnCampus":false,
+            "Outgoing":false,
+            "Pretty":false,
+            "SleepLate":false,
+            "Thoughtful":false
         },
-        SkillTags:{
-            C : {value:0,color:"green"},
-            Cpp : {value:0,color:"green"},
-            CSS: {value:0,color:"green"},
-            FLEX: {value:0,color:"green"},
-            HTML: {value:0,color:"green"},
-            Java: {value:0,color:"green"},
-            JavaScript: {value:0,color:"green"},
-            Objective_C: {value:0,color:"green"},
-            PHP: {value:0,color:"green"},
-            Python: {value:0,color:"green"},
-            SML: {value:0,color:"green"},
-            SQL: {value:0,color:"green"}
+        "SkillTags":{
+            "C" : {"value":0,"color":"green"},
+            "Cpp" : {"value":0,"color":"green"},
+            "CSS": {"value":0,"color":"green"},
+            "FLEX": {"value":0,"color":"green"},
+            "HTML": {"value":0,"color":"green"},
+            "Java": {"value":0,"color":"green"},
+            "JavaScript": {"value":0,"color":"green"},
+            "Objective_C": {"value":0,"color":"green"},
+            "PHP": {"value":0,"color":"green"},
+            "Python": {"value":0,"color":"green"},
+            "SML": {"value":0,"color":"green"},
+            "SQL": {"value":0,"color":"green"},
         }
     };
 
