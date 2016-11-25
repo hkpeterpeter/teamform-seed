@@ -5,8 +5,8 @@
 	
 	<div class="jumbotron">
 		<h2>{{eventObj.eventInfo.name}}</h2>
-		<p ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</p>
-		<div class="row padding">
+		<p>{{eventObj.eventInfo.desc}}</p>
+		<p>
 			<div class="btn-group">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
@@ -17,22 +17,23 @@
 						<li><a class="btn" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'" style="text-align:left">Create a team</a></li>
 						<li><a class="btn" ng-click="quit()" ng-if="(myEvent | role)=='tba'" style="text-align:left">Leave the event</a></li>
 						<li><a class="btn" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'" style="text-align:left">Join the event</a></li>
+						<li><a class="btn" ng-click="editInfo()" ng-if="myEvent.position=='admin'" style="text-align:left">Edit the event</a></li>
 						<li><a class="btn" ng-click="manage()" ng-if="myEvent.position=='admin'" style="text-align:left">Manage the event</a></li>
 					</ul>
-				</div>
-      		</div> <!--btn-group-->      
+				</div> <!--data-toggle-->
+  		</div> <!--btn-group-->      
 			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team size">
 				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.min}} ~ {{eventObj.eventInfo.max}}
 			</button>			
 			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team-forming deadline">
 				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}
 			</button>
-		</div>		
-		<div class="row padding">			
+		</p>		
+		<p>			
 			<a class="btn btn-danger" ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' " ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">
 				<i class="icon-group"></i>&nbsp;&nbsp;&nbsp;My Team: {{eventObj.teams[myEvent.team].name}}
 			</a>
-		</div>		
+		</p>
 	</div> <!--jumbotron-->
 	
 	<!--###############Teams###############-->
@@ -47,23 +48,34 @@
 			    <hr>
 			    <!--###Content###-->
 			    <div class="container">	
-			      <div class="row" ng-repeat="(key, team) in eventObj.teams">
-					    <div class="col-md-3">
-			      		<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{key}}" style="text-align:left">
-			      			{{team.name}}
-			      		</a>
-			    		</div>
-		    			<button class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
-		    				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;
-		    				{{team.currentSize}}/{{team.max}}
-		    			</button>
-				    	<button class="btn btn-danger btn-sm" ng-click="deleteTeam(key)" ng-if="isManaging" data-toggle="tooltip" data-placement="bottom" title="Delete">
-				    		<i class="icon-trash"></i>
-				    	</button>
-				    	<button class="btn btn-danger btn-sm" ng-click="toTeam(key)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to this team">
-				    		<i class="icon-plus-sign"></i>
-				    	</button>
-			      </div> <!--row ng-repeat-->			     
+			      <div ng-repeat="(key, team) in eventObj.teams">
+			      	<div class="row">
+							  <div class="col-md-3">
+					    		<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{key}}" style="text-align:left">
+					    			{{team.name}}
+					    		</a>
+					  		</div>
+				  			<button class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
+				  				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;
+				  				{{team.currentSize}}/{{team.max}}
+				  			</button>
+						  	<button class="btn btn-danger btn-sm" ng-click="deleteTeam(key)" ng-if="isManaging" data-toggle="tooltip" data-placement="bottom" title="Delete">
+						  		<i class="icon-trash"></i>
+						  	</button>
+						  	<button class="btn btn-danger btn-sm" ng-click="toTeam(key)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to this team">
+						  		<i class="icon-plus-sign"></i>
+						  	</button>
+				    	</div> <!--row-->
+				    	<div class="row">
+				    		<div class="col-md-3">
+				    			<!--TAGS HERE-->
+				    			<span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.SkillTags" ng-if="tagContent.value != 0">
+				    				<button class="btn btn-xs btn-default" ng-style="{backgroundColor:tagContent.color}">{{tagKey}}</button>
+				    			</span>
+				    		</div> <!--col-md-3-->				    		
+				    	</div> <!--row-->
+				    					    			<br>
+			      </div> <!--ng-repeat-->			     
 	        </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
