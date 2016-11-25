@@ -533,6 +533,7 @@ $scope.filterByStatus = function(items, filter_model) {
 									$scope.stvalues = [];
 									$scope.stseries = [];
 									$scope.stcolors = [];
+
 									$scope.stoptions = {scales: {
 													yAxes: [{
 															ticks: {
@@ -542,7 +543,8 @@ $scope.filterByStatus = function(items, filter_model) {
 																max:100
 															}
 
-													}]
+													}],
+													xAxes: [{ barPercentage: 0.6 }]
 											}};
 
 									var team_stvalues = [];
@@ -553,10 +555,12 @@ $scope.filterByStatus = function(items, filter_model) {
 											team_stvalues.push(value.value);
 										}
 									});
+
+
 									//
 									// console.log($scope.stnames);
 									$scope.stvalues.push(team_stvalues);
-									$scope.stseries.push('Team skill tags');
+									$scope.stseries.push('Rating of team');
 									$scope.stcolors.push("#c44133");
 									// console.log($scope.stvalues);
 									// console.log($scope.stseries);
@@ -585,7 +589,7 @@ $scope.filterByStatus = function(items, filter_model) {
 			// console.log(value);
 										//  console.log(userstvalues);
 										$scope.stvalues.push(userstvalues);
-										$scope.stseries.push(Helper.getUsername(value));
+										$scope.stseries.push('Rating of ' + Helper.getUsername(value));
 										$scope.stcolors.push("#16a085");
 
 
@@ -612,7 +616,8 @@ $scope.filterByStatus = function(items, filter_model) {
                                 max: $scope.teamdata.max
 															}
 
-													}]
+													}],
+													xAxes: [{ barPercentage: 0.3 }]
 											}};
 
 									// var values = {name: 'misko', gender: 'male'};
@@ -692,7 +697,8 @@ $scope.filterByStatus = function(items, filter_model) {
 																max: $scope.teamdata.max
 															}
 
-													}]
+													}],
+													xAxes: [{ barPercentage: 0.3 }]
 											}};
 
 									angular.forEach($scope.tags.MannerTags,function(value,key){

@@ -137,12 +137,12 @@
 	<div class="col-md-6">
 			<div class="thumbnail">
 				<div class="caption">
-
+					{{ltcolors}}
 				  <h4>Chart</h4>
 				  <p>Statistics on tags.</p>
 				  <hr>
 
-					<div ng-init="init_skillchart()">
+					<div>
 						<canvas id="bar" class="chart chart-bar"
 						chart-data="stvalues" chart-labels="stnames" chart-series="stseries" chart-colors="stcolors" chart-options = "stoptions">
 					</canvas>
@@ -179,7 +179,7 @@
 		        <p>People may fit your team</p>
 		        <hr>
 		        <button class="btn btn-danger" ng-click="recommand()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Recommand">
-							Recommand
+							Recommend
 						</button>
 
 		        <div class="container">
