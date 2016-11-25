@@ -1,10 +1,12 @@
 app.controller("profileCtrl",  
-	function($scope, Auth, $firebaseArray, $firebaseObject,$window, $stateParams,Helper) {	
+	function($scope, Auth, $firebaseArray, $firebaseObject,$window, $stateParams,Helper,ngDialog) {	
 		Auth.$onAuthStateChanged(function(authData){
 			//initialize
 			if (authData) {
 				$scope.authData = authData;
+
 				ref = firebase.database().ref("users/"+$stateParams.uid+"/readOnly/info");
+
 				$scope.profile_info = $firebaseObject(ref);
 				$scope.profile_readOnly = true;
 				$scope.profile_info.tags = Helper.tags;
@@ -31,6 +33,14 @@ app.controller("profileCtrl",
 				$scope.profile_readOnly=true;
 				$scope.button_name = "EDIT";
 			}
+		};
+		var profile_dialog
+		$scope.profile_edit = function(){
+			profile_dialogue = ngDialog.open({
+						template: 'templates/manageProfileTag.html',
+						className: 'ngdialog-theme-plain',
+						scope: $scope
+				});
 		};
 	}
 );
