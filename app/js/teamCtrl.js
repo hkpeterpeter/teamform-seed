@@ -27,6 +27,11 @@ app.controller("teamCtrl",
 			3 : "withdrawn"
 		}
 
+		$scope.colorList = {
+			0 : "green",
+			1 : "red"
+		}
+
 		Auth.$onAuthStateChanged(function(authData) {
 				// console.log($scope.obj);
 				if (authData) {
@@ -431,18 +436,21 @@ app.controller("teamCtrl",
 			Helper.updateSkillTags($scope.eventID, $scope.teamID, $scope.newSkillTags);
 			$scope.modifySkillTags = !$scope.modifySkillTags;
 			// $scope.initchart();
+			// window.location.reload()
 		}
 
 		$scope.changeLanguageTags = function(){
 			Helper.updateLanguageTags($scope.eventID, $scope.teamID, $scope.newLanguageTags);
 			$scope.modifyLanguageTags = !$scope.modifyLanguageTags;
 				// $scope.initchart();
+				// window.location.reload()
 		}
 
 		$scope.changeMannerTags = function(){
 			Helper.updateMannerTags($scope.eventID, $scope.teamID, $scope.newMannerTags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
 				// $scope.initchart();
+				// window.location.reload()
 		}
 		//get announcements
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/announcements');
@@ -482,7 +490,8 @@ $scope.addAnnouncementDialogue = function(){
 $scope.invitations = $firebaseObject(inviteref);
 
 
-$scope.search_model = "all";
+$scope.search_model_appli = "all";
+$scope.search_model_invi = "all";
 
 $scope.filterByStatus = function(items, filter_model) {
 		var result = {};
@@ -539,7 +548,7 @@ $scope.filterByStatus = function(items, filter_model) {
 									var team_stvalues = [];
 									// var values = {name: 'misko', gender: 'male'};
 									angular.forEach($scope.tags.SkillTags,function(value,key){
-										if(value.value!==0){
+										if(value.value!==0 && value.color == 'green'){
 											$scope.stnames.push(key);
 											team_stvalues.push(value.value);
 										}
