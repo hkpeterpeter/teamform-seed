@@ -63,18 +63,18 @@
             <img id="profile-photo" src="images/dp.jpg" width="250" height="250"/>
           </div>
           <div class="col-sm-4 text-left">
-            <h2>Name: {{userName}}</h2>
-            <h2>Email: {{userEmail}}</h2>
+            <h4>Name: {{userName}}</h4>
+            <h4>Email: {{userEmail}}</h4>
           </div>
         </div>
-        <h2>Invitation</h2>
         <div class="row">
+        <h2>Invitation</h2>
           <div class="col-md-2 col-xs-2"></div>   
           	<div class="col-md-8 col-xs-8 text-left panel">
           	  <div ng-if="hasInvitation(inEventInfo)">
-          	    <ul ng-repeat="eventInfo in inEventInfo">
-          	      <li ng-if="eventInfo.invitedBy !== undefined">
-          	        {{"Event " + eventInfo.eventId + ": invited by team" + eventInfo.invitedBy}}</li>
+          	    <ul>
+          	      <li ng-repeat="eventInfo in inEventInfo track by $index" ng-if="eventInfo.invitedBy !== undefined">
+          	        {{"Event " + eventInfo.eventId + ": invited by team " + eventInfo.invitedBy}}</li>
           	    </ul>
           	  </div>
           	  <div ng-if="!hasInvitation(inEventInfo)">No invitation</div>
@@ -97,9 +97,11 @@
           <div class="col-md-2 col-xs-2"></div>
           	<div class="col-md-8 col-xs-8 text-left panel">
           	  <div ng-if="inEventInfo.length > 0">
-          	    <ul ng-repeat="eventInfo in inEventInfo">
-          	      <li>{{"Event " + eventInfo.eventId + ": "
-          	      	+ (eventInfo.inTeam !== undefined? "in team " + eventInfo.inTeam: "no team yet")}}</li>
+          	    <ul>
+          	      <li ng-repeat="eventInfo in inEventInfo">
+          	        {{"Event "}}<a href="member.html?q={{eventInfo.eventId}}">{{eventInfo.eventId}}</a>
+          	        {{": " + (eventInfo.inTeam !== undefined? "in team " + eventInfo.inTeam: "no team yet")}}
+          	      </li>
           	    </ul>
           	  </div>
           	  <div ng-if="inEventInfo.length <= 0">No event joined yet.</div>

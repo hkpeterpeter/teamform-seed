@@ -71,25 +71,7 @@ angular.module('teamform-member-app', ['firebase'])
 		} else {
 			$scope.ability = [];
 		}
-		if($scope.memberInfo.inTeam != null) {
-			$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam + ".");
-			$scope.loadFuncTest = "inTeam";
-		}
-		else {
-			$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
-			 the team or <a href=\"team.html?q=" + $scope.eventName + "\">Click here</a> to create\
-			  a team.");
-			$scope.loadFuncTest = "notinTeam";
-		}
-		//check for invitation
-		if($scope.memberInfo.invitedBy != null){
-			$("#inviteStatus").html("You are invited by " + $scope.memberInfo.invitedBy.length + " teams in the event " + $scope.eventName + ".");
-			$scope.loadFuncTest += " invite";
-		}
-		else{
-			$("#inviteStatus").html("You have no invitation.");
-			$scope.loadFuncTest += " noinvite";
-		}
+
 		// check quiz
 		if($scope.ability.java.marks >= 50) {$scope.addTag2("Java");}
 		if($scope.ability.cpp.marks >= 50) {$scope.addTag2("C++");}
@@ -210,6 +192,7 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.acceptInv = function(teamName){
 		//Get the index of teamName in team
 		var index;
+		console.log("teams: ", $scope.teams);
 		for(var i=0; i<$scope.teams.length; i++){
 			if(teamName === $scope.teams[i].$id){
 				index = i;
@@ -271,6 +254,7 @@ angular.module('teamform-member-app', ['firebase'])
 			invitedBy: [],
 			inTeam: $scope.team.$id
 		});
+		reload();
 	};
 
 	$scope.declineInv = function(teamName){

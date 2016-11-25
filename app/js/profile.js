@@ -11,15 +11,12 @@ angular.module('teamform-profile-app', ['firebase'])
 .controller('ProfileCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
 	function($scope, $firebaseObject, $firebaseArray) {
 	
-	$scope.userEmail = "Unknown";
-	
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
 		if(firebaseUser) {
 			var user = firebase.auth().currentUser;
-			console.log(user);
 			$scope.userId = user.uid;
 			$scope.userName = user.displayName;
-			$scope.userEmail = user.email;
+			$scope.userEmail = user.email == null? "Unknown": user.email;
 			if(user.photoURL) {
 				$("#profile-photo").attr("src", user.photoURL); 
 			}
@@ -33,22 +30,20 @@ angular.module('teamform-profile-app', ['firebase'])
 
 	
 	$scope.inEventInfo = [];
-	$scope.inEventMemberInfo = [];
 	
+	$scope.queue = [];
 	$scope.loadCallback = function() {
 		$scope.joinedEvent = $firebaseArray(firebase.database().ref("user/" + $scope.userId + "/joinedEvent"));
 		$scope.joinedEvent.$loaded(function(eventList) {
 			for(var idx = 0; idx < eventList.length; idx++) {
-				var info = {
-					eventId: "",
-					inTeam: "",
-					invitedBy: []
-				};
-				info.eventId = $scope.joinedEvent[idx].$value;
-				$firebaseObject(firebase.database().ref(eventList[idx].$value + "/member/" + $scope.userId))
+				$scope.queue.push($scope.joinedEvent[idx].$value);
+				$firebaseObject(firebase.database().ref($scope.joinedEvent[idx].$value + "/member/" + $scope.userId))
 					.$loaded(function(memberInfo) {
-						info.inTeam = memberInfo.inTeam;
-						info.invitedBy = memberInfo.invitedBy;
+						var info = {
+								eventId: $scope.queue.pop(),
+								inTeam: memberInfo.inTeam,
+								invitedBy: memberInfo.invitedBy
+						};
 						console.log("InvitedBy", info);
 						$scope.inEventInfo.push(info);
 				});
@@ -62,7 +57,6 @@ angular.module('teamform-profile-app', ['firebase'])
 	$scope.abilityInfo = [];
 	
 	$scope.getRetakeDate = function(takenAt) {
-		console.log("Time: ", new Date().getTime() / 100, takenAt);
 		var diff = takenAt - (new Date().getTime() / 1000) + (30 * 86400);
 		if(diff <= 0) return "now";
 		return "after " + Math.round(diff / 86400) + " days";
