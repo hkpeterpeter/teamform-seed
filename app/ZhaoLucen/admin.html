@@ -30,19 +30,19 @@
     	<!-- Description & Tutorial -->
     	  <ul class="collapsible popout" data-collapsible="accordion" watch>
     	    <li class="active">
-			      <div class="collapsible-header active"><i class="material-icons">description</i>Introduction</div>
+			      <div class="collapsible-header active blue-grey lighten-2"><i class="material-icons">description</i>Introduction</div>
 			      <div class="collapsible-body" style="display: block;"><p>As an administrator, you can easily manipulate teams and participants in this admin page. To learn more details, Please click on the titles of collapsible items.</p></div>
 			    </li>
     	    <li>
-			      <div class="collapsible-header"><i class="material-icons">comment</i>Check Team or Member Information</div>
+			      <div class="collapsible-header blue-grey lighten-3"><i class="material-icons">comment</i>Check Team or Member Information</div>
 			      <div class="collapsible-body"><p>As an administrator, you can check the information of a group or member by...</p></div>
 			    </li>
     			<li>
-      			<div class="collapsible-header"><i class="material-icons">library_add</i>Add Member to A Group</div>
+      			<div class="collapsible-header blue-grey lighten-4"><i class="material-icons">library_add</i>Add Member to A Group</div>
       			<div class="collapsible-body"><p>Administrator can add a member to a group by...</p></div>
     			</li>
     			<li>
-      			<div class="collapsible-header"><i class="material-icons">import_export</i>Merge Teams</div>
+      			<div class="collapsible-header blue-grey lighten-5"><i class="material-icons">import_export</i>Merge Teams</div>
 			      <div class="collapsible-body"><p>To merge two teams, ...</p></div>
     			</li>
 			  </ul>
@@ -119,11 +119,25 @@
 
             <div class="card-reveal blue-grey darken-1 white-text">
             	<span class="card-title">{{ team.teamName }}<i class="material-icons right">close</i></span>
-              <p>ID of Team Leader: <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="">{{ team.leaderID }}</span></p>
-            	<p>IDs of Team Members: <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="" ng-repeat="member in team.membersID">{{ member }}</span></p>
+            	<div><span class="admin-card-subtitle">Members: </span><span class="new badge white-text admin-skill-badge teal lighten-1" data-badge-caption="">{{ team.leaderName }} (Leader)</span><span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="" ng-repeat="member in team.membersName">{{ member }}</span></div>
+              <div><span class="admin-card-subtitle">Invited Users: </span><span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="" ng-repeat="invite in team.invitedName">{{ invite }}</span></div>
             </div>
           </div>
           <!-- A Single Card Ends -->
+
+          <!-- merge team model -->
+<!--            <script type="text/ng-template" id="mergeModalContent.html">
+          <div id="modal1" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <p>A bunch of text</p>
+              </div>
+            <div class="modal-footer">
+              <button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="ok()">OK</button>
+              <button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="cancel()">Cancel</button>
+            </div>
+
+          </script>
+-->          <!-- merge team model ends -->
 
     		</div>
     	<!-- Team List Ends -->
@@ -163,7 +177,7 @@
               });
           </script>
           <!-- Finish enabling Toolkit html -->
-    				<div class="card admin-user-card sticky-action" ng-repeat="user in users | filter:userFilter">
+    				<div class="card admin-user-card sticky-action" id="{{user.name}}" ng-repeat="user in users | filter:userFilter">
 							<div class="card-content">
 								<span class="card-title activator grey-text text-darken-4">{{ user.name }}<i class="material-icons right">more_vert</i></span>
                 <p class="grey-text">{{ user.email }}</p>

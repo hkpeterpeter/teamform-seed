@@ -51,6 +51,41 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 
 	//event loaded ends
 	//});
+	//update invited people name
+	$scope.updateteaminfo = function() {
+		console.log($scope.teams);
+		$rootScope.user_ref.once('value').then(function(snapshot) {
+			for (var team in $scope.teams) {
+				if ($scope.teams[team].invitedPeople != null) {
+					$scope.teams[team].invitedName = [];
+					for (var u in $scope.teams[team].invitedPeople) {
+						var curkey = $scope.teams[team].invitedPeople[u].toString();
+						$scope.teams[team].invitedName.push(snapshot.val()[curkey].name);
+					//$scope.teams[team].invitedPeople[u] = {}
+					}
+				//$scope.teams[team]
+				};
+	//update team members
+				if ($scope.teams[team].membersID != null) {
+					$scope.teams[team].membersName = [];
+					for (var u in $scope.teams[team].membersID) {
+						var curkey = $scope.teams[team].membersID[u].toString();
+						$scope.teams[team].membersName.push(snapshot.val()[curkey].name);
+					};
+				//$scope.teams[team]
+				};
+	//update leader
+						if ($scope.teams[team].leaderID != null) {
+
+						var curkey = $scope.teams[team].leaderID.toString();
+						$scope.teams[team].leaderName = snapshot.val()[curkey].name;
+					//$scope.teams[team].invitedPeople[u] = {}
+						}
+			};
+		});	
+	};
+
+	$scope.updateteaminfo();
 
 	
 	// Functions - TEAM
@@ -150,6 +185,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 		for (var key in team.invitedPeople) {
 			newInvites.$add(team.invitedPeople[key]);
 		};
+		$scope.updateteaminfo();
 
 		for (var waituser in $scope.users) {
 			console.log(waituser);
@@ -195,7 +231,7 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 	};
 	$scope.startdragging = function(event, ui, team1) {
 		$rootScope.draggedteam = team1;
-	}
+	};
 	$scope.stopdragging = function(event, ui, team1) {
 		var deferred = $q.defer();
 		$rootScope.droppedteam = team1;
@@ -211,7 +247,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 			deferred.reject();
 		}
 		return deferred.promise;
-	}
+	};
+
 /*
 	$scope.beforeDrop = function(event, ui, team1) {
     	var deferred = $q.defer();
@@ -364,6 +401,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 
       var curUser = $rootScope.user_ref.child(user.$id.toString());
 
+      
+
       //Add user to teamAsMember
       var curUserIn = curUser.child("teamsAsMember");
       var curUserInList = $firebaseArray(curUserIn);
@@ -379,8 +418,28 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
         };
       });
 
+      //Delete this from invitedPeople if it is in
+      for (var team in $scope.teams) {
+      	if ($scope.teams[team].invitedPeople != null) {
+      		for (var invite in $scope.teams[team].invitedPeople) {
+      			if ($scope.teams[team].invitedPeople[invite].toString() == user.$id.toString()) {
+      				console.log($rootScope.team_ref.child($scope.teams[team].$id.toString()).child("invitedPeople").child(invite).toString());
+      				$rootScope.team_ref.child($scope.teams[team].$id.toString()).child("invitedPeople").child(invite).remove();
+      			}
+      		}
+      	}
+	  }
+      $scope.updateteaminfo();
+
+	angular.element(document.querySelector("#"+user.name)).addClass("animated flipOutY");
+	Materialize.toast('Success! ' + user.name + ' is added successfully!', 4000);
+
+  	$timeout(function(){
       var index = $scope.users.indexOf(user);
-      $scope.users.splice(index, 1);  
+      $scope.users.splice(index, 1); 
+  	}, 500);
+ 
+
       // Remove waiting user from database-event
       for (var key in $scope.event.waitingUsers) {
         if($scope.event.waitingUsers[key] == user.$id) {
@@ -414,7 +473,12 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
     var team = $scope.findTeamByName(teamName);
 
     if (team == null || teamName == null) {
-      console.log("No Such Team");
+	Materialize.toast('Cannot find a team named ' + teamName, 4000);
+	angular.element(document.querySelector("#"+user.name)).addClass("animated tada");
+	$timeout(function(){
+		angular.element(document.querySelector("#"+user.name)).removeClass("animated tada");
+	}, 500);
+
       return;
     }
     var teamID = team.$id;
