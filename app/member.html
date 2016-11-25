@@ -113,6 +113,30 @@
           </div>
           <div class="col-sm-12 text-left" ng-hide="memberInfo.inTeam">
             <h3>Your team preference:</h3>
+            <div class="row">
+              <div class = "col-md-4">
+                <button ng-click="openCategory('dropdownCategory');" class="dropbtn">Filter Team by Tags</button>
+                <div id="dropdownCategory" class="dropdown-content">
+                  <div ng-repeat="category in ntags" ng-click = "openCategory(category.$id);" class="dropdown-text" >
+                    <h5>{{category.$id}}</h5>
+                    <div id= {{category.$id}} class="dropdown-tags">
+                      <div ng-repeat ="tt in category">
+                        <label><input type="checkbox"  ng-click="addSearchTags(tt);">
+                        <span>{{tt}}</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <br>
+              <span ng-repeat="ttt in searchTags">
+             <button type="button" class="btn btn-default" ng-click="addSearchTags(ttt);" style="text-align: left;">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
+             </button>
+            </span>
+            <br>
             <table>
             
             <thead>
@@ -122,8 +146,8 @@
                 <td><label>Tags</label></td>
               </tr>
             </thead>
-            <tr ng-repeat="team in teams">
-              <td class="col-md-2">
+            <tr ng-repeat="team in teams" ng-show = "filterByTag(team.tags);">
+              <td class="col-md-2" >
                 <div class="checkbox">
                   <input type="checkbox" value="{{team.$id}}" ng-checked="selection.indexOf(team.$id) > -1" ng-click="toggleSelection(team.$id)">
                   <label>{{team.$id}}</label>
