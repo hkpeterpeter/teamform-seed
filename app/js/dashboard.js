@@ -20,6 +20,9 @@ app.controller("dashboardCtrl",
 						firebase.database().ref("users/" + authData.uid + "/writable/" + key + "/notifications")
 						.on('child_added', function(data){
 							k = data.ref.parent.parent.key;
+							if ($scope.user_local[k].notifications == undefined) {
+								$scope.user_local[k].notifications = {};
+							}
 							// console.log(k);
 							// console.log($scope.user_local[k].notifications[data.key]);							
 							if ($scope.user_local[k].notifications[data.key] == undefined){

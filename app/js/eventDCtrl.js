@@ -2,7 +2,7 @@
 app.controller("eventDCtrl",
 
     // Implementation the todoCtrl
-    function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $filter, Helper, ngDialog, $state) {
+    function($scope, Auth, $firebaseArray, $firebaseObject, $stateParams, $filter, Helper, ngDialog, $state, $window) {
         console.log("event detail");
 
         //initialize
@@ -113,7 +113,9 @@ app.controller("eventDCtrl",
 
         }
         $scope.joinEvent=function(){
-            Helper.joinEvent($scope.userData.uid,$scope.eventID);
+            Helper.joinEvent($scope.userData.uid,$scope.eventID).then(function(){
+                $window.location.reload();
+            });
             // $scope.role="tba";
         }
 
