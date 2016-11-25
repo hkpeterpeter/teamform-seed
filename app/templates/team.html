@@ -142,11 +142,11 @@
 				  <p>Statistics on tags.</p>
 				  <hr>
 
-
+					<div ng-init="init_skillchart()">
 						<canvas id="bar" class="chart chart-bar"
 						chart-data="stvalues" chart-labels="stnames" chart-series="stseries" chart-colors="stcolors" chart-options = "stoptions">
 					</canvas>
-
+				</div>
 						<canvas id="bar" class="chart chart-bar"
 						chart-data="ltvalues" chart-labels="ltnames" chart-series="ltseries" chart-colors="ltcolors" chart-options = "ltoptions">
 					</canvas>

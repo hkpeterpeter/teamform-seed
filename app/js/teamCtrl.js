@@ -450,7 +450,7 @@ app.controller("teamCtrl",
 			Helper.updateMannerTags($scope.eventID, $scope.teamID, $scope.newMannerTags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
 				// $scope.initchart();
-				// window.location.reload()
+
 		}
 		//get announcements
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/announcements');
