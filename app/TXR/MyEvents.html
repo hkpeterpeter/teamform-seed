@@ -169,7 +169,7 @@
                                         </div>
                                         <div class="media-body">
                                           <h4 class="media-heading">{{content.name}}</h4>
-                                          {{content.description}}
+                                          {{content.introduction}}
                                         </div>
 
                                         <div class="media-right">
@@ -210,7 +210,7 @@
                                           </div>
                                           <div class="media-body">
                                             <h4 class="media-heading">{{content.name}}</h4>
-                                            {{content.description}}
+                                            {{content.introduction}}
                                           </div>
 
                                           <div class="media-right">
@@ -324,12 +324,34 @@
           </div>
           </div>
         <div class="col-lg-6" id="suggestion">
-        <h2>Suggested Users</h2>
+        
        
 
           <div class="table-responsive" ng-controller = "clickCtrl">
+            
+            
+            <h2>suggested teams (temporary)</h2>
+            <table class="table table-striped" ng-repeat = "(num, team_content) in suggested_teams">
+                          
+              <tbody>
+                <tr>
+                  <td style="font-size: 30px">{{num+1}}</td>
+                  <td>
+                      <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
+                 <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button>
+                  </td>
+                </tr>
+            
+              </tbody>
+            </table>
+            
+            <h2>Suggested Users</h2>
             <table class="table table-striped" ng-repeat = "(num, suggested_users) in suggested">
-
+              
+              
               <tbody>
                 <tr>
                   <td style="font-size: 30px">{{num+1}}</td>
