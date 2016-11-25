@@ -20,13 +20,20 @@ app.config(function($routeProvider){
   var userlist = $firebaseObject(firebase.database().ref("userList"));
   var conversationList = $firebaseObject(firebase.database().ref("conversation"));
   $scope.convList = [];
+  $scope.linkList = [];
   userlist.$loaded(function() {
     conversationList.$loaded(function(){
       $scope.eventlist=userlist[thisuser]["Membership"];
       angular.forEach(conversationList,function(value,key){
         names = key.split("_");
-        if (names[0] == thisuser) $scope.convList.push(names[1]);
-        if (names[1] == thisuser) $scope.convList.push(names[0]);
+        if (names[0] == thisuser) {
+          $scope.convList.push(names[1]);
+          $scope.linkList.push(key);
+        }
+        if (names[1] == thisuser) {
+          $scope.convList.push(names[0]);
+          $scope.linkList.push(key);
+        }
       });
     });
   });
