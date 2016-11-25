@@ -171,7 +171,7 @@ app.controller("clickCtrl",
               }
             }
             //alert(event_list["event1"]);
-            $scope.tag = event_list[event_name]["skills"];
+            $scope.tag = event_list[event_name]["skillTable"];
             angular.forEach($scope.tag, function(value,key){
               $scope.currentTag.push(key);
             });
@@ -232,20 +232,24 @@ app.controller("clickCtrl",
                     fulfill -= 1;
                   } 
                 }
+                //alert("fulfill= "+fulfill);
                 // $scope.suggested["2"] = [{userobject},{userobject}...]
                 if (!(fulfill.toString() in suggested_teams)){
                   suggested_teams[fulfill.toString()]=[];
                 }
                 //alert("fulfill= "+fulfill+" user= "+key);
                 suggested_teams[fulfill.toString()].push(team_list[key]);
+                //add the teamname as an attribute of the object
+                suggested_teams[fulfill.toString()][suggested_teams[fulfill.toString()].length-1]["teamname"]=key;
               });
+              //alert(suggested_teams["2"].length);
               for (var i = user_skills.length; i>0 ;i--) {
                 var str_i = i.toString();
                 if (str_i in suggested_teams){
-                  $scope.suggested_teams.push.apply(suggested_teams[str_i]);
+                  $scope.suggested_teams.push.apply($scope.suggested_teams, suggested_teams[str_i]);
                 }
               }
-
+              //alert($scope.suggested_teams.length);
             }
             
           });
