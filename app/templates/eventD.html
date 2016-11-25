@@ -94,7 +94,7 @@
 					<div class="container">
 						<div class="row" ng-repeat="(key, name) in eventObj.tba">
 							<div class="col-md-2">
-								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">	    
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/profile/{{name}}" style="text-align:left">	    
 			        		{{users[name].readOnly.name}}
 			        	</a>
 			        </div>
@@ -128,7 +128,7 @@
 					</p>
 			    <hr>
 			    <!--###Content###-->
-			    <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
+			    <div ng-repeat="name in announcements.slice().reverse()">
 			    	{{name.content}}
 			    	<span>{{name.timeStamp | stringToDate | date: 'yyyy-MM-dd hh:mm'}}</span>
 						<button class="btn btn-danger btn-sm" ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="Delete">
@@ -139,21 +139,21 @@
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
 	
-	<div class="col-md-4">
+	<div class="col-md-4" ng-if="(myEvents[eventID] | role)=='tba'">
 		<div class="thumbnail">
 			<div class="caption">
 				<!--###Title###-->
 				<h4>Recommendation</h4>
-				<p>Recommend people that may fit your team</p>
+				<p>Recommend team that fit you</p>
 				<button class="btn btn-danger btn-sm" ng-click="recommend()" data-toggle="tooltip" data-placement="bottom">
 					Let's GO! 
 				</button>
 				<hr>
 				<!--###Content###-->
 				<div class="container">
-					<div class="row" ng-repeat="team in recommandTeams | orderBy: score">
+					<div class="row" ng-repeat="team in recommandTeams | orderBy: 'score': true">
 						<div class="col-md-2">
-							<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
+							<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{team.key}}" style="text-align:left">
 									{{team.name}}: {{team.score}}
 							</a>
 						</div>
