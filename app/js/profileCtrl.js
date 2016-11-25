@@ -9,7 +9,7 @@ app.controller("profileCtrl",
 
 				$scope.profile_info = $firebaseObject(ref);
 				$scope.profile_readOnly = true;
-				$scope.profile_info.tags = Helper.tags;
+				// $scope.profile_info.tags = Helper.tags;
 				//$scope.profile_info.tag.c++=false;
 				var id = $stateParams.uid;
 				if (id != $scope.authData.uid)  $scope.button_visible = false;
