@@ -193,6 +193,32 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $timeout, $firebas
 
 	
 	};
+	$scope.startdragging = function(event, ui, team1) {
+		$rootScope.draggedteam = team1;
+	}
+	$scope.stopdragging = function(event, ui, team1) {
+		$rootScope.droppedteam = team1;
+		var confirmtext = "Are you sure to merge team " + $rootScope.draggedteam.teamName + " into team " + $rootScope.droppedteam.teamName + "?";
+		if (confirm(confirmtext)) {
+			$rootScope.draggedteam.adminMerge = $rootScope.droppedteam.teamName;
+			$scope.adminMergeTeam($rootScope.draggedteam);
+		}
+	}
+/*
+	$scope.beforeDrop = function(event, ui, team1) {
+    	var deferred = $q.defer();
+    	if (confirm('Are you sure to merge two teams?')) {
+      	deferred.resolve();
+      	console.log(event);
+      	console.log(ui);
+      	console.log(team1);
+      	console.log($(event.target).scope().team);
+    	} else {
+      	deferred.reject();
+    	}
+    	return deferred.promise;
+  	};
+*/
 
 	$scope.adminUpdateUserInfo = function(team, user) {
 		var curTeamSize = $scope.getLength(team);

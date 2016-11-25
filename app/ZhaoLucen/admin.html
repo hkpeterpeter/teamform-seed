@@ -93,7 +93,7 @@
 
 
     			<!-- A Single Card -->
-          <div class="card admin-team-card sticky-action blue-grey darken-1" id="{{team.teamName}}" ng-repeat="team in teams | filter:teamFilter" data-drag="true" jqyoui-draggable>
+          <div class="card admin-team-card sticky-action blue-grey darken-1" id="{{team.teamName}}" ng-repeat="team in teams | filter:teamFilter" data-drag="true" data-drop="true" jqyoui-draggable="{animate: true, onDrag: 'startdragging(team)'}" data-jqyoui-options="{revert: 'invalid'}" jqyoui-droppable="{onDrop: 'stopdragging(team)'}">
             <div class="card-content white-text">
               <span class="card-title activator">{{ team.teamName }}<i class="material-icons right">more_vert</i></span>
               <br/>
