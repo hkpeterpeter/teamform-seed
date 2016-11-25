@@ -418,7 +418,7 @@ app.controller("teamCtrl",
 
 		}
 		$scope.modifyMannerTagsChoice = function(){
-			console.log($scope.mannertags);
+			// console.log($scope.mannertags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
 			$scope.newMannerTags = {
 				"Cool" : $scope.mannertags.Cool ,
@@ -430,7 +430,7 @@ app.controller("teamCtrl",
 				"Thoughtful" : $scope.mannertags.Thoughtful
 			}
 
-			console.log($scope.newMannerTags);
+			// console.log($scope.newMannerTags);
 		}
 
 		$scope.changeSkillTags = function(){
