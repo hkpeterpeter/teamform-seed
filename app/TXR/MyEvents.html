@@ -169,7 +169,7 @@
                                         </div>
                                         <div class="media-body">
                                           <h4 class="media-heading">{{content.name}}</h4>
-                                          {{content.description}}
+                                          {{content.introduction}}
                                         </div>
 
                                         <div class="media-right">
@@ -210,7 +210,7 @@
                                           </div>
                                           <div class="media-body">
                                             <h4 class="media-heading">{{content.name}}</h4>
-                                            {{content.description}}
+                                            {{content.introduction}}
                                           </div>
 
                                           <div class="media-right">
@@ -329,7 +329,7 @@
 
           <div class="table-responsive" ng-controller = "clickCtrl">
             <table class="table table-striped" ng-repeat = "(num, suggested_users) in suggested">
-
+              <pre>{{suggested_teams|json}}</pre>
               <tbody>
                 <tr>
                   <td style="font-size: 30px">{{num+1}}</td>

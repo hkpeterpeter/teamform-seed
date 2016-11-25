@@ -183,11 +183,11 @@ app.controller("clickCtrl",
             var suggested_users = {};
             $scope.suggested_teams=[];
             var suggested_teams = {};
+            alert("I am a "+user_identity+" in event: "+event_name);
             if (user_identity === "leader"){
               //1. users in this event, not in teams, not the user himself/herself => $scope.users
               //user_list.$loaded(function() {});
               var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
-              //alert(team_name);
               var team_skills = event_list[event_name]["teamList"][team_name]["skills"];
               //2. count the number of requirements the users fulfilled 
               angular.forEach($scope.users, function(value,key){
@@ -238,7 +238,7 @@ app.controller("clickCtrl",
                 }
                 //alert("fulfill= "+fulfill+" user= "+key);
                 suggested_teams[fulfill.toString()].push(team_list[key]);
-              }
+              });
               for (var i = user_skills.length; i>0 ;i--) {
                 var str_i = i.toString();
                 if (str_i in suggested_teams){
