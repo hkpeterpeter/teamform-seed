@@ -63,8 +63,8 @@
             <img id="profile-photo" src="images/dp.jpg" width="250" height="250"/>
           </div>
           <div class="col-sm-4 text-left">
-            <h2>Name: {{userName}}</h2>
-            <h2>Email: {{userEmail}}</h2>
+            <h3>Name: {{userName}}</h3>
+            <h3>Email: {{userEmail}}</h3>
           </div>
         </div>
         <h2>Invitation</h2>
@@ -96,12 +96,19 @@
         <div class="row">
           <div class="col-md-2 col-xs-2"></div>
           	<div class="col-md-8 col-xs-8 text-left panel">
-          	  <div ng-if="inEventInfo.length > 0">
+              <table class="table" ng-if="inEventInfo.length > 0">
+                <tr><th>Event Name</th><th>Joined Team</th></tr>
+                <tr ng-repeat="eventInfo in inEventInfo">
+                <td>{{eventInfo.eventId}}</td>
+                <td>{{(eventInfo.inTeam !== undefined? eventInfo.inTeam: "None")}}</td>
+                </tr>
+              </table>
+          	  <!-- <div ng-if="inEventInfo.length > 0">
           	    <ul ng-repeat="eventInfo in inEventInfo">
           	      <li>{{"Event " + eventInfo.eventId + ": "
-          	      	+ (eventInfo.inTeam !== undefined? "in team " + eventInfo.inTeam: "no team yet")}}</li>
+          	      	+ }</li>
           	    </ul>
-          	  </div>
+          	  </div> -->
           	  <div ng-if="inEventInfo.length <= 0">No event joined yet.</div>
         	</div>    
         </div>

@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	$("#profile_page_controller").hide();
 });
 
 angular.module('teamform-profile-app', ['firebase'])
@@ -38,25 +39,25 @@ angular.module('teamform-profile-app', ['firebase'])
 	$scope.loadCallback = function() {
 		$scope.joinedEvent = $firebaseArray(firebase.database().ref("user/" + $scope.userId + "/joinedEvent"));
 		$scope.joinedEvent.$loaded(function(eventList) {
-			for(var idx = 0; idx < eventList.length; idx++) {
-				var info = {
-					eventId: "",
-					inTeam: "",
-					invitedBy: []
-				};
-				info.eventId = $scope.joinedEvent[idx].$value;
-				$firebaseObject(firebase.database().ref(eventList[idx].$value + "/member/" + $scope.userId))
-					.$loaded(function(memberInfo) {
-						info.inTeam = memberInfo.inTeam;
-						info.invitedBy = memberInfo.invitedBy;
-						console.log("InvitedBy", info);
-						$scope.inEventInfo.push(info);
+			console.log(eventList);
+			angular.forEach(eventList, function(event) {
+				console.log(event);
+				var info = {};
+				info.eventId = event.$value;
+				var memberInfo = $firebaseObject(firebase.database().ref().child(event.$value).child("member").child($scope.userId));
+				memberInfo.$loaded().then(function() {
+					info.inTeam = memberInfo.inTeam;
+					info.invitedBy = memberInfo.invitedBy;
+					console.log(event.$value + " " + info);
+					$scope.inEventInfo.push(info);
 				});
-			}
+			});
 		});
 		
 		var refPath = "user/" + $scope.userId + "/ability";
 		$scope.abilityInfo = $firebaseArray(firebase.database().ref(refPath));
+		$("#profile_page_controller").show();
+		$scope.$apply();
 	}
 	
 	$scope.abilityInfo = [];

@@ -164,6 +164,10 @@ angular.module('teamform-app', ['firebase'])
         document.getElementById('memberlist').style.display='block';
         var memberArray = $firebaseArray(firebase.database().ref().child(eventName).child("member"));
         var teamRef = firebase.database().ref().child(eventName).child("team").child(teamName);
+        var teamRefObj = $firebaseObject(teamRef);
+        teamRefObj.$loaded().then(function() {
+            $scope.teamDescription = teamRefObj.description;
+        });
         var teamMembersObj = $firebaseObject(teamRef.child("teamMembers"));
         teamMembersObj.$loaded().then(function(data) {
             angular.forEach(data, function(teamMember) {
@@ -179,6 +183,7 @@ angular.module('teamform-app', ['firebase'])
                 $scope.memberList.push(memberInfo);
             });
         });
+        // if the user is in the team selected, show the manage button to go to team page when clicked
         uid = firebase.auth().currentUser.uid;
         var memberInfo = $firebaseObject(firebase.database().ref().child($scope.eventName).child("member").child(uid));
         memberInfo.$loaded().then(function() {

@@ -198,7 +198,7 @@ angular.module('teamform-team-app', ['firebase'])
 			'teamMembers': $scope.param.teamMembers,
 			'tags': $scope.param.tags,
 			'weight' : $scope.param.weight,
-			'description': $scope.param.teamDescription
+			'description': (typeof $scope.param.teamDescription !== "undefined" ? $scope.param.teamDescription: "")
 		};
 		$.each($scope.param.teamMembers, function(i, obj) {
 			var rec = $scope.member.$getRecord(obj);
@@ -245,6 +245,9 @@ angular.module('teamform-team-app', ['firebase'])
 					}
 					if(data.child("weight").val() != null) {
 						$scope.param.weight = data.child("weight").val();
+					}
+					if(data.child("description").val() != null) {
+						$scope.param.teamDescription = data.child("description").val();
 					}
 					$scope.$apply();
 				});
