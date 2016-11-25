@@ -1,3 +1,14 @@
+<nav class="navbar navbar-default" role="navigation">
+	<div class="navbar-header">
+	  <a class="navbar-brand" href="#">Team Forming</a>
+	</div>
+	<div class="navbar-right">
+	  <ul class="nav navbar-nav">
+	    <li><a href="#fakelink">About</a></li>
+	  </ul>
+	</div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-3"></div>
@@ -17,7 +28,7 @@
 			   	<div class="form-group">
 				  <label>Password: <span class="required" ng-show="form2.pwd.$error.required">*required</span></label>
 				  <input class="form-control" name="pwd" ng-model="input.pwd" type="password" required>
-				  <br>			
+				  		
 				</div>
 				<label>Tags:</label>
 				<div class="panel-group" id="accordion">
@@ -84,7 +95,10 @@
 					</div>
 				  </div>
 				</div> 
+				<br>
+				<div align="right">
 				  <input class="btn btn-primary" type="button" value="Register" ng-click="register()">
+				</div>
 			</form> 
 		</div>     
 		</div>
