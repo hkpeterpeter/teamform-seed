@@ -81,7 +81,7 @@
 						<button class="btn btn-xs btn-primary">Skill</button>
 						<br>
 						<span ng-repeat="(name,content) in filterSkillTags(skilltags)" >
-							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}} : {{content.value}}</button>
+							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}}{{content.value}}</button>
 						</span>
 					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">

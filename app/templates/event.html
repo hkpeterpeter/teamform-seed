@@ -3,11 +3,11 @@
 	<!--###############Head###############-->
 	
 	<div class="jumbotron">
-		<h2>Event</h2>	
+		<h2><i class="icon-flag"></i>&nbsp;&nbsp;Event</h2>	
 		<p>This is the event page. Just say something here.</p>
 		<p>
 			<button class="btn btn-danger" ng-click="createEventDialog()">
-				<i class="icon-flag"></i>&nbsp;&nbsp;&nbsp;Create an Event
+				<i class="icon-plus-sign"></i>&nbsp;&nbsp;&nbsp;Create an Event
 			</button>
 		</p>
 	</div> <!--jumbotron-->
@@ -18,15 +18,19 @@
 		<div class="thumbnail">
 		  <div class="caption">
 		  	<!--###Title###-->
-		    <h4>My Events</h4>
+		    <h4><i class="icon-flag"></i>&nbsp;&nbsp;My Events</h4>
 		    <p>Events you participate in.</p>
+		    <p><sub>
+		    	<i class="icon-desktop"></i>:Admin&nbsp;&nbsp;
+					<i class="icon-star"></i>:Leader&nbsp;&nbsp;
+					<i class="icon-star-empty"></i>:Member&nbsp;&nbsp;					
+					<i class="icon-umbrella"></i>:TBA&nbsp;&nbsp;		
+		    </sub></p>
 		    <hr>
 		    <!--###Content###-->
-
         	<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" ng-repeat="(myEventId, myEvent) in myEvents" style="text-align:left">
 						<i class="icon-{{ myEvent.position | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{events.$getRecord(myEventId).eventInfo.name}}
 					</a>
-
 			</div> <!--caption-->
 		</div> <!--thumbnail-->
 	</div> <!--col-md-8-->
@@ -37,7 +41,7 @@
 		<div class="thumbnail">
 		  <div class="caption">
 		  	<!--###Title###-->
-			  <h4>Search Events</h4>
+			  <h4><i class="icon-search"></i>&nbsp;&nbsp;Search Events</h4>
 				<p>Explore fascinating events!</p>
 		  	<p><input class="form-control" placeholder="Search by event name" type="text" name="searchName" ng-model = "searchText"/></p>
 		  	<hr>

@@ -1,12 +1,12 @@
-<div class="container">
+<div class="container" class="ng-cloak">
 <div class="col-md-12">
 
 	<!--###############Head###############-->
 	
 	<div class="jumbotron">
-		<h2>{{eventObj.eventInfo.name}}</h2>
-		<p ng-if="!editingInfo">{{eventObj.eventInfo.desc}}</p>
-		<div class="row padding">
+		<h2><i class="icon-flag"></i>&nbsp;&nbsp;{{eventObj.eventInfo.name}}</h2>
+		<p>{{eventObj.eventInfo.desc}}</p>
+		<p>
 			<div class="btn-group">
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
@@ -14,59 +14,105 @@
 						<span class="caret" ng-if="(myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor' || (myEvents[eventID] | role)=='admin'"></span>
 					</button>			
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
-						<li><a class="btn" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'">Create a team</a></li>
-						<li><a class="btn" ng-click="quit()" ng-if="(myEvent | role)=='tba'">Leave the event</a></li>
-						<li><a class="btn" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'">Join the event</a></li>
-						<li><a class="btn" ng-click="manage()" ng-if="myEvent.position=='admin'">Manage the event</a></li>
+						<li><a class="btn" ng-click="createTeamDialogue()" ng-if="(myEvent | role)=='tba'" style="text-align:left">Create a team</a></li>
+						<li><a class="btn" ng-click="quit()" ng-if="(myEvent | role)=='tba'" style="text-align:left">Leave the event</a></li>
+						<li><a class="btn" ng-click="joinEvent()" ng-if="(myEvents[eventID] | role)=='visitor'" style="text-align:left">Join the event</a></li>
+						<li><a class="btn" ng-click="editInfo()" ng-if="myEvent.position=='admin'" style="text-align:left">Edit the event</a></li>
+						<li><a class="btn" ng-click="manage()" ng-if="myEvent.position=='admin'" style="text-align:left">Manage the event</a></li>
 					</ul>
-				</div>
-      		</div> <!--btn-group-->      
+				</div> <!--data-toggle-->
+  		</div> <!--btn-group-->      
 			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team size">
 				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.min}} ~ {{eventObj.eventInfo.max}}
 			</button>			
 			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team-forming deadline">
-				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.ddl | date:'yyyy-MM-dd HH:mm'}}
+				<i class="icon-calendar"></i>&nbsp;&nbsp;&nbsp;{{eventObj.eventInfo.ddl | DateFormat | date:'yyyy-MM-dd HH:mm'}}
 			</button>
-		</div>		
-		<div class="row padding">			
+		</p>		
+		<p>			
 			<a class="btn btn-danger" ng-if=" (myEvent | role)=='leader' || (myEvent | role)=='member' " ng-href="#/dashboard/event/{{eventID}}/team/{{myEvent.team}}">
 				<i class="icon-group"></i>&nbsp;&nbsp;&nbsp;My Team: {{eventObj.teams[myEvent.team].name}}
 			</a>
-		</div>		
+		</p>
 	</div> <!--jumbotron-->
 	
-	<!--###############Teams###############-->
 	<div class="row">
+	
 		<div class="col-md-5">
+		
+			<!--###############Teams###############-->
+			
 			<div class="thumbnail">
 			  <div class="caption">
 			  	<!--###Title###-->
-			    <h4>Teams</h4>
+			    <h4><i class="icon-group"></i>&nbsp;&nbsp;Teams</h4>
 			    <p>Teams in the event.</p>   
 			    <hr>
 			    <!--###Content###-->
 			    <div class="container">	
-			      <div class="row" ng-repeat="(key, team) in eventObj.teams">2
-					    <div class="col-md-3">
-			      		<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{key}}" style="text-align:left">
-			      			{{team.name}}
-			      		</a>
-			    		</div>
-		    			<button class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
-		    				<i class="icon-beaker"></i>
-		    				{{team.currentSize}}/{{team.max}}
-		    			</button>
-				    	<button class="btn btn-danger btn-sm" ng-click="deleteTeam(key)" ng-if="isManaging" data-toggle="tooltip" data-placement="bottom" title="Delete">
-				    		<i class="icon-trash"></i>
-				    	</button>
-				    	<button class="btn btn-danger btn-sm" ng-click="toTeam(key)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to this team">
-				    		<i class="icon-plus-sign"></i>
-				    	</button>
-			      </div> <!--row ng-repeat-->			     
+			      <div ng-repeat="(key, team) in eventObj.teams">
+			      	<div class="row">
+							  <div class="col-md-3">
+					    		<a class="btn btn-success btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{key}}" style="text-align:left">
+					    			{{team.name}}
+					    		</a>
+					  		</div>
+				  			<button class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
+				  				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;
+				  				{{team.currentSize}}&nbsp;&nbsp;/&nbsp;&nbsp;{{team.max}}
+				  			</button>
+						  	<button class="btn btn-danger btn-sm" ng-click="deleteTeam(key)" ng-if="isManaging && !selectTeam" data-toggle="tooltip" data-placement="bottom" title="Delete">
+						  		<i class="icon-trash"></i>
+						  	</button>
+						  	<button class="btn btn-danger btn-sm" ng-click="toTeam(key)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to this team">
+						  		<i class="icon-plus-sign"></i>
+						  	</button>
+				    	</div> <!--row-->
+    					<!--TAGS HERE-->
+				    	<div class="row">
+				    		<div class="col-md-3">
+				    			<span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.SkillTags" ng-if="tagContent.value != 0">
+				    				<button class="btn btn-xs btn-default" ng-style="{backgroundColor:tagContent.color}">{{tagKey}}</button>
+				    			</span>
+				    		</div> <!--col-md-3-->				    		
+				    	</div> <!--row-->
+				    	<br>
+			      </div> <!--ng-repeat-->			     
 	        </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
-		</div> <!--col-md-4-->
+			
+			<!--###############Recommendation###############-->
+
+			<div class="thumbnail" ng-if="(myEvents[eventID] | role)=='tba'">
+				<div class="caption">
+					<!--###Title###-->
+					<h4>Recommendation</h4>
+					<p>Recommend team that fit you</p>
+					<button class="btn btn-danger btn-sm" ng-click="recommend()" data-toggle="tooltip" data-placement="bottom">
+						Let's GO! 
+					</button>
+					<hr>
+					<!--###Content###-->
+					<div class="container">	
+						<div ng-repeat="team in recommandTeams | orderBy: 'score': true" >
+			      	<div class="row">
+							  <div class="col-md-3">
+									<a class="btn btn-success btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{team.key}}" style="text-align:left">
+										{{team.name}} [{{team.score}}]
+									</a>
+								</div> <!--col-md-3-->							
+								<button class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
+				  				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;
+				  				{{team.currentSize}}&nbsp;&nbsp;/&nbsp;&nbsp;{{team.max}}
+				  			</button>
+							</div> <!--row-->
+					  </div> <!--ng-repeat-->
+				  </div> <!--container-->
+				</div> <!--caption-->
+			</div> <!--thumbnail-->	
+				
+		</div> <!--col-md-5-->
 	
 		<!--###############TBAs###############-->
 		
@@ -74,14 +120,14 @@
 			<div class="thumbnail">
 			  <div class="caption">
 			  	<!--###Title###-->
-			    <h4>TBAs</h4>
+			    <h4><i class="icon-umbrella"></i>&nbsp;&nbsp;TBAs</h4>
 			    <p>They belong to nowhere.</p>
 			    <hr>
 			    <!--###Content###-->
 					<div class="container">
 						<div class="row" ng-repeat="(key, name) in eventObj.tba">
 							<div class="col-md-2">
-								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">	    
+								<a class="btn btn-info btn-block btn-sm" type="button" ng-href="#/dashboard/profile/{{name}}" style="text-align:left">	    
 			        		{{users[name].readOnly.name}}
 			        	</a>
 			        </div>
@@ -95,7 +141,7 @@
 		      </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
-		</div> <!--col-md-4-->
+		</div> <!--col-md-3-->
 		
 		<!--###############Annoucement###############-->
 		
@@ -103,7 +149,7 @@
 			<div class="thumbnail">
 			  <div class="caption">
 			  	<!--###Title###-->
-			    <h4>Announcement</h4>
+			    <h4><i class="icon-bullhorn"></i>&nbsp;&nbsp;Announcement</h4>
 			    <p>Please check regularly.</p>
 			    <p>
 					  <button class="btn btn-danger" ng-click="createAnnouncementDialogue()" ng-if="(myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="New announcement">
@@ -115,44 +161,20 @@
 					</p>
 			    <hr>
 			    <!--###Content###-->
-			    <div ng-repeat="(key, name) in eventObj.eventInfo.announcements">
+			    <div class="caption" ng-repeat="name in announcements.slice().reverse()">
+			   		
 			    	{{name.content}}
-						<button class="btn btn-danger btn-sm" ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="icon-remove-sign"></i></button>
-	        </div> 
+			    	<span style="color:gray"><small>({{name.timeStamp | stringToDate | date: 'yyyy-MM-dd HH:mm'}})</small></span>
+						<button class="btn btn-danger btn-sm" ng-click="deleteAnn(key)" ng-if="isDeletingAnn && (myEvent | role)=='admin'" data-toggle="tooltip" data-placement="bottom" title="Delete">
+							<i class="icon-remove-sign"></i>
+						</button>
+	        </div> <!--ng-repeat-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
-	</div>
-	<div class="col-md-4">
-		<div class="thumbnail">
-			<div class="caption">
-				<!--###Title###-->
-				<h4>Recommend Teams</h4>
-				<p>People may fit your team</p>
-				<button class="btn btn-danger btn-sm" ng-click="recommand()" data-toggle="tooltip" data-placement="bottom">
-					Recommend
-				</button>
-				<hr>
-				<!--###Content###-->
-				<div class="container">
-					<div class="row" ng-repeat="team in recommandTeams | orderBy: score">
-						<div class="col-md-2">
-							<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
-									{{team.name}}: {{team.score}}
-							</a>
-						</div>
-						<button class="btn btn-danger btn-sm" ng-click="addToTeam(name)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to">
-							<i class="icon-double-angle-right"></i>
-						</button>
-						<button class="btn btn-danger btn-sm" ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)" data-toggle="tooltip" data-placement="bottom" title="Invite">
-							<i class="icon-leaf"></i>
-						</button>
-					</div>
-				</div> <!--container-->
-			</div> <!--caption-->
-		</div> <!--thumbnail-->
-	</div> <!--col-md-4-->
-	<hr>
+	
+	</div> <!--row-->
+</div> <!--col-md-12-->
 </div> <!--container-->
 
 
