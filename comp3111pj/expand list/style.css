@@ -1,0 +1,15 @@
+/* Styles go here */
+
+ul {
+  clear: both;
+  list-style-type: none;
+}
+
+
+li.created {
+  width: 100px;
+}
+
+li.ip {
+  width: 100px;
+}
