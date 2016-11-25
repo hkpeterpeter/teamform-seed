@@ -20,6 +20,8 @@ angular.module('teamform-taglist-app', ['firebase'])
 		}
 	});
 	
+	$scope.alreadyTaken = [];
+	
 	$scope.loadCallback = function() {
 		
 	};

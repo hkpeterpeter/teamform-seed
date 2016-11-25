@@ -185,7 +185,7 @@
               </thead>
               <tbody>
                 <tr ng-repeat="m in member" ng-show = "filterByTag(m.tags);">
-                  <td class="col-md-2">{{retrieveNameFromID(m.$id)}}</td>
+                  <td class="col-md-2"><a href="profile.html?q={{m.$id}}">{{retrieveNameFromID(m.$id)}}</a></td>
                   <td class="col-md-2">
                     <div ng-repeat="tag in m.tags">
                       <button type="button" class="btn btn-default btn-xs pull-left" disabled>{{tag}}</button>

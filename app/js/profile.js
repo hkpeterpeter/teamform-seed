@@ -15,63 +15,66 @@ angular.module('teamform-profile-app', ['firebase'])
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
 		if(firebaseUser) {
 			var user = firebase.auth().currentUser;
-			$scope.userId = user.uid;
-			$scope.userName = user.displayName;
-			$scope.userEmail = user.email == null? "Unknown": user.email;
-			if(user.photoURL) {
-				$("#profile-photo").attr("src", user.photoURL); 
-			}
+			$scope.myId = user.uid;
+			
+			$scope.lookForId = getURLParameter("q")? getURLParameter("q"): $scope.myId;
 			$scope.loadCallback();
 		} else {
-			window.location.href = "index.html";
+			document.getElementById('login-form').style.display='block';
 		}
 	});
 	
-	$scope.category = $firebaseArray(firebase.database().ref("newTags"));
-
-	
 	$scope.inEventInfo = [];
+	$scope.abilityInfo = [];
+	$scope.userInfo = {};
 	
 	$scope.queue = [];
 	$scope.loadCallback = function() {
-		$scope.joinedEvent = $firebaseArray(firebase.database().ref("user/" + $scope.userId + "/joinedEvent"));
+		$scope.joinedEvent = $firebaseArray(firebase.database().ref("user/" + $scope.lookForId + "/joinedEvent"));
 		$scope.joinedEvent.$loaded(function(eventList) {
-
-/*
-			for(var idx = 0; idx < eventList.length; idx++) {
-				$scope.queue.push($scope.joinedEvent[idx].$value);
-				$firebaseObject(firebase.database().ref($scope.joinedEvent[idx].$value + "/member/" + $scope.userId))
-					.$loaded(function(memberInfo) {
-						var info = {
-								eventId: $scope.queue.pop(),
-								inTeam: memberInfo.inTeam,
-								invitedBy: memberInfo.invitedBy
-						};
-						console.log("InvitedBy", info);
-						$scope.inEventInfo.push(info);
-						*/
-			console.log(eventList);
 			angular.forEach(eventList, function(event) {
-				console.log(event);
 				var info = {};
 				info.eventId = event.$value;
-				var memberInfo = $firebaseObject(firebase.database().ref().child(event.$value).child("member").child($scope.userId));
+				var memberInfo = $firebaseObject(firebase.database().ref(event.$value + "/member" + $scope.lookForId));
 				memberInfo.$loaded().then(function() {
+					console.log("Then2");
 					info.inTeam = memberInfo.inTeam;
 					info.invitedBy = memberInfo.invitedBy;
-					console.log(event.$value + " " + info);
 					$scope.inEventInfo.push(info);
 				});
 			});
 		});
 		
-		var refPath = "user/" + $scope.userId + "/ability";
+		var refPath = "user/" + $scope.lookForId + "/ability";
 		$scope.abilityInfo = $firebaseArray(firebase.database().ref(refPath));
-		$("#profile_page_controller").show();
-		$scope.$apply();
+		
+		refPath = "user/" + $scope.lookForId;
+		$scope.userInfo = $firebaseObject(firebase.database().ref(refPath));
+		$scope.userInfo.$loaded(function(data) {
+			$scope.userEmail = data.email == null? "Unknown": data.email;
+			$scope.photoUrl = data.photoURL? data.photoURL: "images/dp.jpg";
+			$("#profile_page_controller").show();
+			$scope.$apply();
+		});
 	}
 	
-	$scope.abilityInfo = [];
+	$scope.isMyPage = function() {
+		return $scope.lookForId == $scope.myId;
+	}
+	
+	$scope.changePhoto = function() {
+		if(!$scope.toPhotoUrl) return;
+		
+		$scope.userInfo.photoUrl = $scope.photoUrl;
+		$scope.userInfo.$save();
+		$scope.toPhotoUrl = "";
+	};
+	
+	$scope.saveDescription = function() {
+		if(!$scope.description) return;
+		$scope.userInfo.description = $scope.description;
+		$scope.userInfo.$save();
+	}
 	
 	$scope.getRetakeDate = function(takenAt) {
 		var diff = takenAt - (new Date().getTime() / 1000) + (30 * 86400);
