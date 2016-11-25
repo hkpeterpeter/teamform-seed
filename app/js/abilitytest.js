@@ -1,12 +1,12 @@
 $(document).ready(function(){
 
-	$('#member_page_controller').hide();
+	$('#abilitytest_page_controller').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
-	var eventName = getURLParameter("q");
-	if(eventName != null && eventName !== '') {
-		$('#text_event_name').text("Event name: " + eventName);
-		$('#member_page_controller').show();
-	}
+	var testName = getURLParameter("u");
+
+		$('#ability_test_name').text("Ability Test: " + testName);
+		$('#abilitytest_page_controller').show();
+
 
 });
 
@@ -54,7 +54,7 @@ angular.module('ability-test-app', ['firebase'])
 			}
 		}
 		var mark = $scope.correctness / $scope.quiz.length * 100
-		var refPath = getURLParameter("q") +"/member/" + userID + "/ability/" + getURLParameter("u");
+		var refPath = "user/" + userID + "/ability/" + getURLParameter("u");
 		var ref = firebase.database().ref(refPath);
 		ref.update({marks: mark})
 		if (mark >= 50){
@@ -63,7 +63,7 @@ angular.module('ability-test-app', ['firebase'])
 		else{
 				window.alert("You fail the ability test, your marks is " + mark)
 		}
-		var url = "member.html?q=" + getURLParameter("q");
+		var url = "taglist.html";
 		window.location.href= url
 	};
 

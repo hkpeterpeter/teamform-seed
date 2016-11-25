@@ -111,7 +111,7 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		$scope.tag = "";
 	};
-	
+
 	$scope.addTag2 = function(tag) {
 		if(tag !== '' && $scope.tags.indexOf(tag) === -1) {
 			$scope.tags.push(tag);
@@ -131,7 +131,7 @@ angular.module('teamform-member-app', ['firebase'])
 		var teamRefPath = $scope.eventName + "/team/" + $scope.memberInfo.inTeam;
 		var ref = firebase.database().ref(refPath);
 		ref.remove();
-		
+
 		ref = firebase.database().ref(teamRefPath);
 		var team = $firebaseObject(ref);
 		team.$loaded(function(data) {
@@ -140,7 +140,7 @@ angular.module('teamform-member-app', ['firebase'])
 			ref.update({teamMembers: data.teamMembers});
 		});
 	};
-	
+
 	$scope.saveFunc = function() {
 		$scope.userInfo = $firebaseObject(firebase.database().ref().child("user").child($scope.uid));
 		$scope.userInfo.$loaded().then(function() {
@@ -184,26 +184,6 @@ angular.module('teamform-member-app', ['firebase'])
 			}
 		}
 		$scope.teams = $firebaseArray(ref);
-	};
-
-	$scope.javaFunc = function() {
-		var url = "abilitytest.html?q=" + $scope.eventName + "&u=java";
-		window.location.href = url;
-	};
-
-	$scope.cppFunc = function() {
-		var url = "abilitytest.html?q=" + $scope.eventName + "&u=cpp";
-		window.location.href = url;
-	};
-
-	$scope.htmlFunc = function() {
-		var url = "abilitytest.html?q=" + $scope.eventName + "&u=html";
-		window.location.href = url;
-	};
-
-	$scope.pythonFunc = function() {
-		var url = "abilitytest.html?q=" + $scope.eventName + "&u=python";
-		window.location.href = url;
 	};
 
 	$scope.token = "";
