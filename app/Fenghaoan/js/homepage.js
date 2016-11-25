@@ -147,19 +147,28 @@ $scope.login_selected = function() {
 
 $scope.features = [
 {
-  image_path: "Fenghaoan/images/feature1.png",
+  image_path: "Fenghaoan/images/invite_people.png",
+  title: "Invite People",
   content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
   flip: "true"
 },
 {
-  image_path: "Fenghaoan/images/feature1.png",
+  image_path: "Fenghaoan/images/skill_visualization.png",
+  title: "Skill Visualization",
   content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
   flip: "false"
 },
 {
-  image_path: "Fenghaoan/images/feature1.png",
+  image_path: "Fenghaoan/images/smart.png",
+  title: "Smart Pick Team Member",
   content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
   flip: "true"
+},
+{
+  image_path: "Fenghaoan/images/merge.png",
+  title: "Merge Team",
+  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  flip: "false"
 },
 
 ];
