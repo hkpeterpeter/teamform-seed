@@ -124,43 +124,7 @@ angular.module('teamform-member-app', ['firebase'])
 		}
 		return true;
 	}
-	//tagFiltering
-	$scope.searchTags = [];
-	$scope.openCategory = function(dVal){
-		document.getElementById(dVal).classList.toggle("show");
-	};	
-	$scope.filterByTag =function(teamTag){
-		if ($scope.searchTags.length == 0){return true;}
-		var length = (typeof teamTag != "undefined")? teamTag.length: 0;
-		var slength = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
-		for (var i=0;i<slength;i++){
-			for (var j=0; j<length;j++){
-				if(teamTag[j] == $scope.searchTags[i]){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	$scope.addSearchTags = function(tagval){
-		var addOrNot = true;
-		var k = 0;
-		var length = (typeof $scope.searchTags != "undefined")? $scope.searchTags.length: 0;
-		for(; k < length; k++){
-			if(tagval == $scope.searchTags[k]){
-				addOrNot = false;
-				break;
-			}
-		}
-		if(addOrNot){
-			$scope.searchTags.push(tagval);
-		}
-		else{
-			$scope.searchTags.splice(k,1);
-		}
 
-	};
-	//tagFiltering ends
 	$scope.leaveTeam = function() {
 		if($scope.memberInfo.inTeam === undefined) return;
 		var refPath = $scope.eventName + "/member/" + $scope.uid + "/inTeam";
