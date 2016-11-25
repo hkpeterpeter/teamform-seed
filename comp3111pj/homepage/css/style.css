@@ -9789,7 +9789,7 @@ table.sliders tr td {
   margin-top: -7px;
 
 }
-
+/*
 .message:before {
 
     border-color: #2095FE;
@@ -9817,7 +9817,7 @@ table.sliders tr td {
     z-index: -1;
 
 }
-
+*/
 .message.from:before {
 
     border-color: #E5E4E9;
