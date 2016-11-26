@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 
 <head >
@@ -100,7 +99,7 @@
 								<div id="student" class="tab-pane fade in active" ng-controller="LoginCtrl">
 									<div class="form-bottom">
 										<p style="color:white;">Enter username and password to log on:</p>
-										<form role="form" action="" method="post" class="login-form">
+										<form role="form" method="post" class="login-form">
 											<div class="form-group">
 												<table>
 													<th style="width:70%">
@@ -116,7 +115,7 @@
 												<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password" ng-model="input.password">
 											</div>
 											<ul class="nav nav-pills nav-justified">
-												<li class="col-lg-6"><button type="submit" class="btn" ng-click="loginUser()" >Sign in </button></li>
+												<li class="col-lg-6"><button type="submit" class="btn" >Sign in </button></li>
 												<li class="col-lg-6"><button type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
 											</ul>							
 										</form>
@@ -152,7 +151,7 @@
                     <div class="container">
 					  	<!-- Modal -->
 
-					  	<div class="modal fade" id="registerModal" role="dialog">
+					  	<div class="modal fade" id="registerModal" role="dialog" ng-controller="LoginCtrl">
 					  		<div class="modal-dialog modal-lg" >
 					    	 	<div class="modal-content">
 						        	<div class="modal-header">
@@ -166,12 +165,12 @@
 						                    		<table>
 														<th style="width:45%">
 															<label class="sr-only" for="form-firstname">Firstname</label>
-															<input type="text" name="form-firstname" placeholder="First Name..." class="form-firstname form-control" id="form-firstname">
+															<input type="text" name="form-firstname" placeholder="First Name..." class="form-firstname form-control" ng-model="signInput.firstname" id="form-firstname">
 														</th>
 														<th style="width:5%"> </th>
 														<th style="width:45%">
 															<label class="sr-only" for="form-lastname">Lastname</label>
-															<input type="text" name="form-lastname" placeholder="Last Name..." class="form-lastname form-control" id="form-lastname">
+															<input type="text" name="form-lastname" placeholder="Last Name..." class="form-lastname form-control" ng-model="signInput.lastname" id="form-lastname">
 														</th>
 													</table>
 						                        </div>
@@ -191,7 +190,7 @@
 						                        </div>
 						                        <div class="form-group">
 						                        	<label class="sr-only" for="form-email">Confirm Password</label>
-						                        	<input type="password" name="form-password2" placeholder="Retype Password..." class="form-password2 form-control" id="form-password2">
+						                        	<input type="password" name="form-password2" placeholder="Retype Password..." class="form-password2 form-control" id="form-password2" ng-model="rePassword">
 						                        </div>
 						                       
 						                        <button type="submit" class="btn">Sign me up!</button>

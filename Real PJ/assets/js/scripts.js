@@ -1,4 +1,3 @@
-
 jQuery(document).ready(function() {
 	
     /*
@@ -14,17 +13,20 @@ jQuery(document).ready(function() {
     });
     
     $('.login-form').on('submit', function(e) {
-    	
+    	var x = 0;
     	$(this).find('input[type="text"], input[type="password"], textarea').each(function(){
     		if( $(this).val() == "" ) {
     			e.preventDefault();
     			$(this).addClass('input-error');
+                x++;
     		}
     		else {
     			$(this).removeClass('input-error');
-    		}
+    		}            
     	});
-    	
+    	if(x == 0){
+            angular.element($('#student')).scope().loginUser();
+        };
     });
     
     /*
@@ -35,16 +37,20 @@ jQuery(document).ready(function() {
     });
     
     $('.registration-form').on('submit', function(e) {
+        var x = 0;
     	$(this).find('input[type="text"],input[type="password"],textarea').each(function(){
     		if( $(this).val() == "" ) {
     			e.preventDefault();
-                console.log("Hello");
     			$(this).addClass('input-error');
+                x++;
     		}
     		else {
     			$(this).removeClass('input-error');
     		}
     	});
+        if(x == 0){
+            angular.element($('#registerModal')).scope().createUser();
+        };
     	
     });
     
