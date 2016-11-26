@@ -9,7 +9,7 @@ $(document).ready(function(){
 	}
 
 });
-
+/*
 $("#btn_chat").click(function() {
     	var val = getURLParameter("q");
     	if(val !== '') {
@@ -18,7 +18,7 @@ $("#btn_chat").click(function() {
     		return false;
     	}
     });
-
+*/
 angular.module('teamform-member-app', ['firebase'])
 .directive('login', function() {
     return {
@@ -40,6 +40,8 @@ angular.module('teamform-member-app', ['firebase'])
     $scope.ntags = $firebaseArray(firebase.database().ref("newTags"));
 	$scope.errMsg = "";
 
+	$scope.showingChatroom = false;
+	
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
       if(firebaseUser) {
       	var user = firebase.auth().currentUser;
@@ -71,25 +73,7 @@ angular.module('teamform-member-app', ['firebase'])
 		} else {
 			$scope.ability = [];
 		}
-		if($scope.memberInfo.inTeam != null) {
-			$("#teamStatus").html("You have joined team " + $scope.memberInfo.inTeam + ".");
-			$scope.loadFuncTest = "inTeam";
-		}
-		else {
-			$("#teamStatus").html("You haven't joined any team. Check the box below to request to join\
-			 the team or <a href=\"team.html?q=" + $scope.eventName + "\">Click here</a> to create\
-			  a team.");
-			$scope.loadFuncTest = "notinTeam";
-		}
-		//check for invitation
-		if($scope.memberInfo.invitedBy != null){
-			$("#inviteStatus").html("You are invited by " + $scope.memberInfo.invitedBy.length + " teams in the event " + $scope.eventName + ".");
-			$scope.loadFuncTest += " invite";
-		}
-		else{
-			$("#inviteStatus").html("You have no invitation.");
-			$scope.loadFuncTest += " noinvite";
-		}
+
 		// check quiz
 		if($scope.ability.java.marks >= 50) {$scope.addTag2("Java");}
 		if($scope.ability.cpp.marks >= 50) {$scope.addTag2("C++");}
@@ -226,6 +210,7 @@ angular.module('teamform-member-app', ['firebase'])
 	$scope.acceptInv = function(teamName){
 		//Get the index of teamName in team
 		var index;
+		console.log("teams: ", $scope.teams);
 		for(var i=0; i<$scope.teams.length; i++){
 			if(teamName === $scope.teams[i].$id){
 				index = i;
@@ -287,6 +272,7 @@ angular.module('teamform-member-app', ['firebase'])
 			invitedBy: [],
 			inTeam: $scope.team.$id
 		});
+		reload();
 	};
 
 	$scope.declineInv = function(teamName){
@@ -306,5 +292,76 @@ angular.module('teamform-member-app', ['firebase'])
 	};
 	$scope.refreshTeams(); // call to refresh teams...
 }])
+.controller("chatRoomCtrl", 
 
+		function($scope, $firebaseArray) {
+			$scope.input = {
+				message: "",
+				date: "",
+				userName: ""
+			};
+			var eventName = getURLParameter("q");
+			var ref = firebase.database().ref("chatRoom" + eventName);
+			$scope.chatList = $firebaseArray(ref);
+
+			$scope.msgAlt = function(name) {
+				if(name === firebase.auth().currentUser.displayName) {
+					return "message-alt";
+				}
+				return null;
+			};
+
+			$scope.bubbleAlt = function(name) {
+				if(name === firebase.auth().currentUser.displayName) {
+					return "bubble-alt";
+				}
+				return null;
+			};
+
+			$scope.ownMsg = function(name) {
+				if(name === firebase.auth().currentUser.displayName) {
+					return  true;
+				}
+				return false;
+			};
+
+			$scope.addMessage = function() {
+				// update the date
+				if($scope.input.message !== "" ) {
+					firebase.auth().onAuthStateChanged(function(firebaseUser) {
+						if(firebaseUser) {
+							var user = firebase.auth().currentUser;
+							$scope.input.userName = user.displayName;
+							$scope.input.date = new Date().toString();
+							$scope.chatList.$add($scope.input);
+						}
+					});
+				}
+			};
+			$scope.timeSince = function(date) {
+			    var seconds = Math.floor((new Date() - new Date(date)) / 1000);
+			    var interval = Math.floor(seconds / 31536000);
+			    if(interval >= 1) {
+			        return interval + " years ago";
+			    }
+			    interval = Math.floor(seconds / 2592000);
+			    if(interval >= 1) {
+			        return interval + " months ago";
+			    }
+			    interval = Math.floor(seconds / 86400);
+			    if(interval >= 1) {
+			        return interval + " days ago";
+			    }
+			    interval = Math.floor(seconds / 3600);
+			    if(interval >= 1) {
+			         return interval + " hours ago";
+			    }
+			    interval = Math.floor(seconds / 60);
+			    if(interval >= 1) {
+			        return interval + " minutes ago";
+			    }
+			    return Math.floor(seconds) + " seconds ago";
+			};
+		}
+)
 ;

@@ -60,35 +60,46 @@
         <h2>Information</h2>
         <div class="row">
           <div class="col-sm-offset-2 col-sm-4 text-left">
-            <img id="profile-photo" src="images/dp.jpg" width="250" height="250"/>
+            <img id="profile-photo" src="{{userInfo.photoUrl}}" width="250" height="250"/>
+            <span ng-if="isMyPage()"><input type="text" ng-model="toPhotoUrl"><button type="button" class="button btn-info" ng-click="changePhoto()">Change</button></span>
           </div>
           <div class="col-sm-4 text-left">
-            <h3>Name: {{userName}}</h3>
-            <h3>Email: {{userEmail}}</h3>
+            <h4>Name: {{userInfo.name}}</h4>
+            <h4>Email: {{userEmail}}</h4>
+            <h4>Description:</h4>
+            <div ng-if="isMyPage()">
+              <textarea class="form-control" rows="6" ng-model="description" value="">{{userInfo.description}}</textarea>
+              <button type="button" class="button btn-info" ng-click="saveDescription()">Save</button>
+            </div>
+            <p ng-if="!isMyPage()" style="word-wrap: break-word;">{{userInfo.description}}</p>
           </div>
         </div>
-        <h2>Invitation</h2>
         <div class="row">
+        <h2>Invitation</h2>
           <div class="col-md-2 col-xs-2"></div>   
           	<div class="col-md-8 col-xs-8 text-left panel">
-          	  <div ng-if="hasInvitation(inEventInfo)">
-          	    <ul ng-repeat="eventInfo in inEventInfo">
-          	      <li ng-if="eventInfo.invitedBy !== undefined">
-          	        {{"Event " + eventInfo.eventId + ": invited by team" + eventInfo.invitedBy}}</li>
-          	    </ul>
-          	  </div>
-          	  <div ng-if="!hasInvitation(inEventInfo)">No invitation</div>
+          	  <table class="table" ng-if="hasInvitation(inEventInfo)">
+       	        <tr><th>Event name</th><th>Invited By</th></tr>
+       	        <tr ng-repeat="eventInfo in inEventInfo track by $index" ng-if="eventInfo.invitedBy !== undefined">
+       	          <td>{{eventInfo.eventId}}</td>
+       	          <td>{{eventInfo.invitedBy.toString()}}</td>
+       	        </tr>
+          	  </table>
+          	  <div>No invitation</div>
         	</div>    
         </div>
         <h2>Abilities</h2>
         <div class="row">
           <div class="col-md-2 col-xs-2"></div>   
           	<div class="col-md-8 col-xs-8 text-left panel">
-          	  <div ng-if="abilityInfo.length > 0">
-          	    <ul ng-repeat="ability in abilityInfo">
-          	      <li>{{ability.$id + ": Score " + ability.marks + "/100. You can retake " + getRetakeDate(ability.takenAt)}}</li>
-          	    </ul>
-          	  </div>
+          	  <table class="table" ng-if="abilityInfo.length > 0">
+          	    <tr><th>Ability</th><th>Score</th><th>Can retake</th></tr>
+          	    <tr ng-repeat="ability in abilityInfo">
+          	      <td>{{ability.$id}}</td>
+          	      <td>{{ability.marks + "/100"}}</td>
+          	      <td>{{getRetakeDate(ability.takenAt)}}</td>
+          	    </tr>
+          	  </table>
           	  <div ng-if="abilityInfo.length <= 0">No Ability</div>
         	</div>    
         </div>
@@ -99,16 +110,10 @@
               <table class="table" ng-if="inEventInfo.length > 0">
                 <tr><th>Event Name</th><th>Joined Team</th></tr>
                 <tr ng-repeat="eventInfo in inEventInfo">
-                <td>{{eventInfo.eventId}}</td>
+                <td><a href="member.html?q={{eventInfo.eventId}}">{{eventInfo.eventId}}</a></td>
                 <td>{{(eventInfo.inTeam !== undefined? eventInfo.inTeam: "None")}}</td>
                 </tr>
               </table>
-          	  <!-- <div ng-if="inEventInfo.length > 0">
-          	    <ul ng-repeat="eventInfo in inEventInfo">
-          	      <li>{{"Event " + eventInfo.eventId + ": "
-          	      	+ }</li>
-          	    </ul>
-          	  </div> -->
           	  <div ng-if="inEventInfo.length <= 0">No event joined yet.</div>
         	</div>    
         </div>

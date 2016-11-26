@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="css/font-awesome.min.css">
   <link rel="stylesheet" href="css/site.css">
   <link rel="stylesheet" href="css/login.css">
+  
+  <link rel="stylesheet" type="text/css" href="css/chatRoom.css">
 
   <script src="js/site.js"></script>
 </head>
@@ -62,21 +64,13 @@
       <div class="row">
         <div class="col-sm-3 col-xs-2"></div>
         <div class="col-sm-6 col-xs-8 panel">
-          <button type="button" class="btn btn-primary" id="savebtn" ng-click="saveFunc();" >Save</button>
+          <button type="button" class="btn btn-primary" id="savebtn" ng-disabled="memberInfo.inTeam !== undefined" ng-click="saveFunc();" >Save</button>
           <button type="button" class="btn btn-primary" ng-disabled="memberInfo.inTeam === undefined" ng-click="leaveTeam();" >leave team</button>
-          <li class="dropdown">
-            <a href="#" class="btn btn-primary" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ability Test <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a id="atbtn" ng-click="javaFunc();" >Java tests</a></li>
-              <li><a id="atbtn" ng-click="cppFunc();" >C++ test</a></li>
-              <li><a id="atbtn" ng-click="htmlFunc();" >Html test</a></li>
-              <li><a id="atbtn" ng-click="pythonFunc();" >Python test</a></li>
-            </ul>
-          </li>
-          <button type="button" class="btn btn-primary" id="btn_chat">Join the chat room</button>
+          <button type="button" class="btn btn-primary" ng-click="showingChatroom=!showingChatroom" ng-disabled="memberInfo.inTeam === undefined" id="btn_chat">Chatroom</button>
         </div>
         <div class="col-sm-3 col-xs-2"></div>
       </div>
+      <!-- 
       <div class="row">
         <div class="col-sm-5 col-sm-offset-2">
           <form name="form" class="css-form" novalidate>
@@ -95,24 +89,29 @@
             </div>
         </div>
       </div>
+      -->
       <div class="row">
         <div class="col-md-2 col-xs-1"></div>
         <div class="col-md-8 col-xs-10">
-          <h4 class="text-center" id="teamStatus"></h4>
-          <br>
-          <h4 class="text-center" id="inviteStatus"></h4>
-          <div ng-show="memberInfo.invitedBy">
+          <h4 class="text-center" ng-if="memberInfo.inTeam !== undefined">{{"You have joined team " + memberInfo.inTeam + "."}}</h4>
+          <h4 class="text-center" ng-if="memberInfo.inTeam === undefined">
+            You haven't joined any team. Check the box below to request to join the team or 
+            <a href="team.html?q={{eventName}}">Click here</a> to create a team.
+          </h4>
+          <div ng-if="memberInfo.inTeam === undefined">
             <h3>Invitations:</h3>
-            <h4>Choose one to accept the invitation.</h4>
-            <div id = "invitation"></div>
-            <div ng-repeat="teamName in memberInfo.invitedBy">
-              {{teamName|json}}
-              <button type="button" value="{{teamName}}" ng-click="acceptInv(teamName)">Accept</button>
-              <button type="button" value="{{teamName}}" ng-click="declineInv(teamName)">Decline</button>
+            <div ng-show="memberInfo.invitedBy !== undefined">
+              <div ng-repeat="teamName in memberInfo.invitedBy">
+                {{teamName|json}}
+                <button type="button" value="{{teamName}}" ng-click="acceptInv(teamName)">Accept</button>
+                <button type="button" value="{{teamName}}" ng-click="declineInv(teamName)">Decline</button>
+              </div>
             </div>
+            <p ng-show="memberInfo.invitedBy === undefined">You have no invitation.</p>
           </div>
           <div class="col-sm-12 text-left" ng-hide="memberInfo.inTeam">
             <h3>Your team preference:</h3>
+            <div ng-if="teams.length > 0">
             <div class="row">
               <div class = "col-md-4">
                 <button ng-click="openCategory('dropdownCategory');" class="dropbtn">Filter Team by Tags</button>
@@ -129,34 +128,58 @@
                   </div>
                 </div>
               </div>
+              <div class = "col-md-4">
+                <span ng-repeat="ttt in searchTags">
+                  <button type="button" class="btn btn-default btn-xs pull-left" ng-click="addSearchTags(ttt);" style="text-align: left;">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
+                  </button>
+                </span>
               </div>
-              <br>
-              <span ng-repeat="ttt in searchTags">
-             <button type="button" class="btn btn-default" ng-click="addSearchTags(ttt);" style="text-align: left;">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>{{ttt}}
-             </button>
-            </span>
+            </div>
+              
             <br>
-            <table>
-            
-            <thead>
-              <tr>
-                <td><label>Team name</label></td>
-                <td><label>Description</label></td>
-                <td><label>Tags</label></td>
-              </tr>
-            </thead>
-            <tr ng-repeat="team in teams" ng-show = "filterByTag(team.tags);">
-              <td class="col-md-2" >
-                <div class="checkbox">
+            <table class="table table-striped" ng-if="teams.length > 0">
+              <tr><th>Team name</th><th>Description</th><th>Tags</th>
+              <tr ng-repeat="team in teams" ng-show = "filterByTag(team.tags);">
+                <td class="col-md-3">
                   <input type="checkbox" value="{{team.$id}}" ng-checked="selection.indexOf(team.$id) > -1" ng-click="toggleSelection(team.$id)">
                   <label>{{team.$id}}</label>
-                </div>
-              </td>
-              <td class="col-md-4">{{team.description}}</td>
-              <td class="col-md-3">{{team.tags}}</td>
+                </td>
+                <td class="col-md-4">{{team.description}}</td>
+                <td class="col-md-3">
+                 <div ng-repeat="tag in team.tags">
+                   <button type="button" class="btn btn-default btn-xs pull-left" disabled>{{tag}}</button>
+                 </div>
+               </td>
+             </tr>
             </table>
+            </div>
+            <p  ng-if="teams.length < 1">No available team</p>
           </div>
+          
+          <div class="chat-box" ng-if="showingChatroom" ng-controller="chatRoomCtrl">
+            <div class="chat-header">
+              <div class="user-profile active"></div>
+            </div>
+            <div class="chat-container">
+              <div class="message {{msgAlt(text.userName)}}" ng-repeat="text in chatList">
+                <div class="bubble {{bubbleAlt(text.userName)}}">
+                  <h5 ng-hide="ownMsg(text.userName)" class="sender"><strong>{{text.userName}}</strong></h5>
+                  <p>{{text.message}}</p>
+                </div>
+                <span class="datestamp">{{timeSince(text.date)}}</span>
+              </div>
+            </div>
+	        <div class="chat-control">     
+	          <div class="input-group">   
+	            <input class="form-control" type="text" name="message" ng-model="input.message" placeholder="Enter your message..." />
+	            <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="addMessage()">Send</button></span>
+	          </div>
+	        </div>
+          </div>
+          
+          
         </div>
         <div class="col-md-2 col-xs-1"></div>
       </div>
@@ -183,6 +206,7 @@
   <script src="lib/angularfire.min.js"></script>
 
   <script src="js/member.js"></script>
+  <script src="js/chatRoom.js"></script>
 
 </body>
 </html>
