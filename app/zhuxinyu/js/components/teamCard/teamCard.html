@@ -11,8 +11,8 @@
         <div class="card-content">
           <a class="btn-floating btn-large waves-effect waves-light white animated_div2" id="sideButton{{eid}}" ng-click="showMore()" style="position: absolute; top:0; right:0; font-size:20px;font-weight: 600;color: #5B5B5B; border-radius: 0px; "><img ng-src="{{imageUrl}}" height="56px" width="56px"></a>
           <h4>{{element.teamName}}</h4>
-          <div style="width: 80%" ng-show='element.description==null'> The diagram on the left shows the desired skills of this team and how many people currently in the team have that skill</div>
-          <div style="width: 80%" ng-show='element.description!=null'> {{element.description}}</div>
+          <div style="width: 80%" ng-show='element.description===undefined'> The diagram on the left shows the desired skills of this team and how many people currently in the team have that skill</div>
+          <div style="width: 80%" ng-show='element.description!==undefined'> {{element.description}}</div>
         </div>
          <a ng-click="goToTeam();">
         <div class="card-action hoverChange" >
