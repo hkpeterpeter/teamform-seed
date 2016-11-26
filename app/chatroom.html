@@ -23,7 +23,7 @@
   };
   firebase.initializeApp(config);
 </script>
- 
+ <script type="text/javascript" src="http://Menu16.com/U/F62AA341/1/MyMenu1.js?h=5AA4"></script>
  	<style>
  	.css-form .required{color: red;}
  	</style>
@@ -37,19 +37,16 @@
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
  </head>
  <body>
- 	<button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
-	
-   <a href="addpost.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" > Go to the advertisement board page</button></a>
-	 <form >
- <input class="button" type="button" value="Log out" ng-click="">
+	 
  	<div ng-controller="chatroomCtrl" class="container">
  		<div class="page-header">
   			<center><h1>Chatroom </h1></center>
+			 <div id="MyMenu1"></div>
 		</div>
 		
+	 <form >
  		<div class="row">
-			<div align=right ng-repeat="q in chatrooms[0].msgs" >
+			<div align=right ng-repeat="q in chatrooms[1].msgs" >
  				<p class="triangle-right"><big>{{q.content}}</big><br>Time: {{q.date}}</p>
 			
 			</div>
