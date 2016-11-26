@@ -145,19 +145,55 @@
 				  <h4><i class="icon-bar-chart"></i>&nbsp;&nbsp;Chart</h4>
 				  <p>Statistics on tags.</p>
 				  <hr>
-				  <!--###Title###-->
-					<div>
-						<canvas id="bar" class="chart chart-bar"
-						chart-data="stvalues" chart-labels="stnames" chart-series="stseries" chart-colors="stcolors" chart-options = "stoptions">
-					</canvas>
-				</div>
-						<canvas id="bar" class="chart chart-bar"
-						chart-data="ltvalues" chart-labels="ltnames" chart-series="ltseries" chart-colors="ltcolors" chart-options = "ltoptions">
-					</canvas>
-
-						<canvas id="bar" class="chart chart-bar"
+				  <div class="panel-group" id="accordion">
+				
+				  <div class="panel panel-default">
+						<div class="panel-heading">
+					  	<h2 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="sign_up.html#collapse1">Skills</a>
+					  	</h2>
+						</div>
+						<div id="collapse1" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<canvas id="bar" class="chart chart-bar"
+								chart-data="stvalues" chart-labels="stnames" chart-series="stseries" chart-colors="stcolors" chart-options = "stoptions">
+								</canvas>								
+							</div>
+						</div>
+				  </div>
+				  
+				  <div class="panel panel-default">
+						<div class="panel-heading">
+					  	<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="sign_up.html#collapse2">Language</a>
+					  	</h4>
+						</div>
+						<div id="collapse2" class="panel-collapse collapse">
+							<div class="panel-body">
+								<canvas id="bar" class="chart chart-bar"
+								chart-data="ltvalues" chart-labels="ltnames" chart-series="ltseries" chart-colors="ltcolors" chart-options = "ltoptions">
+								</canvas>								
+							</div>
+						</div>
+				  </div>
+				  
+				  <div class="panel panel-default">
+						<div class="panel-heading">
+						  <h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="sign_up.html#collapse3">Manner</a>
+							</h4>
+						</div>
+						<div id="collapse3" class="panel-collapse collapse">
+							<div class="panel-body">
+								<canvas id="bar" class="chart chart-bar"
 						chart-data="mtvalues" chart-labels="mtnames" chart-series="mtseries" chart-colors="mtcolors" chart-options = "mtoptions">
-					</canvas>
+								</canvas>
+							</div>
+						</div>
+					</div>
+					
+				</div> <!--panel-group-->
+				  <!--###Title###-->
 
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
