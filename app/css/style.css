@@ -5,3 +5,10 @@
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
+.ngdialog.ngdialog-theme-plain .ngdialog-content {
+	width: 550px;
+	height: 600px;
+	overflow: auto;
+	/*display: table;*/
+}
