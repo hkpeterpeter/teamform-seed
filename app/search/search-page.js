@@ -6,7 +6,11 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		function setColor(obj,color){
 			obj.style.color = color;
 		}
-
+		
+		function borderColor(obj,color){
+			obj.style.boxShadow = "10px 10px 5px " + color;
+		}
+		
 		//central angular app
 		//var app = angular.module("profile",[]);
 
@@ -51,7 +55,12 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				$scope.resultTag = [];
 				$scope.filterResult = [];
 				Naruto.Saskue = "";
-
+				
+				tag = [];
+				teams = [];
+				users = [];
+				userid = [];
+				
 				tagini = event_list[Naruto.Luffy]["skillTable"];
 
 				$scope.teamini = event_list[Naruto.Luffy]["teamList"];
@@ -200,7 +209,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						for(var j = 0;j < reg.length;j++){
 
 							while(k < tag[i].length){
-								if(tag[i].charAt(k) == reg.charAt(j)){
+								if(tag[i].toLowerCase().charAt(k) == reg.toLowerCase().charAt(j)){
 									k++;
 									if(j == reg.length-1){
 										valid = true;

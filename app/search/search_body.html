@@ -32,7 +32,7 @@
   		<h5>Current filter tags: </h5>
   	</div>
   	<div class = "col-sm-9" id = "searchTag" >
-  		<div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
+  		<div class="btn btn-default filter-tag"  ng-repeat = "y in resultTag" >
   			{{y}}
   			<span>&nbsp&nbsp</span>
   			<span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
@@ -62,7 +62,7 @@
   	</div>
 
   	<div class="row ">
-  		<div class="media team-list" ng-repeat = "team in filterResult" ng-hide = "teamyeah">
+  		<div class="media team-list" style="cursor: pointer;" ng-repeat = "team in filterResult" ng-hide = "teamyeah">
   			<div class="media-left">
   				<img class="media-object" style = "height:64px;width:64px" src="peter.jpg" alt="peter">
   			</div>
@@ -72,7 +72,8 @@
   			</div>
 
   		</div>
-  		<div class="media team-list col-xs-6" ng-repeat = "user in filterResult" ng-hide = "useryeah">
+		
+  		<div class="media team-list " onmouseenter = "borderColor(this,'lightblue')" onmouseleave = "borderColor(this,'silver')" style="cursor: pointer;" ng-repeat = "user in filterResult" ng-hide = "useryeah">
   			<div class="media-left">
   				<img class="media-object" style = "height:64px;width:64px" src="peter.jpg" alt="peter">
   			</div>
