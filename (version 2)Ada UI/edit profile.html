@@ -257,7 +257,7 @@
 			<div class="w3-content w3-container w3-padding-64" id="about">
   <div class="row">
   <div class="col-lg-12">
-          <h3 class="page-header">ABOUT ME<a href="edit profile.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
+          <h3 class="page-header">ABOUT ME</h3>
         </div>
       </div>
   
@@ -269,57 +269,40 @@
     <!-- Hide this text on small devices -->
     <div class="w3-col m6 w3-hide-small w3-padding-large">
       <h5><i class="fa fa-user w3-margin-right"></i><b>Peter</b></h5>
-      <p><b>Major: </b>Computer Science</p>
-      <p><b>Year: </b>3</p>
-      <p><b>Self Description: </b>Hi there! I'm really good at programming. Let's form a team with me.</p>
-      <button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
-          <i class="fa fa-paper-plane"></i> MESSAGE ME!
-      </button>
+      <form id="EditProfile" method="post" class="form-horizontal" action="profile.html">
+      
+      <div class="form-group">
+          <label for="Major">Major</label>
+          <input type="text" class="form-control" name="major" id="">
+      </div>
+
+      <div class="form-group">
+          <label for="Year">Year</label>
+          <select class="form-control" id="year" name="year">
+            <option value="">Select</option>
+            <option value="COMP1021">1</option>
+            <option value="COMP2011">2</option>
+            <option value="COMP2012">3</option>
+            <option value="COMP3111">4</option>
+          </select>
+      </div>
+      
+      <div class="form-group">
+      <label for="SelfDescription">Self Description</label>
+      <textarea class="form-control" name="selfDescription" id="selfDescription" rows="4"></textarea>
+      </div>
+
+      <a href="profile.html"><button type="submit" class="btn btn-primary" id="submit">Submit</button></a>
+      <a href="profile.html"><button type="cancel" class="btn btn-danger" onclick="window.history.back()">Cancel</button></a>
+
+    </form>
+      
     </div>
   </div>
-  <hr>
-  <p class="w3-large w3-center w3-padding-16">MY SKILLS<a href="quiz intro.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
-  <p>C++</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:90%"></div>
-  </div>
-  <br><p>JavaScript</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:85%"></div>
-  </div>
-  <br><p>HTML</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:75%"></div>
-  </div>
+  
 </div>
 
-<hr>
 
-<!-- Container (Portfolio Section) -->
-<div class="w3-content w3-container w3-padding-64" id="my project">
-  <p class="w3-large w3-center w3-padding-16">MY TEAMS<a href="teamform.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
-
-
-  <!-- Responsive Grid. -->
-  <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="../page format/img/comp3111.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamA">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/comp3511.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamB">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/lang2030.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamC">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/math1014.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamD">
-    </div>
-  </div>
-
-</div>
       
          </section>
       </section>
