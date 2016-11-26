@@ -676,13 +676,13 @@ $scope.filterByStatus = function(items, filter_model) {
 												angular.forEach(lt_matching_list,function(value,key){
 													// console.log(key);
 													// console.log(user_tags.LanguageTags[key]);
-														if(user_tags.LanguageTags[key] !== undefined){
+														if(user_tags.LanguageTags[key]){
 															lt_matching_list[key] = lt_matching_list[key]+ 1;
 
 
 														}
 												});
-												// console.log(lt_matching_list);
+												console.log(lt_matching_list);
 									// 							console.log(userstvalues);
 									// console.log(value);
 												//  console.log(userstvalues);
@@ -751,7 +751,7 @@ $scope.filterByStatus = function(items, filter_model) {
 												angular.forEach(mt_matching_list,function(value,key){
 													// console.log(key);
 													// console.log(user_tags.LanguageTags[key]);
-														if(user_tags.MannerTags[key] !== undefined){
+														if(user_tags.MannerTags[key]){
 															mt_matching_list[key] = mt_matching_list[key]+ 1;
 														}
 												});
