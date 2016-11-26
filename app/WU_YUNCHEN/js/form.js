@@ -1,36 +1,36 @@
     teamapp.controller("formController", function ($rootScope, $scope) {
 
-        $scope.skillsList = new Array();
+        $rootScope.skillsList = new Array();
         $scope.receiveNewSikll = function () {
             if ($scope.skillsList.indexOf($scope.newSkill) < 0){
-                $scope.skillsList.push($scope.newSkill);
+                $rootScope.skillsList.push($scope.newSkill);
             }
             $scope.newSkill = '';
         };
         $scope.removeSkill = function (skill_remove) {
-            var index = $scope.skillsList.indexOf(skill_remove);
+            var index = $rootScope.skillsList.indexOf(skill_remove);
             console.log(index);
             if (index > -1) {
-                $scope.skillsList.splice(index, 1);
+                $rootScope.skillsList.splice(index, 1);
             }
         };
     });
-    
+
     teamapp.directive("simpleField",function(){
         return {
             restrict: "E",
             scope: {
                 idOfField: '@',
-                label: '@', 
+                label: '@',
                 fieldModel: '='
             },
-            templateUrl: "WU_YUNCHEN/component/simple_field.html", 
+            templateUrl: "WU_YUNCHEN/component/simple_field.html",
             controller : function($scope,$element,$attrs,$rootScope) {
             }
 
         };
     });
-    
+
     teamapp.directive("textareaField",function(){
         return {
             restrict: "E",
@@ -39,13 +39,13 @@
                 label: '@',
                 fieldModel: '='
             },
-            templateUrl: "WU_YUNCHEN/component/textarea_field.html", 
+            templateUrl: "WU_YUNCHEN/component/textarea_field.html",
             controller : function($scope,$element,$attrs,$rootScope) {
             }
 
         };
     });
-    
+
     teamapp.directive("imageUpload",function(){
         return {
             restrict: "E",
@@ -58,7 +58,7 @@
 
         };
     });
-    
+
     teamapp.directive('rangeSpinner',  function() {
         return {
             restrict : 'AE',
@@ -75,7 +75,7 @@
             },
             templateUrl : 'tmpl/rangeSpinner.html',
             controller : function($scope,$element,$attrs) {
-                
+
                 //Initializing minRange, step and maxRange with default Value if not provided.
                 $scope.minRange = +(angular.isDefined($attrs.rangeMin)?$attrs.rangeMin:0);
                 $scope.step = +(angular.isDefined($attrs.rangeStep)?$attrs.rangeStep:0);
@@ -91,12 +91,12 @@
                         $scope.rangeModel = parseFloat($scope.minRange).toFixed($scope.rangeDecPrec);
                     }
                 }
-                    
+
                 //Plus Button Method
                 $scope.rangePlusFunc = function() {
                     if (angular.isUndefined($scope.rangeModel) || isNaN($scope.rangeModel) || $scope.rangeModel===""){
                         $scope.rangeModel = $scope.minRange;
-                    }else{  
+                    }else{
                         if ($scope.rangeModel < $scope.maxRange) {
                             if($scope.acceptDecimal == 'true'){
                                 $scope.rangeModel = (parseFloat(parseFloat($scope.rangeModel) + parseFloat($scope.step))).toFixed($scope.rangeDecPrec);
@@ -118,16 +118,16 @@
                             }else{
                                 $scope.rangeModel = (parseInt(parseInt($scope.rangeModel) - parseInt($scope.step)));
                             }
-                            
+
                         }
                     }
                 };
-                    
+
                 //For Direct Editing
                 $scope.$watch(function(){
                     return $scope.rangeModel;
                 }, function(newvalue, oldvalue){
-                    
+
                     if(angular.isDefined($scope.rangeModel)){
                         if (!isNaN($scope.rangeModel)){
                             if ($scope.rangeModel > $scope.maxRange){
@@ -135,7 +135,7 @@
                             }else if ($scope.rangeModel < $scope.minRange){
                                 $scope.rangeModel = $scope.minRange;
                             }else{
-                                
+
                                 if($scope.acceptDecimal == 'true'){
                                     var precision = String($scope.rangeModel).split(".");
                                     if(precision.length>1 && precision[1].length>$scope.rangeDecPrec){
@@ -150,7 +150,7 @@
                         }
                     }
                 },true);
-        
+
             }
         };
     }
@@ -165,7 +165,7 @@
             </div> \
         </div>');
 }]);
-    
+
     teamapp.directive("eventForm",function(){
         return {
             restrict: "E",
@@ -174,7 +174,7 @@
 
         };
     });
-    
+
     teamapp.directive("teamForm",function(){
         return {
             restrict: "E",
