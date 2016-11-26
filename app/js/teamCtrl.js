@@ -27,6 +27,11 @@ app.controller("teamCtrl",
 			3 : "withdrawn"
 		}
 
+		$scope.colorList = {
+			0 : "green",
+			1 : "red"
+		}
+
 		Auth.$onAuthStateChanged(function(authData) {
 				// console.log($scope.obj);
 				if (authData) {
@@ -413,36 +418,40 @@ app.controller("teamCtrl",
 
 		}
 		$scope.modifyMannerTagsChoice = function(){
+			// console.log($scope.mannertags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
 			$scope.newMannerTags = {
 				"Cool" : $scope.mannertags.Cool ,
 				"Creative" : $scope.mannertags.Creative,
-				"OnCampus" : $scope.mannertags.Oncampus,
+				"OnCampus" : $scope.mannertags.OnCampus,
 				"Outgoing" : $scope.mannertags.Outgoing,
 				"Pretty" : $scope.mannertags.Pretty,
 				"SleepLate" : $scope.mannertags.SleepLate,
 				"Thoughtful" : $scope.mannertags.Thoughtful
 			}
 
-			console.log($scope.newMannerTags);
+			// console.log($scope.newMannerTags);
 		}
 
 		$scope.changeSkillTags = function(){
 			Helper.updateSkillTags($scope.eventID, $scope.teamID, $scope.newSkillTags);
 			$scope.modifySkillTags = !$scope.modifySkillTags;
 			// $scope.initchart();
+			// window.location.reload()
 		}
 
 		$scope.changeLanguageTags = function(){
 			Helper.updateLanguageTags($scope.eventID, $scope.teamID, $scope.newLanguageTags);
 			$scope.modifyLanguageTags = !$scope.modifyLanguageTags;
 				// $scope.initchart();
+				// window.location.reload()
 		}
 
 		$scope.changeMannerTags = function(){
 			Helper.updateMannerTags($scope.eventID, $scope.teamID, $scope.newMannerTags);
 			$scope.modifyMannerTags = !$scope.modifyMannerTags;
 				// $scope.initchart();
+
 		}
 		//get announcements
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/announcements');
@@ -482,7 +491,8 @@ $scope.addAnnouncementDialogue = function(){
 $scope.invitations = $firebaseObject(inviteref);
 
 
-$scope.search_model = "all";
+$scope.search_model_appli = "all";
+$scope.search_model_invi = "all";
 
 $scope.filterByStatus = function(items, filter_model) {
 		var result = {};
@@ -524,6 +534,7 @@ $scope.filterByStatus = function(items, filter_model) {
 									$scope.stvalues = [];
 									$scope.stseries = [];
 									$scope.stcolors = [];
+
 									$scope.stoptions = {scales: {
 													yAxes: [{
 															ticks: {
@@ -533,21 +544,24 @@ $scope.filterByStatus = function(items, filter_model) {
 																max:100
 															}
 
-													}]
+													}],
+													xAxes: [{ barPercentage: 0.6 }]
 											}};
 
 									var team_stvalues = [];
 									// var values = {name: 'misko', gender: 'male'};
 									angular.forEach($scope.tags.SkillTags,function(value,key){
-										if(value.value!==0){
+										if(value.value!==0 && value.color == 'green'){
 											$scope.stnames.push(key);
 											team_stvalues.push(value.value);
 										}
 									});
+
+
 									//
 									// console.log($scope.stnames);
 									$scope.stvalues.push(team_stvalues);
-									$scope.stseries.push('Team skill tags');
+									$scope.stseries.push('Rating of team');
 									$scope.stcolors.push("#c44133");
 									// console.log($scope.stvalues);
 									// console.log($scope.stseries);
@@ -576,7 +590,7 @@ $scope.filterByStatus = function(items, filter_model) {
 			// console.log(value);
 										//  console.log(userstvalues);
 										$scope.stvalues.push(userstvalues);
-										$scope.stseries.push(Helper.getUsername(value));
+										$scope.stseries.push('Rating of ' + Helper.getUsername(value));
 										$scope.stcolors.push("#16a085");
 
 
@@ -603,7 +617,8 @@ $scope.filterByStatus = function(items, filter_model) {
                                 max: $scope.teamdata.max
 															}
 
-													}]
+													}],
+													xAxes: [{ barPercentage: 0.3 }]
 											}};
 
 									// var values = {name: 'misko', gender: 'male'};
@@ -683,7 +698,8 @@ $scope.filterByStatus = function(items, filter_model) {
 																max: $scope.teamdata.max
 															}
 
-													}]
+													}],
+													xAxes: [{ barPercentage: 0.3 }]
 											}};
 
 									angular.forEach($scope.tags.MannerTags,function(value,key){

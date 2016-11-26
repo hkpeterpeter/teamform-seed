@@ -6,6 +6,11 @@
       <li ng-if = "modifySkillTags">{{name}} :
       <input type="number" placeholder="e.g. 70" ng-model = "newSkillTags[name].value">
 			{{newSkillTags[name].value}}
+			<div ng-if="newSkillTags[name].value > 0"> Set tag color: 
+			<select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="newSkillTags[name].color">
+					<option ng-repeat="(key, color) in colorList" value="{{color}}">{{color}}</option>
+			</select>
+			</div>
       </li>
   </ul>
   <button type = "button" class = "btn btn-primary"  ng-click = "modifySkillTagsChoice()">Modify Skill Tags Values</button>

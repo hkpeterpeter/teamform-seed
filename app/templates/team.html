@@ -11,7 +11,7 @@
 				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
 					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
 						<i class="icon-{{myEvents[eventID] | role | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
-						<span class="caret"></span>
+						<span class="caret" ng-if="(myEvents[eventID] | role)!='admin'"></span>
 					</button>
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
 						<li><a class="btn" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team description</a></li>
@@ -81,7 +81,7 @@
 						<button class="btn btn-xs btn-primary">Skill</button>
 						<br>
 						<span ng-repeat="(name,content) in filterSkillTags(skilltags)" >
-							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}}{{content.value}}</button>
+							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}} [{{content.value}}]</button>
 						</span>
 					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">
@@ -137,16 +137,16 @@
 	<div class="col-md-6">
 			<div class="thumbnail">
 				<div class="caption">
-
+					{{ltcolors}}
 				  <h4>Chart</h4>
 				  <p>Statistics on tags.</p>
 				  <hr>
 
-
+					<div>
 						<canvas id="bar" class="chart chart-bar"
 						chart-data="stvalues" chart-labels="stnames" chart-series="stseries" chart-colors="stcolors" chart-options = "stoptions">
 					</canvas>
-
+				</div>
 						<canvas id="bar" class="chart chart-bar"
 						chart-data="ltvalues" chart-labels="ltnames" chart-series="ltseries" chart-colors="ltcolors" chart-options = "ltoptions">
 					</canvas>
@@ -179,7 +179,7 @@
 		        <p>People may fit your team</p>
 		        <hr>
 		        <button class="btn btn-danger" ng-click="recommand()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Recommand">
-							Recommand
+							Recommend
 						</button>
 
 		        <div class="container">
@@ -212,7 +212,7 @@
 				  <form name="myForm">
 						<button class="btn btn-danger">
 							<i class="icon-filter"></i>
-			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model">
+			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_appli">
 			            <option value = "all">All applications</option>
 			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
 			        </select>
@@ -221,7 +221,7 @@
 				  <hr>
 				  <!--###Content###-->
 				  <div class="container">
-				    <div class="row" ng-repeat="(uid,status) in filterByStatus(applications,search_model)">
+				    <div class="row" ng-repeat="(uid,status) in filterByStatus(applications,search_model_appli)">
 							<div class="col-md-2">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
@@ -250,7 +250,7 @@
 				  <form name="myForm">
 						<button class="btn btn-danger">
 							<i class="icon-filter"></i>
-			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model">
+			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_invi">
 			            <option value = "all">All invitations</option>
 			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
 			        </select>
@@ -259,7 +259,7 @@
 				  <hr>
 				  <!--###Content###-->
 				  <div class="container">
-				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model)">
+				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model_invi)">
 							<div class="col-md-2">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}

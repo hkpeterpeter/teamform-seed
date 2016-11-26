@@ -102,6 +102,44 @@ app.controller("signupCtrl",
             pwd: ""
         }
 
+        $scope.profile_info = {};
+        $scope.profile_info.tags = {
+            "LanguageTags":{
+                "Cantonese": false,
+                "English": false,
+                "German": false,
+                "Japanese": false,
+                "Korean": false,
+                "Mandarin": false,
+                "Spanish": false
+            },
+            "MannerTags":{
+                "Cool":false,
+                "Creative":false,
+                "OnCampus":false,
+                "Outgoing":false,
+                "Pretty":false,
+                "SleepLate":false,
+                "Thoughtful":false
+            },
+            "SkillTags":{
+                "C" : 0,
+                "Cpp" : 0,
+                "CSS": 0,
+                "FLEX": 0,
+                "HTML": 0,
+                "Java": 0,
+                "JavaScript": 0,
+                "Objective_C": 0,
+                "PHP": 0,
+                "Python": 0,
+                "SML": 0,
+                "SQL": 0,
+            }
+        };
+        console.log($scope.profile_info);
+
+
         Auth.$onAuthStateChanged(function(authData) {
             //$scope.authData = authData;
 
@@ -119,9 +157,12 @@ app.controller("signupCtrl",
                         console.log(userData.uid);
                         var ref = firebase.database().ref("users/" + userData.uid + "/readOnly");
                         var readonlyObj = $firebaseObject(ref);
-                        readonlyObj.email = userData.email;
-                        readonlyObj.name = $scope.input.name;
-                        readonlyObj.$save();
+                        readonlyObj.$loaded().then(function(){
+                            readonlyObj.email = userData.email;
+                            readonlyObj.name = $scope.input.name;
+                            readonlyObj.info = $scope.profile_info;
+                            readonlyObj.$save();                            
+                        });
 
 
                         // ref = firebase.database().ref("users/" + userData.uid + "/writable");
@@ -132,7 +173,9 @@ app.controller("signupCtrl",
                         ref = firebase.database().ref("users/uidList");
                         var uidlistObj = $firebaseArray(ref);
                         //console.log(uidlistObj);
-                        uidlistObj.$add(userData.uid);
+                        uidlistObj.$loaded().then(function(){
+                            uidlistObj.$add(userData.uid);
+                        })
 
                 ref = firebase.database().ref("users/nameList");
                 // var namelistObj = $firebaseObject(ref);
