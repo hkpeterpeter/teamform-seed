@@ -469,6 +469,9 @@ teamapp.directive('teamCard',function(){
                     }
                 }
                 $scope.countMember=function(index){
+                    if($scope.element.membersID==null){
+                        $scope.element.membersID=[];
+                    }
                     if($scope.element.membersID.length==null){
 
                         var array = $.map($scope.element.membersID, function(value, index) {
@@ -505,6 +508,7 @@ teamapp.directive('teamCard',function(){
                    
                         ];
                         $scope.imageUrl=$scope.element.imageUrl;    
+                        console.log($scope.data);
                     }
                 }
 
