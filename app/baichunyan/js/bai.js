@@ -10,12 +10,15 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   $scope.showTeams = true;
   $scope.showTeamForm = false;
   $scope.create_team = "create team";
-
+  $scope.notParticipated = true;
 
 
 
   var allData = $firebaseObject(firebase.database().ref("/"));
   $scope.processData = function(allData, currentEventID, currentTeamID, currentUserID) {
+    console.log(currentEventID);
+    console.log(currentTeamID);
+    console.log(currentUserID);
     var events = allData.events;
 
     var curEvent = {
@@ -41,6 +44,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     //move my team in the first position
     for (var i = 0; i < teamsCurEvent.length; i++) {
       if (teamsCurEvent[i].teamID == currentTeamID) {
+        //$scope.notParticipated = false;
         var temp = teamsCurEvent[0];
         teamsCurEvent[0] = teamsCurEvent[i];
         teamsCurEvent[i] = temp;
@@ -92,7 +96,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     $scope.showTeams = !$scope.showTeams;
     $scope.showTeamForm = !$scope.showTeamForm;
     $scope.create_team = $scope.showTeams ? "create team" : "cancel";
-    $event.stopPropagation();
+    //$event.stopPropagation();
   };
 
   $scope.removeTeam = function($event, id) {
@@ -106,6 +110,11 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   };
 
   $scope.joinTeam = function($event, id) {
+    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("teamsAsMember")).$add(id);
+    $firebaseArray($rootScope.team_ref.child(id).child("membersID")).$add($scope.currentUser);
+    $scope.notParticipated = false;
+    $rootScope.addNotify($rootScope.currentUser.id,"You have joined "+$scope.readyData.team[id].teamName,"","","System");
+    Materialize.toast("You have joined "+$scope.readyData.team[id].teamName, 3000);
     $event.stopPropagation();
   };
 
@@ -135,7 +144,8 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
 
          Materialize.toast("Your new team "+team.teamName+" has been created", 3000);
     });
-    $event.stopPropagation();
+    $scope.flip($event);
+    // $event.stopPropagation();
   };
 
 }]);
