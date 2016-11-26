@@ -26,6 +26,19 @@
         <div id="ut" class="panel">{{clock}}</div>
     </div>
 
+    <div id="loginDialog" class="hide">
+        <div id="loginDialog-content" class="well">
+            <div class="message">
+                <span>You have to sign in before doing any operations!</span><br>
+                <span>Press OK to redirect to the login page.</span>
+            </div>
+            <div class="button-group">
+                <input type="button" class="btn btn-md btn-danger" value="OK" onclick="goToLoginPage()" />
+                <input type="button" class="btn btn-md btn-danger" value="Cancel" onclick="hideLoginDialog()" //>
+            </div>
+        </div>
+    </div>
+
     <div ng-controller="searchCtrl">
         <div class="fullscreen centralize">
             <div id="searchModule" class="container">
@@ -175,7 +188,7 @@
                             </a>
                             <span class="badge id-badge" ng-bind-html="trustAsHtml(r.id)"></span>
                             <input type="button" class="btn btn-md btn-danger pull-right {{(r.email==''&& !r.full.includes('(FULL)')?'':'hide')}} joinBtn"
-                                value="Join" />
+                                value="Join" ng-click="joinTeam(r.id)" />
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <span class="font-size-xs">{{(r.email==""?"Preference: ":"Gender: ")}}</span>
