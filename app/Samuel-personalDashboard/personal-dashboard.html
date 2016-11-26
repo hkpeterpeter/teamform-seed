@@ -11,13 +11,13 @@
 <div ng-controller="dashboardController">
 <div class="container" style="padding-top: 50px; width:80%;">
     <div class="row" id="infoDisplay" >
-        
+
         <div class="col l10 m12 offset-l1 teal" style="border-radius: 20px">
             <center><a class="btn-floating btn-large waves-effect waves-light animated_div" style="height: 90px; width: 90px;margin-top: 10px; ">
             <img src="{{displayUser.profilePic}}" style="height: 90px; width: 90px;border-radius: 70px; " >
         </a></center>
         <center><div style="padding-top: 20px; width:20%;border-bottom: solid 1px #fff;" /></center>
-            
+
     <ul class="collection with-header" style="text-align: center; border: none;z-index: 200">
       <li class="collection-header teal" onclick="$('#reset_userName_panel').slideToggle();$(this).css('border','none')" style="color:#fff;cursor:pointer;"><h4>{{displayUser.name}}</h4></li>
     <li class="collection-header" id="reset_userName_panel" style="display: none;border-radius: 20px">
@@ -39,17 +39,17 @@
         <li class="collection-header" id="user_email_panel"  style="display: block;border-radius: 20px;"><h5>{{displayUser.email}}</h5></li>
         <li class="collection-header teal" onclick="$('#user_id_panel').slideToggle();" style="color:#fff;cursor:pointer;border:none;"><h5><i class="material-icons left">perm_identity</i>My system ID<i class="material-icons right">perm_identity</i></h5></li>
         <li class="collection-header" id="user_id_panel"  style="display: block;border-radius: 20px;"><h5>{{currentUser.id}}</h5></li>
-     
+
       </ul>
-            
-       
-            
-          
+
+
+
+
         </div>
     </div>
     <!--<p width="100%">{{currentUser}}</p>-->
     <div class="divider"></div>
-    
+
     <div class="row" id="skillManager" style="margin-top: 50px;margin-bottom: 50px;">
         <h4>Manage my Skills:</h4>
         <form ng-submit="receiveNewSikll()">
@@ -61,7 +61,7 @@
                 <i class="material-icons right">send</i>
             </button>
         </form>
-   
+
   </div>
     <div class="row" style="margin-bottom: 50px">
         <div class="col m3" ng-repeat="skill in skillsList" style="margin-bottom: 10px">
@@ -108,7 +108,7 @@
                     <ul>
                         <li  ng-repeat="notif in notifs | orderBy:'$index':true">
                             <div class="chip" style="float:none; margin-top: 20px; width: 100%">
-                                <img src="{{notif.imageURL}}" alt="Contact Person">
+                                <img ng-src="{{notif.imageURL}}" alt="Contact Person">
                                 {{notif.content}}
                             </div>
                         </li>
@@ -120,7 +120,7 @@
                     <ul>
                         <li  ng-repeat="notif in last10Notifs | orderBy:'$index':true">
                             <div class="chip" style="float:none; margin-top: 20px; width: 100%">
-                                <img src="{{notif.imageURL}}" alt="Contact Person">
+                                <img ng-src="{{notif.imageURL}}" alt="Contact Person">
                                 {{notif.content}}
                             </div>
                         </li>
@@ -176,7 +176,7 @@
     <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
     </div>
     <image-board image="zhuxinyu/background2.jpg" content="Using this app designed by TeamUndefined will absolutely be an remarkably amazing experience."></image-board>
-    
+
 
 <event-footer>
 </event-footer>

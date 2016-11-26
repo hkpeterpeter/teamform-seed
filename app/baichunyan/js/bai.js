@@ -88,7 +88,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     }
   };
 
-  $scope.createTeam = function($event, id) {
+  $scope.flip = function($event) {
     $scope.showTeams = !$scope.showTeams;
     $scope.showTeamForm = !$scope.showTeamForm;
     $scope.create_team = $scope.showTeams ? "create team" : "cancel";
@@ -106,6 +106,35 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   };
 
   $scope.joinTeam = function($event, id) {
+    $event.stopPropagation();
+  };
+
+  $scope.createTeam = function($event) {
+    var team={};
+  // eventCreating.description=document.getElementById("event_detail").value;
+    team.belongstoEvent=$scope.currentEvent;
+    team.teamName=$scope.teamName;
+    team.desiredSkills=$rootScope.skillsList;
+    team.invitedPeople="undefined";
+    team.isPrivate=$scope.privateTeam == undefined ? false:true;
+    team.leaderID=$scope.currentUser;
+    team.membersID="undefined";
+    team.min_num=$scope.teamMin;
+    team.max_num=$scope.teamMax;
+    team.description=$scope.teamDescription;
+    team.imageUrl=$scope.imageURL;
+    console.log(team);
+    $rootScope.teams.$add(team).then(function(ref){
+        var teamID=ref.key;
+        console.log(teamID);
+
+        $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("teamsAsLeader")).$add(teamID);
+
+
+        $rootScope.addNotify($rootScope.currentUser.id,"A new team "+team.teamName+" has been created","","","System");
+
+         Materialize.toast("Your new team "+team.teamName+" has been created", 3000);
+    });
     $event.stopPropagation();
   };
 
