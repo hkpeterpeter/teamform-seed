@@ -4,7 +4,7 @@
 	<!--###############Head###############-->
 
 	<div class="jumbotron">
-		<h2>{{teamdata.name}}</h2>
+		<h2><i class="icon-group"></i>&nbsp;&nbsp;{{teamdata.name}}</h2>
 		<p>{{teamdata.desc}}</p>
 		<p>
 			<div class="btn-group" ng-if="(myEvents[eventID] | teamId)==teamID || (myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='admin'">
@@ -39,7 +39,7 @@
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
-				  <h4>Members</h4>
+				  <h4><i class="icon-star-empty"></i>&nbsp;&nbsp;Members</h4>
 				  <p>Members in the team.</p>
 				  <hr>
 				  <!--###Content###-->
@@ -68,7 +68,7 @@
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
-					<h4>Tags</h4>
+					<h4><i class="icon-tag"></i>&nbsp;&nbsp;Tags</h4>
 					<p>Tags in the team.</p>
 					<p>
 						<button class="btn btn-danger" ng-click="ManageTagDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Manage tags">
@@ -108,7 +108,7 @@
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
-				  <h4>Announcement</h4>
+				  <h4><i class="icon-bullhorn"></i>&nbsp;&nbsp;Announcement</h4>
 				  <p>Please check regularly.</p>
 				  <p>
 						<button class="btn btn-danger" ng-click="addAnnouncementDialogue()" ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="New announcement">
@@ -121,7 +121,8 @@
 				  <hr>
 				  <!--###Content###-->
 				  <div ng-repeat="x in announcements.slice().reverse()">
-				  	{{x.content}}&nbsp;({{x.timeStamp | DateFormat | date:'yyyy-MM-dd HH:mm' }})
+				  	{{x.content}}
+				  	<span style="color:gray"><small>({{x.timeStamp | DateFormat | date:'yyyy-MM-dd HH:mm' }})</small></span>
 						<button class="btn btn-danger btn-sm" ng-click="deleteAnnouncement(x.$id)" ng-if="isDeletingTeamAnn && (myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="icon-remove-sign"></i></button>
 		      </div>  <!--ng-repeat-->
 				</div> <!--caption-->
@@ -141,7 +142,7 @@
 				<div class="caption">
 					<!--###Title###-->
 					<!--{{ltcolors}}-->
-				  <h4>Chart</h4>
+				  <h4><i class="icon-bar-chart"></i>&nbsp;&nbsp;Chart</h4>
 				  <p>Statistics on tags.</p>
 				  <hr>
 				  <!--###Title###-->
@@ -206,7 +207,7 @@
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
-				  <h4>Applications</h4>
+				  <h4><i class="icon-coffee"></i>&nbsp;&nbsp;Applications</h4>
 				  <p>Accept or decline?</p>
 				  <form name="myForm">
 						<button class="btn btn-danger">
@@ -244,7 +245,7 @@
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
-				  <h4>Invitations</h4>
+				  <h4><i class="icon-leaf"></i>&nbsp;&nbsp;Invitations</h4>
 				  <p>Accepted or declined?</p>
 				  <form name="myForm">
 						<button class="btn btn-danger">
