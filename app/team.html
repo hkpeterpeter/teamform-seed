@@ -187,11 +187,11 @@
                 <tr ng-repeat="m in member" ng-show = "filterByTag(m.tags);">
                   <td class="col-md-2"><a href="profile.html?q={{m.$id}}">{{retrieveNameFromID(m.$id)}}</a></td>
                   <td class="col-md-2">
-                    <div ng-repeat="tag in m.tags">
+                    <div ng-repeat="tag in retrieveTagsFromID(m.$id)">
                       <button type="button" class="btn btn-default btn-xs pull-left" disabled>{{tag}}</button>
                     </div>
                   </td>
-                  <td class="col-md-1">{{retrieveScoreFromTags(retrieveTagsFromID(m.$id))}}</td>
+                  <td class="col-md-1">{{retrieveScoreFromTags(m.$id,retrieveTagsFromID(m.$id))}}</td>
                   <td class="col-md-2">{{m.selection}}</td>
                   <td class="col-md-1"><button type="button" class="btn btn-success" ng-click="sendInvite(m.$id)">Invite</button></td>
                 </tr>
