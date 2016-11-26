@@ -25,7 +25,7 @@ app.controller("AdminAuthCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
                 var ref = firebase.database().ref("Admin");
                 ref.child(firebaseUser.uid).set($scope.input);
                 $scope.currentUid = firebaseUser.uid;
-
+                //do it
             }).catch(function(error) {
                 console.error("Error: ", error);
             });
