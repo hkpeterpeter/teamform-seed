@@ -1,32 +1,33 @@
 teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($rootScope, $scope, $firebaseObject, $firebaseArray) {
 
     // Add for test
-    $rootScope.clickedEvent = { id:0 };
-    // $scope.event = $rootScope.bindedclickedEvent;
-    $scope.event = $firebaseObject(firebase.database().ref('events/' + $rootScope.clickedEvent.id));
-    $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser.id));
-    var teamID = 0;
-    // for (team in $scope.leader.teamsAsLeader) {
-    //     var tempTeam = $firebaseObject(firebase.database().ref('teams/' + leader));
-    //     if (tempTeam.belongtoEvent == $scope.event.eventName) {
-    //         teamID = tempTeam;
-    //     }
-    // }
-    $firebaseObject(firebase.database().ref('teams/' + teamID)).$bindTo($scope, "team");
+    $scope.event = $rootScope.events.$getRecord($rootScope.clickedEvent.$id);
+    // $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser.id));
+    $scope.leader = $rootScope.users.$getRecord($rootScope.currentUser.id);
+    var teamID;
+    $firebaseObject(firebase.database().ref('teams/' + (function() {
+        for (team in $scope.leader.teamsAsLeader) {
+            var tempTeam = $rootScope.teams.$getRecord($scope.leader.teamsAsLeader[team]);
+            if (tempTeam.belongstoEvent == $scope.event.$id) {
+                teamID = tempTeam.$id;
+                return tempTeam.$id;
+            }
+        }
+    })())).$bindTo($scope, "team");
 
     $scope.invite = {
         desiredSkills: [],
         newSkill: ""
     }
     $scope.deleteMember = function(member) {
-        $firebaseObject(firebase.database().ref('users/' + member.$id + '/teamsAsMember/' + teamID)).$remove();
+        $firebaseObject(firebase.database().ref('users/' + member.$id + '/teamsAsMember/' + $scope.team.$id)).$remove();
         var index = $scope.members.indexOf(member);
         membersID.$remove(index);
         $scope.members.splice(index, 1);
         addNotif(member.$id, "normal", "You are removed from Team " + $scope.team.teamName);
     }
     $scope.deleteApplicant = function(applicant, reject = true) {
-        $firebaseObject(firebase.database().ref('users/' + applicant.$id + '/teamsApplying/' + teamID)).$remove();
+        $firebaseObject(firebase.database().ref('users/' + applicant.$id + '/teamsApplying/' + $scope.team.$id)).$remove();
         var index = $scope.applicants.indexOf(applicant);
         applicantsID.$remove(index);
         $scope.applicants.splice(index, 1);
@@ -34,7 +35,7 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
             addNotif(applicant.$id, "normal", "Your request is rejected by Team " + $scope.team.teamName);
     }
     $scope.deleteInvitation = function(invitedPerson) {
-        $firebaseObject(firebase.database().ref('users/' + invitedPerson.$id + '/teamsAsInvitedPeople/' + teamID)).$remove();
+        $firebaseObject(firebase.database().ref('users/' + invitedPerson.$id + '/teamsAsInvitedPeople/' + $scope.team.$id)).$remove();
         var index = $scope.invitedPeople.indexOf(invitedPerson);
         invitedPeopleID.$remove(index);
         $scope.invitedPeople.splice(index, 1);
@@ -42,9 +43,9 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
     }
     $scope.addApplicant = function(applicant) {
         if ($scope.members.length + 1 < $scope.event.maxSize) {
-            firebase.database().ref('teams/' + teamID + '/membersID').child(applicant.$id).set(applicant.$id);
+            firebase.database().ref('teams/' + $scope.team.$id + '/membersID').child(applicant.$id).set(applicant.$id);
             $scope.members.push($firebaseObject(firebase.database().ref('users/' + applicant.$id)));
-            firebase.database().ref('users/' + applicant.$id + '/teamsAsMember').child(teamID).set(teamID);
+            firebase.database().ref('users/' + applicant.$id + '/teamsAsMember').child($scope.team.$id).set($scope.team.$id);
             $scope.deleteApplicant(applicant, false);
             addNotif(applicant.$id, "request approved", "Your request is approved by Team " + $scope.team.teamName);
         } else {
@@ -54,9 +55,15 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
     $scope.sendInvitation = function() {
         if ($scope.members.length + 1 < $scope.event.maxSize) {
             for (i = 0; i < $scope.invite.desiredSkills.length; i++) {
-                firebase.database().ref('teams/' + teamID + '/invitedPeople').child($scope.invite.desiredSkills[i]).set($scope.invite.desiredSkills[i]);
-                $scope.invitedPeople.push($firebaseObject(firebase.database().ref('users/' + $scope.invite.desiredSkills[i])));
-                firebase.database().ref('users/' + $scope.invite.desiredSkills[i] + '/teamsAsInvitedPeople').child(teamID).set(teamID);
+                for (user in $rootScope.users) {
+                    if ($rootScope.users[user].email == $scope.invite.desiredSkills[i]) {
+                        var userID = $rootScope.users[user].$id;
+                        firebase.database().ref('teams/' + $scope.team.$id + '/invitedPeople').child(userID).set(userID);
+                        $scope.invitedPeople.push($rootScope.users[user]);
+                        firebase.database().ref('users/' + userID + '/teamsAsInvitedPeople').child($scope.team.$id).set($scope.team.$id);
+                        break;
+                    }
+                }
                 // addNotif($scope.invite.desiredSkills[i], "invitation", "You are invited by Team " + $scope.team.teamName);
             }
         } else {
@@ -138,6 +145,9 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
                 desiredSkills: angular.copy($scope.team.desiredSkills),
                 newSkill: ""
             }
+            // membersID = $firebaseArray(firebase.database().ref('teams/' + $scope.team.$id + '/membersID'));
+            // applicantsID = $firebaseArray(firebase.database().ref('teams/' + $scope.team.$id + '/pendingApplicants'));
+            // invitedPeopleID = $firebaseArray(firebase.database().ref('teams/' + $scope.team.$id + '/invitedPeople'));
 
             $scope.members = [];
             $scope.applicants = [];
