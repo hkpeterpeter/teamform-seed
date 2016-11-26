@@ -205,7 +205,7 @@ angular.module('teamform-team-app', ['firebase'])
 		}
 
 	// sync with firebaseArray
-		var commentref = firebase.database().ref("comment");
+		var commentref = firebase.database().ref("/event/"+eventName+"/team/"+teamName+"/comment");
 		$scope.comment = $firebaseArray(commentref);
 
 		$scope.addComment = function() {
