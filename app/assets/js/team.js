@@ -196,22 +196,6 @@ angular.module('teamform-team-app', ['firebase'])
 			
 		} 
 	});
-	
-	
-
-	
-	
-
-
-
-
-
-
-
-
-
-
-
 
 	$scope.input = {
 			title: "",
