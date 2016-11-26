@@ -78,24 +78,24 @@
 					<hr>
 					<!--###Content###-->
 					<div class="thumbnail caption">
-						<button class="btn btn-xs btn-primary">Skill</button>
-						<br>
-						<span ng-repeat="(name,content) in filterSkillTags(skilltags)" >
-							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}">{{name}} [{{content.value}}]</button>
-						</span>
-					</div> <!--thumbnail caption-->
-					<div class="thumbnail caption">
 						<button class="btn btn-xs btn-primary">Language</button>
 						<br>
 						<span ng-repeat="(name,value) in filterLanguageTags(languagetags)">
-							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:'green'}">{{name}}</button>
+							<button class="btn btn-xs btn-default">{{name}}</button>
 						</span>
 					</div> <!--thumbnail caption-->
 					<div class="thumbnail caption">
 						<button class="btn btn-xs btn-primary">Manner</button>
 						<br>
 						<span ng-repeat="(name,value) in filterMannerTags(mannertags)">
-							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:'green'}">{{name}}</button>
+							<button class="btn btn-xs btn-default">{{name}}</button>
+						</span>
+					</div> <!--thumbnail caption-->
+					<div class="thumbnail caption">
+						<button class="btn btn-xs btn-primary">Skill</button>
+						<br>
+						<span ng-repeat="(name,content) in filterSkillTags(skilltags)">
+							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}" ng-if="content.value">{{name}} [{{content.value}}]</button>
 						</span>
 					</div> <!--thumbnail caption-->
 				</div> <!--caption-->
@@ -133,15 +133,18 @@
 	<hr>
 
 	<div class="row">
-
-	<div class="col-md-6">
+	
+	<!--###############Chart###############-->
+	
+	<div class="col-md-12">
 			<div class="thumbnail">
 				<div class="caption">
-					{{ltcolors}}
+					<!--###Title###-->
+					<!--{{ltcolors}}-->
 				  <h4>Chart</h4>
 				  <p>Statistics on tags.</p>
 				  <hr>
-
+				  <!--###Title###-->
 					<div>
 						<canvas id="bar" class="chart chart-bar"
 						chart-data="stvalues" chart-labels="stnames" chart-series="stseries" chart-colors="stcolors" chart-options = "stoptions">
@@ -155,36 +158,31 @@
 						chart-data="mtvalues" chart-labels="mtnames" chart-series="mtseries" chart-colors="mtcolors" chart-options = "mtoptions">
 					</canvas>
 
-				</div>
-			</div>
-		</div>
-
-
-
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-12-->
 
   </div> <!--row-->
-
 
 	<hr>
 
 	<div class="row" ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
 
-
-		  <!--###############TBAs###############-->
+		  <!--###############Recommendation###############-->
+		  
 		  <div class="col-md-4">
 		    <div class="thumbnail">
 		      <div class="caption">
-
-		        <h4>Recommend TBAs</h4>
-		        <p>People may fit your team</p>
-		        <hr>
+						<!--###Title###-->
+		        <h4><i class="icon-thumbs-up"></i>&nbsp;&nbsp;Recommendation</h4>
+		        <p>Recommend TBAs that fit your team</p>
 		        <button class="btn btn-danger" ng-click="recommand()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Recommand">
-							Recommend
+							<i class="icon-thumbs-up"></i>&nbsp;&nbsp;Let's GO!
 						</button>
-
+						<hr>
+		        <!--###Content###-->
 		        <div class="container">
 		          <div class="row" ng-repeat="(uid, score) in tba_featurelist">
-								<!-- {{RecommendTBA(eventObj.tba)}} -->
 		            <div class="col-md-2">
 		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left" ng-if="score >= 6">
 										{{users.$getRecord(uid).readOnly.name}}
@@ -201,6 +199,7 @@
 		      </div>
 		    </div>
 		  </div>
+		  
 		<!--###############Applications###############-->
 
 		<div class="col-md-4">
@@ -241,7 +240,7 @@
 
 		<!--###############Invitations###############-->
 
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="thumbnail">
 				<div class="caption">
 					<!--###Title###-->
@@ -269,13 +268,9 @@
 			    </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
-		</div> <!--col-md-3-->
-
-    <!--##############Recommend TBA###############-->
-
-
-
-</div>
+		</div> <!--col-md-4-->
+		
+</div> <!--col-md-12-->
 </div> <!--container-->
 
 
