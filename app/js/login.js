@@ -8,6 +8,41 @@ app.controller("loginController",
             name: "",
             pwd: ""
         }
+        $scope.profile_info = {};
+        $scope.profile_info.tags = {
+            "LanguageTags":{
+                "Cantonese": false,
+                "English": false,
+                "German": false,
+                "Japanese": false,
+                "Korean": false,
+                "Mandarin": false,
+                "Spanish": false
+            },
+            "MannerTags":{
+                "Cool":false,
+                "Creative":false,
+                "OnCampus":false,
+                "Outgoing":false,
+                "Pretty":false,
+                "SleepLate":false,
+                "Thoughtful":false
+            },
+            "SkillTags":{
+                "C" : 0,
+                "Cpp" : 0,
+                "CSS": 0,
+                "FLEX": 0,
+                "HTML": 0,
+                "Java": 0,
+                "JavaScript": 0,
+                "Objective_C": 0,
+                "PHP": 0,
+                "Python": 0,
+                "SML": 0,
+                "SQL": 0,
+            }
+        };
 
         Auth.$onAuthStateChanged(function(authData) {
             //$scope.authData = authData;
@@ -47,6 +82,14 @@ app.controller("loginController",
                 ref.update({
                     email: result.user.email,
                     name: result.user.displayName
+                }).then(function(){
+                    firebase.database().ref("users/" + result.user.uid + "/readOnly/info")
+                    .once('value').then(function(snapshot){
+                        if (!snapshot.hasChild("tags")){
+                            firebase.database().ref("users/" + result.user.uid + "/readOnly/info")
+                            .update($scope.profile_info);
+                        }
+                    });
                 });
 
 
