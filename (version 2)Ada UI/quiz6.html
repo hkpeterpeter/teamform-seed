@@ -29,8 +29,9 @@
       <script src="js/lte-ie7.js"></script>
     <![endif]-->
   </head>
-
-    <style>
+  
+  <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+  <style>
     @import url("http://bootswatch.com/yeti/bootstrap.min.css");
     </style>
 
@@ -69,7 +70,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini.jpg"></span>
+                                    
                                     <span class="subject">
                                     <span class="from">Greg  Martin</span>
                                     <span class="time">1 min</span>
@@ -81,7 +82,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini2.jpg"></span>
+                                    
                                     <span class="subject">
                                     <span class="from">Bob   Mckenzie</span>
                                     <span class="time">5 mins</span>
@@ -93,7 +94,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini3.jpg"></span>
+                                    
                                     <span class="subject">
                                     <span class="from">Phillip   Park</span>
                                     <span class="time">2 hrs</span>
@@ -105,7 +106,7 @@
                             </li>
                             <li>
                                 <a href="#">
-                                    <span class="photo"><img alt="avatar" src="./img/avatar-mini4.jpg"></span>
+                                    
                                     <span class="subject">
                                     <span class="from">Ray   Munoz</span>
                                     <span class="time">1 day</span>
@@ -179,7 +180,7 @@
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> My Profile</a>
+                                <a href="profile.html"><i class="icon_profile"></i> My Profile</a>
                             </li>
                             <li>
                                 <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
@@ -202,38 +203,38 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
-                  <li class="active">
+                  <li class="">
                       <a class="" href="index.html">
                           <i class="icon_house_alt"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
-          <li class="sub-menu">
+				  <!--<li class="sub-menu">
                       <a href="#"id="myLink">
                           <i class="fa fa-user"></i>
                           <span>Profile</span>
-                         <!--<span class="menu-arrow arrow_carrot-right"></span>-->
+                         <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
-                      <!--<ul class="sub">
+                      <ul class="sub">
                           <li><a class="" href="form_component.html">Edit</a></li>                          
-                      </ul>-->
-                  </li>       
+                      </ul>
+                  </li>-->       
                   <li class="sub-menu">
-                      <a href="javascript:;" class="">
+                      <a class="" href="team.html">
                           <i class="fa fa-comments-o"></i>
                           <span>Team</span>
                       </a>
                   </li>   
-                  <li class="sub-menu">
+                  <!--<li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="fa fa-table"></i>
                           <span>Activities record</span>
                       </a>
-                  </li>
+                  </li>-->
                   
                   <li class="sub-menu">
-                      <a href="javascript:;" class="">
-              <i class="fa fa-users"></i> <span>About Us</span> 
+                      <a href="about us.html" class="">
+						  <i class="fa fa-users"></i> <span>About Us</span> 
                       </a>
                   </li> 
                   
@@ -244,11 +245,9 @@
       <!--sidebar end-->
       
       <!--main content start-->
-            <section id="main-content">
-    
-    <section class="wrapper">            
-              <!--overview start-->
-        <div class="row">
+      <section id="main-content">
+		<section class="wrapper">
+	  <div class="row">
         <div class="col-lg-12">
           <h3 class="page-header">Personal Ability Test</h3>
         </div>
@@ -258,10 +257,10 @@
               
         <div class="row">
         <div class="col-lg-12">
-          <h5>70% Completed</h5>
+          <h5>50% Completed</h5>
           <div class="progress">
-          <div class="progress-bar" role="progressbar" style="width: 70%;">
-          <span class="sr-only">70% Completed</span>
+          <div class="progress-bar" role="progressbar" style="width: 50%;">
+          <span class="sr-only">50% Completed</span>
           </div>
           </div>
         </div><!--/.col-->
@@ -269,51 +268,52 @@
         <div class="">
       <div class="panel-heading">
         <h3 class="panel-title">
-            Q8. Where is the correct place to insert a JavaScript?
+            Q6. In the given statement below, what does the “arr” indicate?
         </h3>
+        <h4>
+          char *arr[30];
+        </h4>
       </div>
       <div class="panel-body">
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">The &lt;body&gt; section
+            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Array of a function
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">The &lt;head&gt; section
+            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Array of 30 characters
           </label>
         </div>
   <div class="radio">
           <label>
-            <input type="radio" name="optionsRadios" id="optionsRadios3” value="option3”>Both are correct
+            <input type="radio" name="optionsRadios" id="optionsRadios3” value="option3”>Pointer to an array
+          </label>
+        </div>
+  <div class="radio">
+          <label>
+            <input type="radio" name="optionsRadios" id="optionsRadios4” value="option4”>Array of 30 character pointers
           </label>
         </div>
 
+
       </div>
       <div class="panel-footer">
-        <a href="quiz9.html" class="btn btn-primary" role="button">Confirm</a>
-        <a href="quiz8.html" class="btn btn-primary" role="button">Reset</a>
+        <a href="quiz7.html" class="btn btn-primary" role="button">Confirm</a>
+        <a href="quiz6.html" class="btn btn-primary" role="button">Reset</a>
       </div>
     </div>
         
         </div>
-        </div><!--/.row-->
-    
-      
-  
+        </div>	
+         </section>
       </section>
       <!--main content end-->
-      <div class="text-right">
+      <!--<div class="text-right">
             <div class="credits">
-                <!-- 
-                    All the links in the footer should remain intact. 
-                    You can delete the links only if you purchased the pro version.
-                    Licensing information: https://bootstrapmade.com/license/
-                    Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
-                -->
-                <a href="https://bootstrapmade.com/free-business-bootstrap-themes-website-templates/">Team Form</a> by <a href="https://bootstrapmade.com/">Team Noname</a>
+                <a href="">Team Noname</a> by <a href="">Comp3111</a>
             </div>
-        </div>
+        </div>-->
   </section>
   <!-- container section end -->
     <!-- javascripts -->
@@ -329,8 +329,7 @@
 
   <script>
 
-      //knob
-      $(".knob").knob();
+
 
   </script>
 
