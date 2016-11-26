@@ -48,6 +48,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        $scope.member = angular.equals($scope.identity, 'member');
        $scope.user = angular.equals($scope.identity, 'user');
        $scope.teamname = userlist[thisuser]["Membership"][$scope.eventname]["teamName"];
+        
      //  team="L1";
        })
      
@@ -56,6 +57,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        $scope.team = eventlist[$scope.eventname]["teamList"][$scope.teamname];
        $scope.teamskills = eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"];
        $scope.memberlist = eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"];
+       $scope.Leader = eventlist[$scope.eventname]["teamList"][$scope.teamname]["leader"];
 
       })
 
@@ -108,6 +110,51 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
           }
           eventlist.$save();
      }
+
+
+
+          $scope.createteam = function(newteamname,introduction,teamWebsite){
+
+      //    var alert_content = "Your team has been created";
+
+            //if (!(teamname in eventlist[$scope.eventname]["teamList"])) {
+    
+              eventlist[$scope.eventname]["teamList"][newteamname]={
+                     "leader": thisuser,
+                     "introduction": introduction,
+                     "teamWebsite": teamWebsite,
+                     "memberList":[thisuser]
+              };
+                  
+              eventlist.$save();
+
+            userlist[thisuser]["Membership"][$scope.eventname]["identity"] = "leader";
+            userlist[thisuser]["Membership"][$scope.eventname]["teamName"] = newteamname;
+            userlist.$save();
+           //}
+        //    else{
+          //      alert_content = "This name has been used in this event. Please change to another one"
+            //};
+
+        // alert(alert_content);
+          }
+
+    $scope.editteaminfo = function(teamWebsite){
+      eventlist[$scope.eventname]["teamList"][$scope.teamname]["teamWebsite"] = teamWebsite;
+      eventlist.$save();
+    }
+
+    $scope.editteamintro = function(introduction){
+      eventlist[$scope.eventname]["teamList"][$scope.teamname]["introduction"] = introduction;
+      eventlist.$save();
+    }
+    $scope.editteamskills = function(teamskills){
+      
+      eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"]=teamskills.split(",");
+       eventlist.$save();
+  
+    }
+
 
       // $scope.getimg=function(num,member){
       //   var photo;
