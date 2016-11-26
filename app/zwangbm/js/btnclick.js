@@ -1,9 +1,9 @@
-var app1 = angular.module("clickApp", ["firebase", "ngCookies"]);
+var app1 = angular.module("clickApp", ["firebase"]);
 app1.controller("clickCtrl",
-    function($scope, $firebaseObject, $firebaseArray, $cookies) {
+    function($scope, $firebaseObject, $firebaseArray) {
       // Implementation the todoCtrl
       var event_name = "comp3111";
-      var this_user = $cookies.get("username",{path:"/"});//"iamauthur";
+      var this_user = "iamauthur";
       var user_list = $firebaseObject(firebase.database().ref("userList"));
       var event_list = $firebaseObject(firebase.database().ref("eventList"));
       var conversation = $firebaseObject(firebase.database().ref("conversation"));
@@ -40,45 +40,20 @@ app1.controller("clickCtrl",
             angular.forEach($scope.tag, function(value,key){
               $scope.currentTag.push(key);
             });
-            //suggested users for leaders
-            $scope.suggested = [];
-            var suggested_users = {};
-            //1. users in this event, not in teams, not the user himself/herself => $scope.users
-            //user_list.$loaded(function() {});
-            var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
-            //alert(team_name);
-            var requirements = event_list[event_name]["teamList"][team_name]["requirement"];
-            //2. count the number of requirements the users fulfilled 
-            angular.forEach($scope.users, function(value,key){
-              var fulfill = 0;
-              for (var i = 0; i<requirements.length; i++) {
-                  //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
-                if ($scope.users[key]["skills"].indexOf(requirements[i]) != -1){
-                  fulfill += 1;
-                } 
-              }
-              // $scope.suggested["2"] = [{userobject},{userobject}...]
-              if (!(fulfill.toString() in suggested_users)){
-                suggested_users[fulfill.toString()]=[];
-              }
-              //alert("fulfill= "+fulfill+" user= "+key);
-              suggested_users[fulfill.toString()].push($scope.users[key]);
-            });
-            //alert(suggested_users["1"].length);
-            for (var i = requirements.length; i>0 ;i--) {
-              var str_i = i.toString();
-              if (str_i in suggested_users){
-                for (var j=0; j < suggested_users[str_i].length; j++){
-                  //extend the users to $scope.suggested
-                  $scope.suggested.push(suggested_users[str_i][j]);
-                }
-              }
-            }
-            
           });
         });
       });
-      
+
+      //suggested users for leaders
+      alert('loaded');
+      $scope.suggested = {};
+      //1. users in this event, not in teams, not the user himself/herself => $scope.users
+      //user_list.$loaded(function() {});
+      var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
+      var requirements = event_list[event_name]["teamList"][team_name]["requirement"];
+      angular.forEach($scope.users, function(value,key){
+
+      });
 
 
       $scope.uploadPicture = function(){
