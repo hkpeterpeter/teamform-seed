@@ -66,16 +66,16 @@
             <div id="{{removeSpace(cat.$id)}}" class="collapse">
 	            <div ng-if="$index % 3 == 0" ng-repeat="tag in cat track by $index">
 	              <div class="col-xs-4" ng-if="$index < cat.length">
-	                <a ng-if="getCorrespondQuizLink(cat[$index]) !== undefined" href="../abilitytest.html?u={{getCorrespondQuizLink(cat[$index])}}">{{cat[$index]}}</a>
-	                <p ng-if="getCorrespondQuizLink(cat[$index]) === undefined">{{cat[$index]}}</p>
+	                <a ng-if="canTake(cat[$index])" href="../abilitytest.html?u={{getCorrespondQuizLink(cat[$index])}}">{{cat[$index]}}</a>
+	                <p ng-if="!canTake(cat[$index])">{{cat[$index]}}</p>
 	              </div>
 	              <div class="col-xs-4" ng-if="$index + 1 < cat.length">
-	                <a ng-if="getCorrespondQuizLink(cat[$index + 1]) !== undefined" href="../abilitytest.html?u={{getCorrespondQuizLink(cat[$index + 1])}}">{{cat[$index + 1]}}</a>
-	                <p ng-if="getCorrespondQuizLink(cat[$index + 1]) === undefined">{{cat[$index + 1]}}</p>
+	                <a ng-if="canTake(cat[$index + 1])" href="../abilitytest.html?u={{getCorrespondQuizLink(cat[$index + 1])}}">{{cat[$index + 1]}}</a>
+	                <p ng-if="!canTake(cat[$index + 1])">{{cat[$index + 1]}}</p>
 	              </div>
 	              <div class="col-xs-4" ng-if="$index + 2 < cat.length">
-	                <a ng-if="getCorrespondQuizLink(cat[$index + 2]) !== undefined" href="../abilitytest.html?u={{getCorrespondQuizLink(cat[$index + 2])}}">{{cat[$index + 2]}}</a>
-	                <p ng-if="getCorrespondQuizLink(cat[$index + 2]) === undefined">{{cat[$index + 2]}}</p>
+	                <a ng-if="canTake(cat[$index + 2])" href="../abilitytest.html?u={{getCorrespondQuizLink(cat[$index + 2])}}">{{cat[$index + 2]}}</a>
+	                <p ng-if="!canTake(cat[$index + 2])">{{cat[$index + 2]}}</p>
 	              </div>
 	            </div>
             </div>

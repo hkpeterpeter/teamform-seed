@@ -18,8 +18,7 @@
       <script src="js/site.js"></script>
    </head>
 
-   <body ng-controller="AbilityTestCtrl">
-
+   <body>
         <nav class="navbar navbar-default">
            <div class="container">
               <div id="navbar" class="collapse navbar-collapse">
@@ -49,32 +48,37 @@
            </div>
         </nav>
         <br>
-        <div class="text-center">
+        <div id="abilitytest_page_controller" ng-controller="AbilityTestCtrl">
+          <div class="text-center">
            <h1>Ability Test</h1>
-        </div>
-        <div class="text-right" ng-if="finished">
-           <h1  style="color:red;">Score: {{correctness/quiz.length * 100}}</h1>
-        </div>
-        <div class="col-xs-8 col-xs-offset-2">
-          <div ng-repeat="question in quiz track by $index">
-            <div class="row">
-              <img src="images/tick.png" width="25" height="25" ng-if="finished && isCorrect(question.$id)">
-              <img src="images/cross.png" width="25" height="25" ng-if="finished && !isCorrect(question.$id)">
-              {{($index + 1) + ": " + question.question}}
-            </div>
-            <br></br>
-            <ul class="list-unstyled" id="{{question.$id}}">
-              <li ng-repeat="option in question.option" id="{{question.$id + '-' + $index}}">
-               <input type="radio" name="{{'answer-' + question.$id}}" ng-disabled="finished" ng-click="addanswer({questionId: question.$id, answer: option});">{{option}}
-              </li>
-            </ul>
-            <br><br>
           </div>
-        </div>
+          <div class="text-right" ng-if="!finished">
+            <h1  style="color:red;">Remain:{{textCounter}}</h1>
+          </div>
+          <div class="text-right" ng-if="finished">
+            <h1  style="color:red;">Score: {{correctness/quiz.length * 100}}</h1>
+          </div>
+          <div class="col-xs-8 col-xs-offset-2">
+            <div ng-repeat="question in quiz track by $index">
+              <div class="row">
+                <img src="images/tick.png" width="25" height="25" ng-if="finished && isCorrect(question.$id)">
+                <img src="images/cross.png" width="25" height="25" ng-if="finished && !isCorrect(question.$id)">
+                {{($index + 1) + ": " + question.question}}
+              </div>
+              <br></br>
+              <ul class="list-unstyled" id="{{question.$id}}">
+                <li ng-repeat="option in question.option" id="{{question.$id + '-' + $index}}">
+                 <input type="radio" name="{{'answer-' + question.$id}}" ng-disabled="finished" ng-click="addanswer({questionId: question.$id, answer: option});">{{option}}
+                </li>
+              </ul>
+              <br><br>
+            </div>
+          </div>
         
-        <div class="text-center">
-           <div class="col-xs-2 col-xs-offset-5">
-             <button type="button" class="btn btn-primary" ng-disabled="finished" ng-click="submitFunc();">Submit</button>
+          <div class="text-center">
+            <div class="col-xs-2 col-xs-offset-5">
+              <button type="button" class="btn btn-primary" ng-disabled="finished" ng-click="submitFunc();">Submit</button>
+            </div>
           </div>
         </div>
 

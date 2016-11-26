@@ -55,6 +55,13 @@
   </nav>
 
   <div login id="login-form" class="modal"></div>
+  <div id="confirm" class="container animate modal-content" style="display:none">
+    <div class="modal-body">Are you sure?</div>
+    <div class="modal-footer">
+      <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">OK</button>
+      <button type="button" data-dismiss="modal" class="btn" id="cancel">Cancel</button>
+    </div>
+  </div>
     <br>
 
     <div class="row text-center" id="member_page_controller">
@@ -66,7 +73,7 @@
         <div class="col-sm-6 col-xs-8 panel">
           <button type="button" class="btn btn-primary" id="savebtn" ng-disabled="memberInfo.inTeam !== undefined" ng-click="saveFunc();" >Save</button>
           <button type="button" class="btn btn-primary" ng-disabled="memberInfo.inTeam === undefined" ng-click="leaveTeam();" >leave team</button>
-          <button type="button" class="btn btn-primary" ng-click="showingChatroom=!showingChatroom" ng-disabled="memberInfo.inTeam === undefined" id="btn_chat">Chatroom</button>
+          <button type="button" class="btn btn-primary" data-toggle="button" ng-click="showingChatroom=!showingChatroom" ng-disabled="memberInfo.inTeam === undefined" id="btn_chat">Chatroom</button>
         </div>
         <div class="col-sm-3 col-xs-2"></div>
       </div>
@@ -102,9 +109,9 @@
             <h3>Invitations:</h3>
             <div ng-show="memberInfo.invitedBy !== undefined">
               <div ng-repeat="teamName in memberInfo.invitedBy">
-                {{teamName|json}}
-                <button type="button" value="{{teamName}}" ng-click="acceptInv(teamName)">Accept</button>
-                <button type="button" value="{{teamName}}" ng-click="declineInv(teamName)">Decline</button>
+                From team {{teamName|json}}
+                <button type="button" class="btn btn-info" value="{{teamName}}" ng-click="askForConfirm(acceptInv,teamName)">Accept</button>
+                <button type="button" class="btn btn-info" value="{{teamName}}" ng-click="askForConfirm(declineInv,teamName)">Decline</button>
               </div>
             </div>
             <p ng-show="memberInfo.invitedBy === undefined">You have no invitation.</p>
@@ -154,7 +161,7 @@
              </tr>
             </table>
             </div>
-            <p  ng-if="teams.length < 1">No available team</p>
+            <p ng-if="teams.length < 1">No available team</p>
           </div>
           
           <div class="chat-box" ng-if="showingChatroom" ng-controller="chatRoomCtrl">
@@ -206,7 +213,6 @@
   <script src="lib/angularfire.min.js"></script>
 
   <script src="js/member.js"></script>
-  <script src="js/chatRoom.js"></script>
 
 </body>
 </html>

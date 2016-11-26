@@ -53,6 +53,14 @@
     </nav>
 
     <div login id="login-form" class="modal"></div>
+    <div id="confirm" class="container animate modal-content" style="display:none">
+      <div class="modal-body">Are you sure?</div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">OK</button>
+        <button type="button" data-dismiss="modal" class="btn" id="cancel">Cancel</button>
+      </div>
+    </div>
+
 
     <div class="text-center">
       <h1>Team Page</h1>
@@ -111,7 +119,7 @@
                 <h4>Team members</h4>
                 <!-- TODO: Show the current team member list -->
                 <div ng-repeat="member in param.teamMembers">
-                  <button type="button" class="btn btn-default" ng-click="removeMember(member);">
+                  <button type="button" class="btn btn-default" ng-click="askForConfirm(removeMember,member);">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{ retrieveNameFromID(member) }}
                   </button>
                 </div>
@@ -132,13 +140,16 @@
               </div>
               <div class="col-xs-1 col-md-4">
                 <h4>Requests received:</h4>
-                <button type="button" class="btn btn-primary" id="smartAdd" ng-click="smartAdd();">Smart Add</button>
-                <!--TODO: Show the requests -->          
                 <div ng-repeat="r in requests">
                   <button type="button" class="btn" ng-click="processRequest(r);">
                     <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{ retrieveNameFromID(r) }}
                   </button>
                 </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-offset-11 col-md-offset-8 col-xs-1 col-md-4">
+                <button type="button" class="btn btn-primary" id="smartAdd" ng-click="smartAdd();">Smart Add</button>
               </div>
             </div>
           </div>
@@ -179,7 +190,7 @@
                   <td class="col-md-2">Name</td>
                   <td class="col-md-2">Tags</td>
                   <td class="col-md-1">Weight</td>
-                  <td class="col-md-2">Request to</td>
+                  <td class="col-md-2">In team</td>
                   <td class="col-md-1"></td>
                 </tr>
               </thead>
@@ -192,8 +203,8 @@
                     </div>
                   </td>
                   <td class="col-md-1">{{retrieveScoreFromTags(retrieveTagsFromID(m.$id))}}</td>
-                  <td class="col-md-2">{{m.selection}}</td>
-                  <td class="col-md-1"><button type="button" class="btn btn-success" ng-click="sendInvite(m.$id)">Invite</button></td>
+                  <td class="col-md-2">{{m.inTeam? m.inTeam: "No team yet"}}</td>
+                  <td class="col-md-1"><button type="button" class="btn btn-success" ng-disabled="!canInvite(m.$id)" ng-click="sendInvite(m.$id)">Invite</button></td>
                 </tr>
               </tbody>
             </table>

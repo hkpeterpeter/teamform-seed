@@ -334,8 +334,21 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.saveFunc();
 		}
 	};
+	
+	$scope.askForConfirm = function(confirmCallback, param) {
+		document.getElementById('confirm').style.display='block';
+		$('#confirm').one('click', '#delete', function (e) {
+				confirmCallback(param);
+				console.log("Confirmed ");
+				document.getElementById('confirm').style.display='none';
+			}).one('click', '#cancel', function(e) {
+				console.log("Cancel");
+				document.getElementById('confirm').style.display='none';
+			});
+	}
 
 	$scope.removeMember = function(member) {
+		/*
 		var x;
 		if ($scope.param.teamMembers.length > 1){
 			x = confirm("Are you sure to remove this team member?");
@@ -358,8 +371,22 @@ angular.module('teamform-team-app', ['firebase'])
 			}
 			$scope.saveFunc();
 		}
+		*/
+		var index = $scope.param.teamMembers.indexOf(member);
+		if(index > -1) {
+			$scope.param.teamMembers.splice(index, 1); // remove that item
+			var refPath = $scope.eventName + "/member/" + member;
+			var ref = firebase.database().ref(refPath);
+			ref.update({inTeam: null});
+			if($scope.param.teamMembers.length == 0){
+				var refPath1 = $scope.eventName + "/team/" + $scope.param.teamName;
+				var ref1 = firebase.database().ref(refPath1);
+				ref1.remove();
+			}
+		}
+		$scope.saveFunc();
 	};	
-
+	/*
 	$scope.checkTeam = function(){
 		//check if teamName exist
 		$scope.teamList = [];
@@ -373,10 +400,31 @@ angular.module('teamform-team-app', ['firebase'])
 			}
 		}
 		return false;
-	};	
+	};
+	*/
+	
+	$scope.canInvite = function(memberId) {
+		if($scope.param.teamName === undefined || $scope.param.teamName == "") return false;
+		
+		// already full
+		if($scope.param.teamMembers.length == $scope.param.currentTeamSize) return false;
+		
+		var memberInfo;
+		for(var idx = 0; idx < $scope.member.length; idx++) {
+			if($scope.member[idx].$id == memberId) {
+				memberInfo = $scope.member[idx];
+				break;
+			}
+		}
+		if(memberInfo === undefined 
+			|| memberInfo.inTeam !== undefined
+			|| memberInfo.invitedBy.indexOf($scope.param.teamName) != -1) return false;
+		return true;
+	};
 	
 	//invite function
 	$scope.sendInvite = function(id) {
+		/*
 		if (typeof $scope.param.teamName == 'undefined' || $scope.param.teamName == "") {
 			window.alert("Enter a team name first!");
 			return;
@@ -384,7 +432,8 @@ angular.module('teamform-team-app', ['firebase'])
 		if ($scope.checkTeam() != true) {
 			window.alert("Team \"" + $scope.param.teamName + "\" does not exist!");
 			return;
-		}		
+		}	
+		*/	
 		//check if user in a team, if not invite user
 		var data;
 		for(var idx = 0; idx < $scope.member.length; idx++) {

@@ -60,16 +60,16 @@
         <h2>Information</h2>
         <div class="row">
           <div class="col-sm-offset-2 col-sm-4 text-left">
-            <img id="profile-photo" src="{{userInfo.photoUrl}}" width="250" height="250"/>
-            <span ng-if="isMyPage()"><input type="text" ng-model="toPhotoUrl"><button type="button" class="button btn-info" ng-click="changePhoto()">Change</button></span>
+            <img id="profile-photo" src="" width="250" height="250"/>
+            <span ng-if="isMyPage()"><input type="text" placeholder="URL for your new photo" ng-model="toPhotoUrl"><button type="button" class="btn btn-info" ng-click="changePhoto()">Change</button></span>
           </div>
           <div class="col-sm-4 text-left">
             <h4>Name: {{userInfo.name}}</h4>
             <h4>Email: {{userEmail}}</h4>
             <h4>Description:</h4>
             <div ng-if="isMyPage()">
-              <textarea class="form-control" rows="6" ng-model="description" value="">{{userInfo.description}}</textarea>
-              <button type="button" class="button btn-info" ng-click="saveDescription()">Save</button>
+              <textarea class="form-control" rows="6" placeholder="Write something about yourself" ng-model="userInfo.description"></textarea>
+              <button type="button" class="btn btn-info" ng-click="saveDescription()">Save</button>
             </div>
             <p ng-if="!isMyPage()" style="word-wrap: break-word;">{{userInfo.description}}</p>
           </div>

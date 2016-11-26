@@ -52,9 +52,8 @@ angular.module('teamform-profile-app', ['firebase'])
 		$scope.userInfo = $firebaseObject(firebase.database().ref(refPath));
 		$scope.userInfo.$loaded(function(data) {
 			$scope.userEmail = data.email == null? "Unknown": data.email;
-			$scope.photoUrl = data.photoURL? data.photoURL: "images/dp.jpg";
+			$("#profile-photo").attr("src", data.photoUrl? data.photoUrl: "images/dp.jpg");
 			$("#profile_page_controller").show();
-			$scope.$apply();
 		});
 	}
 	
@@ -65,14 +64,13 @@ angular.module('teamform-profile-app', ['firebase'])
 	$scope.changePhoto = function() {
 		if(!$scope.toPhotoUrl) return;
 		
-		$scope.userInfo.photoUrl = $scope.photoUrl;
+		$scope.userInfo.photoUrl = $scope.toPhotoUrl;
+		$("#profile-photo").attr("src", $scope.userInfo.photoUrl);
 		$scope.userInfo.$save();
 		$scope.toPhotoUrl = "";
 	};
 	
 	$scope.saveDescription = function() {
-		if(!$scope.description) return;
-		$scope.userInfo.description = $scope.description;
 		$scope.userInfo.$save();
 	}
 	
