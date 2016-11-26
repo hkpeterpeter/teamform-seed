@@ -15,8 +15,18 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		});
 
 		app.factory('Naruto',function(){
-			return {Sasuke:"",Sakura:"Search Team"};
+			return {
+				Sasuke:"",
+				Sakura:"Search Team",
+				setSearchE: function(){},
+				setSearchP: function(){},
+				setSearchT: function(){},
+				searchName: function(){},
+				clear: function(){}
+			};
 		});
+		
+		
 
 		//controll search page
 		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject){
@@ -26,20 +36,48 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var tag = [];
 			var users = [];
 			var teams = [];
-
+			var userid = [];
 			var tagini;
 			$scope.teamini;
-
+			
 			//initialize data lists
 			var ref = firebase.database().ref("eventList");
 			var event_list = $firebaseObject(ref);
 			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
 			//get tags,teams and users from tag list in firebase
+			$scope.loadData = function(){
+				$scope.hehe = "";
+				$scope.currentTag = [];
+				$scope.resultTag = [];
+				$scope.filterResult = [];
+				Naruto.Saskue = "";
+
+				tagini = event_list[Naruto.Luffy]["skillTable"];
+
+				$scope.teamini = event_list[Naruto.Luffy]["teamList"];
+				angular.forEach(tagini, function(value,key){
+					tag.push(key);
+				});
+				angular.forEach($scope.teamini,function(value,key){
+					teams.push(key);
+				});
+
+				angular.forEach($scope.userList,function(value,key){
+					//only get the user that belongs to current event
+					if($scope.userList[key].Membership !== undefined && $scope.userList[key].Membership[Naruto.Luffy] !== undefined){
+						users.push($scope.userList[key].name);
+						userid.push(key);
+						
+					}
+				});
+			}
+			
+			/*
 			$scope.userList.$loaded(function(){
 				event_list.$loaded(function(){
-					tagini = event_list["comp3111"]["skills"];
+					tagini = event_list[Naruto.luffy]["skills"];
 
-					$scope.teamini = event_list["comp3111"]["teamList"];
+					$scope.teamini = event_list[Naruto.luffy]["teamList"];
 					angular.forEach(tagini, function(value,key){
 						tag.push(key);
 					});
@@ -49,7 +87,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 					angular.forEach($scope.userList,function(value,key){
 						//only get the user that belongs to current event
-						if($scope.userList[key].Membership.hasOwnProperty("comp3111")){
+						if($scope.userList[key].Membership !== undefined &&
+								$scope.userList[key].Membership["comp3111"] !== undefined){
 							users.push($scope.userList[key].name);
 
 						}
@@ -58,10 +97,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 				});
 			});
-
+			*/
 			$scope.teamyeah = false;
 			$scope.useryeah = true;
-			searchKey = Naruto.Sasuke;
 			$scope.currentTag = [];
 			$scope.resultTag = [];
 			$scope.searchResult = [];
@@ -72,6 +110,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				$scope.currentTag.push(key);
 			};*/
 
+			$scope.Naruto = Naruto;
 			$scope.searchType = Naruto.Sakura;
 			var setSearchT = function(){
 				Naruto.Sakura = "Search Team";
@@ -88,6 +127,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.setSearchE = function(){
 				$scope.searchType = "Search Event";
 			};
+			// Naruto.setSearchE = $scope.setSearchE;
+			Naruto.setSearchP = setSearchP;
+			Naruto.setSearchT = setSearchT;
 
 			$scope.reset = function(index){
 				var key;
@@ -124,8 +166,21 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				$scope.resultTag = [];
 				$scope.filterResult = [];
 			};
-
+			var navbarClear = function(){
+				$scope.searchResult = [];
+				Naruto.Sasuke = "";
+				$scope.clear();
+			}
+			Naruto.clear = navbarClear;
+			
+			var currentEvent;
 			$scope.autocomplete = function(){
+				
+				if(currentEvent != Naruto.Luffy){
+					currentEvent = Naruto.Luffy;
+					$scope.loadData();
+					
+				}
 				var iChars = "~`!@#$%^&*+=-[]\\\';,/{}|\":<>?";
 				for (var i = 0; i < $scope.hehe.length; i++){
 					if (iChars.indexOf($scope.hehe.charAt(i)) != -1){
@@ -166,8 +221,15 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			};
 
 			var filterFunction = function(){
+				var templist = [];
+				if(Naruto.Sakura.length != 0){
+					for(var i = 0;i < $scope.searchResult.length;i++){
+						templist.push($scope.searchResult[i]);
+					}
+				}	
+				
 				$scope.filterResult = [];
-				if($scope.searchType == "Search Team"){
+				if(Naruto.Sakura == "Search Team"){
 					for(var i = 0;i < tagini[$scope.resultTag[0]].teams.length;i++){
 						$scope.filterResult.push(tagini[$scope.resultTag[0]].teams[i]);
 					}
@@ -194,7 +256,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						}
 						$scope.filterResult = temp;
 					}
+					
 				}else{
+					if($scope.resultTag.length != 0){
 					for(var i = 0;i < tagini[$scope.resultTag[0]].users.length;i++){
 						$scope.filterResult.push(tagini[$scope.resultTag[0]].users[i]);
 					}
@@ -221,6 +285,43 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						}
 						$scope.filterResult = temp;
 					}
+					}
+					
+				}
+				//conbine filter and search name function
+				if(templist.length != 0){
+					if($scope.filterResult.length != 0){
+						for(var i = 0;i < templist.length;i++){
+							var bingo = false;
+						
+							for(var j = 0;j <$scope.filterResult.length;j++){
+								if($scope.userList[$scope.filterResult[j]].name == templist[i]){
+									bingo = true;
+									break;
+								}
+							}
+							if(!bingo){
+								templist[i] = "@";
+							}
+						}
+
+					}
+					
+					$scope.filterResult = [];
+					for(var k = 0;k < templist.length;k++){
+						
+						if(templist[k] != "@"){
+							
+							for(var m = 0;m < userid.length; m++){
+								
+								if($scope.userList[userid[m]].name == templist[k]){
+									$scope.filterResult.push(userid[m]);
+								}
+								
+							}
+						}
+					}
+					
 				}
 			}
 
@@ -233,8 +334,10 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				else if(type == "user"){
 					list = users;
 				}
-				else{}//event list is not yet defined
-				var m = searchKey.length;
+				else{
+					alert("unknown error occur");
+				}//event list is not yet defined
+				var m = Naruto.Sasuke.length;
 
 				//retrive every tags in tagList
 				for(var i = 0;i < list.length;i++){
@@ -256,7 +359,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					//start to fill the 2D array
 					for(var x = 1;x <= m; x++){
 						for(var y = 1;y <= n;y++){
-							if(searchKey.charAt(x-1) == list[i].charAt(y-1)){
+							if(Naruto.Sasuke.toLowerCase().charAt(x-1) == list[i].toLowerCase().charAt(y-1)){
 								arr[x][y] = arr[x-1][y-1] + 1;
 								if(arr[x][y] > max){
 									max = arr[x][y];
@@ -270,21 +373,26 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							}
 						}
 					}
-					var match = arr[m][n]/searchKey.length
+					var match = arr[m][n]/Naruto.Sasuke.length
 					if(match>= 0.6){
 						$scope.searchResult.push(list[i]);
 					}
 				}
 
-				tag = $scope.searchResult;
+				// tag = $scope.searchResult;
 			}
 
 			var searchName = function(){
+				if(currentEvent != Naruto.Luffy){
+					currentEvent = Naruto.Luffy;
+					$scope.loadData();
+					
+				}
 				$scope.searchResult = [];
 				if($scope.resultTag.length == 0){
-					if($scope.searchType == "Search Team"){
+					if(Naruto.Sakura == "Search Team"){
 						findResult('team');
-
+						
 						$scope.filterResult = $scope.searchResult;
 					}
 					else{
@@ -302,32 +410,82 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 				}
 				else{
-
+					if(Naruto.Sakura == "Search Team"){
+						findResult('team');
+						for(var i = 0;i < $scope.filterResult.length;i++){
+							var bingo = false;
+							for(var j = 0;j < $scope.searchResult.length;j++){
+								if($scope.searchResult[j] == $scope.filterResult[i]){
+									bingo = true;
+								}
+							}
+							if(!bingo){
+								$scope.filterResult[i] = "@";
+							}
+						}
+							var temp = [];
+							for(var k = 0;k <　$scope.filterResult.length;k++){
+								if($scope.filterResult[k] != "@"){
+									temp.push($scope.filterResult[k]);
+								}
+							}
+							$scope.filterResult = temp;
+					
+					}else{
+						
+						findResult('user');
+						
+						for(var i = 0;i < $scope.filterResult.length;i++){
+							var bingo = false;
+							for(var j = 0;j < $scope.searchResult.length;j++){
+								if($scope.searchResult[j] == $scope.userList[$scope.filterResult[i]].name){
+									bingo = true;
+									
+									break;
+								}
+							}
+							if(!bingo){
+								$scope.filterResult[i] = "@";
+							}
+						}
+						var temp = [];
+						for(var k = 0;k <　$scope.filterResult.length;k++){
+							if($scope.filterResult[k] != "@"){
+								temp.push($scope.filterResult[k]);
+							}
+						}
+						$scope.filterResult = temp;
+					}					
 				}
 			}
+			Naruto.searchName = searchName;
 		});
 
 
 
 		//controll navigation bar
-		app.controller("navbar",function($scope,Naruto,Search){
-			$scope.searchKey = "";
-			$scope.searchType = Naruto.Sakura;
-			Naruto.Sasuke = $scope.searchKey;
-
-			$scope.setThisSearchP = function(){
-				setSearchP();
-			};
-			$scope.setThisSearchT = function(){
-				setSearchT();
-			}
-			$scope.searchThisName = function(){
-				searchName();
-			};
+		app.controller("navbar",function($scope,Naruto,Search,$firebaseObject){
+			// $scope.searchKey = "";
+			// $scope.searchType = Naruto.Sakura;
+			// Naruto.Sasuke = $scope.searchKey;
+			var ref = firebase.database().ref("eventList");
+			$scope.event_list = $firebaseObject(ref);
+			$scope.Naruto = Naruto;
+			
+			// $scope.setThisSearchP = function(){
+			// 	Naruto.setSearchP();
+			// };
+			// $scope.setThisSearchT = function(){
+			// 	Naruto.setSearchT();
+			// }
+			// $scope.searchThisName = function(){
+			// 	Naruto.searchName();
+			// };
 			$scope.start = function(){
 				Search.search = false;
 
 			};
+
 		});
 
 
