@@ -36,38 +36,78 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
       $scope.eventname = $routeParams.p;
       $scope.photolist = [];
-      var i;
+      var x;
+      var y;
+      var team;
        var thisuser = "kimsung";
        var userlist = $firebaseObject(firebase.database().ref("userList"));
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
-      userlist.$loaded(function() {
+       userlist.$loaded(function() {
        $scope.identity = userlist[thisuser]["Membership"][$scope.eventname]["identity"];
        $scope.leader = angular.equals($scope.identity, 'leader');
        $scope.member = angular.equals($scope.identity, 'member');
        $scope.user = angular.equals($scope.identity, 'user');
-       $scope.teamname = userlist[thisuser]["Membership"][$scope.eventname]["team"];
+       $scope.teamname = userlist[thisuser]["Membership"][$scope.eventname]["teamName"];
+     //  team="L1";
        })
      
       eventlist.$loaded(function(){
        $scope.event = eventlist[$scope.eventname];
-       $scope.team = eventlist[$scope.eventname]["TeamList"][$scope.teamname];
-       $scope.teamskills = eventlist[$scope.eventname]["TeamList"][$scope.teamname]["Skills"];
-       $scope.memberlist = eventlist[$scope.eventname]["TeamList"][$scope.teamname]["MemberList"];
+       $scope.team = eventlist[$scope.eventname]["teamList"][$scope.teamname];
+       $scope.teamskills = eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"];
+       $scope.memberlist = eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"];
 
       })
 
       $scope.deletemember = function(i){
         
           
-            
-            eventlist[$scope.eventname]["TeamList"][$scope.teamname]["MemberList"].splice(i,1);
+            var membertodelete=eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"][i];
+            eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].splice(i,1);
             eventlist.$save();
+            userlist[membertodelete]["Membership"][$scope.eventname]["identity"]="user";
+            userlist[membertodelete]["Membership"][$scope.eventname]["teamName"]="Null";
+            userlist.$save();
          
         
      
       }
 
-   
+      $scope.deleteteam = function(){
+        
+          
+            
+            delete eventlist[$scope.eventname]["teamList"][$scope.teamname];
+            eventlist.$save();
+            userlist[thisuser]["Membership"][$scope.eventname]["identity"] = "user";
+            userlist[thisuser]["Membership"][$scope.eventname]["teamName"] = "Null";
+            userlist.$save();
+         
+        
+     
+      }
+
+    $scope.quitevent = function(){
+       delete userlist[thisuser]["Membership"][$scope.eventname];
+       userlist.$save();
+        for (x=0;x<eventlist[$scope.eventname]["inEventUser"].length;x++){
+          if (eventlist[$scope.eventname]["inEventUser"][x]==thisuser){
+            eventlist[$scope.eventname]["inEventUser"].splice(x,1);
+       }
+   }
+        eventlist.$save();
+     }
+
+     $scope.quitteam = function(){
+            userlist[thisuser]["Membership"][$scope.eventname]["identity"]="user";
+            userlist[thisuser]["Membership"][$scope.eventname]["teamName"]="Null";
+            userlist.$save();
+            for (y=0;y<eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].length;y++){
+              if (eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"][y]==thisuser){
+                 eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].splice(y,1);}
+          }
+          eventlist.$save();
+     }
 
       // $scope.getimg=function(num,member){
       //   var photo;

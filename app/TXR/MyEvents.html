@@ -5,7 +5,7 @@
               <div class="row">
                 <div class="col-sm-2 col-md-2">
                   <br><br><br>
-                   <img src={{event.Img}} 
+                   <img src={{event.img}} 
                    alt="" class="img-rounded img-responsive"/>
                 </div>
         <div class="col-sm-4 col-md-4">
@@ -19,7 +19,7 @@
 <br><br><br><br>
       <h2 align="left">Introduction:</h2>
       <hr>
-       <p align="left">{{event.Introduction}}</p>
+       <p align="left">{{event.introduction}}</p>
       <br>
 
 
@@ -30,7 +30,7 @@
              <div align="left">
 
     <button class="btn btn-default btn-lg" type="button" ng-show = "user"> Create a team</button>
-    <button class="btn btn-default btn-lg" type="button" ng-show = "user"> Quit Event</button>
+    <button class="btn btn-default btn-lg" type="button" ng-show = "user" ng-click="quitevent()" ng-><a ng-href="#/"> Quit Event </a></button>
     </div>
 
     </div></div>
@@ -52,7 +52,7 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm-2 col-md-2">
-                   <img src={{team.Img}}
+                   <img src={{team.img}}
                     alt="" class="img-rounded img-responsive"/>
 
  
@@ -66,7 +66,7 @@
     
 
           <p> {{Leader}}</p>
-          <p> Team Website: <a href="hhhh.com">{{team.Teamwebsite}}</a></p>
+          <p> Team Website: <a href="hhhh.com">{{team.teamWebsite}}</a></p>
 
         </div>
 </div>
@@ -77,7 +77,7 @@
 
 
       <hr>
-      <p align="left">{{team.Introduction}}</p>
+      <p align="left">{{team.introduction}}</p>
       <br>
 
       <p align="right" ng-show = "leader">edit</p>
@@ -98,8 +98,8 @@
 
           <h2 align="left" ng-hide="user">Team Members
          
-            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "leader"> Delete Team</button>
-            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "member"> Quit Team</button>
+            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "leader" ng-click="deleteteam()"> <a ng-href="#/MyEvents/{{eventname}}"> Delete Team</a></button>
+            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "member" ng-click="quitteam()"><a ng-href="#/MyEvents/{{eventname}}"> Quit Team</a></button>
 
 
 
@@ -285,7 +285,7 @@
        
 
           <div class="table-responsive">
-            <table class="table table-striped" ng-repeat = "(num,member) in memberlist">
+            <table class="table table-striped" ng-repeat = "(num,members) in memberlist">
 
               <tbody>
                 <tr>
