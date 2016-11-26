@@ -21,7 +21,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				setSearchE: function(){},
 				setSearchP: function(){},
 				setSearchT: function(){},
-				searchName: function(){}
+				searchName: function(){},
+				clear: function(){}
 			};
 		});
 		
@@ -35,7 +36,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var tag = [];
 			var users = [];
 			var teams = [];
-
+			var userid = [];
 			var tagini;
 			$scope.teamini;
 			
@@ -65,6 +66,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					//only get the user that belongs to current event
 					if($scope.userList[key].Membership !== undefined && $scope.userList[key].Membership[Naruto.Luffy] !== undefined){
 						users.push($scope.userList[key].name);
+						userid.push(key);
 						
 					}
 				});
@@ -164,6 +166,12 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				$scope.resultTag = [];
 				$scope.filterResult = [];
 			};
+			var navbarClear = function(){
+				$scope.searchResult = [];
+				Naruto.Sasuke = "";
+				$scope.clear();
+			}
+			Naruto.clear = navbarClear;
 			
 			var currentEvent;
 			$scope.autocomplete = function(){
@@ -215,8 +223,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var filterFunction = function(){
 				var templist = [];
 				if(Naruto.Sakura.length != 0){
-					for(var i = 0;i < $scope.filterResult.length;i++){
-						templist.push($scope.filterResult[i]);
+					for(var i = 0;i < $scope.searchResult.length;i++){
+						templist.push($scope.searchResult[i]);
 					}
 				}	
 				
@@ -250,6 +258,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 					
 				}else{
+					if($scope.resultTag.length != 0){
 					for(var i = 0;i < tagini[$scope.resultTag[0]].users.length;i++){
 						$scope.filterResult.push(tagini[$scope.resultTag[0]].users[i]);
 					}
@@ -276,28 +285,43 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						}
 						$scope.filterResult = temp;
 					}
+					}
 					
 				}
 				//conbine filter and search name function
 				if(templist.length != 0){
-					for(var i = 0;i < templist.length;i++){
-						var bingo = false;
-						for(var j = 0;j <$scope.filterResult.length;j++){
-							if($scope.filterResult[j] == templist[i]){
-								bingo = true;
-								break;
+					if($scope.filterResult.length != 0){
+						for(var i = 0;i < templist.length;i++){
+							var bingo = false;
+						
+							for(var j = 0;j <$scope.filterResult.length;j++){
+								if($scope.userList[$scope.filterResult[j]].name == templist[i]){
+									bingo = true;
+									break;
+								}
 							}
 							if(!bingo){
 								templist[i] = "@";
 							}
 						}
-						$scope.filterResult = [];
-						for(var k = 0;k < templist.length;k++){
-							if(templist[k] != "@"){
-								$scope.filterResult.push(templist[k]);
+
+					}
+					
+					$scope.filterResult = [];
+					for(var k = 0;k < templist.length;k++){
+						
+						if(templist[k] != "@"){
+							
+							for(var m = 0;m < userid.length; m++){
+								
+								if($scope.userList[userid[m]].name == templist[k]){
+									$scope.filterResult.push(userid[m]);
+								}
+								
 							}
 						}
 					}
+					
 				}
 			}
 
@@ -335,7 +359,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					//start to fill the 2D array
 					for(var x = 1;x <= m; x++){
 						for(var y = 1;y <= n;y++){
-							if(Naruto.Sasuke.charAt(x-1) == list[i].charAt(y-1)){
+							if(Naruto.Sasuke.toLowerCase().charAt(x-1) == list[i].toLowerCase().charAt(y-1)){
 								arr[x][y] = arr[x-1][y-1] + 1;
 								if(arr[x][y] > max){
 									max = arr[x][y];
@@ -416,7 +440,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							for(var j = 0;j < $scope.searchResult.length;j++){
 								if($scope.searchResult[j] == $scope.userList[$scope.filterResult[i]].name){
 									bingo = true;
-									alert($scope.searchResult[j]);
+									
 									break;
 								}
 							}
