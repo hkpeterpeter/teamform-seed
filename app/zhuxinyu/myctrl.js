@@ -62,7 +62,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
             var resultList=[];
             for(var i=0;i<$rootScope.events.length;i++){
                
-                if($rootScope.events[i].eventName!=null && $rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
+                if($rootScope.events[i].eventName && $rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
                    
                     resultList.push($rootScope.events[i]);
                 }
@@ -226,9 +226,9 @@ teamapp.directive('eventCard', function($compile) {
                 $('#sideButton2'+$scope.eid).fadeToggle(800);
 
               
-                if($scope.Teams==null){
+                if(!$scope.Teams){
                     $scope.Teams=[];
-                    if($scope.element.allTeams==null){
+                    if(!$scope.element.allTeams){
                         return;
                     }
                     if($scope.element.allTeams.length>0){
@@ -436,7 +436,7 @@ teamapp.directive('teamCard',function(){
                     leaderSkill.$loaded().then(function(data2){
                         console.log(data2)
                         for(var i=0;i<data2.length;i++){
-                            if($scope.map[(""+data2[i].$value).toLowerCase()]!=null){
+                            if($scope.map[(""+data2[i].$value).toLowerCase()]){
                                 $scope.map[(""+data2[i].$value).toLowerCase()]=$scope.map[(""+data2[i].$value).toLowerCase()]+1;
                             }
                         }
@@ -469,10 +469,10 @@ teamapp.directive('teamCard',function(){
                     }
                 }
                 $scope.countMember=function(index){
-                    if($scope.element.membersID==null){
+                    if(!$scope.element.membersID){
                         $scope.element.membersID=[];
                     }
-                    if($scope.element.membersID.length==null){
+                    if(!$scope.element.membersID.length){
 
                         var array = $.map($scope.element.membersID, function(value, index) {
                             return [value];
@@ -487,7 +487,7 @@ teamapp.directive('teamCard',function(){
                        
                             Skill.$loaded().then(function(data){
                             for(var i=0;i<data.length;i++){
-                                if($scope.map[(""+data[i].$value).toLowerCase()]!=null){
+                                if($scope.map[(""+data[i].$value).toLowerCase()]){
                                    
                                     $scope.map[(""+data[i].$value).toLowerCase()]=$scope.map[(""+data[i].$value).toLowerCase()]+1;
                                   
@@ -502,6 +502,10 @@ teamapp.directive('teamCard',function(){
                         var value=[];
                         for(var i=0;i<$scope.list.length;i++){
                             value.push($scope.map[(""+$scope.list[i])]);
+                        }
+                        while (value.length<=2){
+                            $scope.labels.push('auxiliary');
+                            value.push(0);
                         }
                       $scope.data = [
                             value
