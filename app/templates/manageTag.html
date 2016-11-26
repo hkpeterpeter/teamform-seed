@@ -1,3 +1,86 @@
+
+<form>
+	<h3>Manage Tags</h3>
+	<hr>
+	<div class="panel-group" id="accordion">
+	
+		<!--LANGUAGE TAG-->
+	  <div class="panel panel-default">
+			<div class="panel-heading">
+		  	<h2 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="manageTag.html#collapse1">Language</a>
+		  	</h2>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse">
+				<ul class="list-group">
+					<li ng-repeat="(name,value) in languagetags" class="list-group-item"><input type="checkbox" checked="newLanguageTags[name]" ng-disabled = "!modifyLanguageTags" ng-model="newLanguageTags[name]"/> &nbsp;&nbsp;{{name}}
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!--MANNER TAG-->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="manageTag.html#collapse2">Manner</a>
+				</h2>
+			</div>
+			<div id="collapse2" class="panel-collapse collapse">
+				<ul class="list-group">
+					<li ng-repeat="(name,value) in mannertags" class="list-group-item"><input type="checkbox" checked="newMannerTags[name]" ng-disabled = "!modifyMannerTags" ng-model="newMannerTags[name]"/> &nbsp;&nbsp;{{name}}
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!--SKILL TAG-->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="manageTag.html#collapse3">Skill</a>
+				</h2>
+			</div>
+			<div id="collapse3" class="panel-collapse collapse">
+				<ul class="list-group">
+					<li ng-repeat="(name,value) in skilltags" class="list-group-item"><label>{{name}}&nbsp;&nbsp;</label><input type="number" value="newSkillTags[name].value" ng-readonly="!modifySkillTags" ng-model="newSkillTags[name].value">
+						<div ng-if="newSkillTags[name].value > 0">Color:
+							<select name="repeatSelect" id="repeatSelect" ng-model="newSkillTags[name].color">
+									<option ng-repeat="(key, color) in colorList" value="{{color}}">{{color}}</option>
+							</select>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+	</div> <!--panel-group-->
+	
+	<div align="right">
+		<input type="button" value={{editTagsButtonName}} ng-click = "editTags()">
+	</div>
+	
+</form>
+
+
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+<!--
+
+
 <h1>Manage Tags</h1>
 <form>
 	<h3>Skill Tags</h3>
@@ -17,7 +100,7 @@
   <button type = "button" class = "btn btn-primary"  ng-if = "modifySkillTags" ng-click = "changeSkillTags()">Confirm changes</button>
 	<h3>Language Tags</h3>
   <ul ng-repeat="(name,value) in languagetags">
-      <!-- <li ng-if = "!modifyLanguageTags">{{name}} : {{value}}</li> -->
+      
       <li>{{name}} :
       <input type="checkbox" checked="newLanguageTags[name]" ng-disabled = "!modifyLanguageTags" ng-model="newLanguageTags[name]"></li>
   </ul>
@@ -25,7 +108,7 @@
   <button type = "button" class = "btn btn-primary" ng-if = "modifyLanguageTags" ng-click = "changeLanguageTags()">Confirm changes</button>
   <h3>Manner Tags</h3>
   <ul ng-repeat="(name,value) in mannertags">
-      <!-- <li ng-if = "!modifyMannerTags">{{name}} : {{value}}</li> -->
+      
       <li>{{name}} :
       <input type="checkbox" checked="newMannerTags[name]" ng-disabled="!modifyMannerTags"  ng-model = "newMannerTags[name]"></li>
   </ul>
@@ -35,3 +118,5 @@
 
 
 </form>
+
+-->
