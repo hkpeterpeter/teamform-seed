@@ -13,11 +13,11 @@
           <h2>{{eventname}}</h2>
 
           
-        </div>
+        </div> 
 </div>
           </div>
 <br><br><br><br>
-      <h2 align="left">Introduction:</h2>
+      <h2 align="left"> Introduction:</h2>
       <hr>
        <p align="left">{{event.introduction}}</p>
       <br>
@@ -29,7 +29,79 @@
          <br>
              <div align="left">
 
-    <button class="btn btn-default btn-lg" type="button" ng-show = "user"> Create a team</button>
+     <button id="modal-666694" data-target="#modal-container-666694" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "user">Create a team</button>
+    
+                  <div class="modal fade" id="modal-container-666694" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+               
+                         
+                           
+                      
+                            <br>
+
+                            <div class="row filter-bar">
+                 
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Name:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="newteamname"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+                       
+
+                            <div class="row filter-bar">
+                      
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Introduction:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="introduction"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+                           
+
+                             <div class="row filter-bar">
+                         
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Website:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="teamWebsite"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+                          
+                  
+
+                            <div class="row filter-bar">
+                            
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="createteam(newteamname,introduction,teamWebsite)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Create
+                             </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+                           
+
+                           </div>
+                           </div>
+                        </div> 
     <button class="btn btn-default btn-lg" type="button" ng-show = "user" ng-click="quitevent()" ng-><a ng-href="#/"> Quit Event </a></button>
     </div>
 
@@ -42,8 +114,53 @@
 
 
     <h2 class="page-header" ng-hide="user">Team Information
-   
-  
+   <button id="modal-666693" data-target="#modal-container-666693" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Edit</button>
+    <div class="modal fade" id="modal-container-666693" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+               
+                         
+                           
+                      
+                            <br>
+                           
+
+                             <div class="row filter-bar">
+                         
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Website:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="teamWebsite"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+                          
+                  
+
+                            <div class="row filter-bar">
+                            
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editteaminfo(teamWebsite)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Edit
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+                           
+
+                           </div>
+                           </div>
+                        </div> 
 
     </h2>
 
@@ -61,28 +178,124 @@
           <p>{{teamname}}</p>
   
     
-          <p ng-show = "leader"> Edit </p>
+          
 
     
 
-          <p> {{Leader}}</p>
-          <p> Team Website: <a href="hhhh.com">{{team.teamWebsite}}</a></p>
+          <p> Leader: {{Leader}}</p>
+          <p> Team Website: <a href={{team.teamWebsite}}>{{team.teamWebsite}}</a></p>
 
         </div>
 </div>
           </div>
 
 
-      <h2 align="left" ng-hide="user">Introduction</h2>
+      <h2 align="left" ng-hide="user"> Introduction
+           <button id="modal-666692" data-target="#modal-container-666692" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Edit</button>
+    <div class="modal fade" id="modal-container-666692" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+               
+                         
+                           
+                      
+                            <br>
+                           
+
+                             <div class="row filter-bar">
+                         
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Introduction:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="team.introduction"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+                          
+                  
+
+                            <div class="row filter-bar">
+                            
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editteamintro(team.introduction)" value="Reload Page" onClick="document.location.reload(true)"> 
+                                  Edit
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+                           
+
+                           </div>
+                           </div>
+                        </div> 
+      </h2>
 
 
       <hr>
       <p align="left">{{team.introduction}}</p>
       <br>
 
-      <p align="right" ng-show = "leader">edit</p>
 
-      <h2 align="left" ng-hide="user">Skills</h2>
+
+      <h2 align="left" ng-hide="user">Skills
+                   <button id="modal-666691" data-target="#modal-container-666691" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Edit</button>
+    <div class="modal fade" id="modal-container-666691" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+               
+                         
+                           
+                      
+                            <br>
+                           
+
+                             <div class="row filter-bar">
+                         
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Skills:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="teamskills"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+                      
+                  
+
+                            <div class="row filter-bar">
+                            
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editteamskills(teamskills)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Edit
+                              </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+                           
+
+                           </div>
+                           </div>
+                        </div> 
+      </h2>
 
     <hr>
         <h2>
@@ -93,7 +306,7 @@
 
          <br>  <br> </div>
     </div></h2>
-         <p align="right" ng-show = "leader">edit</p>
+     
 
 
           <h2 align="left" ng-hide="user">Team Members
@@ -255,7 +468,7 @@
                               <!--invited button-->
                                 <div class="col-md-9 col-xs-9"></div>
                                 <div class="col-md-3 col-xs-3 ">
-                                <button class="btn btn-primary" ng-click="sendInvitation(newMessage)">
+                                <button class="btn btn-primary" ng-click="sendInvitation(newMessage)"><
                                   Invite
                                 </button>
                               </div>
@@ -285,7 +498,7 @@
        
 
           <div class="table-responsive">
-            <table class="table table-striped" ng-repeat = "(num,members) in memberlist">
+            <table class="table table-striped" ng-repeat = "(num,member) in memberlist">
 
               <tbody>
                 <tr>
