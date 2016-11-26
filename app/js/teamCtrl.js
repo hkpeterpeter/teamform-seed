@@ -400,7 +400,7 @@ app.controller("teamCtrl",
 			console.log($scope.newSkillTags);
 		}
 
-
+		
 		$scope.modifyLanguageTagsChoice = function(){
 			$scope.modifyLanguageTags = !$scope.modifyLanguageTags;
 
@@ -453,6 +453,24 @@ app.controller("teamCtrl",
 				// $scope.initchart();
 
 		}
+		
+		// Aeolian Add Here
+		$scope.editTagsButtonName = "Edit";
+		$scope.editTags = function(){			
+			if($scope.modifyLanguageTags && $scope.modifyMannerTags && $scope.modifySkillTags)	{
+				$scope.changeLanguageTags();
+				$scope.changeMannerTags();
+				$scope.changeSkillTags();
+				$scope.editTagsButtonName = "Edit";
+			}
+			else {
+				$scope.modifyLanguageTagsChoice();
+				$scope.modifyMannerTagsChoice();
+				$scope.modifySkillTagsChoice();
+				$scope.editTagsButtonName = "Save";
+			}
+		};	
+		
 		//get announcements
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/announcements');
 		$scope.announcements = $firebaseArray(ref);
