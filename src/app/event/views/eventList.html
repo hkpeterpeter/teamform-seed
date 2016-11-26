@@ -16,7 +16,10 @@
                 <tbody>
                     <tr ng-repeat="event in $data track by event.$id">
                         <td data-title="'Event Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
-                            <a ui-sref="event.detail({eventId: event.$id})">{{event.data.name}}</a>
+                            <a ui-sref="event.detail({eventId: event.$id})">
+                                <img ng-src="{{event.getImageUrl()}}" class="img-circle img-small">
+                                {{event.data.name}}
+                            </a>
                         </td>
                         <td data-title="'User Joined'" sortable="'getTotalEventUsers()'">
                             {{event.getTotalEventUsers()}}

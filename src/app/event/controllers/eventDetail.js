@@ -1,5 +1,5 @@
 export default class EventDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, eventService, teamService) {
+    constructor($location, $state, $stateParams, $timeout, NgTableParams, eventService, teamService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
@@ -9,6 +9,20 @@ export default class EventDetailCtrl {
         this.event = null;
         this.error = null;
         this.autoTeam = {};
+        this.teamListTableParams = new NgTableParams({
+            page: 1,
+            count: 2
+        }, {
+            counts: [],
+            dataset: []
+        });
+        this.userListTableParams = new NgTableParams({
+            page: 1,
+            count: 2
+        }, {
+            counts: [],
+            dataset: []
+        });
         this.getEvent();
     }
     async getEvent() {
@@ -16,6 +30,22 @@ export default class EventDetailCtrl {
             let event = await this.eventService.getEvent(this.$stateParams.eventId);
             this.$timeout(() => {
                 this.event = event;
+                this.teamListTableParams.settings({
+                    dataset: event.getTeams()
+                });
+                this.userListTableParams.settings({
+                    dataset: event.getEventUsers()
+                });
+                event.$watch(() => {
+                    this.teamListTableParams.settings({
+                        dataset: event.getTeams()
+                    });
+                    this.teamListTableParams.reload();
+                    this.userListTableParams.settings({
+                        dataset: event.getEventUsers()
+                    });
+                    this.userListTableParams.reload();
+                });
             });
         } catch (error) {
             this.$timeout(() => {
@@ -111,6 +141,7 @@ EventDetailCtrl.$inject = [
     '$state',
     '$stateParams',
     '$timeout',
+    'NgTableParams',
     'EventService',
     'TeamService'
 ];

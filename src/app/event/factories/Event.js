@@ -5,6 +5,7 @@ export default class Event {
         this.$firebaseObject = $injector.get('$firebaseObject');
         this.$database = $injector.get('database');
         this.userService = $injector.get('UserService');
+        this.teamService = $injector.get('TeamService');
         this.$id = snap.key;
         this.update(snap);
     }
@@ -12,16 +13,16 @@ export default class Event {
         let oldData = angular.extend({}, this.data);
         this.data = snap.val();
         this._createdByUser = await this.userService.getUser(this.data.createdBy);
-        this._teams = await this.$firebaseArray(this.$database.ref('teams').orderByChild('eventId').equalTo(this.$id)).$loaded();
+        this._teams = (await this.teamService.getTeams()).getInEvent(this.$id);
         this._eventUsers = await this.$firebaseArray(snap.ref.child('users')).$loaded();
         for (let eventUser of this._eventUsers) {
             eventUser.user = await this.userService.getUser(eventUser.id);
             eventUser.hasTeam = false;
             for (let team of this._teams) {
-                if(!team.users) {
+                if(!team.data.users) {
                     continue;
                 }
-                for (let [teamUserKey, teamUser]of Object.entries(team.users)) {
+                for (let [teamUserKey, teamUser]of Object.entries(team.data.users)) {
                     if (eventUser.id == teamUser.id) {
                         eventUser.hasTeam = true;
                         break;
@@ -32,7 +33,13 @@ export default class Event {
                 }
             }
         }
+        if(this.watch) {
+            this.watch();
+        }
         return !angular.equals(this.data, oldData);
+    }
+    $watch(func) {
+        this.watch = func;
     }
     getTotalEventUsers() {
         return (this.getEventUsers() || []).length ;

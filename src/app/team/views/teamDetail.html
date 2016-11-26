@@ -107,6 +107,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="main-box clearfix">
         <div class="main-box-header">
             <h2>Available Position</h2>
         </div>
@@ -138,10 +140,12 @@
                             </td>
                         </tr>
                     </tbody>
-                    <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
                 </table>
             </div>
+            <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
         </div>
+    </div>
+    <div class="main-box clearfix">
         <div class="main-box-header">
             <h2>Team Waiting List</h2>
         </div>
@@ -173,9 +177,9 @@
                             </td>
                         </tr>
                     </tbody>
-                    <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
                 </table>
             </div>
+            <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
         </div>
     </div>
 </div>

@@ -75,7 +75,12 @@ export default class TeamService {
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
-                }
+                },
+                getInEvent: function(id) {
+                    return this.$list.filter((team) => {
+                        return team.data.eventId == id;
+                    });
+                },
             });
             let teams = await teamFirebaseArray(this.$database.ref('teams')).$loaded();
             this.teams = teams;

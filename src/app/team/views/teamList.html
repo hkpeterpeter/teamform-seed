@@ -70,7 +70,10 @@
                             <span class="label label-success" ng-if="!team.data.private">Public</span>
                         </td>
                         <td data-title="'Team Name'" sortable="'data.name'">
-                            <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
+                            <a ui-sref="team.detail({teamId: team.$id})">
+                                <img ng-src="{{team.getImageUrl()}}" class="img-circle img-small">
+                                {{team.data.name}}
+                            </a>
                         </td>
                         <td data-title="'Event Name'" sortable="'getEvent().data.name'">
                             <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>
