@@ -14,10 +14,10 @@
 						<span class="caret" ng-if="(myEvents[eventID] | role)!='admin'"></span>
 					</button>
 					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
-						<li><a class="btn" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team description</a></li>
-						<li><a class="btn" ng-click = "ApplyTeam()" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()">Apply for this team</a></li>
-						<li><a class="btn" ng-click="QuitTeam()" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID">Leave this team</a></li>
-						<li><a class="btn" ng-click="Change_Leader()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change team leader</a></li>
+						<li><a class="btn" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" style="text-align:left">Change team description</a></li>
+						<li><a class="btn" ng-click = "ApplyTeam()" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()" style="text-align:left">Apply for this team</a></li>
+						<li><a class="btn" ng-click="QuitTeam()" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID" style="text-align:left">Leave this team</a></li>
+						<li><a class="btn" ng-click="Change_Leader()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" style="text-align:left">Change team leader</a></li>
 
 					</ul>
 				</div>
