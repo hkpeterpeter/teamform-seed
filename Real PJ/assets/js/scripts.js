@@ -35,10 +35,10 @@ jQuery(document).ready(function() {
     });
     
     $('.registration-form').on('submit', function(e) {
-    	
     	$(this).find('input[type="text"],input[type="password"],textarea').each(function(){
     		if( $(this).val() == "" ) {
     			e.preventDefault();
+                console.log("Hello");
     			$(this).addClass('input-error');
     		}
     		else {
