@@ -42,14 +42,6 @@
 				<div class="row padding">
 					<div class="col-md-4">
 						<button class="btn btn-block btn-primary" style="text-align:left">
-							<i class="icon-building"></i>&nbsp;&nbsp;Company
-						</button>
-					</div>
-					<div class="col-md-8">{{profile_info.company}}</div>
-				</div>
-				<div class="row padding">
-					<div class="col-md-4">
-						<button class="btn btn-block btn-primary" style="text-align:left">
 							<i class="icon-envelope"></i>&nbsp;&nbsp;Email
 						</button>
 					</div>
@@ -63,6 +55,14 @@
 					</div>
 					<div class="col-md-8">{{profile_info.phone}}</div>
 				</div>
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-building"></i>&nbsp;&nbsp;Company
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.company}}</div>
+				</div>				
 				<div class="row padding">
 					<div class="col-md-4">
 						<button class="btn btn-block btn-primary" style="text-align:left">
@@ -94,20 +94,13 @@
 				
 		  	<hr>
 		  	<!--###Content###-->
-		  	<!-- Skill Tags -->
-		  	<div class="thumbnail caption">
-					<button class="btn btn-xs btn-primary">Skill</button>
-					<br>
-					<span ng-repeat="(name, value) in profile_info.tags.SkillTags" >
-						<button class="btn btn-xs btn-default">{{name}} [{{value}}]</button>
-					</span>		
-				</div> <!--thumbnail caption-->
+		  	
 				<!-- Language Tags -->
 				<div class="thumbnail caption">
 					<button class="btn btn-xs btn-primary">Language</button>
 					<br>
 					<span ng-repeat="(name, value) in profile_info.tags.LanguageTags">
-						<button class="btn btn-xs btn-default">{{name}}</button>
+						<button class="btn btn-xs btn-default" ng-if="value==true">{{name}}</button>
 					</span>
 				</div> <!--thumbnail caption-->
 				<!-- Manner Tags -->
@@ -115,9 +108,17 @@
 					<button class="btn btn-xs btn-primary">Manner</button>
 					<br>
 					<span ng-repeat="(name, value) in profile_info.tags.MannerTags">
-						<button class="btn btn-xs btn-default">{{name}}</button>
+						<button class="btn btn-xs btn-default" ng-if="value==true">{{name}}</button>
 					</span>
-					</div> <!--thumbnail caption-->
+				</div> <!--thumbnail caption-->
+				<!-- Skill Tags -->
+				<div class="thumbnail caption">
+					<button class="btn btn-xs btn-primary">Skill</button>
+					<br>
+					<span ng-repeat="(name, value) in profile_info.tags.SkillTags" >
+						<button class="btn btn-xs btn-default">{{name}} [{{value}}]</button>
+					</span>		
+				</div> <!--thumbnail caption-->
 		  </div> <!--caption-->
 		</div> <!--thumbnail-->
 	</div> <!--col-md-8-->

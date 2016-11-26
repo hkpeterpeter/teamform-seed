@@ -20,18 +20,18 @@ app.controller("profileCtrl",
 				console.log("signed out");
 			}
 		});
-		$scope.button_name = "EDIT";
+		$scope.button_name = "Edit";
 		$scope.edit = function(){			
 			if($scope.profile_readOnly) {
 				$scope.profile_readOnly=false;
-				$scope.button_name = "SAVE";
+				$scope.button_name = "Save";
 			}
 			else{
 				$scope.profile_info.$save().then(function(){
 					console.log($scope.profile_info);
 				});
 				$scope.profile_readOnly=true;
-				$scope.button_name = "EDIT";
+				$scope.button_name = "Edit";
 			}
 		};
 		var profile_dialog
