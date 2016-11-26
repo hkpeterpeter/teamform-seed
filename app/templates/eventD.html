@@ -74,6 +74,12 @@
 				    			<span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.SkillTags" ng-if="tagContent.value != 0">
 				    				<button class="btn btn-xs btn-default" ng-style="{backgroundColor:tagContent.color}">{{tagKey}}</button>
 				    			</span>
+				    			<span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.LanguageTags" ng-if="tagContent">
+				    				<button class="btn btn-xs btn-default">{{tagKey}}</button>
+				    			</span>
+				    			<span ng-repeat="(tagKey, tagContent) in eventObj.teams[key].tags.MannerTags" ng-if="tagContent">
+				    				<button class="btn btn-xs btn-default">{{tagKey}}</button>
+				    			</span>
 				    		</div> <!--col-md-3-->				    		
 				    	</div> <!--row-->
 				    	<br>

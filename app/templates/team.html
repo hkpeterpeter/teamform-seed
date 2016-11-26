@@ -121,7 +121,8 @@
 				  <hr>
 				  <!--###Content###-->
 				  <div ng-repeat="x in announcements.slice().reverse()">
-				  	{{x.content}}&nbsp;({{x.timeStamp | DateFormat | date:'yyyy-MM-dd HH:mm' }})
+				  	{{x.content}}
+				  	<span style="color:gray"><small>({{x.timeStamp | DateFormat | date:'yyyy-MM-dd HH:mm' }})</small></span>
 						<button class="btn btn-danger btn-sm" ng-click="deleteAnnouncement(x.$id)" ng-if="isDeletingTeamAnn && (myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="icon-remove-sign"></i></button>
 		      </div>  <!--ng-repeat-->
 				</div> <!--caption-->
