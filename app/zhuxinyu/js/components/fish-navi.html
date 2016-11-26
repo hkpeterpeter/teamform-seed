@@ -5,12 +5,12 @@
     $('.collapsible').collapsible();
     </script>
     <ul class="dropdown-content" id="notifications">
-        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'}">
+        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'} | orderBy:'$index':true">
             <invitation-bar cpic="{{x.imageURL}}" event="{{x.eventName}}" from="{{x.senderName}}" team="{{x.teamName}}" type="{{x.type}}">
                 {{x.content}}
             </invitation-bar>
         </li>
-        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'System'}">
+        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'System'} | orderBy:'$index':true">
             <notify-bar cpic="{{x.imageURL}}" type="{{x.type}}">
                 {{x.content}}
             </notify-bar>
@@ -25,25 +25,19 @@
     </ul>
     <ul class="dropdown-content" id="account">
         <li>
-            <a href="#/profile">
-                <i class="material-icons left">
-                    person
-                </i>
-                Profile
+            <a href="#/home">
+                Home
             </a>
         </li>
         <li>
-            <a href="#/search">
-                <i class="material-icons left">
-                    settings
-                </i>
-                Search
+            <a href="#/eventx">
+                Events
             </a>
         </li>
         <li class="divider">
         </li>
         <li>
-            <a href="#!">
+            <a ng-click="logoutHelper()">
                 Sign Out
             </a>
         </li>
@@ -60,13 +54,19 @@
             </a>
             <ul class="right hide-on-med-and-down">
                 <li>
-                    <a href="#/home">
-                        Home
+                    <a href="#/profile">
+                        <i class="material-icons left">
+                            person
+                        </i>
+                        Profile
                     </a>
                 </li>
                 <li>
-                    <a href="#/eventx">
-                        Events
+                    <a href="#/search">
+                        <i class="material-icons left">
+                            search
+                        </i>
+                        Search
                     </a>
                 </li>
                 <li>
@@ -89,8 +89,6 @@
                     </a>
                 </li>
             </ul>
-
-
             <ul class="side-nav teal" id="mobile-demo">
                 <li>
                     <a style="color:#fff;">
@@ -118,33 +116,27 @@
                         </span>
                     </a>
                 </li>
-
                 <ul id="side_notifications" style="display: none">
-                <li ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'}">
-               
-                <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
-                {{x.content}}
-                </a>
-              
-                </li>
-                <li  ng-repeat="x in allnoti  |  filter:{read:false,type:'System'}">
-              
-                <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
-                {{x.content}}
-                </a>
-             
-                </li>
-                <li class="divider">
-                </li>
-                <li>
-                <div align="center">
-                <a onclick="window.location.href = '#/profile#notification_center'" style="color:#009688; width: 40%;font-size: 12px;"  class="waves-effect waves-light btn white">
-                Show All
-                </a>
-                </div>
-                </li>
+                    <li ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'}">
+                        <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
+                            {{x.content}}
+                        </a>
+                    </li>
+                    <li ng-repeat="x in allnoti  |  filter:{read:false,type:'System'}">
+                        <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
+                            {{x.content}}
+                        </a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                        <div align="center">
+                            <a class="waves-effect waves-light btn white" onclick="window.location.href = '#/profile#notification_center'" style="color:#009688; width: 40%;font-size: 12px;">
+                                Show All
+                            </a>
+                        </div>
+                    </li>
                 </ul>
-
                 <li>
                     <a href="#/profile" style="color:#fff;">
                         My Profile
@@ -155,15 +147,12 @@
                         Search
                     </a>
                 </li>
-               <div align="center">
-    
-                    <a class="waves-effect waves-light btn white" href="#/home" style="color:#009688; width: 50%">
+                <div align="center">
+                    <a class="waves-effect waves-light btn white" href="#/home" style="color:#009688; width: 50%" ng-click="logoutHelper()">
                         Sign Out
                     </a>
-               
-            </div>
+                </div>
             </ul>
-           
         </div>
     </nav>
 </div>

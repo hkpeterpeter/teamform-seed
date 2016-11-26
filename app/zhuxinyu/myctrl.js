@@ -29,9 +29,9 @@ teamapp.factory("allusers", ["$firebaseArray",
 
 teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","allevents", "allusers",function($rootScope,$scope,allteams,allevents,allusers) {
 
-
-   
-    $scope.event = {
+ 
+ 
+     $scope.event = {
         name: "",
         adm: "",
         detail: "Event Detail"
@@ -355,6 +355,14 @@ teamapp.directive("zhuNavi", function() {
         templateUrl: "zhuxinyu/js/components/fish-navi.html",
          controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
             $scope.allnoti=$firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs"));
+             $scope.allnoti.$loaded().then(function(data){
+                for(var i=0;i<data.length;i++){
+                    if(data[i].type!='invitation'){
+                        data[i].type='System';
+                    }
+                    
+                }
+             });
 
             $scope.markRead=function(id){
                 console.log(id);
@@ -402,5 +410,110 @@ teamapp.directive("invitationBar",function(){
         }
     }
 });
+
+teamapp.directive('teamCard',function(){
+    return{
+        restrict:"E",
+        templateUrl:"zhuxinyu/js/components/teamCard/teamCard.html",
+        scope:{
+            teamId:'@'
+        },
+        controller:function($rootScope,$scope,$firebaseObject,$firebaseArray){
+
+                $scope.imageUrl="zhuxinyu/img/load"+Math.ceil(Math.random()*5)+".gif";
+               
+                $scope.element=$firebaseObject(firebase.database().ref("teams").child($scope.teamId));
+                $scope.element.$loaded().then(function(data){
+                    
+                    $scope.list=[];
+                    $scope.map={};
+                    for(var i=0;i<data.desiredSkills.length;i++){
+                        $scope.list.push(data.desiredSkills[i].toLowerCase());
+                        $scope.map[data.desiredSkills[i].toLowerCase()]=0;
+                    }
+
+                    var leaderSkill=$firebaseArray(firebase.database().ref("users").child($scope.element.leaderID).child("skills"));
+                    leaderSkill.$loaded().then(function(data2){
+                        console.log(data2)
+                        for(var i=0;i<data2.length;i++){
+                            if($scope.map[(""+data2[i].$value).toLowerCase()]!=null){
+                                $scope.map[(""+data2[i].$value).toLowerCase()]=$scope.map[(""+data2[i].$value).toLowerCase()]+1;
+                            }
+                        }
+
+                        $scope.countMember(0);
+                    });
+
+
+                   
+                });
+                $scope.goToTeam=function(){
+                    if($scope.invited){
+
+                    }else{
+                        if($rootScope.currentUser.id==$scope.element.leaderID){
+                            //Team leader
+                             $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
+                              window.location.href = '#/teamleader';
+                             return;
+                        }else{
+                            for(var i=0;i<$scope.element.membersID.length;i++){
+                                if($rootScope.currentUser.id==$scope.element.membersID[i]){
+                                   $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
+                                    window.location.href = '#/team';
+
+                                   return
+                                }
+                            }
+                        }
+                    }
+                }
+                $scope.countMember=function(index){
+                    if($scope.element.membersID.length==null){
+
+                        var array = $.map($scope.element.membersID, function(value, index) {
+                            return [value];
+                        });
+                        $scope.element.membersID=array;
+
+                    }
+
+                    if(index<$scope.element.membersID.length){
+                       
+                        var Skill=$firebaseArray(firebase.database().ref("users").child($scope.element.membersID[index]).child("skills"));
+                       
+                            Skill.$loaded().then(function(data){
+                            for(var i=0;i<data.length;i++){
+                                if($scope.map[(""+data[i].$value).toLowerCase()]!=null){
+                                   
+                                    $scope.map[(""+data[i].$value).toLowerCase()]=$scope.map[(""+data[i].$value).toLowerCase()]+1;
+                                  
+                                }
+                            }
+                              $scope.countMember(index+1);
+                        });
+                      
+                    }else{
+                        
+                        $scope.labels=$scope.list;
+                        var value=[];
+                        for(var i=0;i<$scope.list.length;i++){
+                            value.push($scope.map[(""+$scope.list[i])]);
+                        }
+                      $scope.data = [
+                            value
+                   
+                        ];
+                        $scope.imageUrl=$scope.element.imageUrl;    
+                    }
+                }
+
+
+        }
+    }
+
+});
+
+
 
 
