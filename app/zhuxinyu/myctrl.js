@@ -503,6 +503,10 @@ teamapp.directive('teamCard',function(){
                         for(var i=0;i<$scope.list.length;i++){
                             value.push($scope.map[(""+$scope.list[i])]);
                         }
+                        while (value.length<=2){
+                            $scope.labels.push('auxiliary');
+                            value.push(0);
+                        }
                       $scope.data = [
                             value
                    
