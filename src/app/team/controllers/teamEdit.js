@@ -10,6 +10,7 @@ export default class TeamEditCtrl {
         this.teamService = teamService;
         this.team = null;
         this.error = null;
+        this.deleteConfirm = null;
         this.fileUploadStyle = fileUploadStyle;
         this.getTeam();
     }
@@ -38,6 +39,27 @@ export default class TeamEditCtrl {
             this.$timeout(() => {
                 this.loading = false;
                 this.$state.go('team.detail', {teamId: result.key});
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+                this.loading = false;
+            });
+        }
+    }
+    async delete() {
+        if(this.deleteConfirm !== 'YES') {
+            this.$timeout(() => {
+                this.error = new Error('Please type in \'YES\' to confirm.');
+            });
+            return;
+        }
+        this.loading = true;
+        try {
+            let result = await this.teamService.deleteTeam(this.team);
+            this.$timeout(() => {
+                this.loading = false;
+                this.$state.go('home');
             });
         } catch (error) {
             this.$timeout(() => {

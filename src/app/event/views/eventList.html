@@ -24,8 +24,8 @@
                         <td data-title="'Team Joined'" sortable="'getTotalTeams()'">
                             {{event.getTotalTeams()}}
                         </td>
-                        <td data-title="'Created By'" filter="{'getCreatedByUser().name': 'text'}" sortable="'getCreatedByUser().name'">
-                            <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().name}}</a>
+                        <td data-title="'Created By'" filter="{'getCreatedByUser().data.name': 'text'}" sortable="'getCreatedByUser().data.name'">
+                            <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().data.name}}</a>
                         </td>
                         <td data-title="'Created At'" filter="{'data.createdAt': 'text'}" sortable="'data.createdAt'">
                             {{event.data.createdAt | date:'medium'}}

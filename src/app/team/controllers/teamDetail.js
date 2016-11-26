@@ -22,9 +22,9 @@ export default class TeamDetailCtrl {
             });
         }
     }
-    async joinTeam(positionId) {
+    async joinTeam(positionId, message) {
         try {
-            let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId, positionId);
+            let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId, positionId, message);
             this.$timeout(() => {
                 console.log('success');
             });
@@ -82,13 +82,28 @@ export default class TeamDetailCtrl {
             });
         }
     }
+    async cancelRequestTeamPosition(positionId) {
+        try {
+            let teamUsers = await this.teamService.cancelRequestTeamPosition(this.$stateParams.teamId, positionId);
+            this.$timeout(() => {
+                console.log('success');
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
     canManage() {
         let user = this.authService.getUserSync();
         return user && user.uid == this.team.data.createdBy;
     }
     canAccept(positionId) {
+        return this.isMe(this.team.data.users[positionId].id);
+    }
+    isMe(userId) {
         let user = this.authService.getUserSync();
-        return user && user.uid == this.team.data.users[positionId].id;
+        return user && user.uid == userId;
     }
     filterJoined(user) {
         return user.id != null && user.pending !== true && user.confirmed !== false;

@@ -52,6 +52,9 @@ export default class EventService {
         event.createdAt = Date.now();
         return this.$firebaseArray(this.$database.ref('events')).$add(event);
     }
+    deleteEvent(event) {
+        return this.events.$remove(event);
+    }
     editEvent(event) {
         return this.events.$save(event);
     }

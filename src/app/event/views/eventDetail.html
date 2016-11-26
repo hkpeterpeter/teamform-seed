@@ -56,7 +56,7 @@
                                 </tr>
                                 <tr>
                                     <th>Created By</th>
-                                    <td><a ui-sref="user.detail({userId: eventDetail.event.data.createdBy})">{{eventDetail.event.getCreatedByUser().name}}</a></td>
+                                    <td><a ui-sref="user.detail({userId: eventDetail.event.data.createdBy})">{{eventDetail.event.getCreatedByUser().data.name}}</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -123,7 +123,7 @@
                     </thead>
                     <tbody>
                         <tr dir-paginate="eventUser in eventDetail.event.getEventUsers() | itemsPerPage: 5" pagination-id="users">
-                            <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{eventUser.user.name}}</a></td>
+                            <td><a ui-sref="user.detail({userId: eventUser.user.$id})">{{eventUser.user.data.name}}</a></td>
                             <td ng-if="eventUser.hasTeam"><span class="text-success glyphicon glyphicon-ok"></span></td>
                             <td ng-if="!eventUser.hasTeam"><span class="text-danger glyphicon glyphicon-remove"></span></td>
                         </tr>

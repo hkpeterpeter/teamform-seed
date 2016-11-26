@@ -22,11 +22,12 @@ export default class TeamCreateCtrl {
         this.error = null;
         this.selectedEvent = null;
         this.availablieUsers = [];
-        this.setLeader();
-        this.getEvents();
         this.user = {};
         this.skills = require('json!../../../assets/data/skills.json');
+        this.positions = require('json!../../../assets/data/positions.json');
         this.fileUploadStyle = fileUploadStyle;
+        this.setLeader();
+        this.getEvents();
     }
     async upload(file) {
         let imageUrl = await this.Upload.base64DataUrl(file);
@@ -75,6 +76,9 @@ export default class TeamCreateCtrl {
                     user.pending = true;
                     user.accepted = false;
                 }
+                if(!user.role) {
+                    user.role = 'Any';
+                }
                 return user;
             });
             let result = await this.teamService.createTeam(this.team);
@@ -101,7 +105,7 @@ export default class TeamCreateCtrl {
         if (this.selectedEvent) {
             this.$timeout(() => {
                 for (let i = 0; i < this.selectedEvent.data.teamMax; i++) {
-                    this.team.users.push({id: null, role: 'Any', perferredSkills: []});
+                    this.team.users.push({id: null, role: '', perferredSkills: []});
                 }
                 this.team.users = this.team.users.slice(0, this.selectedEvent.data.teamMax);
             });

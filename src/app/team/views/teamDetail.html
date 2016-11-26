@@ -57,7 +57,7 @@
                                 </tr>
                                 <tr>
                                     <th>Created By</th>
-                                    <td><a ui-sref="user.detail({userId: teamDetail.team.data.createdBy})">{{teamDetail.team.getCreatedByUser().name}}</a></td>
+                                    <td><a ui-sref="user.detail({userId: teamDetail.team.data.createdBy})">{{teamDetail.team.getCreatedByUser().data.name}}</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,6 +70,8 @@
     <div class="main-box clearfix">
         <div class="main-box-header">
             <h2>Team Member</h2>
+        </div>
+        <div class="main-box-body clearfix">
             <div class="row">
                 <div ng-repeat="teamUser in teamDetail.team.getTeamUsers() | filter:teamDetail.filterJoined">
                     <div class="col-sm-6 col-md-4">
@@ -89,14 +91,12 @@
                                     <ul class="menu-items">
                                         <li>
                                             <a ui-sref="user.detail({userId: teamUser.id})" class="clearfix">
-                                                <i class="fa fa-address-card fa-lg"></i>
-                                                View Profile
+                                                <i class="fa fa-address-card fa-lg"></i> View Profile
                                             </a>
                                         </li>
                                         <li>
                                             <a ui-sref="message({conversationId: teamUser.id})" class="clearfix">
-                                                <i class="fa fa-envelope fa-lg"></i>
-                                                Message Me
+                                                <i class="fa fa-envelope fa-lg"></i> Message Me
                                             </a>
                                         </li>
                                     </ul>
@@ -107,10 +107,10 @@
                 </div>
             </div>
         </div>
-        <div class="main-box-body clearfix">
-        </div>
         <div class="main-box-header">
             <h2>Available Position</h2>
+        </div>
+        <div class="main-box-body clearfix">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -126,8 +126,15 @@
                             <td>
                                 <span ng-repeat="skill in teamUser.preferredSkills" class="label label-success">{{skill}}</span>
                             </td>
-                            <td>
-                                <button type="button" class="btn btn-xs btn-success" ng-if="!teamDetail.team.data.private" ng-click="teamDetail.joinTeam(teamUser.$id)">Join</button>
+                            <td ng-if="!teamDetail.team.data.private">
+                                <div class="form-group">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" ng-if="!teamDetail.team.data.directJoin" placeholder="Reqeust Message" ng-model="teamUser.message" required>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="button" class="btn btn-xs btn-success" ng-click="teamDetail.joinTeam(teamUser.$id, teamUser.message)">Join</button>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -135,117 +142,40 @@
                 </table>
             </div>
         </div>
+        <div class="main-box-header">
+            <h2>Team Waiting List</h2>
+        </div>
         <div class="main-box-body clearfix">
-        </div>
-    </div>
-
-    <div class="panel panel-warning">
-        <div class="panel-heading">
-            <h4 class="panel-title">Team Member</h4>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Role</th>
-                        <th>Skills</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr dir-paginate="teamUser in teamDetail.team.getTeamUsers() | filter:teamDetail.filterJoined | itemsPerPage: 5">
-                        <td><a ui-sref="user.detail({userId: teamUser.user.id})">{{teamUser.user.data.name}}</a></td>
-                        <td>{{teamUser.role}}</td>
-                        <td>
-                            <span ng-repeat="skill in teamUser.user.data.skills" class="label label-success">{{skill}}</span>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h4 class="panel-title">Available Team Position</h4>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Role</th>
-                        <th>Peferred Skills</th>
-                        <th ng-if="!teamDetail.team.data.private"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr dir-paginate="teamUser in teamDetail.team.getTeamUsers() | filter:teamDetail.filterAvailable | itemsPerPage: 5">
-                        <td>{{teamUser.role}}</td>
-                        <td>
-                            <span ng-repeat="skill in teamUser.preferredSkills" class="label label-success">{{skill}}</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-xs btn-success" ng-if="!teamDetail.team.data.private" ng-click="teamDetail.joinTeam(teamUser.$id)">Join</button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
-    <div class="panel panel-danger">
-        <div class="panel-heading">
-            <h4 class="panel-title">Team Waiting List</h4>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Role</th>
-                        <th>Skills</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr dir-paginate="teamUser in teamDetail.team.getTeamUsers() | filter:teamDetail.filterWaitingList | itemsPerPage: 5">
-                        <td><a ui-sref="user.detail({userId: teamUser.user.id})">{{teamUser.user.name}}</a></td>
-                        <td>{{teamUser.role}}</td>
-                        <td>
-                            <span ng-repeat="skill in teamUser.user.skills" class="label label-success">{{skill}}</span>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.confirmTeamPosition(teamUser.$id)">Accept</button>
-                            <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.rejectConfirmTeamPosition(teamUser.$id)">Reject</button>
-                            <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canAccept(teamUser.$id) && teamUser.accepted === false" ng-click="teamDetail.acceptTeamPosition(teamUser.$id)">Accept</button>
-                            <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canAccept(teamUser.$id) && teamUser.accepted === false" ng-click="teamDetail.rejectAcceptTeamPosition(teamUser.$id)">Reject</button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Skills</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="teamUser in teamDetail.team.getTeamUsers() | filter:teamDetail.filterWaitingList | itemsPerPage: 5">
+                            <td><a ui-sref="user.detail({userId: teamUser.user.$id})">{{teamUser.user.data.name}}</a></td>
+                            <td>{{teamUser.role}}</td>
+                            <td>
+                                <span ng-repeat="skill in teamUser.user.data.skills" class="label label-success">{{skill}}</span>
+                            </td>
+                            <td>
+                                <p ng-if="teamDetail.canManage() || teamDetail.isMe(teamUser.user.$id)">Message: {{teamUser.message}}</p>
+                                <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.isMe(teamUser.user.$id)" ng-click="teamDetail.cancelRequestTeamPosition(teamUser.$id)">Cancel Request</button>
+                                <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.confirmTeamPosition(teamUser.$id)">Accept</button>
+                                <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.rejectConfirmTeamPosition(teamUser.$id)">Reject</button>
+                                <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canAccept(teamUser.$id) && teamUser.accepted === false" ng-click="teamDetail.acceptTeamPosition(teamUser.$id)">Accept</button>
+                                <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canAccept(teamUser.$id) && teamUser.accepted === false" ng-click="teamDetail.rejectAcceptTeamPosition(teamUser.$id)">Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <dir-pagination-controls ng-if="teamDetail.team.getTeamUsers().length" />
+                </table>
+            </div>
         </div>
     </div>
 </div>

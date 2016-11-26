@@ -76,7 +76,7 @@
                             <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>
                         </td>
                         <td data-title="'Created By'" sortable="'data.createdBy'">
-                            <a ui-sref="user.detail({userId: team.data.createdBy})">{{team.getCreatedByUser().name}}</a>
+                            <a ui-sref="user.detail({userId: team.data.createdBy})">{{team.getCreatedByUser().data.name}}</a>
                         </td>
                         <td data-title="'Created At'">
                             {{team.data.createdAt | date:'medium'}}

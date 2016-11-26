@@ -6,6 +6,7 @@ import uiselect from 'ui-select';
 import { ngTable } from 'ng-table';
 import 'bootstrap-switch';
 import angularswitch from 'angular-bootstrap-switch';
+import typeahead from 'angular-ui-bootstrap/src/typeahead';
 
 import routes from './config/routes';
 import alert from '../common/alert';
@@ -21,7 +22,7 @@ import TeamCreateCtrl from './controllers/teamCreate';
 import TeamEditCtrl from './controllers/teamEdit';
 import TeamService from './factories/TeamService';
 
-export default angular.module('team', [uirouter, angularfire, firebase, pagination, uiselect, ngTable.name, 'frapontillo.bootstrap-switch', user, event, message, alert, auth])
+export default angular.module('team', [uirouter, angularfire, firebase, pagination, uiselect, typeahead, ngTable.name, 'frapontillo.bootstrap-switch', user, event, message, alert, auth])
     .config(routes)
     .controller('TeamDetailCtrl', TeamDetailCtrl)
     .controller('TeamListCtrl', TeamListCtrl)

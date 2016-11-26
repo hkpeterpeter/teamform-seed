@@ -63,8 +63,8 @@
                                             <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.user.name}}</ui-select-match>
                                             <ui-select-choices repeat="eventUser.id as eventUser in teamCreate.availablieUsers | filter:$select.search">
                                                 <div>
-                                                    <p>{{eventUser.user.name}}</p>
-                                                    <p>Skills: <span ng-repeat="skill in eventUser.user.skills" class="label label-success">{{skill}}</span></p>
+                                                    <p>{{eventUser.user.data.name}}</p>
+                                                    <p>Skills: <span ng-repeat="skill in eventUser.user.data.skills" class="label label-success">{{skill}}</span></p>
                                                 </div>
                                             </ui-select-choices>
                                             <ui-select-no-choice>
@@ -74,7 +74,7 @@
                                         <input type="text" ng-if="$index == 0" class="form-control" value="{{teamCreate.user.data.name}}" ng-disabled="true" required>
                                     </td>
                                     <td>
-                                        <input type="text" class="form-control" placeholder="Role" ng-model="user.role" ng-disabled="$index == 0" required>
+                                        <input type="text" class="form-control" placeholder="Role" ng-model="user.role" ng-disabled="$index == 0" uib-typeahead="role for role in teamCreate.positions | filter: $viewValue" typeahead-show-hint="true" typeahead-min-length="0" required>
                                     </td>
                                     <td>
                                         <ui-select multiple tagging tagging-label="" ng-model="user.preferredSkills" ng-if="$index > 0" ng-disabled="user.id != null">

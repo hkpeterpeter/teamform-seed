@@ -28,7 +28,7 @@ export default class TeamService {
         }
         return teamUsers;
     }
-    async joinTeam(id, positionId) {
+    async joinTeam(id, positionId, message) {
         let user = await this.authService.getUser();
         let teamJoin = await this.getTeam(id);
         await this.eventService.joinEvent(teamJoin.data.eventId, true);
@@ -50,7 +50,8 @@ export default class TeamService {
                 let newTeamUser = {
                     id: user.uid,
                     role: teamUser.role,
-                    refId: positionId
+                    refId: positionId,
+                    message: message
                 };
                 if (!teamJoin.data.directJoin) {
                     newTeamUser.pending = true;
@@ -81,9 +82,11 @@ export default class TeamService {
         }
         return this.teams;
     }
-    async editTeam(team) {
-        let teams = await this.getTeams();
-        return teams.$save(team);
+    deleteTeam(team) {
+        return this.teams.$remove(team);
+    }
+    editTeam(team) {
+        return this.teams.$save(team);
     }
     async createTeam(team) {
         let user = this.authService.user;
@@ -112,6 +115,7 @@ export default class TeamService {
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.confirmed = null;
+        teamUser.message = null;
         let oldTeamUser = await this.getTeamPositionUser(id, teamUser.refId);
         await oldTeamUser.$remove();
         return teamUser.$save();
@@ -127,6 +131,7 @@ export default class TeamService {
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.accepted = null;
+        teamUser.message = null;
         return teamUser.$save();
     }
     async rejectAcceptTeamPosition(id, positionId) {
@@ -135,6 +140,13 @@ export default class TeamService {
         teamUser.id = null;
         teamUser.pending = null;
         teamUser.accepted = null;
+        teamUser.message = null;
+        return teamUser.$save();
+    }
+    async cancelRequestTeamPosition(id, positionId) {
+        // TODO:: send message
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        await teamUser.$remove();
         return teamUser.$save();
     }
     static instance(...args) {

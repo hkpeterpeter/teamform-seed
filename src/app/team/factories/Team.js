@@ -12,7 +12,7 @@ export default class Team {
     async update(snap) {
         let oldData = angular.extend({}, this.data);
         this.data = snap.val();
-        this._createdByUser = await this.$firebaseObject(this.$database.ref('users/' + this.data.createdBy)).$loaded();
+        this._createdByUser = await this.userService.getUser(this.data.createdBy);
         this._teamUsers = await this.$firebaseArray(snap.ref.child('users')).$loaded();
         this._event = await this.eventService.getEvent(this.data.eventId);
         for (let teamUser of this._teamUsers) {
@@ -39,11 +39,7 @@ export default class Team {
         }, 0);
     }
     getCreatedByUser() {
-        // if(!this._createdByUser) {
-        //     this._createdByUser = await this.$firebaseObject(this.$database.ref('users/'+this.data.createdBy));
-        // }
         return this._createdByUser;
-
     }
     getTeamUsers() {
         return this._teamUsers;
