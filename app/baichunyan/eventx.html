@@ -12,11 +12,11 @@
         </div>
         <div class="container">
             <div class="row center">
-                <button ng-click="createTeam($event, t.teamID);" class="btn waves-effect waves-light btn-large" type="button">{{create_team}}
+                <button ng-show="showTeams" ng-click="flip($event)" class="btn waves-effect waves-light btn-large" type="button">{{create_team}}
                   <i class="material-icons right">send</i>
                 </button>
             </div>
-          </div>
+        </div>
         <div class="parallax"><img src="fish/image/bg.jpg" alt="Unsplashed background img 1" style="display: block;" height="200"></div>
     </div>
 
@@ -26,13 +26,14 @@
         <!--   Collapsible structure -->
         <ul class="collapsible blue-grey darken-2" data-collapsible="expandable">
             <div ng-repeat="t in readyData.team track by t.teamID">
+
                 <li>
-                    <!--       Team Card -->
+                  <team-card team-id="{{t.teamID}}"></team-card>
                     <div class="collapsible-header active blue-grey darken-1 tooltipped" data-position="left" data-delay="0" data-tooltip="I am tooltip" ng-click="showBody(t.teamID);">
 
-                        <div class="card horizontal">
+                        <!-- <div class="card horizontal">
                             <div class="card-image">
-                                <img class="responsive-img" src="{{t.imageUrl}}">
+                                <img class="responsive-img" ng-src="{{t.imageUrl}}">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
@@ -56,16 +57,16 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
 
-                    <div class="collapsible-body-{{t.teamID}}" style="display: none;">
+                    <!-- <div class="collapsible-body-{{t.teamID}}" style="display: none;">
                         <div class="card sticky-action blue-grey darken-1">
                             <div class="card-content white-text">
                                 <span class="card-title activator">Team Leader</span>
                                 <div class="section">
                                     <div class="card horizontal">
                                         <div class="card-image">
-                                            <img src="{{readyData.user[t.leaderID].profilePic}}" height='200'>
+                                            <img ng-src="{{readyData.user[t.leaderID].profilePic}}" height='200'>
 
                                         </div>
                                         <div class="card-stacked">
@@ -94,7 +95,7 @@
                                         <div class="col s6" ng-repeat="memberID in t.membersID track by $index">
                                             <div class="card horizontal">
                                                 <div class="card-image">
-                                                    <img src="{{readyData.user[memberID].profilePic}}" height='200'>
+                                                    <img ng-src="{{readyData.user[memberID].profilePic}}" height='200'>
                                                 </div>
                                                 <div class="card-stacked">
                                                     <div class="card-content">
@@ -114,14 +115,26 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </li>
             </div>
         </ul>
     </div>
-<team-form ng-show="showTeamForm"></team-form>
-
-
+    <team-form ng-show="showTeamForm"></team-form>
+    <div ng-show="showTeamForm" class="container">
+        <div class="row center">
+            <a class="waves-effect waves-light btn" ng-click="createTeam($event);">
+                <i class="material-icons left">
+            add
+        </i> Submit
+            </a>
+            <a class="waves-effect waves-light btn blue-grey lighten-2" ng-click="flip($event)">
+                <i class="material-icons left">
+            not_interested
+        </i> Cancel
+            </a>
+        </div>
+    </div>
     <script type="text/javascript">
         var $toastContent = $('<span>You can click on each team for more details</span>');
         Materialize.toast($toastContent, 8000);
