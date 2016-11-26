@@ -155,5 +155,36 @@ describe('Test admin.js', function() {
 		var member = {weight: 10};
 		expect($scope.hasTeam(member)).toEqual(false);
 	});
+	
+	it("test willEnableSmartAssignment false", function() {
+		$scope.member = [
+			{$id: "member1", inTeam: "Team1"},
+			{$id: "member3", inTeam: "Team2"},
+			{$id: "member2", inTeam: "Team3"}
+		]
+		expect($scope.willEnableSmartAssignment()).toEqual(false);
+		
+
+		$scope.member = [{$id: "member1", inTeam: "Team1"}];
+		expect($scope.willEnableSmartAssignment()).toEqual(false);
+	});
+	
+	it("test willEnableSmartAssignment true", function() {
+		$scope.member = [
+			{$id: "member1", inTeam: "Team1"},
+			{$id: "member3"}];
+		expect($scope.willEnableSmartAssignment()).toEqual(true);
+	});
+	
+	it("test getTotalWeight", function() {
+		$scope.member = [
+			{$id: "member1", weight: 5},
+			{$id: "member3", weight: 12}];
+		var team = ["member1", "member3"];
+		expect($scope.getTotalWeight(team)).toEqual(17);
+		
+		team = ["member_not_exist"];
+		expect($scope.getTotalWeight(team)).toEqual(0);
+	});
 
 });

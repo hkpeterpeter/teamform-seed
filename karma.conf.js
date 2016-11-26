@@ -23,6 +23,8 @@ module.exports = function(config) {
 		 'js/team.js' : ['coverage'],
 		 'js/member.js' : ['coverage'],
 		 'js/abilitytest.js' : ['coverage'],
+		 'js/taglist.js' : ['coverage'],
+		 'js/profile.js' : ['coverage'],
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
@@ -33,7 +35,7 @@ module.exports = function(config) {
 	port: 8080,
 	colors: true,
     browsers: ['Chrome'],
-	singleRun: true,
+	singleRun: false,
     plugins: [
       'karma-chrome-launcher',      
       'karma-jasmine',

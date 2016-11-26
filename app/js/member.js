@@ -160,6 +160,18 @@ angular.module('teamform-member-app', ['firebase'])
 			ref.update({teamMembers: data.teamMembers});
 		});
 	};
+	
+	$scope.askForConfirm = function(confirmCallback, param) {
+		document.getElementById('confirm').style.display='block';
+		$('#confirm').one('click', '#delete', function (e) {
+				confirmCallback(param);
+				console.log("Confirmed ");
+				document.getElementById('confirm').style.display='none';
+			}).one('click', '#cancel', function(e) {
+				console.log("Cancel");
+				document.getElementById('confirm').style.display='none';
+			});
+	}
 
 	$scope.saveFunc = function() {
 		$scope.userInfo = $firebaseObject(firebase.database().ref().child("user").child($scope.uid));
@@ -218,6 +230,7 @@ angular.module('teamform-member-app', ['firebase'])
 			}
 		}
 		console.log("index: ", index);
+		/*
 		var x;
 		x = confirm("Are you sure?");
 		if (x){
@@ -237,6 +250,23 @@ angular.module('teamform-member-app', ['firebase'])
 				});
 			}
 		}
+		*/
+		//check if the team is full, if yes, tell the user
+		if($scope.teams[index].teamMembers.length >= $scope.teams[index].size){
+			window.alert("Team " + teamName + " is full!");
+			$scope.token = "TeamFull";
+			return;
+		}
+		//if no, add the user to the team
+		else {
+			$scope.token = "TeamAvailable";
+			var refPath = $scope.eventName + "/team/" + teamName;
+			$scope.teamMember = $firebaseObject(firebase.database().ref(refPath));
+			$scope.teamMember.$loaded(function(data){
+				$scope.acceptInvCallback(data);
+			});
+		}
+		
 	};
 
 	$scope.acceptInvCallback = function(data) {
@@ -263,7 +293,7 @@ angular.module('teamform-member-app', ['firebase'])
 		var refPath1 = $scope.eventName + "/member/" + $scope.uid + "/invitedBy";
 		var ref1 = firebase.database().ref(refPath1);
 		ref1.remove();
-		window.alert("Invitation accepted!");
+		//window.alert("Invitation accepted!");
 		$scope.token = "TeamJoined";
 		// update inTeam
 		var refPath2 = $scope.eventName + "/member/" + $scope.uid;
@@ -272,10 +302,10 @@ angular.module('teamform-member-app', ['firebase'])
 			invitedBy: [],
 			inTeam: $scope.team.$id
 		});
-		reload();
 	};
 
 	$scope.declineInv = function(teamName){
+		/*
 		var x;
 		x = confirm("Are you sure?");
 		if (x){
@@ -288,7 +318,16 @@ angular.module('teamform-member-app', ['firebase'])
 					invitedBy: $scope.memberInfo.invitedBy
 				});
 		}}
-
+		*/
+		var index = $scope.memberInfo.invitedBy.indexOf(teamName)
+		if(index>-1) {
+			$scope.memberInfo.invitedBy.splice(index,1);
+			var refPath = $scope.eventName + "/member/" + $scope.memberInfo.$id;
+			var ref = firebase.database().ref(refPath);
+			ref.update({
+				invitedBy: $scope.memberInfo.invitedBy
+			});
+		}
 	};
 	$scope.refreshTeams(); // call to refresh teams...
 }])

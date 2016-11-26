@@ -81,7 +81,7 @@
           <div class="col-md-2 col-xs-2"></div>   
           	<div class="col-md-8 col-xs-8 text-left panel">  
 				<h3>All teams:</h3>
-           		<table class="table table-striped">
+           		<table class="table">
 		           	<thead>
 		           		<tr>
 		           			<td>Team name</td>
@@ -93,8 +93,8 @@
 		           	  <tr>
 		           	    <td>
 		           	      <p>
-		           	        <button class="butto btn-info" ng-if="t.expanded" ng-click="t.expanded = false">-</button>
-		           	        <button class="butto btn-info" ng-if="!t.expanded" ng-click="t.expanded = true">+</button>
+		           	        <button class="btn btn-info" ng-if="t.expanded" ng-click="t.expanded = false">-</button>
+		           	        <button class="btn btn-info" ng-if="!t.expanded" ng-click="t.expanded = true">+</button>
 		           	        {{t.$id}}
 		           	      </p>
 		           	    </td>
@@ -116,8 +116,8 @@
 						<tr>
 							<td colspan="3">
 								<p>
-									<input class="butto btn-info" type="submit" value="-" ng-if="expanded" ng-click="setExpanded()"></input>
-									<input class="butto btn-info" type="submit" value="+" ng-if="!expanded" ng-click="setExpanded()"></input>
+									<input class="btn btn-info" type="submit" value="-" ng-if="expanded" ng-click="setExpanded()"></input>
+									<input class="btn btn-info" type="submit" value="+" ng-if="!expanded" ng-click="setExpanded()"></input>
 									Users with no team
 								</p>
 							</td>

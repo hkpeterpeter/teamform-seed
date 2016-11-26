@@ -23,14 +23,34 @@ angular.module('teamform-taglist-app', ['firebase'])
 	$scope.alreadyTaken = [];
 	
 	$scope.loadCallback = function() {
+		$scope.memberInfo = $firebaseObject(firebase.database().ref("user/" + $scope.userId));
+		$scope.memberInfo.$loaded(function(data) {
+			if(data.ability === undefined || data.ability.length < 1) return;
+			angular.forEach(data.ability, function(ability, abilityName) {
+				var info = {};
+				info.abilityName = abilityName;
+				info.takenAt = ability.takenAt;
+				$scope.alreadyTaken.push(info);
+			});
+		});
+	};
+	
+	$scope.canTake = function(quizName) {
+		// no this quiz
+		if($scope.getCorrespondQuizLink(quizName) === undefined) return false;
 		
+		// check whether the user has already taken this quiz within 30 days
+		for(var idx = 0; idx < $scope.alreadyTaken.length; idx++) {
+			console.log("Enter2", $scope.alreadyTaken[idx]);
+			if($scope.alreadyTaken[idx].abilityName.toLowerCase() == quizName.toLowerCase()) {
+				console.log("Enter");
+				return $scope.alreadyTaken[idx].takenAt + 86400 * 30 < new Date().getTime()/1000;
+			}
+		}
+		return true;
 	};
 	
 	$scope.categorys = $firebaseArray(firebase.database().ref("newTags"));
-	$scope.categorys.$loaded(function(data) {
-		console.log($scope.categorys);
-	});
-	
 	$scope.quizList = $firebaseArray(firebase.database().ref("quiz"));
 	
 	

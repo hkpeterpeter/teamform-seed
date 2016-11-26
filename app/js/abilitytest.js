@@ -1,15 +1,13 @@
 $(document).ready(function(){
 
 	$('#abilitytest_page_controller').hide();
-	$('#text_event_name').text("Error: Invalid event name ");
 	var testName = getURLParameter("u");
 	$('#ability_test_name').text("Ability Test: " + testName);
-	$('#abilitytest_page_controller').show();
 });
 
 angular.module('ability-test-app', ['firebase'])
-.controller('AbilityTestCtrl', ['$scope', '$firebaseObject', '$firebaseArray',
-	function($scope, $firebaseObject, $firebaseArray) {
+.controller('AbilityTestCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$timeout',
+	function($scope, $firebaseObject, $firebaseArray,$timeout) {
 
 	firebase.auth().onAuthStateChanged(function(firebaseUser) {
 		if(firebaseUser) {
@@ -18,25 +16,36 @@ angular.module('ability-test-app', ['firebase'])
 		}
 	});
 
-	var quizPath = "quiz/" + getURLParameter("u");
-    $scope.quiz = [];
-  	$scope.quiz = $firebaseArray(firebase.database().ref(quizPath));
-
   	$scope.finished = false;
 	$scope.param = {
 		"answer" : []
 	};
 
-	$scope.addanswer = function(option){
-		console.log("Addanswer: ", option);
-		$scope.param.answer.push(option);
-	};
-
 	$scope.modelAnswer = [];
+	$scope.correctForQuestion = [];
+	$scope.counter = 100;
+	$scope.textCounter = "";
+
+	var quizPath = "quiz/" + getURLParameter("u");
+    $scope.quiz = [];
+  	$scope.quiz = $firebaseArray(firebase.database().ref(quizPath));
 
 	$scope.quiz.$loaded(function(list) {
 		$scope.loadModelAnswer(list);
+		$scope.counter = list.length * 60;
+		$('#abilitytest_page_controller').show();
+		$timeout($scope.onTimeout, 1000);
 	});
+
+	$scope.addanswer = function(option){
+		for(var idx = 0; idx < $scope.param.answer.length; idx++) {
+			if($scope.param.answer[idx].questionId == option.questionId) {
+				$scope.param.answer[idx] = option;
+				return;
+			}
+		}
+		$scope.param.answer.push(option);
+	};
 
 	$scope.loadModelAnswer = function(quizList) {
 		for (var i = 0; i < $scope.quiz.length; i++){
@@ -47,8 +56,6 @@ angular.module('ability-test-app', ['firebase'])
 		}
 		console.log("Model ans: ", $scope.modelAnswer);
 	};
-
-	$scope.correctForQuestion = [];
 	
 	$scope.isCorrect = function(qid) {
 		for(var idx = 0; idx < $scope.correctForQuestion.length; idx++) {
@@ -77,5 +84,15 @@ angular.module('ability-test-app', ['firebase'])
 		var ref = firebase.database().ref(refPath);
 		ref.update({marks: mark, takenAt: Math.floor(new Date().getTime()/1000)})
 	};
+	
+	$scope.onTimeout = function(){
+		$scope.counter--;
+		$scope.textCounter = Math.floor($scope.counter / 60) + ":" + ($scope.counter % 60);
+		if($scope.counter == 0) {
+			$scope.submitFunc();
+			return;
+		}
+		$timeout($scope.onTimeout, 1000);
+	}
 
 }]);
