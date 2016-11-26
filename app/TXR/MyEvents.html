@@ -169,7 +169,7 @@
                                         </div>
                                         <div class="media-body">
                                           <h4 class="media-heading">{{content.name}}</h4>
-                                          {{content.description}}
+                                          {{content.introduction}}
                                         </div>
 
                                         <div class="media-right">
@@ -210,7 +210,7 @@
                                           </div>
                                           <div class="media-body">
                                             <h4 class="media-heading">{{content.name}}</h4>
-                                            {{content.description}}
+                                            {{content.introduction}}
                                           </div>
 
                                           <div class="media-right">
@@ -295,7 +295,7 @@
                   </td>
                   <td style="font-size: 30px"><a href="#">{{member}}</a></td>
                  <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)"> Delete</button>
                   </td>
                 </tr>
                  <!--<tr>
@@ -324,24 +324,46 @@
           </div>
           </div>
         <div class="col-lg-6" id="suggestion">
-        <h2>Suggested Users</h2>
+        
        
 
-          <div class="table-responsive">
-            <table class="table table-striped">
-
+          <div class="table-responsive" ng-controller = "clickCtrl">
+            
+            
+            <h2>suggested teams (temporary)</h2>
+            <table class="table table-striped" ng-repeat = "(num, team_content) in suggested_teams">
+                          
               <tbody>
                 <tr>
-                  <td style="font-size: 30px">1</td>
+                  <td style="font-size: 30px">{{num+1}}</td>
                   <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/mijung.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                      <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
                   </td>
-                  <td style="font-size: 30px"><a href="#">Mijung</a></td>
+                  <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
+                 <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button>
+                  </td>
+                </tr>
+            
+              </tbody>
+            </table>
+            
+            <h2>Suggested Users</h2>
+            <table class="table table-striped" ng-repeat = "(num, suggested_users) in suggested">
+              
+              
+              <tbody>
+                <tr>
+                  <td style="font-size: 30px">{{num+1}}</td>
+                  <td>
+                      <img src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">{{suggested_users["name"]}}</a></td>
                  <td>
                       <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
                   </td>
                 </tr>
-                 <tr>
+                 <!--tr>
                   <td style="font-size: 30px">2</td>
                   <td>
                       <img src="https://course.cse.ust.hk/comp3111/images/shiheng.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
@@ -360,7 +382,7 @@
                       <td>
                       <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
                   </td>
-                </tr>
+                </tr-->
        
               </tbody>
             </table>
