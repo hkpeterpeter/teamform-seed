@@ -682,7 +682,7 @@ $scope.filterByStatus = function(items, filter_model) {
 
 														}
 												});
-												console.log(lt_matching_list);
+												// console.log(lt_matching_list);
 									// 							console.log(userstvalues);
 									// console.log(value);
 												//  console.log(userstvalues);
