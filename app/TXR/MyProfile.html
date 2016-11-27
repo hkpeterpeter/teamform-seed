@@ -198,8 +198,62 @@
         <hr>
       <div align="left">
     <div class="hero-unit">
-    <span class="label label-warning" ng-repeat = "skill in skills">{{skill}}<span class="glyphicon glyphicon-remove"></span></span>
+    <span class="label label-warning" ng-repeat = "skill in skills">{{skill}}<span class="glyphicon glyphicon-remove" ng-click=></span></span>
          <br></h2>
+<br><br><br>
+
+   <h2 align="left">
+       <button id="modal-666686" data-target="#modal-container-666686" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal"> Join Event </button>
+    <div class="modal fade" id="modal-container-666686" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Event you want to join:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="event"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="joinevent(event)"  value="Reload Page" onClick="document.location.reload(true)">
+                                  Join
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+
+        <hr>
+  </h2>
 
     </div></div>
     </div>

@@ -123,6 +123,9 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
           }
           eventlist.$save();
      }
+     $scope.deletetag = function(skill){
+       eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"].splice(i,1);
+     }
 
 
 
@@ -635,6 +638,7 @@ app.controller("clickCtrl",
 app.controller("profileController",function($scope,$firebaseArray,$firebaseObject,$cookies,$window){
 
        var userlist = $firebaseObject(firebase.database().ref("userList"));
+       var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        var storageRef = firebase.storage().ref();
         $scope.thisuser = $cookies.get("username",{path:"/"});
        userlist.$loaded(function() {
@@ -642,7 +646,7 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
        $scope.personalWebsite = userlist[$scope.thisuser]["personalWebsite"];
       $scope.introduction = userlist[$scope.thisuser]["introduction"];
       $scope.skills = userlist[$scope.thisuser]["skills"];
-
+ $scope.oooo= userlist[$scope.thisuser]["Membership"];
 
 
      //  team="L1";
@@ -675,8 +679,26 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       userlist.$save();
 
     }
+    $scope.joinevent = function(event){
+      $scope.newevent = {
+          "identity": "user",
+          "teamName": "Null"
+        }
+
+      userlist[$scope.thisuser]["Membership"][event]=$scope.newevent;
+      userlist.$save();
+      eventlist.$loaded(function() {
+        $scope.length=eventlist[event]["inEventUser"].length;
+            eventlist[event]["inEventUser"][$scope.length]=$scope.thisuser;
+      eventlist.$save();
+      })
 
 
+    
+    }
+
+
+    
       var storageRef = firebase.storage().ref()
       userlist.$loaded().then(function(){
 
