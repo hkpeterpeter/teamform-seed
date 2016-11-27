@@ -66,6 +66,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       var team;
        var thisuser = $cookies.get("username",{path:"/"});
        $scope.thisuser=thisuser;
+       
        var userlist = $firebaseObject(firebase.database().ref("userList"));
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        userlist.$loaded(function() {
@@ -74,9 +75,10 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        $scope.member = angular.equals($scope.identity, 'member');
        $scope.user = angular.equals($scope.identity, 'user');
        $scope.teamname = userlist[thisuser]["Membership"][$scope.eventname]["teamName"];
-
+       $scope.thisusername = userlist[thisuser]["name"];
      //  team="L1";
        })
+      $scope.quitteammsg= $scope.thisusername+" has left your team "+ $scope.teamname +" in "+ $scope.eventname;
 
       eventlist.$loaded(function(){
        $scope.event = eventlist[$scope.eventname];
