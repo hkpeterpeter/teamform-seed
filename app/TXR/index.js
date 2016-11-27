@@ -172,13 +172,50 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
     }
 
 
-      // $scope.getimg=function(num,member){
-      //   var photo;
-      //   userlist.$loaded(function() {
-      //     photo=userlist[member]["Img"];
-      //  })
-      //       return photo;
-      // }
+      var storageRef = firebase.storage().ref()
+      eventlist.$loaded(function(){
+        
+        var avaFilenameevent = eventlist[$scope.eventname]["img"];
+   
+        var eventavaRef = storageRef.child('event/'+avaFilenameevent);
+  
+        eventavaRef.getMetadata().then(function(metadata){
+          $scope.eventavaUrl = metadata.downloadURLs[0];
+
+					$scope.$apply();
+        });
+
+      });
+      eventlist.$loaded(function(){
+        
+       
+        var avaFilenameteam = eventlist[$scope.eventname]["teamList"][$scope.teamname]["img"];
+        
+        var teamavaRef = storageRef.child('team/'+$scope.eventname+'/'+avaFilenameteam);
+
+       teamavaRef.getMetadata().then(function(metadata){
+          $scope.teamavaUrl = metadata.downloadURLs[0];
+
+				$scope.$apply();
+       });
+      });
+
+      $scope.getmemberphoto= function(member){
+       userlist.$loaded().then(function(){
+        
+        var avaFilenamemember = userlist[member]["img"];
+
+        var memberavaRef = storageRef.child('user/'+avaFilenamemember);
+    
+        memberavaRef.getMetadata().then(function(metadata){
+          var memberavaUrl = metadata.downloadURLs[0];
+
+					$scope.$apply();
+        });
+
+      });
+      return memberavaUrl;
+      }
 
 
 
@@ -505,6 +542,19 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       userlist.$save();
 
     }
+
+
+      var storageRef = firebase.storage().ref()
+      userlist.$loaded().then(function(){
+        
+        var avaFilename = userlist[$scope.thisuser]["img"];
+        var avaRef = storageRef.child('user/'+avaFilename);
+        avaRef.getMetadata().then(function(metadata){
+          $scope.avaUrl = metadata.downloadURLs[0];
+					// console.log($scope.avaUrl);
+					$scope.$apply();
+        });
+      });
 
 }
 );
