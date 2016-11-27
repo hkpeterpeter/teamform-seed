@@ -30,6 +30,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'main2.html'
         })
 
+.state('eventjoin', {
+            url: '/eventjoin',
+            templateUrl: 'joinevent.html',
+            controller: 'eventjoin'
+            })
+
+
          .state('personal', {
             url: '/personal',
             templateUrl: 'personal_page.html',
@@ -75,8 +82,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         .state('Eventjoin', {
             url: '/eventjoin',
-            templateUrl: 'joinevent.html',
-            authRequired: true,
+            templateUrl: 'main.html',
             controller: 'eventjoin'
             })
 
