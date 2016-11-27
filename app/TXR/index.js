@@ -256,7 +256,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 });
 
 app.controller("NotificationController", function($scope, $firebaseObject, $firebaseArray, $cookies){
-
+    $scope.data="a";
     $scope.user=$cookies.get("username",{path:"/"});
     $scope.photolist = {};
     var userlist = $firebaseObject(firebase.database().ref("userList"));
@@ -271,11 +271,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
     }
 
     $scope.addnotification = function(sender,msg){
-        for(var i=0; i<$scope.notification.length(); i++){
-          if($scope.notification[i].name==sender){
-            $scope.deletenotification(sender);
-          }
-        }
+        $scope.deletenotification(sender);
         userlist[$scope.user]["notification"][sender]={
           "message":msg,
           "name":sender
