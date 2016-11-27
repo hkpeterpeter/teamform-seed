@@ -1,6 +1,6 @@
 app.config(function($stateProvider, $urlRouterProvider) {
  
-    $urlRouterProvider.otherwise('/index');
+    $urlRouterProvider.otherwise('/main');
     $stateProvider
         
         // HOME STATES AND NESTED VIEWS ========================================
@@ -26,8 +26,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
         })
 
 .state('main', {
-            url: '/index',
-            templateUrl: 'mainfortest.html'
+            url: '/main',
+            templateUrl: 'main2.html'
         })
 
          .state('personal', {
