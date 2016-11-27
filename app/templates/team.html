@@ -35,8 +35,8 @@
 
 		<!--###############Members###############-->
 
-		<div class="col-md-3">
-			<div class="thumbnail">
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
 				<div class="caption">
 					<!--###Title###-->
 				  <h4><i class="icon-star-empty"></i>&nbsp;&nbsp;Members</h4>
@@ -62,8 +62,8 @@
 
 		<!--###############Tags###############-->
 
-		<div class="col-md-5">
-			<div class="thumbnail">
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
 				<div class="caption">
 					<!--###Title###-->
 					<h4><i class="icon-tag"></i>&nbsp;&nbsp;Tags</h4>
@@ -103,7 +103,7 @@
 		<!--###############Announcement###############-->
 
 		<div class="col-md-4">
-			<div class="thumbnail">
+			<div class="thumbnail fix-height-600">
 				<div class="caption">
 					<!--###Title###-->
 				  <h4><i class="icon-bullhorn"></i>&nbsp;&nbsp;Announcement</h4>
@@ -128,6 +128,105 @@
 		</div> <!--col-md-4-->
 
 	</div> <!--row-->
+
+	<hr>
+
+	<div class="row" ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
+
+		  <!--###############Recommendation###############-->
+		  
+		  <div class="col-md-4">
+		    <div class="thumbnail fix-height-600">
+		      <div class="caption">
+						<!--###Title###-->
+		        <h4><i class="icon-thumbs-up"></i>&nbsp;&nbsp;Recommendation</h4>
+		        <p>Recommend TBAs that fit your team</p>
+		        <button class="btn btn-danger" ng-click="recommend()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Recommend">
+							<i class="icon-thumbs-up"></i>&nbsp;&nbsp;Let's GO!
+						</button>
+						<hr>
+		        <!--###Content###-->
+		          <div class="row" ng-repeat="(uid, score) in tba_featurelist">
+		            <div class="col-md-9">
+		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
+										{{users.$getRecord(uid).readOnly.name}} [{{score}}]
+		              </a>
+		            </div>
+		            <button class="btn btn-danger btn-sm" ng-click="invite(uid)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(uid)" data-toggle="tooltip" data-placement="bottom" title="Invite">
+		              <i class="icon-leaf"></i>
+		            </button>
+		          </div>
+		      </div>
+		    </div>
+		  </div>
+		  
+		<!--###############Applications###############-->
+
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4><i class="icon-coffee"></i>&nbsp;&nbsp;Applications</h4>
+				  <p>Accept or decline?</p>
+				  <form name="myForm">
+						<button class="btn btn-danger">
+							<i class="icon-filter"></i>
+			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_appli">
+			            <option value = "all">All applications</option>
+			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+			        </select>
+		        </button>
+		    	</form>
+				  <hr>
+				  <!--###Content###-->
+				    <div class="row" ng-repeat="(uid,status) in filterByStatus(applications,search_model_appli)">
+							<div class="col-md-8">
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
+				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
+				      	</a>
+				      </div>
+							<button class="btn btn-danger btn-sm" ng-click="accept_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Accept the application">
+								<i class="icon-ok-sign"></i>
+							</button>
+							<button class="btn btn-danger btn-sm" ng-click="decline_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Decline the application">
+								<i class="icon-remove-sign"></i>
+							</button>
+						</div> <!--row ng-repeat-->
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-4-->
+
+		<!--###############Invitations###############-->
+
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4><i class="icon-leaf"></i>&nbsp;&nbsp;Invitations</h4>
+				  <p>Accepted or declined?</p>
+				  <form name="myForm">
+						<button class="btn btn-danger">
+							<i class="icon-filter"></i>
+			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_invi">
+			            <option value = "all">All invitations</option>
+			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+			        </select>
+		        </button>
+		    	</form>
+				  <hr>
+				  <!--###Content###-->
+				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model_invi)">
+							<div class="col-md-10">
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
+				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
+				      	</a>
+				      </div>
+						</div> <!--row ng-repeat-->
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-4-->
+		
+</div> <!--col-md-12-->
 
 	<hr>
 
@@ -199,104 +298,6 @@
 
   </div> <!--row-->
 
-	<hr>
-
-	<div class="row" ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
-
-		  <!--###############Recommendation###############-->
-		  
-		  <div class="col-md-4">
-		    <div class="thumbnail">
-		      <div class="caption">
-						<!--###Title###-->
-		        <h4><i class="icon-thumbs-up"></i>&nbsp;&nbsp;Recommendation</h4>
-		        <p>Recommend TBAs that fit your team</p>
-		        <button class="btn btn-danger" ng-click="recommend()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Recommend">
-							<i class="icon-thumbs-up"></i>&nbsp;&nbsp;Let's GO!
-						</button>
-						<hr>
-		        <!--###Content###-->
-		          <div class="row" ng-repeat="(uid, score) in tba_featurelist">
-		            <div class="col-md-9">
-		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
-										{{users.$getRecord(uid).readOnly.name}} [{{score}}]
-		              </a>
-		            </div>
-		            <button class="btn btn-danger btn-sm" ng-click="invite(uid)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(uid)" data-toggle="tooltip" data-placement="bottom" title="Invite">
-		              <i class="icon-leaf"></i>
-		            </button>
-		          </div>
-		      </div>
-		    </div>
-		  </div>
-		  
-		<!--###############Applications###############-->
-
-		<div class="col-md-4">
-			<div class="thumbnail">
-				<div class="caption">
-					<!--###Title###-->
-				  <h4><i class="icon-coffee"></i>&nbsp;&nbsp;Applications</h4>
-				  <p>Accept or decline?</p>
-				  <form name="myForm">
-						<button class="btn btn-danger">
-							<i class="icon-filter"></i>
-			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_appli">
-			            <option value = "all">All applications</option>
-			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
-			        </select>
-		        </button>
-		    	</form>
-				  <hr>
-				  <!--###Content###-->
-				    <div class="row" ng-repeat="(uid,status) in filterByStatus(applications,search_model_appli)">
-							<div class="col-md-8">
-								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
-				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
-				      	</a>
-				      </div>
-							<button class="btn btn-danger btn-sm" ng-click="accept_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Accept the application">
-								<i class="icon-ok-sign"></i>
-							</button>
-							<button class="btn btn-danger btn-sm" ng-click="decline_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Decline the application">
-								<i class="icon-remove-sign"></i>
-							</button>
-						</div> <!--row ng-repeat-->
-				</div> <!--caption-->
-			</div> <!--thumbnail-->
-		</div> <!--col-md-4-->
-
-		<!--###############Invitations###############-->
-
-		<div class="col-md-4">
-			<div class="thumbnail">
-				<div class="caption">
-					<!--###Title###-->
-				  <h4><i class="icon-leaf"></i>&nbsp;&nbsp;Invitations</h4>
-				  <p>Accepted or declined?</p>
-				  <form name="myForm">
-						<button class="btn btn-danger">
-							<i class="icon-filter"></i>
-			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_invi">
-			            <option value = "all">All invitations</option>
-			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
-			        </select>
-		        </button>
-		    	</form>
-				  <hr>
-				  <!--###Content###-->
-				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model_invi)">
-							<div class="col-md-10">
-								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
-				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
-				      	</a>
-				      </div>
-						</div> <!--row ng-repeat-->
-				</div> <!--caption-->
-			</div> <!--thumbnail-->
-		</div> <!--col-md-4-->
-		
-</div> <!--col-md-12-->
 </div> <!--container-->
 
 
