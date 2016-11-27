@@ -48,9 +48,9 @@
 <section id="event_list" style="background: #fff; margin-top: 10px;">
     <div class="section" id="eventCardList">
         <!--   Icon Section   -->
-    <event-card eid="0"></event-card>
-     <event-card eid="1"></event-card>
-      <event-card eid="-KVuCpLge5iLhFhStPfb"></event-card>
+
+    <event-card ng-repeat="x in events" eid="{{x.$id}}"></event-card>
+  
 
      
     </div>
