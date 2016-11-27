@@ -555,7 +555,43 @@
                   </td>
                   <td style="font-size: 30px"><a href="#">{{suggested_users["name"]}}</a></td>
                  <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
+                      <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button-->
+
+<!-- Trigger the modal with a button -->
+  <button id="fat-btn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{num}}">Invite</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="{{num}}" role="dialog">
+    <div class="modal-dialog">
+    
+
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">To {{suggested_users.name}}</div>
+        <div class="modal-body">
+          <div class="row filter-bar">
+            
+              <div class="col-md-1 col-xs-1"></div>
+                <div class="col-md-10 col-xs-10">
+                  <div class="form-group">
+                    <label for="comment">Message:</label>
+                      <textarea class="form-control" rows="3" id="comment" ng-model="inviteMessage"></textarea>
+                  </div>
+                </div>
+              <div class="col-md-1 col-xs-1"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="sendMessage(inviteMessage,'invite',suggested_users.username)">Send</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
                   </td>
                 </tr>
                  
@@ -610,7 +646,47 @@
                   </td>
                   <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
                  <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button>
+                      <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button-->
+
+
+<!-- Trigger the modal with a button -->
+  <button id="fat-btn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{num}}">Request</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="{{num}}" role="dialog">
+    <div class="modal-dialog">
+    
+
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">To team: {{team_content.teamname}}</div>
+        <div class="modal-body">
+          <div class="row filter-bar">
+            
+              <div class="col-md-1 col-xs-1"></div>
+                <div class="col-md-10 col-xs-10">
+                  <div class="form-group">
+                    <label for="comment">Message:</label>
+                      <textarea class="form-control" rows="3" id="comment" ng-model="requestMessage"></textarea>
+                  </div>
+                </div>
+              <div class="col-md-1 col-xs-1"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="sendMessage(requestMessage,'request',team_content.teamname)">Send</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+
                   </td>
                 </tr>
             

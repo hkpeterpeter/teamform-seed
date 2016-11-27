@@ -306,7 +306,7 @@ app.controller("clickCtrl",
             var suggested_users = {};
             $scope.suggested_teams=[];
             var suggested_teams = {};
-            alert("I am a "+user_identity+" in event: "+event_name);
+            //alert("I am a "+user_identity+" in event: "+event_name);
             if (user_identity === "leader"){
               //1. users in this event, not in teams, not the user himself/herself => $scope.users
               //user_list.$loaded(function() {});
@@ -328,6 +328,7 @@ app.controller("clickCtrl",
                 }
                 //alert("fulfill= "+fulfill+" user= "+key);
                 suggested_users[fulfill.toString()].push($scope.users[key]);
+                suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["username"] = key;
               });
               //alert(suggested_users["1"].length);
               for (var i = team_skills.length; i>0 ;i--) {
@@ -448,7 +449,9 @@ app.controller("clickCtrl",
       $scope.sendInvitation = function(message){
         //for each user selected
         var keep_going = true;
+
         var alert_content = "Invitation(s) have been sent";
+                
         angular.forEach($scope.selected, function(value,key){
 
             //1. conversation
@@ -477,16 +480,75 @@ app.controller("clickCtrl",
             conversation.$save();
             //2. notification in userList
             var one_noti = {};
-            one_noti["isRead"] = false;
-            one_noti["link"] = "some_link";
+            one_noti["name"] = this_user;
             one_noti["message"] = message;
             if (!("notification" in user_list[key])) {
-              user_list[key]["notification"]=[];
+              user_list[key]["notification"]={};
             }
-            user_list[key]["notification"].push(one_noti);
+
+            user_list[key]["notification"][this_user] = one_noti;
             user_list.$save();
          }
         });
+        alert(alert_content);
+
+      };
+
+
+      $scope.sendMessage = function(message, type, selected_id){
+        //for each user selected
+        var keep_going = true;
+        var leader_id = this_user;
+        var alert_content = "Invitation(s) have been sent";
+        var receiver = selected_id;
+        var conversation_name = selected_id + "_" + leader_id; //selected_id = username of invited user
+        if (type === "request"){
+          alert_content = "Request(s) have been sent";
+          //selected_id = team name
+          leader_id = event_list[event_name]["teamList"][selected_id]["memberList"][0];
+          conversation_name = this_user + "_" + leader_id;
+          receiver = leader_id;
+        }                
+
+            //1. conversation
+            //if conversation does not exist, create a new one
+            
+            if (!(conversation_name in conversation)) {
+              conversation[conversation_name]={
+                "event":"",
+                "log":[],
+                "type":"invite"
+              };
+            };
+            if (type === "request"){
+              conversation[conversation_name]["type"] = "request";
+            }
+
+
+            if ( conversation[conversation_name]["type"] !== type) {
+              //change alert_content
+              alert_content="Please check the previous message with "+receiver+ " first. This action will not be taken";
+              keep_going = false;
+           };
+
+          if(keep_going){
+            conversation[conversation_name]["event"]=event_name;
+            var one_log = {};
+            one_log["message"] = message;
+            one_log["sender"] = this_user;
+            conversation[conversation_name]["log"].push(one_log);
+            conversation.$save();
+            //2. notification in userList
+            var one_noti = {};
+            one_noti["name"] = this_user;
+            one_noti["message"] = message;
+            if (!("notification" in user_list[receiver])) {
+              user_list[receiver]["notification"]={};
+            }
+            user_list[receiver]["notification"][this_user] = one_noti;
+            user_list.$save();
+         }
+        
         alert(alert_content);
 
       };
