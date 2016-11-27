@@ -83,9 +83,11 @@
                 <table ng-table="eventDetail.teamListTableParams" show-filter="false" class="table table-hover">
                     <tbody>
                         <tr ng-repeat="team in $data track by team.$id">
-                            <td data-title="'Team Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
+                            <td data-title="''">
                                 <span class="label label-danger" ng-if="team.data.private">Private</span>
                                 <span class="label label-success" ng-if="!team.data.private">Public</span>
+                            </td>
+                            <td data-title="'Team Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
                                 <a ui-sref="team.detail({teamId: team.$id})">
                                     <img ng-src="{{team.getImageUrl()}}" class="img-circle img-small">
                                     {{team.data.name}}
@@ -115,7 +117,7 @@
                 <table ng-table="eventDetail.userListTableParams" show-filter="false" class="table table-hover">
                     <tbody>
                         <tr ng-repeat="eventUser in $data track by eventUser.$id">
-                            <td data-title="'User'" filter="{'data.name': 'text'}" sortable="'data.name'">
+                            <td data-title="'User'" filter="{'user.data.name': 'text'}" sortable="'user.data.name'">
                                 <a ui-sref="user.detail({userId: eventUser.user.$id})">
                                     <img ng-src="{{eventUser.user.getImageUrl()}}" class="img-circle img-small">
                                     {{eventUser.user.data.name}}

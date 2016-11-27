@@ -28,7 +28,10 @@
                             {{event.getTotalTeams()}}
                         </td>
                         <td data-title="'Created By'" filter="{'getCreatedByUser().data.name': 'text'}" sortable="'getCreatedByUser().data.name'">
-                            <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().data.name}}</a>
+                            <a ui-sref="user.detail({userId: event.data.createdBy})">
+                                <img ng-src="{{event.getCreatedByUser().getImageUrl()}}" class="img-circle img-small">
+                                {{event.getCreatedByUser().data.name}}
+                            </a>
                         </td>
                         <td data-title="'Created At'" filter="{'data.createdAt': 'text'}" sortable="'data.createdAt'">
                             {{event.data.createdAt | date:'medium'}}

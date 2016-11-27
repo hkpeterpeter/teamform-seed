@@ -53,7 +53,10 @@
                                 <tbody>
                                     <tr ng-repeat="event in $data track by event.$id">
                                         <td data-title="'Event Name'" sortable="'data.name'">
-                                            <a ui-sref="event.detail({eventId: event.$id})">{{event.data.name}}</a>
+                                            <a ui-sref="event.detail({eventId: event.$id})">
+                                                <img ng-src="{{event.getImageUrl()}}" class="img-circle img-small">
+                                                {{event.data.name}}
+                                            </a>
                                         </td>
                                         <td data-title="'User Joined'" sortable="'getTotalEventUsers()'">
                                             {{event.getTotalEventUsers()}}
@@ -79,10 +82,16 @@
                                             <span class="label label-success" ng-if="!team.data.private">Public</span>
                                         </td>
                                         <td data-title="'Team Name'" sortable="'data.name'">
-                                            <a ui-sref="team.detail({teamId: team.$id})">{{team.data.name}}</a>
+                                            <a ui-sref="team.detail({teamId: team.$id})">
+                                                <img ng-src="{{team.getImageUrl()}}" class="img-circle img-small">
+                                                {{team.data.name}}
+                                            </a>
                                         </td>
                                         <td data-title="'Event Name'" sortable="'getEvent().data.name'">
-                                            <a ui-sref="event.detail({eventId: team.data.eventId})">{{team.getEvent().data.name}}</a>
+                                            <a ui-sref="event.detail({eventId: team.data.eventId})">
+                                                <img ng-src="{{team.getEvent().getImageUrl()}}" class="img-circle img-small">
+                                                {{team.getEvent().data.name}}
+                                            </a>
                                         </td>
                                         <td data-title="'Vacancy'" sortable="'getVacancy()'">
                                             {{team.getVacancy()}}
