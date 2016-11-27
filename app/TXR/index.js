@@ -693,9 +693,11 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
        if (email !== undefined) userlist[$scope.thisuser]["email"] = email;
        uploadFile = document.getElementById("uploadFile").files[0];
        if (uploadFile !== undefined) {
-         userlist[$scope.thisuser].img = uploadFile.name;
+         s = uploadFile.name.split(".");
+         fileType = "." + s[s.length - 1];
+         userlist[$scope.thisuser].img = $scope.thisuser+fileType;
          userlist.$save();
-         storageRef.child("user/"+uploadFile.name).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
+         storageRef.child("user/"+$scope.thisuser + fileType).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
            $window.location.reload(true);
          });
        }
