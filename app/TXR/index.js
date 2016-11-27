@@ -48,14 +48,15 @@ app.config(function($routeProvider){
 
 });
 
-app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray){
+app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray, $cookies){
 
       $scope.eventname = $routeParams.p;
       $scope.photolist = [];
       var x;
       var y;
       var team;
-       var thisuser = "kimsung";
+       //var thisuser = "kimsung";
+       var thisuser = $cookies.get("username",{path:"/"});
        var userlist = $firebaseObject(firebase.database().ref("userList"));
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        userlist.$loaded(function() {
@@ -172,50 +173,13 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
     }
 
 
-      var storageRef = firebase.storage().ref()
-      eventlist.$loaded(function(){
-        
-        var avaFilenameevent = eventlist[$scope.eventname]["img"];
-   
-        var eventavaRef = storageRef.child('event/'+avaFilenameevent);
-  
-        eventavaRef.getMetadata().then(function(metadata){
-          $scope.eventavaUrl = metadata.downloadURLs[0];
-
-					$scope.$apply();
-        });
-
-      });
-      eventlist.$loaded(function(){
-        
-       
-        var avaFilenameteam = eventlist[$scope.eventname]["teamList"][$scope.teamname]["img"];
-        
-        var teamavaRef = storageRef.child('team/'+$scope.eventname+'/'+avaFilenameteam);
-
-       teamavaRef.getMetadata().then(function(metadata){
-          $scope.teamavaUrl = metadata.downloadURLs[0];
-
-				$scope.$apply();
-       });
-      });
-
-      $scope.getmemberphoto= function(member){
-       userlist.$loaded().then(function(){
-        
-        var avaFilenamemember = userlist[member]["img"];
-
-        var memberavaRef = storageRef.child('user/'+avaFilenamemember);
-    
-        memberavaRef.getMetadata().then(function(metadata){
-          var memberavaUrl = metadata.downloadURLs[0];
-
-					$scope.$apply();
-        });
-
-      });
-      return memberavaUrl;
-      }
+      // $scope.getimg=function(num,member){
+      //   var photo;
+      //   userlist.$loaded(function() {
+      //     photo=userlist[member]["Img"];
+      //  })
+      //       return photo;
+      // }
 
 
 
@@ -291,6 +255,10 @@ app.controller("clickCtrl",
       $scope.selected = {};
       $scope.currentTag = [];
       $scope.resultTag = [];
+      $scope.leader = false;
+      $scope.member = false;
+      $scope.user = false;
+
       //$scope.tag={};
       user_list.$loaded(function() {
         event_list.$loaded(function(){
@@ -321,6 +289,10 @@ app.controller("clickCtrl",
             });
 
             var user_identity = user_list[this_user]["Membership"][event_name]["identity"];
+            $scope.leader = angular.equals(user_identity, 'leader');
+            alert($scope.leader);
+            $scope.member = angular.equals(user_identity, 'member');
+            $scope.user = angular.equals(user_identity, 'user');
             //suggested users for leaders
             $scope.suggested = [];
             var suggested_users = {};
@@ -545,19 +517,6 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       userlist.$save();
 
     }
-
-
-      var storageRef = firebase.storage().ref()
-      userlist.$loaded().then(function(){
-        
-        var avaFilename = userlist[$scope.thisuser]["img"];
-        var avaRef = storageRef.child('user/'+avaFilename);
-        avaRef.getMetadata().then(function(metadata){
-          $scope.avaUrl = metadata.downloadURLs[0];
-					// console.log($scope.avaUrl);
-					$scope.$apply();
-        });
-      });
 
 }
 );

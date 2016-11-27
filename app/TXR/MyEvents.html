@@ -538,12 +538,15 @@
           </div>
         <div class="col-lg-6" id="suggestion">
         
-       
 
           <div class="table-responsive" ng-controller = "clickCtrl">
             
-            
-            <h2>suggested teams (temporary)</h2>
+       <div class="row" ng-show = "user">uuuuu</div>
+              <div class="row" ng-show = "member">mmmmm</div>
+                     <div class="row" ng-show = "leader">lllll</div>
+                     
+            <div ng-show = "user">
+            <h2>Suggested teams</h2>
             <table class="table table-striped" ng-repeat = "(num, team_content) in suggested_teams">
                           
               <tbody>
@@ -560,7 +563,9 @@
             
               </tbody>
             </table>
-            
+            </div>
+
+            <div ng-show = "leader">
             <h2>Suggested Users</h2>
             <table class="table table-striped" ng-repeat = "(num, suggested_users) in suggested">
               
@@ -576,29 +581,10 @@
                       <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
                   </td>
                 </tr>
-                 <!--tr>
-                  <td style="font-size: 30px">2</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/shiheng.png" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Shiheng</a></td>
-                     <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
-                  </td>
-                </tr>
-             <tr>
-                  <td style="font-size: 30px">3</td>
-                  <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/empty.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
-                  </td>
-                  <td style="font-size: 30px"><a href="#">Good guy</a></td>
-                      <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button>
-                  </td>
-                </tr-->
-       
+                 
               </tbody>
             </table>
+            </div>
           </div>
         </div>
 
