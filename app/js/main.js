@@ -61,6 +61,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: '/templates/profile.html',
             controller: 'profileCtrl'
         })
+				.state('dashboard.about', {
+            url: '/about',
+            templateUrl: '/templates/about.html'
+        })
 
 });
 
