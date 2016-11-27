@@ -81,7 +81,7 @@
                             </a>
                         </td>
                         <td data-title="'Created By'" sortable="'data.createdBy'">
-                            <a ui-sref="user.detail({userId: team.data.createdBy})">
+                            <a ui-sref="user.detail({userId: team.data.createdBy})" ng-class="{red: team.getCreatedByUser().getGender() == 'female'}">
                                 <img ng-src="{{team.getCreatedByUser().getImageUrl()}}" class="img-circle img-small">
                                 {{team.getCreatedByUser().data.name}}
                             </a>

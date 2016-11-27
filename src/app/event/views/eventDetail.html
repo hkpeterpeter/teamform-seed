@@ -56,7 +56,9 @@
                                 </tr>
                                 <tr>
                                     <th>Created By</th>
-                                    <td><a ui-sref="user.detail({userId: eventDetail.event.data.createdBy})">{{eventDetail.event.getCreatedByUser().data.name}}</a></td>
+                                    <td>
+                                        <a ui-sref="user.detail({userId: eventDetail.event.data.createdBy})" ng-class="{red: eventDetail.event.getCreatedByUser().getGender() == 'female'}">{{eventDetail.event.getCreatedByUser().data.name}}</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -117,7 +119,7 @@
                     <tbody>
                         <tr ng-repeat="eventUser in $data track by eventUser.$id">
                             <td data-title="'User'" filter="{'user.data.name': 'text'}" sortable="'user.data.name'">
-                                <a ui-sref="user.detail({userId: eventUser.user.$id})">
+                                <a ui-sref="user.detail({userId: eventUser.user.$id})" ng-class="{red: eventUser.user.getGender() == 'female'}">
                                     <img ng-src="{{eventUser.user.getImageUrl()}}" class="img-circle img-small"> {{eventUser.user.data.name}}
                                 </a>
                             </td>
@@ -158,7 +160,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="teamUser in team.users" ng-if="teamUser.id != null">
-                                        <td><a ui-sref="user.detail({userId: teamUser.user.$id})">{{teamUser.user.data.name}}</a></td>
+                                        <td><a ui-sref="user.detail({userId: teamUser.user.$id})" ng-class="{red: teamUser.user.getGender() == 'female'}">{{teamUser.user.data.name}}</a></td>
                                         <td>{{teamUser.role}}</td>
                                     </tr>
                                 </tbody>

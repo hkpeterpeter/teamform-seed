@@ -99,7 +99,7 @@
                                     <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
                                 </p>
                                 <p>Team Members: </p>
-                                <a ui-sref="user.detail({userId: teamUser.id})" ng-repeat="teamUser in team.getTeamUsers() | filter: {id: '!!'}">
+                                <a ui-sref="user.detail({userId: teamUser.id})" ng-class="{red: teamUser.user.getGender() == 'female'}" ng-repeat="teamUser in team.getTeamUsers() | filter: {id: '!!'}">
                                     <img class="project-img-owner" uib-tooltip="{{teamUser.user.data.name}} - {{teamUser.role}}" ng-src="{{teamUser.user.getImageUrl()}}">
                                 </a>
                             </div>

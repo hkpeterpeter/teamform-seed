@@ -21,6 +21,13 @@ export default class User {
     isAdmin() {
         return this.data.role === 'admin';
     }
+    getGender() {
+        if(this.data.gender == 'F') {
+            return 'female';
+        } else {
+            return 'male';
+        }
+    }
     toJSON() {
         return this.data;
     }

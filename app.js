@@ -61,7 +61,7 @@ app.post('/oauth', (req, res) => {
                                 let client = firebaseClient();
                                 client.auth().createUserWithEmailAndPassword(itsc+'@connect.ust.hk', randomstring.generate(12)).then((result) => {
                                     client.auth().signOut();
-                                    firebaseService.database().ref('users/'+result.uid).update({itsc: itsc, email: itsc+'@connect.ust.hk', name: itsc, role: 'member', createdAt: Date.now()});
+                                    firebaseService.database().ref('users/'+result.uid).update({itsc: itsc, email: itsc+'@connect.ust.hk', name: itsc, role: 'member', gender: 'M', createdAt: Date.now()});
                                     firebaseService.auth().createCustomToken(result.uid).then((token) => {
                                         return resolve({token: token});
                                     })

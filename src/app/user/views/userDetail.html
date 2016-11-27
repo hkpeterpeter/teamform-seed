@@ -31,6 +31,11 @@
                         </li>
                     </ul>
                 </div>
+                <div class="profile-details">
+                    <h4>Gender:
+                        <span class="capitalize" ng-class="{red: eventUser.user.getGender() == 'female', emerald: eventUser.user.getGender() != 'female'}">{{userDetail.user.getGender()}}</span>
+                    </h4>
+                </div>
                 <div class="profile-message-btn center-block text-center">
                     <a ui-sref="message({conversationId: userDetail.user.$id})" class="btn btn-primary">
                         <i class="fa fa-envelope"></i> Send message

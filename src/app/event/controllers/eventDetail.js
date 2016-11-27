@@ -39,7 +39,6 @@ export default class EventDetailCtrl {
                 this.event = event;
                 this.teamListTableParams.settings({dataset: event.getTeams()});
                 this.userListTableParams.settings({dataset: event.getEventUsers()});
-                // this.listInit();
             });
             event.$watch(() => {
                 this.$timeout(() => {
@@ -47,7 +46,7 @@ export default class EventDetailCtrl {
                     this.teamListTableParams.reload();
                     this.userListTableParams.settings({dataset: event.getEventUsers()});
                     this.userListTableParams.reload();
-                    this.listInit();
+                    this.listInit(true);
                 });
             });
         } catch (error) {
@@ -137,8 +136,8 @@ export default class EventDetailCtrl {
             });
         }
     }
-    listInit() {
-        if(!this.teamList) {
+    listInit(force = false) {
+        if(!this.teamList || force) {
             this.teamList = this.event.getTeams().map((team) => {
                 let teamUsers = team.getTeamUsers().map((teamUser) => {
                     let name = '';

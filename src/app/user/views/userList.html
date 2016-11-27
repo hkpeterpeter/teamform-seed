@@ -8,13 +8,17 @@
                     <tr ng-repeat="user in $data track by user.$id">
                         <td data-title="'Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
                             <img class="img-responsive img-circle" ng-src="{{user.getImageUrl()}}">
-                            <a ui-sref="user.detail({userId: '{{user.$id}}'})" class="user-link">{{user.data.name}}</a>
+                            <a ui-sref="user.detail({userId: '{{user.$id}}'})" class="user-link" ng-class="{red: user.getGender() == 'female'}">{{user.data.name}}</a>
                             <span class="user-subhead capitalize">{{user.data.role}}</span>
                         </td>
                         <td data-title="'Skills'">
                             <ul class="list-unstyled">
                                 <li ng-repeat="skill in user.data.skills" class="label label-success">{{skill}}</li>
                             </ul>
+                        </td>
+                        <td data-title="'Gender'" sortable="'getGender()'">
+                            <span class="capitalize emerald" ng-if="user.getGender() != 'female'">{{user.getGender()}}</span>
+                            <span class="capitalize red" ng-if="user.getGender() == 'female'">{{user.getGender()}}</span>
                         </td>
                         <td data-title="'Created At'" sortable="'data.createdAt'">
                             {{user.data.createdAt | date:'medium'}}

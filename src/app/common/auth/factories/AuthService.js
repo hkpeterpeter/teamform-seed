@@ -56,6 +56,7 @@ export default class AuthService {
         user.email = credential.email;
         user.name = credential.email.split('@')[0];
         user.role = 'member';
+        user.gender = 'M';
         user.createdAt = Date.now();
         await user.$save();
         return result;

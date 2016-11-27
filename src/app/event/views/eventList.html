@@ -28,7 +28,7 @@
                             {{event.getTotalTeams()}}
                         </td>
                         <td data-title="'Created By'" filter="{'getCreatedByUser().data.name': 'text'}" sortable="'getCreatedByUser().data.name'">
-                            <a ui-sref="user.detail({userId: event.data.createdBy})">
+                            <a ui-sref="user.detail({userId: event.data.createdBy})" ng-class="{red: event.getCreatedByUser().getGender() == 'female'}">
                                 <img ng-src="{{event.getCreatedByUser().getImageUrl()}}" class="img-circle img-small">
                                 {{event.getCreatedByUser().data.name}}
                             </a>
