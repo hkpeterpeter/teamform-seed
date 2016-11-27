@@ -60,15 +60,15 @@ Please select the event below: <br>
          <td align="center">{{g.openness}}</td>
          <td align="center">{{g.position}}</td>
          <td align="center">{{g.state}}</td>
-		 <td align="center">
+		 <td align="left">
 	
 		 <ul><div ng-repeat="n in g.member" ng-if="!n.teamleader">
 		 <li>{{n.username}}</li>
 		 </div>
 		 <ul><div ng-repeat="n in g.member" ng-if="n.teamleader">
-			<li>{{n.name}}</li>
+			<li  align="left">{{n.name}}</li>
 			
-				<ul><div ng:repeat="n1 in n.member"><li>{{n1.username}}</li></div>
+				<ul><div ng:repeat="n1 in n.member"><li align="left">{{n1.username}}</li></div>
 			
 		 </div>
 		 </ul>
