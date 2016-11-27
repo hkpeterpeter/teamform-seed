@@ -46,6 +46,7 @@ angular.module('teamform-index-app', ['firebase'])
     // Sign-out successful.
     console.log("Sign-out successful");
     $window.alert("You are signed-out");
+    window.location.href= "index.html";
     return true;
     }, function(error) {
      // An error happened.

@@ -6,14 +6,17 @@ angular.module('teamform-signin-app', ['firebase'])
 
 $scope.SignIn = function(e) {
     e.preventDefault();
-    var username = $scope.user.email;
+    var email = $scope.user.email;
     var password = $scope.user.password;
-    firebase.auth().signInWithEmailAndPassword(username,password)
+    var username;
+
+    firebase.auth().signInWithEmailAndPassword(email,password)
         .then(function(user) {
             //Success callback
             console.log('Authentication successful');
-            $window.alert("You Login as " + user.email);
-            window.location.href= "login_index.html";
+            $window.alert("You Logined");
+
+            window.location.href= "index.html";
 
         }, function(error) {
             //Failure callback

@@ -67,21 +67,11 @@ angular.module('teamform-manage_team-app', ['firebase'])
 	refPath = "/event/" + eventName + "/team/" + teamName; 
 	ref = firebase.database().ref(refPath);
 	$scope.teaminfo = $firebaseObject(ref);
-
-
-
-
-
-
-
-
 	$scope.teaminfo.$loaded()
 		.then( function(data) {
 			// Fill in some initial values when the DB entry doesn't exist			
-
 			// Enable the UI when the data is successfully loaded and synchornized
 			$('#manage_team_page_controller').show(); 
-
 			$scope.teaminfo.TeamLeader = teamleader;
 			$scope.teaminfo.TeamName = teamName;
 			$scope.teaminfo.Description = $scope.input.description;
@@ -100,8 +90,34 @@ angular.module('teamform-manage_team-app', ['firebase'])
 		$scope.teaminfo.$save();
 		// Finally, go back to the front-end
 		window.location.href= "team.html?q=" + eventName +"&tn=" + teamName;
+
+
+		
 	}
 	
+	$scope.processRequest = function(r) {
+		//$scope.test = "processRequest: " + r;
+		
+		if ( 
+		    $scope.param.teamMembers.indexOf(r) < 0 && 
+			$scope.param.teamMembers.length < $scope.param.currentTeamSize  ) {
+				
+			// Not exists, and the current number of team member is less than the preferred team size
+			$scope.param.teamMembers.push(r);
+			
+			$scope.saveFunc();
+		}
+	}
+	
+	$scope.removeMember = function(member) {
+		
+		var index = $scope.param.teamMembers.indexOf(member);
+		if ( index > -1 ) {
+			$scope.param.teamMembers.splice(index, 1); // remove that item
+			
+			$scope.saveFunc();
+		}
+		
 	}
 
 
@@ -109,5 +125,6 @@ angular.module('teamform-manage_team-app', ['firebase'])
 
 
 
- 
+
+	}
 ]);
