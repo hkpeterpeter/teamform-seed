@@ -13,6 +13,12 @@
 	/*display: table;*/
 }
 
+.fix-height-250 {
+	height: 270px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
 .fix-height-300 {
 	height: 300px;
 	overflow: auto;
@@ -20,6 +26,12 @@
 
 .fix-height-450 {
 	height: 500px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.fix-height-400 {
+	height: 380px;
 	overflow: auto;
 	overflow-x: hidden;
 }

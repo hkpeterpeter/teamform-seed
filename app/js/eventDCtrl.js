@@ -33,9 +33,9 @@ app.controller("eventDCtrl",
                     $scope.myEvent.$loaded().then(function(data){
                         if($scope.myEvents[$scope.eventID]!==undefined)
                         {
-                            loginDate = new Date();
-                            $scope.myEvent.lastLogin = loginDate.toString();
-                            $scope.myEvent.$save();
+                            // loginDate = new Date();
+                            // $scope.myEvent.lastLogin = loginDate.toString();
+                            // $scope.myEvent.$save();
                         }
 
                     });

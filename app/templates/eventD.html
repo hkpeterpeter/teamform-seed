@@ -53,6 +53,7 @@
 				<p><input class="form-control" placeholder="Search by team name" type="text" name="searchName" ng-model = "searchText"/></p>
 			    <hr>
 			    <!--###Content###-->
+			    <div class="fix-height-250">
 			      <div ng-repeat="(key, team) in teamf(eventObj.teams)">
 			      	<div class="row">
 							  <div class="col-md-7">
@@ -86,7 +87,8 @@
 				    		</div> <!--col-md-3-->				    		
 				    	</div> <!--row-->
 				    	<br>
-			      </div> <!--ng-repeat-->			     
+			      </div> <!--ng-repeat-->	
+			      </div>		     
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 			
