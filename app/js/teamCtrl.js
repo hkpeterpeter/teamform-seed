@@ -790,8 +790,10 @@ $scope.validInvite = function(uid){
 				// $scope.RecommendTBA = function(people) {
 				// 		var result = {};
 						$scope.tba_featurelist = {};
+						$scope.tba_featurelist_arr = [];
 						$scope.recommend = function(){
 							$scope.tba_featurelist = {};
+							$scope.tba_featurelist_arr = [];
 							angular.forEach($scope.eventObj.tba, function(name, uid) {
 								// console.log(name);
 								// console.log(uid);
@@ -811,8 +813,8 @@ $scope.validInvite = function(uid){
 									var team_languagetags = $scope.filterLanguageTags($scope.languagetags);
 									var team_mannertags = $scope.filterMannerTags($scope.mannertags);
 									angular.forEach(user_tags.SkillTags, function(value,key){
-										console.log(key);
-										console.log(team_skilltags);
+										// console.log(key);
+										// console.log(team_skilltags);
 										if(team_skilltags[key] !== undefined && team_skilltags[key].color =='green' && value >= team_skilltags[key].value){
 											// console.log(team_skilltags[key]);
 											// console.log(team_skilltags[key].color );
@@ -823,8 +825,8 @@ $scope.validInvite = function(uid){
 										}
 									});
 									angular.forEach(user_tags.LanguageTags, function(value,key){
-										console.log(key);
-										console.log(team_languagetags);
+										// console.log(key);
+										// console.log(team_languagetags);
 										if(team_languagetags[key] == true){
 											// console.log(team_skilltags[key]);
 											// console.log(team_skilltags[key].color );
@@ -835,8 +837,8 @@ $scope.validInvite = function(uid){
 										}
 									});
 									angular.forEach(user_tags.MannerTags, function(value,key){
-										console.log(key);
-										console.log(team_mannertags);
+										// console.log(key);
+										// console.log(team_mannertags);
 										if(team_mannertags[key] == true){
 											// console.log(team_skilltags[key]);
 											// console.log(team_skilltags[key].color );
@@ -846,9 +848,17 @@ $scope.validInvite = function(uid){
 											$scope.tba_featurelist[uid] = $scope.tba_featurelist[uid] + 1;
 										}
 									});
-									console.log($scope.tba_featurelist);
+									$scope.tba_featurelist_arr.push({uid: uid,score: $scope.tba_featurelist[uid]});
+									// console.log($scope.tba_featurelist);
 								})
 							});
+							// console.log($scope.tba_featurelist);
+
+							// for (key in $scope.tba_featurelist){
+							// 	// console.log(123);
+							// 	$scope.tba_featurelist_arr.push({uid: key,score: $scope.tba_featurelist[key]});
+							// }
+							// console.log($scope.tba_featurelist_arr);							
 					}
 
 
