@@ -105,25 +105,31 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		console.log($rootScope.events);
 	}
 	$rootScope.loginWithEmail=function(email){
-
+		
+	
 		for(var i=0;i<$rootScope.users.length;i++){
 
 			if($rootScope.users[i].email==email){
+				console.log($rootScope.users[i]);
 				$rootScope.currentUser=$rootScope.users[i];
-
+				$rootScope.currentUser.id=$rootScope.users[i].$id
 			}
 		}
+	
+		
 	}
-
-	$rootScope.currentUser={
-        id:"0",
-        profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
-        email:"abc@connect.ust.hk"
-    }
-
-    $rootScope.clickedEvent={
-    	$id:"0"
-    }
+	if(!$rootScope.currentUser){
+		$rootScope.currentUser={
+	        id:"0",
+	        profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
+	        email:"abc@connect.ust.hk"
+	    }
+	}
+	if(!$rootScope.clickedEvent){
+	    $rootScope.clickedEvent={
+	    	$id:"0"
+	    }
+	}
                 
 	var exampleNewUser={
 		eventsManaging:[],
@@ -147,7 +153,15 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		minSize:5
 	}
 	$rootScope.addUser=function(user){
-		$rootScope.users.$add(user);
+		$rootScope.users.$add(user).then(function(ref) {
+		  var id = ref.key;
+		  console.log("added record with id " + id);
+		 
+		  $rootScope.currentUser=$firebaseObject(firebase.database().ref("users").child(id));
+		  $rootScope.currentUser.id=id;
+
+		
+	});
 
 	}
 	$rootScope.addEvent=function(event){
