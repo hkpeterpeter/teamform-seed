@@ -291,7 +291,7 @@ app.controller("clickCtrl",
       $scope.selected = {};
       $scope.currentTag = [];
       $scope.resultTag = [];
-      $scope.tag={};
+      //$scope.tag={};
       user_list.$loaded(function() {
         event_list.$loaded(function(){
           conversation.$loaded(function(){
@@ -311,11 +311,14 @@ app.controller("clickCtrl",
               }
             }
             //alert(event_list["event1"]);
-            $scope.tag = event_list[event_name]["skillTable"];
-            angular.forEach($scope.tag, function(value,key){
-              $scope.currentTag.push(key);
-            });
+            angular.forEach(event_list[event_name]["teamList"], function(value, key){
+              for (one_skill in event_list[event_name]["teamList"][key]["skills"]){
+                if (!(one_skill in $scope.currentTag)){
+                  $scope.currentTag.push(key);                  
+                }                
+              }
 
+            });
 
             var user_identity = user_list[this_user]["Membership"][event_name]["identity"];
             //suggested users for leaders
