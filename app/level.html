@@ -360,14 +360,14 @@
                        <div class="widget widget-info widget-padding-sm">                            
                                 <div class="widget-item-left">
                                     <input class="knob" data-width="100" data-height="100" data-min="0" data-max="100" data-displayInput=false data-bgColor="#dFF0000" data-fgColor="#FFF" data-readOnly="false" dynamicOptions= "true" data-thickness=".2" id="circle"/>
-								<button ng-click="add()" ng-init="count=0">
-									  Increment
-								</button>
 								</div>
                                 <div class="widget-data">
                                     <div class="widget-big-int"><span class="num-count">{{current/total*100 | limitTo:4}}</span>% Completed</div>
                                     <div class="widget-title">{{level}}</div>
-                                    <div class="widget-subtitle">{{total - current}} Exp to Level {{level + 1}}</div>                                
+                                    <div class="widget-subtitle">{{total - current}} Exp to Level {{level + 1}}</div>
+                                    <button style="float:right; margin-right:20px;" ng-click="add()" ng-init="count=0">
+                                      Increment
+                                </button>                                
                                 </div>                            
                                 <div class="widget-controls">                                
                                     <a href="#" class="widget-control-right"><span class="fa fa-times"></span></a>
