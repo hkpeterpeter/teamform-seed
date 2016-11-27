@@ -17,15 +17,25 @@ app.controller("handleRequests",
             var memberNoTeamRef=firebase.database().ref("memberWithNoTeam");
             
             var movingMember = {
-                name:"",
+                username:"",
+                email:"",
                 intro:"",
                 team:"",
-                uid:""
+                uid:"",
+                gender: "",
+                phone:"",
+                birth: "",
+                position: "",
+                skill: "",
+                remark: "",
+                event: ""
                 };
+                
             memberNoTeamRef.orderByChild("username").equalTo(memberName).once("child_added",
                 function(oldLocation){
                     movingMember=oldLocation.val();
                     movingMember.team = teamName;
+                    movingMember.event = event;
                     eventRef.orderByChild("name").equalTo(eventName).once("child_added",function(targetEventRef){
                     targetEventRef.ref.child("Team").orderByChild("name").equalTo(targetName).once("child_added",function(newLocation){
                         newLocation.child("member").ref.push().set(movingMember);

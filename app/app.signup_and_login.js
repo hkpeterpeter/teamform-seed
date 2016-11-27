@@ -40,6 +40,8 @@ app.controller("AuthCtrl", [
 	var ref = firebase.database().ref();
    //new code
     var memberNoTeamRef=firebase.database().ref("memberWithNoTeam");
+    var memberTableRef=firebase.database().ref("memberTable");
+   
    //
 
     $scope.newMember = {
@@ -53,7 +55,8 @@ app.controller("AuthCtrl", [
         birth: "",
         position: "",
         skill: "",
-        remark: ""
+        remark: "",
+        event: ""
         };
 
     $scope.lInput = {
@@ -77,6 +80,7 @@ app.controller("AuthCtrl", [
             $scope.newMember.uid=authData.uid;
             $scope.newMember.email = $scope.user.email;
             memberNoTeamRef.child(authData.uid).set($scope.newMember);
+            memberTableRef.child(authData.uid).set($scope.newMember);
             //
         }).catch(function(error) {
             console.error("Error: ", error);

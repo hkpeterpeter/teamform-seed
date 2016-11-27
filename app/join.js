@@ -7,10 +7,18 @@ app.controller("joinTeam",
             var teamNoEvent=firebase.database().ref("TeamWithNoEvent");
             
             var movingMember = {
-                name:"",
+                username:"",
+                email:"",
                 intro:"",
                 team:"",
-                uid:""
+                uid:"",
+                gender: "",
+                phone:"",
+                birth: "",
+                position: "",
+                skill: "",
+                remark: "",
+                event: ""
                 };
         
             var newRequest = {
@@ -31,6 +39,7 @@ app.controller("joinTeam",
                         function(oldLocation){
                             movingMember=oldLocation.val();
                             movingMember.team = teamName;
+                            movingMember.event = event;
                             eventRef.orderByChild("name").equalTo(event).once("child_added",function(targetEventRef){
                                 targetEventRef.ref.child("Team").orderByChild("name").equalTo(teamName).once("child_added",function(newLocation){
                                     newLocation.child("member").ref.push().set(movingMember);
