@@ -27,6 +27,7 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
                 console.log("Error:", error);
             });
             $scope.newName = '';
+            Materialize.toast("Your custom name has been changed.", 4000);
         });
     };
 
@@ -46,6 +47,7 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
             if (doesntExist == true){
                 skillsFirebase.$add($scope.newSkill);
                 $scope.newSkill = '';
+                Materialize.toast("New skill added.", 4000);
             }
         });
     };
@@ -138,9 +140,10 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
                         $scope.memberList.$add($scope.invitedList[index].$value);
                         //To remove this team from his "being invited list"
                         $scope.invitedList.$remove(index);
+                        Materialize.toast("Invitation accepted.", 4000);
                     }
                     else{
-                        console.log("this team is already full.")
+                        Materialize.toast("This team is already full. You cannot join it anymore.", 4000); // 4000 is the duration of the toast
                     }
                 });
             });
@@ -159,6 +162,7 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
             }
         });
         $scope.invitedList.$remove(index);
+        Materialize.toast("You have successfully turned down this invitation", 4000);
     };
 
     $scope.withdrawApplication = function(index){
@@ -174,6 +178,7 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
         });
         //To remove that team from her teamsApplying array
         $scope.applyingList.$remove(index);
+        Materialize.toast("You have successfully withdrawn this application.", 4000);
     }
 
 
