@@ -11,7 +11,7 @@
                             <a ui-sref="user.detail({userId: '{{user.$id}}'})" class="user-link" ng-class="{red: user.getGender() == 'female'}">{{user.data.name}}</a>
                             <span class="user-subhead capitalize">{{user.data.role}}</span>
                         </td>
-                        <td data-title="'Skills'">
+                        <td data-title="'Skills'" filter="{'data.skills': 'text'}">
                             <ul class="list-unstyled">
                                 <li ng-repeat="skill in user.data.skills" class="label label-success">{{skill}}</li>
                             </ul>

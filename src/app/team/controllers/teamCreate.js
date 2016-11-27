@@ -1,4 +1,6 @@
 import fileUploadStyle from '../../../assets/stylesheets/fileUpload.scss';
+import skills from '../../../assets/data/skills.json';
+import positions from '../../../assets/data/positions.json';
 
 export default class TeamCreateCtrl {
     constructor($location, $state, $stateParams, $timeout, Upload, authService, eventService, teamService, userService) {
@@ -23,8 +25,8 @@ export default class TeamCreateCtrl {
         this.selectedEvent = null;
         this.availablieUsers = [];
         this.user = {};
-        this.skills = require('json!../../../assets/data/skills.json');
-        this.positions = require('json!../../../assets/data/positions.json');
+        this.skills = skills;
+        this.positions = positions;
         this.fileUploadStyle = fileUploadStyle;
         this.setLeader();
         this.getEvents();

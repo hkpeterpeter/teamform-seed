@@ -9,3 +9,5 @@ tmp
 .env
 /config.js
 /firebase-service.json
+/src/assets/data/developTeam.json
+/src/assets/images/developers/

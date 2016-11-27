@@ -19,21 +19,31 @@ module.exports = function makeWebpackConfig() {
 
     let config = {};
 
-    config.entry = isTest ? {} : {
-        app: './src/app/app.js',
-        vendor: './src/app/vendor.js'
-    };
+    config.entry = isTest
+        ? {}
+        : {
+            app: './src/app/app.js',
+            vendor: './src/app/vendor.js'
+        };
 
     config.resolve = {
         modulesDirectories: ['web_modules', 'node_modules', 'bower_components']
     };
 
-    config.output = isTest ? {} : {
-        path: __dirname + '/dist',
-        publicPath: isProd ? './' : 'http://localhost:8080/',
-        filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
-        chunkFilename: isProd ? '[id].[hash].js' : '[id].bundle.js'
-    };
+    config.output = isTest
+        ? {}
+        : {
+            path: __dirname + '/dist',
+            publicPath: isProd
+                ? './'
+                : 'http://localhost:8080/',
+            filename: isProd
+                ? '[name].[hash].js'
+                : '[name].bundle.js',
+            chunkFilename: isProd
+                ? '[id].[hash].js'
+                : '[id].bundle.js'
+        };
 
     if (isTest) {
         config.devtool = 'inline-source-map';
@@ -45,62 +55,63 @@ module.exports = function makeWebpackConfig() {
 
     config.module = {
         preLoaders: [],
-        loaders: [{
-            test: /\.js$/,
-            loaders: ['babel'],
-            exclude: /(node_modules|bower_components)/
-        }, {
-            test: /\.css$/,
-            loader: isTest ? 'null' : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
-        }, {
-            test: /\.scss$/,
-            loaders: ['style', 'css', 'postcss', 'sass'],
-            include: /(global)/
-        }, {
-            test: /\.scss$/,
-            loaders: ['style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass'],
-            exclude: /(global)/
-        }, {
-            test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/assets/font/[hash].[ext]'
-        }, {
-            test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'url-loader?limit=10000&mimetype=application/font-woff2&name=/assets/font/[hash].[ext]'
-        }, {
-            test: /\.(svg|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-            loader: 'file-loader'
-        }, {
-            test: /\.(gif|png|jpe?g)$/,
-            loader: 'url-loader?limit=1024&name=/assets/images/[hash].[ext]'
-        }, {
-            test: /\.html$/,
-            loader: 'html'
-        }]
+        loaders: [
+            {
+                test: /\.js$/,
+                loaders: ['babel'],
+                exclude: /(node_modules|bower_components)/
+            }, {
+                test: /\.css$/,
+                loader: isTest
+                    ? 'null'
+                    : ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!postcss-loader')
+            }, {
+                test: /\.scss$/,
+                loaders: [
+                    'style', 'css', 'postcss', 'sass'
+                ],
+                include: /(global)/
+            }, {
+                test: /\.scss$/,
+                loaders: [
+                    'style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass'
+                ],
+                exclude: /(global)/
+            }, {
+                test: /\.json$/,
+                loader: 'json'
+            },, {
+                test: /\.woff(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=/assets/font/[hash].[ext]'
+            }, {
+                test: /\.woff2(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff2&name=/assets/font/[hash].[ext]'
+            }, {
+                test: /\.(svg|eot|ttf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'file-loader'
+            }, {
+                test: /\.(gif|png|jpe?g)$/,
+                loader: 'url-loader?limit=10000&name=/assets/images/[hash].[ext]'
+            }, {
+                test: /\.html$/,
+                loader: 'html'
+            }
+        ]
     };
 
     if (isTest) {
         config.module.preLoaders.push({
             test: /\.js$/,
             exclude: [
-                /node_modules/,
-                /__tests__/,
-                /test.webpack.js$/
+                /node_modules/, /__tests__/, /test.webpack.js$/
             ],
             loader: 'isparta'
         })
     } else {
-        config.module.preLoaders.push({
-            test: /\.js$/,
-            loader: 'eslint',
-            exclude: /(node_modules|bower_components|__tests__)/
-        });
+        config.module.preLoaders.push({test: /\.js$/, loader: 'eslint', exclude: /(node_modules|bower_components|__tests__)/});
     }
 
-    config.postcss = [
-        require('autoprefixer')({
-            browsers: ['last 3 version']
-        })
-    ];
+    config.postcss = [require('autoprefixer')({browsers: ['last 3 version']})];
     let CONFIG;
     try {
         CONFIG = require('./config.js')
@@ -108,53 +119,31 @@ module.exports = function makeWebpackConfig() {
         CONFIG = process.env;
     }
     config.plugins = [
-        new ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery',
-            'root.jQuery': 'jquery',
-            '_': 'lodash'
-        }),
-        new webpack.ResolverPlugin(
-            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
-        ),
-        new DefinePlugin({
-            ENV: JSON.stringify(CONFIG)
-        })
+        new ProvidePlugin({$: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery', 'root.jQuery': 'jquery', '_': 'lodash'}),
+        new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])),
+        new DefinePlugin({ENV: JSON.stringify(CONFIG)})
     ];
 
     if (!isTest) {
-        config.plugins.push(
-            new HtmlWebpackPlugin({
-                template: './src/public/index.html',
-                inject: 'body'
-            }),
-            new ExtractTextPlugin('[name].[hash].css', {
-                disable: !isProd
-            })
-        )
+        config.plugins.push(new HtmlWebpackPlugin({template: './src/public/index.html', inject: 'body'}), new ExtractTextPlugin('[name].[hash].css', {
+            disable: !isProd
+        }))
     }
 
     if (!isProd) {
-        config.plugins.push(
-            new webpack.HotModuleReplacementPlugin()
-        )
+        config.plugins.push(new webpack.HotModuleReplacementPlugin())
     }
 
     if (isProd) {
-        config.plugins.push(
-            new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: JSON.stringify('production')
-                }
-            }),
-            new webpack.NoErrorsPlugin(),
-            new webpack.optimize.DedupePlugin(),
-            new webpack.optimize.UglifyJsPlugin(),
-            new CopyWebpackPlugin([{
+        config.plugins.push(new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }), new webpack.NoErrorsPlugin(), new webpack.optimize.DedupePlugin(), new webpack.optimize.UglifyJsPlugin(), new CopyWebpackPlugin([
+            {
                 from: __dirname + '/src/public'
-            }])
-        )
+            }
+        ]))
     }
 
     config.devServer = {

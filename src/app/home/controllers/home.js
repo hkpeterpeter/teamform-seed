@@ -1,3 +1,11 @@
+import developTeam from '../../../assets/data/developTeam.json';
+developTeam.members.forEach((member) => {
+    try {
+        member.image = require('../../../assets/images/developers/'+member.imageUrl);
+    } catch(error) {
+        member.image = 'https://placeholdit.imgix.net/~text?txtsize=33&txt='+encodeURIComponent(member.name)+'&w=200&h=200';
+    }
+});
 export default class HomeCtrl {
     constructor($timeout, eventService, teamService) {
         this.$timeout = $timeout;
@@ -5,7 +13,7 @@ export default class HomeCtrl {
         this.teamService = teamService;
         this.events = [];
         this.teams = [];
-        this.developTeam = {members: []};
+        this.developTeam = developTeam;
         this.getEvents();
         this.getTeams();
     }

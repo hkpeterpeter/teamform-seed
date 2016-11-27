@@ -162,22 +162,31 @@
     </div>
 </div>
 
-<div class="page-header">
-    <h2>
-        Development Team
-        <small>{{home.developTeam.name}}</small>
-    </h2>
-</div>
+<h1>
+    Development Team
+    <small>{{home.developTeam.name}}</small>
+</h1>
 
 <div class="row">
     <div ng-repeat="member in home.developTeam.members">
         <div class="col-xs-6 col-sm-4 col-md-3">
-            <div class="thumbnail text-center">
-                <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
-                <div class="caption">
-                    <h4>{{member.name}}</h4>
-                    <p>{{member.itsc}}</p>
-                    <p>{{member.description}}</p>
+            <div class="main-box clearfix profile-box-contact">
+                <div class="main-box-body clearfix">
+                    <div class="profile-box-header emerald-bg clearfix">
+                        <img ng-src="{{member.image}}" alt="" class="profile-img img-responsive">
+                        <h2>{{member.name}}</h2>
+                        <div class="job-position">
+                            {{member.position}}
+                        </div>
+                        <ul class="contact-details">
+                            <li>
+                                <i class="fa fa-envelope"></i> <b><a href="mailto:{{member.itsc}}" class="white">{{member.itsc}}</a></b>
+                            </li>
+                            <li>
+                                <b>{{member.description}}</b>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
