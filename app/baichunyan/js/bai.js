@@ -136,7 +136,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     team.min_num = $scope.teamMin;
     team.max_num = $scope.teamMax;
     team.description = $scope.teamDescription;
-    team.imageUrl = $scope.imageURL;
+    team.imageUrl = $scope.imageURL == "" ? $rootScope.currentUser.profilePic : $scope.imageURL;
     console.log(team);
     $rootScope.teams.$add(team).then(function(ref) {
       var teamID = ref.key;
