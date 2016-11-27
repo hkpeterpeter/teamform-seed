@@ -89,6 +89,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
       })
 
+
       $scope.deletemember = function(i){
 
 
@@ -183,6 +184,9 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        eventlist.$save();
 
     }
+ 
+
+
 
 
       var storageRef = firebase.storage().ref()
