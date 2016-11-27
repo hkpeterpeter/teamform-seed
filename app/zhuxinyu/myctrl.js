@@ -471,15 +471,6 @@ teamapp.directive('teamCard',function(){
                     $scope.map={};
                     $scope.quota=data.max_num - 1 - (data.membersID instanceof Array ? data.membersID.length : 0);
                     $scope.needed=(data.min_num - 1) > 0 ? data.min_num - 1 : 0;
-
-                    if(!data.desiredSkills){
-                        data.desiredSkills=[];
-                    }else if(!data.desiredSkills.length){
-                        x=[]
-                        $.each(data.desiredSkills, function(i,n) {
-                        x.push(n);});
-                        data.desiredSkills=x;
-                    }
                     for(var i=0;i<data.desiredSkills.length;i++){
                         $scope.list.push(data.desiredSkills[i].toLowerCase());
                         $scope.map[data.desiredSkills[i].toLowerCase()]=0;
