@@ -502,7 +502,7 @@
 
               <tbody>
                 <tr ng-repeat = "member in memberlist">
-                  <td style="font-size: 30px">{{$index}}</td>
+                  <td style="font-size: 30px">{{$index|isLeader}}</td>
                   <td>
                       <img src={{memberphoto[member]}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
@@ -544,11 +544,11 @@
 
             <div ng-show = "leader">
             <h2>Suggested Users</h2>
-            <table class="table table-striped" ng-repeat = "(num, suggested_users) in suggested">
+            <table class="table table-striped">
 
 
               <tbody>
-                <tr>
+                <tr ng-repeat = "(num, suggested_users) in suggested">
                   <td style="font-size: 30px">{{num+1}}</td>
                   <td>
                       <img src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
@@ -635,7 +635,7 @@
 
             <div ng-show = "user">
             <h2>Suggested teams</h2>
-            <table class="table table-striped" ng-repeat = "(num, team_content) in suggested_teams">
+            <table class="table table-striped">
 
               <tbody>
                 <tr ng-repeat = "(num, team_content) in suggested_teams">
