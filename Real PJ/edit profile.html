@@ -273,7 +273,7 @@
       
       <div class="form-group">
           <label for="Major">Major</label>
-          <input type="text" class="form-control" name="major" id="">
+          <input type="text" class="form-control" name="major" id="major">
       </div>
 
       <div class="form-group">
@@ -326,6 +326,35 @@
     <script src="js/scripts.js"></script>
 
   <script>
+      $(document).ready(function() {
+        $('#EditProfile').bootstrapValidator({
+            live: 'enabled',
+            excluded:':disabled',
+            fields: {
+                major: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The major is required and cannot be empty'
+                        }
+                    }
+                },
+                year: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select an option'
+                        }
+                    }
+                },
+                selfDescription: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The self description is optional'
+                        },
+                    }
+                },
+            }
+        });
+        });
 
 
 
