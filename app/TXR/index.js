@@ -1,4 +1,4 @@
-var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
+var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies","chart.js"]);
 
 //initalizeFirebase();
 
@@ -48,15 +48,14 @@ app.config(function($routeProvider){
 
 });
 
-app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray, $cookies){
+app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray){
 
       $scope.eventname = $routeParams.p;
       $scope.photolist = [];
       var x;
       var y;
       var team;
-       //var thisuser = "kimsung";
-       var thisuser = $cookies.get("username",{path:"/"});
+       var thisuser = "kimsung";
        var userlist = $firebaseObject(firebase.database().ref("userList"));
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        userlist.$loaded(function() {
@@ -72,18 +71,9 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       eventlist.$loaded(function(){
        $scope.event = eventlist[$scope.eventname];
        $scope.team = eventlist[$scope.eventname]["teamList"][$scope.teamname];
-       //if identity === user, teamskills should be empty
-       
-        $scope.teamskills = [];
-        $scope.memberlist = [];
-        $scope.Leader;
-       if ($scope.identity !== "user"){
-        $scope.teamskills = eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"];
-        $scope.memberlist = eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"];
-        $scope.Leader = eventlist[$scope.eventname]["teamList"][$scope.teamname]["leader"];
-       }
-
-       
+       $scope.teamskills = eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"];
+       $scope.memberlist = eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"];
+       $scope.Leader = eventlist[$scope.eventname]["teamList"][$scope.teamname]["leader"];
 
       })
 
@@ -110,8 +100,6 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
             userlist[thisuser]["Membership"][$scope.eventname]["identity"] = "user";
             userlist[thisuser]["Membership"][$scope.eventname]["teamName"] = "Null";
             userlist.$save();
-
-
 
       }
 
@@ -182,13 +170,51 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
     }
 
 
-      // $scope.getimg=function(num,member){
-      //   var photo;
-      //   userlist.$loaded(function() {
-      //     photo=userlist[member]["Img"];
-      //  })
-      //       return photo;
-      // }
+      var storageRef = firebase.storage().ref()
+      eventlist.$loaded(function(){
+        
+        var avaFilenameevent = eventlist[$scope.eventname]["img"];
+   
+        var eventavaRef = storageRef.child('event/'+avaFilenameevent);
+  
+        eventavaRef.getMetadata().then(function(metadata){
+          $scope.eventavaUrl = metadata.downloadURLs[0];
+
+					$scope.$apply();
+        });
+
+      });
+
+      eventlist.$loaded(function(){
+        
+       
+        var avaFilenameteam = eventlist[$scope.eventname]["teamList"][$scope.teamname]["img"];
+        
+        var teamavaRef = storageRef.child('team/'+$scope.eventname+'/'+avaFilenameteam);
+
+       teamavaRef.getMetadata().then(function(metadata){
+          $scope.teamavaUrl = metadata.downloadURLs[0];
+
+				$scope.$apply();
+       });
+      });
+
+      $scope.getmemberphoto= function(member){
+       userlist.$loaded().then(function(){
+        
+        var avaFilenamemember = userlist[member]["img"];
+
+        var memberavaRef = storageRef.child('user/'+avaFilenamemember);
+    
+        memberavaRef.getMetadata().then(function(metadata){
+          var memberavaUrl = metadata.downloadURLs[0];
+
+					$scope.$apply();
+        });
+
+      });
+      return memberavaUrl;
+      }
 
 
 
@@ -196,6 +222,72 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
 
 });
+
+app.controller("NotificationController", function($scope, $firebaseObject, $firebaseArray, $cookies){
+
+    $scope.user=$cookies.get("username",{path:"/"});
+    var userlist = $firebaseObject(firebase.database().ref("userList"));
+    userlist.$loaded(function(){
+        $scope.notification = userlist[$scope.user]["notification"];
+    })
+
+
+    $scope.deletenotification = function(sendername){
+         delete userlist[$scope.user]["notification"][sendername];
+         userlist.save();
+    }
+
+    $scope.addnotification = function(sender,msg){
+        for(var i=0; i<$scope.notification.length(); i++){
+          if($scope.notification[i].name==sender){
+            $scope.deletenotification(sender);
+          }
+        }
+        userlist[$scope.user]["notification"][sender]={
+          "message":msg,
+          "name":sender
+        }
+        userlist.save();
+    }
+
+
+
+
+
+			// $scope.userList=[
+   //    				{ Name: "Peter", type: "Invitation", Info: ""},
+   //    				{ Name: "Jason", type: "Application", Info: ""},
+   //    				{ Name: "Kevin", type: "Information", Info: ""}
+   //     ];
+   //    var i;
+   //    for(i=0; i<$scope.userList.length; ++i){
+   //    	if($scope.userList[i].type=="Invitation"){
+   //    		$scope.userList[i].Info="He invites you into the team.";
+   //    	}
+   //    	else if($scope.userList[i].type=="Application"){
+   //    		$scope.userList[i].Info="He wants to join your team.";
+   //    	}
+   //    	else $scope.userList[i].Info="Someone left the team.";
+
+   //    }
+
+   //    $scope.whetherfromteam=function(user){
+   //          if($scope.userList[user].type=="Information"){
+   //            return false;
+   //          }
+   //          return true;
+   //    }
+
+   //    $scope.removeuser=function(user){
+   //     			$scope.userList.splice(user,1);
+   //    }
+
+
+
+   /*   $scope.adduser=function(){
+      }*/
+  });
+
 app.controller("ConversationController",function($scope,$routeParams){
         //   $scope.param = $routeParams.p;
             $scope.IsVisiblePeter = false;
@@ -210,42 +302,6 @@ app.controller("ConversationController",function($scope,$routeParams){
 
 
 });
-
-
-app.controller("NotificationController", function($scope){
-			$scope.userList=[
-      				{ Name: "Peter", type: "Invitation", Info: ""},
-      				{ Name: "Jason", type: "Application", Info: ""},
-      				{ Name: "Kevin", type: "Information", Info: ""}
-       ];
-      var i;
-      for(i=0; i<$scope.userList.length; ++i){
-      	if($scope.userList[i].type=="Invitation"){
-      		$scope.userList[i].Info="He invites you into the team.";
-      	}
-      	else if($scope.userList[i].type=="Application"){
-      		$scope.userList[i].Info="He wants to join your team.";
-      	}
-      	else $scope.userList[i].Info="Someone left the team.";
-
-      }
-
-      $scope.whetherfromteam=function(user){
-            if($scope.userList[user].type=="Information"){
-              return false;
-            }
-            return true;
-      }
-
-      $scope.removeuser=function(user){
-       			$scope.userList.splice(user,1);
-      }
-
-
-
-   /*   $scope.adduser=function(){
-      }*/
-  });
 
 app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray, $cookies, $routeParams) {
@@ -264,10 +320,6 @@ app.controller("clickCtrl",
       $scope.selected = {};
       $scope.currentTag = [];
       $scope.resultTag = [];
-      $scope.leader = false;
-      $scope.member = false;
-      $scope.user = false;
-
       //$scope.tag={};
       user_list.$loaded(function() {
         event_list.$loaded(function(){
@@ -298,15 +350,12 @@ app.controller("clickCtrl",
             });
 
             var user_identity = user_list[this_user]["Membership"][event_name]["identity"];
-            $scope.leader = angular.equals(user_identity, 'leader');
-            $scope.member = angular.equals(user_identity, 'member');
-            $scope.user = angular.equals(user_identity, 'user');
             //suggested users for leaders
             $scope.suggested = [];
             var suggested_users = {};
             $scope.suggested_teams=[];
             var suggested_teams = {};
-            //alert("I am a "+user_identity+" in event: "+event_name);
+            alert("I am a "+user_identity+" in event: "+event_name);
             if (user_identity === "leader"){
               //1. users in this event, not in teams, not the user himself/herself => $scope.users
               //user_list.$loaded(function() {});
@@ -328,7 +377,6 @@ app.controller("clickCtrl",
                 }
                 //alert("fulfill= "+fulfill+" user= "+key);
                 suggested_users[fulfill.toString()].push($scope.users[key]);
-                suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["username"] = key;
               });
               //alert(suggested_users["1"].length);
               for (var i = team_skills.length; i>0 ;i--) {
@@ -449,9 +497,7 @@ app.controller("clickCtrl",
       $scope.sendInvitation = function(message){
         //for each user selected
         var keep_going = true;
-
         var alert_content = "Invitation(s) have been sent";
-                
         angular.forEach($scope.selected, function(value,key){
 
             //1. conversation
@@ -480,75 +526,16 @@ app.controller("clickCtrl",
             conversation.$save();
             //2. notification in userList
             var one_noti = {};
-            one_noti["name"] = this_user;
+            one_noti["isRead"] = false;
+            one_noti["link"] = "some_link";
             one_noti["message"] = message;
             if (!("notification" in user_list[key])) {
-              user_list[key]["notification"]={};
+              user_list[key]["notification"]=[];
             }
-
-            user_list[key]["notification"][this_user] = one_noti;
+            user_list[key]["notification"].push(one_noti);
             user_list.$save();
          }
         });
-        alert(alert_content);
-
-      };
-
-
-      $scope.sendMessage = function(message, type, selected_id){
-        //for each user selected
-        var keep_going = true;
-        var leader_id = this_user;
-        var alert_content = "Invitation(s) have been sent";
-        var receiver = selected_id;
-        var conversation_name = selected_id + "_" + leader_id; //selected_id = username of invited user
-        if (type === "request"){
-          alert_content = "Request(s) have been sent";
-          //selected_id = team name
-          leader_id = event_list[event_name]["teamList"][selected_id]["memberList"][0];
-          conversation_name = this_user + "_" + leader_id;
-          receiver = leader_id;
-        }                
-
-            //1. conversation
-            //if conversation does not exist, create a new one
-            
-            if (!(conversation_name in conversation)) {
-              conversation[conversation_name]={
-                "event":"",
-                "log":[],
-                "type":"invite"
-              };
-            };
-            if (type === "request"){
-              conversation[conversation_name]["type"] = "request";
-            }
-
-
-            if ( conversation[conversation_name]["type"] !== type) {
-              //change alert_content
-              alert_content="Please check the previous message with "+receiver+ " first. This action will not be taken";
-              keep_going = false;
-           };
-
-          if(keep_going){
-            conversation[conversation_name]["event"]=event_name;
-            var one_log = {};
-            one_log["message"] = message;
-            one_log["sender"] = this_user;
-            conversation[conversation_name]["log"].push(one_log);
-            conversation.$save();
-            //2. notification in userList
-            var one_noti = {};
-            one_noti["name"] = this_user;
-            one_noti["message"] = message;
-            if (!("notification" in user_list[receiver])) {
-              user_list[receiver]["notification"]={};
-            }
-            user_list[receiver]["notification"][this_user] = one_noti;
-            user_list.$save();
-         }
-        
         alert(alert_content);
 
       };
@@ -587,6 +574,19 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       userlist.$save();
 
     }
+
+
+      var storageRef = firebase.storage().ref()
+      userlist.$loaded().then(function(){
+        
+        var avaFilename = userlist[$scope.thisuser]["img"];
+        var avaRef = storageRef.child('user/'+avaFilename);
+        avaRef.getMetadata().then(function(metadata){
+          $scope.avaUrl = metadata.downloadURLs[0];
+					// console.log($scope.avaUrl);
+					$scope.$apply();
+        });
+      });
 
 }
 );
