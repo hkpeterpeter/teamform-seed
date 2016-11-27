@@ -694,6 +694,7 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
         $scope.thisuser = $cookies.get("username",{path:"/"});
        userlist.$loaded(function() {
        $scope.email = userlist[$scope.thisuser]["email"];
+       $scope.thisusername = userlist[$scope.thisuser]["name"];
        $scope.personalWebsite = userlist[$scope.thisuser]["personalWebsite"];
       $scope.introduction = userlist[$scope.thisuser]["introduction"];
       $scope.skills = userlist[$scope.thisuser]["skills"];
