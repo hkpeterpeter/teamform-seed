@@ -47,10 +47,11 @@
 			  	<!--###Title###-->
 			    <h4><i class="icon-group"></i>&nbsp;&nbsp;Teams</h4>
 			    <p>Teams in the event.</p>   
+				<p><input class="form-control" placeholder="Search by team name" type="text" name="searchName" ng-model = "searchText"/></p>
 			    <hr>
 			    <!--###Content###-->
 			    <div class="container">	
-			      <div ng-repeat="(key, team) in eventObj.teams">
+			      <div ng-repeat="(key, team) in teamf(eventObj.teams)">
 			      	<div class="row">
 							  <div class="col-md-3">
 					    		<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{key}}" style="text-align:left">

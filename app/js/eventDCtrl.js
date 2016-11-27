@@ -15,6 +15,7 @@ app.controller("eventDCtrl",
         // $scope.editButton="Edit";
         $scope.isDeletingAnn = false;
         $scope.recommandTeams = [];
+        $scope.searchText=""
         this.Object=Object;
         Auth.$onAuthStateChanged(function(authData) {
             // console.log($scope.obj);
@@ -352,6 +353,16 @@ app.controller("eventDCtrl",
                 if( teamTags.SkillTags[key]!=0 && userTags.SkillTags[key]>=teamTags.SkillTags[key] )
                     score += skillScore;
             return score;
+        }
+
+        $scope.teamf = function(teams){
+            var result = {};
+            angular.forEach(teams, function(value, key) {
+                if (value.hasOwnProperty('name')&&value.name.includes($scope.searchText)) {
+                    result[key] = value;
+                }
+            });
+            return result;
         }
         
     }
