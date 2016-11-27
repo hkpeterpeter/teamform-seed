@@ -132,6 +132,9 @@ p {
 .panel-body {
     padding-bottom: 0;
 }
+#page_event div.text-center ul.pager li {
+    cursor: pointer;
+}
 .pager {
     margin: 0;
 }
