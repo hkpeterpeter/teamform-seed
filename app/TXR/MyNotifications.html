@@ -1,12 +1,12 @@
  <!--this a notification-->
-     
+
 
           <h1 class="page-header">Notification</h1>
 
           <div class="row placeholders">
             <div class="container">
               <div class="row" ng-app="mainApp" ng-controller="NotificationController">
-               
+
                <div class="col-md-10">
                 <div class="panel panel-default"  ng-repeat="noti in notification">
                     <div class="panel-heading">
@@ -14,11 +14,11 @@
                     </div>
                     <div class="panel-body">
                     <div class="col-sm-1 col-md-1">
-                    <!-- <img src="getphoto(noti.sender)" alt="" class="img-circle"> -->
+                    <img ng-src="{{photolist[noti.name]}}" alt="" align="left" width="50" height="50">
                     </div>
                         <p align="left">{{noti.message}}</p>
                         <div align="right">
-                        <button type="button" class="btn btn-sm btn-success"><a ng-href="#/MyConversation/{{noti.name}}">Reply</a></button>
+                        <a ng-href="#/MyConversation/{{noti.name}}"><button type="button" class="btn btn-sm btn-success">Reply</button></a>
                         <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)">Delete</button></div>
                     </div>
                     </div>
@@ -52,17 +52,13 @@
                     <img src="favicon.ico" alt="" class="img-circle">
                     </div>
                         <p align="left">Andy has left</p>
-                      
+
                     </div>
                     </div>
                     </div> -->
 
-                    
-              
+
+
               </div>
           </div>
         </div>
-
-
-
-
