@@ -395,14 +395,16 @@ app.controller("clickCtrl",
               }
             }
             //alert(event_list["event1"]);
-            angular.forEach(event_list[event_name]["teamList"], function(value, key){
-              for (one_skill in event_list[event_name]["teamList"][key]["skills"]){
-                if (!(one_skill in $scope.currentTag)){
-                  $scope.currentTag.push(key);
+            for(var i=0; i< event_list[event_name]["inEventUser"].length; i++){
+              var temp_username = event_list[event_name]["inEventUser"][i];
+              for (var j=0;  j < user_list[temp_username]["skills"].length; j++){
+                var temp_tag = user_list[temp_username]["skills"][j];
+                if ($scope.currentTag.indexOf(temp_tag) == -1){
+                  $scope.currentTag.push(temp_tag);
                 }
               }
 
-            });
+            };
 
             var user_identity = user_list[this_user]["Membership"][event_name]["identity"];
             $scope.leader = angular.equals(user_identity, 'leader');
