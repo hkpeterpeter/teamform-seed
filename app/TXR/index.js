@@ -270,9 +270,11 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
          userlist.$save();
     }
 
-    $scope.addnotification = function(sender,msg){
+    $scope.addnotification = function(other,evt,sender,msg){
         $scope.deletenotification(sender);
         userlist[$scope.user]["notification"][sender]={
+          "others":other,
+          "event":evt,
           "message":msg,
           "name":sender
         }
