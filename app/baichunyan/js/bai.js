@@ -1,7 +1,7 @@
 teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($scope, $rootScope, $firebaseObject, $firebaseArray) {
 
   $scope.currentEvent = $rootScope.clickedEvent.$id;
-  $scope.currentUser = $rootScope.currentUser.id;
+  $scope.currentUser = $rootScope.currentUser.$id;
   $scope.events = $rootScope.events;
   $scope.users = $rootScope.users;
   $scope.teams = $rootScope.teams;
