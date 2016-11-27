@@ -31,6 +31,12 @@
                             <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="teamList.teamListTableParams.filter().data.name" required>
                         </div>
                     </div>
+                    <div class="form-group" style="padding-top: 25px;">
+                        <label class="col-sm-2 control-label">Vacancy</label>
+                        <div class="col-sm-6">
+                            <div class="slider-range" data-ng-init="teamList.initSlider()" style="padding-left: 18px;"></div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Private Team</label>
                         <div class="col-sm-10">
@@ -89,7 +95,7 @@
                         <td data-title="'Created At'">
                             {{team.data.createdAt | date:'medium'}}
                         </td>
-                        <td data-title="'Vacancy'" sortable="'getVacancy()'">
+                        <td data-title="'Vacancy'" sortable="'getVacancy()'" filter="teamList.vacancyFilterDef">
                             {{team.getVacancy()}}
                         </td>
                         <td data-title="'Direct Join'" sortable="'data.directJoin'">

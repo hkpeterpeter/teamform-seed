@@ -1,8 +1,9 @@
 <ui-alert message="{{chat.error.message}}"></ui-alert>
+<h1>Chat</h1>
 <div class="panel">
   <div class="panel panel-info">
     <div class="panel-heading">
-      <h3 class="panel-title">Chat</h3>
+      <h4 class="panel-title">Chat</h4>
     </div>
     <div class="panel-body">
       <div class="container">
@@ -30,8 +31,6 @@
               <div ng-repeat="showMessage in chat.messages">
                   {{showMessage.createdBy}}:
                   {{showMessage.data}}
-                  <!-- {{chat.messages.createdBy}}:
-                  {{chat.messages.data}} -->
               </div>
             </div>
             <form ng-submit="chat.send()">

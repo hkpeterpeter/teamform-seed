@@ -42,6 +42,7 @@
     "rules": {
         "no-unused-vars": ["warn", {"args": "all"}],
         "no-console": ["warn"],
+        "no-debugger": ["warn"],
         "no-undef-init": 1,
         "no-undef": 1,
         "no-undefined": 1,

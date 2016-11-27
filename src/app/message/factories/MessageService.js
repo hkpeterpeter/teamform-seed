@@ -1,6 +1,6 @@
 import Message from './Message.js';
 export default class MessageService {
-    constructor($rootScope, $injector, $firebaseArray, $firebaseObject, $state, $database, authService, userService, notificationService) {
+    constructor($rootScope, $injector, $firebaseArray, $firebaseObject, $state, $database, authService, userService, webNotificationService) {
         this.$rootScope = $rootScope;
         this.$injector = $injector;
         this.$firebaseArray = $firebaseArray;
@@ -9,7 +9,7 @@ export default class MessageService {
         this.$database = $database;
         this.authService = authService;
         this.userService = userService;
-        this.notificationService = notificationService;
+        this.webNotificationService = webNotificationService;
         this.messages = null;
         this.getMessages();
     }
@@ -31,22 +31,22 @@ export default class MessageService {
                     return this.$list.filter((message) => {
                         return message.data.receiver == id;
                     });
-                },
+                }
             });
             let messages = await messageFirebaseArray(this.$database.ref('messages')).$loaded();
-            messages.$watch(async (event) => {
+            messages.$watch(async(event) => {
                 this.$rootScope.$broadcast('messageChanged');
-                if(event.event == 'child_added') {
+                if (event.event == 'child_added') {
                     let user = await this.authService.getUser();
                     let message = messages.$getRecord(event.key);
-                    if(user && user.uid == message.data.receiver && !message.notified) {
+                    if (user && user.uid == message.data.receiver && !message.notified) {
                         let sender = await message.getSender();
                         message.notified = true;
                         let onClick = (notification) => {
                             this.$state.go('message', {conversationId: sender.$id});
                             notification.close();
                         };
-                        this.notificationService.create('New Message From ' + sender.data.name, message.data.content, onClick);
+                        this.webNotificationService.create('New Message From ' + sender.data.name, message.data.content, onClick);
                     }
                 }
             });
@@ -66,4 +66,14 @@ export default class MessageService {
     }
 }
 MessageService.Instance = null;
-MessageService.instance.$inject = ['$rootScope', '$injector', '$firebaseArray', '$firebaseObject', '$state', 'database', 'AuthService', 'UserService', 'NotificationService'];
+MessageService.instance.$inject = [
+    '$rootScope',
+    '$injector',
+    '$firebaseArray',
+    '$firebaseObject',
+    '$state',
+    'database',
+    'AuthService',
+    'UserService',
+    'WebNotificationService'
+];

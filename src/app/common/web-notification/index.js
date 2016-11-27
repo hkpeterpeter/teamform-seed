@@ -3,6 +3,6 @@ import uirouter from 'angular-ui-router';
 
 import WebNotificationService from './factories/WebNotificationService';
 
-export default angular.module('common.webnotification', [uirouter])
+export default angular.module('common.web-notification', [uirouter])
     .factory('WebNotificationService', WebNotificationService.instance)
     .name;
