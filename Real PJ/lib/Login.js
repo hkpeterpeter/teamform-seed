@@ -26,8 +26,9 @@ app.controller("LoginCtrl", ["$scope","$rootScope", "$firebaseAuth", "$firebaseA
                 console.log("Signed in as:", firebaseUser.uid);
                 $scope.currentUid = firebaseUser.uid;
                 var ref = firebase.database().ref('currentUid');             
-                ref.set($scope.currentUid)
-                window.location = '../Real PJ/index.html';
+                ref.set($scope.currentUid).then(function(){
+                    window.location = '../Real PJ/index.html'
+                });
             }).catch(function(error) {
                 alert(error.message);
             });

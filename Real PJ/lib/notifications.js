@@ -8,7 +8,5 @@ app.controller("notificationCtrl", ["$scope", "$firebaseObject", "$firebaseArray
 			ref = firebase.database().ref('User/' + $scope.id);
         	$scope.user = $firebaseObject(ref);
   		});
-
-      	
   }
 ]);

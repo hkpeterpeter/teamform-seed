@@ -42,7 +42,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
 
-    <script src="../Real PJ/lib\main.js"></script>
+    <script src="../Real PJ/lib/main.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
@@ -55,154 +55,261 @@
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
 <body ng-controller="LoginCtrl" >
+	<div ng-controller="siteCtrl">
+	    <div ng-controller="notificationCtrl">
+	    <!-- container section start -->
+		    <section id="container" class="">
+		      <!--header start-->
+		      <header class="header dark-bg">
+		            <div class="toggle-nav">
+		                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+		            </div>
 
-    <div ng-controller="notificationCtrl">
-    <!-- container section start -->
-    <section id="container" class="">
-      <!--header start-->
-      <header class="header dark-bg">
-            <div class="toggle-nav">
-                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
-            </div>
+		            <!--logo start-->
+		            <a href="index.html" class="logo">Team <span class="lite">Forming</span></a>
+		            <!--logo end-->
 
-            <!--logo start-->
-            <a href="index.html" class="logo">Team <span class="lite">Forming</span></a>
-            <!--logo end-->
+		            <div class="nav search-row" id="top_menu">
+		             
+		            </div>
 
-            <div class="nav search-row" id="top_menu">
-             
-            </div>
+		            <div class="top-nav notification-row">                
+		                <!-- notificatoin dropdown start-->
+		                <ul class="nav pull-right top-menu">
+		                	<!-- inbox notificatoin start-->
+		                    <li id="mail_notificatoin_bar" class="dropdown">
+		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+		                            <i class="icon-envelope-l"></i>
+		                            <span class="badge bg-important">5</span>
+		                        </a>
+		                        <ul class="dropdown-menu extended inbox">
+		                            <div class="notify-arrow notify-arrow-blue"></div>
+		                            <li>
+		                                <p class="blue">You have 5 new messages</p>
+		                            </li>    
+		                            <li>
+		                                <a href="#">
+		                                    
+		                                    <span class="subject">
+		                                    <span class="from">Ray   Munoz</span>
+		                                    <span class="time">1 day</span>
+		                                    </span>
+		                                    <span class="message">
+		                                        Icon fonts are great.
+		                                    </span>
+		                                </a>
+		                            </li>
+		                            <li>
+		                                <a href="#">See all messages</a>
+		                            </li>
+		                        </ul>
+		                    </li>
+		                    <!-- inbox notificatoin end -->
+		                                  
+		                    <!-- alert notification start-->
+		                    <li id="alert_notificatoin_bar" class="dropdown">
+		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
-            <div class="top-nav notification-row">                
-                <!-- notificatoin dropdown start-->
-                <ul class="nav pull-right top-menu">
-                                  
-                    <!-- alert notification start-->
-                    <li id="alert_notificatoin_bar" class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+		                            <i class="icon-bell-l"></i>
+		                            <span class="badge bg-important">3</span>
+		                        </a>
+		                        <ul class="dropdown-menu extended notification">
+		                            <div class="notify-arrow notify-arrow-blue"></div>
+		                            <li>
+		                                <p class="blue">You have 3 new notifications</p>
+		                            </li>                          
+		                            <li>
+		                                <a href="#">
+		                                    <span class="label label-success"><i class="icon_like"></i></span> 
+		                                    Mick appreciated your work.
+		                                    <span class="small italic pull-right"> Today</span>
+		                                </a>
+		                            </li>                            
+		                            <li>
+		                                <a href="#">See all notifications</a>
+		                            </li>
+		                        </ul>
+		                    </li>
+		                    <!-- alert notification end-->
 
-                            <i class="icon-bell-l"></i>
-                            <span class="badge bg-important">3</span>
-                        </a>
-                        <ul class="dropdown-menu extended notification">
-                            <div class="notify-arrow notify-arrow-blue"></div>
-                            <li>
-                                <p class="blue">You have 3 new notifications</p>
-                            </li>                          
-                            <li>
-                                <a href="#">
-                                    <span class="label label-success"><i class="icon_like"></i></span> 
-                                    Mick appreciated your work.
-                                    <span class="small italic pull-right"> Today</span>
-                                </a>
-                            </li>                            
-                            <li>
-                                <a href="#">See all notifications</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- alert notification end-->
+		                    <!-- user login dropdown start-->
+		                    <li class="dropdown">
+		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+		                            <span class="profile-ava">
+		                                <img alt="" src="img/avatar1_small.jpg">
+		                            </span>
+		                            <span class="username">{{user.firstname}}, {{user.lastname}}</span>
+		                            <b class="caret"></b>
+		                        </a>
+		                        <ul class="dropdown-menu extended logout">
+		                            <div class="log-arrow-up"></div>
+		                            <li class="eborder-top">
+		                                <a href="#" ng-click="changeSite3()"><i class="icon_profile"></i> My Profile</a>
+		                            </li>
+		                            <li>
+		                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
+		                            </li>
+		                            <li>
+		                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
+		                            </li>
 
-                    <!-- user login dropdown start-->
-                    <li class="dropdown">
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="profile-ava">
-                                <img alt="" src="img/avatar1_small.jpg">
-                            </span>
-                            <span class="username">{{user.firstname}}, {{user.lastname}}</span>
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu extended logout">
-                            <div class="log-arrow-up"></div>
-                            <li class="eborder-top">
-                                <a href="#"><i class="icon_profile"></i> My Profile</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
-                            </li>
-                            <li>
-                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
-                            </li>
+		                        </ul>
+		                    </li>
+		                    <!-- user login dropdown end -->
+		                </ul>
+		                <!-- notificatoin dropdown end-->
+		            </div>
+		      </header>      
+		      <!--header end-->
+		
+			<!--sidebar start-->
+			<aside>
+			  <div id="sidebar"  class="nav-collapse ">
+			      <!-- sidebar menu start-->
+			      <ul class="sidebar-menu">                
+			          <li class="sub-menu">
+			              <a class="" href="#" ng-click="changeSite1()">
+			                  <i class="icon_house_alt"></i>
+			                  <span>Dashboard</span>
+			              </a>
+			          </li>
+			          <li class="sub-menu">
+			              <a class="" href="#">
+			                  <i class="fa fa-comments-o" ng-click="changeSite2()"></i>
+			                  <span>Team</span>
+			              </a>
+			          </li>   
+			          
+			          <li class="sub-menu">
+			              <a href="#" class="">
+							  <i class="fa fa-users"></i> 
+							  <span>About Us</span> 
+			              </a>
+			          </li> 
+			          
+			      </ul>
+			      <!-- sidebar menu end-->
+			  </div>
+			</aside>
+			<!--sidebar end-->
 
-                        </ul>
-                    </li>
-                    <!-- user login dropdown end -->
-                </ul>
-                <!-- notificatoin dropdown end-->
-            </div>
-      </header>      
-      <!--header end-->
+			<!--main content start-->
 
-      <!--sidebar start-->
-      <aside>
-          <div id="sidebar"  class="nav-collapse ">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu">                
-                  <li class="active">
-                      <a class="" href="index.html">
-                          <i class="icon_house_alt"></i>
-                          <span>Dashboard</span>
-                      </a>
-                  </li>
-    			  <!--<li class="sub-menu">
-                      <a href="#"id="myLink">
-                          <i class="fa fa-user"></i>
-                          <span>Profile</span>
-                         <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">
-                          <li><a class="" href="form_component.html">Edit</a></li>                          
-                      </ul>
-                  </li>-->       
-                  <li class="sub-menu">
-                      <a class="" href="team.html">
-                          <i class="fa fa-comments-o"></i>
-                          <span>Team</span>
-                      </a>
-                  </li>   
-                  <!--<li class="sub-menu">
-                      <a href="javascript:;" class="">
-                          <i class="fa fa-table"></i>
-                          <span>Activities record</span>
-                      </a>
-                  </li>-->
-                  
-                  <li class="sub-menu">
-                      <a href="javascript:;" class="">
-    					  <i class="fa fa-users"></i> <span>About Us</span> 
-                      </a>
-                  </li> 
-                  
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-      
-      <!--main content start-->
-      <section id="main-content">
-    	<section class="wrapper">
+			<section id="main-content">
+				<section class="wrapper">
+					<div ng-switch="pageChange">
+						<div ng-switch-when="home">
+							<h1>Dogs</h1>
+							<p>Welcome to a world of dogs.</p>
+						</div>
 
-        		
-    		
-         </section>
-      </section>
-      <!--main content end-->
-      <!--<div class="text-right">
-            <div class="credits">
-                <a href="">Team Noname</a> by <a href="">Comp3111</a>
-            </div>
-        </div>-->
-    </section>
-    </div>
-    <!-- container section end -->
-    <!-- javascripts -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- nice scroll -->
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <!--custome script for all page-->
-    <script src="js/scripts.js"></script>
-    
+						<div ng-switch-when="teams">
+							<h1>Tutorials</h1>
+							<p>Learn from examples.</p>
+						</div>
+
+						<div ng-switch-when="cars">
+							<h1>Cars</h1>
+							<p>Read about cars.</p>
+						</div>
+
+						<!--Start profile -->
+						<div ng-switch-when="profile">
+							<div class="w3-content w3-container w3-padding-64" id="about">
+								<div class="row">
+									<div class="col-lg-12">
+										<h3 class="page-header">ABOUT ME<a href="edit profile.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
+									</div>
+								</div>
+
+								<div class="w3-row">
+									<div class="w3-col m6 w3-center w3-padding-large">
+										<img src="../UI/img/icon.jpg" class="w3-round w3-image" alt="Photo of Me" width="300" height="300">
+									</div>
+
+									<!-- Hide this text on small devices -->
+									<div class="w3-col m6 w3-hide-small w3-padding-large">
+										<h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
+										<p><b>Major: </b>Computer Science</p>
+										<p><b>Year: </b>3</p>
+										<p><b>Self Description: </b>Hi there! I'm really good at programming. Let's form a team with me.</p>
+										<button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
+											<i class="fa fa-paper-plane"></i> MESSAGE ME!
+										</button>
+									</div>
+								</div>
+								<hr>
+								<p class="w3-large w3-center w3-padding-16">MY SKILLS<a href="quiz intro.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+								<p>C++</p>
+								<div class="w3-progress-container">
+									<div class="w3-progressbar" style="width:90%"></div>
+								</div>
+								<br><p>JavaScript</p>
+								<div class="w3-progress-container">
+									<div class="w3-progressbar" style="width:85%"></div>
+								</div>
+								<br><p>HTML</p>
+								<div class="w3-progress-container">
+									<div class="w3-progressbar" style="width:75%"></div>
+								</div>
+							</div>
+
+							<hr>
+
+							<!-- Container (Portfolio Section) -->
+							<div class="w3-content w3-container w3-padding-64" id="my project">
+								<p class="w3-large w3-center w3-padding-16">MY TEAMS<a href="teamform.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+
+
+								<!-- Responsive Grid. -->
+								<div class="w3-row-padding w3-center">
+									<div class="w3-col m3">
+										<img src="./img/comp3111.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamA">
+									</div>
+
+									<div class="w3-col m3">
+										<img src="./img/comp3511.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamB">
+									</div>
+
+									<div class="w3-col m3">
+										<img src="./img/lang2030.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamC">
+									</div>
+
+									<div class="w3-col m3">
+										<img src="./img/math1014.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamD">
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<!--end profile -->
+
+						<div ng-switch-default>
+							<h1>Switch</h1>
+							<p>Select topic from the dropdown, to switch the content of this DIV.</p>
+						</div>
+					</div>
+
+				</section>
+			</section>
+			<!--main content end-->
+			<!--<div class="text-right">
+			    <div class="credits">
+			        <a href="">Team Noname</a> by <a href="">Comp3111</a>
+			    </div>
+			</div>-->
+			</section>
+	    
+
+		    <!-- container section end -->
+		    <!-- javascripts -->
+		    <script src="js/jquery.js"></script>
+		    <script src="js/bootstrap.min.js"></script>
+		    <!-- nice scroll -->
+		    <script src="js/jquery.scrollTo.min.js"></script>
+		    <!--custome script for all page-->
+		    <script src="js/scripts.js"></script>
+		</div>
+  	</div>
   </body>
 </html>
