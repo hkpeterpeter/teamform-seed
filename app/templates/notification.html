@@ -32,7 +32,7 @@
       			{{events.$getRecord(eid).eventInfo.name}}
 					</a>
 					<span ng-show="myEvent.notifications == null">(No notification)</span>
-					<div ng-repeat="(nid,notification) in myEvent.notifications">
+					<div ng-repeat="(nid,notification) in myEvent.notifications" class="bold-{{!notification.isRead}}">
           	<span ng-show="!notification.isRead">(Unread)</span> {{notification.content}}
 						<button class="btn btn-danger btn-sm" ng-show ="!notification.isRead" ng-click = "changeState(eid,nid)" data-toggle="tooltip" data-placement="bottom" title="I have read this notification">
 				    	<i class="icon-ok-sign"></i>
