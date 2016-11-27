@@ -53,7 +53,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	$rootScope.events=$firebaseArray($rootScope.event_ref);
 	$rootScope.teams=$firebaseArray($rootScope.team_ref);
 
-	$rootScope.yanzhi = function(url) {
+	$rootScope.yanzhi = function(url, callback) {
     var settings = {
       "async": true,
       "crossDomain": true,
@@ -62,16 +62,17 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
     }
 
     $.ajax(settings).done(function(response) {
-      console.log(response);
+			callback(response);
     });
   }
-  //Example: $rootScope.yanzhi('http://timedotcom.files.wordpress.com/2014/03/happily-surprised.jpg');
+	// do stuff in your callback
+  // Example: $rootScope.yanzhi('http://timedotcom.files.wordpress.com/2014/03/happily-surprised.jpg', console.log);
 
 	$rootScope.addNotify=function(receiverID, _content, _eventName , _teamName ,_type){
 		 //_type is chosen from {System, invitation}
     	//If it is any System notification, just input "" for _eventName , _teamName ,
 
-
+    	if(!$rootScope.currentUser.id) $rootScope.currentUser.id=$rootScope.currentUser.$id;
     	var tempUserPic=$firebaseObject(firebase.database().ref("users").child($rootScope.currentUser.id));
     	tempUserPic.$loaded().then(function(data){
 			if(_type=="System"){
@@ -125,7 +126,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 			if($rootScope.users[i].email==email){
 				console.log($rootScope.users[i]);
 				$rootScope.currentUser=$rootScope.users[i];
-				$rootScope.currentUser.id=$rootScope.users[i].$id
+				$rootScope.currentUser.id=$rootScope.users[i].$id;
 			}
 		}
 
