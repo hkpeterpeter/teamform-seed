@@ -151,7 +151,7 @@
             </ul>
         </div>
         <div id="eventsAsAdmin">
-            <h4>Events administrating by me</h4>
+            <h4>I am administrating the following events</h4>
             <div ng-repeat="event in eventsList">
                 <event-card eid="{{event.$value}}"></event-card>
             </div>
@@ -169,7 +169,7 @@
             </div>
         </div>
         <div id="teamsApplying">
-            <h4>I have pending applications to these teams:</h4>
+            <h4>I have pending applications to these teams</h4>
             <div ng-repeat="pendingTeam in applyingList">
                 <team-card team-id="{{pendingTeam.$value}}"></team-card>
                 <a class="waves-effect waves-light btn" ng-click="withdrawApplication($index)">WITHDRAW Application</a>
