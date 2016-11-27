@@ -312,7 +312,7 @@
                             <h4 class="modal-title">Modal Header</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="w3-content w3-container w3-padding-64" id="about">
+                            <div class="w3-content w3-container w3-padding-12" id="about">
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <h3 class="page-header">ABOUT ME</h3>
@@ -327,7 +327,7 @@
                                 <!-- Hide this text on small devices -->
                                 <div class="w3-col m6 w3-hide-small w3-padding-large">
                                     <h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
-                                    <form id="EditProfile" method="post" class="form-horizontal" action="profile.html">
+                                    <form id="EditProfile" method="post" class="form-horizontal" ng-submit="changeModel()">
                                         <div class="form-group">
                                             <label for="Major">Major</label>
                                             <input type="text" class="form-control" name="major" id="">
@@ -349,7 +349,7 @@
                                             <textarea class="form-control" name="selfDescription" id="selfDescription" rows="4"></textarea>
                                         </div>
 
-                                        <button type="submit" class="btn btn-primary" id="submit" data-dismiss="modal">Submit</button>
+                                        <button type="submit" class="btn btn-primary" id="submit" >Submit</button>
                                     </form>
                                 </div>
                               </div>
