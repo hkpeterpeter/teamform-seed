@@ -19,13 +19,20 @@
 	overflow-x: hidden;
 }
 
+.fix-height-270 {
+	height: 270px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
 .fix-height-300 {
 	height: 300px;
 	overflow: auto;
+	overflow-x: hidden;
 }
 
 .fix-height-450 {
-	height: 500px;
+	height: 570px;
 	overflow: auto;
 	overflow-x: hidden;
 }
