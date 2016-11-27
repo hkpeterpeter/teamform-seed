@@ -57,7 +57,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
             }
           }
           for (var key in user.teamsAsMember) {
-            if (user.teamsAsLeader[key] == datas[i].teamID) {
+            if (user.teamsAsMember[key] == datas[i].teamID) {
               $scope.notParticipated = false;
             }
           }
@@ -167,6 +167,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   };
 
   $scope.joinTeam = function($event, id) {
+    console.log($scope.currentUser);
     $firebaseArray($rootScope.user_ref.child($scope.currentUser).child("teamsAsMember")).$add(id);
     $firebaseArray($rootScope.team_ref.child(id).child("membersID")).$add($scope.currentUser);
     $scope.notParticipated = false;
