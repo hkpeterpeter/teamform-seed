@@ -521,6 +521,22 @@ $scope.filterByStatus = function(items, filter_model) {
 		});
 		return result;
 }
+$scope.invite=function(uid){
+            Helper.sendInvitationTo(uid,$scope.eventID,$filter('teamId')($scope.myEvents[$scope.eventID]));
+    	}
+
+$scope.validInvite = function(uid){
+    // console.log($scope.inv, ' ' , uid);
+    if ($filter('teamId')($scope.myEvents[$scope.eventID]) != null) {
+        for (key in $scope.eventObj.teams[$filter('teamId')($scope.myEvents[$scope.eventID])].invitations){
+            // console.log($scope.eventObj.teams[].key);
+            if (key == uid && $scope.eventObj.teams[$filter('teamId')($scope.myEvents[$scope.eventID])].invitations[key] =='pending') return false;
+        }
+        return true;
+    }
+    return false;
+
+};    	
 
 //get application
 		var ref = firebase.database().ref('events/' + $scope.eventID + '/teams/' + $scope.teamID + '/applications');
@@ -774,7 +790,8 @@ $scope.filterByStatus = function(items, filter_model) {
 				// $scope.RecommendTBA = function(people) {
 				// 		var result = {};
 						$scope.tba_featurelist = {};
-						$scope.recommand = function(){
+						$scope.recommend = function(){
+							$scope.tba_featurelist = {};
 							angular.forEach($scope.eventObj.tba, function(name, uid) {
 								// console.log(name);
 								// console.log(uid);
