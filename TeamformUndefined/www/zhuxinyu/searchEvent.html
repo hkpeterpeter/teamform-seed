@@ -3,9 +3,6 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-
-
-
 <div ng-controller="search_controll">
 <div class="flip-container" style="background: #fff;margin-bottom: 50px;">
     <div class="flipper" id="myflipper">
@@ -51,9 +48,9 @@
 <section id="event_list" style="background: #fff; margin-top: 10px;">
     <div class="section" id="eventCardList">
         <!--   Icon Section   -->
-    <event-card eid="0"></event-card>
-     <event-card eid="1"></event-card>
-      <event-card eid="-KVuCpLge5iLhFhStPfb"></event-card>
+
+    <event-card ng-repeat="x in events" eid="{{x.$id}}"></event-card>
+  
 
      
     </div>

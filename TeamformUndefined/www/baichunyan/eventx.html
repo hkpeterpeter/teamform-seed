@@ -9,9 +9,9 @@
         <div class="section no-pad-bot">
             <div class="container">
                 <br><br>
-                <h1 class="header teal-text">{{readyData.event.eventName}}</h1>
+                <h1 class="header teal-text">{{curEvent.eventName}}</h1>
 
-                <h5 class="header">{{readyData.event.eventDescription}}</h5>
+                <h5 class="header">{{curEvent.eventDescription}}</h5>
             </div>
         </div>
         <div class="container">
@@ -21,7 +21,7 @@
                 </button>
             </div>
         </div>
-        <div class="parallax"><img src="fish/image/bg.jpg" alt="Unsplashed background img 1" style="display: block;" height="200"></div>
+        <div class="parallax"><img ng-src="{{curEvent.eventBG}}" alt="Unsplashed background img 1" style="display: block;height: 100%;width:auto;"></div>
     </div>
 
 
@@ -29,7 +29,7 @@
     <div class="container" ng-show="showTeams">
         <!--   Collapsible structure -->
         <ul class="collapsible blue-grey darken-2" data-collapsible="expandable">
-            <div ng-repeat="t in readyData.team track by t.teamID">
+            <div ng-repeat="t in teams track by t.teamID">
 
                 <li>
                   <team-card team-id="{{t.teamID}}"></team-card>
