@@ -1,10 +1,9 @@
 var app = angular.module("myApp", ["firebase"]); 
 
-app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
-    function($scope, $firebaseAuth, $firebaseArray) {
-
+app.controller("LoginCtrl", ["$scope", "$eootScope", "$firebaseAuth", "$firebaseArray",
+    function($scope, $eootScope, $firebaseAuth, $firebaseArray) {
         $scope.authObj = $firebaseAuth();
-
+        $rootScope.currentUid = new Date();
         $scope.createUser = function() {
             if($scope.signInput.password != $scope.rePassword){
                 alert("Different password, Please enter the correct password and Retype pasword")
@@ -17,6 +16,7 @@ app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
                 ref.child(firebaseUser.uid).set($scope.signInput);
                 $scope.signInput = null;
                 $scope.rePassword = null;
+                $scope.currentUid = firebaseUser.uid;
             }).catch(function(error) {
                 alert(error.message);
             });
@@ -24,12 +24,14 @@ app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
 
         $scope.loginUser = function() {   
             $scope.authObj.$signInWithEmailAndPassword($scope.input.email + "@connect.ust.hk", $scope.input.password).then(function(firebaseUser) {
-              console.log("Signed in as:", firebaseUser.uid);
-              window.location = "http://www.google.com"
+                console.log($scope.a);
+                console.log("Signed in as:", firebaseUser.uid);
+                $scope.currentUid = firebaseUser.uid;
+                window.location = '../Real PJ/index.html';
+
             }).catch(function(error) {
-              alert(error.message);
+                alert(error.message);
             });
         }
-        
     }
 ]);

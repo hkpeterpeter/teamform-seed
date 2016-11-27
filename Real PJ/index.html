@@ -1,233 +1,207 @@
-<html lang="en" ng-app="myApp">
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" >
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 
-<head >
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
 
-<!-- AngularJS -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+        apiKey: "AIzaSyBm3v0FwEKneu9IBdj5vRh9Zn_iajH0xjk",
+        authDomain: "tast-dc842.firebaseapp.com",
+        databaseURL: "https://tast-dc842.firebaseio.com",
+        storageBucket: "tast-dc842.appspot.com",
+        messagingSenderId: "431016183416"
+        };
+        firebase.initializeApp(config);
+    </script>
 
-<!-- AngularFire -->
-<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
 
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBm3v0FwEKneu9IBdj5vRh9Zn_iajH0xjk",
-    authDomain: "tast-dc842.firebaseapp.com",
-    databaseURL: "https://tast-dc842.firebaseio.com",
-    storageBucket: "tast-dc842.appspot.com",
-    messagingSenderId: "431016183416"
-  };
-  firebase.initializeApp(config);
-</script>
+    <title>Team Forming</title>
 
-<script src="..\Real PJ\lib\Login.js"></script>
+    <!-- Bootstrap CSS -->    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Team Forming</title>
-
-<!-- CSS -->
-<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/form-elements.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/modal.css">
-
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
-<!-- Favicon and touch icons -->
-<link rel="shortcut icon" href="assets/ico/favicon.png">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
-
-<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Stalinist+One&amp;subset=latin-ext" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Bungee&amp;subset=latin-ext" rel="stylesheet">
-</head>
-
-<body>
-
-    <!-- Top content -->
-    <div class="top-content">
-    	
-        <div class="inner-bg">
-            <div class="container">
-            	
-                 <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2 text">
-                        <h1>Team Forming</h1>
-                        <div class="description">
-                        	<p>
-                            	A real-time online team forming app for any event
-                        	</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                	<div class="col-sm-3"></div>
-                    <div class="col-sm-6">
-                    	<div class="form-box">
-                        	<div class="form-top">
-                        		<div class="form-top-left">
-                        			<h3>LOGIN</h3>
-									<br/>
-									<div>
-										<ul style="width:134%" class="nav nav-pills nav-justified">
-											<li class="col-sm-5" class="active"><a href="#student">Student</a></li>
-											<li class="col-sm-5" ><a href="#admin">Admin</a></li>
-										</ul>
-									</div>
-                        		</div>
-                        		<div class="form-top-right">
-                        			<i class="fa fa-lock"></i>
-                        		</div>
-                            </div>	
-							<div class="tab-content">
-								<div id="student" class="tab-pane fade in active" ng-controller="LoginCtrl">
-									<div class="form-bottom">
-										<p style="color:white;">Enter username and password to log on:</p>
-										<form role="form" method="post" class="login-form">
-											<div class="form-group">
-												<table>
-													<th style="width:70%">
-														<label class="sr-only" for="form-username">Username</label>
-														<input type="text" name="form-username" placeholder="Email Address..." class="form-username form-control" id="form-username" ng-model="input.email">
-													</th>
-													<th align="right" style="color:white;font-weight:normal;">&nbsp;&nbsp;@connect.ust.hk
-													</th>
-												</table>
-											</div>
-											<div class="form-group">
-												<label class="sr-only" for="form-password">Password</label>
-												<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password" ng-model="input.password">
-											</div>
-											<ul class="nav nav-pills nav-justified">
-												<li class="col-lg-6"><button type="submit" class="btn" >Sign in </button></li>
-												<li class="col-lg-6"><button type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
-											</ul>							
-										</form>
-									</div>
-								</div>
-								<div id="admin" class="tab-pane fade">
-									<div class="form-bottom">
-										<p style="color:white;">Enter username and password to log on:</p>
-										<form role="form" action="" method="post" class="login-form">
-											<div class="form-group">
-												<table>
-													<th style="width:90%">
-														<label class="sr-only" for="form-username">Email Address</label>
-														<input type="text" name="form-username" placeholder="Email Address..." class="form-username form-control" id="form-username">
-													</th>
-													<th align="right" style="color:white;font-weight:normal;">&nbsp;&nbsp;@ust.hk
-													</th>
-												</table>
-											</div>
-											<div class="form-group">
-												<label class="sr-only" for="form-password">Password</label>
-												<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
-											</div>
-											<button type="submit" class="btn">Sign in</button>
-
-										</form>
-									</div>
-								</div>
-		                    </div>
-	                    </div>
-	                </div>
-
-                    <div class="container">
-					  	<!-- Modal -->
-
-					  	<div class="modal fade" id="registerModal" role="dialog" ng-controller="LoginCtrl">
-					  		<div class="modal-dialog modal-lg" >
-					    	 	<div class="modal-content">
-						        	<div class="modal-header">
-						          		<button type="button" class="close" data-dismiss="modal">&times;</button>
-						    	      	<h5 class="modal-title">REGISTER</h5>
-							        </div>
-							        <div class="modal-body" >
-							        	<div class="form-bottom">
-											<form role="form" method="post" class="registration-form">
-												<div class="form-group">
-						                    		<table>
-														<th style="width:45%">
-															<label class="sr-only" for="form-firstname">Firstname</label>
-															<input type="text" name="form-firstname" placeholder="First Name..." class="form-firstname form-control" ng-model="signInput.firstname" id="form-firstname">
-														</th>
-														<th style="width:5%"> </th>
-														<th style="width:45%">
-															<label class="sr-only" for="form-lastname">Lastname</label>
-															<input type="text" name="form-lastname" placeholder="Last Name..." class="form-lastname form-control" ng-model="signInput.lastname" id="form-lastname">
-														</th>
-													</table>
-						                        </div>
-						                    	<div class="form-group">
-						                    		<table>
-														<th style="width:70%">
-															<label class="sr-only" for="form-username">Username</label>
-															<input type="text" name="form-username" placeholder="Email Address..." class="form-username form-control" id="form-username" ng-model="signInput.email">
-														</th>
-														<th align="right" style="color:white;font-weight:normal;">&nbsp;&nbsp;@connect.ust.hk
-														</th>
-													</table>
-						                        </div>
-						                        <div class="form-group">
-						                        	<label class="sr-only" for="form-password">Password</label>
-						                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password" ng-model="signInput.password">
-						                        </div>
-						                        <div class="form-group">
-						                        	<label class="sr-only" for="form-email">Confirm Password</label>
-						                        	<input type="password" name="form-password2" placeholder="Retype Password..." class="form-password2 form-control" id="form-password2" ng-model="rePassword">
-						                        </div>
-						                       
-						                        <button type="submit" class="btn">Sign me up!</button>
-						                    </form>
-					                    </div>
-						       	 	</div>     
-					      		</div>
-					    	</div>
-
-					  	</div>
-					</div>                       
-                </div>             
-            </div>
-        </div>
-        
-    </div>
-
-    <!-- Footer -->
-    <!-- Javascript -->
-    <script src="assets/js/jquery-1.11.1.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.backstretch.min.js"></script>
-    <script src="assets/js/scripts.js"></script>
-	
-	<script>
-	$(document).ready(function(){
-		$(".nav-pills a").click(function(){
-			$(this).tab('show');
-		});
-	});
-	
-	</script>
-	
-    <!--[if lt IE 10]>
-        <script src="assets/js/placeholder.js"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
     <![endif]-->
+</head>
+  
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
-</body>
+<body ng-controller="LoginCtrl">
 
+    <div ng-controller="notificationCtrl"></div>
+    <!-- container section start -->
+    <section id="container" class="">
+      <!--header start-->
+      <header class="header dark-bg">
+            <div class="toggle-nav">
+                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+            </div>
+
+            <!--logo start-->
+            <a href="index.html" class="logo">Team <span class="lite">Forming</span></a>
+            <!--logo end-->
+
+            <div class="nav search-row" id="top_menu">
+             
+            </div>
+
+            <div class="top-nav notification-row">                
+                <!-- notificatoin dropdown start-->
+                <ul class="nav pull-right top-menu">
+                                  
+                    <!-- alert notification start-->
+                    <li id="alert_notificatoin_bar" class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                            <i class="icon-bell-l"></i>
+                            <span class="badge bg-important">3</span>
+                        </a>
+                        <ul class="dropdown-menu extended notification">
+                            <div class="notify-arrow notify-arrow-blue"></div>
+                            <li>
+                                <p class="blue">You have 3 new notifications</p>
+                            </li>                          
+                            <li>
+                                <a href="#">
+                                    <span class="label label-success"><i class="icon_like"></i></span> 
+                                    Mick appreciated your work.
+                                    <span class="small italic pull-right"> Today</span>
+                                </a>
+                            </li>                            
+                            <li>
+                                <a href="#">See all notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- alert notification end-->
+
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="profile-ava">
+                                <img alt="" src="img/avatar1_small.jpg">
+                            </span>
+                            <span class="username">Jenifer Smith</span>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <div class="log-arrow-up"></div>
+                            <li class="eborder-top">
+                                <a href="#"><i class="icon_profile"></i> My Profile</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
+                            </li>
+                            <li>
+                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+                </ul>
+                <!-- notificatoin dropdown end-->
+            </div>
+      </header>      
+      <!--header end-->
+
+      <!--sidebar start-->
+      <aside>
+          <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">                
+                  <li class="active">
+                      <a class="" href="index.html">
+                          <i class="icon_house_alt"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+    			  <!--<li class="sub-menu">
+                      <a href="#"id="myLink">
+                          <i class="fa fa-user"></i>
+                          <span>Profile</span>
+                         <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="form_component.html">Edit</a></li>                          
+                      </ul>
+                  </li>-->       
+                  <li class="sub-menu">
+                      <a class="" href="team.html">
+                          <i class="fa fa-comments-o"></i>
+                          <span>Team</span>
+                      </a>
+                  </li>   
+                  <!--<li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="fa fa-table"></i>
+                          <span>Activities record</span>
+                      </a>
+                  </li>-->
+                  
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+    					  <i class="fa fa-users"></i> <span>About Us</span> 
+                      </a>
+                  </li> 
+                  
+              </ul>
+              <!-- sidebar menu end-->
+          </div>
+      </aside>
+      <!--sidebar end-->
+      
+      <!--main content start-->
+      <section id="main-content">
+    	<section class="wrapper">
+      
+    		
+    		
+    		
+    		
+         </section>
+      </section>
+      <!--main content end-->
+      <!--<div class="text-right">
+            <div class="credits">
+                <a href="">Team Noname</a> by <a href="">Comp3111</a>
+            </div>
+        </div>-->
+    </section>
+    <!-- container section end -->
+    <!-- javascripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- nice scroll -->
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <!--custome script for all page-->
+    <script src="js/scripts.js"></script>
+    <script src="..\Real PJ\lib\main.js"></script>
+  </body>
 </html>
