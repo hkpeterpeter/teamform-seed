@@ -1,4 +1,4 @@
-var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
+var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies","chart.js"]);
 
 //initalizeFirebase();
 
