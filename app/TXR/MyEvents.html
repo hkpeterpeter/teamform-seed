@@ -494,17 +494,17 @@
         
           <div class="row" ng-show = "leader">
          <div class="col-lg-6" id="teammembers">
-        <h2>Current Members</h2>
+        <h2>Current Members{{memberphoto}}</h2>
        
 
           <div class="table-responsive">
-            <table class="table table-striped" ng-repeat = "(num,member) in memberlist">
+            <table class="table table-striped" ng-repeat = "member in memberlist">
 
               <tbody>
                 <tr>
-                  <td style="font-size: 30px">{{num}}</td>
+                  <td style="font-size: 30px">{{$index}}</td>
                   <td>
-                      <img src="getmemberphoto(member)" id="kkkkk" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                      <img src={{memberphoto[member]}} class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
                   </td>
                   <td style="font-size: 30px"><a href="#">{{member}}</a></td>
                  <td>
@@ -615,7 +615,7 @@
                 <tr>
                   <td style="font-size: 30px">{{num}}</td>
                   <td>
-                      <img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                      <img src={{memberphoto[num]}} class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
                   </td>
                   <td style="font-size: 30px"><a href="#">{{members}}</a></td>
             
