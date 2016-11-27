@@ -5,18 +5,49 @@
 //var teamapp = angular.module("dashboard", ['firebase']);
 
 teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject) {
-    $rootScope.currentUser.id = "-KVu4OAjfPRTsmQ_8Ict";
     var userRef = firebase.database().ref('users/' + $rootScope.currentUser.id);
-    var skillsRef = userRef.child('/skills');
 
+    var skillsRef = userRef.child('/skills');
+    $scope.displayUser={};
+    console.log($scope.displayUser);
     $scope.displayUser = $firebaseObject(userRef);
+    $scope.displayUser.profilePic="zhuxinyu/img/load5.gif";
+    $scope.displayUser.name="Loading...";
+     $scope.displayUser.email="Loading...";
+     
+   
+
+    $scope.newName = '';
+    $scope.receiveNewName = function(){
+        var nameFirebaseRef = $firebaseObject(userRef.child('/name'));
+        nameFirebaseRef.$loaded().then(function () {
+           nameFirebaseRef.$value = $scope.newName;
+            nameFirebaseRef.$save().then(function() {
+            }, function(error) {
+                console.log("Error:", error);
+            });
+            $scope.newName = '';
+        });
+    };
+
 
     $scope.skillsList = $firebaseArray(skillsRef);
 
     $scope.newSkill = '';
     $scope.receiveNewSikll = function () {
-        $scope.skillsList.$add($scope.newSkill);
-        $scope.newSkill = '';
+        var skillsFirebase = $firebaseArray(skillsRef);
+        var doesntExist = true;
+        skillsFirebase.$loaded().then(function () {
+            for (var i=0; i<skillsFirebase.length; i++){
+                if (skillsFirebase[i].$value == $scope.newSkill){
+                    doesntExist = false;
+                }
+            }
+            if (doesntExist == true){
+                skillsFirebase.$add($scope.newSkill);
+                $scope.newSkill = '';
+            }
+        });
     };
 
     $scope.retrieveEvents = function(){
@@ -69,45 +100,81 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     var notifsRef = userRef.child('/notifs');
     $scope.notifs = $firebaseArray(notifsRef);
+    $scope.last10Notifs = $firebaseArray(notifsRef.orderByKey().limitToLast(10));
+    $scope.showAllNotifs = false;
+    $scope.show10Notifs = true;
+    $scope.showAll = function(){
+        $scope.showAllNotifs = true;
+        $scope.show10Notifs = false;
+    };
+    $scope.showLess = function () {
+        $scope.showAllNotifs = false;
+        $scope.show10Notifs = true;
+    };
 
-    // $scope.acceptInvitation = function(index){  //TODO: check whether this team is full
-    //     //To add him to the member list
-    //     var thisteamMemberList = $firebaseArray( firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/membersID') );
-    //     thisteamMemberList.$loaded().then(function(){
-    //         console.log("this team before adding him, has " + thisteamMemberList);
-    //         thisteamMemberList.$add($rootScope.currentUser.id);
-    //     });
-    //
-    //     //To remove him from the "invited people" list
-    //     var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
-    //     thisteamInvitedPeople.$loaded().then(function(){
-    //         for (var i = 0; i<thisteamInvitedPeople.length; i++){
-    //             if (thisteamInvitedPeople[i].$value === $rootScope.currentUser.id){
-    //                 thisteamInvitedPeople.$remove(i);
-    //             }
-    //         }
-    //     });
-    //
-    //     //To update his own copy of "teams as member"
-    //     $scope.memberList.$add($scope.invitedList[index].$value);
-    //
-    //     //To remove this team from his "being invited list"
-    //     $scope.invitedList.$remove(index);
-    // };
-    //
-    // $scope.turndownInvitation = function(index){
-    //
-    //     //To remove him from the "invited people" list
-    //     var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
-    //     thisteamInvitedPeople.$loaded().then(function(){
-    //         for (var i = 0; i<thisteamInvitedPeople.length; i++){
-    //             if (thisteamInvitedPeople[i].$value === $rootScope.currentUser.id){
-    //                 thisteamInvitedPeople.$remove(i);
-    //             }
-    //         }
-    //     });
-    //     $scope.invitedList.$remove(index);
-    // }
+    $scope.acceptInvitation = function(index){
+        //To add him to the member list
+        var thisteamMemberList = $firebaseArray( firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/membersID') );
+        thisteamMemberList.$loaded().then(function(){
+            //Check the parent event's max team size
+            var belongstoEvent = $firebaseObject(firebase.database().ref('/teams/' + $scope.invitedList[index].$value + '/belongstoEvent'));
+            belongstoEvent.$loaded().then(function () {
+                var parentEventID = belongstoEvent.$value;
+                var parentEventFirebase = $firebaseObject(firebase.database().ref('/events/'+parentEventID));
+                parentEventFirebase.$loaded().then(function(){
+                    var parentEventSizeCap = parentEventFirebase.maxSize;
+                    if (thisteamMemberList.length < parentEventSizeCap){
+                        thisteamMemberList.$add($rootScope.currentUser.id);
+                        //To remove him from the "invited people" list
+                        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
+                        thisteamInvitedPeople.$loaded().then(function(){
+                            for (var i = 0; i<thisteamInvitedPeople.length; i++){
+                                if (thisteamInvitedPeople[i].$value == $rootScope.currentUser.id){
+                                    thisteamInvitedPeople.$remove(i);
+                                }
+                            }
+                        });
+                        //To update his own copy of "teams as member"
+                        $scope.memberList.$add($scope.invitedList[index].$value);
+                        //To remove this team from his "being invited list"
+                        $scope.invitedList.$remove(index);
+                    }
+                    else{
+                        console.log("this team is already full.")
+                    }
+                });
+            });
+        });
+    };
+
+
+    $scope.turndownInvitation = function(index){
+        //To remove her from the "invited people" list
+        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
+        thisteamInvitedPeople.$loaded().then(function(){
+            for (var i = 0; i<thisteamInvitedPeople.length; i++){
+                if (thisteamInvitedPeople[i].$value == $rootScope.currentUser.id){
+                    thisteamInvitedPeople.$remove(i);
+                }
+            }
+        });
+        $scope.invitedList.$remove(index);
+    };
+
+    $scope.withdrawApplication = function(index){
+        //To remove her from that team's
+        var thatteamid = $scope.applyingList[index].$value;
+        var thatteamsPendingApplicants = $firebaseArray(firebase.database().ref('/teams/' + thatteamid + '/pendingApplicants'));
+        thatteamsPendingApplicants.$loaded().then(function(){
+           for (var i=0; i<thatteamsPendingApplicants.length; i++){
+               if (thatteamsPendingApplicants[i].$value == $rootScope.currentUser.id){
+                   thatteamsPendingApplicants.$remove(i);
+               }
+           }
+        });
+        //To remove that team from her teamsApplying array
+        $scope.applyingList.$remove(index);
+    }
 
 
 });
