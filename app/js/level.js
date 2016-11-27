@@ -20,19 +20,13 @@ app.controller("levelCtrl",
         });
         
         $scope.add = function (){
-			$scope.current+=10;
+			$scope.current=0;
+            $scope.total = 150;
+            $scope.level = 6;
             $scope.value = ($scope.current)/$scope.total*100 +"%";
             knobfunction($scope.value);
-
+            window.alert("Congratulation! Level Up!");
         };
-        
-        //
-        //$scope.$watch('total', function() {
-        ////    $scope.percent = $scope.current/$scope.total*100 + "%";
-        //    var el = document.getElementById("circle");
-        //  //  el.setAttribute("value", $scope.percent);
-        //    compile(el);
-        //});
 
     }
 );
