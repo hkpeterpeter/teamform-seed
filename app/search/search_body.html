@@ -62,7 +62,7 @@
   	</div>
 
   	<div class="row ">
-  		<div class="media team-list" style="cursor: pointer;" ng-repeat = "team in filterResult" ng-hide = "teamyeah">
+  		<div class="media team-list" onmouseenter = "borderColor(this,'lightblue')" onmouseleave = "borderColor(this,'silver')" style="cursor: pointer;" ng-repeat = "team in filterResult" ng-hide = "teamyeah">
   			<div class="media-left">
   				<img class="media-object" style = "height:64px;width:64px" src="peter.jpg" alt="peter">
   			</div>
