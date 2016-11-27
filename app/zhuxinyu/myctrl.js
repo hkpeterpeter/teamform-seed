@@ -391,6 +391,7 @@ teamapp.directive("zhuNavi", function() {
         restrict: "E",
         templateUrl: "zhuxinyu/js/components/fish-navi.html",
          controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+            $scope.allnoti=[];
         $rootScope.initilizaNofi=function(){
             console.log("Navibar init");
             console.log($rootScope.currentUser);
