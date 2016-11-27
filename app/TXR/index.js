@@ -48,14 +48,14 @@ app.config(function($routeProvider){
 
 });
 
-app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray){
+app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray, $cookies){
 
       $scope.eventname = $routeParams.p;
       $scope.photolist = [];
       var x;
       var y;
       var team;
-       var thisuser = "kimsung";
+       var thisuser = $cookies.get("username",{path:"/"});
        var userlist = $firebaseObject(firebase.database().ref("userList"));
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        userlist.$loaded(function() {
@@ -633,10 +633,11 @@ app.controller("clickCtrl",
     }
 );
 
-app.controller("profileController",function($scope,$firebaseArray,$firebaseObject){
+app.controller("profileController",function($scope,$firebaseArray,$firebaseObject,$cookies,$window){
 
        var userlist = $firebaseObject(firebase.database().ref("userList"));
-        $scope.thisuser = "kimsung";
+       var storageRef = firebase.storage().ref();
+        $scope.thisuser = $cookies.get("username",{path:"/"});
        userlist.$loaded(function() {
        $scope.email = userlist[$scope.thisuser]["email"];
        $scope.personalWebsite = userlist[$scope.thisuser]["personalWebsite"];
@@ -648,9 +649,20 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
      //  team="L1";
        })
        $scope.editprofileinfo = function(Website,email){
-       userlist[$scope.thisuser]["personalWebsite"] = Website;
-       userlist[$scope.thisuser]["email"] = email;
-      userlist.$save();
+       if (Website !== undefined) userlist[$scope.thisuser]["personalWebsite"] = Website;
+       if (email !== undefined) userlist[$scope.thisuser]["email"] = email;
+       uploadFile = document.getElementById("uploadFile").files[0];
+       if (uploadFile !== undefined) {
+         userlist[$scope.thisuser].img = uploadFile.name;
+         userlist.$save();
+         var task = storageRef.child("user/"+uploadFile.name).put(uploadFile).then(function(snapshot){
+           $window.location.reload(true);
+         });
+       }
+       else {
+         userlist.$save();
+         $window.location.reload(true);
+       }
        }
       $scope.editprofileintro = function(introduction){
        userlist[$scope.thisuser]["introduction"] = introduction;
