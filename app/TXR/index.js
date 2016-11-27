@@ -100,12 +100,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
             userlist[thisuser]["Membership"][$scope.eventname]["identity"] = "user";
             userlist[thisuser]["Membership"][$scope.eventname]["teamName"] = "Null";
             userlist.$save();
-<<<<<<< 41382af6fd79cfcce0068f12dea6fdd150248c19
 
-
-
-=======
->>>>>>> new changes
       }
 
     $scope.quitevent = function(){
@@ -252,6 +247,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
           "message":msg,
           "name":sender
         }
+        userlist.save();
     }
 
 
