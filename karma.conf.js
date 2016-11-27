@@ -21,10 +21,7 @@ module.exports = function (config) {
 			'js/site.js': ['coverage'],
 			'js/index.js': ['coverage'],
 			'js/admin.js': ['coverage'],
-<<<<<<< HEAD
-=======
 			// 'js/team.js': ['coverage'],
->>>>>>> a69d8fc358faa674091512b9124027cfc4882f3e
 			'js/member.js': ['coverage'],
 			'js/addpost.js': ['coverage'],
 			'js/chatroomCtrl.js': ['coverage'],
