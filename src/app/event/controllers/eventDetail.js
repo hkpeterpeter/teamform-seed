@@ -1,11 +1,12 @@
 export default class EventDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, NgTableParams, eventService, teamService) {
+    constructor($location, $state, $stateParams, $timeout, NgTableParams, eventService, teamService, userService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
         this.eventService = eventService;
         this.teamService = teamService;
+        this.userService = userService;
         this.event = null;
         this.error = null;
         this.autoTeam = {};
@@ -23,7 +24,13 @@ export default class EventDetailCtrl {
             counts: [],
             dataset: []
         });
+        this.canManage = false;
+        this.init();
         this.getEvent();
+    }
+    async init() {
+        let user = await this.userService.me();
+        this.canManage = user.data.role == 'admin';
     }
     async getEvent() {
         try {
@@ -131,16 +138,27 @@ export default class EventDetailCtrl {
         }
     }
     listInit() {
-        this.teamList = this.teamList || this.event.getTeams().map((team) => {
-            let teamUsers = team.getTeamUsers().map((teamUser) => {
-                let name = '';
-                if(teamUser.user) {
-                    name = teamUser.user.data.name;
-                }
-                return {$id: teamUser.$id, name: name, id: teamUser.id, type: 'user', role: teamUser.role};
+        if(!this.teamList) {
+            this.teamList = this.event.getTeams().map((team) => {
+                let teamUsers = team.getTeamUsers().map((teamUser) => {
+                    let name = '';
+                    if(teamUser.user) {
+                        name = teamUser.user.data.name;
+                    }
+                    return {$id: teamUser.$id, name: name, id: teamUser.id, type: 'user', role: teamUser.role};
+                });
+                return {$id: team.$id, type: 'team', name: team.data.name, children: teamUsers};
             });
-            return {$id: team.$id, type: 'team', name: team.data.name, children: teamUsers};
-        });
+            let users = _.chain(this.event.getEventUsers()).filter({hasTeam: false}).value();
+            users.map((user) => {
+                user.id = user.user.$id;
+                user.role = 'Any';
+                user.name = user.user.data.name;
+                user.type = 'user';
+                return user;
+            });
+            this.teamList.push({type: 'noTeam', name: 'No Team Members', children: users});
+        }
         $('.dd ol:first').html('');
         this.teamList.forEach((team) => {
             $('.dd ol:first').append(this.buildItem(team));
@@ -149,6 +167,9 @@ export default class EventDetailCtrl {
             let newTeamList = $('.dd').nestable('serialize');
             for(let i=0; i<newTeamList.length; i++) {
                 let team = newTeamList[i];
+                if(team.type == 'noTeam') {
+                    continue;
+                }
                 if(team.type != 'team') {
                     this.listInit();
                     return;
@@ -170,7 +191,7 @@ export default class EventDetailCtrl {
                         }
                     }
                 }
-                if(userCount == 0) {
+                if(userCount == 0 && team.$id) {
                     team.remove = true;
                     this.teamList = newTeamList;
                     continue;
@@ -198,12 +219,26 @@ export default class EventDetailCtrl {
             }
             html += '<div class="dd-handle">' + item.name + ' - ' + item.role + '</div>';
         } else {
+            let className = '';
             if(item.remove) {
                 html += '<li class="dd-item hide" data-$id="' + item.$id + '" data-id="'+item.id+'" data-type="'+item.type+'" data-name="'+item.name+'" data-remove="true">';
             } else {
+                let userCount = 0;
+                if(item.children) {
+                    userCount = item.children.reduce((count, item) => {
+                        return count + !!item.id;
+                    }, 0);
+                }
+                if(item.type == 'team') {
+                    if(userCount < this.event.data.teamMin) {
+                        className += 'red-bg txt-white-hover';
+                    } else if (userCount >= this.event.data.teamMin) {
+                        className += 'green-bg txt-white-hover';
+                    }
+                }
                 html += '<li class="dd-item" data-$id="' + item.$id + '" data-id="'+item.id+'" data-type="'+item.type+'" data-name="'+item.name+'">';
             }
-            html += '<div class="dd-handle">' + item.name + '</div>';
+            html += '<div class="dd-handle '+className+'">' + item.name + '</div>';
         }
         if (item.children) {
             html += '<ol class="dd-list">';
@@ -261,7 +296,6 @@ export default class EventDetailCtrl {
                 this.error = error;
             });
         }
-
     }
 }
 
@@ -272,5 +306,6 @@ EventDetailCtrl.$inject = [
     '$timeout',
     'NgTableParams',
     'EventService',
-    'TeamService'
+    'TeamService',
+    'UserService'
 ];
