@@ -153,13 +153,13 @@
 						</button>
 						<hr>
 		        <!--###Content###-->
-		          <div class="row padding" ng-repeat="(uid, score) in tba_featurelist">
+		          <div class="row padding" ng-repeat="user in tba_featurelist_arr | orderBy: 'score': true">
 		            <div class="col-md-9">
 		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
-										{{users.$getRecord(uid).readOnly.name}} [{{score}}]
+										{{users.$getRecord(user.uid).readOnly.name}} [{{user.score}}]
 		              </a>
 		            </div>
-		            <button class="btn btn-danger btn-sm" ng-click="invite(uid)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(uid)" data-toggle="tooltip" data-placement="bottom" title="Invite">
+		            <button class="btn btn-danger btn-sm" ng-click="invite(user.uid)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(user.uid)" data-toggle="tooltip" data-placement="bottom" title="Invite">
 		              <i class="icon-leaf"></i>
 		            </button>
 		          </div>
