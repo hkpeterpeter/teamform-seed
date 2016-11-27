@@ -1,4 +1,4 @@
-var teamapp = angular.module('teamapp', ["ngRoute","firebase"]);
+var teamapp = angular.module('teamapp', ["ngRoute","firebase","chart.js","ngDragDrop"]);
 
 
 
@@ -120,6 +120,10 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
         profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
         email:"abc@connect.ust.hk"
     }
+
+    $rootScope.clickedEvent={
+    	$id:"0"
+    }
                 
 	var exampleNewUser={
 		eventsManaging:[],
@@ -179,13 +183,39 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 
 
 		});
+
 		$(function() {
 			var div = $('.videoframe');
 			var width = div.width();
 
 			div.css('height', width*0.6);
-		});
+
+			if (localStorage.getItem('loginStatus') == 'true') {
+				console.log('you have already login');
+          		// $('.loginB').toggle();
+          		$('.loginB').css('display', 'none');
+
+          		// $rootScope.loginWithEmail();
+          	}
+          });
 
 	});
 
+	$rootScope.logoutHelper = function() {
+
+		console.log("see you next time");
+		localStorage.setItem('loginStatus', false); 
+		$rootScope.currentUser = {};
+		location.assign('#');
+	}
+
 }]);
+
+(function(){
+	localStorage.setItem('loginStatus', false);
+
+	window.onbeforeunload = function() {
+        return "Are you sure to leave the app? Refreshing and closing the page will cause your logout.";
+    }
+    
+})();

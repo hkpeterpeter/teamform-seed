@@ -1,0 +1,27 @@
+<div class="row" style="margin-top: 30px">
+  <div class="col s12">
+
+    <div class="card horizontal">
+      <div class="card-image">
+           <canvas class="chart chart-radar"
+  chart-data="data" chart-options="options" chart-labels="labels">
+</canvas>
+      </div>
+      <div class="card-stacked">
+        <div class="card-content">
+          <a class="btn-floating btn-large waves-effect waves-light white animated_div2" id="sideButton{{eid}}" ng-click="showMore()" style="position: absolute; top:0; right:0; font-size:20px;font-weight: 600;color: #5B5B5B; border-radius: 0px; "><img ng-src="{{imageUrl}}" height="auto" width="100%"></a>
+          <h4>{{element.teamName}}</h4>
+          <div style="width: 80%" ng-show='element.description===undefined'> The diagram on the left shows the desired skills of this team and how many people currently in the team have that skill</div>
+          <div style="width: 80%" ng-show='element.description!==undefined'> {{element.description}}</div>
+          <div style="width: 80%"> quota: {{quota}}</div>
+          <div style="width: 80%"> needed for minimum: {{needed}}</div>
+        </div>
+         <a ng-click="goToTeam();">
+        <div class="card-action hoverChange" >
+         Go To : {{element.teamName}}. For members only
+        </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
