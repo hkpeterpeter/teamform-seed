@@ -25,20 +25,11 @@ app.controller("LoginCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
         $scope.loginUser = function() {   
             $scope.authObj.$signInWithEmailAndPassword($scope.input.email + "@connect.ust.hk", $scope.input.password).then(function(firebaseUser) {
               console.log("Signed in as:", firebaseUser.uid);
+              window.location = "http://www.google.com"
             }).catch(function(error) {
               alert(error.message);
             });
-
-
-
         }
-
-
-
-
-
+        
     }
-
-
-
 ]);
