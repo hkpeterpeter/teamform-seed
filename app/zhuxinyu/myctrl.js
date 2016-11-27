@@ -472,6 +472,7 @@ teamapp.directive('teamCard',function(){
                     $scope.quota=data.max_num - 1 - (data.membersID instanceof Array ? data.membersID.length : 0);
                     $scope.needed=(data.min_num - 1) > 0 ? data.min_num - 1 : 0;
 
+
                     if(!data.desiredSkills){
                         data.desiredSkills=[];
                     }else if(!data.desiredSkills.length){
