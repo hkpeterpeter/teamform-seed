@@ -290,7 +290,7 @@
         <h2>
       <div align="left">
     <div class="hero-unit">
-        <span class="label label-warning skill" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove"></span></span>
+        <span class="label label-warning skill" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove" ng-click="deletetag($index)" value="Reload Page" onClick="document.location.reload(true)"></span></span>
 
 
          </div>
@@ -497,7 +497,7 @@
                   </td>
                   <td style="font-size: 30px"><a href="#">{{member}}</a></td>
                  <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)"> Delete</button>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)" value="Reload Page" onClick="document.location.reload(true)"> Delete</button>
                   </td>
                 </tr>
                  <!--<tr>
@@ -542,9 +542,44 @@
                   <td>
                       <img ng-src="{{imgUrl[suggested_users.username]}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px"><a href="#">{{suggested_users["name"]}}</a></td>
+                  <td style="font-size: 30px" data-target="#userProfile" data-toggle="modal">{{suggested_users["name"]}}</td>
                  <td>
                       <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button-->
+	<div id = "userProfile" class = "modal fade" role = "dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">User Profile</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row placeholders">
+						<div class="col-xs-6 col-sm-3">
+							<img src="peter.jpg" class="img-thumbnail" alt="Generic square placeholder thumbnail">
+						</div>
+						<div class="col-xs-4 col-sm-4 placeholder">
+							<h4 class="text-left" style = "font-weight:bold">{{suggested_users["name"]}}</h4>
+							<h4 class="text-left">{{suggested_users["introduction"]}}</h4>
+						</div>
+		
+					</div>
+
+          
+		  
+					<h2 class="sub-header">Skills</h2>
+					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
+
+				</div>
+
+			</div>
+			
+		</div>
+	</div>
+
+
+
 
 <!-- Trigger the modal with a button -->
   <button id="fat-btn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{num}}">Invite</button>
@@ -630,9 +665,9 @@
               <tbody>
                 <tr ng-repeat = "(num, team_content) in suggested_teams">
                   <td style="font-size: 30px">{{num+1}}</td>
-                  <td>
+                  <!--<td>
                       <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
-                  </td>
+                  </td>-->
                   <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
                  <td>
                       <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button-->

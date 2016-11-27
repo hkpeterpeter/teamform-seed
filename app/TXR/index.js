@@ -132,8 +132,9 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
           }
           eventlist.$save();
      }
-     $scope.deletetag = function(skill){
-       eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"].splice(i,1);
+     $scope.deletetag = function(i){
+       delete eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"][i];
+       eventlist.$save();
      }
 
 
