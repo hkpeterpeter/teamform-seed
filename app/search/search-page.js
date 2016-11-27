@@ -565,6 +565,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.data = [];
 			$scope.type = 'polarArea';
 			$scope.currentTeam = "";
+			$scope.disable = false;
+			$scope.full = false;
+			$scope.inTeam = false;
 			$scope.passTeam = function(index){
 				$scope.currentTeam = $scope.filterResult[index];
 				
@@ -584,6 +587,18 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 					$scope.data.push(number);
 					
+				}
+				var numMembers = $scope.teamini[$scope.currentTeam].memberList.length;
+					if(numMembers == event_list[Naruto.Luffy].maxTeamMem){
+							$scope.disable = true;
+							$scope.full = true;
+					}
+					
+				for(var i = 0;i < numMembers; i++){
+					if($scope.teamini[$scope.currentTeam].memberList[i] == thisUser){
+						$scope.disable = true;
+						$scope.inTeam = true;
+					}	
 				}
 				
 			}

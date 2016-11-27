@@ -104,7 +104,9 @@
 			  <h4 class="text-left">Leader: {{userList[teamini[currentTeam].leader].name}}</h4>
             </div>
 			<div class="col-xs-2 col-sm-3 placeholder">
-              <button type="button" class="btn btn-primary btn-lg">Join</button>
+              <button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg">Join</button>
+			  <p ng-show = "full"><small class="text-danger">Team is full</small></p>
+			  <p ng-show = "inTeam"><small class="text-danger">You are member</small></p>
             </div>
           </div>
 
