@@ -30,7 +30,7 @@
 	<!--notification popup-->
 	<link rel="stylesheet" href="../search/angular-ui-notification.min.css">
 	<script src="../search/angular-ui-notification.min.js"></script>
-	
+
 <script>
     // Initialize Firebase
     var config = {
@@ -86,22 +86,24 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar" ng-controller="sidebarCtrl">
             <ul class="nav nav-sidebar" ng-click="startSearch.search=true" ng-controller="sidebarController">
-            <li class="active"><a href="#/">My Profile<span class="sr-only">(current)</span></a></li>
-            		<li><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">My Events</a>
+            <li class="{{isActive('profile')}}"><a href="#/" ng-click="setActive('profile')">My Profile<span class="sr-only">(current)</span></a></li>
+            		<li class="{{isActive('event')}}">
+                  <a href="" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">My Events</a>
                     <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
 
-                    <li ng-repeat="(event,value) in eventlist"><a ng-href="#/MyEvents/{{event}}">{{event}}</a></li>
+                    <li ng-repeat="(event,value) in eventlist">
+                      <a ng-href="#/MyEvents/{{event}}" ng-click="setActive('event')">{{event}}</a></li>
                     </ul>
                   </li>
 
-            <li><a href="#MyNotifications">My Notifications</a></li>
-           		<li><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu2" aria-expanded="false">My Conversations</a>
+            <li class="{{isActive('notif')}}"><a href="#MyNotifications" ng-click="setActive('notif')">My Notifications</a></li>
+           		<li class="{{isActive('conv')}}"><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu2" aria-expanded="false">My Conversations</a>
                     <ul class="nav collapse" id="submenu2" role="menu" aria-labelledby="btn-1">
                     <!-- <li><a href="#MyConversation/Peter">Peter</a></li>
                     <li><a href="#MyConversation/Jason">Jason</a></li>
                     <li><a href="#MyConversation/Kevin">Kevin</a></li> -->
                     <li ng-repeat="conv in convList">
-                      <a ng-href="#MyConversation/{{linkList[$index]}}">{{conv}}</a>
+                      <a ng-href="#MyConversation/{{conv}}" ng-click="setActive('conv')">{{conv}}</a>
                     </li>
                     </ul>
                   </li>

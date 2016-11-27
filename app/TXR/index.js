@@ -47,8 +47,14 @@ app.config(function($routeProvider,NotificationProvider){
     });
   });
 
-
-
+  active = "profile";
+  $scope.isActive = function(type){
+    if (type == active) return "active";
+    else return "";
+  };
+  $scope.setActive = function(type){
+    active = type;
+  };
 
 
 
@@ -302,16 +308,16 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
               $scope.photolist[key] = photoUrl;
               //var newIn = { $scope.notification[i]["name"]: photoUrl};
               //photo.push(newIn);
-             if( loadedCount == notificationNum) $scope.$apply();  
+             if( loadedCount == notificationNum) $scope.$apply();
         //});
         })
       });
 
       });
-      
 
 
-    
+
+
 
 
 
@@ -351,20 +357,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
       }*/
   });
 
-app.controller("ConversationController",function($scope,$routeParams){
-        //   $scope.param = $routeParams.p;
-            $scope.IsVisiblePeter = false;
-            $scope.IsVisibleJason = false;
-            $scope.IsVisibleKevin = false;
-  //          $scope.show=function(a){
-        //       $scope.IsVisibleCOMP3111 = angular.equals($scope.param, a);
-      //      }
-         $scope.IsVisiblePeter = angular.equals($routeParams.p, 'Peter');
-          $scope.IsVisibleJason = angular.equals($routeParams.p, 'Jason');
-          $scope.IsVisibleKevin = angular.equals($routeParams.p, 'Kevin');
 
-
-});
 
 app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray, $cookies, $routeParams) {
@@ -750,11 +743,11 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       })
 
 
-    
+
     }
 
 
-    
+
       var storageRef = firebase.storage().ref()
       userlist.$loaded().then(function(){
 
