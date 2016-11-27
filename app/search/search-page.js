@@ -61,8 +61,15 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				}
 			});
 			*/
-			
-			
+			$scope.ignore = false;
+			$scope.reSearch = function(){
+				if($scope.resultTag.length != 0){
+					filterFunction();
+				}
+				if($scope.searchResult.length != 0){
+					searchName();
+				}
+			}
 			
 			$scope.loadData = function(){
 				$scope.hehe = "";
@@ -288,18 +295,31 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				
 				$scope.filterResult = [];
 				if(Naruto.Sakura == "Search Team"){
+					
 					for(var i = 0;i < tagini[$scope.resultTag[0]].teams.length;i++){
 						$scope.filterResult.push(tagini[$scope.resultTag[0]].teams[i]);
 					}
-					for(var i = 1;i < $scope.resultTag.length;i++){
+					
+					for(var i = 0;i < $scope.resultTag.length;i++){
+						
 						//get the team list related to current result tag
 						var list = tagini[$scope.resultTag[i]].teams;
 						for(var k = 0;k < $scope.filterResult.length;k++){
+							
 							var bingo = false;
 							for(var j = 0;j < list.length;j++){
 								if(list[j] == $scope.filterResult[k]){
 									bingo = true;
+									
+									if($scope.ignore){
+										var numMembers = $scope.teamini[list[j]].memberList.length;
+	
+										if(numMembers == event_list[Naruto.Luffy].maxTeamMem){
+											bingo = false;
+										}
+									}
 									break;
+									
 								}
 							}
 							if(!bingo){
@@ -452,6 +472,21 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						findResult('team');
 						
 						$scope.filterResult = $scope.searchResult;
+						if($scope.ignore){
+							for(var i = 0;i < $scope.filterResult.length;i++){
+								var numMembers = $scope.teamini[ $scope.filterResult[i]].memberList.length;
+								if(numMembers == event_list[Naruto.Luffy].maxTeamMem){
+									$scope.filterResult[i] = "@";
+								}
+							}
+							var temp = [];
+							for(var i = 0;i < $scope.filterResult.length;i++){
+								if($scope.filterResult[i] != "@"){
+									temp.push($scope.filterResult[i]);
+								}
+							}
+							$scope.filterResult = temp;
+						}
 					}
 					else{
 						findResult('user');
@@ -475,6 +510,12 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							for(var j = 0;j < $scope.searchResult.length;j++){
 								if($scope.searchResult[j] == $scope.filterResult[i]){
 									bingo = true;
+									if($scope.ignore){
+										var numMembers = $scope.teamini[$scope.filterResult[i]].memberList.length;
+										if(numMembers == event_list[Naruto.Luffy].maxTeamMem){
+											bingo = false;
+										}
+									}
 								}
 							}
 							if(!bingo){
@@ -515,6 +556,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						$scope.filterResult = temp;
 					}					
 				}
+				
 			}
 			Naruto.searchName = searchName;
 			
