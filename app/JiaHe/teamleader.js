@@ -1,5 +1,8 @@
 teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($rootScope, $scope, $firebaseObject, $firebaseArray) {
 
+    $rootScope.users=$firebaseArray($rootScope.user_ref);
+    $rootScope.events=$firebaseArray($rootScope.event_ref);
+    $rootScope.teams=$firebaseArray($rootScope.team_ref);
     // Add for test
     $scope.event = $rootScope.events.$getRecord($rootScope.clickedEvent.$id);
     // $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser.id));
