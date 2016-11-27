@@ -174,7 +174,7 @@
                             </td>
                             <td>
                                 <p ng-if="teamDetail.canManage() || teamDetail.isMe(teamUser.user.$id)">Message: {{teamUser.message}}</p>
-                                <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.isMe(teamUser.user.$id)" ng-click="teamDetail.cancelRequestTeamPosition(teamUser.$id)">Cancel Request</button>
+                                <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.isMe(teamUser.user.$id) && teamUser.confirmed === false" ng-click="teamDetail.cancelRequestTeamPosition(teamUser.$id)">Cancel Request</button>
                                 <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.confirmTeamPosition(teamUser.$id)">Accept</button>
                                 <button type="button" class="btn btn-xs btn-danger" ng-if="teamDetail.canManage() && teamUser.confirmed === false" ng-click="teamDetail.rejectConfirmTeamPosition(teamUser.$id)">Reject</button>
                                 <button type="button" class="btn btn-xs btn-success" ng-if="teamDetail.canAccept(teamUser.$id) && teamUser.accepted === false" ng-click="teamDetail.acceptTeamPosition(teamUser.$id)">Accept</button>

@@ -128,7 +128,7 @@ export default class TeamService {
     async rejectConfirmTeamPosition(id, positionId) {
         // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
-        await teamUser.$remove();
+        teamUser.refId = null;
         return teamUser.$save();
     }
     async acceptTeamPosition(id, positionId) {
