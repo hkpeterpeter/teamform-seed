@@ -447,6 +447,9 @@ app.controller("clickCtrl",
                 suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["username"] = key;
               });
               //alert(suggested_users["1"].length);
+              var storageRef = firebase.storage().ref();
+              $scope.imgUrl = {};
+              var loadedCount = 0;
               for (var i = team_skills.length; i>0 ;i--) {
                 var str_i = i.toString();
                 if (str_i in suggested_users){
@@ -456,6 +459,14 @@ app.controller("clickCtrl",
                     $scope.suggested.push(suggested_users[str_i][j]);
                   }*/
                 }
+              }
+              for (i = 0; i < $scope.suggested.length; i++) {
+                var thisImg = storageRef.child("user/"+$scope.suggested[i].img);
+                thisImg.getMetadata().then(function(metadata){
+                  loadedCount++;
+                  $scope.imgUrl[metadata.customMetadata.user]=metadata.downloadURLs[0];
+                  if (loadedCount == $scope.suggested.length) $scope.$apply();
+                });
               }
             }
             //if the user is a user in this event
@@ -693,9 +704,11 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
        if (email !== undefined) userlist[$scope.thisuser]["email"] = email;
        uploadFile = document.getElementById("uploadFile").files[0];
        if (uploadFile !== undefined) {
-         userlist[$scope.thisuser].img = uploadFile.name;
+         s = uploadFile.name.split(".");
+         fileType = "." + s[s.length - 1];
+         userlist[$scope.thisuser].img = $scope.thisuser+fileType;
          userlist.$save();
-         storageRef.child("user/"+uploadFile.name).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
+         storageRef.child("user/"+$scope.thisuser + fileType).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
            $window.location.reload(true);
          });
        }
