@@ -4,75 +4,104 @@
     <script src="lib/angularfire.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
     <script src="js/member.js"></script>
-	<link href="css/member.css" type="text/css" rel="stylesheet" />
+    <link href="css/member.css" type="text/css" rel="stylesheet" />
     <title>Member Page</title>
-
 </head>
 
-<body ng-app = "member" ng-controller = "memCtrl">
-	
-	<button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+<body ng-app="member" ng-controller="memCtrl">
 
-   <a href="addpost.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" > Go to the advertisement board page</button></a>
-	 <form >
-		<div class="container">
-	        <!-- Portfolio Item Heading -->
+    <button id="btn_admin" type="button" class="btn btn-lg btn-warning">Back</button></a>
+
+    <form>
+        <div class="container">
+            <!-- Portfolio Item Heading -->
             <div class="text-center">
-				<h1>Member Page</h1>
-			</div>
-        <!-- /.row -->
-
-        <!-- Portfolio Item Row -->
-        <div class="row" >
-            <div class="col-md-12">
-                <div align=left class="bubble" class="img-responsive" style="margin-top:50px">
-				<h2 style="margin-top:-10px"><center>Your Profile</center></h2>
-				<img src="{{mems[getID()].profile_pic}}" width = "170" height = "220" class="picleft" class="img-responsive"/ align=left>
-				
-				<div style = "margin = 5px 0px 5px 20px">
-					<h3>Last Name: &nbsp;<span>{{mems[getID()].last_name}}</span></h3>
-					<h3>Member ID: &nbsp;<span>{{mems[getID()].id}}</span></h3>
-					<h3> Gender: &nbsp;<span>{{mems[getID()].gender}}</span></h3>
-					<h3> Lives in:&nbsp; <span>{{mems[getID()].from}}</span></h3>
-					<h3> Date of Born: &nbsp;<span>{{mems[getID()].birthday}}</span></h3>
-					<h3> Email Address: &nbsp;<span>{{mems[getID()].email}}</span></h3>
-					<h3> Descriptions: &nbsp;<span>{{mems[getID()].descriptions}}</span></h3>
-					<h3>Available For Traveling?: &nbsp;<span>{{mems[getID()].available_for_traveling}}</span></h3>
-					<h3>Has been to: &nbsp;<span ng-repeat="to in mems[getID()].has_been">{{to}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
-					<h3>Languages: &nbsp;<span ng-repeat="language in mems[getID()].language">{{language}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
-					<h3>Want to travel to: &nbsp;<span ng-repeat="place in mems[getID()].want_to_travel">{{place}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
-				</div>		
-				
-				
-				
-				
-				
-				</div>
-				
+                <h1>Profile</h1>
             </div>
+            <hr>
+            <hr><br>
+
+
+            <!-- /.row -->
+
+            <!-- Portfolio Item Row -->
+            <div class="row" style="margin-top: 1px;">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <div class="bubble" class="img-responsive" style="margin-top:1px">
+                        <h2 style="margin-top:-10px">
+                            <center>Your Profile</center>
+                        </h2>
+                        <img src="{{user.profile_pic}}" width="170" height="220" class="picleft" class="img-responsive" / align=left>
+
+                        <div>
+                            <h3>Last Name: &nbsp;<span>{{user.last_name}}</span></h3>
+                            <h3>Member ID: &nbsp;<span>{{user.id}}</span></h3>
+                            <h3>Gender: &nbsp;<span>{{user.gender}}</span></h3>
+                            <h3>Lives in: &nbsp; <span>{{user.from}}</span></h3>
+                            <h3>Date of Born: &nbsp;<span>{{user.birthday}}</span></h3>
+                            <h3>Email Address: &nbsp;<span>{{user.email}}</span></h3>
+                            <h3>Descriptions: &nbsp;<span>{{user.descriptions}}</span></h3>
+                            <h3>Available For Traveling?: &nbsp;<span>{{user.available_for_traveling}}</span></h3>
+                            <h3>Has been to: &nbsp;<span ng-repeat="to in user.has_been">{{to}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                            <h3>Languages: &nbsp;<span ng-repeat="language in user.language">{{language}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                            <h3>Wish List: &nbsp;<span ng-repeat="place in user.want_to_travel">{{place}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <!-- Related Projects Row -->
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <h1 Style="color: white">Team Joined</h1>
+                    </div>
+                    <hr>
+                    <hr><br>
+                    <div class="row" style="margin-top: 1px;" ng-repeat="team in teamsJoined">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="bubble" class="img-responsive" style="margin-top:1px">
+                                <h2 style="margin-top:-10px">
+                                    <center>{{team.name}}</center>
+                                </h2>
+                                <div>
+                                    <h3>Departure Date: &nbsp;<span>{{team.departure_date}}</span></h3>
+                                    <h3>Descriptions: &nbsp;<span>{{team.descriptions}}</span></h3>
+                                    <h3>Destination: &nbsp;<span>{{team.gender}}</span></h3>
+                                    <h3>Estimated Budget/person: &nbsp; <span>{{team.estimated_budget_per_person}}</span></h3>
+                                    <h3>Language: &nbsp;<span>{{team.language_for_communication}}</span></h3>
+                                    <h3>Max Number of People: &nbsp;<span>{{team.max}}</span></h3>
+                                    <h3>Preference: &nbsp;<span>{{team.preference}}</span></h3>
+                                    <h3>Return Date: &nbsp;<span>{{team.return_date}}</span></h3>
+                                    <h3>Members: &nbsp;<span ng-repeat="memberId in team.members"><a href="member.html?memberId={{memberId}}">{{membersAll[memberId].first_name}}, {{membersAll[memberId].last_name}}</a> &nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- /.row -->
+
+
 
         </div>
-        <!-- /.row -->
-
-        <!-- Related Projects Row -->
-		<div class="row" style="margin-top:700px">
-            <div class="col-lg-12">
-                <h1 class="page-header" Style="color: white">Trips Joined</h1>
-            </div>
-
-           
-
-        </div>
-        <!-- /.row -->
-		
-        <hr>
-
-
-    </div>
-	</form>
+    </form>
     <!-- /.container -->
 
-	<script src="js/member.js"></script>
-	<script src="js/site.js"></script>
+    <script src="js/member.js"></script>
+    <script src="js/site.js"></script>
 </body>

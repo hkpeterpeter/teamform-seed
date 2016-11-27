@@ -126,7 +126,7 @@ app.controller("RegController",
 
             var email = $scope.emailReg;
             var password = $scope.passwordReg;
-            var bDate = $scope.date;
+            var bDate = $("#date").val();
             var name = $scope.namee;
             var nameLast = $scope.nameee;
 
@@ -181,7 +181,7 @@ app.controller("RegController",
                             birthday: bDate
                         }).then(function() {
                             // Update successful.
-
+                            console.log(bDate);
                             // construct JSON for Database
                             $scope.input = {
                                 available_for_traveling: $scope.avali,
@@ -192,7 +192,8 @@ app.controller("RegController",
                                 from: $scope.nation,
                                 gender: $scope.gender,
                                 has_been: [],
-                                id: user.uid,
+                                uid: user.uid,
+                                id: $scope.members.length,
                                 language: [],
                                 last_name: nameLast,
                                 profile_pic: URL,
@@ -205,7 +206,7 @@ app.controller("RegController",
                                 }
                             }
 
-                            // console.log($scope.input);
+                            console.log($scope.input);
 
                             // $scope.members.$add($scope.input);
                             // console.log($scope.members.length);
