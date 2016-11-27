@@ -8,7 +8,7 @@
     <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Profile</title>
+    <title>Homepage</title>
 
     <!-- Bootstrap CSS -->    
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,29 +17,20 @@
     <!--external css-->
     <!-- font icon -->
     <link href="css/elegant-icons-style.css" rel="stylesheet" />
-    <link href="css/font-awesome.min.css" rel="stylesheet" />    
-    <!-- full calendar css-->
-    <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-  <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
-    <!-- easy pie chart-->
-    <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
-    <!-- owl carousel -->
-    <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
-  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
     <!-- Custom styles -->
-  <link rel="stylesheet" href="css/fullcalendar.css">
-  <link href="css/widgets.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
-  <link href="css/xcharts.min.css" rel=" stylesheet"> 
-  <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
 
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
   </head>
   
   <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-  <style>
-    @import url("http://bootswatch.com/yeti/bootstrap.min.css");
-    </style>
 
   <body>
   <!-- container section start -->
@@ -180,13 +171,13 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">Peter</span>
+                            <span class="username">Jenifer Smith</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
                             <li class="eborder-top">
-                                <a href="profile.html"><i class="icon_profile"></i> My Profile</a>
+                                <a href="#"><i class="icon_profile"></i> My Profile</a>
                             </li>
                             <li>
                                 <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
@@ -209,7 +200,7 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
-                  <li class="">
+                  <li class="active">
                       <a class="" href="index.html">
                           <i class="icon_house_alt"></i>
                           <span>Dashboard</span>
@@ -239,7 +230,7 @@
                   </li>-->
                   
                   <li class="sub-menu">
-                      <a href="about us.html" class="">
+                      <a href="javascript:;" class="">
 						  <i class="fa fa-users"></i> <span>About Us</span> 
                       </a>
                   </li> 
@@ -253,74 +244,75 @@
       <!--main content start-->
       <section id="main-content">
 		<section class="wrapper">
-	  
-			<div class="w3-content w3-container w3-padding-64" id="about">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3 class="page-header">ABOUT ME<a href="edit profile.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
-        </div>
-      </div>
-  
-  <div class="w3-row">
-    <div class="w3-col m6 w3-center w3-padding-large">
-      <img src="../UI/img/icon.jpg" class="w3-round w3-image" alt="Photo of Me" width="300" height="300">
-    </div>
+              
+			<h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+			
+				<div class="col-md-3">
+					<div class="info-box green-bg">
+						<i class="fa fa-envelope-o"></i>
+						<div class="count">5</div>
+						<div class="title">New</div>						
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="info-box blue-bg">
+						<i class="fa fa-bell-o"></i>
+						<div class="count">7</div>
+						<div class="title">New</div>						
+					</div>		
+				</div><!--/col-->
+				
+				<div class="col-md-3">
+					<div class="info-box yellow-bg">
+						<i class="fa fa-flag-o red"></i>
+						<div class="count">2</div>
+						<div class="title">Total</div>						
+					</div>		
+				</div><!--/col-->
+				
+			<div class="row">
+               	
+				<div class="col-lg-9 col-md-12">	
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h2><i class="fa fa-flag-o red"></i><strong>Your Team</strong></h2>
+						</div>
+						<div class="panel-body">
+							<table class="table bootstrap-datatable countries">
+								<thead>
+									<tr>
+										<th>Course</th>
+										<th>Groupname</th>
+										<th>No.of people</th>
+										<th>Detail</th>
+										<th>Leave Team</th>
+									</tr>
+								</thead>   
+								<tbody>
+									<tr>
+										<td>COMP2011</td>
+										<td>TeamA</td>
+										<td>6</td>
+										<td><button class="btn btn-primary" onclick="window.open('teamdetail.html')">Detail</button></td>
+										<td><button class="btn btn-danger" onclick="">Leave</button></td>
+									</tr>
+									<tr>
+										<td>COMP2012</td>
+										<td>TeamS</td>
+										<td>2</td>
+										<td><button class="btn btn-primary" onclick="window.open('teamdetail.html')">Detail</button></td>
+										<td><button class="btn btn-danger" onclick="">Leave</button></td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+	
+					</div>	
+				</div>
+			</div>
+			
 
-    <!-- Hide this text on small devices -->
-    <div class="w3-col m6 w3-hide-small w3-padding-large">
-      <h5><i class="fa fa-user w3-margin-right"></i><b>Peter</b></h5>
-      <p><b>Major: </b>Computer Science</p>
-      <p><b>Year: </b>3</p>
-      <p><b>Self Description: </b>Hi there! I'm really good at programming. Let's form a team with me.</p>
-      <button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
-          <i class="fa fa-paper-plane"></i> MESSAGE ME!
-      </button>
-    </div>
-  </div>
-  <hr>
-  <p class="w3-large w3-center w3-padding-16">MY SKILLS<a href="quiz intro.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
-  <p>C++</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:90%"></div>
-  </div>
-  <br><p>JavaScript</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:85%"></div>
-  </div>
-  <br><p>HTML</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:75%"></div>
-  </div>
-</div>
-
-<hr>
-
-<!-- Container (Portfolio Section) -->
-<div class="w3-content w3-container w3-padding-64" id="my project">
-  <p class="w3-large w3-center w3-padding-16">MY TEAMS<a href="teamform.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
-
-
-  <!-- Responsive Grid. -->
-  <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="../page format/img/comp3111.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamA">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/comp3511.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamB">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/lang2030.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamC">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/math1014.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamD">
-    </div>
-  </div>
-
-</div>
-      
          </section>
       </section>
       <!--main content end-->
