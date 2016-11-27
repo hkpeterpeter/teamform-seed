@@ -65,6 +65,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       var y;
       var team;
        var thisuser = $cookies.get("username",{path:"/"});
+       $scope.thisuser=thisuser;
        var userlist = $firebaseObject(firebase.database().ref("userList"));
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        userlist.$loaded(function() {

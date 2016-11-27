@@ -289,8 +289,8 @@
     <hr ng-hide="user">
         <h2>
       <div align="left">
-    <div class="hero-unit">
-        <span class="label label-warning skill" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove" ng-click="deletetag($index)" value="Reload Page" onClick="document.location.reload(true)"></span></span>
+    <div class="hero-unit" ng-controller="NotificationController">
+        <span class="label label-warning skill" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove" value="Reload Page" onClick="document.location.reload(true)"></span></span>
 
 
          </div>
