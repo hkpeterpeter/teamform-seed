@@ -5,7 +5,7 @@ var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies"]);
 app.config(function($routeProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
-     .when("/MyNotifications",{templateUrl:"MyNotifications.html", controller:'NotificationController'})
+     .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
      .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"EventController"})
      .when("/MyConversation/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
@@ -100,9 +100,12 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
             userlist[thisuser]["Membership"][$scope.eventname]["identity"] = "user";
             userlist[thisuser]["Membership"][$scope.eventname]["teamName"] = "Null";
             userlist.$save();
+<<<<<<< 41382af6fd79cfcce0068f12dea6fdd150248c19
 
 
 
+=======
+>>>>>>> new changes
       }
 
     $scope.quitevent = function(){
@@ -186,6 +189,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
         });
 
       });
+
       eventlist.$loaded(function(){
         
        
@@ -217,44 +221,77 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       return memberavaUrl;
       }
 
-      $scope.callphoto = function(user_name){
-        return userlist[user_name]["img"];
-      }
 
 
-      // $scope.userList=[
-   //           { Name: "Peter", type: "Invitation", Info: ""},
-   //           { Name: "Jason", type: "Application", Info: ""},
-   //           { Name: "Kevin", type: "Information", Info: ""}
+
+
+
+});
+
+app.controller("NotificationController", function($scope, $firebaseObject, $firebaseArray, $cookies){
+
+    $scope.user=$cookies.get("username",{path:"/"});
+    var userlist = $firebaseObject(firebase.database().ref("userList"));
+    userlist.$loaded(function(){
+        $scope.notification = userlist[$scope.user]["notification"];
+    })
+
+
+    $scope.deletenotification = function(sendername){
+         delete userlist[$scope.user]["notification"][sendername];
+         userlist.save();
+    }
+
+    $scope.addnotification = function(sender,msg){
+        for(int i=0; i<$scope.notification.length(); i++){
+          if($scope.notification[i].name==sender){
+            $scope.deletenotification(sender);
+          }
+        }
+        userlist[$scope.user]["notification"][sender]={
+          "message":msg,
+          "name":sender
+        }
+    }
+
+
+
+
+
+			// $scope.userList=[
+   //    				{ Name: "Peter", type: "Invitation", Info: ""},
+   //    				{ Name: "Jason", type: "Application", Info: ""},
+   //    				{ Name: "Kevin", type: "Information", Info: ""}
    //     ];
-      // var i;
-      // for(i=0; i<$scope.userList.length; ++i){
-      //   if($scope.userList[i].type=="Invitation"){
-      //     $scope.userList[i].Info="He invites you into the team.";
-      //   }
-      //   else if($scope.userList[i].type=="Application"){
-      //     $scope.userList[i].Info="He wants to join your team.";
-      //   }
-      //   else $scope.userList[i].Info="Someone left the team.";
+   //    var i;
+   //    for(i=0; i<$scope.userList.length; ++i){
+   //    	if($scope.userList[i].type=="Invitation"){
+   //    		$scope.userList[i].Info="He invites you into the team.";
+   //    	}
+   //    	else if($scope.userList[i].type=="Application"){
+   //    		$scope.userList[i].Info="He wants to join your team.";
+   //    	}
+   //    	else $scope.userList[i].Info="Someone left the team.";
 
-      // }
+   //    }
 
-      // $scope.whetherfromteam=function(user){
-      //       if($scope.userList[user].type=="Information"){
-      //         return false;
-      //       }
-      //       return true;
-      // }
+   //    $scope.whetherfromteam=function(user){
+   //          if($scope.userList[user].type=="Information"){
+   //            return false;
+   //          }
+   //          return true;
+   //    }
 
-      // $scope.removeuser=function(user){
-      //       $scope.userList.splice(user,1);
-      // }
+   //    $scope.removeuser=function(user){
+   //     			$scope.userList.splice(user,1);
+   //    }
 
 
 
    /*   $scope.adduser=function(){
       }*/
   });
+
 app.controller("ConversationController",function($scope,$routeParams){
         //   $scope.param = $routeParams.p;
             $scope.IsVisiblePeter = false;
@@ -269,9 +306,6 @@ app.controller("ConversationController",function($scope,$routeParams){
 
 
 });
-
-
-
 
 app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray, $cookies, $routeParams) {

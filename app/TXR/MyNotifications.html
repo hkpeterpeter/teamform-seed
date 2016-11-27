@@ -5,21 +5,21 @@
 
           <div class="row placeholders">
             <div class="container">
-              <div class="row">
+              <div class="row" ng-app="mainApp" ng-controller="NotificationController">
                
                <div class="col-md-10">
-                <div class="panel panel-default" ng-repeat="noti in notification">
+                <div class="panel panel-default"  ng-repeat="noti in notification">
                     <div class="panel-heading">
-                        <h4 align="left"><i class="fa fa-fw fa-check"></i>{{noti.sender}}</h4>
+                        <h4 align="left"><i class="fa fa-fw fa-check"></i>From: {{noti.name}}</h4>
                     </div>
                     <div class="panel-body">
                     <div class="col-sm-1 col-md-1">
-                    <img src= "{{callphoto(noti.sender)}}" alt="" class="img-circle">
+                    <!-- <img src="getphoto(noti.sender)" alt="" class="img-circle"> -->
                     </div>
                         <p align="left">{{noti.message}}</p>
                         <div align="right">
-                        <button type="button" class="btn btn-sm btn-success">Reply</button>
-                        <button type="button" class="btn btn-sm btn-danger" ng-click="removeuser($index)">Delete</button></div>
+                        <button type="button" class="btn btn-sm btn-success"><a ng-href="#/MyConversation/{{noti.name}}">Reply</a></button>
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)">Delete</button></div>
                     </div>
                     </div>
                     </div>
