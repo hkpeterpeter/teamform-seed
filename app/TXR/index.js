@@ -474,11 +474,37 @@ app.controller("clickCtrl",
     }
 );
 
-app.controller("profileController",function($scope,$routeParams,$firebaseObject){
-	  var event_name = $routeParams.p;
-      var this_user = "iamauthur";
-      $scope.user_list = $firebaseObject(firebase.database().ref("userList"));
-      $scope.event_list = $firebaseObject(firebase.database().ref("eventList"));
-      var conversation = $firebaseObject(firebase.database().ref("conversation"));
+app.controller("profileController",function($scope,$firebaseArray,$firebaseObject){
+      
+       var userlist = $firebaseObject(firebase.database().ref("userList"));
+        $scope.thisuser = "kimsung";
+       userlist.$loaded(function() {
+       $scope.email = userlist[$scope.thisuser]["email"];
+       $scope.personalWebsite = userlist[$scope.thisuser]["personalWebsite"];
+      $scope.introduction = userlist[$scope.thisuser]["introduction"];
+      $scope.skills = userlist[$scope.thisuser]["skills"];
+
+
+        
+     //  team="L1";
+       })
+       $scope.editprofileinfo = function(Website,email){
+       userlist[$scope.thisuser]["personalWebsite"] = Website;
+       userlist[$scope.thisuser]["email"] = email;
+      userlist.$save();        
+       }
+      $scope.editprofileintro = function(introduction){
+       userlist[$scope.thisuser]["introduction"] = introduction;
+      
+      userlist.$save();        
+       }
+
+    $scope.editprofileskills = function(skills){
+      
+      userlist[$scope.thisuser]["skills"]=skills.split(",");
+      userlist.$save();
+  
+    }
+
 }
 );
