@@ -43,9 +43,8 @@
 				  <p>Members in the team.</p>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container">
 				    <div class="row" ng-repeat="(id,uid) in filterLeader(members,teamdata.leader)">
-							<div class="col-md-2">
+							<div class="col-md-9">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}}
 				      	</a>
@@ -57,7 +56,6 @@
 					    	<i class="icon-star"></i>
 					    </button>
 				    </div> <!--row ng-repeat-->
-			    </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-3-->
@@ -218,21 +216,16 @@
 						</button>
 						<hr>
 		        <!--###Content###-->
-		        <div class="container">
 		          <div class="row" ng-repeat="(uid, score) in tba_featurelist">
-		            <div class="col-md-2">
-		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left" ng-if="score >= 6">
-										{{users.$getRecord(uid).readOnly.name}}
+		            <div class="col-md-9">
+		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
+										{{users.$getRecord(uid).readOnly.name}} [{{score}}]
 		              </a>
 		            </div>
-		            <button class="btn btn-danger btn-sm" ng-click="addToTeam(name)" ng-if="isManaging && selectTeam" data-toggle="tooltip" data-placement="bottom" title="Add to">
-		              <i class="icon-double-angle-right"></i>
-		            </button>
-		            <button class="btn btn-danger btn-sm" ng-click="invite(name)" ng-if="(myEvent | role)=='leader' && validInvite(name)" data-toggle="tooltip" data-placement="bottom" title="Invite">
+		            <button class="btn btn-danger btn-sm" ng-click="invite(uid)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(uid)" data-toggle="tooltip" data-placement="bottom" title="Invite">
 		              <i class="icon-leaf"></i>
 		            </button>
 		          </div>
-		        </div>
 		      </div>
 		    </div>
 		  </div>
@@ -256,9 +249,8 @@
 		    	</form>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container">
 				    <div class="row" ng-repeat="(uid,status) in filterByStatus(applications,search_model_appli)">
-							<div class="col-md-2">
+							<div class="col-md-8">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
 				      	</a>
@@ -270,7 +262,6 @@
 								<i class="icon-remove-sign"></i>
 							</button>
 						</div> <!--row ng-repeat-->
-			    </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
@@ -294,15 +285,13 @@
 		    	</form>
 				  <hr>
 				  <!--###Content###-->
-				  <div class="container">
 				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model_invi)">
-							<div class="col-md-2">
+							<div class="col-md-10">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
 				      	</a>
 				      </div>
 						</div> <!--row ng-repeat-->
-			    </div> <!--container-->
 				</div> <!--caption-->
 			</div> <!--thumbnail-->
 		</div> <!--col-md-4-->
