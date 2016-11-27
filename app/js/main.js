@@ -105,25 +105,31 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		console.log($rootScope.events);
 	}
 	$rootScope.loginWithEmail=function(email){
+		$rootScope.users=$firebaseArray($rootScope.user_ref);
+		$rootScope.users.$loaded().then(function(data){
+			for(var i=0;i<$rootScope.users.length;i++){
 
-		for(var i=0;i<$rootScope.users.length;i++){
-
-			if($rootScope.users[i].email==email){
-				$rootScope.currentUser=$rootScope.users[i];
-
+				if($rootScope.users[i].email==email){
+					console.log($rootScope.users[i]);
+					$rootScope.currentUser=$rootScope.users[i];
+					$rootScope.currentUser.id=$rootScope.users[i].$id
+				}
 			}
-		}
+		});
+		
 	}
-
-	$rootScope.currentUser={
-        id:"0",
-        profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
-        email:"abc@connect.ust.hk"
-    }
-
-    $rootScope.clickedEvent={
-    	$id:"0"
-    }
+	if(!$rootScope.currentUser){
+		$rootScope.currentUser={
+	        id:"0",
+	        profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
+	        email:"abc@connect.ust.hk"
+	    }
+	}
+	if(!$rootScope.clickedEvent){
+	    $rootScope.clickedEvent={
+	    	$id:"0"
+	    }
+	}
                 
 	var exampleNewUser={
 		eventsManaging:[],
