@@ -5,8 +5,11 @@
 //var teamapp = angular.module("dashboard", ['firebase']);
 
 teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject) {
-    var userRef = firebase.database().ref('users/' + $scope.currentUser.id);
+    var userRef = firebase.database().ref('users/' + $rootScope.currentUser.$id);
     $scope.idcopy = $rootScope.currentUser.id;
+    if(!$rootScope.currentUser.id){
+        $scope.idcopy = $rootScope.currentUser.$id;
+    }
     var skillsRef = userRef.child('/skills');
     $scope.displayUser={};
     console.log($scope.displayUser);
