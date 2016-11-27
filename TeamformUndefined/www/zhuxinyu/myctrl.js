@@ -263,6 +263,15 @@ teamapp.directive('eventCard', function($compile) {
 
                     console.log("All teams are "+$scope.element.allTeams);
 
+                    if(!$scope.element.allTeams) $scope.element.allTeams=[];
+
+                    if(!$scope.element.allTeams.length){
+                        var x=[]
+                        $.each($scope.element.allTeams, function(i,n) {
+                            x.push(n);});
+                        $scope.element.allTeams=x;
+                    }
+
                     for(var i=0;i<$scope.element.allTeams.length;i++){
                         if($scope.element.allTeams[i].leader==$rootScope.currentUser.id){
                             isLeader=true;
@@ -271,6 +280,16 @@ teamapp.directive('eventCard', function($compile) {
                              $(window).scrollTop(0);
                            return;
                         }
+
+                    if(!$scope.element.allTeams[i].member) $scope.element.allTeams[i].member=[];
+
+                    if(!$scope.element.allTeams[i].member.length){
+                        var x=[]
+                        $.each($scope.element.allTeams[i].member, function(i,n) {
+                            x.push(n);});
+                        $scope.element.allTeams[i].member=x;
+                    }
+
                        for(var j=0;j<$scope.element.allTeams[i].member.length;j++){
                             if($scope.element.allTeams[i].member[j]==$rootScope.currentUser.id){
                                 isMember=true;
@@ -280,6 +299,8 @@ teamapp.directive('eventCard', function($compile) {
                               return;
                             }
                        }
+
+
                     }
                     if(!(isLeader||isMember)){
                         console.log("a people");
@@ -305,26 +326,34 @@ teamapp.directive("subcan", function() {
                 var eventCreating={};
               // eventCreating.description=document.getElementById("event_detail").value;
                 eventCreating.description=$scope.eventDescription;
-                eventCreating.min_num=$scope.eventMin;
-                eventCreating.max_num=$scope.eventMax;
+                eventCreating.minSize=$scope.eventMin;
+                eventCreating.maxSize=$scope.eventMax;
                 eventCreating.adminID=$rootScope.currentUser.id;
                 eventCreating.eventName=$scope.event.name;
                 eventCreating.imageUrl=$rootScope.currentUser.profilePic;
                 console.log(eventCreating);
+                console.log($rootScope.currentUser);
 
                 $rootScope.events.$add(eventCreating).then(function(ref){
                     var eventID=ref.key;
                     console.log(eventID);
 
-                    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("eventsManaging")).$add(eventID);
+                     console.log("ID is "+$rootScope.currentUser.$id);
+                     var tempabc=$rootScope.currentUser;
+
+                    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.$id).child("eventsManaging")).$add(eventID).then(function(ref){
+                        $rootScope.currentUser=tempabc;
+                        $rootScope.addNotify($rootScope.currentUser.$id,"A new Event "+eventCreating.eventName+" has been created","","","System");
+
+                        Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
 
 
-                    $rootScope.addNotify($rootScope.currentUser.id,"A new Event "+eventCreating.eventName+" has been created","","","System");
+                        $scope.cancelEvent();
+                    });
+                     
+                      
 
-                     Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
-
-
-                    $scope.cancelEvent();
+                  
                 });
             }
 
@@ -354,6 +383,7 @@ teamapp.directive("zhuNavi", function() {
         restrict: "E",
         templateUrl: "zhuxinyu/js/components/fish-navi.html",
          controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+        $rootScope.initilizaNofi=function(){
             $scope.allnoti=$firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs"));
              $scope.allnoti.$loaded().then(function(data){
                 for(var i=0;i<data.length;i++){
@@ -366,12 +396,14 @@ teamapp.directive("zhuNavi", function() {
 
             $scope.markRead=function(id){
                 console.log(id);
-            var temp=$firebaseObject($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs").child(id).child("read"));
+            var temp=$firebaseObject($rootScope.user_ref.child($rootScope.currentUser.$id).child("notifs").child(id).child("read"));
            temp.$loaded().then(function(data){
                 temp.$value=true;
                 temp.$save();
             });
             }
+        }
+
        }
 
     };

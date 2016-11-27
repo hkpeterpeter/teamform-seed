@@ -37,6 +37,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
 
       $rootScope.addUser(newUser);
       console.log("user added");
+      $rootScope.initilizaNofi();
       //$rootScope.loginWithEmail(data['email']);
     }
 
@@ -138,36 +139,29 @@ $scope.login_selected = function() {
     //   // $scope.login_selected();
     // }
 
-// $scope.changeVisible = function(event) {
-
-//   if( $(event.target).is($('.cd-user-modal')) || $(event.target).is('.cd-close-form') ) {
-//      $('.cd-user-modal').removeClass('is-visible');
-//   }
-// }
-
 $scope.features = [
 {
   image_path: "Fenghaoan/images/invite_people.png",
   title: "Invite People",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  content: "From this powerful platform, you can invite your friends to join more and more insteresting events. Invite them now!",
   flip: "true"
 },
 {
   image_path: "Fenghaoan/images/skill_visualization.png",
   title: "Skill Visualization",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  content: "Impressive skills of your potential teammates and yourself are shown in a radar chart. Inviting skillful friends and being invited has been unprecedentedly easy. Have fun!",
   flip: "false"
 },
 {
   image_path: "Fenghaoan/images/smart.png",
   title: "Smart Pick Team Member",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  content: "Power up your team with appropriate people. Get to know the right person your team need. Helping team leaders to target suitable candidate with desired characteristics.",
   flip: "true"
 },
 {
   image_path: "Fenghaoan/images/merge.png",
   title: "Merge Team",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
+  content: "Sometimes your team may need more members to join an event. This platform reduces the pressure to negotiate with other teams. Based on the skills and other factors, we merge the suitable team just before dead line for you.",
   flip: "false"
 },
 
@@ -175,32 +169,60 @@ $scope.features = [
 
 $scope.developers = [
 {
-  name: "FENG Haoan",
-  image: "Fenghaoan/images/feature1.png",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-  personal_website: "https://www.google.com",
+  name: "ZHU Xinyu",
+  image: "Fenghaoan/images/zhu.jpg",
+  content: "I am a mainland now studying in the Hong Kong University of Science and Technology (HKUST). I love programming and computer and I take computer science as my major. My UROP project is about localization. ",
+  personal_website: "http://ec2-54-244-172-98.us-west-2.compute.amazonaws.com/personalPage2/index1.html",
+  flip: "true"
+},
+{
+  name: "zhao lucen",
+  image: "Fenghaoan/images/cen.jpg",
+  content: "ヽ(・×・´)ゞε٩(๑> ₃ <)۶зヾ(*´3 ˋ*)ﾉ(๑• . •๑)(´,,•ω•,,)<br/>COMP year-3 student, being in charge of the development of admin page <br/>Features developed: merging/deleting teams, adding team members by event admin, searching teams/users by event admin<br/>ヽ(・×・´)ゞε٩(๑> ₃ <)۶зヾ(*´3 ˋ*)ﾉ(๑• . •๑)(´,,•ω•,,)",
+  personal_website: "http://ihome.ust.hk/~lzhaoaj/index.html",
   flip: "false"
 },
 {
   name: "FENG Haoan",
-  image: "Fenghaoan/images/feature1.png",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-  personal_website: "https://www.google.com",
+  image: "Fenghaoan/images/feng.gif",
+  content: "Year three CSE and ECE student from Xi'an. Generally speaking, major strength in generating bugs and warning. Have special interest in embedded system programming and computer network related work. Love programming, while she does not like me lol.",
+  personal_website: "http://ec2-52-53-158-46.us-west-1.compute.amazonaws.com/mywebsite/",
   flip: "true"
 },
 {
-  name: "FENG Haoan",
-  image: "Fenghaoan/images/feature1.png",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-  personal_website: "https://www.google.com",
+  name: "wu yunchen",
+  image: "Fenghaoan/images/wu.jpg",
+  content: "I am a Taiwanese girl now studying in the Hong Kong University of Science and Technology (HKUST). I love programming and computer so I take computer science as my major. Information security is the area which I am especially interested now. My final year thesis is also about this area and focuses on that on Internet of Things (IoT). ",
+  personal_website: "http://ec2-54-210-139-28.compute-1.amazonaws.com",
   flip: "false"
 },
 {
-  name: "FENG Haoan",
-  image: "Fenghaoan/images/feature1.png",
-  content: "kdfla;jf jflkd jfldkjf lkajflkdjaflk jdlksjf lkjfalkjd lkfjkdajf lkjaflk jdalkf jlkdajf lkjflk ja",
-  personal_website: "https://www.google.com",
+  name: "zhao zixuan",
+  image: "Fenghaoan/images/zhao.png",
+  content: "I am a third year student studying mathematics and computer science at HKUST. I am not interesting, you don't want to know more about me.",
+  personal_website: "http://ihome.ust.hk/~zzhaoah/comp3111h-homepage/index.html",
   flip: "true"
+},
+{
+  name: "he zhou",
+  image: "Fenghaoan/images/he.jpg",
+  content: "I am Samuel, from the Dual Degree Program in Computer Science and Business Management. Being inherently enthusiastic about cutting-edge technologies, I am looking forward to more opportunities to explore the disruptive innovations in computer science.",
+  personal_website: "http://ihome.ust.hk/~zhead",
+  flip: "false"
+},
+{
+  name: "bai chunyan",
+  image: "Fenghaoan/images/bai.jpg",
+  content: "",
+  personal_website: "http://ec2-52-221-227-107.ap-southeast-1.compute.amazonaws.com/",
+  flip: "true"
+},
+{
+  name: "jia he",
+  image: "Fenghaoan/images/jia.jpg",
+  content: "I am a third-year undergraduate student at Hong Kong University of Science and Technology (HKUST). I love programming and mathematics so I take computer science as my first major and pure math as my second major. Machine learning is the area which I am especially interested now.",
+  personal_website: "http://ec2-52-11-218-218.us-west-2.compute.amazonaws.com",
+  flip: "false"
 },
 ];
 }]);
