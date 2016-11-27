@@ -25,8 +25,7 @@
     <!-- draw pie chart -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="../jzhangbs/drawPie.js"></script>
-	<script src="../search/Chart.min.js"></script>
-	<script src="../search/angular-chart.min.js"></script>
+
 <script>
     // Initialize Firebase
     var config = {
@@ -69,7 +68,7 @@
    <script src="../zwangbm/js/btnclick.js"></script>
    <script src="../search/navbar.js"></script>
    <script src="../jzhangbs/sidebar.js"></script>
-	
+
    <link rel="stylesheet" href="index.css">
 
   </head>
@@ -93,9 +92,7 @@
            		<li><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu2" aria-expanded="false">My Conversations</a>
                     <ul class="nav collapse" id="submenu2" role="menu" aria-labelledby="btn-1">
                     <!-- <li><a href="#MyConversation/Peter">Peter</a></li>
-
                     <li><a href="#MyConversation/Jason">Jason</a></li>
-
                     <li><a href="#MyConversation/Kevin">Kevin</a></li> -->
                     <li ng-repeat="conv in convList">
                       <a ng-href="#MyConversation/{{linkList[$index]}}">{{conv}}</a>
