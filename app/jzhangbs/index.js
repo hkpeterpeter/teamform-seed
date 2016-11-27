@@ -46,12 +46,14 @@ app.controller("indexCtrl",
       if (accounts[user.username] === undefined){
         var userTemplate = {
           password: "",
-          description: "default description",
-          img: "",
+          personalWebsite: "N/A",
+          email: "N/A",
+          introduction: "no introduction",
+          img: user.username+".jpg",
           skills: [],
           Membership: {},
-          notif: [],
-          name: "default name"
+          notification: [],
+          name: user.username
         };
         userTemplate.password = user.password;
         accounts[user.username] = userTemplate;

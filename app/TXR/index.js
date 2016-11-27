@@ -132,8 +132,9 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
           }
           eventlist.$save();
      }
-     $scope.deletetag = function(skill){
-       eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"].splice(i,1);
+     $scope.deletetag = function(i){
+       delete eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"][i];
+       eventlist.$save();
      }
 
 
@@ -407,14 +408,16 @@ app.controller("clickCtrl",
               }
             }
             //alert(event_list["event1"]);
-            angular.forEach(event_list[event_name]["teamList"], function(value, key){
-              for (one_skill in event_list[event_name]["teamList"][key]["skills"]){
-                if (!(one_skill in $scope.currentTag)){
-                  $scope.currentTag.push(key);
+            for(var i=0; i< event_list[event_name]["inEventUser"].length; i++){
+              var temp_username = event_list[event_name]["inEventUser"][i];
+              for (var j=0;  j < user_list[temp_username]["skills"].length; j++){
+                var temp_tag = user_list[temp_username]["skills"][j];
+                if ($scope.currentTag.indexOf(temp_tag) == -1){
+                  $scope.currentTag.push(temp_tag);
                 }
               }
 
-            });
+            };
 
             var user_identity = user_list[this_user]["Membership"][event_name]["identity"];
             $scope.leader = angular.equals(user_identity, 'leader');
@@ -450,6 +453,9 @@ app.controller("clickCtrl",
                 suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["username"] = key;
               });
               //alert(suggested_users["1"].length);
+              var storageRef = firebase.storage().ref();
+              $scope.imgUrl = {};
+              var loadedCount = 0;
               for (var i = team_skills.length; i>0 ;i--) {
                 var str_i = i.toString();
                 if (str_i in suggested_users){
@@ -459,6 +465,14 @@ app.controller("clickCtrl",
                     $scope.suggested.push(suggested_users[str_i][j]);
                   }*/
                 }
+              }
+              for (i = 0; i < $scope.suggested.length; i++) {
+                var thisImg = storageRef.child("user/"+$scope.suggested[i].img);
+                thisImg.getMetadata().then(function(metadata){
+                  loadedCount++;
+                  $scope.imgUrl[metadata.customMetadata.user]=metadata.downloadURLs[0];
+                  if (loadedCount == $scope.suggested.length) $scope.$apply();
+                });
               }
             }
             //if the user is a user in this event
@@ -683,6 +697,7 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
         $scope.thisuser = $cookies.get("username",{path:"/"});
        userlist.$loaded(function() {
        $scope.email = userlist[$scope.thisuser]["email"];
+       $scope.thisusername = userlist[$scope.thisuser]["name"];
        $scope.personalWebsite = userlist[$scope.thisuser]["personalWebsite"];
       $scope.introduction = userlist[$scope.thisuser]["introduction"];
       $scope.skills = userlist[$scope.thisuser]["skills"];
@@ -696,9 +711,11 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
        if (email !== undefined) userlist[$scope.thisuser]["email"] = email;
        uploadFile = document.getElementById("uploadFile").files[0];
        if (uploadFile !== undefined) {
-         userlist[$scope.thisuser].img = uploadFile.name;
+         s = uploadFile.name.split(".");
+         fileType = "." + s[s.length - 1];
+         userlist[$scope.thisuser].img = $scope.thisuser+fileType;
          userlist.$save();
-         storageRef.child("user/"+uploadFile.name).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
+         storageRef.child("user/"+$scope.thisuser + fileType).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
            $window.location.reload(true);
          });
        }
