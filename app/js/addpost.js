@@ -21,7 +21,8 @@ angular.module("adboard", ["firebase"])
             $scope.ads.$ref().child($scope.ads.length).set({
                 "title": $scope.titletxt ,
                 "content": $scope.contenttxt ,
-                "person": $scope.persontxt
+                "person": $scope.persontxt,
+                "date": new Date().toString()
 
 
 

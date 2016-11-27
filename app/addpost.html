@@ -31,51 +31,52 @@
 	 <form >
     <legend align="left">Leave your trip plan advertisement <a class = "postButton blue" ng-click="">Log out </a></legend>
             <br>
-			<img src="http://wvecouncil.org/wp/wp-content/uploads/2016/09/we_want_you.png" width = "450" height = "500" class="picRight" class="img-responsive"/>
+		<!-- 	<img src="http://wvecouncil.org/wp/wp-content/uploads/2016/09/we_want_you.png" width = "450" height = "500" class="picRight" class="img-responsive"/> -->
             
 			<div class="form-group">
             <label for="titletxt"> <p align="left">Post Title</label></p>
-            <Input type="text" class="form-control" name="titletxt" ng-model="titletxt"  placeholder="Title" required="">
+            <Input type="text" class="form-control" name="titletxt" maxlength="20"ng-model="titletxt"  placeholder="Title" required="">
             </div>
 			
 
                  <div class="form-group">
                 <label for="posttxt"> <p align="center"> Post Content</label></p>
-                <textarea rows="8" cols="80" class="form-control" name="contenttxt"  ng-model="contenttxt"  placeholder="Your Trip Plan" required="">
+                <textarea rows="8" cols="80" class="form-control" name="contenttxt" maxlength="200"  ng-model="contenttxt"  placeholder="Your Trip Plan" required="">
                 </textarea>
                 </div>
 
 
                     <div class="form-group">
                     <label for="persontxt"> <p align="left"> Contact Person</label></p>
-                    <Input type="text" class="form-control" name="persontxt" ng-model="persontxt"  placeholder="Contact Person" required="">
+                    <Input type="text" class="form-control" name="persontxt" maxlength="20" ng-model="persontxt"  placeholder="Contact Person" required="">
                     </div>
-
+    
     </form>
+
 
      <br><br>
 	 <div class = "buttons">
-    <a class = "postButton blue" ng-click="add()">Post your trip plan</a>
+    <a href ="#noticeboard" class = "postButton blue" ng-click="add()">Post your trip plan</a>
 	</div>
     <br><br>
 
-<!--     <p>Checkout the latest trip plan!!!!</p> -->
- <h1>Checkout the latest trip plan!!!!</h1>
+ <a name="noticeboard"><h1><legend> Checkout the latest trip plan</a></h1></legend>
 
-<table width="1000" ><tr>
 
-    <tr>
-    <th>Post Title</th>
-    <th>Post Content</th>
-    <th>Contact Person</th>
-    </tr>
 
-         <tr ng-repeat="ad in ads">
-         <td align="left">{{ad.title}}</td>
-         <td align="left">{{ad.content}}</td>
-         <td align="left">{{ad.person}}</td>
-</tr>
-</table>
+<ul>
+  <li ng-repeat="ad in ads">
+    <a href="#">
+      <h2 align="center"> {{ad.title}}</h2>
+      <p> {{ad.content}}</p>
+      <p> Contact person: {{ad.person}}</p>
+      <p> {{ad.date}}</p>
+
+
+    </a>
+  </li>
+  
+</ul>
 
 
 </body>

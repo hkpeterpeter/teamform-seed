@@ -12,6 +12,7 @@ describe('createGroupCtrl', function(){
 		ctrl = $controller('createGroupCtrl', {$scope: $scope});
 	}));
 
+
 	it('setTeamName with unique name', function(){
 		spyOn(window, 'alert');
 
@@ -111,7 +112,7 @@ describe('createGroupCtrl', function(){
 	});
 */
 
-
+/*
 	it('setDepartureDate do not allow user set a date before the current date', function(){
 		spyOn(window, 'alert');
 
@@ -162,7 +163,7 @@ describe('createGroupCtrl', function(){
 		$scope.tempTeam.returnDate = "11/30/2016";	
 		expect($scope.setReturnDate()).toBe(true);		
 	});	
-
+*/
 	it('createGroup() create a right team object', function(){
 		
 	});

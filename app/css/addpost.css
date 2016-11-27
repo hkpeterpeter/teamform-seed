@@ -1,42 +1,39 @@
-body{
 
-}
-
-.picRight {
+/*.picRight {
 	float : right;
 	margin: 0 10px 20px 10px
-}
+}*/
 
-table {
+/*table {
     border-collapse: collapse;
     width: 100%;
 	margin-bottom: 20px;
-}
+}*/
 
-th{
+/*th{
 	text-align: left;
 	font-family: "Lucida Console", Monaco, monospace;
-	font-size: 24;
-	padding: 9px;
+	font-size: 20;
+	padding: 5px;
 } 
 td {
     text-align: left;
 	font-family: "Lucida Console", Monaco, monospace;
 	font-size: 20;
-    padding: 8px;
-}
+    padding: 5px;
+}*/
 
-tr:nth-child(even){background-color: #ffff99}
-
+/*tr:nth-child(even){background-color: #ffff99}*/
+/*
 th {
     background-color: #3333ff;
     color: white;
-}
+}*/
 
 legend{
-	color: #0099ff;
+	color: #1d00ff;
 	font-family:Lucida Console;
-	font-size: 40;
+	font-size: 45;
 	font-style: bold;
 	text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
              0px 5px 13px rgba(0,0,0,0.1),
@@ -50,7 +47,7 @@ legend{
   border-radius: 5px;
   text-decoration: none;
   padding: 10px;
-  font-size: 22px;
+  font-size: 24px;
   transition: .3s;
   -webkit-transition: .3s;
   -moz-transition: .3s;
@@ -61,18 +58,84 @@ legend{
 }
 
 
-
 .blue {
-	color: #55acee;
-	border: 2px #55acee solid;
+	color: #ee8454;
+	border: 2px #ee8454 solid;
 }
 .blue:hover {
-  background-color: #55acee;
+  background-color: #ee8454;
   color: #fff
 }
 .buttons {
   padding-top: 30px;
   
+}
+
+{
+  margin:0;
+  padding:0;
+}
+/*body{
+  font-family:arial,sans-serif;
+  font-size:100%;
+  margin:3em;
+  background:#666;
+  color:#fff;
+}*/
+
+h2{
+  font-size:190%;
+  font-weight:normal;
+}
+ul,li{
+  list-style:none;
+}
+ul{
+  overflow:hidden;
+  padding:3em;
+}
+ul li a{
+  font-family:Lucida Console;
+  text-decoration:none;
+  color:#000;
+  background:#ffc;
+  display:block;
+  height:26em;
+  width:26em;
+  padding:2em;
+}
+ul li{
+  margin:2em;
+  float:left;
+}
+
+ul li:nth-child(even) a{
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  position:relative;
+  top:5px;
+  background:#cfc;
+}
+ul li:nth-child(3n) a{
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  position:relative;
+  top:-5px;
+}
+ul li:nth-child(5n) a{
+  -o-transform:rotate(6deg);
+  -webkit-transform:rotate(6deg);
+  -moz-transform:rotate(6deg);
+  position:relative;
+  top:-10px;
+   background:#ccf;
+}
+
+body{
+    background-image: url("http://www.wallpapercombo.com/wp-content/uploads/2016/06/white-background-image-1.jpg");
+    background-size: cover;
 }
 
 label{
