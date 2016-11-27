@@ -1,9 +1,11 @@
-<h1>Add an announcement</h1>
 <form>
 	<h3>New Announcement</h3>
-	<textarea type="text" placeholder="Description of your team" ng-model="form.announcementmsg" rows="5"></textarea>
-	<br>
+	<hr>
+	<div class="form-group">
+		<textarea class="form-control" type="text" placeholder="Write an announcement here" ng-model="form.announcementmsg" rows="5"></textarea>
+	</div>
   {{message}}
-	<button class="btn btn-primary" ng-click="addAnnouncement(form.announcementmsg)">Confirm</button>
-
+	<div align="right">
+		<input class="btn btn-primary" type="button" value=Post ng-click = "addAnnouncement(form.announcementmsg)">
+	</div>
 </form>
