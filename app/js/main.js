@@ -72,7 +72,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		 //_type is chosen from {System, invitation}
     	//If it is any System notification, just input "" for _eventName , _teamName ,
 
-
+    	if(!$rootScope.currentUser.id) $rootScope.currentUser.id=$rootScope.currentUser.$id;
     	var tempUserPic=$firebaseObject(firebase.database().ref("users").child($rootScope.currentUser.id));
     	tempUserPic.$loaded().then(function(data){
 			if(_type=="System"){
