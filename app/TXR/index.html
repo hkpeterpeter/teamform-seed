@@ -74,6 +74,7 @@
    <script src="../zwangbm/js/btnclick.js"></script>
    <script src="../search/navbar.js"></script>
    <script src="../jzhangbs/sidebar.js"></script>
+   <script src="../TXR/conv.js"></script>
 
    <link rel="stylesheet" href="index.css">
 
@@ -103,7 +104,7 @@
                     <li><a href="#MyConversation/Jason">Jason</a></li>
                     <li><a href="#MyConversation/Kevin">Kevin</a></li> -->
                     <li ng-repeat="conv in convList">
-                      <a ng-href="#MyConversation/{{conv}}" ng-click="setActive('conv')">{{conv}}</a>
+                      <a ng-href="#MyConversation/{{conv.link}}" ng-click="setActive('conv')">{{conv.name}}</a>
                     </li>
                     </ul>
                   </li>

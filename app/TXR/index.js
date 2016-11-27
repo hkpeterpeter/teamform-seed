@@ -8,7 +8,7 @@ app.config(function($routeProvider,NotificationProvider){
      .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
      .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"EventController"})
-     .when("/MyConversation/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
+     .when("/MyConversation/:e/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
 	 NotificationProvider.setOptions({
             delay: 5000,
             startTop: 60,
@@ -29,19 +29,22 @@ app.config(function($routeProvider,NotificationProvider){
   var userlist = $firebaseObject(firebase.database().ref("userList"));
   var conversationList = $firebaseObject(firebase.database().ref("conversation"));
   $scope.convList = [];
-  $scope.linkList = [];
   userlist.$loaded(function() {
     conversationList.$loaded(function(){
       $scope.eventlist=userlist[thisuser]["Membership"];
       angular.forEach(conversationList,function(value,key){
         names = key.split("_");
         if (names[0] == thisuser) {
-          $scope.convList.push(names[1]);
-          $scope.linkList.push(key);
+          $scope.convList.push({
+            name:names[1],
+            link: value.event + "/" + names[1]
+          });
         }
         if (names[1] == thisuser) {
-          $scope.convList.push(names[0]);
-          $scope.linkList.push(key);
+          $scope.convList.push({
+            name:names[0],
+            link: value.event + "/" + names[0]
+          });
         }
       });
     });
