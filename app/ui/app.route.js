@@ -30,6 +30,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'main2.html'
         })
 
+ .state('personality', {
+            url: '/personality',
+            templateUrl: 'typequiz.html'
+            })
+
 .state('eventjoin', {
             url: '/eventjoin',
             templateUrl: 'joinevent.html',
@@ -50,10 +55,18 @@ app.config(function($stateProvider, $urlRouterProvider) {
             authRequired: true,
             controller: 'eventSubmit'
             })
+
+           
             
              .state('search', {
             url: '/search',
             templateUrl: 'search.html',
+            controller: 'eventSearch'
+            })
+
+            .state('teamsearch', {
+            url: '/teamsearch',
+            templateUrl: 'newsearch.html',
             controller: 'eventSearch'
             })
         
