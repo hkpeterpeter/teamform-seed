@@ -569,6 +569,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.full = false;
 			$scope.inTeam = false;
 			$scope.passTeam = function(index){
+				$scope.disable = false;
+				$scope.full = false;
+				$scope.inTeam = false;
 				$scope.currentTeam = $scope.filterResult[index];
 				
 				var member = $scope.teamini[$scope.currentTeam].memberList
@@ -594,11 +597,11 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 							$scope.full = true;
 					}
 					
-				for(var i = 0;i < numMembers; i++){
-					if($scope.teamini[$scope.currentTeam].memberList[i] == thisUser){
+				if($scope.userList[thisUser]["Membership"][Naruto.Luffy] != undefined){
+					if($scope.userList[thisUser]["Membership"][Naruto.Luffy].identity != "user"){
 						$scope.disable = true;
 						$scope.inTeam = true;
-					}	
+					}
 				}
 				
 			}
