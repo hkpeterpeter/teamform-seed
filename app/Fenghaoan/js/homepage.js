@@ -164,6 +164,12 @@ $scope.features = [
   content: "Sometimes your team may need more members to join an event. This platform reduces the pressure to negotiate with other teams. Based on the skills and other factors, we merge the suitable team just before dead line for you.",
   flip: "false"
 },
+{
+  image_path: "Fenghaoan/images/private.jpg",
+  title: "Private Team",
+  content: "Now you can create your own team with close friends and strangers cannot see your team. You can still invite them as long as you want. Enjoy it.",
+  flip: "true"
+},
 
 ];
 
