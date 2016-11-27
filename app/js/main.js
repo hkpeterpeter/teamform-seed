@@ -126,7 +126,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 			if($rootScope.users[i].email==email){
 				console.log($rootScope.users[i]);
 				$rootScope.currentUser=$rootScope.users[i];
-				$rootScope.currentUser.id=$rootScope.users[i].$id
+				$rootScope.currentUser.id=$rootScope.users[i].$id;
 			}
 		}
 

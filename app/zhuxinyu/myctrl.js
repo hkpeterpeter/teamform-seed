@@ -262,7 +262,16 @@ teamapp.directive('eventCard', function($compile) {
                     var isMember=false;
 
                     console.log("All teams are "+$scope.element.allTeams);
+
                     if(!$scope.element.allTeams) $scope.element.allTeams=[];
+
+                    if(!$scope.element.allTeams.length){
+                        var x=[]
+                        $.each($scope.element.allTeams, function(i,n) {
+                            x.push(n);});
+                        $scope.element.allTeams=x;
+                    }
+
                     for(var i=0;i<$scope.element.allTeams.length;i++){
                         if($scope.element.allTeams[i].leader==$rootScope.currentUser.id){
                             isLeader=true;
@@ -271,6 +280,16 @@ teamapp.directive('eventCard', function($compile) {
                              $(window).scrollTop(0);
                            return;
                         }
+
+                    if(!$scope.element.allTeams[i].member) $scope.element.allTeams[i].member=[];
+
+                    if(!$scope.element.allTeams[i].member.length){
+                        var x=[]
+                        $.each($scope.element.allTeams[i].member, function(i,n) {
+                            x.push(n);});
+                        $scope.element.allTeams[i].member=x;
+                    }
+
                        for(var j=0;j<$scope.element.allTeams[i].member.length;j++){
                             if($scope.element.allTeams[i].member[j]==$rootScope.currentUser.id){
                                 isMember=true;
@@ -280,6 +299,8 @@ teamapp.directive('eventCard', function($compile) {
                               return;
                             }
                        }
+
+
                     }
                     if(!(isLeader||isMember)){
                         console.log("a people");
@@ -374,7 +395,7 @@ teamapp.directive("zhuNavi", function() {
 
             $scope.markRead=function(id){
                 console.log(id);
-            var temp=$firebaseObject($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs").child(id).child("read"));
+            var temp=$firebaseObject($rootScope.user_ref.child($rootScope.currentUser.$id).child("notifs").child(id).child("read"));
            temp.$loaded().then(function(data){
                 temp.$value=true;
                 temp.$save();
