@@ -491,7 +491,7 @@
 
               <tbody>
                 <tr ng-repeat = "member in memberlist">
-                  <td style="font-size: 30px">{{$index|isLeader}}</td>
+                  <td style="font-size: 30px">{{$index}}</td>
                   <td>
                       <img src={{memberphoto[member]}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
@@ -601,7 +601,7 @@
             <table class="table table-striped">
               <tbody>
                 <tr ng-repeat = "(num,members) in memberlist">
-                  <td style="font-size: 30px">{{num|isLeader}}</td>
+                  <td style="font-size: 30px">{{num}}</td>
                   <td>
                       <img src={{memberphoto[members]}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
