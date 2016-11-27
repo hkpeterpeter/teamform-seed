@@ -35,8 +35,19 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     $scope.newSkill = '';
     $scope.receiveNewSikll = function () {
-        $scope.skillsList.$add($scope.newSkill);
-        $scope.newSkill = '';
+        var skillsFirebase = $firebaseArray(skillsRef);
+        var doesntExist = true;
+        skillsFirebase.$loaded().then(function () {
+            for (var i=0; i<skillsFirebase.length; i++){
+                if (skillsFirebase[i].$value == $scope.newSkill){
+                    doesntExist = false;
+                }
+            }
+            if (doesntExist == true){
+                skillsFirebase.$add($scope.newSkill);
+                $scope.newSkill = '';
+            }
+        });
     };
 
     $scope.retrieveEvents = function(){
