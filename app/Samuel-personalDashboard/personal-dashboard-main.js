@@ -5,8 +5,8 @@
 //var teamapp = angular.module("dashboard", ['firebase']);
 
 teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject) {
-    var userRef = firebase.database().ref('users/' + $rootScope.currentUser.$id);
-    console.log($rootScope.currentUser);
+    var userRef = firebase.database().ref('users/' + $scope.currentUser.id);
+    $scope.idcopy = $rootScope.currentUser.id;
     var skillsRef = userRef.child('/skills');
     $scope.displayUser={};
     console.log($scope.displayUser);
@@ -15,8 +15,8 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
     $scope.displayUser.name="Loading...";
      $scope.displayUser.email="Loading...";
      console.log($rootScope.currentUser.id);
-     
-   
+
+
 
     $scope.newName = '';
     $scope.receiveNewName = function(){
@@ -117,31 +117,48 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     $scope.acceptInvitation = function(index){
         //To add him to the member list
-        var thisteamMemberList = $firebaseArray( firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/membersID') );
-        thisteamMemberList.$loaded().then(function(){
+        var teamid = $scope.invitedList[index].$value;
+        var thisteamMemberList = $firebaseArray( firebase.database().ref('/teams/'+ teamid + '/membersID') );
+        thisteamMemberList.$loaded().then(function(ref1){
             //Check the parent event's max team size
-            var belongstoEvent = $firebaseObject(firebase.database().ref('/teams/' + $scope.invitedList[index].$value + '/belongstoEvent'));
-            belongstoEvent.$loaded().then(function () {
-                var parentEventID = belongstoEvent.$value;
+            var belongstoEvent = $firebaseObject(firebase.database().ref('/teams/' + teamid + '/belongstoEvent'));
+            belongstoEvent.$loaded().then(function (ref2) {
+                var parentEventID = ref2.$value;
                 var parentEventFirebase = $firebaseObject(firebase.database().ref('/events/'+parentEventID));
-                parentEventFirebase.$loaded().then(function(){
-                    var parentEventSizeCap = parentEventFirebase.maxSize;
-                    if (thisteamMemberList.length < parentEventSizeCap){
-                        thisteamMemberList.$add($rootScope.currentUser.id);
+                parentEventFirebase.$loaded().then(function(ref3){
+                    var parentEventSizeCap = ref3.maxSize;
+                    if (ref1.length < parentEventSizeCap){
+
+                        ref1.$add($scope.idcopy);
                         //To remove him from the "invited people" list
-                        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
-                        thisteamInvitedPeople.$loaded().then(function(){
-                            for (var i = 0; i<thisteamInvitedPeople.length; i++){
-                                if (thisteamInvitedPeople[i].$value == $rootScope.currentUser.id){
-                                    thisteamInvitedPeople.$remove(i);
+                        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+ teamid + '/invitedPeople'));
+                        thisteamInvitedPeople.$loaded().then(function(ref4){
+                            console.log(ref4);
+                            console.log($scope.idcopy);
+                            for (var i = 0; i<ref4.length; i++){
+
+                                if (ref4[i].$value == $scope.idcopy){
+                                    ref4.$remove(ref4[i]);
+
                                 }
                             }
+
                         });
+
+
+
+
+
                         //To update his own copy of "teams as member"
                         $scope.memberList.$add($scope.invitedList[index].$value);
                         //To remove this team from his "being invited list"
                         $scope.invitedList.$remove(index);
                         Materialize.toast("Invitation accepted.", 4000);
+
+
+
+
+
                     }
                     else{
                         Materialize.toast("This team is already full. You cannot join it anymore.", 4000); // 4000 is the duration of the toast
@@ -154,10 +171,11 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
     $scope.turndownInvitation = function(index){
         //To remove her from the "invited people" list
-        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+$scope.invitedList[index].$value + '/invitedPeople'));
+        var teamid = $scope.invitedList[index].$value;
+        var thisteamInvitedPeople = $firebaseArray(firebase.database().ref('/teams/'+teamid+ '/invitedPeople'));
         thisteamInvitedPeople.$loaded().then(function(){
             for (var i = 0; i<thisteamInvitedPeople.length; i++){
-                if (thisteamInvitedPeople[i].$value == $rootScope.currentUser.id){
+                if (thisteamInvitedPeople[i].$value == $scope.idcopy){
                     thisteamInvitedPeople.$remove(i);
                 }
             }
@@ -172,7 +190,7 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
         var thatteamsPendingApplicants = $firebaseArray(firebase.database().ref('/teams/' + thatteamid + '/pendingApplicants'));
         thatteamsPendingApplicants.$loaded().then(function(){
            for (var i=0; i<thatteamsPendingApplicants.length; i++){
-               if (thatteamsPendingApplicants[i].$value == $rootScope.currentUser.id){
+               if (thatteamsPendingApplicants[i].$value == $scope.idcopy){
                    thatteamsPendingApplicants.$remove(i);
                }
            }
@@ -184,4 +202,3 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
 
 });
-
