@@ -47,7 +47,7 @@
   <div class = "row filter-bar">
   	<div class="col-sm-3 ">
   		<label for = "full" style = "margin-right:5px"><h4>Ignore full teams: </h4></label>
-  		<input name = "full" type = "checkbox">
+  		<input ng-change = "reSearch()" ng-model = "ignore" name = "full" type = "checkbox">
   	</div>
   </div>
 
@@ -104,7 +104,9 @@
 			  <h4 class="text-left">Leader: {{userList[teamini[currentTeam].leader].name}}</h4>
             </div>
 			<div class="col-xs-2 col-sm-3 placeholder">
-              <button type="button" class="btn btn-primary btn-lg">Join</button>
+              <button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg">Join</button>
+			  <p ng-show = "full"><small class="text-danger">Team is full</small></p>
+			  <p ng-show = "inTeam"><small class="text-danger">You can only join one team</small></p>
             </div>
           </div>
 
@@ -117,7 +119,7 @@
 		  <h2 class="sub-header">Member distribution</h2>
 		  <div class="row placeholders">
 			
-				<div class = "col-xs-6 col-md-6 col-md-offset-3">
+				<div class = "col-md-8 col-md-offset-2">
 					<canvas id="base" class="chart-base" chart-type="type" chart-data="data" chart-labels="labels" ></canvas> 
 				</div>
 				<div>
