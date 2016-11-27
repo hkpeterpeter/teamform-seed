@@ -48,7 +48,12 @@ $scope.processData=function(allData, currentEventID, currentTeamID, currentUserI
 
     }
 
+    $scope.quitTeam=function(){
+        $firebaseObject(firebase.database().ref('users/' + $scope.currentUser + '/teamsAsMember/' + $rootScope.currentTeamID)).$remove();
+        $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/membersID/' + $scope.currentUser)).$remove();
+        $firebaseArray(firebase.database().ref('events/' + $scope.currentEvent + '/allTeams/'+ $rootScope.currentTeamID + '/member/' + $scope.currentUser)).$remove();
 
+    };
 
 
     $scope.clickCount = 0;
