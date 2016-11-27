@@ -6,7 +6,7 @@
              <input name="EventName" ng-model="input.event" required>
              <span ng-show="teamForm.EventName.$touched && teamForm.EventName.$invalid">The event name is required.</span>
             </p>
-			<p>Name:
+	   <p>Name:
              <input name="newTeamName" ng-model="input.name" required>
              <span ng-show="teamForm.newTeamName.$touched && teamForm.newTeamName.$invalid">The team name is required.</span>
             </p>
@@ -16,6 +16,22 @@
              <span ng-show="teamForm.newTeamIntro.$touched && teamForm.newTeamIntro.$invalid">The team introduction is required.</span>
             </p>
             <button ng-click="submit()" ng-disabled= "teamForm.newTeamIntro.$invalid || teamForm.newTeamName.$invalid">Submit</button>
+	   <br><br><br>
+	   <p>Or</p>
+	   <br><br><br>
+	   <p><h1>Create free team</h1></p>
+	   <br>
+	    <p>Name:
+             <input name="newTeamName1" ng-model="input.name1" required>
+             <span ng-show="teamForm.newTeamName.$touched && teamForm.newTeamName.$invalid">The team name is required.</span>
+            </p>
+
+            <p>Introduction:
+             <input name="newTeamIntro1" ng-model="input.intro1" required>
+             <span ng-show="teamForm.newTeamIntro1.$touched && teamForm.newTeamIntro1.$invalid">The team introduction is required.</span>
+            </p>
+	   <button ng-click="createFreeTeam()" ng-disabled= "teamForm.newTeamIntro1.$invalid || teamForm.newTeamName1.$invalid">Submit</button>
+
           </form>
          </div>
 </body>

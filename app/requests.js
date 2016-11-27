@@ -25,6 +25,7 @@ app.controller("handleRequests",
             memberNoTeamRef.orderByChild("username").equalTo(memberName).once("child_added",
                 function(oldLocation){
                     movingMember=oldLocation.val();
+                    movingMember.team = teamName;
                     eventRef.orderByChild("name").equalTo(eventName).once("child_added",function(targetEventRef){
                     targetEventRef.ref.child("Team").orderByChild("name").equalTo(targetName).once("child_added",function(newLocation){
                         newLocation.child("member").ref.push().set(movingMember);

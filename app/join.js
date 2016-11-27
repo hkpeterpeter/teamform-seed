@@ -4,6 +4,7 @@ app.controller("joinTeam",
                 
             var eventRef=firebase.database().ref("events");
             var memberNoTeamRef=firebase.database().ref("memberWithNoTeam");
+            var teamNoEvent=firebase.database().ref("TeamWithNoEvent");
             
             var movingMember = {
                 name:"",
@@ -29,6 +30,7 @@ app.controller("joinTeam",
                     memberNoTeamRef.orderByChild("uid").equalTo(firebase.auth().currentUser.uid).once("child_added",
                         function(oldLocation){
                             movingMember=oldLocation.val();
+                            movingMember.team = teamName;
                             eventRef.orderByChild("name").equalTo(event).once("child_added",function(targetEventRef){
                                 targetEventRef.ref.child("Team").orderByChild("name").equalTo(teamName).once("child_added",function(newLocation){
                                     newLocation.child("member").ref.push().set(movingMember);
@@ -48,6 +50,37 @@ app.controller("joinTeam",
                 }    
             
             };
+            
+            $scope.joinTeamInTeam = function (event,teamName){
+                movingMember="";
+                if(firebase.auth().currentUser){
+                    //teamNoEvent.orderByChild("uid").on("child_added",
+                      //  function(t_team){
+                                
+                          teamNoEvent.ref.orderByChild("teamleader").equalTo(firebase.auth().currentUser.uid).once("child_added",
+                                function(t_team){
+                                        
+                                        eventRef.orderByChild("name").equalTo(event).once("child_added",function(targetEventRef){
+                                                targetEventRef.ref.child("Team").orderByChild("name").equalTo(teamName).once("child_added",function(newLocation){
+                                                        newLocation.child("member").ref.push().set(t_team.val());
+                                                        t_team.ref.remove();
+                                                        window.alert("Join team success!");
+                                         
+                                                        }
+                                                );
+                        
+                                        });
+                
+                          //      });
+                
+                        });
+                }
+                else{
+                    window.alert("Please sign in first!");
+                }    
+            
+            };
+            
             
 
 

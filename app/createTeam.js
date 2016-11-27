@@ -56,7 +56,11 @@ app.controller("teamSubmit",
 
                 });
 
+
                 $scope.input.event = "";
+                $scope.input.intro1 = "";
+                $scope.input.name1 = "";
+
                 $scope.input.intro = "";
                 $scope.input.name = "";
 
@@ -67,7 +71,59 @@ app.controller("teamSubmit",
 
 
         };
+        $scope.createFreeTeam = function() {
 
+            if ($scope.input.name1 !== "" && $scope.input.intro1 !== "") {
+                $scope.input.state = true;
+                $scope.input.holder = 1;
+                $scope.team = {
+                    name: "",
+                    intro: "",
+                    teamleader: "",
+                    openness: true,
+                    member: "",
+                    numberOfmember: 0
+                };
+
+                var Ref = firebase.database().ref("TeamWithNoEvent");
+                var memberNoTeamRef = firebase.database().ref("memberWithNoTeam");
+                $scope.team.teamleader = firebase.auth().currentUser.uid;
+                $scope.team.name = $scope.input.name1;
+                $scope.team.intro = $scope.input.intro1;
+                Ref.push().set($scope.team);
+
+                    ////
+                memberNoTeamRef.orderByChild("uid").equalTo(firebase.auth().currentUser.uid).once("child_added",
+                    function(oldLocation) {
+                        movingMember = oldLocation.val();
+                        Ref.ref.orderByChild("name").equalTo($scope.team.name).once("child_added", function(newLocation) {
+                            newLocation.child("member").ref.push().set(movingMember);
+                            newLocation.ref.update({
+                                numberOfmember: newLocation.val().numberOfmember + 1
+                            });
+                            oldLocation.ref.remove();
+                            window.alert("Create team success!");
+
+                        });
+
+                    ////         
+
+                });
+
+                $scope.input.event = "";
+                $scope.input.intro1 = "";
+                $scope.input.name1 = "";
+
+                $scope.input.intro = "";
+                $scope.input.name = "";
+
+
+
+            }
+
+
+
+        };
 
     }
 
