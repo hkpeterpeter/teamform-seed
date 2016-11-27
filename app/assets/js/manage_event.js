@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
 
-	$('#text_event_name').text("Error: Invalid event name ");
+	$('#text_event_name').text("Error: Invalid event name");
 	var eventName = getURLParameter("q");
 	if (eventName != null && eventName !== '' ) {
 		$('#text_event_name').text("Event name: " + eventName);
@@ -29,9 +29,19 @@ angular.module('teamform-event-app', ['firebase'])
 	
 	// Link and sync a firebase object
 	
+	firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        var userPath = "/user/" + user.uid;
+        var userref = firebase.database().ref(userPath);
+        $scope.userObj = $firebaseObject(userref);
+    } else {
+    
+
+    // No user is signed in.
+    }
+    });
+	
 	$scope.param = $firebaseObject(ref);
-
-
 
 	$scope.param.$loaded()
 		.then( function(data) {
@@ -92,5 +102,4 @@ angular.module('teamform-event-app', ['firebase'])
 		window.location.href= "event.html?q=" +eventName;
 	}
 	
-		
 }]);
