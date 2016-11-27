@@ -33,12 +33,55 @@ Please select the event below: <br>
          <td align="center">{{g.state}}</td>
 		 <td align="center"><input class="btn btn-primary" type="button" value="Remove" ng-click="RemoveTeam(selectedName.$id, key);"></input></td>
 
-
          </tr>
+        
+         </table>
+         </div>
+ 
+ 
+  <h3>List of Team(with more information): </h3><br>
+
+ <div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
+     <table width="1000"><tr align="center">
+     <td align="center"><b>Name:</b></td>
+     <td align="center"><b>Intro.</b></td>
+     <td align="center"><b>numberOfmember</b></td>
+     <td align="center"><b>openness</b></td>
+     <td align="center"><b>position</b></td>
+     <td align="center"><b>state</b></td>
+     <td align="center"><b>members</b></td>
+     </tr>
+
+
+         <tr data-ng-repeat="(key, g) in q.Team" ng-if="g.name.indexOf(searchText) > -1 || !searchText">
+         <td align="center">{{g.name}}</td>
+         <td align="center">{{g.intro}}</td>
+         <td align="center">{{g.numberOfmember}}</td>
+         <td align="center">{{g.openness}}</td>
+         <td align="center">{{g.position}}</td>
+         <td align="center">{{g.state}}</td>
+		 <td align="center">
+	
+		 <ul><div ng-repeat="n in g.member" ng-if="!n.teamleader">
+		 <li>{{n.username}}</li>
+		 </div>
+		 <ul><div ng-repeat="n in g.member" ng-if="n.teamleader">
+			<li>{{n.name}}</li>
+			
+				<ul><div ng:repeat="n1 in n.member"><li>{{n1.username}}</li></div>
+			
+		 </div>
+		 </ul>
+		 </td>
+		 </tr>
         
          </table>
          </div>
         
          </div>
          
-    </body>   
+		 
+		 
+		 
+		 
+</body>   
