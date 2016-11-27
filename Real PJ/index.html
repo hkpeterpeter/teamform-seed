@@ -41,7 +41,7 @@
     <!-- Custom styles -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="css/profileModal.css">
     <script src="../Real PJ/lib/main.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
@@ -134,7 +134,7 @@
 
 		                    <!-- user login dropdown start-->
 		                    <li class="dropdown">
-		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" >
 		                            <span class="profile-ava">
 		                                <img alt="" src="img/avatar1_small.jpg">
 		                            </span>
@@ -144,7 +144,7 @@
 		                        <ul class="dropdown-menu extended logout">
 		                            <div class="log-arrow-up"></div>
 		                            <li class="eborder-top">
-		                                <a href="#" ng-click="changeSite3()"><i class="icon_profile"></i> My Profile</a>
+		                                <a href="#" ng-click="changeSite3()" ><i class="icon_profile"></i> My Profile</a>
 		                            </li>
 		                            <li>
 		                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
@@ -170,12 +170,12 @@
 			          <li class="sub-menu">
 			              <a class="" href="#" ng-click="changeSite1()">
 			                  <i class="icon_house_alt"></i>
-			                  <span>Dashboard</span>
+			                  <span>Dashboard</span>2
 			              </a>
 			          </li>
 			          <li class="sub-menu">
-			              <a class="" href="#">
-			                  <i class="fa fa-comments-o" ng-click="changeSite2()"></i>
+			              <a class="" href="#" ng-click="changeSite2()">
+			                  <i class="fa fa-comments-o" ></i>
 			                  <span>Team</span>
 			              </a>
 			          </li>   
@@ -218,7 +218,7 @@
 							<div class="w3-content w3-container w3-padding-64" id="about">
 								<div class="row">
 									<div class="col-lg-12">
-										<h3 class="page-header">ABOUT ME<a href="edit profile.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
+										<h3 class="page-header">ABOUT ME<a href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
 									</div>
 								</div>
 
@@ -292,14 +292,76 @@
 
 				</section>
 			</section>
+
+
 			<!--main content end-->
 			<!--<div class="text-right">
 			    <div class="credits">
 			        <a href="">Team Noname</a> by <a href="">Comp3111</a>
 			    </div>
 			</div>-->
-			</section>
-	    
+			</section>   
+            <!-- Modal -->
+            <div id="editProfileModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="w3-content w3-container w3-padding-64" id="about">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3 class="page-header">ABOUT ME</h3>
+                                    </div>
+                                </div>
+                              
+                                <div class="w3-row">
+                                    <div class="w3-col m6 w3-center w3-padding-large">
+                                        <a href="#"><img src="../UI/img/icon.jpg" class="w3-round w3-image w3-hover-opacity" width="300" height="300" alt="Click to change icon"></a>
+                                    </div>
+
+                                    <!-- Hide this text on small devices -->
+                                    <div class="w3-col m6 w3-hide-small w3-padding-large">
+                                        <h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
+                                        <form id="EditProfile" method="post" class="form-horizontal" action="profile.html">
+                                            <div class="form-group">
+                                                <label for="Major">Major</label>
+                                                <input type="text" class="form-control" name="major" id="">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="Year">Year</label>
+                                                <select class="form-control" id="year" name="year">
+                                                    <option value="">Select</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                </select>
+                                            </div>
+                                          
+                                            <div class="form-group">
+                                                <label for="SelfDescription">Self Description</label>
+                                                <textarea class="form-control" name="selfDescription" id="selfDescription" rows="4"></textarea>
+                                            </div>
+
+                                            <a href="profile.html"><button type="submit" class="btn btn-primary" id="submit">Submit</button></a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
 
 		    <!-- container section end -->
 		    <!-- javascripts -->

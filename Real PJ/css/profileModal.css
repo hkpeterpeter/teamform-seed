@@ -1,0 +1,8 @@
+/* Important part */
+.profile .modal-dialog{
+    overflow-y: initial !important
+}
+.profile .modal-body{
+    max-height: 700px;
+    overflow-y: auto;
+}
