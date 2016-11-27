@@ -255,7 +255,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
 
     $scope.deletenotification = function(sendername){
          delete userlist[$scope.user]["notification"][sendername];
-         userlist.save();
+         userlist.$save();
     }
 
     $scope.addnotification = function(sender,msg){
@@ -268,7 +268,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
           "message":msg,
           "name":sender
         }
-        userlist.save();
+        userlist.$save();
     }
 
 
