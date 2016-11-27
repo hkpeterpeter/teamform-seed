@@ -1,20 +1,29 @@
-var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies","chart.js"]);
+var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies","chart.js",'ui-notification']);
 
 //initalizeFirebase();
 
-app.config(function($routeProvider){
+app.config(function($routeProvider,NotificationProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
      .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
      .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"EventController"})
      .when("/MyConversation/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
-
+	 NotificationProvider.setOptions({
+            delay: 5000,
+            startTop: 60,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'right',
+            positionY: 'top',
+			closeOnClick:true
+        });
 });
 
 
 
-    app.controller("sidebarController",function($scope, $firebaseArray,$firebaseObject,$cookies){
+    app.controller("sidebarController",function($scope, $firebaseArray,$firebaseObject,Search,$cookies){
   var thisuser=$cookies.get("username",{path:"/"});
   // var thisuser="kimsung";
   var userlist = $firebaseObject(firebase.database().ref("userList"));
