@@ -105,17 +105,17 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		console.log($rootScope.events);
 	}
 	$rootScope.loginWithEmail=function(email){
-		$rootScope.users=$firebaseArray($rootScope.user_ref);
-		$rootScope.users.$loaded().then(function(data){
-			for(var i=0;i<$rootScope.users.length;i++){
+		
+	
+		for(var i=0;i<$rootScope.users.length;i++){
 
-				if($rootScope.users[i].email==email){
-					console.log($rootScope.users[i]);
-					$rootScope.currentUser=$rootScope.users[i];
-					$rootScope.currentUser.id=$rootScope.users[i].$id
-				}
+			if($rootScope.users[i].email==email){
+				console.log($rootScope.users[i]);
+				$rootScope.currentUser=$rootScope.users[i];
+				$rootScope.currentUser.id=$rootScope.users[i].$id
 			}
-		});
+		}
+	
 		
 	}
 	if(!$rootScope.currentUser){
@@ -153,7 +153,15 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		minSize:5
 	}
 	$rootScope.addUser=function(user){
-		$rootScope.users.$add(user);
+		$rootScope.users.$add(user).then(function(ref) {
+		  var id = ref.key;
+		  console.log("added record with id " + id);
+		 
+		  $rootScope.currentUser=$firebaseObject(firebase.database().ref("users").child(id));
+		  $rootScope.currentUser.id=id;
+
+		
+	});
 
 	}
 	$rootScope.addEvent=function(event){
