@@ -21,5 +21,8 @@
     "start": "http-server -a localhost -p 8080 -c-1 ./app",
     "pretest": "npm install",
     "test": "karma start karma.conf.js --browsers PhantomJS"
+  },
+  "dependencies": {
+    "angular-chart.js": "^1.0.3"
   }
 }
