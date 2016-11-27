@@ -503,6 +503,45 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				}
 			}
 			Naruto.searchName = searchName;
+			
+			//team profile
+			$scope.labels = [];
+			$scope.data = [];
+			$scope.type = 'polarArea';
+			$scope.currentTeam = "";
+			$scope.passTeam = function(index){
+				$scope.currentTeam = $scope.filterResult[index];
+				
+				var member = $scope.teamini[$scope.currentTeam].memberList
+				for(var i = 0;i < $scope.teamini[$scope.currentTeam].skills.length;i++){
+					
+					$scope.labels.push($scope.teamini[$scope.currentTeam].skills[i]);
+					var number = 0;
+					for(var j = 0;j < member.length;j ++){
+						for(var k = 0;k < $scope.userList[member[j]].skills.length;k++){
+							if($scope.userList[member[j]].skills[k] == $scope.teamini[$scope.currentTeam].skills[i]){
+								number++;
+								break;
+							}
+						}
+						
+					}
+					$scope.data.push(number);
+					
+				}
+				
+			}
+			
+			$scope.toggle = function () {
+				$scope.type = $scope.type === 'polarArea' ? 'pie' : 'polarArea';
+			};
+			
+			//user profile
+			$scope.currentUser = "";
+			$scope.passUser = function(index){
+				$scope.currentUser = $scope.filterResult[index];
+			}
+			
 		});
 
 

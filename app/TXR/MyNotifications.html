@@ -5,21 +5,21 @@
 
           <div class="row placeholders">
             <div class="container">
-              <div class="row" ng-app="myapp", ng-controller="NotificationController">
+              <div class="row" ng-app="mainApp" ng-controller="NotificationController">
                
-               <div class="col-md-10" ng-repeat="user in userList">
-                <div class="panel panel-default">
+               <div class="col-md-10">
+                <div class="panel panel-default"  ng-repeat="noti in notification">
                     <div class="panel-heading">
-                        <h4 align="left"><i class="fa fa-fw fa-check"></i>From:{{user.Name}}</h4>
+                        <h4 align="left"><i class="fa fa-fw fa-check"></i>From: {{noti.name}}</h4>
                     </div>
                     <div class="panel-body">
                     <div class="col-sm-1 col-md-1">
-                    <img src="favicon.ico" alt="" class="img-circle">
+                    <!-- <img src="getphoto(noti.sender)" alt="" class="img-circle"> -->
                     </div>
-                        <p align="left">{{user.Info}}</p>
+                        <p align="left">{{noti.message}}</p>
                         <div align="right">
-                        <button type="button" class="btn btn-sm btn-success" ng-if="whetherfromteam($index)"><a ng-href="#/MyConversation/{{user.Name}}">Reply</a></button>
-                        <button type="button" class="btn btn-sm btn-danger" ng-click="removeuser($index)">Delete</button></div>
+                        <button type="button" class="btn btn-sm btn-success"><a ng-href="#/MyConversation/{{noti.name}}">Reply</a></button>
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)">Delete</button></div>
                     </div>
                     </div>
                     </div>
