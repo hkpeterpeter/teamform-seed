@@ -1,8 +1,5 @@
-'use strict';
-
-
 angular.module("member", ["firebase"])
-    .controller("memCtrl", function ($scope, $firebaseArray) {
+    .controller("memCtrl", function($scope, $firebaseArray) {
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
@@ -12,11 +9,77 @@ angular.module("member", ["firebase"])
             messagingSenderId: "946291658553"
         };
         firebase.initializeApp(config);
-
+        var memberId = getURLParameter("memberId");
         var ref = firebase.database().ref("members");
+        var refT = firebase.database().ref("teams");
         $scope.mems = $firebaseArray(ref);
-		$scope.getID = function(){
-			return 0;
-		}
+        $scope.teams = $firebaseArray(refT);
+        $scope.user = null;
+        $scope.teamsJoined = [];
+        $scope.membersAll = [];
+        
+        firebase.auth().onAuthStateChanged(function(user) {
+            $scope.mems.$loaded()
+                .then(function(x) {
+                    $scope.membersAll = $scope.mems;
+                    var loggedInId = "";
+                    if (user) {
+                        var email = user.email;
+                        var canStop = false;
+                        if (memberId != null && memberId.trim().length != 0 && user != null && memberId != undefined) {
+                            $scope.user = $scope.mems[memberId];
+                            canStop = true;
+                        }
+
+                        if(canStop == false)
+                        for (var i = 0; i < $scope.mems.length; i++) {
+                            // console.log($scope.mems[i].email + " vs " + email);
+                            if ($scope.mems[i].email == email) {
+                                $scope.user = $scope.mems[i];
+                                loggedInId = i;
+                                break;
+                            }
+                        }
+                        // console.log(user);
+                    } else {
+                        // No user is signed in.
+                    }
+
+                    $scope.teams.$loaded()
+                        .then(function(x) {
+                            if (user) {
+                                var memberId_searched = "";
+                                    if (memberId != null && memberId.trim().length != 0 && user != null && memberId != undefined) {
+                                        memberId_searched = memberId;
+                                    } else {
+                                        memberId_searched = loggedInId;
+                                    }
+                                // console.log(memberId_searched);
+
+                                for (var i = 0; i < $scope.teams.length; i++) {
+                                    // console.log($scope.mems[i].email + " vs " + email);
+                                    var members = $scope.teams[i].members;
+                                    var len = $scope.teams[i].members.length;
+                                    for (var j = 0; j < len; j++) {
+                                        if(members[j] == memberId_searched) {
+                                            $scope.teamsJoined.push($scope.teams[i]);
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                // console.log($scope.teamsJoined);
+                                // console.log(user);
+                            } else {
+                                // No user is signed in.
+                            }
+                        })
+                        .catch(function(error) {
+                            console.log("Error:", error);
+                        });
+                })
+                .catch(function(error) {
+                    console.log("Error:", error);
+                });
         });
-    
+    });
