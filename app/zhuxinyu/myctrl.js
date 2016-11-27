@@ -383,6 +383,7 @@ teamapp.directive("zhuNavi", function() {
         restrict: "E",
         templateUrl: "zhuxinyu/js/components/fish-navi.html",
          controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+        $rootScope.initilizaNofi=function(){
             $scope.allnoti=$firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs"));
              $scope.allnoti.$loaded().then(function(data){
                 for(var i=0;i<data.length;i++){
@@ -401,6 +402,8 @@ teamapp.directive("zhuNavi", function() {
                 temp.$save();
             });
             }
+        }
+
        }
 
     };
