@@ -69,9 +69,9 @@ $(function(){
     Morris.Donut({
         element: 'dashboard-donut-1',
         data: [
-            {label: "Returned", value: 2513},
-            {label: "New", value: 764},
-            {label: "Registred", value: 311}
+            {label: "Started", value: 10},
+            {label: "Completed", value: 7},
+            {label: "Plan", value: 6}
         ],
         colors: ['#33414E', '#1caf9a', '#FEA223'],
         resize: true
@@ -83,17 +83,17 @@ $(function(){
     Morris.Bar({
         element: 'dashboard-bar-1',
         data: [
-            { y: 'Oct 10', a: 75, b: 35 },
-            { y: 'Oct 11', a: 64, b: 26 },
-            { y: 'Oct 12', a: 78, b: 39 },
-            { y: 'Oct 13', a: 82, b: 34 },
-            { y: 'Oct 14', a: 86, b: 39 },
-            { y: 'Oct 15', a: 94, b: 40 },
-            { y: 'Oct 16', a: 96, b: 41 }
+            { y: 'Sep 30', a: 13, b: 0 },
+            { y: 'Oct 10 ', a: 13, b: 2 },
+            { y: 'Oct 20', a: 14, b: 8 },
+            { y: 'Oct 30', a: 17, b: 12 },
+            { y: 'Nov 10', a: 20, b: 15 },
+            { y: 'Nov 20', a: 23, b: 20 },
+            { y: 'Nov 30', a: 23, b: 23 }
         ],
         xkey: 'y',
         ykeys: ['a', 'b'],
-        labels: ['New Users', 'Returned'],
+        labels: ['Plan', 'Complete'],
         barColors: ['#33414E', '#1caf9a'],
         gridTextSize: '10px',
         hideHover: true,
@@ -106,17 +106,17 @@ $(function(){
     Morris.Line({
       element: 'dashboard-line-1',
       data: [
-        { y: '2014-10-10', a: 2,b: 4},
-        { y: '2014-10-11', a: 4,b: 6},
-        { y: '2014-10-12', a: 7,b: 10},
-        { y: '2014-10-13', a: 5,b: 7},
-        { y: '2014-10-14', a: 6,b: 9},
-        { y: '2014-10-15', a: 9,b: 12},
-        { y: '2014-10-16', a: 18,b: 20}
+        { y: '2016-9-30', a: 0,b: 0},
+        { y: '2016-10-10', a: 3,b: 0},
+        { y: '2016-10-20', a: 5,b: 0},
+        { y: '2016-10-30', a: 8,b: 1},
+        { y: '2016-11-10', a: 8,b: 1},
+        { y: '2016-11-20', a: 10,b: 2},
+        { y: '2016-11-30', a: 13,b: 3}
       ],
       xkey: 'y',
       ykeys: ['a','b'],
-      labels: ['Sales','Event'],
+      labels: ['Positive','Negative'],
       resize: true,
       hideHover: true,
       xLabels: 'day',
@@ -128,23 +128,23 @@ $(function(){
     /* Moris Area Chart */
       Morris.Area({
       element: 'dashboard-area-1',
-      data: [
-        { y: '2014-10-10', a: 17,b: 19},
-        { y: '2014-10-11', a: 19,b: 21},
-        { y: '2014-10-12', a: 22,b: 25},
-        { y: '2014-10-13', a: 20,b: 22},
-        { y: '2014-10-14', a: 21,b: 24},
-        { y: '2014-10-15', a: 34,b: 37},
-        { y: '2014-10-16', a: 43,b: 45}
+       data: [
+        { y: '2016-9-30', a: 0,b: 0},
+        { y: '2016-10-10', a: 0,b: 3},
+        { y: '2016-10-20', a: 0,b: 5},
+        { y: '2016-10-30', a: 1,b: 8},
+        { y: '2016-11-10', a: 1,b: 8},
+        { y: '2016-11-20', a: 2,b: 10},
+        { y: '2016-11-30', a: 3,b: 13}
       ],
       xkey: 'y',
       ykeys: ['a','b'],
-      labels: ['Sales','Event'],
+      labels: ['Negative','Postive'],
       resize: true,
       hideHover: true,
       xLabels: 'day',
       gridTextSize: '10px',
-      lineColors: ['#1caf9a','#33414E'],
+      lineColors: ['#33414E','#1caf9a'],
       gridLineColor: '#E5E5E5'
     });
     /* End Moris Area Chart */
@@ -157,15 +157,15 @@ $(function(){
                                                     initial: {fill: '#33414E'}},
                                     markerStyle: {initial: {fill: '#1caf9a',
                                                    stroke: '#1caf9a'}},
-                                    markers: [{latLng: [50.27, 30.31], name: 'Kyiv - 1'},                                              
-                                              {latLng: [52.52, 13.40], name: 'Berlin - 2'},
-                                              {latLng: [48.85, 2.35], name: 'Paris - 1'},                                            
-                                              {latLng: [51.51, -0.13], name: 'London - 3'},                                                                                                      
-                                              {latLng: [40.71, -74.00], name: 'New York - 5'},
-                                              {latLng: [35.38, 139.69], name: 'Tokyo - 12'},
-                                              {latLng: [37.78, -122.41], name: 'San Francisco - 8'},
-                                              {latLng: [28.61, 77.20], name: 'New Delhi - 4'},
-                                              {latLng: [39.91, 116.39], name: 'Beijing - 3'}]
+                                    markers: [{latLng: [50.27, 30.31], name: 'Kuen'},                                              
+                                             
+                                                                                      
+                                              {latLng: [51.51, -0.13], name: 'Howe'},                                                                                                      
+                                              {latLng: [40.71, -74.00], name: 'Cally'},
+                                              {latLng: [35.38, 139.69], name: 'Kit'},
+                                        
+                                              {latLng: [28.61, 77.20], name: 'Fish'},
+                                              {latLng: [39.91, 116.39], name: 'Harry'}]
                                 });    
     /* END Vector Map */
 
