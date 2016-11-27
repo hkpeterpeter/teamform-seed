@@ -7,6 +7,8 @@ app.controller("searchCtrl",
     function ($scope, $firebaseArray, $sce) {
         $scope.trustAsHtml = $sce.trustAsHtml;
 
+        $scope.user = null;
+
         //get members' data
         var ref = firebase.database().ref("members");
         $scope.memberData = $firebaseArray(ref);
@@ -20,6 +22,8 @@ app.controller("searchCtrl",
         $scope.searchFrequency = $firebaseArray(ref);
         ref = firebase.database().ref("searchFreq/keyword_groups");
         $scope.keywordGroups = $firebaseArray(ref);
+        ref = firebase.database().ref("pending_join_requests");
+        $scope.requests = $firebaseArray(ref);
 
         //for debugging
         $scope.debugMsg = "";
@@ -139,6 +143,10 @@ app.controller("searchCtrl",
                     $scope.searchFrequency.$ref().child(i + 1).set("1");
                 }
             }
+        }
+
+        $scope.passed = function (depart) {
+            return Utils.compareDate(depart, new Date()) > 0;
         }
 
         var suggestionElement = function (suggestions, i) {
@@ -401,7 +409,7 @@ app.controller("searchCtrl",
                     //constraint
                     if (keywords.join("") == "" && $scope.constraint.tm == 2 && !$scope.constraint.hasMemberConstraints()) {
                         teamsAndMembers.push(new resultElement(("Member ID: " + members[i].id), members[i].first_name + " " + members[i].last_name, members[i].descriptions,
-                            "searchResultElement-" + (i + resultCount), members[i].language.join(", "), members[i].from, "", members[i].email, members[i].gender, "", "", members[i].want_to_travel.join(", ")));
+                            "searchResultElement-" + (i + resultCount), members[i].language.join(", "), members[i].from, "", members[i].email, members[i].gender, "", "", members[i].want_to_travel ? members[i].want_to_travel.join(", ") : "Not specified"));
                         continue;
                     }
 
@@ -502,7 +510,7 @@ app.controller("searchCtrl",
                     var from = members[i].from.toLowerCase();
                     language = members[i].language.join(" ").toLowerCase();
                     var gender = members[i].gender.toLowerCase();
-                    var desire = members[i].want_to_travel.join(" ").toLowerCase();
+                    var desire = members[i].want_to_travel ? members[i].want_to_travel.join(" ").toLowerCase() : null;
 
                     score = 0;
                     //match id
@@ -527,7 +535,8 @@ app.controller("searchCtrl",
                     score += getSimilarityScore(keywords, gender, "gender", $scope.memberScoreList);
 
                     //match desirable countries
-                    score += getSimilarityScore(keywords, desire, "desire", $scope.memberScoreList);
+                    if (desire)
+                        score += getSimilarityScore(keywords, desire, "desire", $scope.memberScoreList);
 
                     //update the result if score > 0
                     if (score > 0) {
@@ -539,7 +548,7 @@ app.controller("searchCtrl",
                         var e5 = hightlight(members[i].from, keywords);
                         var e6 = hightlight(members[i].email, keywords);
                         var e7 = hightlight(members[i].gender, keywords);
-                        var e8 = hightlight(members[i].want_to_travel.join(" * "), keywords).split(" * ").join(", ");
+                        var e8 = members[i].want_to_travel ? hightlight(members[i].want_to_travel.join(" * "), keywords).split(" * ").join(", ") : "";
                         teamsAndMembers.push(new resultElement(("Member ID: " + e2), e1, e3, "searchResultElement-" + (i + resultCount), e4, e5, "", e6, e7, "", "", e8));
                     }
                 }
@@ -578,6 +587,38 @@ app.controller("searchCtrl",
                 $scope.result.push(false);
         };
         //search Tags End
+
+        //join team
+        $scope.joinTeam = function (teamID) {
+            if (!$scope.user)
+                $scope.user = firebase.auth().currentUser;
+            teamID = teamID.split("Team ID: ").join("");
+            teamID = teamID.replace(/\s/g, "");
+
+            if (!$scope.user)
+                showLoginDialog();
+            else {
+                var memberID = "";
+                angular.forEach($scope.memberData, function (element) {
+                    if (memberID == "" && $scope.user.uid == element.uid) {
+                        memberID = element.id;
+                    }
+                });
+                var exist = false;
+                angular.forEach($scope.requests, function (e) {
+                    if (e.group == teamID && e.requester == memberID)
+                        exist = true;
+                });
+                if (!exist)
+                    $scope.requests.$add({
+                        date: new Date().toUTCString(),
+                        requester: memberID,
+                        group: teamID
+                    });
+                showRequestDialog();
+            }
+        };
+        //join team end
     }
 );
 
@@ -641,6 +682,11 @@ $(document).ready(function () {
 
 //===some helper functions===
 
+//redirect
+function goToLoginPage() {
+    window.location.href = "index.html";
+}
+
 //layout changesfunction
 function disableCentralize() {
     $("#searchModule").parent().removeClass("centralize").addClass("topPadding");
@@ -649,6 +695,23 @@ function disableCentralize() {
     $("#searchTextField").parent().removeClass("col-xs-12 col-sm-12 col-md-12 col-lg-12").addClass("col-xs-11 col-sm-11 col-md-11  col-lg-11");
     var searchTextFieldPPHeight = $("#searchTextField").parent().parent().height();
     $("#searchTextField").parent().css("margin-top", Math.round((searchTextFieldPPHeight - $("#searchTextField").parent().height()) / 2) + "px");
+}
+
+function showLoginDialog() {
+    $("#loginDialog").removeClass("hide");
+}
+
+function hideLoginDialog() {
+    $("#loginDialog").addClass("hide");
+}
+
+function showRequestDialog() {
+    $("#joinRequest").removeClass("hide").delay(800).animate({
+        opacity: 0
+    }, 1000, function () {
+        $(this).addClass("hide");
+        $(this).css("opacity", 1);
+    });
 }
 
 //remove symbols in text
