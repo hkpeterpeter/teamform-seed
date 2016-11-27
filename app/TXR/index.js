@@ -72,9 +72,18 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       eventlist.$loaded(function(){
        $scope.event = eventlist[$scope.eventname];
        $scope.team = eventlist[$scope.eventname]["teamList"][$scope.teamname];
-       $scope.teamskills = eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"];
-       $scope.memberlist = eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"];
-       $scope.Leader = eventlist[$scope.eventname]["teamList"][$scope.teamname]["leader"];
+       //if identity === user, teamskills should be empty
+       
+        $scope.teamskills = [];
+        $scope.memberlist = [];
+        $scope.Leader;
+       if ($scope.identity !== "user"){
+        $scope.teamskills = eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"];
+        $scope.memberlist = eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"];
+        $scope.Leader = eventlist[$scope.eventname]["teamList"][$scope.teamname]["leader"];
+       }
+
+       
 
       })
 
@@ -290,7 +299,6 @@ app.controller("clickCtrl",
 
             var user_identity = user_list[this_user]["Membership"][event_name]["identity"];
             $scope.leader = angular.equals(user_identity, 'leader');
-            alert($scope.leader);
             $scope.member = angular.equals(user_identity, 'member');
             $scope.user = angular.equals(user_identity, 'user');
             //suggested users for leaders

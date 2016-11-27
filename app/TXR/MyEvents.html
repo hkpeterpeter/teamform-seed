@@ -536,34 +536,11 @@
             </table>
           </div>
           </div>
+
+
         <div class="col-lg-6" id="suggestion">
         
-
           <div class="table-responsive" ng-controller = "clickCtrl">
-            
-       <div class="row" ng-show = "user">uuuuu</div>
-              <div class="row" ng-show = "member">mmmmm</div>
-                     <div class="row" ng-show = "leader">lllll</div>
-                     
-            <div ng-show = "user">
-            <h2>Suggested teams</h2>
-            <table class="table table-striped" ng-repeat = "(num, team_content) in suggested_teams">
-                          
-              <tbody>
-                <tr>
-                  <td style="font-size: 30px">{{num+1}}</td>
-                  <td>
-                      <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
-                  </td>
-                  <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
-                 <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button>
-                  </td>
-                </tr>
-            
-              </tbody>
-            </table>
-            </div>
 
             <div ng-show = "leader">
             <h2>Suggested Users</h2>
@@ -586,6 +563,7 @@
             </table>
             </div>
           </div>
+
         </div>
 
       </div>
@@ -614,6 +592,35 @@
           </div>
 
       </div>
+
+
+        <div class="col-lg-6" id="suggestion">
+        
+          <div class="table-responsive" ng-controller = "clickCtrl">
+
+            <div ng-show = "user">
+            <h2>Suggested teams</h2>
+            <table class="table table-striped" ng-repeat = "(num, team_content) in suggested_teams">
+                          
+              <tbody>
+                <tr>
+                  <td style="font-size: 30px">{{num+1}}</td>
+                  <td>
+                      <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
+                  </td>
+                  <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
+                 <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button>
+                  </td>
+                </tr>
+            
+              </tbody>
+            </table>
+            </div>
+
+          </div>
+
+        </div>
   
 
 
