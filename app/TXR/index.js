@@ -689,9 +689,10 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       userlist.$save();
       eventlist.$loaded(function() {
         $scope.length=eventlist[event]["inEventUser"].length;
-      })
-    eventlist[event]["inEventUser"][$scope.length]=$scope.thisuser;
+            eventlist[event]["inEventUser"][$scope.length]=$scope.thisuser;
       eventlist.$save();
+      })
+
 
     
     }
