@@ -61,7 +61,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				teams = [];
 				users = [];
 				userid = [];
-				
+				tagini = {};
 
 				$scope.teamini = event_list[Naruto.Luffy]["teamList"];
 				
