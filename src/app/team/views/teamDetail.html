@@ -99,6 +99,11 @@
                                                 <i class="fa fa-envelope fa-lg"></i> Message Me
                                             </a>
                                         </li>
+                                        <li ng-if="teamDetail.canManage() && !teamDetail.isMe(teamUser.user.$id)">
+                                            <a href="javascript:void(0);" ng-click="teamDetail.removeTeamPosition(teamUser.$id)" class="clearfix">
+                                                <i class="fa fa-trash fa-lg"></i> Remove Member
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

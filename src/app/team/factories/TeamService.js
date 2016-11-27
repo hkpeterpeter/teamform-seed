@@ -154,6 +154,14 @@ export default class TeamService {
         await teamUser.$remove();
         return teamUser.$save();
     }
+    async removeTeamPosition(id, positionId) {
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        teamUser.id = null;
+        teamUser.pending = null;
+        teamUser.accepted = null;
+        teamUser.message = null;
+        return teamUser.$save();
+    }
     static instance(...args) {
         return new TeamService(...args);
     }

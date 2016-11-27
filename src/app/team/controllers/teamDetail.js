@@ -94,6 +94,18 @@ export default class TeamDetailCtrl {
             });
         }
     }
+    async removeTeamPosition(positionId) {
+        try {
+            let teamUsers = await this.teamService.removeTeamPosition(this.$stateParams.teamId, positionId);
+            this.$timeout(() => {
+                console.log('success');
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
+    }
     canManage() {
         let user = this.authService.getUserSync();
         return user && user.uid == this.team.data.createdBy;
