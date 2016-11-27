@@ -171,11 +171,8 @@ export default class EventDetailCtrl {
                     }
                 }
                 if(userCount == 0) {
-                    // newTeamList.splice(i, 1);
-                    console.log('remove 1');
                     team.remove = true;
                     this.teamList = newTeamList;
-                    // i--;
                     continue;
                 }
                 if(leaderCount == 0) {
@@ -232,6 +229,18 @@ export default class EventDetailCtrl {
                     }
                     team.data.users[teamUser.$id].id = teamUser.id || null;
                     team.data.users[teamUser.$id].role = teamUser.role;
+                }
+                for(let [key, teamUser] of Object.entries(team.data.users)) {
+                    let found = false;
+                    for(let teamItemUser of teamItem.children) {
+                        if(teamItemUser.$id == key) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found) {
+                        delete team.data.users[key];
+                    }
                 }
                 while(Object.keys(team.data.users).length > this.event.data.teamMax) {
                     let keys = Object.keys(team.data.users);
