@@ -1,7 +1,6 @@
 teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($scope, $rootScope, $firebaseObject, $firebaseArray) {
 
-  //FAKE $rootScope.clickedEvent
-  $scope.currentEvent = 0;
+  $scope.currentEvent = $rootScope.clickedEvent.$id;
 
   $scope.currentUser = $rootScope.currentUser.id;
   $scope.events = $rootScope.events;
@@ -10,7 +9,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   $scope.showTeams = true;
   $scope.showTeamForm = false;
   $scope.create_team = "create team";
-
+  $scope.notParticipated = true;
 
 
 
@@ -41,6 +40,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     //move my team in the first position
     for (var i = 0; i < teamsCurEvent.length; i++) {
       if (teamsCurEvent[i].teamID == currentTeamID) {
+        $scope.notParticipated = false;
         var temp = teamsCurEvent[0];
         teamsCurEvent[0] = teamsCurEvent[i];
         teamsCurEvent[i] = temp;
@@ -71,12 +71,16 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   });
 
   $scope.preprocessData = function(allData) {
-    for (var i in allData.users[$scope.currentUser].teamsAsMember) {
-      candidate = allData.users[$scope.currentUser].teamsAsMember[i];
-      if (allData.teams[candidate] != undefined && allData.teams[candidate].belongstoEvent == $scope.currentEvent) {
-        $scope.currentTeam = candidate;
-        break;
+    try {
+      for (var i in allData.users[$scope.currentUser].teamsAsMember) {
+        candidate = allData.users[$scope.currentUser].teamsAsMember[i];
+        if (allData.teams[candidate] != undefined && allData.teams[candidate].belongstoEvent == $scope.currentEvent) {
+          $scope.currentTeam = candidate;
+          break;
+        }
       }
+    } catch (err) {
+      $scope.currentTeam = undefined;
     }
 
     $scope.readyData = $scope.processData(allData, $scope.currentEvent, $scope.currentTeam, $scope.currentUser);
@@ -88,11 +92,11 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     }
   };
 
-  $scope.createTeam = function($event, id) {
+  $scope.flip = function($event) {
     $scope.showTeams = !$scope.showTeams;
     $scope.showTeamForm = !$scope.showTeamForm;
     $scope.create_team = $scope.showTeams ? "create team" : "cancel";
-    $event.stopPropagation();
+    //$event.stopPropagation();
   };
 
   $scope.removeTeam = function($event, id) {
@@ -106,7 +110,47 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
   };
 
   $scope.joinTeam = function($event, id) {
-    $event.stopPropagation();
+    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("teamsAsMember")).$add(id);
+    $firebaseArray($rootScope.team_ref.child(id).child("membersID")).$add($scope.currentUser);
+    $scope.notParticipated = false;
+    for (var i = 0; i < $scope.readyData.team.length; ++i) {
+      if ($scope.readyData.team[i].teamID == id) {
+        $rootScope.addNotify($rootScope.currentUser.id, "You have joined " + $scope.readyData.team[i].teamName, "", "", "System");
+        Materialize.toast("You have joined " + $scope.readyData.team[i].teamName, 3000);
+      }
+    }
+
+
+  };
+
+  $scope.createTeam = function($event) {
+    var team = {};
+    // eventCreating.description=document.getElementById("event_detail").value;
+    team.belongstoEvent = $scope.currentEvent;
+    team.teamName = $scope.teamName;
+    team.desiredSkills = $rootScope.skillsList;
+    team.invitedPeople = "undefined";
+    team.isPrivate = $scope.privateTeam == undefined ? false : true;
+    team.leaderID = $scope.currentUser;
+    team.membersID = "undefined";
+    team.min_num = $scope.teamMin;
+    team.max_num = $scope.teamMax;
+    team.description = $scope.teamDescription;
+    team.imageUrl = $scope.imageURL == "" ? $rootScope.currentUser.profilePic : $scope.imageURL;
+    console.log(team);
+    $rootScope.teams.$add(team).then(function(ref) {
+      var teamID = ref.key;
+      console.log(teamID);
+
+      $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("teamsAsLeader")).$add(teamID);
+
+
+      $rootScope.addNotify($rootScope.currentUser.id, "A new team " + team.teamName + " has been created", "", "", "System");
+
+      Materialize.toast("Your new team " + team.teamName + " has been created", 3000);
+    });
+    $scope.flip($event);
+    // $event.stopPropagation();
   };
 
 }]);

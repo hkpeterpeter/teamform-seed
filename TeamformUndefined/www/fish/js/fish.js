@@ -2,7 +2,7 @@
 teamapp.controller('fishCtrl', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($scope,$rootScope, $firebaseObject, $firebaseArray) {
 
 //FAKE $rootScope.clickedEvent
-$scope.currentEvent = 0;
+$scope.currentEvent =  $rootScope.clickedEvent.$id;
 
 $scope.currentUser = $rootScope.currentUser.id;
 $scope.events = $rootScope.events;
@@ -48,7 +48,12 @@ $scope.processData=function(allData, currentEventID, currentTeamID, currentUserI
 
     }
 
+    $scope.quitTeam=function(){
+        $firebaseObject(firebase.database().ref('users/' + $scope.currentUser + '/teamsAsMember/' + $rootScope.currentTeamID)).$remove();
+        $firebaseArray(firebase.database().ref('teams/' + $rootScope.currentTeamID + '/membersID/' + $scope.currentUser)).$remove();
+        $firebaseArray(firebase.database().ref('events/' + $scope.currentEvent + '/allTeams/'+ $rootScope.currentTeamID + '/member/' + $scope.currentUser)).$remove();
 
+    };
 
 
     $scope.clickCount = 0;

@@ -11,7 +11,8 @@ Maximum number of team member: {{teamMax}} in js: $scope.teamMax
         <form>
           <simple-field id-of-field="team_name" label="Team name" field-model="teamName"></simple-field>
           <textarea-field id-of-field="team_description" label="Team description" field-model="teamDescription"></textarea-field>
-          <image-upload label="Choose team image"></image-upload>
+          <simple-field id-of-field="team_image" label="Paste team image url" field-model="imageURL"></simple-field>
+          <!-- <image-upload label="Choose team image"></image-upload> -->
           <br>
           <div>
               <input type="checkbox" class="filled-in" id="filled-in-box" ng-model="privateTeam"/>
