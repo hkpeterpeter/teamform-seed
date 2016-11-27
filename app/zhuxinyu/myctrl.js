@@ -262,7 +262,7 @@ teamapp.directive('eventCard', function($compile) {
                     var isMember=false;
 
                     console.log("All teams are "+$scope.element.allTeams);
-
+                    if(!$scope.element.allTeams) $scope.element.allTeams=[];
                     for(var i=0;i<$scope.element.allTeams.length;i++){
                         if($scope.element.allTeams[i].leader==$rootScope.currentUser.id){
                             isLeader=true;
@@ -305,26 +305,34 @@ teamapp.directive("subcan", function() {
                 var eventCreating={};
               // eventCreating.description=document.getElementById("event_detail").value;
                 eventCreating.description=$scope.eventDescription;
-                eventCreating.min_num=$scope.eventMin;
-                eventCreating.max_num=$scope.eventMax;
+                eventCreating.minSize=$scope.eventMin;
+                eventCreating.maxSize=$scope.eventMax;
                 eventCreating.adminID=$rootScope.currentUser.id;
                 eventCreating.eventName=$scope.event.name;
                 eventCreating.imageUrl=$rootScope.currentUser.profilePic;
                 console.log(eventCreating);
+                console.log($rootScope.currentUser);
 
                 $rootScope.events.$add(eventCreating).then(function(ref){
                     var eventID=ref.key;
                     console.log(eventID);
 
-                    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("eventsManaging")).$add(eventID);
+                     console.log("ID is "+$rootScope.currentUser.$id);
+                     var tempabc=$rootScope.currentUser;
+
+                    $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.$id).child("eventsManaging")).$add(eventID).then(function(ref){
+                        $rootScope.currentUser=tempabc;
+                        $rootScope.addNotify($rootScope.currentUser.$id,"A new Event "+eventCreating.eventName+" has been created","","","System");
+
+                        Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
 
 
-                    $rootScope.addNotify($rootScope.currentUser.id,"A new Event "+eventCreating.eventName+" has been created","","","System");
+                        $scope.cancelEvent();
+                    });
+                     
+                      
 
-                     Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
-
-
-                    $scope.cancelEvent();
+                  
                 });
             }
 
