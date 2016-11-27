@@ -12,6 +12,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
     <script src="js/initFirebase.js"></script>
     <script>initFirebase();</script>
+    <script
     <script src="js/sharedScript.js"></script>
     <script src="js/clock.js"></script>
     <script src="js/searchbar.js"></script>
@@ -35,6 +36,15 @@
             <div class="button-group">
                 <input type="button" class="btn btn-md btn-danger" value="OK" onclick="goToLoginPage()" />
                 <input type="button" class="btn btn-md btn-danger" value="Cancel" onclick="hideLoginDialog()" //>
+            </div>
+        </div>
+    </div>
+
+    <div id="joinRequest" class="hide">
+        <div id="joinRequest-content" class="well">
+            <div class="message">
+                <h1>Request has been sent!</h1><br>
+                <span>You have to wait for the team approval.</span>
             </div>
         </div>
     </div>
@@ -187,7 +197,7 @@
                                 <span ng-bind-html="trustAsHtml(r.name)"></span>
                             </a>
                             <span class="badge id-badge" ng-bind-html="trustAsHtml(r.id)"></span>
-                            <input type="button" class="btn btn-md btn-danger pull-right {{(r.email==''&& !r.full.includes('(FULL)')?'':'hide')}} joinBtn"
+                            <input type="button" class="btn btn-md btn-danger pull-right {{(r.email==''&& !r.full.includes('(FULL)') && passed(r.depart)?'':'hide')}} joinBtn"
                                 value="Join" ng-click="joinTeam(r.id)" />
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
