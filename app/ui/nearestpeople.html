@@ -333,13 +333,13 @@
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li class="active">Your Level</li>
+                    <li class="active">Nearest Member</li>
                 </ul>
                 <!-- END BREADCRUMB -->                                                
                 
                 <!-- PAGE TITLE -->
                 <div class="page-title">                    
-                    <h2><span class="fa fa-users"></span> Your Level</h2>
+                    <h2><span class="fa fa-map-marker"></span> Nearest Member</h2>
                 </div>
                 <!-- END PAGE TITLE -->                
                 
@@ -347,164 +347,68 @@
                 <div class="page-content-wrap">
                     
                     <div class="row">
-                       <!-- DISPLAY TITLE-->
-                       <div class="col-md-10">
-                       <div class="widget widget-info widget-padding-sm">                            
-                                <div class="widget-item-left">
-                                    <input class="knob" data-width="100" data-height="100" data-min="0" data-max="100" data-displayInput=false data-bgColor="#d6f4ff" data-fgColor="#FFF" value="80%" data-readOnly="true" data-thickness=".2"/>
+                       <div class="col-md-8">                        
+                            <!-- START GOOGLE MAP WITH MARKER -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Google Map With Markers</h3>
                                 </div>
-                                <div class="widget-data">
-                                    <div class="widget-big-int"><span class="num-count">80</span>% Completed</div>
-                                    <div class="widget-title">Level 20</div>
-                                    <div class="widget-subtitle">300 Exp to Level 21</div>                                
-                                </div>                            
-                                <div class="widget-controls">                                
-                                    <a href="#" class="widget-control-right"><span class="fa fa-times"></span></a>
-                                </div>                            
-                            </div>                              
-                        </div>
-                        <!-- END DISPLAY TITLE -->  
-                        <!-- DISPLAY LEVEL DETAIL -->
-                        <div class="col-md-2">
-                        <div class="form-group">
-                        <button type="button" class="btn btn-info mb-control btn-lg" data-box="#message-box-info">About Level System</button>
-                        </div>
-                        </div>
-                        <!-- END DISPLAY LEVEL DETAIL -->
-                    </div>
-                    <div class="page-title">
-                        <center><h3><span class="fa fa-tasks"></span> Achievements</h3></center>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                         <!-- START MISSION LIST -->
-                            <div class="panel panel-default tabs">
-                            <ul class="nav nav-tabs nav-justified">
-                                <li class="active"><a href="#tab8" data-toggle="tab">Incompleted Event</a></li>
-                                <li><a href="#tab9" data-toggle="tab">Completed Event</a></li>
-                                <li><a href="#tab10" data-toggle="tab">Special Mission</a></li>
-                            </ul>
-                            <div class="panel-body tab-content">
-                            <div class="tab-pane active" id="tab8">
-                                         <!-- START MISSION 1 -->
-                                        <div class="panel panel-group" id="accordion"> 
-                                        <div class="panel panel-warning">
-                                        <div class="panel-heading">
-                                        <h3 class="panel-title"><a href= todaysspecial.html>Team Forming System</a></h3>
-                                        <ul class="panel-controls">
-                                            <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        </ul>                                
-                                        </div>
-                                        <div class="panel-body">
-                                              <div class="progress">
-                                                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                    40% Completed
-                                                </div>
-                                        </div>                                
-                                     </div>
-                                     </div>
-                                     </div>
-                                    <!-- END MISSION 1 -->
-                                    <!-- START MISSION 2 -->
-                                        <div class="panel panel-group" id="accordion"> 
-                                        <div class="panel panel-warning">
-                                        <div class="panel-heading">
-                                        <h3 class="panel-title"><a href= todaysspecial.html>Speed Dating Project</a></h3>
-                                        <ul class="panel-controls">
-                                            <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        </ul>                                
-                                        </div>
-                                        <div class="panel-body">
-                                              <div class="progress">
-                                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
-                                                    10% Completed
-                                                </div>
-                                        </div>                                
-                                     </div>
-                                     </div>
-                                     </div>
-                                    <!-- END MISSION 2 -->
+                                <div class="panel-body panel-body-map">
+                                    <div id="google_ptm_map" style="width: 100%; height: 300px;"></div>
+                                </div>
                             </div>
-                            <div class="tab-pane" id="tab9">
-                                 <!-- START MISSION 2 -->
-                                        <div class="panel panel-group" id="accordion"> 
-                                        <div class="panel panel-warning">
-                                        <div class="panel-heading">
-                                        <h3 class="panel-title"><a href= todaysspecial.html>Farewell Dinner</a></h3>
-                                        <ul class="panel-controls">
-                                            <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        </ul>                                
-                                        </div>
-                                        <div class="panel-body">
-                                              <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                                    Completed
-                                                </div>
-                                        </div>                                
-                                     </div>
-                                     </div>
-                                     </div>
-                                    <!-- END MISSION 2 -->
+                            <!-- END GOOGLE MAP WITH MARKER -->
+                        </div>                               
+                       <div class="col-md-4">
+                            <!-- CONTACT LIST WIDGET -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Contacts</h3>         
+                                    <ul class="panel-controls">
+                                        <li><a href="#" class="control-primary"><span class="fa fa-plus"></span></a></li>
+                                    </ul>
+                                </div>
+                                <div class="panel-body list-group list-group-contacts">                                
+                                    <a href="#" class="list-group-item">                                 
+                                        <div class="list-group-status status-online"></div>
+                                        <img src="assets/images/users/user4.jpg" class="pull-left" alt="Brad Pitt"/>
+                                        <span class="contacts-title">Brad Pitt</span>
+                                        <p>Actor and Film Producer</p>                                                                        
+                                        <div class="list-group-controls">
+                                            <button class="btn btn-success"><span class="fa fa-phone"></span></button>
+                                        </div>                                    
+                                    </a>
+                                    <a href="#" class="list-group-item">                                 
+                                        <div class="list-group-status status-online"></div>
+                                        <img src="assets/images/users/user.jpg" class="pull-left" alt="Dmitry Ivaniuk"/>
+                                        <span class="contacts-title">Dmitry Ivaniuk</span>
+                                        <p>Web Developer/Designer</p>                                                                        
+                                        <div class="list-group-controls">
+                                            <button class="btn btn-success"><span class="fa fa-phone"></span></button>
+                                        </div>                                    
+                                    </a>                                
+                                    <a href="#" class="list-group-item">                                    
+                                        <div class="list-group-status status-away"></div>
+                                        <img src="assets/images/users/user3.jpg" class="pull-left" alt="Nadia Ali"/>
+                                        <span class="contacts-title">Nadia Ali</span>
+                                        <p>Singer-Songwriter</p>                                    
+                                        <div class="list-group-controls">
+                                            <button class="btn btn-success"><span class="fa fa-phone"></span></button>
+                                        </div>                                    
+                                    </a>                                                                
+                                    <a href="#" class="list-group-item">         
+                                        <div class="list-group-status status-offline"></div>
+                                        <img src="assets/images/users/user2.jpg" class="pull-left" alt="John Doe"/>
+                                        <span class="contacts-title">John Doe</span>
+                                        <p>UI/UX Designer</p>                     
+                                        <div class="list-group-controls">
+                                            <button class="btn btn-success"><span class="fa fa-phone"></span></button>
+                                        </div>                                    
+                                    </a>                                
+                                </div>
                             </div>
-                            <div class="tab-pane" id="tab10">
-                                 <!-- START MISSION 1 -->
-                                        <div class="panel panel-group" id="accordion"> 
-                                        <div class="panel panel-warning">
-                                        <div class="panel-heading">
-                                        <h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Join 10 Teams</a></h3>
-                                        <ul class="panel-controls">
-                                            <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                            <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        </ul>                                
-                                        </div>
-                                        
-                                        <div id="collapse2" class="panel-collapse collapse in">
-                                        <div class="panel-body">
-                                             Join 10 Teams.
-                                         </div>      
-                                         <div class="panel-footer">                                
-                                             <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                    40% Completed
-                                                </div>
-                                            </div>
-                                        </div>                            
-                                     </div>
-                                     </div>
-                                     </div>
-                                    <!-- END MISSION 1 -->
-                                     <!-- START MISSION 2 -->
-                                        <div class="panel panel-group" id="accordion"> 
-                                        <div class="panel panel-warning">
-                                        <div class="panel-heading">
-                                        <h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Join 10 Sub-teams</a></h3>
-                                        <ul class="panel-controls">
-                                            <li><a href="#" class="panel-fullscreen"><span class="fa fa-expand"></span></a></li>
-                                            <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                                        </ul>                                
-                                        </div>
-                                        
-                                        <div id="collapse2" class="panel-collapse collapse in">
-                                        <div class="panel-body">
-                                             Join 10 Sub-teams.
-                                         </div>      
-                                         <div class="panel-footer">                                
-                                             <div class="progress">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                    40% Completed
-                                                </div>
-                                            </div>
-                                        </div>                            
-                                     </div>
-                                     </div>
-                                     </div>
-                                    <!-- END MISSION 2 -->
-                            </div> 
-                            </div>                       
-                            </div>
-                            </div>                                         
-                            <!-- END MISSION LIST -->
-                         </div>
+                            <!-- END CONTACT LIST WIDGET -->
+                        </div>
                     </div>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->                                                 
@@ -512,24 +416,6 @@
             <!-- END PAGE CONTENT -->
         </div>
         <!-- END PAGE CONTAINER -->
-
-        <!-- Message Boxes -->
-        <!-- level explaination -->
-        <div class="message-box message-box-info animated fadeIn" id="message-box-info">
-            <div class="mb-container">
-                <div class="mb-middle">
-                    <div class="mb-title"><span class="fa fa-info"></span> About Level System</div>
-                    <div class="mb-content">
-                        <p>The creator of the event will evaluate your performance in the event and give your some experience point (EXP) as rewards to you.</p>
-                        <p>You can also complete some bonus mission to earn more EXP.</p>
-                    </div>
-                    <div class="mb-footer">
-                        <button class="btn btn-default btn-lg pull-right mb-control-close">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- end level explaination -->
 
         <!-- MESSAGE BOX-->
         <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
@@ -566,49 +452,25 @@
         <!-- START THIS PAGE PLUGINS-->        
         <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
         <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
-        <script type="text/javascript" src="js/plugins/knob/jquery.knob.min.js"></script>
-        <script type="text/javascript" src="js/plugins/owl/owl.carousel.min.js"></script>        
-        <script type="text/javascript" src="js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js'></script>
+        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js'></script>
+        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-europe-mill-en.js'></script>
+        <script type='text/javascript' src='js/plugins/jvectormap/jquery-jvectormap-us-aea-en.js'></script>
+
         <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
-        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-        
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>       
         <!-- END THIS PAGE PLUGINS-->        
 
         <!-- START TEMPLATE -->
         <script type="text/javascript" src="js/settings.js"></script>
         
         <script type="text/javascript" src="js/plugins.js"></script>        
-        <script type="text/javascript" src="js/actions.js"></script>        
+        <script type="text/javascript" src="js/actions.js"></script>     
+        <script type="text/javascript" src="js/demo_maps.js"></script>   
         <!-- END TEMPLATE -->
 
-        <script>
-            $("#pc_refresh").click(function(){                                        
-                function p_refresh_shown(){
-                    alert("shown");
-                    panel_refresh($("#pc_refresh").parents(".panel"),"hidden",function(){alert("hidden")});
-                }
-                panel_refresh($("#pc_refresh").parents(".panel"),"shown",p_refresh_shown);
-
-            });                         
-            
-            $("#pc_collapse").click(function(){                                        
-                function p_collapse_hidden(){                                            
-                    alert("hidden");                                            
-                    panel_collapse($("#pc_collapse").parents(".panel"),"shown",function(){alert('shown')});
-                }
-                panel_collapse($("#pc_collapse").parents(".panel"),"hidden",p_collapse_hidden);
-            });           
-            
-            $("#pc_remove").click(function(){                                        
-                function p_remove_before(){
-                    alert("before");
-                    panel_remove($("#pc_remove").parents(".panel"),"after",function(){alert("after")});
-                }
-                panel_remove($("#pc_remove").parents(".panel"),"before",p_remove_before);
-
-            });                 
-        </script> 
     <!-- END SCRIPTS -->         
     </body>
 </html>
