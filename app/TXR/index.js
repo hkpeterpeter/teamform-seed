@@ -260,11 +260,14 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
 
     $scope.user=$cookies.get("username",{path:"/"});
     $scope.photolist = {};
+	var ref = firebase.database().ref("userList/" + $scope.user + "/notification");
     var userlist = $firebaseObject(firebase.database().ref("userList"));
     userlist.$loaded(function(){
         $scope.notification = userlist[$scope.user]["notification"];
     })
-
+	ref.on('value',function(snapshot){
+		$scope.notification = snapshot.val();	
+	});
 
     $scope.deletenotification = function(sendername){
          delete userlist[$scope.user]["notification"][sendername];
