@@ -247,6 +247,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 app.controller("NotificationController", function($scope, $firebaseObject, $firebaseArray, $cookies){
 
     $scope.user=$cookies.get("username",{path:"/"});
+    $scope.photolist = {};
     var userlist = $firebaseObject(firebase.database().ref("userList"));
     userlist.$loaded(function(){
         $scope.notification = userlist[$scope.user]["notification"];
@@ -270,6 +271,33 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
         }
         userlist.$save();
     }
+
+      var loadedCount = 0;
+      var i;
+      var storageRef = firebase.storage().ref();
+      var notificationNum = 0;
+      userlist.$loaded(function(){
+        angular.forEach($scope.notification,function(){notificationNum++;});
+        angular.forEach($scope.notification,function(value, key){
+        //var nameOfSender = $scope.notification[key]["name"];
+        var nameOfPhoto = userlist[key]["img"];
+        var fullName = storageRef.child('user/'+ nameOfPhoto);
+        fullName.getMetadata().then(function(metadata){
+              loadedCount ++;
+              var photoUrl = metadata.downloadURLs[0];
+              $scope.photolist[key] = photoUrl;
+              //var newIn = { $scope.notification[i]["name"]: photoUrl};
+              //photo.push(newIn);
+             if( loadedCount == notificationNum) $scope.$apply();  
+        //});
+        })
+      });
+
+      });
+      
+
+
+    
 
 
 
