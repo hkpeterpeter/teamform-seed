@@ -1,40 +1,3 @@
-/* after reset css */
-/*html * {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-*, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body {
-  font-size: 100%;
-  font-family: "PT Sans", sans-serif;
-  color: #505260;
-  background-color: white;
-}
-
-a {
-  color: #2f889a;
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-}
-
-input, textarea {
-  font-family: "PT Sans", sans-serif;
-  font-size: 16px;
-  font-size: 1rem;
-}
-input::-ms-clear, textarea::-ms-clear {
-  display: none;
-}
-
 /* -------------------------------- 
 
 xsigin/signup popup 
@@ -354,3 +317,35 @@ xsigin/signup popup
   display: block;
 }
 
+.videoText {
+  font-size: 22px;
+  font-family: serif;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.style-eight {
+  width: 90%;
+  padding: 0;
+  border: none;
+  border-top: medium double #333;
+  color: #333;
+  text-align: center;
+}
+hr.style-eight:after {
+  content: "§";
+  color: teal;
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.5em;
+  padding: 0 0.25em;
+  background: white;
+}
+
+@media (max-width: 375px) {
+  #background1 {
+    background-repeat: no-repeat;
+    background-size: cover;
+ }
+}

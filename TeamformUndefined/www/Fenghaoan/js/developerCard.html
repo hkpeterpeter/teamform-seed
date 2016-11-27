@@ -1,0 +1,50 @@
+<div class="row">
+
+    <div class="col s10 l8 offset-l1"  ng-show="{{developer.flip}}">   
+        <div class="card horizontal">
+            <div class="card-image">
+                <div style="display:table;height:100%">
+                    <div style=" display: table-cell;vertical-align: middle;">
+                        <img ng-src="{{developer.image}}" style="height:263px;width: 263px"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-stacked">
+                <div class="card-content" style="height: 200px;overflow: hidden ">
+                    <p style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">
+                        {{ developer.content }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="card-action">
+                <a href="{{ developer.personal_website }}" target="_blank" style="font-size: 25px;">{{ developer.name }}</a>
+            </div>
+      </div>
+  </div>
+  <div class="col s10 l8 offset-l3 offset-s2"  ng-show="!{{developer.flip}}">
+    <div class="card horizontal">
+        <div class="card-action">
+            <a href="{{ developer.personal_website }}" target="_blank" style="font-size: 25px;">{{ developer.name }}</a>
+        </div>
+        <div class="card-stacked">
+            <div class="card-content" style="height: 200px;overflow: hidden ">
+                <p style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">
+                    {{ developer.content }}
+                </p>
+            </div>
+
+        </div>
+        <div class="card-image">
+            <div style="display:table;height:100%">
+                <div style=" display: table-cell;vertical-align: middle;">
+                    <img ng-src="{{developer.image}}" style="height:263px;width: 263px"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+

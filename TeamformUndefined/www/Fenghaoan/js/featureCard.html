@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col s10 l8 offset-l1"  ng-show="{{feature.flip}}">
+        <div class="card horizontal">
+            <div class="card-image">
+                <div style="display:table;height:100%">
+                    <div style=" display: table-cell;vertical-align: middle;">
+                        <img ng-src="{{feature.image_path}}" style="height:263px;width: 263px"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-stacked">
+                <div class="card-content" style="height: 200px;overflow: hidden ">
+                    <div style="font-family: 'Libre Franklin', sans-serif; font-size: 30px; font-weight:bold;">
+                        {{ feature.title }}
+                    </div>
+
+                    <div style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">
+                        {{ feature.content }}
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col s10 l8 offset-l3  offset-s2"  ng-show="!{{feature.flip}}">
+        <div class="card horizontal">
+            <div class="card-stacked">
+                <div class="card-content" style="height: 200px;overflow: hidden ">
+                    <div style="font-family: 'Libre Franklin', sans-serif; font-size: 30px; font-weight:bold;">
+                        {{ feature.title }}
+                    </div>
+                    <div style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">
+                        {{ feature.content }}
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-image">
+                <div style="display:table;height:100%">
+                    <div style=" display: table-cell;vertical-align: middle;">
+                        <img ng-src="{{feature.image_path}}" style="height:263px;width: 263px"/>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+

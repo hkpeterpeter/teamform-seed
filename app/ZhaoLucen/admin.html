@@ -30,20 +30,20 @@
     	<!-- Description & Tutorial -->
     	  <ul class="collapsible popout" data-collapsible="accordion" watch>
     	    <li class="active">
-			      <div class="collapsible-header active"><i class="material-icons">description</i>Introduction</div>
+			      <div class="collapsible-header active blue-grey lighten-2"><i class="material-icons">description</i>Introduction</div>
 			      <div class="collapsible-body" style="display: block;"><p>As an administrator, you can easily manipulate teams and participants in this admin page. To learn more details, Please click on the titles of collapsible items.</p></div>
 			    </li>
     	    <li>
-			      <div class="collapsible-header"><i class="material-icons">comment</i>Check Team or Member Information</div>
-			      <div class="collapsible-body"><p>As an administrator, you can check the information of a group or member by...</p></div>
+			      <div class="collapsible-header blue-grey lighten-3"><i class="material-icons">comment</i>Check Team and User Information</div>
+			      <div class="collapsible-body"><p>As an administrator, you can check the basic information of event groups and participants on this page. By clicking on the team cards, you can check the name of all team members as well as the name of all invited users of this team. If you do not know which one to add, just click on "RECOMMEND" to get a recommended user.</p></div>
 			    </li>
     			<li>
-      			<div class="collapsible-header"><i class="material-icons">library_add</i>Add Member to A Group</div>
-      			<div class="collapsible-body"><p>Administrator can add a member to a group by...</p></div>
+      			<div class="collapsible-header blue-grey lighten-4"><i class="material-icons">library_add</i>Add Member to A Team</div>
+      			<div class="collapsible-body"><p>Administrator can add a member to a team. All teams this user applied will be shown on the user card as buttons. If you want to add this user to one of these teams, just simply click on the corresponding button. You could also enter the name of a team to add or drag the team card to corresponding user card.</p></div>
     			</li>
     			<li>
-      			<div class="collapsible-header"><i class="material-icons">import_export</i>Merge Teams</div>
-			      <div class="collapsible-body"><p>To merge two teams, ...</p></div>
+      			<div class="collapsible-header blue-grey lighten-5"><i class="material-icons">import_export</i>Merge and Delete Teams</div>
+			      <div class="collapsible-body"><p>To merge two teams, you could drag one team into another team, the information of dragged team will be added into the other one. You could also enter the name of the team to be merged into and click "MERGE". If you only want to delete a team, just simply click on "DELETE".</p></div>
     			</li>
 			  </ul>
     	<!-- Description & Tutorial Ends -->
@@ -86,85 +86,20 @@
           <!-- Team Filter Ends -->
 <!-- js functions -->
 <script type="text/javascript">
-  $scope.adminAddUser = function(teamID, curTeamSize, curTeamMember, user) {
-    if (curTeamSize < parseInt($scope.maxSize)) {
-      //Add user to team member
-      curTeamMember.$add(user.$id.toString());
 
-      var curUser = $rootScope.user_ref.child(user.$id.toString());
-
-      //Add user to teamAsMember
-      var curUserIn = curUser.child("teamsAsMember");
-      var curUserInList = $firebaseArray(curUserIn);
-      curUserInList.$add(teamID);
-
-      //Delete this request from teamsApplying
-      var curUserOut = $firebaseObject(curUser);
-      curUserOut.$loaded().then(function(){
-        for (var key in curUserOut.teamsApplying) {
-          if (curUserOut.teamsApplying[key].eventID == $scope.event.$id) {
-            $rootScope.user_ref.child(user.$id.toString()).child("teamsApplying").child(key).remove();
-          }
-        };
-      });
-
-      var index = $scope.users.indexOf(user);
-      $scope.users.splice(index, 1);  
-      // Remove waiting user from database-event
-      for (var key in $scope.event.waitingUsers) {
-        if($scope.event.waitingUsers[key] == user.$id) {
-          $rootScope.event_ref.child('0').child('waitingUsers').child(key).remove();
-          break;
-        };
-      };
-      
-    } else {
-      console.log("the team is full");
-      return false;
-    }   
-    return true;
-  };
-
-// Functions - USER
-  $scope.adminAddUserToTeam = function(key, request, user) {
-    var curTeamSize = $scope.getLength($scope.teams.$getRecord(request.teamID.toString()));
-    var curTeamMember = $firebaseArray($rootScope.team_ref.child(request.teamID.toString()).child("membersID"));
-    var teamID = request.teamID;
-    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
-
-
-  };
-
-  $scope.adminAddUserToOtherTeam = function(user) {
-    console.log("test");
-    var teamName = user.adminAdd;
-    var curTeamSize;
-
-    var team = $scope.findTeamByName(teamName);
-
-    if (team == null || teamName == null) {
-      console.log("No Such Team");
-      return;
-    }
-    var teamID = team.$id;
-    var curTeamSize = $scope.getLength(team);
-    var curTeamMember = $firebaseArray($rootScope.team_ref.child(teamID.toString()).child("membersID"));
-    $scope.adminAddUser(teamID, curTeamSize, curTeamMember, user);
-
-  };  
 
 </script>
 <!-- js functions ends -->
 
 
     			<!-- A Single Card -->
-          <div class="card admin-team-card sticky-action blue-grey darken-1" ng-repeat="team in teams | filter:teamFilter">
+          <div class="card admin-team-card sticky-action blue-grey darken-1" id="{{team.teamName}}" ng-repeat="team in teams | filter:teamFilter" data-drag="true" data-drop="true" jqyoui-draggable="{animate: true, onDrag: 'startdragging(team)'}" data-jqyoui-options="{revert: 'invalid'}" jqyoui-droppable="{animate: true, beforeDrop: 'stopdragging(team)'}">
             <div class="card-content white-text">
               <span class="card-title activator">{{ team.teamName }}<i class="material-icons right">more_vert</i></span>
               <br/>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Team Size:</span>
-                <span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="members" ng-bind="getLength(team)"></span>
+                <span class="new badge white-text admin-skill-badge teal darken-1" id="{{team.teamName}}num" data-badge-caption="members" ng-bind="getLength(team)"></span>
               </div>
               <div class="admin-card-text">
                 <span class="admin-card-subtitle grey-text text-lighten-2">Preferred Size:</span>
@@ -176,19 +111,33 @@
               </div>
             </div>
             <div class="card-action">
-              <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge">
-              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="remove(team)">Delete</button>
+              <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge" ng-keyup="$event.keyCode == 13 ? adminMergeTeam(team) : null">
+              <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="setactive($index); remove(team)">Delete</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="adminMergeTeam(team)">Merge</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="findSuitableUser(team)">Recommend</button>
             </div>
 
             <div class="card-reveal blue-grey darken-1 white-text">
-            	<span class="card-title">Team Name<i class="material-icons right">close</i></span>
-            	<p>Team Members: <span ng-repeat="member in team.membersID">{{ member }} </span></p>
-            	<p>Other infomation about this team.</p>
+            	<span class="card-title">{{ team.teamName }}<i class="material-icons right">close</i></span>
+            	<div><span class="admin-card-subtitle">Members: </span><span class="new badge white-text admin-skill-badge teal lighten-1" data-badge-caption="">{{ team.leaderName }} (Leader)</span><span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="" ng-repeat="member in team.membersName">{{ member }}</span></div>
+              <div><span class="admin-card-subtitle">Invited Users: </span><span class="new badge white-text admin-skill-badge teal darken-1" data-badge-caption="" ng-repeat="invite in team.invitedName">{{ invite }}</span></div>
             </div>
           </div>
           <!-- A Single Card Ends -->
+
+          <!-- merge team model -->
+<!--            <script type="text/ng-template" id="mergeModalContent.html">
+          <div id="modal1" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <p>A bunch of text</p>
+              </div>
+            <div class="modal-footer">
+              <button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="ok()">OK</button>
+              <button class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="cancel()">Cancel</button>
+            </div>
+
+          </script>
+-->          <!-- merge team model ends -->
 
     		</div>
     	<!-- Team List Ends -->
@@ -228,7 +177,7 @@
               });
           </script>
           <!-- Finish enabling Toolkit html -->
-    				<div class="card admin-user-card sticky-action" ng-repeat="user in users | filter:userFilter">
+    				<div class="card admin-user-card sticky-action" id="{{user.name}}" ng-repeat="user in users | filter:userFilter">
 							<div class="card-content">
 								<span class="card-title activator grey-text text-darken-4">{{ user.name }}<i class="material-icons right">more_vert</i></span>
                 <p class="grey-text">{{ user.email }}</p>
@@ -238,7 +187,7 @@
           			
         			</div>
        				<div class="card-action">
-         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn tooltipped" data-tooltip="Current size: 5<br>Preferred size: 6-7<br>Required skills: JavaScript" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)">{{ request.teamName }}</a>
+         				<a class="white blue-grey-text text-darken-2 btn waves-effect waves-orange admin-card-btn" ng-repeat="(key, request) in user.teamsApplying | adminRequest" ng-click="adminAddUserToTeam(key, request, user)" ng-class="adminrequestbtn">{{ request.teamName }}</a>
                 <!--<a class="btn waves-effect waves-teal admin-card-btn">Other</a>-->
          				
                 <div class="divider admin-incard-divider"></div>
