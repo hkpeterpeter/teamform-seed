@@ -175,11 +175,28 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 		
 		var newMembers = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("membersID"));
 		newMembers.$add(team.leaderID);
-		//$firebaseArray($rootScope.user_ref.child(team.leaderID.toString()).child("teamsAsMember")).$add(mergedTeam.$id.toString());
+
+		/*
+		$firebaseArray($rootScope.user_ref.child(team.leaderID.toString()).child("teamsAsMember")).$add(mergedTeam.$id.toString());
+		var leader = $firebaseObject($rootScope.user_ref.child(team.leaderID.toString()))
+		
+		leader.$loaded().then(function(){
+			for (var keyl in leader.teamsAsLeader) {
+				if (leader.teamsAsLeader[keyl].toString() == team.$id.toString())
+					$rootScope.user_ref.child(team.leaderID.toString()).child("teamsAsLeader").child(keyl).remove();
+			};
+		});*/
 		//$rootScope.user_ref.child(team.leaderID.toString()).child("teamsAsLeader").child(team.$id.toString()).remove();
 		for (var key in team.membersID) {
-			//var curMemTeam = $firebaseArray($rootScope.user_ref.child(team.membersID[key].toString()).child("teamsAsMember"));
-			//curMemTeam.$add(team.$id.toString());
+		/*var curu = $firebaseObject($rootScope.user_ref.child(team.membersID[key].toString()))
+		curu.$loaded().then(function(){
+			for (var keyu in curu.teamsAsMember) {
+				if (curu.teamsAsMember[keyu].toString() == team.$id.toString())
+					$rootScope.user_ref.child(team.membersID[key].toString()).child("teamsAsMember").child(keyu).remove();
+			};
+		});			
+			var curMemTeam = $firebaseArray($rootScope.user_ref.child(team.membersID[key].toString()).child("teamsAsMember"));
+			curMemTeam.$add(team.$id.toString());*/
 			newMembers.$add(team.membersID[key]);
 		};
 
