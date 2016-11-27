@@ -654,7 +654,7 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
        if (uploadFile !== undefined) {
          userlist[$scope.thisuser].img = uploadFile.name;
          userlist.$save();
-         var task = storageRef.child("user/"+uploadFile.name).put(uploadFile).then(function(snapshot){
+         storageRef.child("user/"+uploadFile.name).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
            $window.location.reload(true);
          });
        }
