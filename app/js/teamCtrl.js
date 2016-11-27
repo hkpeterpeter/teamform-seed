@@ -790,7 +790,8 @@ $scope.validInvite = function(uid){
 				// $scope.RecommendTBA = function(people) {
 				// 		var result = {};
 						$scope.tba_featurelist = {};
-						$scope.recommand = function(){
+						$scope.recommend = function(){
+							$scope.tba_featurelist = {};
 							angular.forEach($scope.eventObj.tba, function(name, uid) {
 								// console.log(name);
 								// console.log(uid);
