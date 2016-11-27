@@ -1,3 +1,4 @@
+<div>
           <h1 class="page-header">Event Information</h1>
 
           <div class="row placeholders">
@@ -16,17 +17,10 @@
         </div>
 </div>
           </div>
-<br><br><br><br>
       <h2 align="left"> Introduction:</h2>
       <hr>
        <p align="left">{{event.introduction}}</p>
-      <br>
 
-
-
-         <br>
-         <br>
-         <br>
              <div align="left">
 
      <button id="modal-666694" data-target="#modal-container-666694" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "user">Create a team</button>
@@ -107,12 +101,7 @@
 
     </div></div>
 
-
-
-    </div>
-
-
-
+<div ng-hide="user">
     <h2 class="page-header" ng-hide="user">Team Information
    <button id="modal-666693" data-target="#modal-container-666693" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Edit</button>
     <div class="modal fade" id="modal-container-666693" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -627,13 +616,14 @@
           </div>
 
       </div>
+    </div>
+</div>
 
-
-        <div class="col-lg-10" id="suggestion">
+        <div class="col-md-12 col-lg-12" id="suggestion" ng-show = "user">
 
           <div class="table-responsive" ng-controller = "clickCtrl">
 
-            <div ng-show = "user">
+            <div>
             <h2>Suggested teams</h2>
             <table class="table table-striped">
 
