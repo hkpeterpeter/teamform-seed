@@ -85,7 +85,7 @@ app.controller("indexCtrl",
             if (response.status == "connected") {
               addUser({username:response.authResponse.userID, password:"facebook"});
               $cookies.put("username", response.authResponse.userID,{path:"/"});
-              gotoURL("/TXR/index.html",[], $window);
+              gotoURL("/TXR/#",[], $window);
             }
           });
           onFBChkLogFin();

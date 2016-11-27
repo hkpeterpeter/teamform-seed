@@ -1,4 +1,4 @@
-app.controller("ConversationController",function($scope,$routeParams,$cookies,$firebaseObject,$firebaseArray){
+app.controller("ConversationController",function($scope,$routeParams,$cookies,$firebaseObject,$firebaseArray,$window){
         //   $scope.param = $routeParams.p;
             $scope.IsVisiblePeter = false;
             $scope.IsVisibleJason = false;
@@ -35,20 +35,22 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
         $scope.targetUser = names[0];
         $scope.targetLeader = names[1];
         $scope.convType = value.type;
-        if ($scope.convType == "invite") $scope.action = "invites you";
-        if ($scope.convType == "request") $scope.action = "applies";
         $scope.logs = value.log;
         if (names[0] == $scope.thisuser && value.type == "request") {
           $scope.isMaster = false;
+          $scope.action = "You applied to " + $scope.userList[$scope.p].name;
         }
         if (names[0] == $scope.thisuser && value.type == "invite") {
           $scope.isMaster = true;
+          $scope.action = $scope.userList[$scope.p].name + " invited you";
         }
         if (names[1] == $scope.thisuser && value.type == "request") {
           $scope.isMaster = true;
+          $scope.action = $scope.userList[$scope.p].name + " applied";
         }
         if (names[1] == $scope.thisuser && value.type == "invite") {
           $scope.isMaster = false;
+          $scope.action = "You invited " + $scope.userList[$scope.p].name;
         }
       }
     });
@@ -64,16 +66,35 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
   $scope.send = function() {
     if ($scope.input !== "") {
       $scope.convList[$scope.convKey].log.push({message:$scope.input,sender:$scope.thisuser});
-      $scope.input = "";
+      addnotification($scope.event,$scope.input,$scope.p);
       $scope.convList.$save();
+      $scope.input = "";
     }
   };
 
   $scope.accept = function(){
-
+    // TODO: delete this conversation
+    addnotification($scope.event,$scope.thisuser+" accepted your "+$scope.convType,$scope.p);
+    $scope.eventList[$scope.event].teamList[$scope.team].memberList.push($scope.targetUser);
+    $scope.eventList.$save().then(function(){
+      gotoURL("/TXR/#/MyEvents/"+$scope.event,[],$window);
+    });
   };
   $scope.reject = function(){
-
+    // TODO: delete this conversation
+    addnotification($scope.event,$scope.thisuser+" rejected your "+$scope.convType,$scope.p);
+    gotoURL("/TXR/#",[], $window);
   };
+
+  var addnotification = function(evt,msg,receiver){
+      delete $scope.userList[receiver]["notification"][$scope.thisuser];
+      $scope.userList[receiver]["notification"][$scope.thisuser]={
+        "others":false,
+        "event":evt,
+        "message":msg,
+        "name":$scope.thisuser
+      }
+      $scope.userList.$save();
+  }
 
 });

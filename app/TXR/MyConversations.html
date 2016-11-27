@@ -3,12 +3,12 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <div class="col-md-1 col-lg-8">
-        <h3 align="left">{{userList[p].name}} {{action}} to join <strong>{{team}}</strong></h3>
+        <h3 align="left">{{action}} to join <strong>{{team}}</strong></h3>
 			</div>
 
 
 <br>
-<div align="right">
+<div align="right" ng-show="isMaster">
 
                         <button type="button" class="btn btn-md btn-primary" ng-click="accept()">Accept</button>
                         <button type="button" class="btn btn-md btn-danger" ng-click="reject()">Reject</button>

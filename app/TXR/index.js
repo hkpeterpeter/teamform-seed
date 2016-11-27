@@ -2,6 +2,13 @@ var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies","chart.j
 
 //initalizeFirebase();
 
+app.filter("isLeader",function(){
+  return function(input){
+    if (input == 0) return "Leader";
+    else return input;
+  };
+});
+
 app.config(function($routeProvider,NotificationProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
@@ -275,7 +282,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
         $scope.notification = userlist[$scope.user]["notification"];
     })
 	ref.on('value',function(snapshot){
-		$scope.notification = snapshot.val();	
+		$scope.notification = snapshot.val();
 	});
 
     $scope.deletenotification = function(sendername){
