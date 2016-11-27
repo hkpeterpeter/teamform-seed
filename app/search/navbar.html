@@ -14,12 +14,13 @@
         </div>
 
         <div id="navbar" class="navbar-collapse collapse" ng-controller = "navbar">
+
 			<ul class="nav navbar-nav navbar-right">
-				<li>
+				<li ng-click = "haha()">
 					<!-- not yet decided -->
 					<!-- get personal data and count the number of notifications in notification json-->
 					<!-- ng-click to go to notification section?-->
-					<a href="#"><img src = "../search/images.png" style = "width:20px;height:20px"/> <span class="badge">42<!--use angular js--></span></a>
+					<a href="../TXR/#MyNotifications" ><img src = "../search/images.png" style = "width:20px;height:20px"/> <span class="badge" id = "noti">{{notes}}<!--use angular js--></span></a>
 				</li>
 			</ul>
 
@@ -54,4 +55,5 @@
 
 		</div>
       </div>
+	  
     </nav>

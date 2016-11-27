@@ -20,6 +20,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 		app.factory('Naruto',function(){
 			return {
+				Itachi:0,
 				Sasuke:"",
 				Sakura:"Search Team",
 				setSearchE: function(){},
@@ -33,9 +34,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		
 
 		//controll search page
-		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject){
+		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject,$firebaseArray){
 
-
+			
 			//data lists got from firebase
 			var tag = [];
 			var users = [];
@@ -43,14 +44,27 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var userid = [];
 			var tagini = {};
 			$scope.teamini;
-			
+			//get the user id of login user
+			var thisUser = $cookies.get("username");
 			//initialize data lists
 			var ref = firebase.database().ref("eventList");
 			var event_list = $firebaseObject(ref);
 			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
+			
 			//get tags,teams and users from tag list in firebase
+			/*
+			$scope.userList.$loaded(function(){
+				if($scope.userList[thisUser].notification != undefined){
+					angular.forEach($scope.userList[thisUser].notification,function(value,key){
+						Naruto.Itachi ++ ;
+					});
+				}
+			});
+			*/
+			
+			
+			
 			$scope.loadData = function(){
-				
 				$scope.hehe = "";
 				$scope.currentTag = [];
 				$scope.resultTag = [];
@@ -547,14 +561,35 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 
 
 		//controll navigation bar
-		app.controller("navbar",function($scope,Naruto,Search,$firebaseObject){
+		app.controller("navbar",function($scope,Naruto,Search,$firebaseObject,$cookies,$firebaseArray,Notification){
 			// $scope.searchKey = "";
 			// $scope.searchType = Naruto.Sakura;
 			// Naruto.Sasuke = $scope.searchKey;
 			var ref = firebase.database().ref("eventList");
 			$scope.event_list = $firebaseObject(ref);
 			$scope.Naruto = Naruto;
+			$scope.notes = 0;
+			var thisUser = $cookies.get("username");
+			var ref = firebase.database().ref("userList/" + thisUser + "/notification");
+			$scope.notification = $firebaseArray(ref);
+			$scope.notification.$loaded(function(){
+				$scope.notes = $scope.notification.length;
+			});
 			
+			var initial = 0;
+			ref.on('value',function(snapshot){
+				var length = 0;
+				for(key in snapshot.val()){
+					length ++;
+				}
+				initial ++;
+				if(initial != 1&&(length > $scope.notes )){
+				  Notification('New notification');
+				}
+				$scope.notes = length;
+				
+				
+			});
 			// $scope.setThisSearchP = function(){
 			// 	Naruto.setSearchP();
 			// };
@@ -568,7 +603,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				Search.search = false;
 
 			};
-
+			$scope.haha = function(){
+				Search.search = true;
+			}
 		});
 
 
