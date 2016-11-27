@@ -54,7 +54,7 @@
         <h4>Manage my Skills:</h4>
         <form ng-submit="receiveNewSikll()">
             <div class="input-field col s6">
-                <input id="newSkill" type="text" class="validate" ng-model="newSkill" required>
+                <input id="newSkill" type="text" class="validate" ng-model="newSkill" required length="10">
                 <label for="newSkill">Add a skill</label>
             </div>
             <button class="btn waves-effect waves-light" type="submit" name="action">Add Skill
@@ -64,8 +64,12 @@
 
   </div>
     <div class="row" style="margin-bottom: 50px">
-        <div class="col m3" ng-repeat="skill in skillsList" style="margin-bottom: 10px">
-            <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skillsList.$remove(skill)">delete</i>{{skill.$value}}</a>
+        <div class="col s6 m4 l2" ng-repeat="skill in skillsList" style="margin-bottom: 10px">
+            <div class="chip">
+                {{skill.$value}}
+                <i class="close material-icons" ng-click="skillsList.$remove(skill)">close</i>
+            </div>
+
         </div>
 
     </div>
