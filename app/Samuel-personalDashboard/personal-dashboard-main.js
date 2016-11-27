@@ -7,7 +7,6 @@
 teamapp.controller("dashboardController", function ($rootScope, $scope, $firebaseArray, $firebaseObject) {
     var userRef = firebase.database().ref('users/' + $scope.currentUser.id);
     $scope.idcopy = $rootScope.currentUser.id;
-
     var skillsRef = userRef.child('/skills');
     $scope.displayUser={};
     console.log($scope.displayUser);
@@ -15,8 +14,9 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
     $scope.displayUser.profilePic="zhuxinyu/img/load5.gif";
     $scope.displayUser.name="Loading...";
      $scope.displayUser.email="Loading...";
-     
-   
+     console.log($rootScope.currentUser.id);
+
+
 
     $scope.newName = '';
     $scope.receiveNewName = function(){
@@ -45,10 +45,24 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
                     doesntExist = false;
                 }
             }
-            if (doesntExist == true){
-                skillsFirebase.$add($scope.newSkill);
-                $scope.newSkill = '';
-                Materialize.toast("New skill added.", 4000);
+            // if (doesntExist == true){
+            //     skillsFirebase.$add($scope.newSkill);
+            //     $scope.newSkill = '';
+            //     Materialize.toast("New skill added.", 4000);
+            // }
+            // else{
+            //     Materialize.toast("Sorry, this skill already exists.", 4000);
+            // }
+            if ($scope.newSkill.length > 10){
+                Materialize.toast("Sorry, please limit your skill to 10 characters", 4000);
+            }
+            else if (doesntExist == false){
+                Materialize.toast("Sorry, this skill already exists.", 4000);
+            }
+            else{
+                    skillsFirebase.$add($scope.newSkill);
+                    $scope.newSkill = '';
+                    Materialize.toast("New skill added.", 4000);
             }
         });
     };
@@ -202,4 +216,3 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
 
 
 });
-

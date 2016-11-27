@@ -1,64 +1,158 @@
- <div>
-  <ul id="notifications" class="dropdown-content">
-
-
-   <li ng-repeat="x in ntList">
-    <notify-bar cpic="{{x.imageURL}}" type={{x.type}}>{{x.content}}</notify-bar>
-
-    </li>
-
-   <li ng-repeat="x in invite_ntList">
-    <invitation-bar cpic="{{x.imageURL}}" type={{x.type}} from={{x.teamName}} event="{{x.eventName}}" event-id="{{x.eventID}}" team="{{x.teamID}}">{{x.content}}</invitation-bar>
-
-    </li>
-
-
- 
-
-  
-
-
-    <li class="divider"></li>
-
-
-    <li><a>Show All</a></li>
-  </ul>
-  <ul id="account" class="dropdown-content">
-
-    <li><a href="#/profile"><i class="material-icons left">person</i>Profile</a></li>
-    <li><a href="#/search"><i class="material-icons left">settings</i>Search</a></li>
-    <li class="divider"></li>
-    <li><a href="#!">Sign Out</a></li>
-  </ul>
-
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">&nbsp;Undefined</a>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-      <ul class="right hide-on-med-and-down">
-
-
-        <li><a href="#/home">Home</a></li>
-        <li><a href="#/team">Events</a></li>
-
-
-        <li><a class="dropdown-button" ng-click="shownotify();" data-activates="notifications" data-beloworigin="true" data-constrainwidth="false" data-alignment="right"><i class="material-icons left">notifications_none</i><span class="new badge">4</span></a></li>
-        
-        <!-- Dropdown Trigger -->
-        <li><a class="dropdown-button" href="#!" data-activates="account" data-beloworigin="true">{{currentUser.email}}<i class="material-icons right">arrow_drop_down</i></a></li>
-      </ul>
-
-
-
-      <ul class="side-nav" id="mobile-demo">
-        <li><a>{{currentUser.email}}</a></li>
-        <li><a href="#/home">Home</a></li>
-        <li><a href="#/team">Events</a></li>
-        <li><a href="#/notifications"><i class="material-icons left">notifications_none</i>Notifications <span class="new badge" data-badge-caption="">4</span></a></li>
-        <li><a href="#/profile">My Profile</a></li>
-        <li><a href="#/home">Sign Out</a></li>
-      </ul>
-
-    </div>
-  </nav>
+<div>
+    <script type="text/javascript">
+        $('.button-collapse').sideNav();
+    $('.parallax').parallax();
+    $('.collapsible').collapsible();
+    </script>
+    <ul class="dropdown-content" id="notifications">
+        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'} | orderBy:'$index':true">
+            <invitation-bar cpic="{{x.imageURL}}" event="{{x.eventName}}" from="{{x.senderName}}" team="{{x.teamName}}" type="{{x.type}}">
+                {{x.content}}
+            </invitation-bar>
+        </li>
+        <li ng-click="markRead(x.$id);" ng-repeat="x in allnoti  |  filter:{read:false,type:'System'} | orderBy:'$index':true">
+            <notify-bar cpic="{{x.imageURL}}" type="{{x.type}}">
+                {{x.content}}
+            </notify-bar>
+        </li>
+        <li class="divider">
+        </li>
+        <li style="width:400px;">
+            <a onclick="window.location.href = '#/profile#notification_center';">
+                Show All
+            </a>
+        </li>
+    </ul>
+    <ul class="dropdown-content" id="account">
+        <li>
+            <a href="#/home">
+                Home
+            </a>
+        </li>
+        <li>
+            <a href="#/eventx">
+                Events
+            </a>
+        </li>
+        <li class="divider">
+        </li>
+        <li>
+            <a ng-click="logoutHelper()">
+                Sign Out
+            </a>
+        </li>
+    </ul>
+    <nav class="teal">
+        <div class="nav-wrapper">
+            <a class="brand-logo" href="#">
+                Undefined
+            </a>
+            <a class="button-collapse" data-activates="mobile-demo" href="#">
+                <i class="material-icons">
+                    menu
+                </i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="#/profile">
+                        <i class="material-icons left">
+                            person
+                        </i>
+                        Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="#/search">
+                        <i class="material-icons left">
+                            search
+                        </i>
+                        Search
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-button" data-activates="notifications" data-alignment="right" data-beloworigin="true" data-constrainwidth="false" ng-click="shownotify();">
+                        <i class="material-icons left">
+                            notifications_none
+                        </i>
+                        <span class="new badge red" ng-show="(allnoti|filter:{read:false}).length!=0">
+                            {{(allnoti|filter:{read:false}).length}}
+                        </span>
+                    </a>
+                </li>
+                <!-- Dropdown Trigger -->
+                <li>
+                    <a class="dropdown-button" data-activates="account" data-beloworigin="true" href="#!">
+                        {{currentUser.name}}
+                        <i class="material-icons right">
+                            arrow_drop_down
+                        </i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="side-nav teal" id="mobile-demo">
+                <li>
+                    <a style="color:#fff;">
+                        {{currentUser.name}}
+                    </a>
+                </li>
+                <li>
+                    <a href="#/home" style="color:#fff;">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="#/eventx" style="color:#fff;">
+                        Events
+                    </a>
+                </li>
+                <li>
+                    <a onclick="$('#side_notifications').slideToggle();" style="color:#fff;">
+                        <i class="material-icons left">
+                            notifications_none
+                        </i>
+                        Notifications
+                        <span class="new badge red" ng-show="(allnoti|filter:{read:false}).length!=0">
+                            {{(allnoti|filter:{read:false}).length}}
+                        </span>
+                    </a>
+                </li>
+                <ul id="side_notifications" style="display: none">
+                    <li ng-repeat="x in allnoti  |  filter:{read:false,type:'invitation'}">
+                        <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
+                            {{x.content}}
+                        </a>
+                    </li>
+                    <li ng-repeat="x in allnoti  |  filter:{read:false,type:'System'}">
+                        <a ng-click="markRead(x.$id);" style="text-align: center;color: #fff;background: #26a69a;font-size: 12px;margin-top:5px; overflow: hidden;">
+                            {{x.content}}
+                        </a>
+                    </li>
+                    <li class="divider">
+                    </li>
+                    <li>
+                        <div align="center">
+                            <a class="waves-effect waves-light btn white" onclick="window.location.href = '#/profile#notification_center'" style="color:#009688; width: 40%;font-size: 12px;">
+                                Show All
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <li>
+                    <a href="#/profile" style="color:#fff;">
+                        My Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="#/search" style="color:#fff;">
+                        Search
+                    </a>
+                </li>
+                <div align="center">
+                    <a class="waves-effect waves-light btn white" href="#/home" style="color:#009688; width: 50%" ng-click="logoutHelper()">
+                        Sign Out
+                    </a>
+                </div>
+            </ul>
+        </div>
+    </nav>
 </div>
