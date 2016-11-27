@@ -41,7 +41,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var users = [];
 			var teams = [];
 			var userid = [];
-			var tagini;
+			var tagini = {};
 			$scope.teamini;
 			
 			//initialize data lists
@@ -50,6 +50,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
 			//get tags,teams and users from tag list in firebase
 			$scope.loadData = function(){
+				
 				$scope.hehe = "";
 				$scope.currentTag = [];
 				$scope.resultTag = [];
@@ -61,14 +62,24 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				users = [];
 				userid = [];
 				
-				tagini = event_list[Naruto.Luffy]["skillTable"];
 
 				$scope.teamini = event_list[Naruto.Luffy]["teamList"];
-				angular.forEach(tagini, function(value,key){
-					tag.push(key);
-				});
+				
 				angular.forEach($scope.teamini,function(value,key){
 					teams.push(key);
+					
+					for(var i = 0;i < $scope.teamini[key].skills.length;i++){
+						if(tagini[$scope.teamini[key].skills[i]] == undefined){
+							tagini[$scope.teamini[key].skills[i]] = {};
+							tagini[$scope.teamini[key].skills[i]].teams = [];
+							tagini[$scope.teamini[key].skills[i]].users = [];
+							tagini[$scope.teamini[key].skills[i]].teams.push(key);
+						}
+						else{
+							tagini[$scope.teamini[key].skills[i]].teams.push(key);
+						}
+						
+					}
 				});
 
 				angular.forEach($scope.userList,function(value,key){
@@ -79,6 +90,30 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						
 					}
 				});
+				
+				
+					var k = 0;
+					for(var i = 0;i < userid.length;i++){
+						for(var j = 0;j < $scope.userList[userid[i]]["skills"].length;j++){
+						
+							if(tagini[$scope.userList[userid[i]].skills[j]] !== undefined){
+								tagini[$scope.userList[userid[i]].skills[j]].users.push(userid[i]);
+							}else{
+								tagini[$scope.userList[userid[i]].skills[j]] = {}
+								tagini[$scope.userList[userid[i]].skills[j]].users = [];
+								tagini[$scope.userList[userid[i]].skills[j]].teams = [];
+								tagini[$scope.userList[userid[i]].skills[j]].users.push(userid[i]);
+						}
+						
+					}
+					
+					
+				}
+					angular.forEach(tagini, function(value,key){
+						tag.push(key);
+					
+					});
+				
 			}
 			
 			/*
