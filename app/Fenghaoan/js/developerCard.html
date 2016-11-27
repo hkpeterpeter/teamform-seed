@@ -11,31 +11,25 @@
             </div>
             <div class="card-stacked">
                 <div class="card-content" style="height: 200px;overflow: hidden ">
-                    <p>
+                    <p style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">
                         {{ developer.content }}
                     </p>
                 </div>
             </div>
 
             <div class="card-action">
-                <a href="{{ developer.personal_website }}">{{ developer.name }}</a>
+                <a href="{{ developer.personal_website }}" target="_blank" style="font-size: 25px;">{{ developer.name }}</a>
             </div>
-
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-              <p>Here is some more information about this product that is only revealed once clicked on.</p>
-          </div>
-
       </div>
   </div>
   <div class="col s10 l8 offset-l3 offset-s2"  ng-show="!{{developer.flip}}">
     <div class="card horizontal">
         <div class="card-action">
-            <a href="{{ developer.personal_website }}">{{ developer.name }}</a>
+            <a href="{{ developer.personal_website }}" target="_blank" style="font-size: 25px;">{{ developer.name }}</a>
         </div>
         <div class="card-stacked">
             <div class="card-content" style="height: 200px;overflow: hidden ">
-                <p>
+                <p style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">
                     {{ developer.content }}
                 </p>
             </div>
