@@ -238,7 +238,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
     }
 
     $scope.addnotification = function(sender,msg){
-        for(int i=0; i<$scope.notification.length(); i++){
+        for(var i=0; i<$scope.notification.length(); i++){
           if($scope.notification[i].name==sender){
             $scope.deletenotification(sender);
           }
