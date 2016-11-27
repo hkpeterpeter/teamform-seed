@@ -447,6 +447,9 @@ app.controller("clickCtrl",
                 suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["username"] = key;
               });
               //alert(suggested_users["1"].length);
+              var storageRef = firebase.storage().ref();
+              $scope.imgUrl = {};
+              var loadedCount = 0;
               for (var i = team_skills.length; i>0 ;i--) {
                 var str_i = i.toString();
                 if (str_i in suggested_users){
@@ -456,6 +459,14 @@ app.controller("clickCtrl",
                     $scope.suggested.push(suggested_users[str_i][j]);
                   }*/
                 }
+              }
+              for (i = 0; i < $scope.suggested.length; i++) {
+                var thisImg = storageRef.child("user/"+$scope.suggested[i].img);
+                thisImg.getMetadata().then(function(metadata){
+                  loadedCount++;
+                  $scope.imgUrl[metadata.customMetadata.user]=metadata.downloadURLs[0];
+                  if (loadedCount == $scope.suggested.length) $scope.$apply();
+                });
               }
             }
             //if the user is a user in this event

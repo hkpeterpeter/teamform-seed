@@ -540,7 +540,7 @@
                 <tr ng-repeat = "(num, suggested_users) in suggested">
                   <td style="font-size: 30px">{{num+1}}</td>
                   <td>
-                      <img src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                      <img ng-src="{{imgUrl[suggested_users.username]}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
                   <td style="font-size: 30px"><a href="#">{{suggested_users["name"]}}</a></td>
                  <td>
