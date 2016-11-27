@@ -18,21 +18,27 @@ describe('LoginController', function () {
         var password = "kksamoop";
         $scope.email = username;
         $scope.password = password;
-
+        $scope.loginUser();
         $scope.submit();
 
-        // expect($scope.loggedIn).toEqual(true);
+        expect($scope.loggedIn).toEqual(true);
     });
 
     it('loggingInTest', function () {
         $scope.testingLogin = true;
-
+        var username = "kk@kk.kk";
+        var password = "kksamoop";
+        $scope.email = username;
+        $scope.password = password;
         $scope.loginUser();
         expect($scope.loggedIn).toEqual(true);
     });
 
     it('loggingInTestFailed', function () {
         $scope.loginError({});
+        $scope.testingLogin = false;
+
+        expect($scope.loggedIn).toEqual(true);
     });
 
     it('loggingInInvalid', function () {
@@ -40,8 +46,9 @@ describe('LoginController', function () {
         var password = "kksamooppp";
         $scope.email = username;
         $scope.password = password;
+        $scope.testingLogin = false;
 
-        $scope.submit();
+        expect($scope.loggedIn).toEqual(true);
     });
 
     it('loggingInWithInvalidUsername', function () {
@@ -248,86 +255,105 @@ describe('RegController', function () {
 describe('Global Funcs', function () {
     it('Check cur user', function () {
         checkCurUser();
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('popup fb login', function () {
         popupLogin();
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('preview image', function () {
         previewMethod({ files: ["image"] });
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('change preview image', function () {
         changeImg();
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('want to register when logged in', function () {
         isLoggedIn = true;
         reger();
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('want to register when NOT logged in', function () {
         isLoggedIn = false;
         reger();
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('want to login with pw and email when logged in', function () {
         isLoggedIn = true;
         loginByEmailAndPw();
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('want to login with pw and email when NOT logged in', function () {
         isLoggedIn = false;
         loginByEmailAndPw();
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('want to login with fb when logged in', function () {
         isLoggedIn = true;
         loginByFbCall();
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('want to login with fb when NOT logged in', function () {
         isLoggedIn = false;
         loginByFbCall();
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('want to log out', function () {
         tester = "login";
         tester2 = "logout";
         logoutFunc();
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('want to log out while not in login state', function () {
         tester2 = "logoutt";
         logoutFunc();
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('normal sign out', function () {
         logoter();
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('Error sign not', function () {
         logoterError();
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('auth changes logged in', function () {
         stateChange({});
+        expect(isLoggedIn).toEqual(true);
     });
 
     it('auth changes not logged in', function () {
         stateChange(null);
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('fb api error', function () {
         fbAPIError({});
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('fb api error with msg', function () {
         fbAPIError({ code: "auth/popup-closed-by-user" });
+        expect(isLoggedIn).toEqual(false);
     });
 
     it('test snap', function () {
         snap({ numChildren() { return 0; } });
+        expect(isLoggedIn).toEqual(false);
     });
 });

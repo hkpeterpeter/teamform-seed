@@ -1,59 +1,46 @@
-body{
-    background-image: url("http://www.allianceabroad.com/wp-content/uploads/backpackers_on_clif.jpg");
-    background-size: cover;
-     
-}
-h1
-{
-	font-size:  xxxxxx-large;
-	font-family: Comic Sans, Comic Sans MS, Cursive;
-	font-style: italic;
-	
-}
-h3{
-	margin: 15px 5px 15px 5px;
-	font-family: Comic Sans, Comic Sans MS, Cursive;
-}
-h2
-{
-	font-family: Comic Sans, Comic Sans MS, Cursive;
-	font-style: center;
-	font-size:xxx-large;
-	font-style: x-bold;
-	margin-bottom: 10px;
-	text-decoration: underline;
-}
-h4
-{
-	font-size:  xxxxxx-large;
-	font-family: Comic Sans, Comic Sans MS, Cursive;
-}
-.bubble 
-{
-position: absolute;
-left: 0px;
-width: 800px;
-height: 600px;
-padding: 40px;
-background-color: rgba(255,255,255,0.4);
--webkit-border-radius: 37px;
--moz-border-radius: 37px;
-border-radius: 37px;
-border: #7F7F7F solid 1px;
-}
-
-
-.picleft
-{
-margin: 10px 20px 10px 5px	
-}
-
-span
-{
-font-style: italic;	
-font-size: x-large;
-}
-
-	
-	
-	
+	    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+	    body {
+	        background: #76b852;
+	        /* fallback for old browsers */
+	        
+	        background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+	        background: -moz-linear-gradient(right, #76b852, #8DC26F);
+	        background: -o-linear-gradient(right, #76b852, #8DC26F);
+	        background: linear-gradient(to left, #76b852, #8DC26F);
+	        background-image: url("http://journalistontherun.com/wp-content/uploads/2014/06/airplane-in-sunset.png");
+	        background-size: cover;
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    h1 {
+	        font-size: 800%;
+	        color: white;
+	    }
+	    h3 {
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    h2 {
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    h4 {
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    .bubble {
+	        width: 100%;
+	        height: auto;
+	        padding: 20px;
+	        background-color: rgba(255, 255, 255, 0.6);
+	        -webkit-border-radius: 15px;
+	        -moz-border-radius: 15px;
+	        border-radius: 15px;
+	    }
+	    span {
+	        font-size: x-large;
+	    }
