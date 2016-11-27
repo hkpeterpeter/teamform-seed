@@ -53,12 +53,26 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	$rootScope.events=$firebaseArray($rootScope.event_ref);
 	$rootScope.teams=$firebaseArray($rootScope.team_ref);
 
+	$rootScope.yanzhi = function(url, callback) {
+    var settings = {
+      "async": true,
+      "crossDomain": true,
+      "url": 'http://128.199.83.52/?url=' + url,
+      "method": "GET"
+    }
+
+    $.ajax(settings).done(function(response) {
+			callback(response);
+    });
+  }
+	// do stuff in your callback
+  // Example: $rootScope.yanzhi('http://timedotcom.files.wordpress.com/2014/03/happily-surprised.jpg', console.log);
 
 	$rootScope.addNotify=function(receiverID, _content, _eventName , _teamName ,_type){
 		 //_type is chosen from {System, invitation}
-    	//If it is any System notification, just input "" for _eventName , _teamName , 
+    	//If it is any System notification, just input "" for _eventName , _teamName ,
 
-    	
+
     	var tempUserPic=$firebaseObject(firebase.database().ref("users").child($rootScope.currentUser.id));
     	tempUserPic.$loaded().then(function(data){
 			if(_type=="System"){
@@ -87,10 +101,10 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 			console.log(notify);
 			$firebaseArray(firebase.database().ref("users").child(receiverID).child("notifs")).$add(notify);
     	});
-	    
-	    
+
+
 	}
-	
+
 
 	$rootScope.test=function(){
 		$rootScope.loginWithEmail($scope.useremail);
@@ -105,8 +119,8 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		console.log($rootScope.events);
 	}
 	$rootScope.loginWithEmail=function(email){
-		
-	
+
+
 		for(var i=0;i<$rootScope.users.length;i++){
 
 			if($rootScope.users[i].email==email){
@@ -115,8 +129,8 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 				$rootScope.currentUser.id=$rootScope.users[i].$id
 			}
 		}
-	
-		
+
+
 	}
 	if(!$rootScope.currentUser){
 		$rootScope.currentUser={
@@ -130,7 +144,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	    	$id:"0"
 	    }
 	}
-                
+
 	var exampleNewUser={
 		eventsManaging:[],
 		email:"abcde@connect.ust.hk",
@@ -156,11 +170,11 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		$rootScope.users.$add(user).then(function(ref) {
 		  var id = ref.key;
 		  console.log("added record with id " + id);
-		 
+
 		  $rootScope.currentUser=$firebaseObject(firebase.database().ref("users").child(id));
 		  $rootScope.currentUser.id=id;
 
-		
+
 	});
 
 	}
@@ -171,7 +185,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 
 	$rootScope.carousel_timer = null;
 	$rootScope.$on('$viewContentLoaded', function() {
-		// Don't touch these lines 
+		// Don't touch these lines
 		carousel_flag_fha = true;
 
 		$('.carousel').off('mouseover');
@@ -181,10 +195,10 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		$('.carousel.carousel-slider').carousel({full_width: true});
 
 		clearInterval($rootScope.carousel_timer);
-		
-		$rootScope.carousel_timer = setInterval(()=> { 
+
+		$rootScope.carousel_timer = setInterval(()=> {
 			if (carousel_flag_fha) {
-				$('.carousel').carousel('next'); 
+				$('.carousel').carousel('next');
 			}
 		}, 3000);
 		$('.carousel').on('mouseover', ()=> { carousel_flag_fha = false; });
@@ -218,7 +232,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	$rootScope.logoutHelper = function() {
 
 		console.log("see you next time");
-		localStorage.setItem('loginStatus', false); 
+		localStorage.setItem('loginStatus', false);
 		$rootScope.currentUser = {};
 		location.assign('#');
 	}
@@ -231,5 +245,5 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 	window.onbeforeunload = function() {
         return "Are you sure to leave the app? Refreshing and closing the page will cause your logout.";
     }
-    
+
 })();
