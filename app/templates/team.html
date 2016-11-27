@@ -43,7 +43,7 @@
 				  <p>Members in the team.</p>
 				  <hr>
 				  <!--###Content###-->
-				    <div class="row" ng-repeat="(id,uid) in filterLeader(members,teamdata.leader)">
+				    <div class="row padding" ng-repeat="(id,uid) in filterLeader(members,teamdata.leader)">
 							<div class="col-md-9">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}}
@@ -153,7 +153,7 @@
 						</button>
 						<hr>
 		        <!--###Content###-->
-		          <div class="row" ng-repeat="(uid, score) in tba_featurelist">
+		          <div class="row padding" ng-repeat="(uid, score) in tba_featurelist">
 		            <div class="col-md-9">
 		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
 										{{users.$getRecord(uid).readOnly.name}} [{{score}}]
@@ -186,7 +186,7 @@
 		    	</form>
 				  <hr>
 				  <!--###Content###-->
-				    <div class="row" ng-repeat="(uid,status) in filterByStatus(applications,search_model_appli)">
+				    <div class="row padding" ng-repeat="(uid,status) in filterByStatus(applications,search_model_appli)">
 							<div class="col-md-8">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
@@ -222,7 +222,7 @@
 		    	</form>
 				  <hr>
 				  <!--###Content###-->
-				    <div class="row" ng-repeat="(uid,status) in filterByStatus(invitations,search_model_invi)">
+				    <div class="row padding" ng-repeat="(uid,status) in filterByStatus(invitations,search_model_invi)">
 							<div class="col-md-10">
 								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
 				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
