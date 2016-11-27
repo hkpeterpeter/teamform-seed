@@ -329,7 +329,7 @@ app.controller("ConversationController",function($scope,$routeParams){
 app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray, $cookies, $routeParams) {
       // Implementation the todoCtrl
-      var event_name = $routeParams.p.toLowerCase(); //"comp3111"
+      var event_name = $routeParams.p;// .toLowerCase(); "comp3111"
       var this_user = $cookies.get("username",{path:"/"});//"iamauthur";
       var user_list = $firebaseObject(firebase.database().ref("userList"));
       var event_list = $firebaseObject(firebase.database().ref("eventList"));
