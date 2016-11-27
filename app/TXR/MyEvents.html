@@ -241,7 +241,7 @@
       </h2>
 
 
-      <hr>
+      <hr ng-hide="user">
       <p align="left">{{team.introduction}}</p>
       <br>
 
@@ -297,14 +297,14 @@
                         </div> 
       </h2>
 
-    <hr>
+    <hr ng-hide="user">
         <h2>
       <div align="left">
     <div class="hero-unit">
         <span class="label label-warning" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove"></span></span>
 
 
-         <br>  <br> </div>
+         </div>
     </div></h2>
      
 
@@ -490,7 +490,7 @@
 
 
 
- <hr>
+ <hr ng-hide="user">
         
           <div class="row" ng-show = "leader">
          <div class="col-lg-6" id="teammembers">
@@ -498,10 +498,10 @@
        
 
           <div class="table-responsive">
-            <table class="table table-striped" ng-repeat = "member in memberlist">
+            <table class="table table-striped">
 
               <tbody>
-                <tr>
+                <tr ng-repeat = "member in memberlist">
                   <td style="font-size: 30px">{{$index}}</td>
                   <td>
                       <img src={{memberphoto[member]}} class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
@@ -609,10 +609,10 @@
        
 
           <div class="table-responsive">
-            <table class="table table-striped" ng-repeat = "(num,members) in memberlist">
+            <table class="table table-striped">
 
               <tbody>
-                <tr>
+                <tr ng-repeat = "(num,members) in memberlist">
                   <td style="font-size: 30px">{{num}}</td>
                   <td>
                       <img src={{memberphoto[members]}} class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
@@ -630,16 +630,16 @@
       </div>
 
 
-        <div class="col-lg-6" id="suggestion">
+        <div class="col-lg-10" id="suggestion">
         
           <div class="table-responsive" ng-controller = "clickCtrl">
 
             <div ng-show = "user">
             <h2>Suggested teams</h2>
-            <table class="table table-striped" ng-repeat = "(num, team_content) in suggested_teams">
+            <table class="table table-striped">
                           
               <tbody>
-                <tr>
+                <tr ng-repeat = "(num, team_content) in suggested_teams">
                   <td style="font-size: 30px">{{num+1}}</td>
                   <td>
                       <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50"> 
