@@ -18,8 +18,8 @@
                     </div>
                         <p align="left">{{noti.message}}</p>
                         <div align="right">
-                        <a ng-href="#/MyConversation/{{noti.name}}"><button type="button" class="btn btn-sm btn-success">Reply</button></a>
-                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)">Delete</button></div>
+                        <a ng-href="#/MyConversation/{{noti.event}}/{{noti.name}}"  ng-show={{noti.others}} ><button type="button" class="btn btn-sm btn-success" >Reply</button></a>
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)"">Delete</button></div>
                     </div>
                     </div>
                     </div>
