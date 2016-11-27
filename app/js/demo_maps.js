@@ -78,18 +78,35 @@ if($("#vector_world_map").length > 0){
 /* Google maps */
 
 if($("#google_ptm_map").length > 0){
-    var gPTMCords = new google.maps.LatLng(50.43, 30.60);
-    var gPTMOptions = {zoom: 8,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
+    var gPTMCords = new google.maps.LatLng(22.33673884, 114.26321983);
+    var gPTMOptions = {zoom: 11,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
     var gPTM = new google.maps.Map(document.getElementById("google_ptm_map"), gPTMOptions);        
-    
-    var cords = new google.maps.LatLng(50.37, 30.65);
-    var marker = new google.maps.Marker({position: cords, map: gPTM, title: "Marker 1"});    
-    cords = new google.maps.LatLng(50.5, 30.55);
-    marker = new google.maps.Marker({position: cords, map: gPTM, title: "Marker 2"});
-    cords = new google.maps.LatLng(50.8, 30.55);
-    marker = new google.maps.Marker({position: cords, map: gPTM, title: "Marker 3"});    
-}
+    var infowindow = new google.maps.InfoWindow();
+    var locations = [
+      ['Tuen Mun', 22.38831326, 113.98009658, 4],
+      ['Yuen Long', 22.44546134, 114.02632713, 5],
+      ['Cheung Sha Wan', 22.33261048, 114.14975166, 3],
+      ['The Hong Kong University of Science and Technology', 22.33515102, 114.26407814, 2],
+      ['Central', 22.28385476, 114.15112495, 1]
+    ];
+    var member = ['Harry', 'Howe', 'Fish', 'Cally', 'Me'];
+    var marker, i;
+    var gMarkers = [];
 
+    for (i = 0; i < locations.length; i++) {  
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: gPTM
+    });
+    
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+        infowindow.setContent(locations[i][0] + ' (' + member[i] + ')');
+        infowindow.open(gPTM, marker);
+        }
+    })(marker, i));
+    }
+}
 if($("#google_world_map").length > 0){
     
     var gWorldCords = new google.maps.LatLng(50, 0); 
@@ -143,7 +160,7 @@ if($("#google_world_map").length > 0){
             });
 
             markers.push(marker);
-
+ 
             bounds.extend(place.geometry.location);
             }
 
