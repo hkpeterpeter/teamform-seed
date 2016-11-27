@@ -106,7 +106,7 @@
 					<!--###Content###-->
 					<div class="container">	
 						<div ng-repeat="team in recommandTeams | orderBy: 'score': true" >
-			      	<div class="row">
+			      	<div class="row padding">
 							  <div class="col-md-3">
 									<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="#/dashboard/event/{{eventID}}/team/{{team.key}}" style="text-align:left">
 										{{team.name}} [{{team.score}}]
