@@ -12,3 +12,12 @@
 	overflow: auto;
 	/*display: table;*/
 }
+
+.fix-height-300 {
+	height: 300px;
+	overflow: auto;
+}
+
+.bold-true {
+	font-weight: bold;
+}

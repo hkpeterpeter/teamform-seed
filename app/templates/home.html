@@ -4,9 +4,105 @@
 	
 	<div class="jumbotron">
 		<h2><i class="icon-home"></i>&nbsp;&nbsp;Home</h2>	
-		<p>This is the home page. Just say something here.</p>
+		<p>This is the home page. This is your dashboard.</p>
 		
 	</div> <!--jumbotron-->
+
+	<div class="col-md-7">
+		  <div class="caption">
+		  	<!--###Title###-->
+		    <h4><i class="icon-flag"></i>&nbsp;&nbsp;My Events</h4>
+		    <p>Events you participate in.</p>
+		    <p><sub>
+		    	<i class="icon-desktop"></i>:Admin&nbsp;&nbsp;
+					<i class="icon-star"></i>:Leader&nbsp;&nbsp;
+					<i class="icon-star-empty"></i>:Member&nbsp;&nbsp;					
+					<i class="icon-umbrella"></i>:TBA&nbsp;&nbsp;		
+		    </sub></p>
+		    <hr>
+		    <!--###Content###-->
+        	<a class="btn btn-primary btn-block" type="button" ng-href="/#/dashboard/event/{{myEventId}}" ng-repeat="(myEventId, myEvent) in myEvents" style="text-align:left">
+						<i class="icon-{{ myEvent.position | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{events.$getRecord(myEventId).eventInfo.name}}
+					</a>
+			</div> <!--caption-->
+	</div> <!--col-md-8-->
+
+	<div class="col-md-5">
+		<div class="thumbnail">
+		  <div class="caption">
+		  	<!--###Title###-->
+		    <h4><i class="icon-bell"></i>&nbsp;&nbsp;My Notifications</h4>
+		    <p>Some important or unimportant messages.</p> 
+				<hr>
+      	<!--###Content###-->
+				<div class="panel-group" id="accordion1">
+				
+				  <div class="panel panel-default" ng-repeat="(eid, myEvent) in myEvents">
+						<div class="panel-heading">
+					  	<h2 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion1" href="home.html#{{eid}}">{{events.$getRecord(eid).eventInfo.name}}</a>
+					  	</h2>
+						</div>
+						<div id="{{eid}}" class="panel-collapse collapse">
+							<div class="panel-body fix-height-300">
+								<span ng-show="myEvent.notifications == null">(No notification)</span>
+								<div ng-repeat="(nid,notification) in myEvent.notifications" class="bold-{{!notification.isRead}}">
+			          	<span ng-show="!notification.isRead">(Unread)</span> {{notification.content}}
+									<button class="btn btn-danger btn-sm" ng-show ="!notification.isRead" ng-click = "changeState(eid,nid)" data-toggle="tooltip" data-placement="bottom" title="I have read this notification">
+							    	<i class="icon-ok-sign"></i>
+							    </button>
+						    </div> <!--ng-repeat-->	  
+							</div>
+						</div>
+				  </div>
+
+				</div> <!--panel-group-->
+			</div> <!--caption-->
+		</div> <!--thumbnail-->
+
+
+		<div class="thumbnail">
+		  <div class="caption">
+		  	<!--###Title###-->
+		    <h4><i class="icon-inbox"></i>&nbsp;&nbsp;My Requests</h4>
+		    <p>Your applications and invitations.</p>         	
+      	<hr>
+      	<!--###Content###-->       	
+
+			<div class="panel-group" id="accordion2">
+				
+				  <div class="panel panel-default" ng-repeat="(eid, myEvent) in myEventList">
+						<div class="panel-heading">
+					  	<h2 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion2" href="home.html#{{eid}}noti">{{events.$getRecord(eid).eventInfo.name}}</a>
+					  	</h2>
+						</div>
+						<div id="{{eid}}noti" class="panel-collapse collapse">
+							<div class="panel-body fix-height-300">
+								<span ng-show="myEvent.applications == null && myEvent.invitations == null">(No request)</span>					
+								<div ng-repeat="(teamKey, tid) in myEvent.applications">
+									Application in progress: <a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a>.				
+									<button class="btn btn-danger btn-sm" ng-click="withdrawApp(eid, tid)" data-toggle="tooltip" data-placement="bottom" title="Withdraw the application">
+							    	<i class="icon-undo"></i>
+							    </button>
+								</div> <!--ng-repeat-->						
+								<div ng-repeat="(teamKey, tid) in myEvent.invitations">
+									Invitation from: <a ng-href = "/#/dashboard/event/{{eid}}/team/{{tid}}">{{allEvents.$getRecord(eid).teams[tid].name}}</a>.
+									<button class="btn btn-danger btn-sm" ng-click="acceptInvi(eid, tid)" data-toggle="tooltip" data-placement="bottom" title="Accept the invitation">
+							    	<i class="icon-ok-sign"></i>
+							    </button>
+							    <button class="btn btn-danger btn-sm" ng-click="declineInvi(eid, tid)" data-toggle="tooltip" data-placement="bottom" title="Decline the invitation">
+							    	<i class="icon-remove-sign"></i>
+							    </button>
+								</div> <!--ng-repeat-->	 
+							</div>
+						</div>
+				  </div>
+
+				</div> <!--panel-group-->
+			</div> <!--caption-->
+		</div> <!--thumbnail-->	
+	</div>
 
 </div> <!--col-md-12-->
 </div> <!--container-->
