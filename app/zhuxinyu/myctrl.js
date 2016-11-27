@@ -5,7 +5,7 @@ teamapp.factory("allteams", ["$firebaseArray",
     // create a reference to the database where we will store our data
     var ref = firebase.database().ref("teams");
 
-    return $firebaseArray(ref); 
+    return $firebaseArray(ref);
   }
 ]);
 
@@ -29,8 +29,8 @@ teamapp.factory("allusers", ["$firebaseArray",
 
 teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","allevents", "allusers",function($rootScope,$scope,allteams,allevents,allusers) {
 
- 
- 
+
+
      $scope.event = {
         name: "",
         adm: "",
@@ -40,36 +40,36 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
     $scope.createflip = function() {
         if ($scope.event.name != "") {
             document.getElementById('myflipper').classList.toggle('flipped');
-            
+
         } else {
             Materialize.toast('Please Enter The Event Name!', 1000);
         }
     };
 
-   
+
     $scope.cancelEvent = function() {
 
         $scope.event.name="";
         document.getElementById('myflipper').classList.toggle('flipped');
     };
 
-  
+
 
     $scope.searchEvent = function() {
-      
+
 
         if($scope.event.name!=""){
             var resultList=[];
             for(var i=0;i<$rootScope.events.length;i++){
-               
-                if($rootScope.events[i].eventName!=null && $rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
-                   
+
+                if($rootScope.events[i].eventName && $rootScope.events[i].eventName.toLowerCase().includes($scope.event.name.toLowerCase())){
+
                     resultList.push($rootScope.events[i]);
                 }
-            } 
-         
+            }
+
             $scope.updateEventList(resultList);
-           
+
         }else{
              Materialize.toast('Please Enter The Event Name!', 1000);
         }
@@ -81,7 +81,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
             scrollTop: $("#event_list").offset().top
             }, 1000);
           $("#searching").show();
-          
+
            $("#eventCardList").children().hide(1000,function(){
 
 
@@ -89,7 +89,7 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
 
 
                 for(var i=0;i<eventlist.length;i++){
-                  
+
                     $rootScope.addSuperEventCard(eventlist[i]);
                 }
                  $("#eventCardList").hide();
@@ -99,16 +99,16 @@ teamapp.controller('search_controll', ['$scope',"$rootScope","allteams","alleven
 
                        $('html, body').animate({
                         scrollTop: $("#event_list").offset().top
-                        }, 1000);   
+                        }, 1000);
 
-                  });    
-                  
+                  });
+
            });
        }else{
             Materialize.toast("Sorry We didn't find your event! You may create this event.", 3000);
        }
 
-      
+
     }
 
 }]);
@@ -135,7 +135,7 @@ teamapp.directive("footerPanel",function(){
         transclude: true,
         scope:{
             ftitle:"@",
-            
+
         }
     };
 
@@ -152,7 +152,7 @@ teamapp.directive("basicCard",function(){
             ctitle:"@",
             clink:"@",
             cpic:"@"
-            
+
         }
     };
 
@@ -176,13 +176,13 @@ teamapp.directive('eventCard', function($compile) {
         templateUrl: 'zhuxinyu/js/components/eventCard/eventCard.html',
         replace:true,
         controller: function($rootScope,$scope, $element,$firebaseObject){
-            
+
             $scope.eventPicture="zhuxinyu/img/load"+Math.ceil(Math.random()*5)+".gif";
-            
+
             $scope.element=$firebaseObject(firebase.database().ref("events").child($scope.eid));
             $scope.element.$loaded().then(function(data){
                 $scope.eventTitle=data.eventName;
-                
+
                 $scope.eminSize=data.minSize;
                 $scope.emaxSize=data.maxSize;
                 $scope.edescription=data.description;
@@ -204,7 +204,7 @@ teamapp.directive('eventCard', function($compile) {
                  var leaderName=$firebaseObject(firebase.database().ref("users").child($scope.element.allTeams[index].leader).child("name"));
                   leaderName.$loaded().then(function(data){
                         team.leader=data.$value;
-                     
+
                         var teamName=$firebaseObject(firebase.database().ref("teams").child($scope.element.allTeams[index].teamID).child('teamName'));
                         teamName.$loaded().then(function(data2){
                             team.teamName=data2.$value;
@@ -218,17 +218,17 @@ teamapp.directive('eventCard', function($compile) {
 
             //Magic code here. This function use recursion instead of itration for a asynchronous process to get all team name in the event
             $scope.showMore=function(){
-               
+
                 $('#second'+ $scope.eid).slideToggle(800);
                 $('#first'+ $scope.eid).slideToggle(800);
-              
+
                 $('#sideButton'+$scope.eid).fadeToggle(800);
                 $('#sideButton2'+$scope.eid).fadeToggle(800);
 
-              
-                if($scope.Teams==null){
+
+                if(!$scope.Teams){
                     $scope.Teams=[];
-                    if($scope.element.allTeams==null){
+                    if(!$scope.element.allTeams){
                         return;
                     }
                     if($scope.element.allTeams.length>0){
@@ -244,8 +244,8 @@ teamapp.directive('eventCard', function($compile) {
             };
             $scope.goToEvent =function(){
                 $rootScope.clickedEvent=$scope.element;
-               
-             
+
+
                     console.log($scope.element);
                     console.log($rootScope.currentUser.id);
 
@@ -287,9 +287,9 @@ teamapp.directive('eventCard', function($compile) {
                         $(window).scrollTop(0);
                     }
                 }
-               
+
             }
-            
+
         }
 
     };
@@ -301,7 +301,7 @@ teamapp.directive("subcan", function() {
         controller: function ($rootScope,$scope, $element,$firebaseObject,$firebaseArray,allteams,allevents,allusers) {
 
             $scope.createEvent=function(){
-                
+
                 var eventCreating={};
               // eventCreating.description=document.getElementById("event_detail").value;
                 eventCreating.description=$scope.eventDescription;
@@ -323,7 +323,7 @@ teamapp.directive("subcan", function() {
 
                      Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
 
-                   
+
                     $scope.cancelEvent();
                 });
             }
@@ -360,7 +360,7 @@ teamapp.directive("zhuNavi", function() {
                     if(data[i].type!='invitation'){
                         data[i].type='System';
                     }
-                    
+
                 }
              });
 
@@ -371,9 +371,9 @@ teamapp.directive("zhuNavi", function() {
                 temp.$value=true;
                 temp.$save();
             });
-            }   
+            }
        }
-         
+
     };
 });
 
@@ -384,7 +384,7 @@ teamapp.directive("notifyBar",function(){
         scope:{
             cpic:"@",
             type:"@"
-            
+
         },
         transclude:true
     }
@@ -400,7 +400,7 @@ teamapp.directive("invitationBar",function(){
             from:"@",
             event:"@",
             team:"@"
-            
+
         },
         transclude:true,
         controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
@@ -421,12 +421,14 @@ teamapp.directive('teamCard',function(){
         controller:function($rootScope,$scope,$firebaseObject,$firebaseArray){
 
                 $scope.imageUrl="zhuxinyu/img/load"+Math.ceil(Math.random()*5)+".gif";
-               
+
                 $scope.element=$firebaseObject(firebase.database().ref("teams").child($scope.teamId));
                 $scope.element.$loaded().then(function(data){
-                    
+
                     $scope.list=[];
                     $scope.map={};
+                    $scope.quota=data.max_num - 1 - (data.membersID instanceof Array ? data.membersID.length : 0);
+                    $scope.needed=(data.min_num - 1) > 0 ? data.min_num - 1 : 0;
                     for(var i=0;i<data.desiredSkills.length;i++){
                         $scope.list.push(data.desiredSkills[i].toLowerCase());
                         $scope.map[data.desiredSkills[i].toLowerCase()]=0;
@@ -436,7 +438,7 @@ teamapp.directive('teamCard',function(){
                     leaderSkill.$loaded().then(function(data2){
                         console.log(data2)
                         for(var i=0;i<data2.length;i++){
-                            if($scope.map[(""+data2[i].$value).toLowerCase()]!=null){
+                            if($scope.map[(""+data2[i].$value).toLowerCase()]){
                                 $scope.map[(""+data2[i].$value).toLowerCase()]=$scope.map[(""+data2[i].$value).toLowerCase()]+1;
                             }
                         }
@@ -445,7 +447,7 @@ teamapp.directive('teamCard',function(){
                     });
 
 
-                   
+
                 });
                 $scope.goToTeam=function(){
                     if($scope.invited){
@@ -469,7 +471,10 @@ teamapp.directive('teamCard',function(){
                     }
                 }
                 $scope.countMember=function(index){
-                    if($scope.element.membersID.length==null){
+                    if(!$scope.element.membersID){
+                        $scope.element.membersID=[];
+                    }
+                    if(!$scope.element.membersID.length){
 
                         var array = $.map($scope.element.membersID, function(value, index) {
                             return [value];
@@ -479,32 +484,37 @@ teamapp.directive('teamCard',function(){
                     }
 
                     if(index<$scope.element.membersID.length){
-                       
+
                         var Skill=$firebaseArray(firebase.database().ref("users").child($scope.element.membersID[index]).child("skills"));
-                       
+
                             Skill.$loaded().then(function(data){
                             for(var i=0;i<data.length;i++){
-                                if($scope.map[(""+data[i].$value).toLowerCase()]!=null){
-                                   
+                                if($scope.map[(""+data[i].$value).toLowerCase()]){
+
                                     $scope.map[(""+data[i].$value).toLowerCase()]=$scope.map[(""+data[i].$value).toLowerCase()]+1;
-                                  
+
                                 }
                             }
                               $scope.countMember(index+1);
                         });
-                      
+
                     }else{
-                        
+
                         $scope.labels=$scope.list;
                         var value=[];
                         for(var i=0;i<$scope.list.length;i++){
                             value.push($scope.map[(""+$scope.list[i])]);
                         }
+                        while (value.length<=2){
+                            $scope.labels.push('auxiliary');
+                            value.push(0);
+                        }
                       $scope.data = [
                             value
-                   
+
                         ];
-                        $scope.imageUrl=$scope.element.imageUrl;    
+                        $scope.imageUrl=$scope.element.imageUrl;
+                        console.log($scope.data);
                     }
                 }
 
@@ -513,7 +523,3 @@ teamapp.directive('teamCard',function(){
     }
 
 });
-
-
-
-

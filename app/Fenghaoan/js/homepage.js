@@ -37,7 +37,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
 
       $rootScope.addUser(newUser);
       console.log("user added");
-      $rootScope.loginWithEmail(data['email']);
+      //$rootScope.loginWithEmail(data['email']);
     }
 
     console.log($rootScope.currentUser['name']);
