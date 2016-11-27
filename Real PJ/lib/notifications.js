@@ -1,5 +1,12 @@
-app.controller("notificationCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
-	function($scope, $firebaseAuth, $firebaseArray) {
-		console.log($scope.currentUid);  
-   	}
+app.controller("notificationCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
+  function($scope, $firebaseObject, $firebaseArray) {
+
+  		var ref = firebase.database().ref();
+     	var obj = $firebaseObject(ref);
+  		obj.$loaded().then(function() { 
+  			$scope.id = obj.currentUid;	
+			ref = firebase.database().ref('User/' + $scope.id);
+        	$scope.user = $firebaseObject(ref);
+  		});
+  }
 ]);
