@@ -177,6 +177,11 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		  $rootScope.currentUser.id=id;
 		   $rootScope.initilizaNofi();
 
+		$rootScope.yanzhi($rootScope.currentUser.imageURL,function(data){
+			console.log(data);
+		});
+
+
 
 	});
 
