@@ -42,6 +42,8 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
 
+    <script src="../Real PJ/lib\main.js"></script>
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -52,9 +54,9 @@
   
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 
-<body ng-controller="LoginCtrl">
+<body ng-controller="LoginCtrl" >
 
-    <div ng-controller="notificationCtrl"></div>
+    <div ng-controller="notificationCtrl">
     <!-- container section start -->
     <section id="container" class="">
       <!--header start-->
@@ -107,7 +109,7 @@
                             <span class="profile-ava">
                                 <img alt="" src="img/avatar1_small.jpg">
                             </span>
-                            <span class="username">Jenifer Smith</span>
+                            <span class="username">{{user.firstname}}, {{user.lastname}}</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
@@ -180,10 +182,8 @@
       <!--main content start-->
       <section id="main-content">
     	<section class="wrapper">
-      
-    		
-    		
-    		
+
+        		
     		
          </section>
       </section>
@@ -194,6 +194,7 @@
             </div>
         </div>-->
     </section>
+    </div>
     <!-- container section end -->
     <!-- javascripts -->
     <script src="js/jquery.js"></script>
@@ -202,6 +203,6 @@
     <script src="js/jquery.scrollTo.min.js"></script>
     <!--custome script for all page-->
     <script src="js/scripts.js"></script>
-    <script src="..\Real PJ\lib\main.js"></script>
+    
   </body>
 </html>
