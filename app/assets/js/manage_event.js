@@ -49,6 +49,7 @@ angular.module('teamform-event-app', ['firebase'])
 			var user = firebase.auth().currentUser;
 			$scope.param.EventAdmin = user.displayName;
 			$scope.param.EventName = eventName;
+			$scope.param.EventData = eventdate;
 			$scope.param.No_of_Team = 0;		
 		}) 
 		.catch(function(error) {

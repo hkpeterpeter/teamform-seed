@@ -67,13 +67,34 @@ angular.module('teamform-manage_team-app', ['firebase'])
 	refPath = "/event/" + eventName + "/team/" + teamName; 
 	ref = firebase.database().ref(refPath);
 	$scope.teaminfo = $firebaseObject(ref);
+
+	ref.set({
+		TeamName: teamName,
+		//TeamLeader : teamleader,
+		Description : "",
+		Forward : "",
+		Midfield :"",
+		LeftBack : "",
+		RightBack :"",
+		Goalkeeper :""
+	});
+
+	
+
+
+
+
+
+
+
+
+
+
 	$scope.teaminfo.$loaded()
 		.then( function(data) {
 			// Fill in some initial values when the DB entry doesn't exist			
 			// Enable the UI when the data is successfully loaded and synchornized
-			$('#manage_team_page_controller').show(); 
-			$scope.teaminfo.TeamLeader = teamleader;
-			$scope.teaminfo.TeamName = teamName;
+			//$('#manage_team_page_controller').show(); 
 			$scope.teaminfo.Description = $scope.input.description;
 			$scope.teaminfo.Forward = $scope.input.forward;
 			$scope.teaminfo.Midfield = $scope.input.midfield;
