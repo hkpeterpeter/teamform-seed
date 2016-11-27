@@ -175,6 +175,8 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 		
 		var newMembers = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("membersID"));
 		newMembers.$add(team.leaderID);
+		//$firebaseArray($rootScope.user_ref.child(team.leaderID.toString()).child("teamsAsMember")).$add(mergedTeam.$id.toString());
+		//$rootScope.user_ref.child(team.leaderID.toString()).child("teamsAsLeader").child(team.$id.toString()).remove();
 		for (var key in team.membersID) {
 			//var curMemTeam = $firebaseArray($rootScope.user_ref.child(team.membersID[key].toString()).child("teamsAsMember"));
 			//curMemTeam.$add(team.$id.toString());
@@ -183,7 +185,17 @@ teamapp.controller('admin_ctrl', function($scope, $rootScope, $q, $timeout, $fir
 
 		var newInvites = $firebaseArray($rootScope.team_ref.child(mergedTeam.$id.toString()).child("invitedPeople"));
 		for (var key in team.invitedPeople) {
-			newInvites.$add(team.invitedPeople[key]);
+			var exist = false;
+			for (var keym in mergedTeam.invitedPeople) {
+				if (mergedTeam.invitedPeople[keym].toString() == team.invitedPeople[key].toString()) {
+					exist = true;
+					break;
+				}
+			}
+			if (!exist)
+				newInvites.$add(team.invitedPeople[key]);
+			//$firebaseArray($rootScope.user_ref.child(team.invitedPeople[key].toString()).child("teamsAsInvitedPeople")).$add(mergedTeam.$id.toString());
+			//$rootScope.user_ref.child(team.invitedPeople[key].toString()).child("teamsAsInvitedPeople").child(team.$id.toString()).remove();
 		};
 		$scope.updateteaminfo();
 
