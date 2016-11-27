@@ -45,10 +45,24 @@ teamapp.controller("dashboardController", function ($rootScope, $scope, $firebas
                     doesntExist = false;
                 }
             }
-            if (doesntExist == true){
-                skillsFirebase.$add($scope.newSkill);
-                $scope.newSkill = '';
-                Materialize.toast("New skill added.", 4000);
+            // if (doesntExist == true){
+            //     skillsFirebase.$add($scope.newSkill);
+            //     $scope.newSkill = '';
+            //     Materialize.toast("New skill added.", 4000);
+            // }
+            // else{
+            //     Materialize.toast("Sorry, this skill already exists.", 4000);
+            // }
+            if ($scope.newSkill.length > 10){
+                Materialize.toast("Sorry, please limit your skill to 10 characters", 4000);
+            }
+            else if (doesntExist == false){
+                Materialize.toast("Sorry, this skill already exists.", 4000);
+            }
+            else{
+                    skillsFirebase.$add($scope.newSkill);
+                    $scope.newSkill = '';
+                    Materialize.toast("New skill added.", 4000);
             }
         });
     };
