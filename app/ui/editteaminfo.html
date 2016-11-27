@@ -65,6 +65,7 @@
                                                     <th><p align="center">Introduction</p></th>
                                                     <th ><p align="center">Update the Introduction</p></th>
                                                     <th ><p align="center">Openness</p></th>
+                                                    <th ><p align="center">Confirm</p></th>
                                                     
                                                  
                                                 </tr>
@@ -75,8 +76,11 @@
                                                     <td align="center"><strong>{{g.name}}</strong></td>
                                                     <td align="center">{{g.intro}}</td>
                                                     <td align="center"><input name="newTeamIntro" ng-model="input.intro" required></td>
-                                                    <td align="center"><button type="button" data-ng-if="g.openness == true" ng-click="toprivate(selectedName,key);">toPrivate</button>
-                                                    <button type="button" data-ng-if="g.openness == false" ng-click="topublic(selectedName,key);">toPublic</button>
+                                                    <td align="center">
+                                                    <label class="switch">
+                                                    <input type="checkbox" checked value="0"/>
+                                                    <span></span>
+                                                </label>
              </td>
                                                      <td align="center"><input class="btn btn-primary" type="button"  value="Update" ng-click="teamedit(selectedName.$id, key,input.intro);"></input></td>
                                             </tbody>

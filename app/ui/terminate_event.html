@@ -2,7 +2,7 @@
 <html lang="en">
     <head>        
         <!-- META SECTION -->
-        <title>Event Termination</title>            
+        <title>Join Event</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,7 +22,7 @@
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Termination</a></li>
+                    <li><a href="#">Remove Event</a></li>
                 </ul>
                 <!-- END BREADCRUMB -->
                 
@@ -42,15 +42,15 @@
                                             <thead>
                                                 <tr>
                                                     <th>Event Name</th>
-                                                    <th>Terminate</th>
+                                                    <th>Remove</th>
 
                                                 </tr>
                                             </thead>
                                                                                        
                                                     
-                                                  <td align="center">{{q.name}}</td>
+                                                  <td align="center" width="50%">{{q.name}}</td>
                                                   <td align="center">
-                                                  <button class="btn btn-danger" ng-click="joinit(q)">Terminate</button></td></tr>
+                                                  <button class="btn btn-danger" ng-click="removeit(q)">Remove</button></td></tr>
 
                                             </tbody>
                                         </table>

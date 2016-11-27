@@ -42,12 +42,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'personal_page.html',
             controller: 'Personal',
             authRequired: true,
-             resolve: {
-      "currentAuth": ["Auth", function(Auth) {
-
-        return Auth.$requireSignIn();
-      }]
-      }})
+             })
 
       .state('event', {
             url: '/event',
@@ -80,11 +75,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'eventterm'
             })
 
-        .state('Eventjoin', {
-            url: '/eventjoin',
-            templateUrl: 'main.html',
-            controller: 'eventjoin'
-            })
 
 		.state('createTeam', {
             url: '/createTeam',
