@@ -36,13 +36,15 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
       };
 
       $rootScope.addUser(newUser);
+       
       console.log("user added");
+
       //$rootScope.loginWithEmail(data['email']);
     }
 
     console.log($rootScope.currentUser['name']);
     // $rootScope.test();
-
+     $rootScope.initilizaNofi();
   };
 
   $scope.loginErrorHandler = function(error) {

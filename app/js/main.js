@@ -72,7 +72,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		 //_type is chosen from {System, invitation}
     	//If it is any System notification, just input "" for _eventName , _teamName ,
 
-
+    	if(!$rootScope.currentUser.id) $rootScope.currentUser.id=$rootScope.currentUser.$id;
     	var tempUserPic=$firebaseObject(firebase.database().ref("users").child($rootScope.currentUser.id));
     	tempUserPic.$loaded().then(function(data){
 			if(_type=="System"){
@@ -119,7 +119,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		console.log($rootScope.events);
 	}
 	$rootScope.loginWithEmail=function(email){
-
+		$rootScope.currentUser.id=0;
 
 		for(var i=0;i<$rootScope.users.length;i++){
 
@@ -167,12 +167,15 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		minSize:5
 	}
 	$rootScope.addUser=function(user){
+		console.log("Add user");
+		console.log(user);
 		$rootScope.users.$add(user).then(function(ref) {
 		  var id = ref.key;
 		  console.log("added record with id " + id);
 
 		  $rootScope.currentUser=$firebaseObject(firebase.database().ref("users").child(id));
 		  $rootScope.currentUser.id=id;
+		   $rootScope.initilizaNofi();
 
 
 	});
