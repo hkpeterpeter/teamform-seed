@@ -10,15 +10,28 @@
 
 
                         <div class="modal-body">
-               
-                         
-                           
-                      
+
+
+
+
                             <br>
-                           
+
+                            <div class="row filter-bar">
+
+                               <div class="col-md-1 col-xs-1"></div>
+                               <div class="col-md-10 col-xs-10">
+                                 <div class="form-group">
+                                   <label for="comment">Image:</label>
+                                   <label class="btn btn-primary">
+                                     Browse&hellip; <input type="file" id="uploadFile" style="display:none;" />
+                                   </label>
+                                 </div>
+                               </div>
+                               <div class="col-md-1 col-xs-1"></div>
+                            </div>
 
                              <div class="row filter-bar">
-                         
+
                                 <div class="col-md-1 col-xs-1"></div>
                                 <div class="col-md-10 col-xs-10">
                                   <div class="form-group">
@@ -30,7 +43,7 @@
                             </div>
 
                              <div class="row filter-bar">
-                         
+
                                 <div class="col-md-1 col-xs-1"></div>
                                 <div class="col-md-10 col-xs-10">
                                   <div class="form-group">
@@ -39,14 +52,14 @@
                                   </div>
                                 </div>
                                 <div class="col-md-1 col-xs-1"></div>
-                            </div>                          
-                  
+                            </div>
+
 
                             <div class="row filter-bar">
-                            
+
                             <div class="col-md-9 col-xs-9"></div>
                                 <div class="col-md-3 col-xs-3 ">
-                                <button class="btn btn-primary" ng-click="editprofileinfo(personalWebsite,email)" value="Reload Page" onClick="document.location.reload(true)">
+                                <button class="btn btn-primary" ng-click="editprofileinfo(personalWebsite,email)" value="Reload Page">
                                   Edit
                                </button>
                               </div>
@@ -54,11 +67,11 @@
 
                             </div>
 
-                           
+
 
                            </div>
                            </div>
-                        </div> 
+                        </div>
           </h1>
 
           <div class="row placeholders">
@@ -70,7 +83,7 @@
                 </div>
         <div class="col-sm-4 col-md-4">
           <p>{{thisuser}}</p>
-      
+
           <p> Email: <a href="mailto:someone@example.com?Subject=Hello%20again", target="_top">{{email}}</a></p>
           <p> Personal website: <a href={{personalWebsite}}>{{personalWebsite}}</a></p>
         </div>
@@ -87,15 +100,15 @@
 
 
                         <div class="modal-body">
-               
-                         
-                           
-                      
+
+
+
+
                             <br>
-                           
+
 
                              <div class="row filter-bar">
-                         
+
                                 <div class="col-md-1 col-xs-1"></div>
                                 <div class="col-md-10 col-xs-10">
                                   <div class="form-group">
@@ -106,11 +119,11 @@
                                 <div class="col-md-1 col-xs-1"></div>
                             </div>
 
-                        
-                  
+
+
 
                             <div class="row filter-bar">
-                            
+
                             <div class="col-md-9 col-xs-9"></div>
                                 <div class="col-md-3 col-xs-3 ">
                                 <button class="btn btn-primary" ng-click="editprofileintro(introduction)" value="Reload Page" onClick="document.location.reload(true)">
@@ -121,16 +134,16 @@
 
                             </div>
 
-                           
+
 
                            </div>
                            </div>
-                        </div> 
+                        </div>
       </h2>
       <hr>
       <p align="left">{{introduction}}</p>
       <br>
-    
+
 
       <h2 align="left">Skills
        <button id="modal-666687" data-target="#modal-container-666687" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal">Edit</button>
@@ -142,15 +155,15 @@
 
 
                         <div class="modal-body">
-               
-                         
-                           
-                      
+
+
+
+
                             <br>
-                           
+
 
                              <div class="row filter-bar">
-                         
+
                                 <div class="col-md-1 col-xs-1"></div>
                                 <div class="col-md-10 col-xs-10">
                                   <div class="form-group">
@@ -161,11 +174,11 @@
                                 <div class="col-md-1 col-xs-1"></div>
                             </div>
 
-                        
-                  
+
+
 
                             <div class="row filter-bar">
-                            
+
                             <div class="col-md-9 col-xs-9"></div>
                                 <div class="col-md-3 col-xs-3 ">
                                 <button class="btn btn-primary" ng-click="editprofileskills(skills)" value="Reload Page" onClick="document.location.reload(true)">
@@ -176,17 +189,17 @@
 
                             </div>
 
-                           
+
 
                            </div>
                            </div>
-                        </div> 
-     
+                        </div>
+
         <hr>
       <div align="left">
     <div class="hero-unit">
-    <span class="label label-warning" ng-repeat = "skill in skills">{{skill}}<span class="glyphicon glyphicon-remove"></span></span>    
+    <span class="label label-warning" ng-repeat = "skill in skills">{{skill}}<span class="glyphicon glyphicon-remove"></span></span>
          <br></h2>
-       
+
     </div></div>
     </div>
