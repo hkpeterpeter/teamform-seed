@@ -17,7 +17,11 @@
     <body>
         <!-- START PAGE CONTAINER -->
      
-
+            
+            
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+                
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a href="#">Create SubTeam</a></li>
@@ -59,7 +63,7 @@
                                     </div>  
 
                                      <div class="btn-group pull-right">
-                                        <button ng-click="createFreeTeam()" class="btn btn-info btn-rounded" ng-disabled= "teamForm.newTeamIntro1.$invalid || teamForm.newTeamName1.$invalid">Submit</button>
+                                        <button ng-click="createFreeTeam()" ng-disabled= "teamForm.newTeamIntro1.$invalid || teamForm.newTeamName1.$invalid">Submit</button>
                                     </div>  
                                                  
         
@@ -135,9 +139,16 @@
                         }
                     }                                        
                 });                                    
+
         </script>
         
     <!-- END SCRIPTS -->          
         
     </body>
 </html>
+
+
+
+
+
+
