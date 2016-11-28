@@ -24,11 +24,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'createsubteam.html',
             controller: 'teamSubmit'
         })
-        
+ .state('nearestpeople', {
+            url: '/nearestpeople',
+            templateUrl: 'nearestpeople1.html'
+        })
+
+        .state('profilo', {
+            url: '/profilo',
+            templateUrl: 'Profilo1.html'
+        })
+
         .state('level', {
             url: '/level',
-            templateUrl: 'level.html',
-            controller: 'levelCtrl'
+            templateUrl: 'level1.html'
             })
 
          .state('register', {
