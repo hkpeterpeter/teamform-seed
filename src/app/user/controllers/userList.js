@@ -8,7 +8,7 @@ export default class UserListCtrl {
         this.error = null;
         this.userListTableParams = new NgTableParams({
             page: 1,
-            count: 2
+            count: 5
         }, {
             counts: [],
             dataset: []

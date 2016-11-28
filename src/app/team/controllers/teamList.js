@@ -13,7 +13,7 @@ export default class TeamListCtrl {
         this.error = null;
         this.teamListTableParams = new NgTableParams({
             page: 1,
-            count: 2
+            count: 5
         }, {
             filterOptions: {
                 'filterFn': (...args) => this.teamFilter(...args)
@@ -92,7 +92,7 @@ export default class TeamListCtrl {
         }
     }
     teamFilter(teams, filterValues) {
-        let min = filterValues.min || Number.MIN_VALUE;
+        let min = filterValues.min || 0;
         let max = filterValues.max || Number.MAX_VALUE;
         delete filterValues.min;
         delete filterValues.max;
