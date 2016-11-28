@@ -1,7 +1,18 @@
-<div class="row">
-    <div class="col s10 l8 offset-l1"  ng-show="{{feature.flip}}">
+<div class="row" >
+    <div class="col s10 l8 offset-l1 offset-s1"  ng-show="{{feature.flip}}">
         <div class="card horizontal">
-            <div class="card-image">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" ng-src="{{feature.image_path}}" style="height: 200px">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4" style="font-family: 'Libre Franklin', sans-serif; font-size: 30px; font-weight:bold;">{{ feature.title }}<i class="material-icons right">more_vert</i></span>
+          </div>
+          <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4" style="font-family: 'Libre Franklin', sans-serif; font-size: 30px; font-weight:bold;">{{ feature.title }}<i class="material-icons right">close</i></span>
+              <p style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">{{ feature.content }}</p>
+          </div>
+
+            <!-- <div class="card-image">
                 <div style="display:table;height:100%">
                     <div style=" display: table-cell;vertical-align: middle;">
                         <img ng-src="{{feature.image_path}}" style="height:263px;width: 263px"/>
@@ -19,32 +30,29 @@
                     </div>
                 </div>
                 
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col s10 l8 offset-l3  offset-s2"  ng-show="!{{feature.flip}}">
         <div class="card horizontal">
-            <div class="card-stacked">
-                <div class="card-content" style="height: 200px;overflow: hidden ">
-                    <div style="font-family: 'Libre Franklin', sans-serif; font-size: 30px; font-weight:bold;">
-                        {{ feature.title }}
-                    </div>
-                    <div style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">
-                        {{ feature.content }}
-                    </div>
-                </div>
 
-            </div>
-            <div class="card-image">
-                <div style="display:table;height:100%">
-                    <div style=" display: table-cell;vertical-align: middle;">
-                        <img ng-src="{{feature.image_path}}" style="height:263px;width: 263px"/>
-                    </div>
-                </div>
-            </div>
-            
+            <div class="card-content col l3 s3" style="position: absolute; left: 5px">
+              <span class="card-title activator grey-text text-darken-4" style="font-family: 'Libre Franklin', sans-serif; font-size: 30px; font-weight:bold;">{{ feature.title }}<i class="material-icons right">more_vert</i></span>
+          </div>
+
+          <div class="col s2 l4"></div>
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" ng-src="{{feature.image_path}}" style="height: 200px; margin-left: 0px">
         </div>
-    </div>
+
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4" style="font-family: 'Libre Franklin', sans-serif; font-size: 30px; font-weight:bold;">{{ feature.title }}<i class="material-icons right">close</i></span>
+          <p style="font-family: 'Libre Franklin', sans-serif; font-size: 20px;">{{ feature.content }}</p>
+      </div>
+
+
+  </div>
+</div>
 </div>
 
 

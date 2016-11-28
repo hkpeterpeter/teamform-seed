@@ -247,9 +247,9 @@ teamapp.directive('eventCard', function($compile) {
 
 
                     console.log($scope.element);
-                    console.log($rootScope.currentUser.id);
+                    console.log($rootScope.currentUser.$id);
 
-                if($rootScope.currentUser.id==$scope.element.adminID){
+                if($rootScope.currentUser.$id==$scope.element.adminID){
                 //is Admin
 
                     console.log("An Admin");
@@ -273,7 +273,7 @@ teamapp.directive('eventCard', function($compile) {
                     }
 
                     for(var i=0;i<$scope.element.allTeams.length;i++){
-                        if($scope.element.allTeams[i].leader==$rootScope.currentUser.id){
+                        if($scope.element.allTeams[i].leader==$rootScope.currentUser.$id){
                             isLeader=true;
                             console.log("a leader");
                              window.location.href = '#/teamleader';
@@ -291,7 +291,7 @@ teamapp.directive('eventCard', function($compile) {
                     }
 
                        for(var j=0;j<$scope.element.allTeams[i].member.length;j++){
-                            if($scope.element.allTeams[i].member[j]==$rootScope.currentUser.id){
+                            if($scope.element.allTeams[i].member[j]==$rootScope.currentUser.$id){
                                 isMember=true;
                                 console.log("a member");
                                 window.location.href = '#/team';
@@ -328,7 +328,7 @@ teamapp.directive("subcan", function() {
                 eventCreating.description=$scope.eventDescription;
                 eventCreating.minSize=$scope.eventMin;
                 eventCreating.maxSize=$scope.eventMax;
-                eventCreating.adminID=$rootScope.currentUser.id;
+                eventCreating.adminID=$rootScope.currentUser.$id;
                 eventCreating.eventName=$scope.event.name;
                 eventCreating.imageUrl=$rootScope.currentUser.profilePic;
                 console.log(eventCreating);
@@ -339,16 +339,24 @@ teamapp.directive("subcan", function() {
                     console.log(eventID);
 
                      console.log("ID is "+$rootScope.currentUser.$id);
+
                      var tempabc=$rootScope.currentUser;
 
+                     console.log("Current User 1 "+$rootScope.currentUser);
+                      console.log($rootScope.currentUser);
+
                     $firebaseArray($rootScope.user_ref.child($rootScope.currentUser.$id).child("eventsManaging")).$add(eventID).then(function(ref){
-                        $rootScope.currentUser=tempabc;
+                       
                         $rootScope.addNotify($rootScope.currentUser.$id,"A new Event "+eventCreating.eventName+" has been created","","","System");
 
                         Materialize.toast("Your new event "+$scope.event.name+" has been created", 3000);
 
 
                         $scope.cancelEvent();
+                         $rootScope.currentUser=tempabc;
+                            console.log("Current User 2 ");
+                            console.log($rootScope.currentUser);
+
                     });
                      
                       
@@ -383,8 +391,11 @@ teamapp.directive("zhuNavi", function() {
         restrict: "E",
         templateUrl: "zhuxinyu/js/components/fish-navi.html",
          controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
+            $scope.allnoti=[];
         $rootScope.initilizaNofi=function(){
-            $scope.allnoti=$firebaseArray($rootScope.user_ref.child($rootScope.currentUser.id).child("notifs"));
+            console.log("Navibar init");
+            console.log($rootScope.currentUser);
+            $scope.allnoti=$firebaseArray($rootScope.user_ref.child($rootScope.currentUser.$id).child("notifs"));
              $scope.allnoti.$loaded().then(function(data){
                 for(var i=0;i<data.length;i++){
                     if(data[i].type!='invitation'){
@@ -437,7 +448,7 @@ teamapp.directive("invitationBar",function(){
         transclude:true,
         controller: function ($rootScope,$scope,$firebaseObject,$firebaseArray) {
             $scope.accept=function(){
-                console.log("User:"+$rootScope.currentUser.id+" should be added to team "+$scope.team);
+                console.log("User:"+$rootScope.currentUser.$id+" should be added to team "+$scope.team);
             }
         }
     }
@@ -461,6 +472,16 @@ teamapp.directive('teamCard',function(){
                     $scope.map={};
                     $scope.quota=data.max_num - 1 - (data.membersID instanceof Array ? data.membersID.length : 0);
                     $scope.needed=(data.min_num - 1) > 0 ? data.min_num - 1 : 0;
+
+
+                    if(!data.desiredSkills){
+                        data.desiredSkills=[];
+                    }else if(!data.desiredSkills.length){
+                        x=[]
+                        $.each(data.desiredSkills, function(i,n) {
+                        x.push(n);});
+                        data.desiredSkills=x;
+                    }
                     for(var i=0;i<data.desiredSkills.length;i++){
                         $scope.list.push(data.desiredSkills[i].toLowerCase());
                         $scope.map[data.desiredSkills[i].toLowerCase()]=0;
@@ -485,14 +506,14 @@ teamapp.directive('teamCard',function(){
                     if($scope.invited){
 
                     }else{
-                        if($rootScope.currentUser.id==$scope.element.leaderID){
+                        if($rootScope.currentUser.$id==$scope.element.leaderID){
                             //Team leader
                              $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
                               window.location.href = '#/teamleader';
                              return;
                         }else{
                             for(var i=0;i<$scope.element.membersID.length;i++){
-                                if($rootScope.currentUser.id==$scope.element.membersID[i]){
+                                if($rootScope.currentUser.$id==$scope.element.membersID[i]){
                                    $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
                                     window.location.href = '#/team';
 
@@ -599,14 +620,14 @@ teamapp.directive('teamSkill',function(){
                     if($scope.invited){
 
                     }else{
-                        if($rootScope.currentUser.id==$scope.element.leaderID){
+                        if($rootScope.currentUser.$id==$scope.element.leaderID){
                             //Team leader
                              $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
                               window.location.href = '#/teamleader';
                              return;
                         }else{
                             for(var i=0;i<$scope.element.membersID.length;i++){
-                                if($rootScope.currentUser.id==$scope.element.membersID[i]){
+                                if($rootScope.currentUser.$id==$scope.element.membersID[i]){
                                    $rootScope.clickedEvent.$id=$scope.element.belongstoEvent;
                                     window.location.href = '#/team';
 

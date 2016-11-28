@@ -119,7 +119,7 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		console.log($rootScope.events);
 	}
 	$rootScope.loginWithEmail=function(email){
-
+		$rootScope.currentUser.id=0;
 
 		for(var i=0;i<$rootScope.users.length;i++){
 
@@ -167,12 +167,21 @@ teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebas
 		minSize:5
 	}
 	$rootScope.addUser=function(user){
+		console.log("Add user");
+		console.log(user);
 		$rootScope.users.$add(user).then(function(ref) {
+			 console.log(ref);
 		  var id = ref.key;
 		  console.log("added record with id " + id);
 
 		  $rootScope.currentUser=$firebaseObject(firebase.database().ref("users").child(id));
 		  $rootScope.currentUser.id=id;
+		   $rootScope.initilizaNofi();
+
+		// $rootScope.yanzhi($rootScope.currentUser.imageURL,function(data){
+		// 	console.log(data);
+		// });
+
 
 
 	});

@@ -53,7 +53,5 @@
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
     </platform>
-    <plugin name="phonegap-plugin-push" spec="~1.8.4">
-        <variable name="SENDER_ID" value="77825481176" />
-    </plugin>
+
 </widget>

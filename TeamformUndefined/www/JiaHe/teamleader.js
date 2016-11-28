@@ -1,5 +1,8 @@
 teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($rootScope, $scope, $firebaseObject, $firebaseArray) {
 
+    $rootScope.users=$firebaseArray($rootScope.user_ref);
+    $rootScope.events=$firebaseArray($rootScope.event_ref);
+    $rootScope.teams=$firebaseArray($rootScope.team_ref);
     // Add for test
     $scope.event = $rootScope.events.$getRecord($rootScope.clickedEvent.$id);
     // $scope.leader = $firebaseObject(firebase.database().ref('users/' + $rootScope.currentUser.id));
@@ -22,7 +25,7 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
     $scope.deleteMember = function(member) {
         $firebaseObject(firebase.database().ref('users/' + member.$id + '/teamsAsMember/' + $scope.team.$id)).$remove();
         var index = $scope.members.indexOf(member);
-        membersID.$remove(index);
+        $scope.membersID.$remove(index);
         $scope.members.splice(index, 1);
         addNotif(member.$id, "normal", "You are removed from Team " + $scope.team.teamName);
     }
@@ -58,9 +61,14 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
                 for (user in $rootScope.users) {
                     if ($rootScope.users[user].email == $scope.invite.desiredSkills[i]) {
                         var userID = $rootScope.users[user].$id;
-                        firebase.database().ref('teams/' + $scope.team.$id + '/invitedPeople').child(userID).set(userID);
-                        $scope.invitedPeople.push($rootScope.users[user]);
-                        firebase.database().ref('users/' + userID + '/teamsAsInvitedPeople').child($scope.team.$id).set($scope.team.$id);
+                        if ($scope.membersID.$indexFor(userID) == -1) {
+                            firebase.database().ref('teams/' + $scope.team.$id + '/invitedPeople').child(userID).set(userID);
+                            $scope.invitedPeople.push($rootScope.users[user]);
+                            firebase.database().ref('users/' + userID + '/teamsAsInvitedPeople').child($scope.team.$id).set($scope.team.$id);
+                        }
+                        else {
+                            window.alert("User is already in your team.")
+                        }
                         break;
                     }
                 }
@@ -126,6 +134,7 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
             teamID: $scope.team.$id,
             teamName: $scope.team.teamName,
             read: false,
+            imageURL: $scope.leader.profilePic,
             senderEmail: $scope.leader.email,
             sendName: $scope.leader.name,
             type: type
@@ -134,7 +143,7 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
     }
 
     var flag = 0;
-    var membersID = $firebaseArray(firebase.database().ref('teams/' + teamID + '/membersID'));
+    $scope.membersID = $firebaseArray(firebase.database().ref('teams/' + teamID + '/membersID'));
     var applicantsID = $firebaseArray(firebase.database().ref('teams/' + teamID + '/pendingApplicants'));
     var invitedPeopleID = $firebaseArray(firebase.database().ref('teams/' + teamID + '/invitedPeople'));
 
@@ -152,8 +161,8 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
             $scope.members = [];
             $scope.applicants = [];
             $scope.invitedPeople = [];
-            for (i = 0; i < membersID.length; i++) {
-                $scope.members.push($firebaseObject(firebase.database().ref('users/' + membersID[i].$value)));
+            for (i = 0; i < $scope.membersID.length; i++) {
+                $scope.members.push($firebaseObject(firebase.database().ref('users/' + $scope.membersID[i].$value)));
             }
             for (i = 0; i < applicantsID.length; i++) {
                 $scope.applicants.push($firebaseObject(firebase.database().ref('users/' + applicantsID[i].$value)));
@@ -165,3 +174,28 @@ teamapp.controller('teamleader_controll', ['$scope', "$rootScope", "$firebaseObj
         }
     };
 }]);
+// teamapp.directive('memberCard',function(){
+//     return{
+//         restrict:"E",
+//         templateUrl:"jiahe/memberCard.html",
+//         scope:{
+//             memberId:'@',
+//             teamId:'@'
+//         },
+//         controller:function($rootScope,$scope,$firebaseObject,$firebaseArray){
+//
+//                 // $scope.imageUrl="zhuxinyu/img/load"+Math.ceil(Math.random()*5)+".gif";
+//                 // $scope.member=$rootScope.users.$getRecord($rootScope.currentUser.id)
+//                 $scope.member=$rootScope.users.$getRecord($scope.memberId);
+//                 $scope.team = $firebaseObject(firebase.database().ref('teams/' + teamId));
+//                 $firebaseArray(firebase.database().ref('teams/' + teamId + '/membersID')).$bindTo($scope,"membersID");
+//
+//                 $scope.deleteMember = function() {
+//                     $firebaseObject(firebase.database().ref('users/' + $scope.memberId + '/teamsAsMember/' + $scope.teamId)).$remove();
+//                     $scope.membersID.$remove(memberId);
+//                     addNotif($scope.memberId, "normal", "You are removed from Team " + $scope.team.teamName);
+//                 }
+//         }
+//     }
+//
+// });
