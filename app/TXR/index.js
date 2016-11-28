@@ -215,24 +215,25 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 			};
 
 
-      // var storageRef = firebase.storage().ref();
-      // eventlist.$loaded(function(){
-      //
-      //   var avaFilenameevent = eventlist[$scope.eventname]["img"];
-      //
-      //   var eventavaRef = storageRef.child('event/'+avaFilenameevent);
-      //
-      //   eventavaRef.getMetadata().then(function(metadata){
-      //     $scope.eventavaUrl = metadata.downloadURLs[0];
-      //
-			// 		$scope.$apply();
-      //   });
+      var storageRef = firebase.storage().ref();
+      eventlist.$loaded(function(){
 
-      // });
+        // var avaFilenameevent = eventlist[$scope.eventname]["img"];
+        //
+        // var eventavaRef = storageRef.child('event/'+avaFilenameevent);
+        //
+        // eventavaRef.getMetadata().then(function(metadata){
+        //   $scope.eventavaUrl = metadata.downloadURLs[0];
+        //
+				// 	$scope.$apply();
+        // });
+        $scope.eventavaUrl = eventlist[$scope.eventname].img;
 
-      // eventlist.$loaded(function(){
-      //
-      //
+      });
+
+      eventlist.$loaded(function(){
+
+
       //   var avaFilenameteam = eventlist[$scope.eventname]["teamList"][$scope.teamname]["img"];
       //
       //   var teamavaRef = storageRef.child('team/'+$scope.eventname+'/'+avaFilenameteam);
@@ -242,7 +243,8 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       //
 			// 	$scope.$apply();
       //  });
-      // });
+        $scope.teamavaUrl = eventlist[$scope.eventname].teamList[$scope.teamname].img;
+      });
 
       //  userlist.$loaded().then(function(){
 
