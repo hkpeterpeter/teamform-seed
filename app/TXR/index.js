@@ -175,6 +175,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
             //if (!(teamname in eventlist[$scope.eventname]["teamList"])) {
 
+              if (eventlist[$scope.eventname].teamList == undefined) eventlist[$scope.eventname].teamList = {};
               eventlist[$scope.eventname]["teamList"][newteamname]={
                      "leader": thisuser,
                      "introduction": introduction,
@@ -767,9 +768,11 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
           "teamName": "Null"
         }
 
+      if (userlist[$scope.thisuser].Membership = undefined) userlist[$scope.thisuser].Membership = {};
       userlist[$scope.thisuser]["Membership"][event]=$scope.newevent;
       userlist.$save();
       eventlist.$loaded(function() {
+        if (eventlist[event].inEventUser == undefined) eventlist[event].inEventUser = [];
         $scope.length=eventlist[event]["inEventUser"].length;
             eventlist[event]["inEventUser"][$scope.length]=$scope.thisuser;
       eventlist.$save();
