@@ -1,6 +1,8 @@
 teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($scope, $rootScope, $firebaseObject, $firebaseArray) {
-
-  $scope.currentEvent = $rootScope.clickedEvent.$id;
+  if ($rootScope.currentUser.$id == undefined) {
+    document.location.href="#/search";
+  }
+  $scope.currentEvent = $rootScope.clickedEvent.$id == undefined ? 0 : $rootScope.clickedEvent.$id;
   $scope.currentUser = $rootScope.currentUser.$id == undefined ? $rootScope.currentUser.id : $rootScope.currentUser.$id;
   $scope.events = $rootScope.events;
   $scope.users = $rootScope.users;
@@ -67,7 +69,13 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
             for (var key in user.teamsApplying) {
               if (user.teamsApplying[key] == datas[i].teamID) {
                 $scope.teams[i].applied = true;
+              } else {
+                $scope.teams[i].applied = false;
               }
+            }
+          } else {
+            for (var i=0; i<datas.length; ++i) {
+              $scope.teams[i].applied = false;
             }
           }
         }
