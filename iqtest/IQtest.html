@@ -20,6 +20,19 @@
 		
 		function fishSub(){
 			document.getElementById("mb-iqsubmit").style.display = "block";
+			
+		}
+		function fishSubSub(){
+			document.getElementById("mb-eqsubmit").style.display = "block";
+			
+		}
+		function showClose(){
+			document.getElementById("mb-submitted").style.display = "block";
+		}
+		function closeBox(){
+			document.getElementById("mb-eqsubmit").style.display = "none";
+			document.getElementById("mb-iqsubmit").style.display = "none";
+			document.getElementById("mb-submitted").style.display = "none";
 		}
 		</script>		
     </head>
@@ -730,7 +743,7 @@
 												</form>
 											</div>                        
 											<!-- END WIZARD WITH SUBMIT BUTTON -->
-											<button class="btn btn-primary pull-right">Submit</button>
+											<button class="btn btn-primary pull-right" onclick="fishSub()"><a href="#">Submit</a></button>
                                         </div>
 										
                                         <div class="tab-pane" id="tab-second">
@@ -944,7 +957,8 @@
 													</div>
 												</div>
 											</div>
-                                            <button class="btn btn-primary pull-right">Submit</button>
+                                            <button class="btn btn-primary pull-right" onclick="fishSubSub()"><a href="#">Submit</a></button>
+											
                                         </div>                                        
                                         
                                     </div>
@@ -959,7 +973,7 @@
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->   
 				
-		<a href="#" class="mb-control" data-box="#mb-iqsubmit">asd</a>
+		
 		
         <div class="message-box animated fadeIn" data-sound="alert" id="mb-iqsubmit">
             <div class="mb-container">
@@ -971,8 +985,43 @@
                     </div>
                     <div class="mb-footer">
                         <div class="pull-right">
-                            <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
-                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                            <button onclick="showClose()" class="btn btn-success btn-lg">Yes</button>
+                            <button class="btn btn-default btn-lg mb-control-close" onclick="closeBox()">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="message-box animated fadeIn" data-sound="alert" id="mb-eqsubmit">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"> <strong>Submit ?</strong></div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to submit?</p>                    
+                        <p>Press No if you want to change answers to increase EQ . Press Yes think your EQ is enough or maximized.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <button onclick="showClose()" class="btn btn-success btn-lg">Yes</button>
+                            <button class="btn btn-default btn-lg mb-control-close" onclick="closeBox()">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<div class="message-box animated fadeIn" data-sound="alert" id="mb-submitted">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"> <strong>Your result have been submitted.</strong></div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to submit?</p>                    
+                        <p>Press No if you want to change answers to increase EQ . Press Yes think your EQ is enough or maximized.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="Profilo.html" class="btn btn-success btn-lg">Close</a>
+                            <button class="btn btn-default btn-lg mb-control-close" onclick="closeBox()">Back to test</button>
                         </div>
                     </div>
                 </div>
