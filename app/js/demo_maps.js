@@ -78,7 +78,7 @@ if($("#vector_world_map").length > 0){
 /* Google maps */
 
 if($("#google_ptm_map").length > 0){
-    var gPTMCords = new google.maps.LatLng(22.33673884, 114.26321983);
+    var gPTMCords = new google.maps.LatLng(22.36277649, 114.11876678);
     var gPTMOptions = {zoom: 11,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
     var gPTM = new google.maps.Map(document.getElementById("google_ptm_map"), gPTMOptions);        
     var infowindow = new google.maps.InfoWindow();
@@ -90,21 +90,31 @@ if($("#google_ptm_map").length > 0){
       ['Central', 22.28385476, 114.15112495, 1]
     ];
     var member = ['Harry', 'Howe', 'Fish', 'Cally', 'Me'];
-    var marker, i;
-    var gMarkers = [];
+    var markers = [];
 
-    for (i = 0; i < locations.length; i++) {  
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: gPTM
+    function createMarker(latlng, html) {
+    var marker = new google.maps.Marker({
+        position: latlng,
+        map: gPTM
     });
     
-    google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-        infowindow.setContent(locations[i][0] + ' (' + member[i] + ')');
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent(html);
         infowindow.open(gPTM, marker);
-        }
-    })(marker, i));
+    });
+    return marker;
+    }
+
+    for (var i = 0; i < locations.length; i++) {
+        markers[locations[i][0]] = createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), locations[i][0] + ' (' + member[i] + ')');
+    }
+
+    function linkMarkerButton(marker)
+    {
+        var section = document.getElementById('test');
+        google.maps.event.addDomListener(section, "click", function(){
+            google.maps.event.trigger(marker, "click");
+        });
     }
 }
 if($("#google_world_map").length > 0){

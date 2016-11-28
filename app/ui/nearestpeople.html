@@ -52,8 +52,7 @@
 <script src="requests.js"></script>
 <script src="randomEvent.js"></script>
 
-
-  <script>
+<script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
@@ -63,7 +62,176 @@
             messagingSenderId: "554833059052"
         };
         firebase.initializeApp(config);
-    
+
+        function Initialize1()
+        {
+            if($("#google_ptm_map").length > 0)
+            {
+                var gPTMCords = new google.maps.LatLng(22.33673884, 114.26321983);
+                var gPTMOptions = {zoom: 11,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
+                var gPTM = new google.maps.Map(document.getElementById("google_ptm_map"), gPTMOptions);        
+                var infowindow = new google.maps.InfoWindow();
+                var locations = [
+                ['Central', 22.28385476, 114.15112495, 1]
+                ];
+                var member = ['Me'];
+                var markers = [];
+
+                function createMarker(latlng, html) {
+                    var marker = new google.maps.Marker({
+                        position: latlng,
+                        map: gPTM
+                });
+                infowindow.setContent(html);
+                infowindow.open(gPTM, marker);
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(html);
+                    infowindow.open(gPTM, marker);
+                });
+                return marker;
+                }
+
+                for (var i = 0; i < locations.length; i++) {
+                    markers[locations[i][0]] = createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), locations[i][0] + ' (' + member[i] + ')');
+                }
+            }
+        }
+
+        function Initialize2()
+        {
+            if($("#google_ptm_map").length > 0)
+            {
+                var gPTMCords = new google.maps.LatLng(22.33673884, 114.26321983);
+                var gPTMOptions = {zoom: 11,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
+                var gPTM = new google.maps.Map(document.getElementById("google_ptm_map"), gPTMOptions);        
+                var infowindow = new google.maps.InfoWindow();
+                var locations = [
+                ['Yuen Long', 22.44546134, 114.02632713, 5]
+                ];
+                var member = ['Howe'];
+                var markers = [];
+
+                function createMarker(latlng, html) {
+                    var marker = new google.maps.Marker({
+                        position: latlng,
+                        map: gPTM
+                });
+                infowindow.setContent(html);
+                infowindow.open(gPTM, marker);
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(html);
+                    infowindow.open(gPTM, marker);
+                });
+                return marker;
+                }
+
+                for (var i = 0; i < locations.length; i++) {
+                    markers[locations[i][0]] = createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), locations[i][0] + ' (' + member[i] + ')');
+                }
+            }
+        }
+
+        function Initialize3()
+        {
+            if($("#google_ptm_map").length > 0)
+            {
+                var gPTMCords = new google.maps.LatLng(22.33673884, 114.26321983);
+                var gPTMOptions = {zoom: 11,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
+                var gPTM = new google.maps.Map(document.getElementById("google_ptm_map"), gPTMOptions);        
+                var infowindow = new google.maps.InfoWindow();
+                var locations = [
+                ['Tuen Mun', 22.38831326, 113.98009658, 4]
+                ];
+                var member = ['Harry'];
+                var markers = [];
+
+                function createMarker(latlng, html) {
+                    var marker = new google.maps.Marker({
+                        position: latlng,
+                        map: gPTM
+                });
+                infowindow.setContent(html);
+                infowindow.open(gPTM, marker);
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(html);
+                    infowindow.open(gPTM, marker);
+                });
+                return marker;
+                }
+
+                for (var i = 0; i < locations.length; i++) {
+                    markers[locations[i][0]] = createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), locations[i][0] + ' (' + member[i] + ')');
+                }
+            }
+        }
+
+        function Initialize4()
+        {
+            if($("#google_ptm_map").length > 0)
+            {
+                var gPTMCords = new google.maps.LatLng(22.33673884, 114.26321983);
+                var gPTMOptions = {zoom: 11,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
+                var gPTM = new google.maps.Map(document.getElementById("google_ptm_map"), gPTMOptions);        
+                var infowindow = new google.maps.InfoWindow();
+                var locations = [
+                ['Cheung Sha Wan', 22.33261048, 114.14975166, 3]
+                ];
+                var member = ['Fish'];
+                var markers = [];
+
+                function createMarker(latlng, html) {
+                    var marker = new google.maps.Marker({
+                        position: latlng,
+                        map: gPTM
+                });
+                infowindow.setContent(html);
+                infowindow.open(gPTM, marker);
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(html);
+                    infowindow.open(gPTM, marker);
+                });
+                return marker;
+                }
+
+                for (var i = 0; i < locations.length; i++) {
+                    markers[locations[i][0]] = createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), locations[i][0] + ' (' + member[i] + ')');
+                }
+            }
+        }
+
+        function Initialize5()
+        {
+            if($("#google_ptm_map").length > 0)
+            {
+                var gPTMCords = new google.maps.LatLng(22.33673884, 114.26321983);
+                var gPTMOptions = {zoom: 11,center: gPTMCords, mapTypeId: google.maps.MapTypeId.ROADMAP}    
+                var gPTM = new google.maps.Map(document.getElementById("google_ptm_map"), gPTMOptions);        
+                var infowindow = new google.maps.InfoWindow();
+                var locations = [
+                ['The Hong Kong University of Science and Technology', 22.33515102, 114.26407814, 2]
+                ];
+                var member = ['Cally'];
+                var markers = [];
+
+                function createMarker(latlng, html) {
+                    var marker = new google.maps.Marker({
+                        position: latlng,
+                        map: gPTM
+                });
+                infowindow.setContent(html);
+                infowindow.open(gPTM, marker);
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.setContent(html);
+                    infowindow.open(gPTM, marker);
+                });
+                return marker;
+                }
+
+                for (var i = 0; i < locations.length; i++) {
+                    markers[locations[i][0]] = createMarker(new google.maps.LatLng(locations[i][1], locations[i][2]), locations[i][0] + ' (' + member[i] + ')');
+                }
+            }
+        }
 </script>
 </head>
     <body>
@@ -350,7 +518,7 @@
                             <!-- START GOOGLE MAP WITH MARKER -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Google Map With Markers</h3>
+                                    <h3 class="panel-title">Map</h3>
                                 </div>
                                 <div class="panel-body panel-body-map">
                                     <div id="google_ptm_map" style="width: 100%; height: 600px;"></div>
@@ -362,17 +530,18 @@
                             <!-- NEARBY LIST WIDGET -->
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Nearest People</h3>         
+                                    <h3 class="panel-title">Nearest People</h3>  
                                 </div>
                                 <div class="panel-body list-group list-group-contacts">                                
                                     <a href="#" class="list-group-item">                                 
                                         <div class="list-group-status status-online"></div>
                                         <img src="assets/images/users/user.jpg" class="pull-left" alt="Kit"/>
                                         <span class="contacts-title">Kit</span>
-                                        <p>You</p>                                                                      
+                                        <p>You</p>
                                         <div class="list-group-controls">
                                             <button class="btn btn-success"><span class="fa fa-inbox"></span></button>
-                                        </div>                                    
+                                            <button class="btn btn-success" onclick="Initialize1()"><span class="fa fa-location-arrow"></span></button>
+                                        </div> 
                                     </a>
                                     <a href="#" class="list-group-item">                                 
                                         <div class="list-group-status status-online"></div>
@@ -382,6 +551,7 @@
                                         <p>teamNull</p>                                                                        
                                         <div class="list-group-controls">
                                             <button class="btn btn-success"><span class="fa fa-inbox"></span></button>
+                                            <button class="btn btn-success" onclick="Initialize2()"><span class="fa fa-location-arrow"></span></button>
                                         </div>                                    
                                     </a>                       
                                     <a href="#" class="list-group-item">                                 
@@ -391,6 +561,7 @@
                                         <p>teamNull</p>                                                                        
                                         <div class="list-group-controls">
                                             <button class="btn btn-success"><span class="fa fa-inbox"></span></button>
+                                            <button class="btn btn-success" onclick="Initialize3()"><span class="fa fa-location-arrow"></span></button>
                                         </div>                                    
                                     </a>                                                         
                                     <a href="#" class="list-group-item">                                 
@@ -400,6 +571,7 @@
                                         <p>teamNull</p>                                                                        
                                         <div class="list-group-controls">
                                             <button class="btn btn-success"><span class="fa fa-inbox"></span></button>
+                                            <button class="btn btn-success" onclick="Initialize4()"><span class="fa fa-location-arrow"></span></button>
                                         </div>                                    
                                     </a>
                                     <a href="#" class="list-group-item">                                 
@@ -409,12 +581,58 @@
                                         <p>teamNull</p>                                                                        
                                         <div class="list-group-controls">
                                             <button class="btn btn-success"><span class="fa fa-inbox"></span></button>
+                                            <button class="btn btn-success" onclick="Initialize5()"><span class="fa fa-location-arrow"></span></button>
                                         </div>                                    
                                     </a>                           
                                 </div>
                             </div>
                             <!-- END NEARBY LIST WIDGET -->
+                          
                         </div>
+                          <!-- SETTINGS WIDGET -->
+                        <div class="col-md-4">   
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><span class="fa fa-cogs"></span> Settings</h3>                                
+                                    <ul class="panel-controls">
+                                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                                        <li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                    </ul>                                   
+                                </div>
+                                <div class="panel-body">
+                                    <form action="#" role="form" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label text-left">Location</label>
+                                            <div class="col-md-3">
+                                                <label class="switch">
+                                                    <input type="checkbox" onclick="Initialize()" class="switch" value="1" checked/>
+                                                    <span></span>
+                                                </label>                                            
+                                            </div>
+                                            <div class="col-md-5">
+                                                <span class="help-block">Allow people to search you?</span>
+                                            </div>
+                                        </div>                                    
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label text-left">Show Other</label>
+                                            <div class="col-md-3">
+                                                <label class="switch">
+                                                    <input type="checkbox" class="switch" onclick="$(this).val(this.checked ? window.location.reload() : Initialize1())" value="1" checked/>
+                                                    <span></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <span class="help-block">Display the people you not known?</span>
+                                            </div>                                        
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- END SETTINGS WIDGET -->
                     </div>
                 </div>
                 <!-- END PAGE CONTENT WRAPPER -->                                                 
