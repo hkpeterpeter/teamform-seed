@@ -547,8 +547,7 @@
 
 
 
-  <!-- Modal -->
- 	<div id = "xxx" class = "modal fade" role = "dialog">
+ <div id = "xxx" class = "modal fade" role = "dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -566,19 +565,26 @@
 						<div class = "row">
 							<div class="col-sm-6 placeholder">
 								<h3 class="text-left" style = "font-weight:bold">{{suggested_users.name}}</h3>
-
+							
 							</div>
-
+							<div class="col-sm-6 placeholder">
+								<button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg" ng-click = "sendMessage('Join me please','invite',currentUser)">Invite</button>
+								<p ng-show = "noTeam"><small class="text-danger">You are not team leader</small></p>
+								<p ng-show = "full"><small class="text-danger">Your team is full</small></p>
+								<p ng-show = "yourself"><small class="text-danger">Can`t invite yourself</small></p>
+								<p ng-show = "inTeam"><small class="text-danger">Team member</small></p>
+								
+							</div>
 							</div>
 							<div class = "row">
 								<div class = "col-sm-12">
 									<p style = "text-align: left;">Website:<a href = "{{suggested_users.personalWebsite}}" target="_blank">{{suggested_users.personalWebsite}}</a></p>
-									<p style = "text-align: left;">Email:{{suggested_users.email}}</p>
+									<p style = "text-align: left;">{{suggested_users.email}}</p>
 								</div>
 							</div>
 						</div>
 					</div>
-
+					
 					<div class = "row placeholder">
 						<div class = "col-md-12">
 							<h4 style = "font-weight:bold">Intruduction:</h4>
@@ -586,8 +592,8 @@
 						</div>
 					</div>
 
-
-
+          
+		  
 					<h2 class="sub-header">Skills</h2>
 					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
 
@@ -596,6 +602,9 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
+			
+		</div>
+	</div>
 
 		</div>
 	</div>

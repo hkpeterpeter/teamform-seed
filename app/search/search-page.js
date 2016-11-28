@@ -704,7 +704,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				};
 
 				if(keep_going){
-					conversation[conversation_name]["event"]=Naruto.Sakura;
+					conversation[conversation_name]["event"]=Naruto.Luffy;
 					var one_log = {};
 					one_log["message"] = message;
 					one_log["sender"] = thisUser;
@@ -752,7 +752,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					length ++;
 				}
 				initial ++;
-				if(initial == 1)Notification("You have " + length + " notification(s)");
+				if(initial == 1 && length > 0)Notification("You have " + length + " notification(s)");
 				if(initial != 1&&(length >= $scope.notes )){
 				  Notification('New notification');
 				}
