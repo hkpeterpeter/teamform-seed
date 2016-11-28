@@ -74,7 +74,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
          .state('personal', {
             url: '/personal',
-            templateUrl: 'personal_page.html',
+            templateUrl: 'Profilo.html',
             controller: 'Personal',
             authRequired: true,
              })
