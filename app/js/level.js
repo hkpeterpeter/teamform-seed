@@ -5,6 +5,11 @@ app.controller("levelCtrl",
 
 	// Implementation the todoCtrl 
 	function($scope, $firebaseArray,$window,$timeout) {
+        $scope.pi = {
+            current : 0,
+            total : 0,
+            level : 50
+        }
         $scope.current = 0;
         $scope.total = 100;
         value = '0%';
@@ -20,11 +25,17 @@ app.controller("levelCtrl",
         });
         
         $scope.add = function (){
-			$scope.current=0;
+            $scope.current = 0;
             $scope.total = 150;
             $scope.level = 6;
+			$scope.pi.current = 0;
+            $scope.pi.total = 150;
+            $scope.pi.level = 6;
             $scope.value = ($scope.current)/$scope.total*100 +"%";
             knobfunction($scope.value);
+            var path = "pi/-KXZT3IRQsjkIkOel4J5";
+            var itemRef = firebase.database().ref(path);
+            itemRef.update($scope.pi);
             //window.alert("Congratulation! Level Up!");
         };
 
