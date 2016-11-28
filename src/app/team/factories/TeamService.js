@@ -56,11 +56,13 @@ export default class TeamService {
                 if (!teamJoin.data.directJoin) {
                     newTeamUser.pending = true;
                     newTeamUser.confirmed = false;
-                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, user.name + ' Request to Join ' + teamJoin.data.name);
+                    let me = await this.userService.me();
+                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, me.data.name + ' Request to Join ' + teamJoin.data.name + ' Message: '+message);
                     return users.$add(newTeamUser);
                 } else {
                     teamUser.id = newTeamUser.id;
-                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, user.name + ' Joined Your Team: ' + teamJoin.data.name);
+                    let me = await this.userService.me();
+                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, me.data.name + ' Joined Your Team: ' + teamJoin.data.name);
                     return users.$save(teamUser);
                 }
             }
@@ -116,43 +118,53 @@ export default class TeamService {
         return teamUser;
     }
     async confirmTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.confirmed = null;
         teamUser.message = null;
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, teamUser.id, me.data.name + ' accepted your team join request ' + team.data.name);
         let oldTeamUser = await this.getTeamPositionUser(id, teamUser.refId);
         await oldTeamUser.$remove();
         return teamUser.$save();
     }
     async rejectConfirmTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, teamUser.id, me.data.name + ' rejected your team join request ' + team.data.name);
         teamUser.refId = null;
-        return teamUser.$save();
+        return teamUser.$remove();
     }
     async acceptTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.accepted = null;
         teamUser.message = null;
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, team.data.createdBy, me.data.name + ' accepted your team invite request ' + team.data.name);
         return teamUser.$save();
     }
     async rejectAcceptTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.id = null;
         teamUser.pending = null;
         teamUser.accepted = null;
         teamUser.message = null;
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, team.data.createdBy, me.data.name + ' rejected your team invite request ' + team.data.name);
         return teamUser.$save();
     }
     async cancelRequestTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         await teamUser.$remove();
-        return teamUser.$save();
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, team.data.createdBy, me.data.name + ' canceled his team join request ' + team.data.name);
+        return teamUser.$remove();
     }
     async removeTeamPosition(id, positionId) {
         let teamUser = await this.getTeamPositionUser(id, positionId);

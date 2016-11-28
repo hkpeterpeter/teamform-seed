@@ -1,9 +1,10 @@
 export default class EventDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, NgTableParams, eventService, teamService, userService) {
+    constructor($location, $state, $stateParams, $timeout, ngNotify, NgTableParams, eventService, teamService, userService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
+        this.ngNotify = ngNotify;
         this.eventService = eventService;
         this.teamService = teamService;
         this.userService = userService;
@@ -59,10 +60,11 @@ export default class EventDetailCtrl {
         try {
             let eventUsers = await this.eventService.joinEvent(this.$stateParams.eventId);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Joined Event Successfully!', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -132,6 +134,7 @@ export default class EventDetailCtrl {
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -252,6 +255,9 @@ export default class EventDetailCtrl {
     async saveTeam() {
         try {
             for(let teamItem of this.teamList) {
+                if(teamItem.type == 'noTeam') {
+                    continue;
+                }
                 let team = await this.teamService.getTeam(teamItem.$id);
                 if(teamItem.remove) {
                     await this.teamService.deleteTeam(team);
@@ -288,10 +294,11 @@ export default class EventDetailCtrl {
                 await this.teamService.editTeam(team);
             }
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Team Saved', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -303,6 +310,7 @@ EventDetailCtrl.$inject = [
     '$state',
     '$stateParams',
     '$timeout',
+    'ngNotify',
     'NgTableParams',
     'EventService',
     'TeamService',

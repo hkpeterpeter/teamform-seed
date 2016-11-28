@@ -1,6 +1,6 @@
 'use strict';
 
-// Modules
+require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
 
@@ -10,6 +10,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const S3Plugin = require('webpack-s3-plugin');
 
 let ENV = process.env.npm_lifecycle_event;
 let isTest = ENV === 'test' || ENV === 'test-watch';
@@ -74,7 +75,7 @@ module.exports = function makeWebpackConfig() {
             }, {
                 test: /\.scss$/,
                 loaders: [
-                    'style', 'css?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'postcss', 'sass'
+                    'style', 'css?modules&localIdentName=[hash:base64:10]', 'postcss', 'sass'
                 ],
                 exclude: /(global)/
             }, {
@@ -112,12 +113,7 @@ module.exports = function makeWebpackConfig() {
     }
 
     config.postcss = [require('autoprefixer')({browsers: ['last 3 version']})];
-    let CONFIG;
-    try {
-        CONFIG = require('./config.js')
-    } catch (error) {
-        CONFIG = process.env;
-    }
+    let CONFIG = require('./config.js');
     config.plugins = [
         new ProvidePlugin({$: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery', 'root.jQuery': 'jquery', '_': 'lodash'}),
         new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])),
@@ -131,19 +127,38 @@ module.exports = function makeWebpackConfig() {
     }
 
     if (!isProd) {
-        config.plugins.push(new webpack.HotModuleReplacementPlugin())
+        config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }
 
     if (isProd) {
-        config.plugins.push(new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production')
-            }
-        }), new webpack.NoErrorsPlugin(), new webpack.optimize.DedupePlugin(), new webpack.optimize.UglifyJsPlugin(), new CopyWebpackPlugin([
-            {
+        config.plugins.push(
+            new webpack.DefinePlugin({
+                'process.env': {
+                    NODE_ENV: JSON.stringify('production')
+                }
+            }),
+            new webpack.NoErrorsPlugin(),
+            new webpack.optimize.DedupePlugin(),
+            new webpack.optimize.UglifyJsPlugin(),
+            new CopyWebpackPlugin([{
                 from: __dirname + '/src/public'
-            }
-        ]))
+            }]),
+            new S3Plugin({
+                exclude: /\.(html|xml|txt)$/,
+                s3Options: {
+                    accessKeyId: process.env.AWS_ACCESS_KEY,
+                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                    region: process.env.AWS_REGION
+                },
+                s3UploadOptions: {
+                    Bucket: process.env.AWS_BUCKET,
+                    CacheControl: 'max-age=315360000, no-transform, public'
+                },
+                cdnizerOptions: {
+                    defaultCDNBase: CONFIG.CDN_URL
+                }
+            })
+        );
     }
 
     config.devServer = {

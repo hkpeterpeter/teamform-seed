@@ -1,9 +1,10 @@
 export default class TeamDetailCtrl {
-    constructor($location, $state, $stateParams, $timeout, authService, teamService) {
+    constructor($location, $state, $stateParams, $timeout, ngNotify, authService, teamService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
+        this.ngNotify = ngNotify;
         this.authService = authService;
         this.teamService = teamService;
         this.team = null;
@@ -19,6 +20,7 @@ export default class TeamDetailCtrl {
         } catch (error) {
             this.$timeout(() => {
                 this.error = error;
+                this.ngNotify.set(error.message, {type: 'error'});
             });
         }
     }
@@ -26,10 +28,11 @@ export default class TeamDetailCtrl {
         try {
             let teamUsers = await this.teamService.joinTeam(this.$stateParams.teamId, positionId, message);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Joined Team Successfully!', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -38,11 +41,12 @@ export default class TeamDetailCtrl {
         try {
             let teamUsers = await this.teamService.confirmTeamPosition(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Confirmed User Successfully!', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
                 this.error = error;
+                this.ngNotify.set(error.message, {type: 'error'});
             });
         }
     }
@@ -50,10 +54,11 @@ export default class TeamDetailCtrl {
         try {
             let teamUsers = await this.teamService.rejectConfirmTeamPosition(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Rejected User Successfully!', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -62,10 +67,11 @@ export default class TeamDetailCtrl {
         try {
             let teamUsers = await this.teamService.acceptTeamPosition(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Accepted Invite Successfully!');
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -74,10 +80,11 @@ export default class TeamDetailCtrl {
         try {
             let teamUsers = await this.teamService.rejectAcceptTeamPosition(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Rejected Invite Successfully!', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -86,10 +93,11 @@ export default class TeamDetailCtrl {
         try {
             let teamUsers = await this.teamService.cancelRequestTeamPosition(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Canceled Team Request Successfully!', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -98,10 +106,11 @@ export default class TeamDetailCtrl {
         try {
             let teamUsers = await this.teamService.removeTeamPosition(this.$stateParams.teamId, positionId);
             this.$timeout(() => {
-                console.log('success');
+                this.ngNotify.set('Removed Member Successfully!', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
+                this.ngNotify.set(error.message, {type: 'error'});
                 this.error = error;
             });
         }
@@ -128,4 +137,4 @@ export default class TeamDetailCtrl {
     }
 }
 
-TeamDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'AuthService', 'TeamService'];
+TeamDetailCtrl.$inject = ['$location', '$state', '$stateParams', '$timeout', 'ngNotify', 'AuthService', 'TeamService'];
