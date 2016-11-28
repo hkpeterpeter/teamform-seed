@@ -76,8 +76,12 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
     // TODO: delete this conversation
     addnotification($scope.event,$scope.thisuser+" accepted your "+$scope.convType,$scope.p);
     $scope.eventList[$scope.event].teamList[$scope.team].memberList.push($scope.targetUser);
-    $scope.eventList.$save().then(function(){
-      gotoURL("/TXR/#/MyEvents/"+$scope.event,[],$window);
+    $scope.userList[$scope.targetUser].Membership[$scope.event].identity = 'member';
+    $scope.userList[$scope.targetUser].Membership[$scope.event].teamName = $scope.team;
+    $scope.userList.$save().then(function(){
+      $scope.eventList.$save().then(function(){
+        gotoURL("/TXR/#/MyEvents/"+$scope.event,[],$window);
+      });
     });
   };
   $scope.reject = function(){
