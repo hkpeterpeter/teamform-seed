@@ -4,7 +4,7 @@
 var app = angular.module("search", ["firebase", "clock"]);
 
 app.controller("searchCtrl",
-    function($scope, $firebaseArray, $sce) {
+    function ($scope, $firebaseArray, $sce) {
         $scope.trustAsHtml = $sce.trustAsHtml;
 
         $scope.user = null;
@@ -42,22 +42,22 @@ app.controller("searchCtrl",
             defaultTm: "0",
             defaultT: ["-1", "-1", "-1", false, false],
             defaultM: ["-1", "-1", "-1", "-1", false],
-            clearT: function() {
+            clearT: function () {
                 for (var i = 0; i < this.defaultT.length; i++)
                     this.t[i] = this.defaultT[i];
             },
-            clearM: function() {
+            clearM: function () {
                 for (var i = 0; i < this.defaultM.length; i++)
                     this.m[i] = this.defaultM[i];
             },
-            clear: function() {
+            clear: function () {
                 this.tm = this.defaultTm;
                 this.clearT();
                 this.clearM();
                 this.tDis = false;
                 this.mDis = false;
             },
-            hasConstraints: function() {
+            hasConstraints: function () {
                 if (this.tm != this.defaultTm)
                     return true;
                 if (this.hasTeamConstraints())
@@ -66,13 +66,13 @@ app.controller("searchCtrl",
                     return true;
                 return false;
             },
-            hasTeamConstraints: function() {
+            hasTeamConstraints: function () {
                 for (var i = 0; i < this.t.length; i++)
                     if (this.t[i] != this.defaultT[i])
                         return true;
                 return false;
             },
-            hasMemberConstraints: function() {
+            hasMemberConstraints: function () {
                 for (var i = 0; i < this.m.length; i++)
                     if (this.m[i] != this.defaultM[i])
                         return true;
@@ -95,6 +95,9 @@ app.controller("searchCtrl",
             this.full = _team.full;
             this.depart = _team.departure_date;
             this.desireToGo = "";
+            var temp = _team.id;
+            temp = temp.replace(/\s|Team|id|\:/gi, "");
+            this.href = "team.html?teamId=" + temp;
         }
 
         function resultElement(_id, _name, _description, _eid, _language, _country, _tags, _email, _gender, _full, _depart, _desireToGo) {
@@ -110,9 +113,12 @@ app.controller("searchCtrl",
             this.full = _full;
             this.depart = _depart;
             this.desireToGo = _desireToGo;
+            var temp = _id;
+            temp = temp.replace(/\s|Team|member|id|\:/gi, "");
+            this.href = (_email == "" ? "team.html?teamId=" : "member.html?memberId=") + temp;
         }
 
-        $scope.$watch("constraint.tm", function(newVal, oldVal) {
+        $scope.$watch("constraint.tm", function (newVal, oldVal) {
             if (newVal == "0") {
                 $scope.constraint.mDis = false;
                 $scope.constraint.tDis = false;
@@ -133,7 +139,7 @@ app.controller("searchCtrl",
         function addSearchHistory(keywords) {
             for (var i = 0; i < $scope.keywordGroups.length; i++) {
                 var sc = getSimilarityScore($scope.keywordGroups[i], keywords.join(" "), "score",
-                    { "score-e": 100, "score-s": function(p) { return 0; } });
+                    { "score-e": 100, "score-s": function (p) { return 0; } });
                 if (sc == 100) {
                     var x = parseInt($scope.searchFrequency[i].$value) + 1;
                     $scope.searchFrequency.$ref().child(i).set(x + "");
@@ -145,21 +151,21 @@ app.controller("searchCtrl",
             }
         }
 
-        $scope.passed = function(depart) {
+        $scope.passed = function (depart) {
             return Utils.compareDate(depart, new Date()) > 0;
         }
 
-        var suggestionElement = function(suggestions, i) {
+        var suggestionElement = function (suggestions, i) {
             this.class = "suggestionElement";
             this.text = suggestions[i];
-            this.action = function() {
+            this.action = function () {
                 $scope.searchInput = this.text;
                 disableCentralize();
                 $scope.search();
             };
         }
         //listen to the search text field changes, and give suggestions
-        $scope.$watch("searchInput", function(newVal, oldVal) {
+        $scope.$watch("searchInput", function (newVal, oldVal) {
             //clear the previos suggestions
             $scope.suggestions = [];
 
@@ -180,7 +186,7 @@ app.controller("searchCtrl",
                 //calculate the similary score
                 for (var i = 0; i < keywordGroups.length; i++) {
                     var kg = keywordGroups[i].join(" ");
-                    var score = getSimilarityScore(keywords, kg, "score", { "score-e": 100, "score-s": function(p) { return p * 100; } });
+                    var score = getSimilarityScore(keywords, kg, "score", { "score-e": 100, "score-s": function (p) { return p * 100; } });
                     suggestions.push(kg);
                     scores.push(score * parseInt(freq[i].$value));
                 }
@@ -203,7 +209,7 @@ app.controller("searchCtrl",
         });
 
         //Search function
-        $scope.search = function() {
+        $scope.search = function () {
             //create a local array to store result
             var teamsAndMembers = [];
 
@@ -233,19 +239,19 @@ app.controller("searchCtrl",
                 // -e means equal, -s means similar
                 $scope.teamScoreList = {
                     "id-e": 100,
-                    "id-s": function(dummy) { return 0; },
+                    "id-s": function (dummy) { return 0; },
                     "name-e": 90,
-                    "name-s": function(percentage) { return 90 * percentage; },
+                    "name-s": function (percentage) { return 90 * percentage; },
                     "destination-e": 60,
-                    "destination-s": function(percentage) { return 60 * percentage; },
+                    "destination-s": function (percentage) { return 60 * percentage; },
                     "language-e": 30,
-                    "language-s": function(dummy) { return 0; },
+                    "language-s": function (dummy) { return 0; },
                     "tag-e": 70,
-                    "tag-s": function(percentage) { return 70 * percentage; },
+                    "tag-s": function (percentage) { return 70 * percentage; },
                     "description-e": 70,
-                    "description-s": function(percentage) { return 70 * percentage; },
+                    "description-s": function (percentage) { return 70 * percentage; },
                     "preference-e": 70,
-                    "preference-s": function(dummy) { return 0; },
+                    "preference-s": function (dummy) { return 0; },
                 };
 
                 //loop through the team list
@@ -384,21 +390,21 @@ app.controller("searchCtrl",
                 //create similarity score list for members
                 $scope.memberScoreList = {
                     "id-e": 100,
-                    "id-s": function(dummy) { return 0; },
+                    "id-s": function (dummy) { return 0; },
                     "name-e": 90,
-                    "name-s": function(percentage) { return percentage * 90; },
+                    "name-s": function (percentage) { return percentage * 90; },
                     "description-e": 60,
-                    "description-s": function(percentage) { return percentage * 60; },
+                    "description-s": function (percentage) { return percentage * 60; },
                     "email-e": 80,
-                    "email-s": function(percentage) { return percentage * 60; },
+                    "email-s": function (percentage) { return percentage * 60; },
                     "from-e": 60,
-                    "from-s": function(percentage) { return percentage * 60; },
+                    "from-s": function (percentage) { return percentage * 60; },
                     "language-e": 30,
-                    "language-s": function(percentage) { return percentage * 30; },
+                    "language-s": function (percentage) { return percentage * 30; },
                     "gender-e": 70,
-                    "gender-s": function(dummy) { return 0; },
+                    "gender-s": function (dummy) { return 0; },
                     "desire-e": 70,
-                    "desire-s": function(percentage) { return percentage * 70; }
+                    "desire-s": function (percentage) { return percentage * 70; }
                 }
 
                 //save the count value in order to make the element id number correct
@@ -571,7 +577,7 @@ app.controller("searchCtrl",
         //Search function end
 
         //search Tags start
-        $scope.searchTags = function(tagName) {
+        $scope.searchTags = function (tagName) {
             console.log("Receive tag name: " + tagName);
             tagName = tagName.replace(/<\w{1,}>/gi, "");
             tagName = tagName.toLowerCase();
@@ -589,7 +595,7 @@ app.controller("searchCtrl",
         //search Tags End
 
         //join team
-        $scope.joinTeam = function(teamID) {
+        $scope.joinTeam = function (teamID) {
             $scope.user = firebase.auth().currentUser;
             teamID = teamID.split("Team ID: ").join("");
             teamID = teamID.replace(/\s/g, "");
@@ -598,13 +604,13 @@ app.controller("searchCtrl",
                 showLoginDialog();
             else {
                 var memberID = "";
-                angular.forEach($scope.memberData, function(element) {
+                angular.forEach($scope.memberData, function (element) {
                     if (memberID == "" && $scope.user.uid == element.uid) {
                         memberID = element.id;
                     }
                 });
                 var exist = false;
-                angular.forEach($scope.requests, function(e) {
+                angular.forEach($scope.requests, function (e) {
                     if (e.group == teamID && e.requester == memberID)
                         exist = true;
                 });
@@ -625,34 +631,34 @@ app.controller("searchCtrl",
 var countrylist;
 var languagelist;
 
-$(document).ready(function() {
+$(document).ready(function () {
     //initialization
     $("#searchSuggestion").hide();
     $("#advancedSearchPanel").hide();
 
     //show and hide
 
-    $("#advancedSearchBtn").click(function() {
+    $("#advancedSearchBtn").click(function () {
         $("#advancedSearchPanel").toggle();
     });
 
-    $("#advancedSearchCancelBtn").click(function() {
+    $("#advancedSearchCancelBtn").click(function () {
         $("#advancedSearchPanel").hide();
     });
 
-    $("body").click(function() {
+    $("body").click(function () {
         $("#searchSuggestion").hide();
     });
 
     //load the Json file to the html
     $.getJSON("https://gist.githubusercontent.com/timfb/551d3ed641435fd15c25b99ea9647922/raw/ce3b3d8459491d38fafe69020bd3535bfd11d334/countrylist.json",
-        function(data) {
+        function (data) {
             countrylist = data.country_list;
             for (var i = 0; i < countrylist.length; i++)
                 $("select[ng-model='constraint.m[1]'], select[ng-model='constraint.m[2]'], select[ng-model='constraint.t[0]']").append("<option value='" + i + "'>" + countrylist[i].name + " (" + countrylist[i].code + ")" + "</option>");
         });
     $.getJSON("https://gist.githubusercontent.com/timfb/0e802654c5b4bf6f8de1569554055f05/raw/116c838a8df916d72fed37c6a4123b2891f88eef/languagelist.json",
-        function(data) {
+        function (data) {
             languagelist = data.languages;
             languagelist = sortArray(languagelist, "English");
             for (var i = 0; i < languagelist.length; i++)
@@ -660,7 +666,7 @@ $(document).ready(function() {
         });
 
     //keydown handling
-    $("#searchTextField").keydown(function(event) {
+    $("#searchTextField").keydown(function (event) {
         //keycode 13 is "enter"
         //keycode 27 is "esc"
         switch (event.which) {
@@ -707,7 +713,7 @@ function hideLoginDialog() {
 function showRequestDialog() {
     $("#joinRequest").removeClass("hide").delay(800).animate({
         opacity: 0
-    }, 1000, function() {
+    }, 1000, function () {
         $(this).addClass("hide");
         $(this).css("opacity", 1);
     });
