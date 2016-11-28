@@ -77,8 +77,7 @@
 					<li><a href="#about">ABOUT US</a></li>
 					<li><a href="member.html">Member(FOR TEST)</a></li>
 					<li><a href="create_event.html">ADMIN</a></li>
-					<li><a class="btn" href="signin.html">SIGN IN</a></li>
-					<li><a class="btn" href="signup.html">SIGN UP</a></li>
+					<li><a class="btn" ng-click="logout()">SIGN OUT</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -137,9 +136,9 @@
                      
                      <div class="text-center">
 						<br>
-                        <h1 class="thin"><p> You are not logged-in yet </p></h1>
+                        <h1 class="thin"><p> You are currently login as {{userObj.name}}</p></h1>
 
-                        <p>A real-time online team forming app for football events</p>
+                        <p>A real-time online team forming app for any event</p>
                      </div>
 					<div class="jumbotron top-space">
                      <div class="text-center">
