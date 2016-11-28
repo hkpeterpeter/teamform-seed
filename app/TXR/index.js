@@ -103,7 +103,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
       })
 
-    
+
       $scope.addnotification = function(other,evt,msg,receiver){
         userlist[receiver]["notification"][thisuser]={
           "others":other,
@@ -215,34 +215,34 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 			};
 
 
-      var storageRef = firebase.storage().ref();
-      eventlist.$loaded(function(){
+      // var storageRef = firebase.storage().ref();
+      // eventlist.$loaded(function(){
+      //
+      //   var avaFilenameevent = eventlist[$scope.eventname]["img"];
+      //
+      //   var eventavaRef = storageRef.child('event/'+avaFilenameevent);
+      //
+      //   eventavaRef.getMetadata().then(function(metadata){
+      //     $scope.eventavaUrl = metadata.downloadURLs[0];
+      //
+			// 		$scope.$apply();
+      //   });
 
-        var avaFilenameevent = eventlist[$scope.eventname]["img"];
+      // });
 
-        var eventavaRef = storageRef.child('event/'+avaFilenameevent);
-
-        eventavaRef.getMetadata().then(function(metadata){
-          $scope.eventavaUrl = metadata.downloadURLs[0];
-
-					$scope.$apply();
-        });
-
-      });
-
-      eventlist.$loaded(function(){
-
-
-        var avaFilenameteam = eventlist[$scope.eventname]["teamList"][$scope.teamname]["img"];
-
-        var teamavaRef = storageRef.child('team/'+$scope.eventname+'/'+avaFilenameteam);
-
-       teamavaRef.getMetadata().then(function(metadata){
-          $scope.teamavaUrl = metadata.downloadURLs[0];
-
-				$scope.$apply();
-       });
-      });
+      // eventlist.$loaded(function(){
+      //
+      //
+      //   var avaFilenameteam = eventlist[$scope.eventname]["teamList"][$scope.teamname]["img"];
+      //
+      //   var teamavaRef = storageRef.child('team/'+$scope.eventname+'/'+avaFilenameteam);
+      //
+      //  teamavaRef.getMetadata().then(function(metadata){
+      //     $scope.teamavaUrl = metadata.downloadURLs[0];
+      //
+			// 	$scope.$apply();
+      //  });
+      // });
 
       //  userlist.$loaded().then(function(){
 
@@ -259,27 +259,27 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       // });
 
    //   $scope.kkk=new Array(5);
-      var memberavaUrl;
-      userlist.$loaded(function(){
-         eventlist.$loaded(function(){
-           $scope.memberphoto = {};
-           var loadedCount = 0;
-           for (z=0;z<$scope.memberlist.length;z++){
-            var kk=eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"][z];
-            var avaFilenamemember = userlist[kk]["img"];
-
-            var memberavaRef = storageRef.child('user/'+avaFilenamemember);
-         memberavaRef.getMetadata().then(function(metadata){
-           loadedCount ++;
-          memberavaUrl = metadata.downloadURLs[0];
-          $scope.memberphoto[metadata.customMetadata.user]=memberavaUrl;
-				   if( loadedCount == $scope.memberlist.length) $scope.$apply();
-        });
-
-           }
-
-          })
-      });
+      // var memberavaUrl;
+      // userlist.$loaded(function(){
+      //    eventlist.$loaded(function(){
+      //      $scope.memberphoto = {};
+      //      var loadedCount = 0;
+      //      for (z=0;z<$scope.memberlist.length;z++){
+      //       var kk=eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"][z];
+      //       var avaFilenamemember = userlist[kk]["img"];
+      //
+      //       var memberavaRef = storageRef.child('user/'+avaFilenamemember);
+      //    memberavaRef.getMetadata().then(function(metadata){
+      //      loadedCount ++;
+      //     memberavaUrl = metadata.downloadURLs[0];
+      //     $scope.memberphoto[metadata.customMetadata.user]=memberavaUrl;
+			// 	   if( loadedCount == $scope.memberlist.length) $scope.$apply();
+      //   });
+      //
+      //      }
+      //
+      //     })
+      // });
 
 
 
@@ -320,26 +320,26 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
     }
 
 
-      var loadedCount = 0;
-      var i;
-      var storageRef = firebase.storage().ref();
-      var notificationNum = 0;
-      userlist.$loaded(function(){
-        angular.forEach($scope.notification,function(){notificationNum++;});
-        angular.forEach($scope.notification,function(value, key){
-        //var nameOfSender = $scope.notification[key]["name"];
-        var nameOfPhoto = userlist[key]["img"];
-        var fullName = storageRef.child('user/'+ nameOfPhoto);
-        fullName.getMetadata().then(function(metadata){
-              loadedCount ++;
-              var photoUrl = metadata.downloadURLs[0];
-              $scope.photolist[key] = photoUrl;
-              //var newIn = { $scope.notification[i]["name"]: photoUrl};
-              //photo.push(newIn);
-             if( loadedCount == notificationNum) $scope.$apply();
-        //});
-        })
-      });
+      // var loadedCount = 0;
+      // var i;
+      // var storageRef = firebase.storage().ref();
+      // var notificationNum = 0;
+      // userlist.$loaded(function(){
+      //   angular.forEach($scope.notification,function(){notificationNum++;});
+      //   angular.forEach($scope.notification,function(value, key){
+      //   //var nameOfSender = $scope.notification[key]["name"];
+      //   var nameOfPhoto = userlist[key]["img"];
+      //   var fullName = storageRef.child('user/'+ nameOfPhoto);
+      //   fullName.getMetadata().then(function(metadata){
+      //         loadedCount ++;
+      //         var photoUrl = metadata.downloadURLs[0];
+      //         $scope.photolist[key] = photoUrl;
+      //         //var newIn = { $scope.notification[i]["name"]: photoUrl};
+      //         //photo.push(newIn);
+      //        if( loadedCount == notificationNum) $scope.$apply();
+      //   //});
+      //   })
+      // });
 
       });
 
@@ -383,7 +383,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
 
    /*   $scope.adduser=function(){
       }*/
-  });
+  // });
 
 
 
@@ -486,14 +486,14 @@ app.controller("clickCtrl",
                   }*/
                 }
               }
-              for (i = 0; i < $scope.suggested.length; i++) {
-                var thisImg = storageRef.child("user/"+$scope.suggested[i].img);
-                thisImg.getMetadata().then(function(metadata){
-                  loadedCount++;
-                  $scope.imgUrl[metadata.customMetadata.user]=metadata.downloadURLs[0];
-                  if (loadedCount == $scope.suggested.length) $scope.$apply();
-                });
-              }
+              // for (i = 0; i < $scope.suggested.length; i++) {
+              //   var thisImg = storageRef.child("user/"+$scope.suggested[i].img);
+              //   thisImg.getMetadata().then(function(metadata){
+              //     loadedCount++;
+              //     $scope.imgUrl[metadata.customMetadata.user]=metadata.downloadURLs[0];
+              //     if (loadedCount == $scope.suggested.length) $scope.$apply();
+              //   });
+              // }
             }
             //if the user is a user in this event
             else if (user_identity === "user"){

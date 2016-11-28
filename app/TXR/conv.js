@@ -91,7 +91,8 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
   };
 
   var addnotification = function(evt,msg,receiver){
-      delete $scope.userList[receiver]["notification"][$scope.thisuser];
+      if ($scope.userList[receiver]["notification"] == undefined) $scope.userList[receiver]["notification"] = {};
+      // if ($scope.userList[receiver]["notification"][$scope.thisuser] !== undefined) delete $scope.userList[receiver]["notification"][$scope.thisuser];
       $scope.userList[receiver]["notification"][$scope.thisuser]={
         "others":false,
         "event":evt,
