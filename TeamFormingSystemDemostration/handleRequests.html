@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>List of request</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->                                       
+    </head>
+    <body ng-app="teamApp">
+        <!-- START PAGE CONTAINER -->
+            
+      
+                
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Request</a></li>
+                </ul>
+                <!-- END BREADCRUMB -->
+                
+                    <!-- START RESPONSIVE TABLES -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">List of Requests:</h3>
+                                </div>
+
+                                <div class="panel-body panel-body-table">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-actions">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name:</th>
+                                                    <th>Message</th>
+                                                    <th>Accept</th>
+                                                    <th>Reject</th>
+                                                </tr>
+                                            </thead>
+                                                                                       
+                                                <tr data-ng-repeat="q in requests"  ng-if="q.receiver == currentUserid && currentUserid !== null">
+                                                    
+                                                    <td align="center"><strong>{{q.name}}</strong></td>
+                                                    <td align="center">{{q.message}}</td>
+                                                    <td align="center"><div ng-controller="joinTeam"><button ng-click="acceptPerson(q.eventName,q.targetTeam,q.memberName)" class="btn btn-info btn-rounded">Accept</button></div></td>
+                <td align="center"><div ng-controller="joinTeam"><button ng-click="rejectPerson(q.eventName,q.targetTeam,q.memberName)" class="btn btn-info btn-rounded">Reject</button></div></td>
+            </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>                                
+
+                                </div>
+                            </div>                                             
+
+
+              
+        
+      
+
+            
+                        </div>
+                    </div>
+                    <!-- END RESPONSIVE TABLES -->
+                    
+                <!-- END PAGE CONTENT WRAPPER -->                                    
+                </div>         
+            </div>            
+            <!-- END PAGE CONTENT -->
+        <!-- END PAGE CONTAINER -->    
+
+       
+    
+
+
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>        
+        <!-- END PLUGINS -->
+        
+        <!-- START THIS PAGE PLUGINS-->        
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        
+        <script type="text/javascript" src="js/demo_tables.js"></script>     
+        <!-- END THIS PAGE PLUGINS-->  
+        
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/settings.js"></script>
+        
+        <script type="text/javascript" src="js/plugins.js"></script>        
+        <script type="text/javascript" src="js/actions.js"></script>        
+        <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->                 
+    </body>
+</html>

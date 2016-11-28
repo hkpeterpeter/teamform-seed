@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>createTeam</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->                  
+    </head>
+    <body>
+        <!-- START PAGE CONTAINER -->
+     
+
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Create Team</a></li>
+                </ul>
+                <!-- END BREADCRUMB -->
+                
+                <!-- PAGE TITLE -->
+                <div class="page-title">                    
+                    <h2><span class="fa fa-arrow-circle-o-right"></span>Create Team</h2>
+                </div>
+                <!-- END PAGE TITLE -->                
+                
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">                
+                
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <!-- START VALIDATIONENGINE PLUGIN -->
+                            <div class="block">                              
+                                <form name="teamForm">                            
+                                    
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Target Event</label>
+                                        <div class="col-md-9">
+                                            <span ng-show="teamForm.EventName.$touched && teamForm.EventName.$invalid"></span>
+                                            <input name="EventName" ng-model="input.event" required class="form-control">
+                                            <span class="help-block">Required Event Name</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Team Name:</label>  
+                                        <div class="col-md-9">
+                                            <span ng-show="teamForm.newTeamName.$touched && teamForm.newTeamName.$invalid"></span>
+                                             <input name="newTeamName" ng-model="input.name" required class="form-control">
+                                            <span class="help-block">Required Team Name</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                          <label class="col-md-3 control-label">Introduction:</label>
+                                          <div class="col-md-9">
+                                             <span ng-show="teamForm.newTeamIntro.$touched && teamForm.newTeamIntro.$invalid"></span>
+                                             <textarea  class="form-control" type="text" name="newTeamIntro" ng-model="input.intro" required></textarea>
+                                             <span class="help-block">Required within 200 words</span>
+                                          </div>   
+                                    </div>  
+
+                                     <div class="btn-group pull-right">
+                                        <button ng-click="submit()" class="btn btn-info btn-rounded" ng-disabled= "teamForm.newTeamIntro.$invalid || teamForm.newTeamName.$invalid">Submit</button>
+                                    </div>  
+                                                 
+        
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+        <!-- END PLUGINS -->
+        
+        <!-- THIS PAGE PLUGINS -->
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        
+        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>        
+        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-select.js'></script>        
+
+        <script type='text/javascript' src='js/plugins/validationengine/languages/jquery.validationEngine-en.js'></script>
+        <script type='text/javascript' src='js/plugins/validationengine/jquery.validationEngine.js'></script>        
+
+        <script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>                
+
+        <script type='text/javascript' src='js/plugins/maskedinput/jquery.maskedinput.min.js'></script>
+        <!-- END THIS PAGE PLUGINS -->               
+
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/settings.js"></script>
+        
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/actions.js"></script>
+        <!-- END TEMPLATE -->
+        
+        <script type="text/javascript">
+            var jvalidate = $("#jvalidate").validate({
+                ignore: [],
+                rules: {                                            
+                        login: {
+                                required: true,
+                                minlength: 2,
+                                maxlength: 8
+                        },
+                        password: {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 10
+                        },
+                        're-password': {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 10,
+                                equalTo: "#password2"
+                        },
+                        age: {
+                                required: true,
+                                min: 18,
+                                max: 100
+                        },
+                        email: {
+                                required: true,
+                                email: true
+                        },
+                        date: {
+                                required: true,
+                                date: true
+                        },
+                        credit: {
+                                required: true,
+                                creditcard: true
+                        },
+                        site: {
+                                required: true,
+                                url: true
+                        }
+                    }                                        
+                });                                    
+        </script>
+        
+    <!-- END SCRIPTS -->          
+        
+    </body>
+</html>

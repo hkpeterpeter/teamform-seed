@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+	<title>Enneagram Test</title>
+
+	<!-- Latest compiled and minified CSS -->
+
+	<!-- QuizApp Scripts -->
+	<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+	<script src="typequizapp.js"></script>
+
+
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- END META SECTION -->
+
+    <!-- EOF CSS INCLUDE -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+        authDomain: "comp3111-bb108.firebaseapp.com",
+        databaseURL: "https://comp3111-bb108.firebaseio.com",
+        storageBucket: "comp3111-bb108.appspot.com",
+        messagingSenderId: "554833059052"
+      };
+      firebase.initializeApp(config);
+    </script>
+
+
+</head>
+
+<body>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<!-- Bootstrap theme -->
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+	<!-- Google Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,300,700" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:400,700,400italic" />
+	<!-- QuizApp CSS -->
+	<link rel="stylesheet" href="css/style1.css" />
+            <!-- END X-NAVIGATION VERTICAL -->
+                <!-- END TOGGLE NAVIGATION -->
+            <!-- START BREADCRUMB -->
+           <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Join</li>
+                <li class="active">Join </li>
+            </ul>
+            <!-- END BREADCRUMB -->
+
+
+
+
+
+<div class="container theme-showcase" role="main">
+
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+	<div class="jumbotron">
+		<h1><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Enneagram Test</h1>
+		<p>Let see which type of personality you are.</p>
+	</div>
+
+	<quiz/>
+
+</div><!--/ .container -->
+
+<footer>
+	<p>Designed by Team Null</p>
+</footer><!--/ footer -->
+
+</body>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="bootstrap.min.js"></script>
+
+</html>
