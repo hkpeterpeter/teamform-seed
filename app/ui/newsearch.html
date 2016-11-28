@@ -85,7 +85,7 @@
                                             <tr align="center">
                                                 <td align="center"><b>Name:</b></td>
                                                 <td align="center"><b>Intro.</b></td>
-                                                <td><b>Join(In Person)</b></td>
+                                                <td><b>Enneagram Test</b></td>
                                                 <td><b> Request to join(In Person)</b></td>
                                                 <td><b> Join(In Team)</b></td>
                                             </tr>
@@ -93,15 +93,16 @@
                                             <tr data-ng-repeat="g in q.Team" ng-if="(g.name.indexOf(searchText) > -1 && g.openness == true) || (!searchText && g.openness == true)">
                                                 <td align="center">{{g.name}}</td>
                                                 <td align="center">{{g.intro}}</td>
+
+
                                                 <td align="center">
-                                                    <div ng-controller="joinTeam"><button ng-click="joinTeamInPerson(q.name,g.name)">Join</button></div>
-                                                    <div ng-controller="joinTeam"><button ng-click="test()">Enneagram Test</button></div>
+                                                	 <div ng-controller="joinTeam"><button ng-click="test()" class="btn btn-info btn-rounded">Start </button></div>
                                                 </td>
                                                 <td align="center">
-                                                    <div ng-controller="joinTeam"><input type="text" ng-model="reqMessage" placeholder="Message"><button ng-click="reqJoinTeamInPerson(q.name,g.name)">Join</button></div>
+                                                    <div ng-controller="joinTeam"><input type="text" ng-model="reqMessage" placeholder="Message" align="center" class="form-control"><button ng-click="reqJoinTeamInPerson(q.name,g.name)" class="btn btn-info btn-rounded">Join</button></div>
                                                 </td>
                                                 <td align="center">
-                                                    <div ng-controller="joinTeam"><button ng-click="joinTeamInTeam(q.name,g.name)">Join</button></div>
+                                                    <div ng-controller="joinTeam"><button ng-click="joinTeamInTeam(q.name,g.name)" class="btn btn-info btn-rounded">Join</button></div>
                                                 </td>
                                             </tr>
 
