@@ -38,3 +38,10 @@ app.controller("TeamCtrl", ["$scope", "$firebaseAuth", "$firebaseArray",
 
     }
 ]);
+
+app.controller('TeamCtrl', function($scope) {
+               $scope.showTeamDetail = false;
+               $scope.toggle = function() {
+               $scope.showTeamDetail = !$scope.showTeamDetail;
+               };
+               });

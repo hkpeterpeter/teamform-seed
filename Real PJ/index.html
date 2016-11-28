@@ -308,14 +308,15 @@
                                             <tr>
                                                 <td>TeamK</td>
                                                 <td>3</td>
-                                                <td><button class="btn btn-primary" onclick="window.location.href='team.html'">Detail</ button></td>
+                                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#teamDetail">Detail</button></td>
                                                 <td><button class="btn btn-danger" onclick="">Request</button></td>
                                             </tr>
                                         </table>
                                         <br/>
                                         <div align="center"><font size="5" color="#888888"> Search Person </font></div>
                                         <input type="text" id="myInput2" class="myInput2" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name">
-                        
+                                        
+                                        
                                         <table id="myTable2" class="myTable2">
                                             <tr class="">
                                                 <th>Name</th>
@@ -491,6 +492,151 @@
 			</div>-->
 			</section>
             <!-- Modal -->
+            <div id="teamDetail" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Team Detail</h4>
+                        </div>
+                        <div ng-switch="teamDetailChange">
+                        <div class="modal-body" ng-switch-when="teamLeaderDetail" >
+                            <div class="w3-content w3-container w3-padding-12" id="about">
+                                
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3 class="page-header">ABOUT ME<a href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
+                                    </div>
+                                </div>
+                                
+                                <div class="w3-row">
+                                    <div class="w3-col m6 w3-center w3-padding-large">
+                                        <img src="../UI/img/icon.jpg" class="w3-round w3-image" alt="Photo of Me" width="300" height="300">
+                                            </div>
+                                    
+                                    <!-- Hide this text on small devices -->
+                                    <div class="w3-col m6 w3-hide-small w3-padding-large">
+                                        <h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
+                                        <p><b>E-mail: </b>{{user.email}}</p>
+                                        <p><b>Major: </b>{{user.major}}</p>
+                                        <p><b>Year: </b>{{user.year}}</p>
+                                        <p><b>Self Description: </b>{{user.description}}</p>
+                                        <!--<button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
+                                         <i class="fa fa-paper-plane"></i> MESSAGE ME!
+                                         </button>-->
+                                    </div>
+                                </div>
+                                <hr>
+                                <p class="w3-large w3-center w3-padding-12">MY SKILLS<a href="" data-toggle="modal" data-target="#skillModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+                                <p>C++</p>
+                                <div class="w3-progress-container">
+                                    <div class="w3-progressbar" style="width:80%"></div>
+                                </div>
+                                <br><p>JavaScript</p>
+                                <div class="w3-progress-container">
+                                    <div class="w3-progressbar" style="width:60%"></div>
+                                </div>
+                                <div ng-show="hidehtml">
+                                    <br><p>HTML</p>
+                                    <div class="w3-progress-container">
+                                        <div class="w3-progressbar" style="width:40%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div ng-show="hidejava">
+                                    <br><p>JAVA</p>
+                                    <div class="w3-progress-container">
+                                        <div class="w3-progressbar" style="width:80%"></div>
+                                    </div>
+                                </div>
+                                <!--<br><p>HTML</p>
+                                 <div class="w3-progress-container">
+                                 <div class="w3-progressbar" style="width:75%"></div>-->
+                            </div>
+                            <hr>
+                            
+                            <!-- Container (Portfolio Section) -->
+                        </div>
+                        </div>
+                    </div>
+                        <div class="modal-body" ng-switch-default="teamDetail">
+                            <div class="container">
+                                <h3 style="font-size:300%">TeamK</h3>
+                                <br/>
+                                <hr>
+                                
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <h3>Description</h3>
+                                        <p>In Peter we trust.</p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p>Course: <span>Comp3111<span></p>
+                                            <p>Lecture <span>L1<span></p>
+                                                <p>Grade aim: <span>A<span></p>
+                                                    
+                                                    </div>
+                                </div>
+                                <!-- /.row -->
+                                
+                                
+                                <div class="row">
+                                    <hr/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <div align="center"><font size="5" color="#888888"> Team Member List</font></div>
+                                    <br/>
+                                    <br/>
+                                    <table class="table table-hover"  id="team">
+                                        <thead>
+                                            <tr>
+                                                <th>Team Role</th>
+                                                <th>Student Name</th>
+                                                <th>Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Leader</td>
+                                                <td>Student leader</td>
+                                                <td><button type="button" class="btn btn-primary" ng-click="changeteam()" >Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 1</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 2</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 3</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 4</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                                <!-- /.row -->
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- Modal -->
             <div class="modal fade" id="createTeam" role="dialog">
                 <div class="modal-dialog">
                     
@@ -551,6 +697,7 @@
                     
                 </div>
             </div>
+            
             <!-- Modal -->
             <div id="editProfileModal" class="modal fade" role="dialog" ng-controller="profileCtrl">
                 <div class="modal-dialog">

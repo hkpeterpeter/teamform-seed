@@ -30,5 +30,13 @@ app.controller("siteCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 			console.log($scope.hidejava);
 			$("#skillModal").modal("hide")
 		}
+                            
+                            $scope.changeteam = function() {
+                            $scope.teamDetailChange = "teamLeaderDetail";
+                            }
+                           
+                            
+
+
 	}
 ]);
