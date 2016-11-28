@@ -192,6 +192,19 @@
 						                        	<label class="sr-only" for="form-email">Confirm Password</label>
 						                        	<input type="password" name="form-password2" placeholder="Retype Password..." class="form-password2 form-control" id="form-password2" ng-model="rePassword">
 						                        </div>
+						                        <div class="form-group">
+						                    		<table>
+														<th style="width:45%">
+															<label class="sr-only" for="form-major">Major</label>
+															<input type="text" name="form-major" placeholder="Major..." class="form-major form-control" ng-model="signInput.major" id="form-major">
+														</th>
+														<th style="width:5%"> </th>
+														<th style="width:45%">
+															<label class="sr-only" for="form-year">Year</label>
+															<input type="number" name="form-year" placeholder="Year..." class="form-year form-control" ng-model="signInput.year" min="1" max="5" id="form-lastname">
+														</th>
+													</table>
+						                        </div>
 						                       
 						                        <button type="submit" class="btn">Sign me up!</button>
 						                    </form>

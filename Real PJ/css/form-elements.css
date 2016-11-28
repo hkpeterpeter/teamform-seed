@@ -1,6 +1,7 @@
 
 input[type="text"], 
 input[type="password"], 
+input[type="number"], 
 textarea, 
 textarea.form-control {
     height: 50px;

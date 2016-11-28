@@ -2,6 +2,9 @@ var app = angular.module("myApp", ["firebase"]);
 
 app.controller("LoginCtrl", ["$scope","$rootScope", "$firebaseAuth", "$firebaseArray", "$firebaseObject",
     function($scope, $rootScope, $firebaseAuth, $firebaseArray, $firebaseObject) {
+         $scope.signInput = {
+            description: "",
+        }
         $scope.authObj = $firebaseAuth();
         $scope.createUser = function() {
             if($scope.signInput.password != $scope.rePassword){
