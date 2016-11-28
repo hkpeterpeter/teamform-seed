@@ -50,7 +50,8 @@ export default class EventService {
         let user = await this.authService.getUser();
         event.createdBy = user.uid;
         event.createdAt = Date.now();
-        return this.$firebaseArray(this.$database.ref('events')).$add(event);
+        let events = await this.getEvents();
+        return events.$add(event);
     }
     deleteEvent(event) {
         return this.events.$remove(event);

@@ -6,14 +6,14 @@ export default class EventListCtrl {
         this.eventService = eventService;
         this.events = [];
         this.error = null;
-        this.getEvents();
         this.eventListTableParams = new NgTableParams({
             page: 1,
-            count: 2
+            count: 5
         }, {
             counts: [],
             dataset: []
         });
+        this.getEvents();
     }
     async getEvents() {
         try {

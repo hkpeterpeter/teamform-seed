@@ -126,11 +126,13 @@ export default class EventDetailCtrl {
             let teams = await Promise.all(this.autoTeam.teams.map((team) => {
                 return this.teamService.createTeam(team);
             }));
+            await this.getEvent();
             this.$timeout(() => {
                 this.autoTeam = {
                     teams: [],
                     failed: null
                 };
+                this.ngNotify.set('Team Created', {type: 'success'});
             });
         } catch (error) {
             this.$timeout(() => {
@@ -293,6 +295,7 @@ export default class EventDetailCtrl {
                 }
                 await this.teamService.editTeam(team);
             }
+            await this.getEvent();
             this.$timeout(() => {
                 this.ngNotify.set('Team Saved', {type: 'success'});
             });

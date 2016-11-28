@@ -147,7 +147,7 @@
         </div>
         <div class="main-box-body clearfix">
             <div class="row">
-                <div ng-repeat="team in eventDetail.autoTeam.teams">
+                <div ng-repeat="team in eventDetail.autoTeam.teams" ng-if="eventDetail.autoTeam && eventDetail.autoTeam.teams.length > 0">
                     <div class="col-sm-6">
                         <h5>{{team.name}}</h5>
                         <div class="table-responsive">
