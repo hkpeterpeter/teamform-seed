@@ -585,7 +585,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.disable = false;
 			$scope.full = false;
 			$scope.inTeam = false;
-			
+			$scope.noTeam = false;
+			$scope.yourself = false;
 			$scope.passTeam = function(index){
 				$scope.labels = [];
 				$scope.data = [];
@@ -634,6 +635,34 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.currentUser = "";
 			$scope.passUser = function(index){
 				$scope.currentUser = $scope.filterResult[index];
+				$scope.disable = false;
+				$scope.full = false;
+				$scope.inTeam = false;
+				$scope.noTeam = false;
+				$scope.yourself = false;
+				if($scope.userList[thisUser]["Membership"][Naruto.Luffy] == undefined){
+					$scope.disable = true;
+					$scope.noTeam = true;
+				}else if($scope.currentUser == thisUser){
+					$scope.disable = true;
+					$scope.yourself = true;
+				}else if($scope.userList[thisUser]["Membership"][Naruto.Luffy].identity != "leader"){
+					$scope.disable = true;
+					$scope.noTeam = true;
+				}else if($scope.teamini[$scope.userList[thisUser]["Membership"][Naruto.Luffy].teamName].memberList.length >= event_list[Naruto.Luffy].maxTeamMem){
+					$scope.disable = true;
+					$scope.full = true;
+				}else{
+					var list = $scope.teamini[$scope.userList[thisUser]["Membership"][Naruto.Luffy].teamName].memberList;
+					for(var i = 0;i < list.length;i++){
+						if(list[i] == $scope.currentUser){
+							$scope.disable = true;
+							$scope.inTeam = true;
+							break;
+						}
+					}
+					
+				}
 			}
 			
 		});
