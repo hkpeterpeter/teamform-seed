@@ -50,7 +50,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var ref = firebase.database().ref("eventList");
 			var event_list = $firebaseObject(ref);
 			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
-			
+			var conversation = $firebaseObject(firebase.database().ref("conversation"));
 			
 			var storageRef = firebase.storage().ref();
 			$scope.photoList = {};
@@ -664,6 +664,65 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					
 				}
 			}
+			
+			$scope.sendMessage = function(message, type, selected_id){
+				
+				//for each user selected
+				var keep_going = true;
+				var leader_id = thisUser;
+				var alert_content = "Invitation(s) have been sent";
+				var receiver = selected_id;
+				var conversation_name = selected_id + "_" + leader_id; //selected_id = username of invited user
+				if (type === "request"){
+					alert_content = "Request(s) have been sent";
+					//selected_id = team name
+					leader_id = $scope.teamini[selected_id]["memberList"][0];
+					conversation_name = thisUser + "_" + leader_id;
+					receiver = leader_id;
+				}
+
+				//1. conversation
+				//if conversation does not exist, create a new one
+
+				if (!(conversation_name in conversation)) {
+					conversation[conversation_name]={
+					"event":"",
+					"log":[],
+					"type":"invite"
+					};
+				};
+				if (type === "request"){
+					conversation[conversation_name]["type"] = "request";
+				}
+
+
+				if ( conversation[conversation_name]["type"] !== type) {
+					//change alert_content
+					alert_content="Please check the previous message with "+receiver+ " first. This action will not be taken";
+					keep_going = false;
+				};
+
+				if(keep_going){
+					conversation[conversation_name]["event"]=Naruto.Sakura;
+					var one_log = {};
+					one_log["message"] = message;
+					one_log["sender"] = thisUser;
+					conversation[conversation_name]["log"].push(one_log);
+					conversation.$save();
+					//2. notification in userList
+					var one_noti = {};
+					one_noti["name"] = thisUser;
+					one_noti["message"] = message;
+					if($scope.userList[receiver]["notification"] == undefined){
+						$scope.userList[receiver]["notification"] = {};	
+					}
+					$scope.userList[receiver]["notification"][thisUser] = {};
+					$scope.userList[receiver]["notification"][thisUser] = one_noti;
+					$scope.userList.$save();
+				}
+
+				alert(alert_content);
+			};
 			
 		});
 
