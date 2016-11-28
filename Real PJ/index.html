@@ -181,7 +181,7 @@
 			          </li>   
 			          
 			          <li class="sub-menu">
-			              <a href="#" class="">
+			              <a href="#" class="" ng-click="changeSite4()">
 							  <i class="fa fa-users"></i> 
 							  <span>About Us</span> 
 			              </a>
@@ -250,7 +250,21 @@
 														<td>COMP2011</td>
 														<td>TeamA</td>
 														<td>6</td>
-														<td><button class="btn btn-primary" onclick="window.open('teamdetail.html')">Detail</button></td>
+														<td><button class="btn btn-primary" onclick="window.open('#">Detail</button></td>
+														<td><button class="btn btn-danger" onclick="">Leave</button></td>
+													</tr>
+													<tr>
+														<td>COMP2011</td>
+														<td>TeamA</td>
+														<td>6</td>
+														<td><button class="btn btn-primary" onclick="window.open('#">Detail</button></td>
+														<td><button class="btn btn-danger" onclick="">Leave</button></td>
+													</tr>
+													<tr>
+														<td>COMP2011</td>
+														<td>TeamA</td>
+														<td>6</td>
+														<td><button class="btn btn-primary" onclick="window.open('#">Detail</button></td>
 														<td><button class="btn btn-danger" onclick="">Leave</button></td>
 													</tr>													
 												</tbody>
@@ -337,9 +351,87 @@
 							</div>
 						</div>
 
-						<div ng-switch-when="cars">
-							<h1>Cars</h1>
-							<p>Read about cars.</p>
+						<div ng-switch-when="aboutus">
+							<section class="wrapper">
+							    <section id="portfolio">
+							        <div class="container">
+
+							         <div class="row">
+							           <div class="col-lg-12">
+							              <h3 class="page-header">About Team Noname</h3>
+							            </div>
+							         </div>
+
+							        <div class="row">
+							          <div class="col-lg-4 col-lg-offset-2">
+							            <p>TeamNoname is a team forming platform which aims to facilitate students' grouping procedure for projects.</p>
+							          </div>
+							          <div class="col-lg-4">
+							              <p>No matter you are a student or a teacher, TeamNoname could help you in managing your team or your students' team.</p>
+							          </div>
+							        </div>
+							        
+							        <div class="col-lg-8 col-lg-offset-2 text-center">
+							            <br><img src="img/team.png" class="w3-round w3-image" alt="Team management" width="590" height="480">
+							        </div>
+							        
+							         <div class="row">
+							            <br><br><br>
+							            <hr>
+							           <div class="col-lg-12">
+							              <p class="w3-large w3-center w3-padding-16">WHO ARE WE?</p>
+							            </div>
+							         </div>
+							        <section id="portfolio">
+							        <div class="container">
+							            <div class="row">
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/grace.jpg" class="img-responsive" alt="Wong Ngan Chi" width="230" height="230">
+							                    </a>
+							                </div>
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/tsui.jpg" class="img-responsive" alt="Tsui Hin Chi" width="230" height="230">
+							                    </a>
+							                </div>
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/ada.jpg" class="img-responsive" alt="Yung Lai Ping" width="230" height="230">
+							                    </a>
+							                </div>
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/chan.jpg" class="img-responsive" width="230" height="230" alt="Chan Foo Kiu">
+							                    </a>
+							                </div>
+
+							                <div class="row"><p></p></div>
+							                <div class="row"><p></p></div>
+
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/sam.jpg" class="img-responsive" width="230" height="230" alt="Lau Miu Ngai">
+							                    </a>
+							                </div>
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/charles.jpg" class="img-responsive" width="230" height="230" alt="Lau Chung Lai">
+							                    </a>
+							                </div>
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal7" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/ming.jpg" class="img-responsive" width="230" height="230" alt="Lee Kai Wing">
+							                    </a>
+							                </div>
+							            </div>
+							        </div>
+							    </section>
+							</section>
 						</div>
 
 						<!--Start profile -->
@@ -382,6 +474,13 @@
 									<br><p>HTML</p>
 									<div class="w3-progress-container">
 										<div class="w3-progressbar" style="width:40%"></div>
+									</div>
+								</div>
+
+								<div ng-show="hidejava">
+									<br><p>JAVA</p>
+									<div class="w3-progress-container">
+										<div class="w3-progressbar" style="width:80%"></div>
 									</div>
 								</div>
 								<!--<br><p>HTML</p>
@@ -490,14 +589,120 @@
 							</select>
 
 							<div ng-switch="skillChange">
-								<div ng-switch-default=" " >
+								<div ng-switch-default="default" >
 									<div class="panel-body">
 								        <p>This test aims to check your skills and show it to those who would like to form a team with you.</p>
 								    </div>
 								</div>
-								<div ng-switch-when="C++" >
-										123
+
+								<div ng-switch-when="Java" >
+									<div class="panel-heading">
+        								<h3 class="panel-title">Q1. In the given statement below, what does the “arr” indicate?</h3>
+        								<h4>
+								          	char *arr[30];
+								        </h4>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Array of a function
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Array of 30 characters
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Pointer to an array
+											</label>
+										</div>
+							      	</div>		
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q2. What is the only function all C programs must contain?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">start()
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Hsystem()
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">main()
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q3. Where is the correct place to insert a JavaScript?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">The &lt;body&gt; section
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">The &lt;head&gt; section
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">oth are correct
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q4. What is the correct syntax for referring to an external script called "xxx.js"?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">&lt;script src="xxx.js"&gt;
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">&lt;script href="xxx.js"&gt;
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">&lt;script name="xxx.js"&gt;
+											</label>
+										</div>
+						      		</div>
+
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title"> Q5. The external JavaScript file must contain the &lt;script&gt; tag.
+										</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">True
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">False
+											</label>
+										</div>
+						      		</div>
+									<a href="#" class="btn btn-primary" ng-click="hideJAVA()" role="button">Confirm</a>
 								</div>
+
 								<div ng-switch-when="HTML" >
 
 									<div class="panel-heading">
@@ -617,6 +822,280 @@
 			  	</div>
 			</div>
             <!--End Modal-->
+
+            <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Wong Ngan Chi</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/grace.jpg" class="img-responsive img-centered" alt="Wong Ngan Chi" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Front-end developer
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>ncwongac@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>60702829
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Tsui Hin Chi</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/tsui.jpg" class="img-responsive img-centered" alt="Tsui Hin Chi" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Front-end developer
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>hctsuiaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>65373392
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Yung Lai Ping</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/ada.jpg" class="img-responsive img-centered" alt="Yung Lai Ping" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Front-end developer
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>lpyungaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>96063642
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Chan Foo Kiu</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/chan.jpg" class="img-responsive img-centered" alt="Chan Foo Kiu" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Developer for the team forming feature
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>fkchanaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>62070489
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Lau Miu Ngai</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/sam.jpg" class="img-responsive img-centered" alt="Lau Miu Ngai" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Developer for the team forming feature
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>mnlauaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>62313942
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Lau Chung Lai</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/charles.jpg" class="img-responsive img-centered" alt="Lau Chung Lai" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Developer for the team forming feature
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>98459809
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal7" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Lee Kai Wing</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/ming.jpg" class="img-responsive img-centered" alt="Lee Kai Wing" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Software tester
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>kwleeaj@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>68431370
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
 
 
 		    <!-- container section end -->

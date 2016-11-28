@@ -12,9 +12,22 @@ app.controller("siteCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 			$scope.pageChange = "profile";
 		}
 
+		$scope.changeSite4 = function() {
+			$scope.pageChange = "aboutus";
+		}
+
+
 		$scope.hideHTML = function() {
 			$scope.hidehtml = true;
+			$scope.skillChange = "default";
 			console.log($scope.hidehtml);
+			$("#skillModal").modal("hide")
+		}
+
+		$scope.hideJAVA = function() {
+			$scope.hidejava = true;
+			$scope.skillChange = "default";	
+			console.log($scope.hidejava);
 			$("#skillModal").modal("hide")
 		}
 	}
