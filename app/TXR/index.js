@@ -2,13 +2,20 @@ var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies","chart.j
 
 //initalizeFirebase();
 
+app.filter("isLeader",function(){
+  return function(input){
+    if (input == 0) return "Leader";
+    else return input;
+  };
+});
+
 app.config(function($routeProvider,NotificationProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
      .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
      .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"EventController"})
-     .when("/MyConversation/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
+     .when("/MyConversation/:e/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
 	 NotificationProvider.setOptions({
             delay: 5000,
             startTop: 60,
@@ -29,26 +36,35 @@ app.config(function($routeProvider,NotificationProvider){
   var userlist = $firebaseObject(firebase.database().ref("userList"));
   var conversationList = $firebaseObject(firebase.database().ref("conversation"));
   $scope.convList = [];
-  $scope.linkList = [];
   userlist.$loaded(function() {
     conversationList.$loaded(function(){
       $scope.eventlist=userlist[thisuser]["Membership"];
       angular.forEach(conversationList,function(value,key){
         names = key.split("_");
         if (names[0] == thisuser) {
-          $scope.convList.push(names[1]);
-          $scope.linkList.push(key);
+          $scope.convList.push({
+            name:names[1],
+            link: value.event + "/" + names[1]
+          });
         }
         if (names[1] == thisuser) {
-          $scope.convList.push(names[0]);
-          $scope.linkList.push(key);
+          $scope.convList.push({
+            name:names[0],
+            link: value.event + "/" + names[0]
+          });
         }
       });
     });
   });
 
-
-
+  active = "profile";
+  $scope.isActive = function(type){
+    if (type == active) return "active";
+    else return "";
+  };
+  $scope.setActive = function(type){
+    active = type;
+  };
 
 
 
@@ -266,7 +282,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
         $scope.notification = userlist[$scope.user]["notification"];
     })
 	ref.on('value',function(snapshot){
-		$scope.notification = snapshot.val();	
+		$scope.notification = snapshot.val();
 	});
 
     $scope.deletenotification = function(sendername){
@@ -302,16 +318,16 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
               $scope.photolist[key] = photoUrl;
               //var newIn = { $scope.notification[i]["name"]: photoUrl};
               //photo.push(newIn);
-             if( loadedCount == notificationNum) $scope.$apply();  
+             if( loadedCount == notificationNum) $scope.$apply();
         //});
         })
       });
 
       });
-      
 
 
-    
+
+
 
 
 
@@ -351,20 +367,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
       }*/
   });
 
-app.controller("ConversationController",function($scope,$routeParams){
-        //   $scope.param = $routeParams.p;
-            $scope.IsVisiblePeter = false;
-            $scope.IsVisibleJason = false;
-            $scope.IsVisibleKevin = false;
-  //          $scope.show=function(a){
-        //       $scope.IsVisibleCOMP3111 = angular.equals($scope.param, a);
-      //      }
-         $scope.IsVisiblePeter = angular.equals($routeParams.p, 'Peter');
-          $scope.IsVisibleJason = angular.equals($routeParams.p, 'Jason');
-          $scope.IsVisibleKevin = angular.equals($routeParams.p, 'Kevin');
 
-
-});
 
 app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray, $cookies, $routeParams) {
@@ -750,11 +753,11 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       })
 
 
-    
+
     }
 
 
-    
+
       var storageRef = firebase.storage().ref()
       userlist.$loaded().then(function(){
 

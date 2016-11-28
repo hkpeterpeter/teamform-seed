@@ -1,56 +1,44 @@
 
 	<nav class="navbar navbar-default">
   <div class="container-fluid">
-    <div class="navbar-header">         
+    <div class="navbar-header">
       <div class="col-md-1 col-lg-8">
-        <h3 align="left" ng-show="IsVisiblePeter">Peter invites you to join <strong>O(n^3) is not that slow</strong>
-        <h3 align="left" ng-show="IsVisibleJason">Jason invites you to join <strong>O(n^3) is not that slow</strong>
-        <h3 align="left" ng-show="IsVisibleKevin">Kevin invites you to join <strong>O(n^3) is not that slow</strong>
-   
+        <h3 align="left">{{action}} to join <strong>{{team}}</strong></h3>
+			</div>
 
-        </h3>
-</div>
-                     
 
 <br>
-<div align="right">
+<div align="right" ng-show="isMaster">
 
-                        <button type="button" class="btn btn-md btn-primary">Accept</button>
-                        <button type="button" class="btn btn-md btn-danger">Reject</button>
+                        <button type="button" class="btn btn-md btn-primary" ng-click="accept()">Accept</button>
+                        <button type="button" class="btn btn-md btn-danger" ng-click="reject()">Reject</button>
                       </div>
 </div>
 	  </div>
 </nav>
-  <div id="message_container">
-    <div id="message_placeholder">
-    </div>
-    <div id="message">
-    	<div class="col-xs-1" id="message_sender" ng-show="IsVisiblePeter"><img src="https://course.cse.ust.hk/comp3111/images/peter.jpg" alt="" width="50" height="30" class="img-thumbnail"></div>
-      <div class="col-xs-1" id="message_sender" ng-show="IsVisibleJason"><img src="https://course.cse.ust.hk/comp3111/images/jason.png" alt="" width="50" height="30" class="img-thumbnail" ></div>
-      <div class="col-xs-1" id="message_sender" ng-show="IsVisibleKevin"><img src="https://course.cse.ust.hk/comp3111/images/ken.png" alt="" width="50" height="30" class="img-thumbnail" ></div>
-    	<div class="col-lg-9" id="message_content">
-    	<span id="message_body" ng-show="IsVisiblePeter">
-    		Hello, I'm Peter. 
-    	</span>
-          	<span id="message_body" ng-show="IsVisibleJason">
-    		Hello, I'm Jason. 
-    	</span>
-          	<span id="message_body" ng-show="IsVisibleKevin">
-    		Hello, I'm Kevin. 
-    	</span>
-
-    	<a href="#">12:37 PM</a>
+	<div ng-repeat="log in logs">
+		<div id="message" class="row" ng-show="log.sender==thisuser">
+    	<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{imgUrl[thisuser]}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+    	<div class="col-lg-11 col-md-11" id="message_content">
+    		{{log.message}}
     	</div>
     </div>
-    <div class="col-lg-11">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Message Peter" ng-show="IsVisiblePeter">
-      <input type="text" class="form-control" placeholder="Message Jason" ng-show="IsVisibleJason">
-      <input type="text" class="form-control" placeholder="Message Kevin" ng-show="IsVisibleKevin">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Send</button>
-      </span>
-    </div><!-- /input-group -->
-  </div>
-	  </div>
+		<div id="message" class="row" ng-show="log.sender==p">
+    	<div class="col-lg-11 col-md-11" id="message_content" align="right">
+    		{{log.message}}
+    	</div>
+			<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{imgUrl[p]}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+    </div>
+		<br>
+	</div>
 
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+	    <div class="input-group">
+	      <input type="text" class="form-control" placeholder="Message {{userList[p].name}}" ng-model="input">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" ng-click="send()">Send</button>
+	      </span>
+	    </div><!-- /input-group -->
+	  </div>
+		</div>
