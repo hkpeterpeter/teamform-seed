@@ -5,13 +5,14 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm-2 col-md-2">
-                  <br><br><br>
+                  <br>
                    <img src={{eventavaUrl}}
                    alt="" class="img-rounded img-responsive"/>
+                   <br>
                 </div>
         <div class="col-sm-4 col-md-4">
-          <br><br><br>
-          <h2>{{eventname}}</h2>
+          <br>
+          <h2>{{eventname}}</h2><br>
 
 
         </div>
@@ -294,7 +295,7 @@
 
 
          </div>
-    </div></h2>
+    </div></h2><br>
 
 
 
@@ -366,7 +367,7 @@
                                       <div class="media">
                                         <div class="media-left">
 
-                                          <img class="media-object" src={{imgUrl[username]}} width="50" height="50" alt="...">
+                                          <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
 
                                         </div>
                                         <div class="media-body">
@@ -407,7 +408,7 @@
                                     <div class="col-xs-12">
                                         <div class="media">
                                           <div class="media-left">
-                                            <img class="media-object" src={{imgUrl[username]}} width="50" height="50" alt="...">
+                                            <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
 
                                           </div>
                                           <div class="media-body">
@@ -495,9 +496,9 @@
                   <td>
                       <img src={{userlist[member].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px"><a href="#">{{member}}</a></td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[member].name}}</a></td>
                  <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)" value="Reload Page" onClick="document.location.reload(true)"> Delete</button>
+                      <button ng-hide="$index==0" id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)" value="Reload Page" onClick="document.location.reload(true)"> Delete</button>
                   </td>
                 </tr>
                  <!--<tr>
@@ -543,8 +544,8 @@
                       <img ng-src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
                   <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxx">{{suggested_users["name"]}}</div>
-               
- 
+
+
 
   <!-- Modal -->
  	<div id = "xxx" class = "modal fade" role = "dialog">
@@ -565,7 +566,7 @@
 						<div class = "row">
 							<div class="col-sm-6 placeholder">
 								<h3 class="text-left" style = "font-weight:bold">{{suggested_users.name}}</h3>
-							
+
 							</div>
 
 							</div>
@@ -577,7 +578,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class = "row placeholder">
 						<div class = "col-md-12">
 							<h4 style = "font-weight:bold">Intruduction:</h4>
@@ -585,8 +586,8 @@
 						</div>
 					</div>
 
-          
-		  
+
+
 					<h2 class="sub-header">Skills</h2>
 					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
 
@@ -595,10 +596,10 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
-	
+
 
 
 </td>
@@ -663,7 +664,7 @@
                   <td>
                       <img ng-src={{userlist[members].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px"><a href="#">{{members}}</a></td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[members].name}}</a></td>
 
                 </tr>
 
@@ -691,11 +692,11 @@
                   <!--<td>
                       <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>-->
-  
+
 
                   <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxxx">{{team_content.teamname}}</div>
-               
- 
+
+
 
   <!-- Modal -->
   <div class="modal fade" id="xxxx" role="dialog">
@@ -720,13 +721,13 @@
 
 		  <h2 class="sub-header">Skills Required</h2>
 		  <span class="label label-warning" ng-repeat = "x in team_content.skills" style = "margin-right:5px">{{x}}</span>
-		  
+
 
 		  <h2 class="sub-header">Member distribution</h2>
 		  <div class="row placeholders">
-			
+
 				<div class = "col-md-8 col-md-offset-2">
-					<canvas id="base" class="chart-base" chart-type="type" chart-data="data" chart-labels="labels" ></canvas> 
+					<canvas id="base" class="chart-base" chart-type="type" chart-data="data" chart-labels="labels" ></canvas>
 				</div>
 				<div>
 					<button type = "button" class = "btn btn-primary" ng-click = "toggle()" >Toggle</button>
