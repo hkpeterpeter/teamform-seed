@@ -105,7 +105,7 @@
 			  <h4 class="text-left">#Members: {{teamini[currentTeam].memberList.length}}</h4>
             </div>
 			<div class="col-xs-2 col-sm-3 placeholder">
-              <button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg">Join</button>
+              <button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg" ng-click = "sendMessage('I want to join you','request',currentTeam)">Join</button>
 			  <p ng-show = "full"><small class="text-danger">Team is full</small></p>
 			  <p ng-show = "inTeam"><small class="text-danger">You can only join one team</small></p>
             </div>
@@ -157,7 +157,7 @@
 							
 							</div>
 							<div class="col-sm-6 placeholder">
-								<button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg">Invite</button>
+								<button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg" ng-click = "sendMessage('Join me please','invite',currentUser)">Invite</button>
 								<p ng-show = "noTeam"><small class="text-danger">You are not team leader</small></p>
 								<p ng-show = "full"><small class="text-danger">Your team is full</small></p>
 								<p ng-show = "yourself"><small class="text-danger">Can`t invite yourself</small></p>
