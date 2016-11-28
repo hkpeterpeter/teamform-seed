@@ -76,13 +76,29 @@ app.controller("chatroomCtrl",
             });
         };
 
-        $scope.createConversation = function () {
+        //those parameters are for other angular modules use
+        $scope.createConversation = function (_name = null, _list = null) {
             $scope.user = firebase.auth().currentUser;
             if (!$scope.user)
                 return;
 
             $scope.chatrooms.$loaded().then(function () {
                 $scope.members.$loaded().then(function () {
+                    //this if code block is for other angular modules use
+                    if (_name && _list){
+                        var obj = {
+                            name: _name,
+                            list: _list,
+                            messages: [{
+                                sender: "System",
+                                message: "Welcome to this new chat group!",
+                                time: new Date().toUTCString()
+                            }]
+                        };
+                        $scope.chatrooms.$ref().child($scope.chatrooms.length).set(obj);
+                        return;
+                    }
+
                     var list1 = prompt("Please input the IDs you want to add into the group.\nSplit the IDs with comma (e.g. ID_1, ID_2)");
                     var name1 = prompt("Please input a name for the chat group.");
                     list1 = list1.split(" ").join("");
@@ -138,6 +154,11 @@ function showLoginDialog() {
 
 function hideLoginDialog() {
     $("#loginDialog").addClass("hide");
+}
+
+//redirect
+function goToLoginPage() {
+    window.location.href = "index.html";
 }
 
 function scrollToBottom() {

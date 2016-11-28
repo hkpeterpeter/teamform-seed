@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/createGroup.css">
 
     <!-- Customized libraries shared by pages -->
     <script src="js/site.js"></script>
@@ -24,320 +25,312 @@
 </head>
 
 <body>
-    <div class="createGroup" ng-controller="createGroupCtrl">    
-        <div class="container">
 
-            <form class="well form-horizontal" action=" " method="post"  id="contact_form">
-        <fieldset>
-
-        <!-- Form Name -->
-        <legend>Form a Group you want!</legend>
-
-        <!-- Text input-->
-
-        <div class="form-group">
-          <label class="col-md-4 control-label">Team name</label>  
-          <div class="col-md-4 inputGroupContainer">
-          <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input  ng-model="tempTeam.name" placeholder="Type in your team name" class="form-control"  type="text">
+    <div id="loginDialog" class="hide">
+        <div id="loginDialog-content" class="well">
+            <div class="message">
+                <span>You have to sign in before doing any operations!</span><br>
+                <span>Press OK to redirect to the login page.</span>
             </div>
-          </div>
+            <div class="button-group">
+                <input type="button" class="btn btn-md btn-danger" value="OK" onclick="goToLoginPage()" />
+                <input type="button" class="btn btn-md btn-danger" value="Cancel" onclick="hideLoginDialog()" //>
+            </div>
+        </div>
+    </div>
+    <div class="createGroup" ng-controller="createGroupCtrl">
+
+        <div class="teamName">
+            <strong>Team name:</strong>
+            <input type="text" ng-model="tempTeam.name" placeholder="Type in your team name">
+            <span class="debug">{{tempTeam.name}}</span>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-4 control-label">Sex preference</label>  
-          <div class="col-md-4 inputGroupContainer">
-              <div class="input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-primary" ng-click="setSexPreference('M')" ;> Male only</button>
-                <button type="button" class="btn btn-primary" ng-click="setSexPreference('F')" ;> Female only</button>
-                <button type="button" class="btn btn-primary" ng-click="setSexPreference('N')" ;> No preference</button>
-              </span>
-            </div>
-          </div>
+        <div clasa="max">
+            <strong>Maximun number of groupmates</strong>
+            <span>
+                <span class="badge">{{tempTeam.max}}</span>
+            <button ng-click="setMaxTeamMember(1);"><span class="glyphicon glyphicon-plus"></span></button>
+            <button ng-click="setMaxTeamMember(-1);"><span class="glyphicon glyphicon-minus"></span></button>
+            </span>
+
         </div>
 
-        <div class="form-group">
-          <label class="col-md-4 control-label">Maximun number of groupmates</label>  
-            <div class="col-md-4 inputGroupContainer">
-                <div class="input-group">
-                    
-                    <span class="badge">{{tempTeam.max}}</span>
-                    <button ng-click="setMaxTeamMember(1);"  class="btn btn-primary">+</button>
-                    <button ng-click="setMaxTeamMember(-1);" class="btn btn-primary">-</button>
-                                                                        
-                </div>
-            </div>         
-        </div>         
+        <div class="sexPreference">
+            <strong>Sex Preference</strong>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('M')" ;> Male only</button>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('F')" ;> Female only</button>
+            <button type="button" class="btn btn-primary" ng-click="setSexPreference('N')" ;> No preference</button>
+            <span class="debug">{{tempTeam.preference}}</span>
+        </div>
 
-        <div class="form-group"> 
-          <label class="col-md-4 control-label">Destination</label>
-            <div class="col-md-4 selectContainer">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                <select name="country" ng-model="tempTeam.destination" class="form-control selectpicker" >
-                  <option value ="">Country...</option>
-                    <option>Afghanistan</option>
-                    <option>Albania</option>
-                    <option>Algeria</option>
-                    <option>American Samoa</option>
-                    <option>Andorra</option>
-                    <option>Angola</option>
-                    <option>Anguilla</option>
-                    <option>Antigua &amp; Barbuda</option>
-                    <option>Argentina</option>
-                    <option>Armenia</option>
-                    <option>Aruba</option>
-                    <option>Australia</option>
-                    <option>Austria</option>
-                    <option>Azerbaijan</option>
-                    <option>Bahamas</option>
-                    <option>Bahrain</option>
-                    <option>Bangladesh</option>
-                    <option>Barbados</option>
-                    <option>Belarus</option>
-                    <option>Belgium</option>
-                    <option>Belize</option>
-                    <option>Benin</option>
-                    <option>Bermuda</option>
-                    <option>Bhutan</option>
-                    <option>Bolivia</option>
-                    <option>Bonaire</option>
-                    <option>Bosnia &amp; Herzegovina</option>
-                    <option>Botswana</option>
-                    <option>Brazil</option>
-                    <option>British Indian Ocean Ter</option>
-                    <option>Brunei</option>
-                    <option>Bulgaria</option>
-                    <option>Burkina Faso</option>
-                    <option>Burundi</option>
-                    <option>Cambodia</option>
-                    <option>Cameroon</option>
-                    <option>Canada</option>
-                    <option>Canary Islands</option>
-                    <option>Cape Verde</option>
-                    <option>Cayman Islands</option>
-                    <option>Central African Republic</option>
-                    <option>Chad</option>
-                    <option>Channel Islands</option>
-                    <option>Chile</option>
-                    <option>China</option>
-                    <option>Christmas Island</option>
-                    <option>Cocos Island</option>
-                    <option>Colombia</option>
-                    <option>Comoros</option>
-                    <option>Congo</option>
-                    <option>Cook Islands</option>
-                    <option>Costa Rica</option>
-                    <option>Cote D'Ivoire</option>
-                    <option>Croatia</option>
-                    <option>Cuba</option>
-                    <option>Curacao</option>
-                    <option>Cyprus</option>
-                    <option>Czech Republic</option>
-                    <option>Denmark</option>
-                    <option>Djibouti</option>
-                    <option>Dominica</option>
-                    <option>Dominican Republic</option>
-                    <option>East Timor</option>
-                    <option>Ecuador</option>
-                    <option>Egypt</option>
-                    <option>El Salvador</option>
-                    <option>Equatorial Guinea</option>
-                    <option>Eritrea</option>
-                    <option>Estonia</option>
-                    <option>Ethiopia</option>
-                    <option>Falkland Islands</option>
-                    <option>Faroe Islands</option>
-                    <option>Fiji</option>
-                    <option>Finland</option>
-                    <option>France</option>
-                    <option>French Guiana</option>
-                    <option>French Polynesia</option>
-                    <option>French Southern Ter</option>
-                    <option>Gabon</option>
-                    <option>Gambia</option>
-                    <option>Georgia</option>
-                    <option>Germany</option>
-                    <option>Ghana</option>
-                    <option>Gibraltar</option>
-                    <option>Great Britain</option>
-                    <option>Greece</option>
-                    <option>Greenland</option>
-                    <option>Grenada</option>
-                    <option>Guadeloupe</option>
-                    <option>Guam</option>
-                    <option>Guatemala</option>
-                    <option>Guinea</option>
-                    <option>Guyana</option>
-                    <option>Haiti</option>
-                    <option>Hawaii</option>
-                    <option>Honduras</option>
-                    <option>Hong Kong</option>
-                    <option>Hungary</option>
-                    <option>Iceland</option>
-                    <option>India</option>
-                    <option>Indonesia</option>
-                    <option>Iran</option>
-                    <option>Iraq</option>
-                    <option>Ireland</option>
-                    <option>Isle of Man</option>
-                    <option>Israel</option>
-                    <option>Italy</option>
-                    <option>Jamaica</option>
-                    <option>Japan</option>
-                    <option>Jordan</option>
-                    <option>Kazakhstan</option>
-                    <option>Kenya</option>
-                    <option>Kiribati</option>
-                    <option>Korea North</option>
-                    <option>Korea South</option>
-                    <option>Kuwait</option>
-                    <option>Kyrgyzstan</option>
-                    <option>Laos</option>
-                    <option>Latvia</option>
-                    <option>Lebanon</option>
-                    <option>Lesotho</option>
-                    <option>Liberia</option>
-                    <option>Libya</option>
-                    <option>Liechtenstein</option>
-                    <option>Lithuania</option>
-                    <option>Luxembourg</option>
-                    <option>Macau</option>
-                    <option>Macedonia</option>
-                    <option>Madagascar</option>
-                    <option>Malaysia</option>
-                    <option>Malawi</option>
-                    <option>Maldives</option>
-                    <option>Mali</option>
-                    <option>Malta</option>
-                    <option>Marshall Islands</option>
-                    <option>Martinique</option>
-                    <option>Mauritania</option>
-                    <option>Mauritius</option>
-                    <option>Mayotte</option>
-                    <option>Mexico</option>
-                    <option>Midway Islands</option>
-                    <option>Moldova</option>
-                    <option>Monaco</option>
-                    <option>Mongolia</option>
-                    <option>Montserrat</option>
-                    <option>Morocco</option>
-                    <option>Mozambique</option>
-                    <option>Myanmar</option>
-                    <option>Nambia</option>
-                    <option>Nauru</option>
-                    <option>Nepal</option>
-                    <option>Netherland Antilles</option>
-                    <option>Netherlands (Holland, Europe)</option>
-                    <option>Nevis</option>
-                    <option>New Caledonia</option>
-                    <option>New Zealand</option>
-                    <option>Nicaragua</option>
-                    <option>Niger</option>
-                    <option>Nigeria</option>
-                    <option>Niue</option>
-                    <option>Norfolk Island</option>
-                    <option>Norway</option>
-                    <option>Oman</option>
-                    <option>Pakistan</option>
-                    <option>Palau Island</option>
-                    <option>Palestine</option>
-                    <option>Panama</option>
-                    <option>Papua New Guinea</option>
-                    <option>Paraguay</option>
-                    <option>Peru</option>
-                    <option>Philippines</option>
-                    <option>Pitcairn Island</option>
-                    <option>Poland</option>
-                    <option>Portugal</option>
-                    <option>Puerto Rico</option>
-                    <option>Qatar</option>
-                    <option>Republic of Montenegro</option>
-                    <option>Republic of Serbia</option>
-                    <option>Reunion</option>
-                    <option>Romania</option>
-                    <option>Russia</option>
-                    <option>Rwanda</option>
-                    <option>St Barthelemy</option>
-                    <option>St Eustatius</option>
-                    <option>St Helena</option>
-                    <option>St Kitts-Nevis</option>
-                    <option>St Lucia</option>
-                    <option>St Maarten</option>
-                    <option>St Pierre &amp; Miquelon</option>
-                    <option>St Vincent &amp; Grenadines</option>
-                    <option>Saipan</option>
-                    <option>Samoa</option>
-                    <option>Samoa American</option>
-                    <option>San Marino</option>
-                    <option>Sao Tome &amp; Principe</option>
-                    <option>Saudi Arabia</option>
-                    <option>Senegal</option>
-                    <option>Serbia</option>
-                    <option>Seychelles</option>
-                    <option>Sierra Leone</option>
-                    <option>Singapore</option>
-                    <option>Slovakia</option>
-                    <option>Slovenia</option>
-                    <option>Solomon Islands</option>
-                    <option>Somalia</option>
-                    <option>South Africa</option>
-                    <option>Spain</option>
-                    <option>Sri Lanka</option>
-                    <option>Sudan</option>
-                    <option>Suriname</option>
-                    <option>Swaziland</option>
-                    <option>Sweden</option>
-                    <option>Switzerland</option>
-                    <option>Syria</option>
-                    <option>Tahiti</option>
-                    <option>Taiwan</option>
-                    <option>Tajikistan</option>
-                    <option>Tanzania</option>
-                    <option>Thailand</option>
-                    <option>Togo</option>
-                    <option>Tokelau</option>
-                    <option>Tonga</option>
-                    <option>Trinidad &amp; Tobago</option>
-                    <option>Tunisia</option>
-                    <option>Turkey</option>
-                    <option>Turkmenistan</option>
-                    <option>Turks &amp; Caicos Is</option>
-                    <option>Tuvalu</option>
-                    <option>Uganda</option>
-                    <option>Ukraine</option>
-                    <option>United Arab Emirates</option>
-                    <option>United Kingdom</option>
-                    <option>United States of America</option>
-                    <option>Uruguay</option>
-                    <option>Uzbekistan</option>
-                    <option>Vanuatu</option>
-                    <option>Vatican City State</option>
-                    <option>Venezuela</option>
-                    <option>Vietnam</option>
-                    <option>Virgin Islands (Brit)</option>
-                    <option>Virgin Islands (USA)</option>
-                    <option>Wake Island</option>
-                    <option>Wallis &amp; Futana Is</option>
-                    <option>Yemen</option>
-                    <option>Zaire</option>
-                    <option>Zambia</option>
-                    <option>Zimbabwe</option>
-                </select>
-            </div>
-          </div>
-        </div>        
+        <div class="budget">
+            <strong>Budget per groupmates</strong>
+            <input type="number" ng-model="tempTeam.estimatedBudgetPerPerson" placeholder="Budget in usd and must be larger than $100">
+            <span class="debug">{{tempTeam.estimatedBudgetPerPerson}}</span>
+        </div>
 
-        <div class="form-group"> 
-          <label class="col-md-4 control-label">Main language for communication</label>
-            <div class="col-md-4 selectContainer">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                <select name="langauge" ng-model="tempTeam.languageForCommunication" class="form-control selectpicker" >
-                    <option value="">Language...</option> 
+
+        <div class="Destination">
+            <strong>Destination</strong>
+            <select name="country" ng-model="tempTeam.destination">
+                <option value ="">Country...</option>
+                <option>Afghanistan</option>
+                <option>Albania</option>
+                <option>Algeria</option>
+                <option>American Samoa</option>
+                <option>Andorra</option>
+                <option>Angola</option>
+                <option>Anguilla</option>
+                <option>Antigua &amp; Barbuda</option>
+                <option>Argentina</option>
+                <option>Armenia</option>
+                <option>Aruba</option>
+                <option>Australia</option>
+                <option>Austria</option>
+                <option>Azerbaijan</option>
+                <option>Bahamas</option>
+                <option>Bahrain</option>
+                <option>Bangladesh</option>
+                <option>Barbados</option>
+                <option>Belarus</option>
+                <option>Belgium</option>
+                <option>Belize</option>
+                <option>Benin</option>
+                <option>Bermuda</option>
+                <option>Bhutan</option>
+                <option>Bolivia</option>
+                <option>Bonaire</option>
+                <option>Bosnia &amp; Herzegovina</option>
+                <option>Botswana</option>
+                <option>Brazil</option>
+                <option>British Indian Ocean Ter</option>
+                <option>Brunei</option>
+                <option>Bulgaria</option>
+                <option>Burkina Faso</option>
+                <option>Burundi</option>
+                <option>Cambodia</option>
+                <option>Cameroon</option>
+                <option>Canada</option>
+                <option>Canary Islands</option>
+                <option>Cape Verde</option>
+                <option>Cayman Islands</option>
+                <option>Central African Republic</option>
+                <option>Chad</option>
+                <option>Channel Islands</option>
+                <option>Chile</option>
+                <option>China</option>
+                <option>Christmas Island</option>
+                <option>Cocos Island</option>
+                <option>Colombia</option>
+                <option>Comoros</option>
+                <option>Congo</option>
+                <option>Cook Islands</option>
+                <option>Costa Rica</option>
+                <option>Cote D'Ivoire</option>
+                <option>Croatia</option>
+                <option>Cuba</option>
+                <option>Curacao</option>
+                <option>Cyprus</option>
+                <option>Czech Republic</option>
+                <option>Denmark</option>
+                <option>Djibouti</option>
+                <option>Dominica</option>
+                <option>Dominican Republic</option>
+                <option>East Timor</option>
+                <option>Ecuador</option>
+                <option>Egypt</option>
+                <option>El Salvador</option>
+                <option>Equatorial Guinea</option>
+                <option>Eritrea</option>
+                <option>Estonia</option>
+                <option>Ethiopia</option>
+                <option>Falkland Islands</option>
+                <option>Faroe Islands</option>
+                <option>Fiji</option>
+                <option>Finland</option>
+                <option>France</option>
+                <option>French Guiana</option>
+                <option>French Polynesia</option>
+                <option>French Southern Ter</option>
+                <option>Gabon</option>
+                <option>Gambia</option>
+                <option>Georgia</option>
+                <option>Germany</option>
+                <option>Ghana</option>
+                <option>Gibraltar</option>
+                <option>Great Britain</option>
+                <option>Greece</option>
+                <option>Greenland</option>
+                <option>Grenada</option>
+                <option>Guadeloupe</option>
+                <option>Guam</option>
+                <option>Guatemala</option>
+                <option>Guinea</option>
+                <option>Guyana</option>
+                <option>Haiti</option>
+                <option>Hawaii</option>
+                <option>Honduras</option>
+                <option>Hong Kong</option>
+                <option>Hungary</option>
+                <option>Iceland</option>
+                <option>India</option>
+                <option>Indonesia</option>
+                <option>Iran</option>
+                <option>Iraq</option>
+                <option>Ireland</option>
+                <option>Isle of Man</option>
+                <option>Israel</option>
+                <option>Italy</option>
+                <option>Jamaica</option>
+                <option>Japan</option>
+                <option>Jordan</option>
+                <option>Kazakhstan</option>
+                <option>Kenya</option>
+                <option>Kiribati</option>
+                <option>Korea North</option>
+                <option>Korea South</option>
+                <option>Kuwait</option>
+                <option>Kyrgyzstan</option>
+                <option>Laos</option>
+                <option>Latvia</option>
+                <option>Lebanon</option>
+                <option>Lesotho</option>
+                <option>Liberia</option>
+                <option>Libya</option>
+                <option>Liechtenstein</option>
+                <option>Lithuania</option>
+                <option>Luxembourg</option>
+                <option>Macau</option>
+                <option>Macedonia</option>
+                <option>Madagascar</option>
+                <option>Malaysia</option>
+                <option>Malawi</option>
+                <option>Maldives</option>
+                <option>Mali</option>
+                <option>Malta</option>
+                <option>Marshall Islands</option>
+                <option>Martinique</option>
+                <option>Mauritania</option>
+                <option>Mauritius</option>
+                <option>Mayotte</option>
+                <option>Mexico</option>
+                <option>Midway Islands</option>
+                <option>Moldova</option>
+                <option>Monaco</option>
+                <option>Mongolia</option>
+                <option>Montserrat</option>
+                <option>Morocco</option>
+                <option>Mozambique</option>
+                <option>Myanmar</option>
+                <option>Nambia</option>
+                <option>Nauru</option>
+                <option>Nepal</option>
+                <option>Netherland Antilles</option>
+                <option>Netherlands (Holland, Europe)</option>
+                <option>Nevis</option>
+                <option>New Caledonia</option>
+                <option>New Zealand</option>
+                <option>Nicaragua</option>
+                <option>Niger</option>
+                <option>Nigeria</option>
+                <option>Niue</option>
+                <option>Norfolk Island</option>
+                <option>Norway</option>
+                <option>Oman</option>
+                <option>Pakistan</option>
+                <option>Palau Island</option>
+                <option>Palestine</option>
+                <option>Panama</option>
+                <option>Papua New Guinea</option>
+                <option>Paraguay</option>
+                <option>Peru</option>
+                <option>Philippines</option>
+                <option>Pitcairn Island</option>
+                <option>Poland</option>
+                <option>Portugal</option>
+                <option>Puerto Rico</option>
+                <option>Qatar</option>
+                <option>Republic of Montenegro</option>
+                <option>Republic of Serbia</option>
+                <option>Reunion</option>
+                <option>Romania</option>
+                <option>Russia</option>
+                <option>Rwanda</option>
+                <option>St Barthelemy</option>
+                <option>St Eustatius</option>
+                <option>St Helena</option>
+                <option>St Kitts-Nevis</option>
+                <option>St Lucia</option>
+                <option>St Maarten</option>
+                <option>St Pierre &amp; Miquelon</option>
+                <option>St Vincent &amp; Grenadines</option>
+                <option>Saipan</option>
+                <option>Samoa</option>
+                <option>Samoa American</option>
+                <option>San Marino</option>
+                <option>Sao Tome &amp; Principe</option>
+                <option>Saudi Arabia</option>
+                <option>Senegal</option>
+                <option>Serbia</option>
+                <option>Seychelles</option>
+                <option>Sierra Leone</option>
+                <option>Singapore</option>
+                <option>Slovakia</option>
+                <option>Slovenia</option>
+                <option>Solomon Islands</option>
+                <option>Somalia</option>
+                <option>South Africa</option>
+                <option>Spain</option>
+                <option>Sri Lanka</option>
+                <option>Sudan</option>
+                <option>Suriname</option>
+                <option>Swaziland</option>
+                <option>Sweden</option>
+                <option>Switzerland</option>
+                <option>Syria</option>
+                <option>Tahiti</option>
+                <option>Taiwan</option>
+                <option>Tajikistan</option>
+                <option>Tanzania</option>
+                <option>Thailand</option>
+                <option>Togo</option>
+                <option>Tokelau</option>
+                <option>Tonga</option>
+                <option>Trinidad &amp; Tobago</option>
+                <option>Tunisia</option>
+                <option>Turkey</option>
+                <option>Turkmenistan</option>
+                <option>Turks &amp; Caicos Is</option>
+                <option>Tuvalu</option>
+                <option>Uganda</option>
+                <option>Ukraine</option>
+                <option>United Arab Emirates</option>
+                <option>United Kingdom</option>
+                <option>United States of America</option>
+                <option>Uruguay</option>
+                <option>Uzbekistan</option>
+                <option>Vanuatu</option>
+                <option>Vatican City State</option>
+                <option>Venezuela</option>
+                <option>Vietnam</option>
+                <option>Virgin Islands (Brit)</option>
+                <option>Virgin Islands (USA)</option>
+                <option>Wake Island</option>
+                <option>Wallis &amp; Futana Is</option>
+                <option>Yemen</option>
+                <option>Zaire</option>
+                <option>Zambia</option>
+                <option>Zimbabwe</option>
+            </select>
+
+            <span class="debug">{{tempTeam.destination}}</span>
+        </div>
+
+        <div class="language">
+            <strong>Main language for communication</strong>
+            <select ng-model="tempTeam.languageForCommunication"> 
+                    <option ="">Language...</option> 
                     <option>Afrikaans</option>
                     <option>Albanian</option>
                     <option>Amharic</option>
@@ -441,98 +434,41 @@
                     <option>Yiddish</option>
                     <option>Yoruba</option>
                     <option>Zulu</option>
-                </select>           
-            </div>
-          </div>
-        </div> 
+                </select>
 
-        <div class="form-group">
-          <label class="col-md-4 control-label">Budget per groupmates</label>  
-          <div class="col-md-4 inputGroupContainer">
-          <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input  type="number" ng-model="tempTeam.estimatedBudgetPerPerson" placeholder="Budget in usd and must be larger than $100" class="form-control">
-            </div>
-          </div>
+            <span class="debug">{{tempTeam.languageForCommunication}}</span>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-4 control-label">Departure Date</label>  
-          <div class="col-md-4 inputGroupContainer">
-          <div class="input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input  type="text" id="departureDate" ng-model="tempTeam.departureDate" placeholder="Please click on the box" class="form-control">
-            </div>
-          </div>
-        </div> 
-        
-        <div class="form-group">
-          <label class="col-md-4 control-label">Return Date</label>  
-            <div class="col-md-4 inputGroupContainer">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input  type="text" id="returnDate" ng-model="tempTeam.returnDate" placeholder="Please click on the box" class="form-control">
-                </div>
-            </div>
-        </div>        
-
-        <div class="form-group">
-          <label class="col-md-4 control-label">Member in the group</label>  
-            <div class="col-md-4 inputGroupContainer">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input  type="text" id="memberId" placeholder="Enter the member id in your group (if any)" class="form-control">
-                    <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary"  ng-click="setTag();">Add Tags</button>
-                    </span>
-                </div>
-            </div>
-        </div> 
-
-        <div class="form-group">
-          <label class="col-md-4 control-label">Tags</label>  
-            <div class="col-md-4 inputGroupContainer">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input  type="text" id="tags" class="form-control" placeholder="Add a tag">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-primary"  ng-click="setTag();">Add Tags</button>
-                    </span>              
-                </div>
-            </div>         
-        </div> 
-
-        <div class="form-group">
-          <label class="col-md-4 control-label">Description</label>
-            <div class="col-md-4 inputGroupContainer">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-                    <textarea class="form-control" rows="6" ng-model="tempTeam.descriptions" placeholder="To descrip something about your group"></textarea>
-            </div>
-            </div>
-        </div>        
-
-        </fieldset>
-        </form>
-        </div>
-            </div><!-- /.container -->
-
-
-
-
-    
-
-        <div clasa="max">
-            <strong>Maximun number of groupmates</strong>
-            <span>
-                <span class="badge">{{tempTeam.max}}</span>
-            <button ng-click="setMaxTeamMember(1);"><span class="glyphicon glyphicon-plus"></span></button>
-            <button ng-click="setMaxTeamMember(-1);"><span class="glyphicon glyphicon-minus"></span></button>
-            </span>
+        <div class="departureDate">
+            <strong>Departure Date</strong>
+            <input type="text" id="departureDate" ng-model="tempTeam.departureDate">
+            <span class="debug">{{tempTeam.departureDate}}</span>
         </div>
 
-        
+        <div class="returnDate">
+            <strong>Return Date</strong>
+            <input type="text" id="returnDate" ng-model="tempTeam.returnDate">
+            <span class="debug">{{tempTeam.returnDate}}</span>
+        </div>
 
+        <div class="descriptions">
+            <strong>Descriptions</strong>
+            <textarea rows="4" cols="50" ng-model="tempTeam.descriptions" placeholder="To descrip something about your group"></textarea>
+            <span class="debug">{{tempTeam.descriptions}}</span>
+        </div>
+
+        <div class="member">
+            <strong>Member in the group</strong>
+            <input type="text" id="memberId" placeholder="Enter the member id in your group (if any)">
+            <button type="button" class="btn btn-primary" ng-click="setMember();"> Add member</button>
+            <span class="debug">{{tempTeam.members}}</span>
+        </div>
+
+        <div class="tags">
+            <strong>Tags</strong>
+            <input type="text" id="tags">
+            <button type="button" class="btn btn-primary" ng-click="setTag();"> Add tag</button>
+            <span class="debug">{{tempTeam.tags}}</span>
 
             <div class="creatGroupButton">
                 <button type="button" class="btn btn-primary" ng-click="createGroup();"> create group </button>
