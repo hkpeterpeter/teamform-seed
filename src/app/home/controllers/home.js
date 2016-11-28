@@ -1,8 +1,6 @@
-import developTeam from '../../../assets/data/developTeam.json';
+import developTeam from '../../../assets/data/developTeam.js';
 developTeam.members.forEach((member) => {
-    try {
-        member.image = require('../../../assets/images/developers/'+member.imageUrl);
-    } catch(error) {
+    if(!member.image) {
         member.image = 'https://placeholdit.imgix.net/~text?txtsize=33&txt='+encodeURIComponent(member.name)+'&w=200&h=200';
     }
 });

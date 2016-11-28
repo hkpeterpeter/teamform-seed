@@ -15,6 +15,7 @@ const S3Plugin = require('webpack-s3-plugin');
 let ENV = process.env.npm_lifecycle_event;
 let isTest = ENV === 'test' || ENV === 'test-watch';
 let isProd = ENV === 'build';
+let CONFIG = require('./config.js');
 
 module.exports = function makeWebpackConfig() {
 
@@ -36,7 +37,7 @@ module.exports = function makeWebpackConfig() {
         : {
             path: __dirname + '/dist',
             publicPath: isProd
-                ? './'
+                ? CONFIG.CDN_URL || './'
                 : 'http://localhost:8080/',
             filename: isProd
                 ? '[name].[hash].js'
@@ -113,7 +114,6 @@ module.exports = function makeWebpackConfig() {
     }
 
     config.postcss = [require('autoprefixer')({browsers: ['last 3 version']})];
-    let CONFIG = require('./config.js');
     config.plugins = [
         new ProvidePlugin({$: 'jquery', jQuery: 'jquery', 'window.jQuery': 'jquery', 'root.jQuery': 'jquery', '_': 'lodash'}),
         new webpack.ResolverPlugin(new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])),
