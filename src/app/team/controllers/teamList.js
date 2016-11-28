@@ -1,7 +1,8 @@
 import angular from 'angular';
 import nouislider from 'nouislider';
 export default class TeamListCtrl {
-    constructor($location, $state, $timeout, NgTableParams, teamService, eventService) {
+    constructor($filter, $location, $state, $timeout, NgTableParams, teamService, eventService) {
+        this.$filter = $filter;
         this.$location = $location;
         this.$state = $state;
         this.$timeout = $timeout;
@@ -15,7 +16,7 @@ export default class TeamListCtrl {
             count: 2
         }, {
             filterOptions: {
-                'filterFn': this.vacancyRangeFilter
+                'filterFn': (...args) => this.teamFilter(...args)
             },
             counts: [],
             dataset: []
@@ -90,14 +91,19 @@ export default class TeamListCtrl {
             });
         }
     }
-    vacancyRangeFilter(teams, filterValues) {
-        return teams.filter((team) => {
-            return team.getVacancy() >= filterValues.min && team.getVacancy() <= filterValues.max;
+    teamFilter(teams, filterValues) {
+        let min = filterValues.min || Number.MIN_VALUE;
+        let max = filterValues.max || Number.MAX_VALUE;
+        delete filterValues.min;
+        delete filterValues.max;
+        return this.$filter('filter')(teams, filterValues).filter((team) => {
+            return team.getVacancy() >= min && team.getVacancy() <= max;
         });
     }
 }
 
 TeamListCtrl.$inject = [
+    '$filter',
     '$location',
     '$state',
     '$timeout',
