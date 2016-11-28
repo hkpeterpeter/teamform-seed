@@ -458,24 +458,35 @@ app.controller("clickCtrl",
               //1. users in this event, not in teams, not the user himself/herself => $scope.users
               //user_list.$loaded(function() {});
               var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
-              var team_requirement = event_list[event_name]["teamList"][team_name]["skills"];
+              if ("skills" in event_list[event_name]["teamList"][team_name]){
+                  team_requirement = event_list[event_name]["teamList"][team_name]["skills"];
+              } else {
+                team_requirement = [];
+              }
               //2. count the number of requirements the users fulfilled
               angular.forEach($scope.users, function(value,key){
                 var fulfill = 0;//$scope.users[key]["skills"].length;
-                for (var i = 0; i<team_requirement.length; i++) {
-                    //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
-                  if ($scope.users[key]["skills"].indexOf(team_requirement[i]) !== -1){
-                    fulfill += 1;
+                var fulfill_skills = [];
+                //if user has skill
+                if ("skills" in $scope.users[key]){
+                  for (var i = 0; i<team_requirement.length; i++) {
+                      //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
+                    if ($scope.users[key]["skills"].indexOf(team_requirement[i]) !== -1){
+                      fulfill += 1;
+                      fulfill_skills.push(team_requirement[i]);
+                    }
                   }
+
+                  // $scope.suggested["2"] = [{userobject},{userobject}...]
+                  if (!(fulfill.toString() in suggested_users)){
+                    suggested_users[fulfill.toString()]=[];
+                  }
+                  //alert("fulfill= "+fulfill+" user= "+key);
+                  suggested_users[fulfill.toString()].push($scope.users[key]);
+                  suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["username"] = key;
+                  suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["fulfill_skills"] = fulfill_skills;
                 }
 
-                // $scope.suggested["2"] = [{userobject},{userobject}...]
-                if (!(fulfill.toString() in suggested_users)){
-                  suggested_users[fulfill.toString()]=[];
-                }
-                //alert("fulfill= "+fulfill+" user= "+key);
-                suggested_users[fulfill.toString()].push($scope.users[key]);
-                suggested_users[fulfill.toString()][suggested_users[fulfill.toString()].length-1]["username"] = key;
               });
               //alert(suggested_users["1"].length);
               var storageRef = firebase.storage().ref();
@@ -504,34 +515,46 @@ app.controller("clickCtrl",
             else if (user_identity === "user"){
               //suggested teams for users
               var team_list = event_list[event_name]["teamList"];
-              var user_skills = user_list[this_user]["skills"];
-              angular.forEach(team_list, function(value,key){
-                var fulfill = 0;//user_skills.length;
-                var team_requirement = team_list[key]["skills"];
-                for (var i = 0; i<team_requirement.length; i++) {
-                    //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
-                  if (user_skills.indexOf(team_requirement[i]) !== -1){
-                    fulfill += 1;
+              if ("skills" in user_list[this_user]){
+                var user_skills = user_list[this_user]["skills"];
+                angular.forEach(team_list, function(value,key){
+                  var fulfill = 0;//user_skills.length;
+                  var fulfill_skills = [];
+                  var team_requirement;
+                  if ("skills" in team_list[key]){
+                      team_requirement = team_list[key]["skills"];
+                    } else {
+                      team_requirement = [];
+                    }
+
+                    for (var i = 0; i<team_requirement.length; i++) {
+                        //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
+                      if (user_skills.indexOf(team_requirement[i]) !== -1){
+                        fulfill += 1;
+                        fulfill_skills.push(team_requirement[i]);
+                      }
+                    }
+                    //alert("fulfill= "+fulfill);
+                    // $scope.suggested["2"] = [{userobject},{userobject}...]
+                    if (!(fulfill.toString() in suggested_teams)){
+                      suggested_teams[fulfill.toString()]=[];
+                    }
+                    //alert("fulfill= "+fulfill+" user= "+key);
+                    suggested_teams[fulfill.toString()].push(team_list[key]);
+                    //add the teamname as an attribute of the object
+                    suggested_teams[fulfill.toString()][suggested_teams[fulfill.toString()].length-1]["teamname"]=key;
+                    suggested_teams[fulfill.toString()][suggested_teams[fulfill.toString()].length-1]["fulfill_skills"]=fulfill_skills;
+                  });
+                  //alert(suggested_teams["2"].length);
+                  for (var i = user_skills.length; i>0 ;i--) {
+                    var str_i = i.toString();
+                    if (str_i in suggested_teams){
+                      $scope.suggested_teams.push.apply($scope.suggested_teams, suggested_teams[str_i]);
+                    }
                   }
-                }
-                //alert("fulfill= "+fulfill);
-                // $scope.suggested["2"] = [{userobject},{userobject}...]
-                if (!(fulfill.toString() in suggested_teams)){
-                  suggested_teams[fulfill.toString()]=[];
-                }
-                //alert("fulfill= "+fulfill+" user= "+key);
-                suggested_teams[fulfill.toString()].push(team_list[key]);
-                //add the teamname as an attribute of the object
-                suggested_teams[fulfill.toString()][suggested_teams[fulfill.toString()].length-1]["teamname"]=key;
-              });
-              //alert(suggested_teams["2"].length);
-              for (var i = user_skills.length; i>0 ;i--) {
-                var str_i = i.toString();
-                if (str_i in suggested_teams){
-                  $scope.suggested_teams.push.apply($scope.suggested_teams, suggested_teams[str_i]);
-                }
+                  //alert($scope.suggested_teams.length);
               }
-              //alert($scope.suggested_teams.length);
+
             }
 
           });

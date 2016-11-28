@@ -543,7 +543,13 @@
                   <td>
                       <img ng-src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxx">{{suggested_users["name"]}}</div>
+                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxx">{{suggested_users["name"]}}
+                  <p>
+                  <div style="font-size: 15px">
+                  Fulfill:
+                    <span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.fulfill_skills">{{x}}</span>
+                  </div>
+                  </p></div>
 
 
 
@@ -564,6 +570,7 @@
 						<div class = "col-sm-9">
 						<div class = "row">
 							<div class="col-sm-6 placeholder">
+
 								<h3 class="text-left" style = "font-weight:bold">{{suggested_users.name}}</h3>
 							
 							</div>
@@ -574,6 +581,7 @@
 								<p ng-show = "yourself"><small class="text-danger">Can`t invite yourself</small></p>
 								<p ng-show = "inTeam"><small class="text-danger">Team member</small></p>
 								
+
 							</div>
 							</div>
 							<div class = "row">
@@ -703,7 +711,13 @@
                   </td>-->
 
 
-                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxxx">{{team_content.teamname}}</div>
+                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxxx">{{team_content.teamname}}<p>
+                  <div style="font-size: 15px">
+                  Meet:
+                  
+                    <span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in team_content.fulfill_skills">{{x}}</span>
+                  </div>
+                  </p></div>
 
 
 
