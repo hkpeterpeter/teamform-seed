@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Course</title>
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+    <!--
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script> -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- <link href="vendors/fullcalendar/fullcalendar.css" rel="stylesheet" media="screen"> -->
+
+    <link href="assets/styles.css" rel="stylesheet" media="screen">
+    
+    <link href="assets/app.css" rel="stylesheet">
+    
+    <script src="angular999.js"></script>
+
+    
+
+    
+    <!-- <script type="text/javascript" src="js/app.js"></script> 
+    <script type="text/javascript" src="js/vendor/foundation.js"></script>
+    <script type="text/javascript" src="js/vendor/foundation.min.js"></script> -->
+    <script type="text/javascript" src="js/vendor/jquery.js"></script>
+    <!-- <script type="text/javascript" src="js/vendor/what-input.js"></script> -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+            <!-- <script src="vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script> -->
+        </head>
+
+        <body ng-app="myApp">
+
+            <div class="navbar navbar-fixed-top" ng-app="MyApp">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+                           <span class="icon-bar"></span>
+                           <span class="icon-bar"></span>
+                       </a>
+                       <a class="brand" href="#">Admin Panel</a>
+                       <div class="nav-collapse collapse">
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Admin <i class="caret"></i>
+
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a tabindex="-1" href="#">Profile</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a tabindex="-1" href="login.html">Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="nav">
+                            <li class="active">
+                                <a href="#">Dashboard</a>
+                            </li>
+                            
+                            
+                            <li class="dropdown">
+                                <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
+
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a tabindex="-1" href="#">User List</a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="#">Search</a>
+                                    </li>
+                                    <li>
+                                        <a tabindex="-1" href="#">Permissions</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span3" id="sidebar">
+                    <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+                        <li>
+                            <a href="index.html"><i class="icon-chevron-right"></i> Dashboard</a>
+                        </li>
+                        <li class="active">
+                            <a href="#"><i class="icon-chevron-right"></i> Create Course</a>
+                        </li>
+                        
+                        <li>
+                            <a href="form.html"><i class="icon-chevron-right"></i> Forms</a>
+                        </li>
+                        <li>
+                            <a href="tables.html"><i class="icon-chevron-right"></i> Tables</a>
+                        </li>
+                        
+                        
+                    </ul>
+                </div>
+                <!--/span-->
+                <div class="span9" id="content">
+                    <div class="row-fluid">
+                        <!-- block -->
+                        <div class="block">
+                            <div class="navbar navbar-inner block-header">
+                                <div class="muted pull-left" >Create Course</div>
+                                    <div class="pull-right" ng-controller="myController" >
+
+                                    <button class="btn btn-success" ng-click="showme =! showme">View Existing Course</button>
+
+                                    <div ng-show="showme">
+
+                                    <ul >
+                                        <li>COMP3111</li>
+                                        <li>COMP3511</li>
+                                        <li>COMP2012</li>                                   
+                                    </ul>
+
+                                    </div>
+
+                                    </div>
+
+                            </div>
+                            <div class="block-content collapse in">
+
+
+                               <!--  <div class="span10" > -->
+                               <div  ng-init="list=[]" ng-controller="myController">
+                                <ul ng-repeat="cs in list">
+                                    <li>{{cs.name}}</li>
+                                </ul>
+
+                            <label>Course Name: </label>
+                            <input type="text" name="course" ng-model="name" placeholder="Enter the course name">
+                            <p><button class="btn btn-success" ng-click="create()">Create</button></p>
+
+
+                            <label>Number of People Allowed:</label>
+
+
+                                        <!--
+                                    <div class="range-slider" data-slider="50">
+                                        <input type="range" min="3" max="7" id="numplayers-val" name="teams" value="5"/>
+
+                                    </div>
+                                -->
+                                <!--
+                                <div class="range-slider" data-slider data-options="start: 1; end: 10;">
+                                  <span class="range-slider-handle" role="slider" tabindex="0"></span>
+                                  <span class="range-slider-active-segment"></span>
+                                  <input type="range" min="5" max="7" id="numplayers-val" name="teams" value="5" onchange="showValue(this.value)" />
+
+                                  <span id="range">0</span>
+                                  <script type="text/javascript">
+                                    function showValue(newValue)
+                                    {
+                                        document.getElementById("range").innerHTML=newValue;
+                                    }
+                                </script>
+
+                            </div> -->
+                            </div>
+                        </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <!-- /block -->
+    </div>
+</div>
+</div>
+<hr>
+<footer>
+    <p>&copy; Vincent Gabriel 2013</p>
+</footer>
+</div>
+<style>
+    #external-events {
+        float: left;
+        width: 150px;
+        padding: 0 10px;
+        border: 1px solid #ccc;
+        background: #eee;
+        text-align: left;
+    }
+
+    #external-events h4 {
+        font-size: 16px;
+        margin-top: 0;
+        padding-top: 1em;
+    }
+
+    .external-event { /* try to mimick the look of a real event */
+        margin: 10px 0;
+        padding: 2px 4px;
+        background: #3366CC;
+        color: #fff;
+        font-size: .85em;
+        cursor: pointer;
+        z-index: 99999999;
+    }
+
+    #external-events p {
+        margin: 1.5em 0;
+        font-size: 11px;
+        color: #666;
+    }
+
+    #external-events p input {
+        margin: 0;
+        vertical-align: middle;
+    }
+
+</style>
+<!--/.fluid-container-->
+<script src="vendors/jquery-1.9.1.min.js"></script>
+<script src="vendors/jquery-ui-1.10.3.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="vendors/fullcalendar/fullcalendar.js"></script>
+<script src="vendors/fullcalendar/gcal.js"></script>
+<script src="assets/scripts.js"></script>
+<script>
+    $(function() {
+            // Easy pie charts
+            var calendar = $('#calendar').fullCalendar({
+             header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            },
+            selectable: true,
+            selectHelper: true,
+            select: function(start, end, allDay) {
+                var title = prompt('Event Title:');
+                if (title) {
+                    calendar.fullCalendar('renderEvent',
+                    {
+                        title: title,
+                        start: start,
+                        end: end,
+                        allDay: allDay
+                    },
+                        true // make the event "stick"
+                        );
+                }
+                calendar.fullCalendar('unselect');
+            },
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function(date, allDay) { // this function is called when something is dropped
+
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+                
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+                
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+                copiedEventObject.allDay = allDay;
+                
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+                
+            },
+            editable: true,
+			// US Holidays
+			events: 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic'
+			
+     });
+        });
+
+    $('#external-events div.external-event').each(function() {
+
+            // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+            // it doesn't need to have a start or end
+            var eventObject = {
+                title: $.trim($(this).text()) // use the element's text as the event title
+            };
+            
+            // store the Event Object in the DOM element so we can get to it later
+            $(this).data('eventObject', eventObject);
+            
+            // make the event draggable using jQuery UI
+            $(this).draggable({
+                zIndex: 999999999,
+                revert: true,      // will cause the event to go back to its
+                revertDuration: 0  //  original position after the drag
+            });
+            
+        });
+    </script>
+</body>
+
+</html>
