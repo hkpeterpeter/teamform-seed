@@ -49,6 +49,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'IQtest.html'
             })
 
+ .state('kickmember', {
+            url: '/kickmember',
+            templateUrl: 'kick.html',
+            controller: 'kick'
+            })
+
+            
 .state('eventjoin', {
             url: '/eventjoin',
             templateUrl: 'joinevent.html',
@@ -124,13 +131,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'editteaminfo.html',
             controller: 'teamedit'
             })
-
-             .state('kickmember', {
-            url: '/kickmember',
-            templateUrl: 'kick.html',
-            controller: 'kick'
-            })
-            
+  
              .state('privatepublic', {
             url: '/privatepublic',
             templateUrl: 'publicprivate.html',
