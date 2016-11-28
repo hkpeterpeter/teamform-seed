@@ -20,19 +20,19 @@
     <link href="css/font-awesome.min.css" rel="stylesheet" />    
     <!-- full calendar css-->
     <link href="assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-    <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <link href="assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
     <!-- easy pie chart-->
     <link href="assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen"/>
     <!-- owl carousel -->
     <link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
-    <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <link href="css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
     <!-- Custom styles -->
-    <link rel="stylesheet" href="css/fullcalendar.css">
-    <link href="css/widgets.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/fullcalendar.css">
+  <link href="css/widgets.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
-    <link href="css/xcharts.min.css" rel=" stylesheet"> 
-    <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+  <link href="css/xcharts.min.css" rel=" stylesheet"> 
+  <link href="css/jquery-ui-1.10.4.min.css" rel="stylesheet">
 
   </head>
   
@@ -189,7 +189,7 @@
                                 <a href="profile.html"><i class="icon_profile"></i> My Profile</a>
                             </li>
                             <li>
-                                <a href="inbox.html"><i class="icon_mail_alt"></i> My Inbox</a>
+                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
                             </li>
                             <li>
                                 <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
@@ -255,71 +255,54 @@
 		<section class="wrapper">
 	  
 			<div class="w3-content w3-container w3-padding-64" id="about">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3 class="page-header">ABOUT ME<a href="edit profile.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
+  <div class="row">
+  <div class="col-lg-12">
+          <h3 class="page-header">ABOUT ME</h3>
         </div>
       </div>
   
   <div class="w3-row">
     <div class="w3-col m6 w3-center w3-padding-large">
-      <img src="../UI/img/icon.jpg" class="w3-round w3-image" alt="Photo of Me" width="300" height="300">
+      <a href="#"><img src="../UI/img/icon.jpg" class="w3-round w3-image w3-hover-opacity" width="300" height="300" alt="Click to change icon"></a>
     </div>
 
     <!-- Hide this text on small devices -->
     <div class="w3-col m6 w3-hide-small w3-padding-large">
       <h5><i class="fa fa-user w3-margin-right"></i><b>Peter</b></h5>
-      <p><b>Major: </b>Computer Science</p>
-      <p><b>Year: </b>3</p>
-      <p><b>Self Description: </b>Hi there! I'm really good at programming. Let's form a team with me.</p>
-      <button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
-          <i class="fa fa-paper-plane"></i> MESSAGE ME!
-      </button>
+      <form id="EditProfile" method="post" class="form-horizontal" action="profile.html">
+      
+      <div class="form-group">
+          <label for="Major">Major</label>
+          <input type="text" class="form-control" name="major" id="major">
+      </div>
+
+      <div class="form-group">
+          <label for="Year">Year</label>
+          <select class="form-control" id="year" name="year">
+            <option value="">Select</option>
+            <option value="COMP1021">1</option>
+            <option value="COMP2011">2</option>
+            <option value="COMP2012">3</option>
+            <option value="COMP3111">4</option>
+          </select>
+      </div>
+      
+      <div class="form-group">
+      <label for="SelfDescription">Self Description</label>
+      <textarea class="form-control" name="selfDescription" id="selfDescription" rows="4"></textarea>
+      </div>
+
+      <a href="profile.html"><button type="submit" class="btn btn-primary" id="submit">Submit</button></a>
+      <a href="profile.html"><button type="cancel" class="btn btn-danger" onclick="window.history.back()">Cancel</button></a>
+
+    </form>
+      
     </div>
   </div>
-  <hr>
-  <p class="w3-large w3-center w3-padding-16">MY SKILLS<a href="quiz intro.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
-  <p>C++</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:90%"></div>
-  </div>
-  <br><p>JavaScript</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:85%"></div>
-  </div>
-  <br><p>HTML</p>
-  <div class="w3-progress-container">
-    <div class="w3-progressbar" style="width:75%"></div>
-  </div>
+  
 </div>
 
-<hr>
 
-<!-- Container (Portfolio Section) -->
-<div class="w3-content w3-container w3-padding-64" id="my project">
-  <p class="w3-large w3-center w3-padding-16">MY TEAMS<a href="teamform.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
-
-
-  <!-- Responsive Grid. -->
-  <div class="w3-row-padding w3-center">
-    <div class="w3-col m3">
-      <img src="../page format/img/comp3111.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamA">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/comp3511.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamB">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/lang2030.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamC">
-    </div>
-
-    <div class="w3-col m3">
-      <img src="../page format/img/math1014.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamD">
-    </div>
-  </div>
-
-</div>
       
          </section>
       </section>
@@ -343,6 +326,35 @@
     <script src="js/scripts.js"></script>
 
   <script>
+      $(document).ready(function() {
+        $('#EditProfile').bootstrapValidator({
+            live: 'enabled',
+            excluded:':disabled',
+            fields: {
+                major: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The major is required and cannot be empty'
+                        }
+                    }
+                },
+                year: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Please select an option'
+                        }
+                    }
+                },
+                selfDescription: {
+                    validators: {
+                        notEmpty: {
+                            message: 'The self description is optional'
+                        },
+                    }
+                },
+            }
+        });
+        });
 
 
 
