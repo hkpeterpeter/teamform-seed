@@ -8,9 +8,14 @@
     <title>Member Page</title>
 </head>
 
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
 <body ng-app="member" ng-controller="memCtrl">
 
-    <button id="btn_admin" type="button" class="btn btn-lg btn-warning">Back</button></a>
+    <button id="btn_admin" onclick="goBack();" type="button" class="btn btn-lg btn-warning">Back</button></a>
 
     <form>
         <div class="container">
@@ -75,12 +80,12 @@
                                 <div>
                                     <h3>Departure Date: &nbsp;<span>{{team.departure_date}}</span></h3>
                                     <h3>Descriptions: &nbsp;<span>{{team.descriptions}}</span></h3>
-                                    <h3>Destination: &nbsp;<span>{{team.gender}}</span></h3>
+                                    <h3>Destination: &nbsp;<span>{{team.destination}}</span></h3>
                                     <h3>Estimated Budget/person: &nbsp; <span>{{team.estimated_budget_per_person}}</span></h3>
                                     <h3>Language: &nbsp;<span>{{team.language_for_communication}}</span></h3>
                                     <h3>Max Number of People: &nbsp;<span>{{team.max}}</span></h3>
                                     <h3>Preference: &nbsp;<span>{{team.preference}}</span></h3>
-                                    <h3>Return Date: &nbsp;<span>{{team.return_date}}</span></h3>
+                                    <h3>Return Date: &nbsp;<span>{{team.returnDate}}</span></h3>
                                     <h3>Members: &nbsp;<span ng-repeat="memberId in team.members"><a href="member.html?memberId={{memberId}}">{{membersAll[memberId].first_name}}, {{membersAll[memberId].last_name}}</a> &nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
                                 </div>
                             </div>

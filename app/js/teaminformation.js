@@ -13,8 +13,6 @@ angular.module("teaminfo", ["firebase"])
         };
         firebase.initializeApp(config);
 
-        
-
         //get teams info
         var ref = firebase.database().ref("teams");
         $scope.teams = $firebaseArray(ref);

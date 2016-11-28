@@ -1,196 +1,165 @@
-$(document).ready(function(){
+angular.module("teamform-team-app", ["firebase"])
+    .controller("TeamCtrl", function($scope, $firebaseArray) {
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+            authDomain: "comp3111-5fbe5.firebaseapp.com",
+            databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+            storageBucket: "comp3111-5fbe5.appspot.com",
+            messagingSenderId: "946291658553"
+        };
+        firebase.initializeApp(config);
+        var teamId = getURLParameter("teamId");
+        var ref = firebase.database().ref("members");
+        var refT = firebase.database().ref("teams");
+        $scope.mems = $firebaseArray(ref);
+        $scope.teams = $firebaseArray(refT);
+        $scope.user = null;
+        $scope.teamsJoined = [];
+		var indexTeamOption = 0;
+		var indexTeamObj = 0;
+        $scope.membersAll = [];
 
-	$('#team_page_controller').hide();
-	$('#text_event_name').text("Error: Invalid event name ");
-	var eventName = getURLParameter("q");
-	if (eventName != null && eventName !== '' ) {
-		$('#text_event_name').text("Event name: " + eventName);
-		
-	}
-
-});
-
-angular.module('teamform-team-app', ['firebase'])
-.controller('TeamCtrl', ['$scope', '$firebaseObject', '$firebaseArray', 
-    function($scope, $firebaseObject, $firebaseArray) {
-		
-	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
-
-	var refPath = "";
-	var eventName = getURLParameter("q");	
-	
-	// TODO: implementation of MemberCtrl	
-	$scope.param = {
-		"teamName" : '',
-		"currentTeamSize" : 0,
-		"teamMembers" : []
-	};
-		
-	
-
-	refPath =  eventName + "/admin";
-	retrieveOnceFirebase(firebase, refPath, function(data) {	
-
-		if ( data.child("param").val() != null ) {
-			$scope.range = data.child("param").val();
-			$scope.param.currentTeamSize = parseInt(($scope.range.minTeamSize + $scope.range.maxTeamSize)/2);
-			$scope.$apply(); // force to refresh
-			$('#team_page_controller').show(); // show UI
-			
-		} 
-	});
-	
-	
-	refPath = eventName + "/member";	
-	$scope.member = [];
-	$scope.member = $firebaseArray(firebase.database().ref(refPath));
-	
-	
-	refPath = eventName + "/team";	
-	$scope.team = [];
-	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-	
-	
-	$scope.requests = [];
-	$scope.refreshViewRequestsReceived = function() {
-		
-		//$scope.test = "";		
-		$scope.requests = [];
-		var teamID = $.trim( $scope.param.teamName );	
-				
-		$.each($scope.member, function(i,obj) {			
-			//$scope.test += i + " " + val;
-			//$scope.test += obj.$id + " " ;
-			
-			var userID = obj.$id;
-			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1 ) {
-				//$scope.test += userID + " " ;
-				
-				$scope.requests.push(userID);
+		$scope.checkAuth = function(index) {
+			var user = firebase.auth().currentUser;
+			var team = $scope.teamsJoined[index];
+			indexTeamObj = team;
+			var members = team.members;
+			var can = false;
+			var memId;
+			for(var i = 0; i < $scope.membersAll.length; i++) {
+				if($scope.membersAll[i].uid == user.uid) {
+					memId = i;
+					break;
+				}
 			}
-		});
-		
-		$scope.$apply();
-		
-	}
-	
-	
-	
-	
-	
-	
 
-	$scope.changeCurrentTeamSize = function(delta) {
-		var newVal = $scope.param.currentTeamSize + delta;
-		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
-			$scope.param.currentTeamSize = newVal;
-		} 
-	}
+			for(var i = 0; i < members.length; i++) {
+				// console.log(members[i] + " vs " + $scope.membersAll[memId].id)
+				if(members[i] == $scope.membersAll[memId].id) {
+					// console.log("can");
+					can = true;
+					break;
+				} else {
 
-	$scope.saveFunc = function() {
-		
-		
-		var teamID = $.trim( $scope.param.teamName );
-		
-		if ( teamID !== '' ) {
-			
-			var newData = {				
-				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers
-			};		
-			
-			var refPath = getURLParameter("q") + "/team/" + teamID;	
-			var ref = firebase.database().ref(refPath);
-			
-			
-			// for each team members, clear the selection in /[eventName]/team/
-			
-			$.each($scope.param.teamMembers, function(i,obj){
-				
-				
-				//$scope.test += obj;
-				var rec = $scope.member.$getRecord(obj);
-				rec.selection = [];
-				$scope.member.$save(rec);
-				
-				
-				
-			});
-			
-			
-			
-			ref.set(newData, function(){			
-
-				// console.log("Success..");
-				
-				// Finally, go back to the front-end
-				// window.location.href= "index.html";
-			});
-			
-			
-			
-		}
-		
-		
-	}
-	
-	$scope.loadFunc = function() {
-		
-		var teamID = $.trim( $scope.param.teamName );		
-		var eventName = getURLParameter("q");
-		var refPath = eventName + "/team/" + teamID ;
-		retrieveOnceFirebase(firebase, refPath, function(data) {	
-
-			if ( data.child("size").val() != null ) {
-				
-				$scope.param.currentTeamSize = data.child("size").val();
-				
-				$scope.refreshViewRequestsReceived();
-								
-				
-			} 
-			
-			if ( data.child("teamMembers").val() != null ) {
-				
-				$scope.param.teamMembers = data.child("teamMembers").val();
-				
+				}
 			}
-			
-			$scope.$apply(); // force to refresh
-		});
 
-	}
-	
-	$scope.processRequest = function(r) {
-		//$scope.test = "processRequest: " + r;
-		
-		if ( 
-		    $scope.param.teamMembers.indexOf(r) < 0 && 
-			$scope.param.teamMembers.length < $scope.param.currentTeamSize  ) {
-				
-			// Not exists, and the current number of team member is less than the preferred team size
-			$scope.param.teamMembers.push(r);
-			
-			$scope.saveFunc();
+			if(can == true) {
+				indexTeamOption = index;
+				$("#modifyDialog").dialog();
+				$("#modifyDialog").dialog('option', 'title', team.name);
+
+				// change params
+				$("#dateD").val(team.departure_date);
+				$("#des").val(team.descriptions);
+				$("#dest").val(team.destination);
+				$("#ebp").val(team.estimated_budget_per_person);
+				$("#lang").val(team.language_for_communication);
+				$("#mnp").val(team.max);
+				$("#pre").val(team.preference);
+				$("#dateR").val(team.returnDate);
+			} else {
+				alert("You are not authorised to modify this team!");
+			}
+		};
+
+	$("#modiForm").submit(function (event) {
+		var dateD = $("#dateD").val();
+		var des = $("#des").val();
+		var dest = $("#dest").val();
+		var ebp = $("#ebp").val();
+		var lang = $("#lang").val();
+		var mnp = $("#mnp").val();
+		var pre = $("#pre").val();
+		var dateR = $("#dateR").val();
+
+		$input = {
+			departure_date: dateD,
+			descriptions: des,
+			destination: dest,
+			estimated_budget_per_person: ebp,
+			id: indexTeamObj.id,
+			language_for_communication: lang,
+			max: mnp,
+			members: indexTeamObj.members,
+			name: indexTeamObj.name,
+			preference: pre,
+			returnDate: dateR,
+			tags: indexTeamObj.tags
 		}
-	}
-	
-	$scope.removeMember = function(member) {
+
+		console.log($input);
+		console.log(indexTeamOption);
+		// set data
+		$scope.teams.$ref().child(indexTeamOption).set($input).then(function() {
+			$("#modifyDialog").dialog('close');
+			alert("Success!");
+  		});
+    });
+
+
 		
-		var index = $scope.param.teamMembers.indexOf(member);
-		if ( index > -1 ) {
-			$scope.param.teamMembers.splice(index, 1); // remove that item
-			
-			$scope.saveFunc();
-		}
-		
-	}
-	
-	
-	
-	
-	
-	
-		
-}]);
+        firebase.auth().onAuthStateChanged(function(user) {
+            $scope.mems.$loaded()
+                .then(function(x) {
+                    $scope.membersAll = $scope.mems;
+                    var loggedInId = "";
+                    if (user) {
+                        var email = user.email;
+                        var canStop = false;
+
+                        if (canStop == false)
+                            for (var i = 0; i < $scope.mems.length; i++) {
+                                // console.log($scope.mems[i].email + " vs " + email);
+                                if ($scope.mems[i].email == email) {
+                                    $scope.user = $scope.mems[i];
+                                    loggedInId = i;
+                                    break;
+                                }
+                            }
+                            // console.log(user);
+                    } else {
+                        // No user is signed in.
+                    }
+
+                    $scope.teams.$loaded()
+                        .then(function(x) {
+                            if (user) {
+                                var memberId_searched = "";
+                                memberId_searched = loggedInId;
+                                // console.log(memberId_searched);
+                                var canStop = false;
+                                for (var i = 0; i < $scope.teams.length; i++) {
+                                    if (canStop == true) break;
+                                    // console.log($scope.mems[i].email + " vs " + email);
+                                    var members = $scope.teams[i].members;
+                                    var len = $scope.teams[i].members.length;
+                                    for (var j = 0; j < len; j++) {
+                                        if (teamId != null && teamId.trim().length != 0 && user != null && teamId != undefined && $scope.teams[i].id == teamId) {
+                                            $scope.teamsJoined.push($scope.teams[i]);
+                                            canStop = true;
+                                            break;
+                                        }
+                                        if (members[j] == memberId_searched && !(teamId != null && teamId.trim().length != 0 && user != null && teamId != undefined)) {
+                                            $scope.teamsJoined.push($scope.teams[i]);
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                // console.log($scope.teamsJoined);
+                                // console.log(user);
+                            } else {
+                                // No user is signed in.
+                            }
+                        })
+                        .catch(function(error) {
+                            console.log("Error:", error);
+                        });
+                })
+                .catch(function(error) {
+                    console.log("Error:", error);
+                });
+        });
+    });
