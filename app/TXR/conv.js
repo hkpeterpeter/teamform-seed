@@ -73,27 +73,36 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
   };
 
   $scope.accept = function(){
-    // TODO: delete this conversation
+    delete $scope.convList[$scope.convKey];
     addnotification($scope.event,$scope.thisuser+" accepted your "+$scope.convType,$scope.p);
     $scope.eventList[$scope.event].teamList[$scope.team].memberList.push($scope.targetUser);
     $scope.userList[$scope.targetUser].Membership[$scope.event].identity = 'member';
     $scope.userList[$scope.targetUser].Membership[$scope.event].teamName = $scope.team;
     $scope.userList.$save().then(function(){
       $scope.eventList.$save().then(function(){
-        gotoURL("/TXR/#/MyEvents/"+$scope.event,[],$window);
+        $scope.convList.$save().then(function(){
+          gotoURL("/TXR/#/MyEvents/"+$scope.event,[],$window);
+        });
       });
     });
   };
   $scope.reject = function(){
-    // TODO: delete this conversation
+    delete $scope.convList[$scope.convKey];
     addnotification($scope.event,$scope.thisuser+" rejected your "+$scope.convType,$scope.p);
-    gotoURL("/TXR/#",[], $window);
+    $scope.userList.$save().then(function(){
+      $scope.eventList.$save().then(function(){
+        $scope.convList.$save().then(function(){
+          gotoURL("/TXR/#",[], $window);
+        });
+      });
+    });
   };
 
   var addnotification = function(evt,msg,receiver){
-      delete $scope.userList[receiver]["notification"][$scope.thisuser];
+      if ($scope.userList[receiver]["notification"] == undefined) $scope.userList[receiver]["notification"] = {};
+      // if ($scope.userList[receiver]["notification"][$scope.thisuser] !== undefined) delete $scope.userList[receiver]["notification"][$scope.thisuser];
       $scope.userList[receiver]["notification"][$scope.thisuser]={
-        "others":false,
+        "others":true,
         "event":evt,
         "message":msg,
         "name":$scope.thisuser

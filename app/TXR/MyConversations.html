@@ -1,33 +1,32 @@
 
-	<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <div class="col-md-1 col-lg-8">
+<div class="well well-sm">
+			<div class="row">
+      <div class="col-md-6 col-lg-6">
         <h3 align="left">{{action}} to join <strong>{{team}}</strong></h3>
 			</div>
 
 
-<br>
-<div align="right" ng-show="isMaster">
+
+<div align="right" ng-show="isMaster" class="col-md-6 col-lg-6">
 
                         <button type="button" class="btn btn-md btn-primary" ng-click="accept()">Accept</button>
                         <button type="button" class="btn btn-md btn-danger" ng-click="reject()">Reject</button>
                       </div>
+	</div>
 </div>
-	  </div>
-</nav>
+
 	<div ng-repeat="log in logs">
-		<div id="message" class="row" ng-show="log.sender==thisuser">
-    	<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[thisuser].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+		<div id="message" class="row" ng-show="log.sender==p">
+    	<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[p].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
     	<div class="col-lg-11 col-md-11" id="message_content">
     		{{log.message}}
     	</div>
     </div>
-		<div id="message" class="row" ng-show="log.sender==p">
+		<div id="message" class="row" ng-show="log.sender==thisuser">
     	<div class="col-lg-11 col-md-11" id="message_content" align="right">
     		{{log.message}}
     	</div>
-			<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[p].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+			<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[thisuser].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
     </div>
 		<br>
 	</div>
