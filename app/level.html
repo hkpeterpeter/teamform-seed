@@ -369,13 +369,12 @@
                                     <div class="widget-title" style="margin-top: 10px;">Current Level: {{level}}</div>
                                     
                                     <div class="widget-subtitle" style="margin-top: 5px;">{{total - current}} Exp to Level {{level + 1}}</div>
-                                    <button type="button" class="btn btn-primary btn-rounded" style="float:right; margin-right:5px; margin-top: -25px;" ng-click="add() " ng-init="count=0">
-                                      Press Here! Gain 50EXP
-                                </button>                                
+                                    <button type="button" class="btn btn-primary btn-rounded" style="float:right; margin-right:5px; margin-top: -25px;" ng-click="add() " ng-init="count=0"onClick="noty({text: 'Successful action', layout: 'topRight', type: 'success'});">
+                                      Press Here! Gain 50EXP									
+									</button>
+									
                                 </div>                            
-                                <div class="widget-controls">                                
-                                    <a href="#" class="widget-control-right"><span class="fa fa-times"></span></a>
-                                </div>                            
+                                                        
                             </div>                              
                         </div>
                         <!-- END DISPLAY TITLE -->  
@@ -631,7 +630,38 @@
 			});
         </script>
 		
-    <!-- END SCRIPTS -->         
+    <!-- END SCRIPTS --> 
+<!-- THIS PAGE PLUGINS alert popup-->
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        
+            <script type='text/javascript' src='js/plugins/noty/jquery.noty.js'></script>
+            <script type='text/javascript' src='js/plugins/noty/layouts/topCenter.js'></script>
+            <script type='text/javascript' src='js/plugins/noty/layouts/topLeft.js'></script>
+            <script type='text/javascript' src='js/plugins/noty/layouts/topRight.js'></script>            
+            
+            <script type='text/javascript' src='js/plugins/noty/themes/default.js'></script>
+            <script type="text/javascript">                                            
+                function notyConfirm(){
+                    noty({
+                        text: 'Do you want to continue?',
+                        layout: 'topRight',
+                        buttons: [
+                                {addClass: 'btn btn-success btn-clean', text: 'Ok', onClick: function($noty) {
+                                    $noty.close();
+                                    noty({text: 'You clicked "Ok" button', layout: 'topRight', type: 'success'});
+                                }
+                                },
+                                {addClass: 'btn btn-danger btn-clean', text: 'Cancel', onClick: function($noty) {
+                                    $noty.close();
+                                    noty({text: 'You clicked "Cancel" button', layout: 'topRight', type: 'error'});
+                                    }
+                                }
+                            ]
+                    })                                                    
+                }                                            
+            </script>
+            <!-- END PAGE PLUGINS -->	
     </body>
 </html>
 

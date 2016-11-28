@@ -25,7 +25,7 @@ app.controller("levelCtrl",
             $scope.level = 6;
             $scope.value = ($scope.current)/$scope.total*100 +"%";
             knobfunction($scope.value);
-            window.alert("Congratulation! Level Up!");
+            //window.alert("Congratulation! Level Up!");
         };
 
     }
