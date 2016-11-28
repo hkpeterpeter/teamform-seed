@@ -692,7 +692,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					length ++;
 				}
 				initial ++;
-				if(initial != 1&&(length > $scope.notes )){
+				if(initial == 1)Notification("You have " + length + " notification(s)");
+				if(initial != 1&&(length >= $scope.notes )){
 				  Notification('New notification');
 				}
 				$scope.notes = length;
