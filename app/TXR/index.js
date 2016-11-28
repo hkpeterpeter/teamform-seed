@@ -199,7 +199,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
     }
 
 
-      var storageRef = firebase.storage().ref()
+      var storageRef = firebase.storage().ref();
       eventlist.$loaded(function(){
 
         var avaFilenameevent = eventlist[$scope.eventname]["img"];

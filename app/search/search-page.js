@@ -51,6 +51,10 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var event_list = $firebaseObject(ref);
 			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
 			
+			
+			var storageRef = firebase.storage().ref();
+			$scope.photoList = {};
+			
 			//get tags,teams and users from tag list in firebase
 			/*
 			$scope.userList.$loaded(function(){
@@ -61,6 +65,18 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				}
 			});
 			*/
+			$scope.userList.$loaded(function(){
+				angular.forEach($scope.userList,function(value,key){
+					if($scope.photoList[key] == undefined && $scope.userList[key].img != undefined){
+						//var photoName = $scope.userList[key].img;
+						//var fullName = storageRef.child('user/'+ photoName);
+						//fullName.getDownloadURL().then(function(url){
+							$scope.photoList[key] = $scope.userList[key].img;
+						//});
+					}
+				});
+			});
+			
 			$scope.ignore = false;
 			$scope.reSearch = function(){
 				if($scope.resultTag.length != 0){
@@ -134,7 +150,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						tag.push(key);
 					
 					});
-				
+
 			}
 			
 			/*
@@ -401,8 +417,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 					
 				}
+				
+				
 			}
-
 			//private search method
 			var findResult = function(type){
 				var list = [];
@@ -659,6 +676,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			// $scope.searchThisName = function(){
 			// 	Naruto.searchName();
 			// };
+			
 			$scope.start = function(){
 				Search.search = false;
 
