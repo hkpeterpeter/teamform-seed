@@ -75,8 +75,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
          .state('personal', {
             url: '/personal',
             templateUrl: 'Profilo.html',
-            controller: 'Personal',
-            authRequired: true,
+            controller: '',
              })
 
       .state('event', {
@@ -140,9 +139,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
              .state('personal_information', {
             url: '/personal_information',
-            templateUrl: 'personal_information.html',
-            authRequired: true,
-            controller: 'piCtrl'
+            templateUrl: 'personal_info.html',
+            controller: 'info',
             })
              
              .state('requests', {
