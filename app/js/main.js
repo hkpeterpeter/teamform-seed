@@ -82,8 +82,8 @@ teamapp.controller('main_ctroller', ['$scope', '$firebase', '$rootScope', '$fire
     }
   // do stuff in your callback
 	// these are two examples, the first one should fail, and the second one shoudld take 20 seconds and return 55.0, remember to pass a valid url
-  $rootScope.yanzhi('this is a test', console.log);
-  $rootScope.yanzhi('http://timedotcom.files.wordpress.com/2014/03/happily-surprised.jpg', console.log);
+  //$rootScope.yanzhi('this is a test', console.log);
+  //$rootScope.yanzhi('http://timedotcom.files.wordpress.com/2014/03/happily-surprised.jpg', console.log);
 
   $rootScope.addNotify = function(receiverID, _content, _eventName, _teamName, _type) {
     //_type is chosen from {System, invitation}

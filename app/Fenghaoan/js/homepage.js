@@ -3,7 +3,7 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
 
 
   // For stupid test case, comment out the only useful function here
-  
+
   $scope.loginhelper = function(result) {
   // This gives you a Google Access Token. You can use it to access the Google API.
   var token = result.credential.accessToken;
@@ -36,12 +36,23 @@ teamapp.controller('homeController', ['$scope',"$rootScope" , function($rootScop
       };
 
       $rootScope.addUser(newUser);
-       
+
       console.log("user added");
 
       //$rootScope.loginWithEmail(data['email']);
     }
+    if ($rootScope.currentUser.yanzhi == undefined || $rootScope.currentUser.yanzhi == "None") {
+  　　 $rootScope.yanzhi($rootScope.currentUser.profilePic, function(res) {
 
+          if (res != "failed") {
+            console.log(res);
+            $rootScope.user_ref.child($rootScope.currentUser.$id).child("yanzhi").set(res);
+          } else {
+            console.log("get yanzhi failed");
+          }
+
+      });
+    }
     console.log($rootScope.currentUser['name']);
     // $rootScope.test();
      $rootScope.initilizaNofi();
