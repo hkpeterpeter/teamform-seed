@@ -180,6 +180,7 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     $scope.getCurrentEvent();
     if ($scope.notParticipated) {
       $firebaseArray($rootScope.user_ref.child($scope.currentUser).child("teamsApplying")).$add(id);
+      $firebaseArray($rootScope.team_ref.child(id).child("pendingApplicants")).$add($scope.currentUser);
       for (var i=0; i<$scope.teams.length; ++i) {
         if ($scope.teams[i].teamID == id) {
           $scope.teams[i].applied = true;
