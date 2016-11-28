@@ -64,8 +64,12 @@
 
   </div>
     <div class="row" style="margin-bottom: 50px">
-        <div class="col m3" ng-repeat="skill in skillsList" style="margin-bottom: 10px">
-            <a class="waves-effect waves-light btn col" class="col m4" ><i class="material-icons left" ng-click="skillsList.$remove(skill)">delete</i>{{skill.$value}}</a>
+        <div class="col s6 m4 l2" ng-repeat="skill in skillsList" style="margin-bottom: 10px">
+            <div class="chip">
+                {{skill.$value}}
+                <i class="close material-icons" ng-click="skillsList.$remove(skill)">close</i>
+            </div>
+
         </div>
 
     </div>
@@ -116,7 +120,7 @@
                     <!--<a class="waves-effect waves-light btn" ng-click="showLess()">Show Only 10</a>-->
                 </div>
                 <div ng-show="show10Notifs">
-                    <h5>My most recent 10 notifications:</h5>
+                    <h5>My most recent notifications:</h5>
                     <ul>
                         <li  ng-repeat="notif in last10Notifs | orderBy:'$index':true">
                             <div class="chip" style="float:none; margin-top: 20px; width: 100%">
@@ -147,7 +151,7 @@
             </ul>
         </div>
         <div id="eventsAsAdmin">
-            <h4>Events administrating by me</h4>
+            <h4>I am administrating the following events</h4>
             <div ng-repeat="event in eventsList">
                 <event-card eid="{{event.$value}}"></event-card>
             </div>
@@ -165,7 +169,7 @@
             </div>
         </div>
         <div id="teamsApplying">
-            <h4>I have pending applications to these teams:</h4>
+            <h4>I have pending applications to these teams</h4>
             <div ng-repeat="pendingTeam in applyingList">
                 <team-card team-id="{{pendingTeam.$value}}"></team-card>
                 <a class="waves-effect waves-light btn" ng-click="withdrawApplication($index)">WITHDRAW Application</a>

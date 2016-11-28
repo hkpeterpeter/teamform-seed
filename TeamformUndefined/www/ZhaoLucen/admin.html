@@ -34,16 +34,16 @@
 			      <div class="collapsible-body" style="display: block;"><p>As an administrator, you can easily manipulate teams and participants in this admin page. To learn more details, Please click on the titles of collapsible items.</p></div>
 			    </li>
     	    <li>
-			      <div class="collapsible-header blue-grey lighten-3"><i class="material-icons">comment</i>Check Team or Member Information</div>
-			      <div class="collapsible-body"><p>As an administrator, you can check the information of a group or member by...</p></div>
+			      <div class="collapsible-header blue-grey lighten-3"><i class="material-icons">comment</i>Check Team and User Information</div>
+			      <div class="collapsible-body"><p>As an administrator, you can check the basic information of event groups and participants on this page. By clicking on the team cards, you can check the name of all team members as well as the name of all invited users of this team. If you do not know which one to add, just click on "RECOMMEND" to get a recommended user.</p></div>
 			    </li>
     			<li>
-      			<div class="collapsible-header blue-grey lighten-4"><i class="material-icons">library_add</i>Add Member to A Group</div>
-      			<div class="collapsible-body"><p>Administrator can add a member to a group by...</p></div>
+      			<div class="collapsible-header blue-grey lighten-4"><i class="material-icons">library_add</i>Add Member to A Team</div>
+      			<div class="collapsible-body"><p>Administrator can add a member to a team. All teams this user applied will be shown on the user card as buttons. If you want to add this user to one of these teams, just simply click on the corresponding button. You could also enter the name of a team to add or drag the team card to corresponding user card.</p></div>
     			</li>
     			<li>
-      			<div class="collapsible-header blue-grey lighten-5"><i class="material-icons">import_export</i>Merge Teams</div>
-			      <div class="collapsible-body"><p>To merge two teams, ...</p></div>
+      			<div class="collapsible-header blue-grey lighten-5"><i class="material-icons">import_export</i>Merge and Delete Teams</div>
+			      <div class="collapsible-body"><p>To merge two teams, you could drag one team into another team, the information of dragged team will be added into the other one. You could also enter the name of the team to be merged into and click "MERGE". If you only want to delete a team, just simply click on "DELETE".</p></div>
     			</li>
 			  </ul>
     	<!-- Description & Tutorial Ends -->
@@ -111,7 +111,7 @@
               </div>
             </div>
             <div class="card-action">
-              <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge">
+              <input id="team_merge_name" placeholder="Name of Another Team" type="text" class="validate orange-text text-lighten-2" ng-model="team.adminMerge" ng-keyup="$event.keyCode == 13 ? adminMergeTeam(team) : null">
               <button class="btn-flat orange-text admin-team-btn team-delete" ng-click="setactive($index); remove(team)">Delete</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="adminMergeTeam(team)">Merge</button>
               <button class="btn-flat orange-text admin-team-btn" ng-click="findSuitableUser(team)">Recommend</button>
