@@ -103,6 +103,18 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
       })
 
+    
+      $scope.addnotification = function(other,evt,msg,receiver){
+        userlist[receiver]["notification"][thisuser]={
+          "others":other,
+          "event":evt,
+          "message":msg,
+          "name":thisuser
+        }
+        userlist.$save();
+    }
+    $scope.quitteammsg= $scope.thisusername+" has left your team "+ $scope.teamname +" in "+ $scope.eventname;
+
       $scope.deletemember = function(i){
 
 
@@ -148,6 +160,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
                  eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].splice(y,1);}
           }
           eventlist.$save();
+          $scope.addnotification(true, $scope.eventname, $scope.quitteammsg, $scope.Leader);
      }
      $scope.deletetag = function(i){
        delete eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"][i];
