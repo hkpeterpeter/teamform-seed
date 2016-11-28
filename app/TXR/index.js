@@ -210,6 +210,9 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        eventlist.$save();
 
     }
+    			$scope.toggle = function () {
+				$scope.type = $scope.type === 'polarArea' ? 'pie' : 'polarArea';
+			};
 
 
       var storageRef = firebase.storage().ref();
