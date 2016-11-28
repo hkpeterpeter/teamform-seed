@@ -66,7 +66,7 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
   $scope.send = function() {
     if ($scope.input !== "") {
       $scope.convList[$scope.convKey].log.push({message:$scope.input,sender:$scope.thisuser});
-      addnotification($scope.event,$scope.input,$scope.p);
+      addnotification($scope.event,$scope.input,$scope.p,true);
       $scope.convList.$save();
       $scope.input = "";
     }
@@ -74,7 +74,7 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
 
   $scope.accept = function(){
     delete $scope.convList[$scope.convKey];
-    addnotification($scope.event,$scope.thisuser+" accepted your "+$scope.convType,$scope.p);
+    addnotification($scope.event,$scope.thisuser+" accepted your "+$scope.convType,$scope.p,false);
     $scope.eventList[$scope.event].teamList[$scope.team].memberList.push($scope.targetUser);
     $scope.userList[$scope.targetUser].Membership[$scope.event].identity = 'member';
     $scope.userList[$scope.targetUser].Membership[$scope.event].teamName = $scope.team;
@@ -88,7 +88,7 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
   };
   $scope.reject = function(){
     delete $scope.convList[$scope.convKey];
-    addnotification($scope.event,$scope.thisuser+" rejected your "+$scope.convType,$scope.p);
+    addnotification($scope.event,$scope.thisuser+" rejected your "+$scope.convType,$scope.p,false);
     $scope.userList.$save().then(function(){
       $scope.eventList.$save().then(function(){
         $scope.convList.$save().then(function(){
@@ -98,11 +98,11 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
     });
   };
 
-  var addnotification = function(evt,msg,receiver){
+  var addnotification = function(evt,msg,receiver,others){
       if ($scope.userList[receiver]["notification"] == undefined) $scope.userList[receiver]["notification"] = {};
       // if ($scope.userList[receiver]["notification"][$scope.thisuser] !== undefined) delete $scope.userList[receiver]["notification"][$scope.thisuser];
       $scope.userList[receiver]["notification"][$scope.thisuser]={
-        "others":true,
+        "others":others,
         "event":evt,
         "message":msg,
         "name":$scope.thisuser
