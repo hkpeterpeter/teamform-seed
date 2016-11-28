@@ -28,6 +28,8 @@
 		}
 		function showClose(){
 			document.getElementById("mb-submitted").style.display = "block";
+			document.getElementById("mb-eqsubmit").style.display = "none";
+			document.getElementById("mb-iqsubmit").style.display = "none";
 		}
 		function closeBox(){
 			document.getElementById("mb-eqsubmit").style.display = "none";
@@ -1014,10 +1016,7 @@
             <div class="mb-container">
                 <div class="mb-middle">
                     <div class="mb-title"> <strong>Your result have been submitted.</strong></div>
-                    <div class="mb-content">
-                        <p>Are you sure you want to submit?</p>                    
-                        <p>Press No if you want to change answers to increase EQ . Press Yes think your EQ is enough or maximized.</p>
-                    </div>
+
                     <div class="mb-footer">
                         <div class="pull-right">
                             <a href="Profilo.html" class="btn btn-success btn-lg">Close</a>
