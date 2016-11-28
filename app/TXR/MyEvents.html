@@ -495,7 +495,7 @@
                   <td>
                       <img src={{userlist[member].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px"><a href="#">{{member}}</a></td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[member].name}}</a></td>
                  <td>
                       <button ng-hide="$index==0" id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)" value="Reload Page" onClick="document.location.reload(true)"> Delete</button>
                   </td>
@@ -663,7 +663,7 @@
                   <td>
                       <img ng-src={{userlist[members].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px"><a href="#">{{members}}</a></td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[members].name}}</a></td>
 
                 </tr>
 
