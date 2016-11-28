@@ -585,7 +585,10 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.disable = false;
 			$scope.full = false;
 			$scope.inTeam = false;
+			
 			$scope.passTeam = function(index){
+				$scope.labels = [];
+				$scope.data = [];
 				$scope.disable = false;
 				$scope.full = false;
 				$scope.inTeam = false;
