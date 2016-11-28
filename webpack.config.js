@@ -10,6 +10,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
 
 let ENV = process.env.npm_lifecycle_event;
@@ -93,7 +94,10 @@ module.exports = function makeWebpackConfig() {
                 loader: 'file-loader'
             }, {
                 test: /\.(gif|png|jpe?g)$/,
-                loader: 'url-loader?limit=10000&name=/assets/images/[hash].[ext]'
+                loaders: [
+                    'url-loader?limit=10000&name=/assets/images/[hash].[ext]',
+                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+                ]
             }, {
                 test: /\.html$/,
                 loader: 'html'
@@ -143,6 +147,13 @@ module.exports = function makeWebpackConfig() {
             new CopyWebpackPlugin([{
                 from: __dirname + '/src/public'
             }]),
+            new CompressionPlugin({
+                asset: '[path].gz[query]',
+                algorithm: 'gzip',
+                test: /\.js$|\.html$/,
+                threshold: 10240,
+                minRatio: 0.8
+            }),
             new S3Plugin({
                 exclude: /\.(html|xml|txt)$/,
                 s3Options: {
