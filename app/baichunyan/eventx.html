@@ -33,7 +33,7 @@
 
                 <li>
                   <team-card team-id="{{t.teamID}}"></team-card>
-                  <div ng-show="notParticipated" class="container">
+                  <div ng-show="notParticipated && !t.applied" class="container">
                       <div class="row center">
                           <a class="waves-effect waves-light btn" ng-click="joinTeam($event, t.teamID);">
                               <i class="material-icons left">

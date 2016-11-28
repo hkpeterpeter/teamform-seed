@@ -1,7 +1,9 @@
 teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$firebaseArray", function($scope, $rootScope, $firebaseObject, $firebaseArray) {
-
-  $scope.currentEvent = $rootScope.clickedEvent.$id;
-  $scope.currentUser = $rootScope.currentUser.$id;
+  if ($rootScope.currentUser.$id == undefined) {
+    document.location.href="#/search";
+  }
+  $scope.currentEvent = $rootScope.clickedEvent.$id == undefined ? 0 : $rootScope.clickedEvent.$id;
+  $scope.currentUser = $rootScope.currentUser.$id == undefined ? $rootScope.currentUser.id : $rootScope.currentUser.$id;
   $scope.events = $rootScope.events;
   $scope.users = $rootScope.users;
   $scope.teams = $rootScope.teams;
@@ -47,7 +49,9 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
     });
     var teams = firebase.database().ref('events/' + $scope.currentEvent).child('/allTeams');
     $scope.teams = $firebaseArray(teams);
-    console.log($scope.teams);
+    for (var i=0; i<$scope.teams.length; ++i) {
+      $scope.teams[i].applied = false;
+    }
     $firebaseArray(teams).$loaded().then(function(datas) {
       $firebaseObject($rootScope.user_ref.child($scope.currentUser)).$loaded().then(function(user) {
         for (var i = 0; i < datas.length; ++i) {
@@ -59,6 +63,19 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
           for (var key in user.teamsAsMember) {
             if (user.teamsAsMember[key] == datas[i].teamID) {
               $scope.notParticipated = false;
+            }
+          }
+          if (user.teamsApplying) {
+            for (var key in user.teamsApplying) {
+              if (user.teamsApplying[key] == datas[i].teamID) {
+                $scope.teams[i].applied = true;
+              } else {
+                $scope.teams[i].applied = false;
+              }
+            }
+          } else {
+            for (var i=0; i<datas.length; ++i) {
+              $scope.teams[i].applied = false;
             }
           }
         }
@@ -168,17 +185,22 @@ teamapp.controller('eventX', ['$scope', "$rootScope", "$firebaseObject", "$fireb
 
   $scope.joinTeam = function($event, id) {
     console.log($scope.currentUser);
-    $firebaseArray($rootScope.user_ref.child($scope.currentUser).child("teamsAsMember")).$add(id);
-    $firebaseArray($rootScope.team_ref.child(id).child("membersID")).$add($scope.currentUser);
-    $scope.notParticipated = false;
-    for (var i = 0; i < $scope.teams.length; ++i) {
-      if ($scope.teams[i].teamID == id) {
-        $rootScope.addNotify($scope.currentUser, "You have joined " + $scope.teams[i].teamID, "", "", "System");
-        Materialize.toast("You have joined " + $scope.teams[i].teamID, 3000);
+    $scope.getCurrentEvent();
+    if ($scope.notParticipated) {
+      $firebaseArray($rootScope.user_ref.child($scope.currentUser).child("teamsApplying")).$add(id);
+      $firebaseArray($rootScope.team_ref.child(id).child("pendingApplicants")).$add($scope.currentUser);
+      for (var i=0; i<$scope.teams.length; ++i) {
+        if ($scope.teams[i].teamID == id) {
+          $scope.teams[i].applied = true;
+        }
       }
+      $firebaseObject($rootScope.team_ref.child(id)).$loaded().then(function(team) {
+          $rootScope.addNotify($scope.currentUser, "You have applied for " + team.teamName, "", "", "System");
+          Materialize.toast("You have applied for " + team.teamName, 3000);
+      });
+      // $rootScope.addNotify($scope.currentUser, "You have applied for " + $scope.element.teamName, "", "", "System");
+      // Materialize.toast("You have applied for " + $scope.element.teamName, 3000);
     }
-
-
   };
 
   $scope.createTeam = function($event) {

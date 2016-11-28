@@ -1,258 +1,281 @@
-var teamapp = angular.module('teamapp', ["ngRoute","firebase","chart.js","ngDragDrop"]);
+var teamapp = angular.module('teamapp', ["ngRoute", "firebase", "chart.js", "ngDragDrop"]);
 
 
 
 teamapp.config(function($routeProvider) {
-	$routeProvider
-	.when("/search", {
-		templateUrl : "zhuxinyu/searchEvent.html"
-	}).when("/eventx",{
-		templateUrl : "baichunyan/eventx.html"
-	}).when("/profile",{
-		templateUrl : "Samuel-personalDashboard/personal-dashboard.html"
-	}).when("/home",{
-		templateUrl : "Fenghaoan/home.html"
-	}).when("/teamleader",{
-		templateUrl : "JiaHe/teamleader.html"
-	}).when("/admin",{
-		templateUrl : "ZhaoLucen/admin.html"
-	}).when("/team",{
-		templateUrl : "fish/member-event.html"
-	}).otherwise({redirectTo:'/home'});
+  $routeProvider
+    .when("/search", {
+      templateUrl: "zhuxinyu/searchEvent.html"
+    }).when("/eventx", {
+      templateUrl: "baichunyan/eventx.html"
+    }).when("/profile", {
+      templateUrl: "Samuel-personalDashboard/personal-dashboard.html"
+    }).when("/home", {
+      templateUrl: "Fenghaoan/home.html"
+    }).when("/teamleader", {
+      templateUrl: "JiaHe/teamleader.html"
+    }).when("/admin", {
+      templateUrl: "ZhaoLucen/admin.html"
+    }).when("/team", {
+      templateUrl: "fish/member-event.html"
+    }).otherwise({
+      redirectTo: '/home'
+    });
 
 });
 
-notify={
-  "accepted" : "undecided",
+notify = {
+  "accepted": "undecided",
 
-  "content" : "You are invited to Team Elder!",
+  "content": "You are invited to Team Elder!",
 
-  "eventID" : "0",
+  "eventID": "0",
 
-  "eventName" : "+1s",
-  "imageURL" : "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTem460OWSOCB8yo__UsWTh03G-Rizh6-gBKCjJrF7_7iPt_8haqQ",
-  "read" : true,
-  "receiverEmail" : "abc@connect.ust.hk",
-  "senderEmail" : "zzhaoah@ust.hk",
+  "eventName": "+1s",
+  "imageURL": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTem460OWSOCB8yo__UsWTh03G-Rizh6-gBKCjJrF7_7iPt_8haqQ",
+  "read": true,
+  "receiverEmail": "abc@connect.ust.hk",
+  "senderEmail": "zzhaoah@ust.hk",
 
-  "senderName" : "Zixuan",
+  "senderName": "Zixuan",
 
-  "teamID" : 0,
-  "teamName" : "Undefined",
-  "type" : "invitation"
+  "teamID": 0,
+  "teamName": "Undefined",
+  "type": "invitation"
 }
 
 
 
-teamapp.controller('main_ctroller', ['$scope','$firebase','$rootScope','$firebaseObject','$firebaseArray', function($scope,$firebase,$rootScope,$firebaseObject,$firebaseArray){
-	$rootScope.user_ref=firebase.database().ref("users");
-	$rootScope.event_ref=firebase.database().ref("events");
-	$rootScope.team_ref=firebase.database().ref("teams");
+teamapp.controller('main_ctroller', ['$scope', '$firebase', '$rootScope', '$firebaseObject', '$firebaseArray', function($scope, $firebase, $rootScope, $firebaseObject, $firebaseArray) {
+  $rootScope.user_ref = firebase.database().ref("users");
+  $rootScope.event_ref = firebase.database().ref("events");
+  $rootScope.team_ref = firebase.database().ref("teams");
 
-	$rootScope.users=$firebaseArray($rootScope.user_ref);
-	$rootScope.events=$firebaseArray($rootScope.event_ref);
-	$rootScope.teams=$firebaseArray($rootScope.team_ref);
+  $rootScope.users = $firebaseArray($rootScope.user_ref);
+  $rootScope.events = $firebaseArray($rootScope.event_ref);
+  $rootScope.teams = $firebaseArray($rootScope.team_ref);
 
-	$rootScope.yanzhi = function(url, callback) {
-    var settings = {
-      "async": true,
-      "crossDomain": true,
-      "url": 'http://128.199.83.52/?url=' + url,
-      "method": "GET"
+  function ValidURL(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
+  }
+  $rootScope.yanzhi = function(url, callback) {
+      if (ValidURL(url)) {
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": 'http://128.199.83.52/?url=' + url,
+          "method": "GET"
+        }
+
+        $.ajax(settings).done(function(response) {
+          callback(response);
+        });
+      } else {
+        callback("failed");
+      }
+    }
+  // do stuff in your callback
+	// these are two examples, the first one should fail, and the second one shoudld take 20 seconds and return 55.0, remember to pass a valid url
+  //$rootScope.yanzhi('this is a test', console.log);
+  //$rootScope.yanzhi('http://timedotcom.files.wordpress.com/2014/03/happily-surprised.jpg', console.log);
+
+  $rootScope.addNotify = function(receiverID, _content, _eventName, _teamName, _type) {
+    //_type is chosen from {System, invitation}
+    //If it is any System notification, just input "" for _eventName , _teamName ,
+
+    if (!$rootScope.currentUser.id) $rootScope.currentUser.id = $rootScope.currentUser.$id;
+    var tempUserPic = $firebaseObject(firebase.database().ref("users").child($rootScope.currentUser.id));
+    tempUserPic.$loaded().then(function(data) {
+      if (_type == "System") {
+        //It means the content is generated by program, so we can ensure the contents have enough information
+        notify = {
+          content: _content,
+          read: false,
+          type: "System",
+          imageURL: data.profilePic
+        }
+      } else if (_type == "invitation") {
+        //It means the content is typed by some people, it may not contatin enough information
+        notify = {
+          content: _content,
+          read: false,
+          type: "invitation",
+          imageURL: data.profilePic,
+          eventName: _eventName,
+          teamName: _teamName,
+          senderName: data.name
+        }
+      } else {
+        console.log("Wrong notification type");
+        return;
+      }
+      console.log(notify);
+      $firebaseArray(firebase.database().ref("users").child(receiverID).child("notifs")).$add(notify);
+    });
+
+
+  }
+
+
+  $rootScope.test = function() {
+    $rootScope.loginWithEmail($scope.useremail);
+    console.log($scope.useremail);
+    console.log($rootScope.currentUser);
+
+  }
+
+  $rootScope.addEventTest = function() {
+    exampleEvent.eventName = $scope.eventtitle;
+    $rootScope.addEvent(exampleEvent);
+    console.log($rootScope.events);
+  }
+  $rootScope.loginWithEmail = function(email) {
+    $rootScope.currentUser.id = 0;
+
+    for (var i = 0; i < $rootScope.users.length; i++) {
+
+      if ($rootScope.users[i].email == email) {
+        console.log($rootScope.users[i]);
+        $rootScope.currentUser = $rootScope.users[i];
+        $rootScope.currentUser.id = $rootScope.users[i].$id;
+      }
     }
 
-    $.ajax(settings).done(function(response) {
-			callback(response);
-    });
+
   }
-	// do stuff in your callback
-  // Example: $rootScope.yanzhi('http://timedotcom.files.wordpress.com/2014/03/happily-surprised.jpg', console.log);
+  if (!$rootScope.currentUser) {
+    $rootScope.currentUser = {
+      id: "0",
+      profilePic: "http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
+      email: "abc@connect.ust.hk"
+    }
+  }
+  if (!$rootScope.clickedEvent) {
+    $rootScope.clickedEvent = {
+      $id: "0"
+    }
+  }
 
-	$rootScope.addNotify=function(receiverID, _content, _eventName , _teamName ,_type){
-		 //_type is chosen from {System, invitation}
-    	//If it is any System notification, just input "" for _eventName , _teamName ,
+  var exampleNewUser = {
+    eventsManaging: [],
+    email: "abcde@connect.ust.hk",
+    name: "I am new",
+    notifis: [],
+    profilePic: "https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872",
+    skills: [],
+    teamsApplying: [],
+    teamsAsLeader: [],
+    teamsAsMember: []
 
-    	if(!$rootScope.currentUser.id) $rootScope.currentUser.id=$rootScope.currentUser.$id;
-    	var tempUserPic=$firebaseObject(firebase.database().ref("users").child($rootScope.currentUser.id));
-    	tempUserPic.$loaded().then(function(data){
-			if(_type=="System"){
-				//It means the content is generated by program, so we can ensure the contents have enough information
-				notify={
-				    content:_content,
-				    read:false,
-				    type:"System",
-				    imageURL:data.profilePic
-				}
-			}else if(_type=="invitation"){
-				//It means the content is typed by some people, it may not contatin enough information
-				notify={
-				    content:_content,
-				    read:false,
-				    type:"invitation",
-				    imageURL:data.profilePic,
-				    eventName:_eventName,
-				    teamName:_teamName,
-				    senderName:data.name
-				}
-			}else{
-				console.log("Wrong notification type");
-				return;
-			}
-			console.log(notify);
-			$firebaseArray(firebase.database().ref("users").child(receiverID).child("notifs")).$add(notify);
-    	});
+  }
 
+  var exampleEvent = {
+    adminID: "-asdnfkasdfadfad",
+    allTeams: [],
+    description: "A new Event holden by peter",
+    eventName: "My Awsome event",
+    maxSize: 10,
+    minSize: 5
+  }
+  $rootScope.addUser = function(user) {
+    console.log("Add user");
+    console.log(user);
+    $rootScope.users.$add(user).then(function(ref) {
+      console.log(ref);
+      var id = ref.key;
+      console.log("added record with id " + id);
 
-	}
+      $rootScope.currentUser = $firebaseObject(firebase.database().ref("users").child(id));
+      $rootScope.currentUser.id = id;
+      $rootScope.initilizaNofi();
 
-
-	$rootScope.test=function(){
-		$rootScope.loginWithEmail($scope.useremail);
-		console.log($scope.useremail);
-		console.log($rootScope.currentUser);
-
-	}
-
-	$rootScope.addEventTest=function(){
-		exampleEvent.eventName=$scope.eventtitle;
-		$rootScope.addEvent(exampleEvent);
-		console.log($rootScope.events);
-	}
-	$rootScope.loginWithEmail=function(email){
-		$rootScope.currentUser.id=0;
-
-		for(var i=0;i<$rootScope.users.length;i++){
-
-			if($rootScope.users[i].email==email){
-				console.log($rootScope.users[i]);
-				$rootScope.currentUser=$rootScope.users[i];
-				$rootScope.currentUser.id=$rootScope.users[i].$id;
-			}
-		}
-
-
-	}
-	if(!$rootScope.currentUser){
-		$rootScope.currentUser={
-	        id:"0",
-	        profilePic:"http://a5.mzstatic.com/us/r30/Purple/v4/26/f4/d3/26f4d3b5-5f61-89ba-29cf-a0866ac89ee7/screen568x568.jpeg",
-	        email:"abc@connect.ust.hk"
-	    }
-	}
-	if(!$rootScope.clickedEvent){
-	    $rootScope.clickedEvent={
-	    	$id:"0"
-	    }
-	}
-
-	var exampleNewUser={
-		eventsManaging:[],
-		email:"abcde@connect.ust.hk",
-		name:"I am new",
-		notifis:[],
-		profilePic:"https://scontent-hkg3-1.xx.fbcdn.net/v/t1.0-9/11811378_670467616420822_8367557776291472237_n.jpg?oh=daf68581e51d412ce96010adf7d77648&oe=588A7872",
-		skills:[],
-		teamsApplying:[],
-		teamsAsLeader:[],
-		teamsAsMember:[]
-
-	}
-
-	var exampleEvent={
-		adminID:"-asdnfkasdfadfad",
-		allTeams:[],
-		description:"A new Event holden by peter",
-		eventName:"My Awsome event",
-		maxSize:10,
-		minSize:5
-	}
-	$rootScope.addUser=function(user){
-		console.log("Add user");
-		console.log(user);
-		$rootScope.users.$add(user).then(function(ref) {
-			 console.log(ref);
-		  var id = ref.key;
-		  console.log("added record with id " + id);
-
-		  $rootScope.currentUser=$firebaseObject(firebase.database().ref("users").child(id));
-		  $rootScope.currentUser.id=id;
-		   $rootScope.initilizaNofi();
-
-		// $rootScope.yanzhi($rootScope.currentUser.imageURL,function(data){
-		// 	console.log(data);
-		// });
+      // $rootScope.yanzhi($rootScope.currentUser.imageURL,function(data){
+      // 	console.log(data);
+      // });
 
 
 
-	});
+    });
 
-	}
-	$rootScope.addEvent=function(event){
-		$rootScope.events.$add(event);
-	}
-	// $rootScope.addUser(exampleNewUser);
+  }
+  $rootScope.addEvent = function(event) {
+      $rootScope.events.$add(event);
+    }
+    // $rootScope.addUser(exampleNewUser);
 
-	$rootScope.carousel_timer = null;
-	$rootScope.$on('$viewContentLoaded', function() {
-		// Don't touch these lines
-		carousel_flag_fha = true;
+  $rootScope.carousel_timer = null;
+  $rootScope.$on('$viewContentLoaded', function() {
+    // Don't touch these lines
+    carousel_flag_fha = true;
 
-		$('.carousel').off('mouseover');
-		$('.carousel').off('mouseleave');
+    $('.carousel').off('mouseover');
+    $('.carousel').off('mouseleave');
 
-		// $('.carousel').carousel();
-		$('.carousel.carousel-slider').carousel({full_width: true});
+    // $('.carousel').carousel();
+    $('.carousel.carousel-slider').carousel({
+      full_width: true
+    });
 
-		clearInterval($rootScope.carousel_timer);
+    clearInterval($rootScope.carousel_timer);
 
-		$rootScope.carousel_timer = setInterval(()=> {
-			if (carousel_flag_fha) {
-				$('.carousel').carousel('next');
-			}
-		}, 3000);
-		$('.carousel').on('mouseover', ()=> { carousel_flag_fha = false; });
-		$('.carousel').on('mouseleave', ()=> { carousel_flag_fha = true; });
+    $rootScope.carousel_timer = setInterval(() => {
+      if (carousel_flag_fha) {
+        $('.carousel').carousel('next');
+      }
+    }, 3000);
+    $('.carousel').on('mouseover', () => {
+      carousel_flag_fha = false;
+    });
+    $('.carousel').on('mouseleave', () => {
+      carousel_flag_fha = true;
+    });
 
-		$(document).keyup(function(event){
-			if(event.which=='27'){
-				$('.cd-user-modal').removeClass('is-visible');
-			}
+    $(document).keyup(function(event) {
+      if (event.which == '27') {
+        $('.cd-user-modal').removeClass('is-visible');
+      }
 
 
-		});
+    });
 
-		$(function() {
-			var div = $('.videoframe');
-			var width = div.width();
+    $(function() {
+      var div = $('.videoframe');
+      var width = div.width();
 
-			div.css('height', width*0.6);
+      div.css('height', width * 0.6);
 
-			if (localStorage.getItem('loginStatus') == 'true') {
-				console.log('you have already login');
-          		// $('.loginB').toggle();
-          		$('.loginB').css('display', 'none');
+      if (localStorage.getItem('loginStatus') == 'true') {
+        console.log('you have already login');
+        // $('.loginB').toggle();
+        $('.loginB').css('display', 'none');
 
-          		// $rootScope.loginWithEmail();
-          	}
-          });
+        // $rootScope.loginWithEmail();
+      }
+    });
 
-	});
+  });
 
-	$rootScope.logoutHelper = function() {
+  $rootScope.logoutHelper = function() {
 
-		console.log("see you next time");
-		localStorage.setItem('loginStatus', false);
-		$rootScope.currentUser = {};
-		location.assign('#');
-	}
+    console.log("see you next time");
+    localStorage.setItem('loginStatus', false);
+    $rootScope.currentUser = {};
+    location.assign('#');
+  }
 
 }]);
 
-(function(){
-	localStorage.setItem('loginStatus', false);
+(function() {
+  localStorage.setItem('loginStatus', false);
 
-	window.onbeforeunload = function() {
-        return "Are you sure to leave the app? Refreshing and closing the page will cause your logout.";
-    }
+  window.onbeforeunload = function() {
+    return "Are you sure to leave the app? Refreshing and closing the page will cause your logout.";
+  }
 
 })();
