@@ -230,16 +230,17 @@
 									<!-- Hide this text on small devices -->
 									<div class="w3-col m6 w3-hide-small w3-padding-large">
 										<h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
-										<p><b>Major: </b>Computer Science</p>
-										<p><b>Year: </b>3</p>
-										<p><b>Self Description: </b>Hi there! I'm really good at programming. Let's form a team with me.</p>
+										<p><b>E-mail: </b>{{user.email}}</p>
+										<p><b>Major: </b>{{user.major}}</p>
+										<p><b>Year: </b>{{user.year}}</p>
+										<p><b>Self Description: </b>{{user.description}}</p>
 										<button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
 											<i class="fa fa-paper-plane"></i> MESSAGE ME!
 										</button>
 									</div>
 								</div>
 								<hr>
-								<p class="w3-large w3-center w3-padding-16">MY SKILLS<a href="quiz intro.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+								<p class="w3-large w3-center w3-padding-12">MY SKILLS<a href="quiz intro.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
 								<p>C++</p>
 								<div class="w3-progress-container">
 									<div class="w3-progressbar" style="width:90%"></div>
@@ -257,8 +258,8 @@
 							<hr>
 
 							<!-- Container (Portfolio Section) -->
-							<div class="w3-content w3-container w3-padding-64" id="my project">
-								<p class="w3-large w3-center w3-padding-16">MY TEAMS<a href="teamform.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+							<div id="my project">
+								<p class="w3-large w3-center w3-padding-12">MY TEAMS<a href="teamform.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
 
 
 								<!-- Responsive Grid. -->
@@ -283,7 +284,6 @@
 							</div>
 						</div>
 						<!--end profile -->
-<div></div>
 						<div ng-switch-default>
 							<h1>Switch</h1>
 							<p>Select topic from the dropdown, to switch the content of this DIV.</p>
@@ -309,7 +309,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Modal Header</h4>
+                            <h4 class="modal-title">Edit</h4>
                         </div>
                         <div class="modal-body">
                             <div class="w3-content w3-container w3-padding-12" id="about">
@@ -327,15 +327,15 @@
                                 <!-- Hide this text on small devices -->
                                 <div class="w3-col m6 w3-hide-small w3-padding-large">
                                     <h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
-                                    <form id="EditProfile" method="post" class="form-horizontal" ng-submit="changeModel()">
+                                    <form id="EditProfile" method="post" class="form-horizontal" ng-submit="EditProfile()">
                                         <div class="form-group">
                                             <label for="Major">Major</label>
-                                            <input type="text" class="form-control" name="major" id="">
+                                            <input type="text" class="form-control" name="major" id="major" ng-model="editProfile.major">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="Year">Year</label>
-                                            <select class="form-control" id="year" name="year">
+                                            <select class="form-control" id="year" name="year" ng-model="editProfile.year">
                                                 <option value="">Select</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -346,18 +346,16 @@
                                       
                                         <div class="form-group">
                                             <label for="SelfDescription">Self Description</label>
-                                            <textarea class="form-control" name="selfDescription" id="selfDescription" rows="4"></textarea>
+                                            <textarea class="form-control" name="selfDescription" id="selfDescription" rows="4" ng-model="editProfile.description"></textarea>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary" id="submit" >Submit</button>
+                                        <button type="cancel" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                     </form>
                                 </div>
                               </div>
                               
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
                     </div>
 
