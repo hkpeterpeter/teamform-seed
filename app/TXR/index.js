@@ -768,7 +768,7 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
           "teamName": "Null"
         }
 
-      if (userlist[$scope.thisuser].Membership = undefined) userlist[$scope.thisuser].Membership = {};
+      if (userlist[$scope.thisuser].Membership == undefined) userlist[$scope.thisuser].Membership = {};
       userlist[$scope.thisuser]["Membership"][event]=$scope.newevent;
       userlist.$save();
       eventlist.$loaded(function() {
