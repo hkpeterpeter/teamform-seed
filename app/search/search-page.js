@@ -104,18 +104,19 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				
 				angular.forEach($scope.teamini,function(value,key){
 					teams.push(key);
-					
-					for(var i = 0;i < $scope.teamini[key].skills.length;i++){
-						if(tagini[$scope.teamini[key].skills[i]] == undefined){
-							tagini[$scope.teamini[key].skills[i]] = {};
-							tagini[$scope.teamini[key].skills[i]].teams = [];
-							tagini[$scope.teamini[key].skills[i]].users = [];
-							tagini[$scope.teamini[key].skills[i]].teams.push(key);
+					if($scope.teamini[key].skills != undefined){
+						for(var i = 0;i < $scope.teamini[key].skills.length;i++){
+							if(tagini[$scope.teamini[key].skills[i]] == undefined){
+								tagini[$scope.teamini[key].skills[i]] = {};
+								tagini[$scope.teamini[key].skills[i]].teams = [];
+								tagini[$scope.teamini[key].skills[i]].users = [];
+								tagini[$scope.teamini[key].skills[i]].teams.push(key);
+							}
+							else{
+								tagini[$scope.teamini[key].skills[i]].teams.push(key);
+							}
+							
 						}
-						else{
-							tagini[$scope.teamini[key].skills[i]].teams.push(key);
-						}
-						
 					}
 				});
 
