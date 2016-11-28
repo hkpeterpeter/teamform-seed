@@ -278,78 +278,62 @@
 
 
 
-						<div ng-switch-when="teams">
-							<div class="container" ng-controller="TeamCtrl">
-								<div class="row">
-									<div class="">
-										<div class="form-group">
-									      <select class="form-control" ng-model="selectCourse" ng-options="c.courseName for c in course" ng-change="setCourse(selectCourse.$id)"></select>
-									    </div>
-										<h3 style="font-size:300%">{{selectCourse.courseName}}</h3>						
-										<p style="color:gray">Minimun:{{selectCourse.max}}, Maximum:{{selectCourse.min}}</p>
-										<table>
-											<tr>
-												<td><button class="btn btn-success" onclick="">Status</button></td>	
-												<td><button class="btn btn-danger" onclick="">Search</button></td>
-												<td><button class="btn btn-primary" onclick="">Create Team</button></td>
-											</tr>
-										</table>
-										<br/>
-										<br/>
-										<div align="center"><font size="5" color="#888888"> Current Team </font></div>
-										<hr/>
-										<table class="table table-hover" id="current_team">
-											<thead>
-											<tr>
-												<th>Groupname</th>
-												<th>No.of people</th>
-												<th>Detail</th>
-												<th>Leave Team</th>
-											</tr>
-											</thead>
-											<tbody>
-											<tr data-ng-repeat = "t in TeamofChosen">
-												<td>{{t.name}}</td>
-												<td>6</td>
-												<td><button class="btn btn-primary" onclick="">Detail</button></td>
-												<td><button class="btn btn-danger" onclick="">Leave</button></td>
-											</tr>
-											<!--<tr>
-												<td colspan="4"align="center">You Don't join any team</td>
-											</tr>-->
-											</tbody>
-										</table>
-										<br/>
-										<br/>
-										<div align="center"><font size="5" color="#888888"> Team Request </font></div>
-										<hr/>
-										<table class="table table-hover" id="current_team">
-											<thead>
-											<tr>
-												<th>Groupname</th>
-												<th>No.of people</th>
-												<th>Detail</th>
-												<th>Cancel Request</th>
-											</tr>
-											</thead>
-											<tbody>
-											<!--<tr>
-												<td>TeamA</td>
-												<td>6</td>
-												<td><button class="btn btn-primary" onclick="window.open('teamdetail.html')">Detail</button></td>
-												<td><button class="btn btn-danger" onclick="">Cancel</button></td>
-											</tr>-->
-											<tr>
-												<td colspan="4"align="center">You are in the team</td>
-											</tr>
-											</tbody>
-										</table>
-										<br/>
-										<br/>
-									</div>
-								</div>
-							</div>
-						</div>
+                        <div ng-switch-when="teams" class="try">
+                            <div class="container" ng-controller="TeamCtrl">
+                                <div class="row">
+                                    <div class="">
+                                        <div class="form-group">
+                                            <select class="form-control" ng-model="selectCourse" ng-options="c.courseName for c in course" ng-change="setCourse(selectCourse.$id)"></select>
+                                        </div>
+                                        <h3 style="font-size:300%">{{selectCourse.courseName}}</h3>
+                                        <p style="color:gray">Minimun:{{selectCourse.max}}, Maximum:{{selectCourse.min}}</p>
+                                        <table>
+                                            <tr>
+                                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTeam">Create Team</button></td>
+                                            </tr>
+                                        </table>
+                                        <br/>
+                                        <br/>
+                                        <div align="center"><font size="5" color="#888888"> Search Team </font></div>
+                
+                                        <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                    
+                                        <table id="myTable" class="myTable">
+                                            <tr class="">
+                                                <th>Groupname</th>
+                                                <th>No.of people</th>
+                                                <th>Detail</th>
+                                                <th>Send Request</th>
+                                            </tr>
+                                            <tr>
+                                                <td>TeamK</td>
+                                                <td>3</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='team.html'">Detail</ button></td>
+                                                <td><button class="btn btn-danger" onclick="">Request</button></td>
+                                            </tr>
+                                        </table>
+                                        <br/>
+                                        <div align="center"><font size="5" color="#888888"> Search Person </font></div>
+                                        <input type="text" id="myInput2" class="myInput2" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name">
+                        
+                                        <table id="myTable2" class="myTable2">
+                                            <tr class="">
+                                                <th>Name</th>
+                                                <th>Team Belong</th>
+                                                <th>Detail</th>
+                                                <th>Send Request</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Jenny</td>
+                                                <td>No</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                                <td><button class="btn btn-danger" onclick="">Request</button></td>
+                                            </tr>
+                                        </table>
+				                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 						<div ng-switch-when="aboutus">
 							<section class="wrapper">
@@ -505,7 +489,68 @@
 			        <a href="">Team Noname</a> by <a href="">Comp3111</a>
 			    </div>
 			</div>-->
-			</section>   
+			</section>
+            <!-- Modal -->
+            <div class="modal fade" id="createTeam" role="dialog">
+                <div class="modal-dialog">
+                    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Create Team</h4>
+                        </div>
+                        <div class="modal-body">
+                                    <div class="box_color">
+                                        <form id="CreateTeam" method="post" class="form-horizontal" action="teamdetail.html">
+                                            <div class="form-group">
+                                                <label for="Team Name">Team Name</label>
+                                                <input type="text" class="form-control" name="name" id="name">
+                                                    </div>
+                                            <div class="form-group">
+                                                <label for="Course">Course</label>
+                                                <select class="form-control" id="course" name="course">
+                                                    <option value="">Select</option>
+                                                    <option value="COMP1021">COMP1021</option>
+                                                    <option value="COMP2011">COMP2011</option>
+                                                    <option value="COMP2012">COMP2012</option>
+                                                    <option value="COMP3111">COMP3111</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lecture">Lecture</label>
+                                                <select class="form-control" id="lecture" name="lecture">
+                                                    <option value="">Select</option>
+                                                    <option value="1">L1</option>
+                                                    <option value="2">L2</option>
+                                                    <option value="3">L3</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="grade_aim">Grade Aim</label>
+                                                <select class="form-control" id="grade_aim" name="grade_aim">
+                                                    <option value="">Select</option>
+                                                    <option value="A">A range</option>
+                                                    <option value="B">B range</option>
+                                                    <option value="C">C range</option>
+                                                    <option value="D">D</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Description">Description</label>
+                                                <textarea class="form-control" name="description" id="description" rows="4"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                            <button type="cancel" class="btn btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
             <!-- Modal -->
             <div id="editProfileModal" class="modal fade" role="dialog" ng-controller="profileCtrl">
                 <div class="modal-dialog">
@@ -1106,6 +1151,42 @@
 		    <script src="js/jquery.scrollTo.min.js"></script>
 		    <!--custome script for all page-->
 		    <script src="js/scripts.js"></script>
+            <script>
+                function myFunction() {
+                    var input, filter, table, tr, td, i;
+                    input = document.getElementById("myInput");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("myTable");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        if (td) {
+                            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            function myFunction2() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput2");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable2");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }       
+                }
+            }
+            </script>
 		</div>
   	</div>
   </body>
