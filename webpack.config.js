@@ -94,10 +94,7 @@ module.exports = function makeWebpackConfig() {
                 loader: 'file-loader'
             }, {
                 test: /\.(gif|png|jpe?g)$/,
-                loaders: [
-                    'url-loader?limit=10000&name=/assets/images/[hash].[ext]',
-                    'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-                ]
+                loaders: ['url-loader?limit=10000&name=/assets/images/[hash].[ext]', 'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false']
             }, {
                 test: /\.html$/,
                 loader: 'html'
@@ -135,41 +132,34 @@ module.exports = function makeWebpackConfig() {
     }
 
     if (isProd) {
-        config.plugins.push(
-            new webpack.DefinePlugin({
-                'process.env': {
-                    NODE_ENV: JSON.stringify('production')
-                }
-            }),
-            new webpack.NoErrorsPlugin(),
-            new webpack.optimize.DedupePlugin(),
-            new webpack.optimize.UglifyJsPlugin(),
-            new CopyWebpackPlugin([{
+        config.plugins.push(new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify('production')
+            }
+        }), new webpack.NoErrorsPlugin(), new webpack.optimize.DedupePlugin(), new webpack.optimize.UglifyJsPlugin(), new CopyWebpackPlugin([
+            {
                 from: __dirname + '/src/public'
-            }]),
-            new CompressionPlugin({
-                asset: '[path].gz[query]',
-                algorithm: 'gzip',
-                test: /\.js$|\.html$/,
-                threshold: 10240,
-                minRatio: 0.8
-            }),
-            new S3Plugin({
-                exclude: /\.(html|xml|txt)$/,
-                s3Options: {
-                    accessKeyId: process.env.AWS_ACCESS_KEY,
-                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-                    region: process.env.AWS_REGION
-                },
-                s3UploadOptions: {
-                    Bucket: process.env.AWS_BUCKET,
-                    CacheControl: 'max-age=315360000, no-transform, public'
-                },
-                cdnizerOptions: {
-                    defaultCDNBase: CONFIG.CDN_URL
+            }
+        ]), new CompressionPlugin({asset: '[path].gz[query]', algorithm: 'gzip', test: /\.css$|\.js$|\.html$/, threshold: 10240, minRatio: 0.8}), new S3Plugin({
+            exclude: /\.(html|xml|txt)$/,
+            s3Options: {
+                accessKeyId: process.env.AWS_ACCESS_KEY,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                region: process.env.AWS_REGION
+            },
+            s3UploadOptions: {
+                Bucket: process.env.AWS_BUCKET,
+                CacheControl: 'max-age=315360000, no-transform, public',
+                ContentEncoding(fileName) {
+                    if (/\.gz$/.test(fileName)) {
+                        return 'gzip';
+                    }
                 }
-            })
-        );
+            },
+            cdnizerOptions: {
+                defaultCDNBase: CONFIG.CDN_URL
+            }
+        }));
     }
 
     config.devServer = {
