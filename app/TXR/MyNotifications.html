@@ -3,9 +3,10 @@
 
           <h1 class="page-header">Notification</h1>
 
+          <p ng-show="notiNum==0">You have no notification.</p>
           <div class="row placeholders">
             <div class="container">
-              <div class="row" ng-app="mainApp" ng-controller="NotificationController">
+              <div class="row">
 
                <div class="col-md-10">
                 <div class="panel panel-default"  ng-repeat="noti in notification">
@@ -19,7 +20,7 @@
                         <p align="left">{{noti.message}}</p>
                         <div align="right">
                         <a ng-href="#/MyConversation/{{noti.event}}/{{noti.name}}"  ng-show="{{noti.others}}" ><button type="button" class="btn btn-sm btn-success" >Reply</button></a>
-                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)"">Delete</button></div>
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)">Delete</button></div>
                     </div>
                     </div>
                     </div>

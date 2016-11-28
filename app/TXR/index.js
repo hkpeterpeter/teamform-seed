@@ -12,7 +12,7 @@ app.filter("isLeader",function(){
 app.config(function($routeProvider,NotificationProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
-     .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
+     .when("/MyNotifications",{templateUrl:"MyNotifications.html", controller:"NotificationController"})
 
      .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"EventController"})
      .when("/MyConversation/:e/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
@@ -293,11 +293,13 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
     $scope.data="a";
     $scope.user=$cookies.get("username",{path:"/"});
     $scope.photolist = {};
+    $scope.notiNum = 0;
 	var ref = firebase.database().ref("userList/" + $scope.user + "/notification");
     var userlist = $firebaseObject(firebase.database().ref("userList"));
     $scope.userlist = userlist;
     userlist.$loaded(function(){
         $scope.notification = userlist[$scope.user]["notification"];
+        angular.forEach($scope.notification,function(value,key){ $scope.notiNum++; });
     })
 	ref.on('value',function(snapshot){
 		$scope.notification = snapshot.val();
