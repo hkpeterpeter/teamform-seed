@@ -100,8 +100,9 @@
               <img src="https://firebasestorage.googleapis.com/v0/b/teamform-ad42e.appspot.com/o/team%2Fteam-building.jpg?alt=media&token=a6822c9e-14fe-4dac-8f2b-fd767c6a5612" class="img-thumbnail" alt="">
             </div>
             <div class="col-xs-6 col-sm-6 placeholder">
-              <h4 class="text-left" style = "font-weight:bold">{{currentTeam}}</h4>
+              <h3 class="text-left" style = "font-weight:bold">{{currentTeam}}</h3>
 			  <h4 class="text-left">Leader: {{userList[teamini[currentTeam].leader].name}}</h4>
+			  <h4 class="text-left">#Members: {{teamini[currentTeam].memberList.length}}</h4>
             </div>
 			<div class="col-xs-2 col-sm-3 placeholder">
               <button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg">Join</button>
@@ -156,7 +157,12 @@
 							
 							</div>
 							<div class="col-sm-6 placeholder">
-								<button type="button" class="btn btn-primary btn-lg">Invite</button>
+								<button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg">Invite</button>
+								<p ng-show = "noTeam"><small class="text-danger">You are not team leader</small></p>
+								<p ng-show = "full"><small class="text-danger">Your team is full</small></p>
+								<p ng-show = "yourself"><small class="text-danger">Can`t invite yourself</small></p>
+								<p ng-show = "inTeam"><small class="text-danger">Team member</small></p>
+								
 							</div>
 							</div>
 							<div class = "row">
