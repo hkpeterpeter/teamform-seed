@@ -18,7 +18,7 @@
 </nav>
 	<div ng-repeat="log in logs">
 		<div id="message" class="row" ng-show="log.sender==thisuser">
-    	<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{imgUrl[thisuser]}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+    	<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[thisuser].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
     	<div class="col-lg-11 col-md-11" id="message_content">
     		{{log.message}}
     	</div>
@@ -27,7 +27,7 @@
     	<div class="col-lg-11 col-md-11" id="message_content" align="right">
     		{{log.message}}
     	</div>
-			<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{imgUrl[p]}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+			<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[p].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
     </div>
 		<br>
 	</div>

@@ -82,6 +82,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       var team;
        var thisuser = $cookies.get("username",{path:"/"});
        var userlist = $firebaseObject(firebase.database().ref("userList"));
+       $scope.userlist = userlist;
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        userlist.$loaded(function() {
        $scope.identity = userlist[thisuser]["Membership"][$scope.eventname]["identity"];
@@ -278,6 +279,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
     $scope.photolist = {};
 	var ref = firebase.database().ref("userList/" + $scope.user + "/notification");
     var userlist = $firebaseObject(firebase.database().ref("userList"));
+    $scope.userlist = userlist;
     userlist.$loaded(function(){
         $scope.notification = userlist[$scope.user]["notification"];
     })
@@ -715,9 +717,9 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
        if (uploadFile !== undefined) {
          s = uploadFile.name.split(".");
          fileType = "." + s[s.length - 1];
-         userlist[$scope.thisuser].img = $scope.thisuser+fileType;
-         userlist.$save();
          storageRef.child("user/"+$scope.thisuser + fileType).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
+           userlist[$scope.thisuser].img = snapshot.downloadURL;
+           userlist.$save();
            $window.location.reload(true);
          });
        }
@@ -760,14 +762,7 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
 
       var storageRef = firebase.storage().ref()
       userlist.$loaded().then(function(){
-
-        var avaFilename = userlist[$scope.thisuser]["img"];
-        var avaRef = storageRef.child('user/'+avaFilename);
-        avaRef.getMetadata().then(function(metadata){
-          $scope.avaUrl = metadata.downloadURLs[0];
-					// console.log($scope.avaUrl);
-					$scope.$apply();
-        });
+        $scope.avaUrl = userlist[$scope.thisuser].img;
       });
 
 }
