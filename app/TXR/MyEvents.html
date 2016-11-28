@@ -542,10 +542,12 @@
                   <td>
                       <img ng-src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px" data-target="#userProfile" data-toggle="modal">{{suggested_users["name"]}}</td>
-                 <td>
-                      <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button-->
-	<div id = "userProfile" class = "modal fade" role = "dialog">
+                  <td style="font-size: 30px" id="fat-btn" data-toggle="modal" data-target="#xxx">{{suggested_users["name"]}}
+               
+ 
+
+  <!-- Modal -->
+ 	<div id = "xxx" class = "modal fade" role = "dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -556,31 +558,52 @@
 				</div>
 				<div class="modal-body">
 					<div class="row placeholders">
-						<div class="col-xs-6 col-sm-3">
-							<img src="peter.jpg" class="img-thumbnail" alt="Generic square placeholder thumbnail">
+						<div class=" col-sm-3">
+							<img src="{{suggested_users.img}}" class="img-thumbnail" alt="Generic square placeholder thumbnail">
 						</div>
-						<div class="col-xs-4 col-sm-4 placeholder">
-							<h4 class="text-left" style = "font-weight:bold">{{suggested_users["name"]}}</h4>
-							<h4 class="text-left">{{suggested_users["introduction"]}}</h4>
-						</div>
+						<div class = "col-sm-9">
+						<div class = "row">
+							<div class="col-sm-6 placeholder">
+								<h3 class="text-left" style = "font-weight:bold">{{suggested_users.name}}</h3>
+							
+							</div>
 
+							</div>
+							<div class = "row">
+								<div class = "col-sm-12">
+									<p style = "text-align: left;">Website:<a href = "{{suggested_users.personalWebsite}}" target="_blank">{{suggested_users.personalWebsite}}</a></p>
+									<p style = "text-align: left;">Email:{{suggested_users.email}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class = "row placeholder">
+						<div class = "col-md-12">
+							<h4 style = "font-weight:bold">Intruduction:</h4>
+							<p>{{suggested_users.introduction}}</p>
+						</div>
 					</div>
 
-
-
+          
+		  
 					<h2 class="sub-header">Skills</h2>
 					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
 
 				</div>
-
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-
+			
 		</div>
 	</div>
+	
 
 
+</td>
 
-
+  <td>
 <!-- Trigger the modal with a button -->
   <button id="fat-btn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{num}}">Invite</button>
 
@@ -668,7 +691,68 @@
                   <!--<td>
                       <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>-->
-                  <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
+  
+
+                  <td style="font-size: 30px" id="fat-btn" data-toggle="modal" data-target="#xxxx">{{team_content.teamname}}
+               
+ 
+
+  <!-- Modal -->
+  <div class="modal fade" id="xxxx" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Team Profile</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3">
+              <img src="https://firebasestorage.googleapis.com/v0/b/teamform-ad42e.appspot.com/o/team%2Fteam-building.jpg?alt=media&token=a6822c9e-14fe-4dac-8f2b-fd767c6a5612" class="img-thumbnail" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-6 placeholder">
+              <h4 class="text-left" style = "font-weight:bold">{{team_content.teamname}}</h4>
+			  <h4 class="text-left">Leader: {{team_content.leader}}</h4>
+            </div>
+          </div>
+
+
+
+		  <h2 class="sub-header">Skills Required</h2>
+		  <span class="label label-warning" ng-repeat = "x in team_content.skills" style = "margin-right:5px">{{x}}</span>
+		  
+
+		  <h2 class="sub-header">Member distribution</h2>
+		  <div class="row placeholders">
+			
+				<div class = "col-md-8 col-md-offset-2">
+					<canvas id="base" class="chart-base" chart-type="type" chart-data="data" chart-labels="labels" ></canvas> 
+				</div>
+				<div>
+					<button type = "button" class = "btn btn-primary" ng-click = "toggle()" >Toggle</button>
+				</div>
+			</div>
+          </div>
+		  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+</td>
+
+
+
+
+
+
+
+
                  <td>
                       <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button-->
 
