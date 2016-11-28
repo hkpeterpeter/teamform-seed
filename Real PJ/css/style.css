@@ -10138,7 +10138,7 @@ body {
 }
 
 
-#myInput,#myInput2 {
+#myInput,#myInput2 ,#myInput3{
   background-image: url('/css/searchicon.png');
   background-position: 10px 10px;
   background-repeat: no-repeat;
@@ -10149,23 +10149,23 @@ body {
   margin-bottom: 12px;
 }
 
-#myTable,#myTable2 {
+#myTable,#myTable2,#myTable3 {
   border-collapse: collapse;
   width: 100%;
   border: 1px solid #ddd;
   font-size: 18px;
 }
 
-#myTable th, #myTable td,#myTable2 th, #myTable2 td {
+#myTable th, #myTable td,#myTable2 th, #myTable2 td,#myTable3 th, #myTable3 td {
   text-align: left;
   padding: 12px;
 }
 
-#myTable tr,#myTable2 tr {
+#myTable tr,#myTable2 tr ,#myTable3 tr {
   border-bottom: 1px solid #ddd;
 }
 
-#myTable tr.header, #myTable tr:hover ,#myTable2 tr.header, #myTable2 tr:hover {
+#myTable tr.header, #myTable tr:hover ,#myTable2 tr.header, #myTable2 tr:hover,#myTable3 tr.header, #myTable3 tr:hover {
   background-color: #f1f1f1;
 }
 
