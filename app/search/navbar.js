@@ -10,12 +10,6 @@ app.controller("navCtrl",function($scope, $cookies, $window, $firebaseObject){
       var storageRef = firebase.storage().ref();
       accounts.$loaded().then(function(){
         $scope.name = accounts[currentUser].name;
-        avaFilename = accounts[currentUser].img;
-        avaRef = storageRef.child('user/'+avaFilename);
-        avaRef.getMetadata().then(function(metadata){
-          $scope.avaUrl = metadata.downloadURLs[0];
-					// console.log($scope.avaUrl);
-					$scope.$apply();
-        });
+        $scope.avaUrl = accounts[currentUser].img;
       });
 });

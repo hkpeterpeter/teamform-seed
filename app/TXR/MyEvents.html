@@ -491,9 +491,9 @@
 
               <tbody>
                 <tr ng-repeat = "member in memberlist">
-                  <td style="font-size: 30px">{{$index}}</td>
+                  <td style="font-size: 30px">{{$index|isLeader}}</td>
                   <td>
-                      <img src={{memberphoto[member]}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                      <img src={{userlist[member].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
                   <td style="font-size: 30px"><a href="#">{{member}}</a></td>
                  <td>
@@ -540,7 +540,7 @@
                 <tr ng-repeat = "(num, suggested_users) in suggested">
                   <td style="font-size: 30px">{{num+1}}</td>
                   <td>
-                      <img ng-src="{{imgUrl[suggested_users.username]}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                      <img ng-src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
                   <td style="font-size: 30px" data-target="#userProfile" data-toggle="modal">{{suggested_users["name"]}}</td>
                  <td>
@@ -563,18 +563,18 @@
 							<h4 class="text-left" style = "font-weight:bold">{{suggested_users["name"]}}</h4>
 							<h4 class="text-left">{{suggested_users["introduction"]}}</h4>
 						</div>
-		
+
 					</div>
 
-          
-		  
+
+
 					<h2 class="sub-header">Skills</h2>
 					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
 
 				</div>
 
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -636,9 +636,9 @@
             <table class="table table-striped">
               <tbody>
                 <tr ng-repeat = "(num,members) in memberlist">
-                  <td style="font-size: 30px">{{num}}</td>
+                  <td style="font-size: 30px">{{num|isLeader}}</td>
                   <td>
-                      <img src={{memberphoto[members]}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                      <img ng-src={{userlist[members].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
                   <td style="font-size: 30px"><a href="#">{{members}}</a></td>
 

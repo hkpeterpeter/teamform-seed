@@ -2,13 +2,20 @@ var app = angular.module("mainApp", ["ngRoute", "firebase", "ngCookies","chart.j
 
 //initalizeFirebase();
 
+app.filter("isLeader",function(){
+  return function(input){
+    if (input == 0) return "Leader";
+    else return input;
+  };
+});
+
 app.config(function($routeProvider,NotificationProvider){
      $routeProvider.when("/",{templateUrl:"MyProfile.html", controller:"profileController"})
 
      .when("/MyNotifications",{templateUrl:"MyNotifications.html"})
 
      .when("/MyEvents/:p",{templateUrl:"MyEvents.html", controller:"EventController"})
-     .when("/MyConversation/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
+     .when("/MyConversation/:e/:p",{templateUrl:"MyConversations.html", controller:"ConversationController"});
 	 NotificationProvider.setOptions({
             delay: 5000,
             startTop: 60,
@@ -29,26 +36,35 @@ app.config(function($routeProvider,NotificationProvider){
   var userlist = $firebaseObject(firebase.database().ref("userList"));
   var conversationList = $firebaseObject(firebase.database().ref("conversation"));
   $scope.convList = [];
-  $scope.linkList = [];
   userlist.$loaded(function() {
     conversationList.$loaded(function(){
       $scope.eventlist=userlist[thisuser]["Membership"];
       angular.forEach(conversationList,function(value,key){
         names = key.split("_");
         if (names[0] == thisuser) {
-          $scope.convList.push(names[1]);
-          $scope.linkList.push(key);
+          $scope.convList.push({
+            name:names[1],
+            link: value.event + "/" + names[1]
+          });
         }
         if (names[1] == thisuser) {
-          $scope.convList.push(names[0]);
-          $scope.linkList.push(key);
+          $scope.convList.push({
+            name:names[0],
+            link: value.event + "/" + names[0]
+          });
         }
       });
     });
   });
 
-
-
+  active = "profile";
+  $scope.isActive = function(type){
+    if (type == active) return "active";
+    else return "";
+  };
+  $scope.setActive = function(type){
+    active = type;
+  };
 
 
 
@@ -66,6 +82,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
       var team;
        var thisuser = $cookies.get("username",{path:"/"});
        var userlist = $firebaseObject(firebase.database().ref("userList"));
+       $scope.userlist = userlist;
        var eventlist = $firebaseObject(firebase.database().ref("eventList"));
        userlist.$loaded(function() {
        $scope.identity = userlist[thisuser]["Membership"][$scope.eventname]["identity"];
@@ -257,16 +274,17 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 });
 
 app.controller("NotificationController", function($scope, $firebaseObject, $firebaseArray, $cookies){
-
+    $scope.data="a";
     $scope.user=$cookies.get("username",{path:"/"});
     $scope.photolist = {};
 	var ref = firebase.database().ref("userList/" + $scope.user + "/notification");
     var userlist = $firebaseObject(firebase.database().ref("userList"));
+    $scope.userlist = userlist;
     userlist.$loaded(function(){
         $scope.notification = userlist[$scope.user]["notification"];
     })
 	ref.on('value',function(snapshot){
-		$scope.notification = snapshot.val();	
+		$scope.notification = snapshot.val();
 	});
 
     $scope.deletenotification = function(sendername){
@@ -274,18 +292,17 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
          userlist.$save();
     }
 
-    $scope.addnotification = function(sender,msg){
-        for(var i=0; i<$scope.notification.length(); i++){
-          if($scope.notification[i].name==sender){
-            $scope.deletenotification(sender);
-          }
-        }
-        userlist[$scope.user]["notification"][sender]={
+    $scope.addnotification = function(other,evt,msg,receiver){
+        delete userlist[receiver]["notification"][$scope.user];
+        userlist[receiver]["notification"][sender]={
+          "others":other,
+          "event":evt,
           "message":msg,
-          "name":sender
+          "name":$scope.user
         }
         userlist.$save();
     }
+
 
       var loadedCount = 0;
       var i;
@@ -303,16 +320,16 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
               $scope.photolist[key] = photoUrl;
               //var newIn = { $scope.notification[i]["name"]: photoUrl};
               //photo.push(newIn);
-             if( loadedCount == notificationNum) $scope.$apply();  
+             if( loadedCount == notificationNum) $scope.$apply();
         //});
         })
       });
 
       });
-      
 
 
-    
+
+
 
 
 
@@ -352,20 +369,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
       }*/
   });
 
-app.controller("ConversationController",function($scope,$routeParams){
-        //   $scope.param = $routeParams.p;
-            $scope.IsVisiblePeter = false;
-            $scope.IsVisibleJason = false;
-            $scope.IsVisibleKevin = false;
-  //          $scope.show=function(a){
-        //       $scope.IsVisibleCOMP3111 = angular.equals($scope.param, a);
-      //      }
-         $scope.IsVisiblePeter = angular.equals($routeParams.p, 'Peter');
-          $scope.IsVisibleJason = angular.equals($routeParams.p, 'Jason');
-          $scope.IsVisibleKevin = angular.equals($routeParams.p, 'Kevin');
 
-
-});
 
 app.controller("clickCtrl",
     function($scope, $firebaseObject, $firebaseArray, $cookies, $routeParams) {
@@ -713,9 +717,9 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
        if (uploadFile !== undefined) {
          s = uploadFile.name.split(".");
          fileType = "." + s[s.length - 1];
-         userlist[$scope.thisuser].img = $scope.thisuser+fileType;
-         userlist.$save();
          storageRef.child("user/"+$scope.thisuser + fileType).put(uploadFile,{customMetadata:{user:$scope.thisuser}}).then(function(snapshot){
+           userlist[$scope.thisuser].img = snapshot.downloadURL;
+           userlist.$save();
            $window.location.reload(true);
          });
        }
@@ -751,21 +755,14 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
       })
 
 
-    
+
     }
 
 
-    
+
       var storageRef = firebase.storage().ref()
       userlist.$loaded().then(function(){
-
-        var avaFilename = userlist[$scope.thisuser]["img"];
-        var avaRef = storageRef.child('user/'+avaFilename);
-        avaRef.getMetadata().then(function(metadata){
-          $scope.avaUrl = metadata.downloadURLs[0];
-					// console.log($scope.avaUrl);
-					$scope.$apply();
-        });
+        $scope.avaUrl = userlist[$scope.thisuser].img;
       });
 
 }

@@ -14,12 +14,12 @@
                     </div>
                     <div class="panel-body">
                     <div class="col-sm-1 col-md-1">
-                    <img ng-src="{{photolist[noti.name]}}" alt="" align="left" width="50" height="50">
+                    <img ng-src="{{userlist[noti.name].img}}" alt="" align="left" width="50" height="50">
                     </div>
                         <p align="left">{{noti.message}}</p>
                         <div align="right">
-                        <a ng-href="#/MyConversation/{{noti.name}}"><button type="button" class="btn btn-sm btn-success">Reply</button></a>
-                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)">Delete</button></div>
+                        <a ng-href="#/MyConversation/{{noti.event}}/{{noti.name}}"  ng-show={{noti.others}} ><button type="button" class="btn btn-sm btn-success" >Reply</button></a>
+                        <button type="button" class="btn btn-sm btn-danger" ng-click="deletenotification(noti.name)"">Delete</button></div>
                     </div>
                     </div>
                     </div>
