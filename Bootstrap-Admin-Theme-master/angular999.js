@@ -3,7 +3,7 @@
 
     myApp.controller('myController', ['$scope', function ($course) {
            
-
+            $course.testing = false;
             $course.create = function () 
             {
                 if (angular.isDefined($course.name) != '' ) 
@@ -17,6 +17,12 @@
                     $course.name = ''; 
                  
                 }
+            }
+
+
+            $course.test = function()
+            {
+                $scope.testing = true;
             }
 
         }]
