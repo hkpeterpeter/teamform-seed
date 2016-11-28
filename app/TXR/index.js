@@ -432,14 +432,14 @@ app.controller("clickCtrl",
               //1. users in this event, not in teams, not the user himself/herself => $scope.users
               //user_list.$loaded(function() {});
               var team_name = user_list[this_user]["Membership"][event_name]["teamName"];
-              var team_skills = event_list[event_name]["teamList"][team_name]["skills"];
+              var team_requirement = event_list[event_name]["teamList"][team_name]["skills"];
               //2. count the number of requirements the users fulfilled
               angular.forEach($scope.users, function(value,key){
-                var fulfill = $scope.users[key]["skills"].length;
-                for (var i = 0; i<team_skills.length; i++) {
+                var fulfill = 0;//$scope.users[key]["skills"].length;
+                for (var i = 0; i<team_requirement.length; i++) {
                     //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
-                  if ($scope.users[key]["skills"].indexOf(team_skills[i]) != -1){
-                    fulfill -= 1;
+                  if ($scope.users[key]["skills"].indexOf(team_requirement[i]) !== -1){
+                    fulfill += 1;
                   }
                 }
 
@@ -455,7 +455,7 @@ app.controller("clickCtrl",
               var storageRef = firebase.storage().ref();
               $scope.imgUrl = {};
               var loadedCount = 0;
-              for (var i = team_skills.length; i>0 ;i--) {
+              for (var i = team_requirement.length; i>0 ;i--) {
                 var str_i = i.toString();
                 if (str_i in suggested_users){
                   $scope.suggested.push.apply($scope.suggested, suggested_users[str_i]);
@@ -480,12 +480,12 @@ app.controller("clickCtrl",
               var team_list = event_list[event_name]["teamList"];
               var user_skills = user_list[this_user]["skills"];
               angular.forEach(team_list, function(value,key){
-                var fulfill = user_skills.length;
-                var team_skills = team_list[key]["skills"];
-                for (var i = 0; i<team_skills.length; i++) {
+                var fulfill = 0;//user_skills.length;
+                var team_requirement = team_list[key]["skills"];
+                for (var i = 0; i<team_requirement.length; i++) {
                     //alert("requirement[i]= "+requirements[i]+" skills= "+$scope.users[key]["skills"]);
-                  if (user_skills.indexOf(team_skills[i]) != -1){
-                    fulfill -= 1;
+                  if (user_skills.indexOf(team_requirement[i]) !== -1){
+                    fulfill += 1;
                   }
                 }
                 //alert("fulfill= "+fulfill);
