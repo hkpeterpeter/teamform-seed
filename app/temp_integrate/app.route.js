@@ -19,6 +19,21 @@ app.config(function($stateProvider, $urlRouterProvider) {
     }
         })
         
+         .state('createsubteam', {
+            url: '/createsubteam',
+            templateUrl: 'createsubteam.html',
+            controller: 'teamSubmit'
+        })
+        .state('profilo', {
+            url: '/profilo',
+            templateUrl: 'Profilo1.html'
+        })
+
+        .state('level', {
+            url: '/level',
+            templateUrl: 'level1.html'
+            })
+
          .state('register', {
             url: '/register',
             templateUrl: 'register.html',
@@ -35,18 +50,25 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'typequiz.html'
             })
 
-            .state('level', {
-            url: '/level',
-            templateUrl: 'level.html'
-            })
-
 .state('nearestpeople', {
             url: '/nearestpeople',
             templateUrl: 'nearestpeople.html'
             })
+
+    .state('404', {
+            url: '/404',
+            templateUrl: 'pages-error-404.html',
+            })
+
 .state('iqtest', {
             url: '/iqtest',
             templateUrl: 'IQtest.html'
+            })
+
+           .state('jointeam', {
+            url: '/jointeam',
+            templateUrl: 'jointeam.html',
+            controller: 'eventSearch'
             })
 
  .state('kickmember', {
@@ -55,7 +77,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'kick'
             })
 
-            
+
 .state('eventjoin', {
             url: '/eventjoin',
             templateUrl: 'joinevent.html',
@@ -74,9 +96,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
          .state('personal', {
             url: '/personal',
-            templateUrl: 'Profilo.html',
-            controller: '',
+            templateUrl: 'personal_page.html',
+            controller: 'Personal',
+            authRequired: true,
              })
+
+
 
       .state('event', {
             url: '/event',
@@ -85,7 +110,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'eventSubmit'
             })
 
-           
+
             
              .state('search', {
             url: '/search',
@@ -139,8 +164,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
              .state('personal_information', {
             url: '/personal_information',
-            templateUrl: 'personal_info.html',
-            controller: 'info',
+            templateUrl: 'personal_information.html',
+            authRequired: true,
+            controller: 'piCtrl'
             })
              
              .state('requests', {
