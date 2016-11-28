@@ -6,3 +6,11 @@
     max-height: 700px;
     overflow-y: auto;
 }
+
+.skill .modal-dialog{
+    overflow-y: initial !important
+}
+.skill .modal-body{
+    max-height: 400px;
+    overflow-y: auto;
+}

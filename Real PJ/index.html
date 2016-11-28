@@ -45,11 +45,6 @@
     <link rel="stylesheet" href="css/course.css">
     <script src="../Real PJ/lib/main.js"></script>
 
-    <!--other-->
-    <link href="css/vendor/font-awesome.min.css" type="text/css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-    <link href="css/jquery.bdt.css" type="text/css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
@@ -83,7 +78,8 @@
 		            <div class="top-nav notification-row">                
 		                <!-- notificatoin dropdown start-->
 		                <ul class="nav pull-right top-menu">
-		                	<!-- inbox notificatoin start-->
+
+		                	<!-- inbox notificatoin start--><!--
 		                    <li id="mail_notificatoin_bar" class="dropdown">
 		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 		                            <i class="icon-envelope-l"></i>
@@ -110,10 +106,10 @@
 		                                <a href="inbox.html">See all messages</a>
 		                            </li>
 		                        </ul>
-		                    </li>
+		                    </li>-->
 		                    <!-- inbox notificatoin end -->
 		                                  
-		                    <!-- alert notification start-->
+		                    <!-- alert notification start--><!--
 		                    <li id="alert_notificatoin_bar" class="dropdown">
 		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 
@@ -136,7 +132,7 @@
 		                                <a href="#">See all notifications</a>
 		                            </li>
 		                        </ul>
-		                    </li>
+		                    </li>-->
 		                    <!-- alert notification end-->
 
 		                    <!-- user login dropdown start-->
@@ -152,9 +148,6 @@
 		                            <div class="log-arrow-up"></div>
 		                            <li class="eborder-top">
 		                                <a href="#" ng-click="changeSite3()" ><i class="icon_profile"></i> My Profile</a>
-		                            </li>
-		                            <li>
-		                                <a href="#"><i class="icon_mail_alt"></i> My Inbox</a>
 		                            </li>
 		                            <li>
 		                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
@@ -205,75 +198,144 @@
 			<section id="main-content">
 				<section class="wrapper">
 					<div ng-switch="pageChange">
-						<div ng-switch-when="home">
-							<h1>Dogs</h1>
-							<p>Welcome to a world of dogs.</p>
+						<div ng-switch-default="home" >
+							<h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+							<!--
+							<div class="col-md-3">
+								<div class="info-box green-bg">
+									<i class="fa fa-envelope-o"></i>
+									<div class="count">5</div>
+									<div class="title">New</div>						
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="info-box blue-bg">
+									<i class="fa fa-bell-o"></i>
+									<div class="count">7</div>
+									<div class="title">New</div>						
+								</div>		
+							</div>-->
+							<!--/col-->
+							<!--
+							<div class="col-md-3">
+								<div class="info-box yellow-bg">
+									<i class="fa fa-flag-o red"></i>
+									<div class="count">2</div>
+									<div class="title">Total</div>						
+								</div>		
+							</div>-->
+							<!--/col-->
+				
+							<div class="row">
+               	
+								<div class="col-lg-9 col-md-12">	
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h2><i class="fa fa-flag-o red"></i><strong>Your Team</strong></h2>
+										</div>
+										<div class="panel-body">
+											<table class="table bootstrap-datatable countries">
+												<thead>
+													<tr>
+														<th>Course</th>
+														<th>Groupname</th>
+														<th>No.of people</th>
+														<th>Detail</th>
+														<th>Leave Team</th>
+													</tr>
+												</thead>   
+												<tbody>
+													<tr>
+														<td>COMP2011</td>
+														<td>TeamA</td>
+														<td>6</td>
+														<td><button class="btn btn-primary" onclick="window.open('teamdetail.html')">Detail</button></td>
+														<td><button class="btn btn-danger" onclick="">Leave</button></td>
+													</tr>													
+												</tbody>
+											</table>
+										</div>
+					
+									</div>	
+								</div>
+							</div>
 						</div>
+
+
 
 						<div ng-switch-when="teams">
 							<div class="container" ng-controller="TeamCtrl">
-				                <div class="row">
-				                    <div class="">
-				                        <div class="form-group">
+								<div class="row">
+									<div class="">
+										<div class="form-group">
 									      <select class="form-control" ng-model="selectCourse" ng-options="c.courseName for c in course" ng-change="setCourse(selectCourse.$id)"></select>
 									    </div>
 										<h3 style="font-size:300%">{{selectCourse.courseName}}</h3>						
 										<p style="color:gray">Minimun:{{selectCourse.max}}, Maximum:{{selectCourse.min}}</p>
-				                        <table>
-				                            <tr>
-				                                <td><button class="btn btn-primary" onclick="window.location.href='teamcreate.html'">Create Team</button></td>
-				                                <td><button class="btn btn-danger" onclick="window.location.href='search.html'">Search</button></td>
-				                            </tr>
-				                        </table>
-				                        <br/>
-				                        <br/>
-				                        <div align="center"><font size="5" color="#888888"> Search Team </font></div>
-				                        <hr/>
-				                        <table id="" class="display" cellspacing="0" width="100%">
-				                            <thead>
-				                                <tr>
-				                                    <th>Groupname</th>
-				                                    <th>No.of people</th>
-				                                    <th>Detail</th>
-				                                    <th>Send Request</th>
-				                                </tr>
-				                            </thead>
-				                            <tbody>
-				                                <tr>
-				                                    <td>TeamK</td>
-				                                    <td>3</td>
-				                                    <td><button class="btn btn-primary" onclick="window.location.href='team.html'">Detail</ button></td>
-				                                    <td><button class="btn btn-danger" onclick="">Request</button></td>
-				                                </tr>
-				                            </tbody>
-				                        </table>
-				                        <br/>
-				                        <br/>
-				                        <div align="center"><font size="5" color="#888888"> Search Person </font></div>
-				                        <hr/>
-				                        <table id="" class="display" cellspacing="0" width="100%">
-				                            <thead>
-				                                <tr>
-				                                    <th>Groupname</th>
-				                                    <th>Team Belong</th>
-				                                    <th>Detail</th>
-				                                    <th>Send Request</th>
-				                                </tr>
-				                            </thead>
-				                            <tbody>
-				                                <tr>
-				                                    <td>Girl</td>
-				                                    <td>TeamC</td>
-				                                    <td><button class="btn btn-primary" onclick="window.location.href='grace.html'; return false;">Detail</button></td>
-				                                    <td><button class="btn btn-danger" onclick="">Request</button></td>
-				                                </tr>
-				                            </tbody>
-				                        </table>
-				                    </div>
-				                </div>
-				            </div>
-
-				        </div>
+										<table>
+											<tr>
+												<td><button class="btn btn-success" onclick="">Status</button></td>	
+												<td><button class="btn btn-danger" onclick="">Search</button></td>
+												<td><button class="btn btn-primary" onclick="">Create Team</button></td>
+											</tr>
+										</table>
+										<br/>
+										<br/>
+										<div align="center"><font size="5" color="#888888"> Current Team </font></div>
+										<hr/>
+										<table class="table table-hover" id="current_team">
+											<thead>
+											<tr>
+												<th>Groupname</th>
+												<th>No.of people</th>
+												<th>Detail</th>
+												<th>Leave Team</th>
+											</tr>
+											</thead>
+											<tbody>
+											<tr data-ng-repeat = "t in TeamofChosen">
+												<td>{{t.name}}</td>
+												<td>6</td>
+												<td><button class="btn btn-primary" onclick="">Detail</button></td>
+												<td><button class="btn btn-danger" onclick="">Leave</button></td>
+											</tr>
+											<!--<tr>
+												<td colspan="4"align="center">You Don't join any team</td>
+											</tr>-->
+											</tbody>
+										</table>
+										<br/>
+										<br/>
+										<div align="center"><font size="5" color="#888888"> Team Request </font></div>
+										<hr/>
+										<table class="table table-hover" id="current_team">
+											<thead>
+											<tr>
+												<th>Groupname</th>
+												<th>No.of people</th>
+												<th>Detail</th>
+												<th>Cancel Request</th>
+											</tr>
+											</thead>
+											<tbody>
+											<!--<tr>
+												<td>TeamA</td>
+												<td>6</td>
+												<td><button class="btn btn-primary" onclick="window.open('teamdetail.html')">Detail</button></td>
+												<td><button class="btn btn-danger" onclick="">Cancel</button></td>
+											</tr>-->
+											<tr>
+												<td colspan="4"align="center">You are in the team</td>
+											</tr>
+											</tbody>
+										</table>
+										<br/>
+										<br/>
+									</div>
+								</div>
+							</div>
+						</div>
 
 						<div ng-switch-when="cars">
 							<h1>Cars</h1>
@@ -307,14 +369,20 @@
 									</div>
 								</div>
 								<hr>
-								<p class="w3-large w3-center w3-padding-12">MY SKILLS<a href="quiz intro.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+								<p class="w3-large w3-center w3-padding-12">MY SKILLS<a href="" data-toggle="modal" data-target="#skillModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
 								<p>C++</p>
 								<div class="w3-progress-container">
-									<div class="w3-progressbar" style="width:90%"></div>
+									<div class="w3-progressbar" style="width:80%"></div>
 								</div>
 								<br><p>JavaScript</p>
 								<div class="w3-progress-container">
-									<div class="w3-progressbar" style="width:85%"></div>
+									<div class="w3-progressbar" style="width:60%"></div>
+								</div>
+								<div ng-show="hidehtml">
+									<br><p>HTML</p>
+									<div class="w3-progress-container">
+										<div class="w3-progressbar" style="width:40%"></div>
+									</div>
 								</div>
 								<!--<br><p>HTML</p>
 								<div class="w3-progress-container">
@@ -323,37 +391,9 @@
 							<hr>
 
 							<!-- Container (Portfolio Section) -->
-							<div id="my project">
-								<p class="w3-large w3-center w3-padding-12">MY TEAMS<a href="teamform.html"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
-
-
-								<!-- Responsive Grid. -->
-								<div class="w3-row-padding w3-center">
-									<div class="w3-col m3">
-										<img src="./img/comp3111.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamA">
-									</div>
-
-									<div class="w3-col m3">
-										<img src="./img/comp3511.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamB">
-									</div>
-
-									<div class="w3-col m3">
-										<img src="./img/lang2030.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamC">
-									</div>
-
-									<div class="w3-col m3">
-										<img src="./img/math1014.png" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="TeamD">
-									</div>
-								</div>
-  
-							</div>
 
 						</div>
 						<!--end profile -->
-						<div ng-switch-default>
-							<h1>Switch</h1>
-							<p>Select topic from the dropdown, to switch the content of this DIV.</p>
-						</div>
 					</div>
 
 				</section>
@@ -429,6 +469,155 @@
             </div>
             <!--End Modal-->
 
+            <div id="skillModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="skill">
+				    <div class="modal-content">
+				      	<div class="modal-header">
+				        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+				        	<h4 class="modal-title">ADD SKILL</h4>
+				      	</div>
+				      	<div class="modal-body">
+			        		<select class="form-control" id="sel1"  ng-model="skillChange">
+			        			<option value="">Select the skill you need to add</option>
+								<option value="C++">C++</option>
+							    <option value="JavaScript">JavaScript</option>
+							    <option value="Java">Java</option>
+							    <option value="HTML">HTML</option>
+							    <option value="C#">C#</option>
+							</select>
+
+							<div ng-switch="skillChange">
+								<div ng-switch-default=" " >
+									<div class="panel-body">
+								        <p>This test aims to check your skills and show it to those who would like to form a team with you.</p>
+								    </div>
+								</div>
+								<div ng-switch-when="C++" >
+										123
+								</div>
+								<div ng-switch-when="HTML" >
+
+									<div class="panel-heading">
+        								<h3 class="panel-title">Q1. What does HTML stand for?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Hyperlinks and Text Markup Language
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Hyper Text Markup Language
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Home Tool Markup Language
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q2. Inline elements are normally displayed without starting a new line.</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+								            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">True
+								        </label>
+										</div>
+										<div class="radio">
+											<label>
+									            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">False
+									        </label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q3. What is the correct HTML for inserting a background image?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">&lt;body style="background-image:url(background.gif)"&gt;
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">&lt;body bg="background.gif"&gt;
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">&lt;background img="background.gif"&gt;
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q4. Which of the following is invalid?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">#include &lt;file&gt;
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">#include "file"
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">#include &lt;file
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">All of the above
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q5. The default executable generation on UNIX for a C program is:</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">a.exe
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">a
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">a.out
+										</div>
+						      		</div>
+
+						      		<a href="#" class="btn btn-primary" ng-click="hideHTML()" role="button">Confirm</a>
+
+								</div>
+							</div>
+				      	</div>
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				      	</div>
+			   	 	</div>
+			   	</div>
+			  	</div>
+			</div>
+            <!--End Modal-->
+
 
 		    <!-- container section end -->
 		    <!-- javascripts -->
@@ -438,20 +627,6 @@
 		    <script src="js/jquery.scrollTo.min.js"></script>
 		    <!--custome script for all page-->
 		    <script src="js/scripts.js"></script>
-
-		    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-		    <!-- jquery knob -->
-		    <script src="assets/jquery-knob/js/jquery.knob.js"></script>
-		    <!--custome script for all page-->
-		    <script src="js/vendor/jquery.sortelements.js" type="text/javascript"></script>
-		    <script src="js/jquery.bdt.min.js" type="text/javascript"></script>
-		    <script src="https://code.jquery.com/jquery-1.12.3.js" type="text/javascript"></script>
-		    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js" type="text/javascript"></script>
-		    <script>
-		        $(document).ready(function() {
-		            $('table.display').DataTable();
-		        } );
-		    </script>
 		</div>
   	</div>
   </body>

@@ -11,5 +11,11 @@ app.controller("siteCtrl", ["$scope", "$firebaseObject", "$firebaseArray",
 		$scope.changeSite3 = function() {
 			$scope.pageChange = "profile";
 		}
+
+		$scope.hideHTML = function() {
+			$scope.hidehtml = true;
+			console.log($scope.hidehtml);
+			$("#skillModal").modal("hide")
+		}
 	}
 ]);
