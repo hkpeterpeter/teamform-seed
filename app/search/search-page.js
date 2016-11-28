@@ -34,7 +34,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		
 
 		//controll search page
-		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject,$firebaseArray){
+		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject,$firebaseArray,Notification){
 
 			
 			//data lists got from firebase
@@ -667,7 +667,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			}
 			
 			$scope.sendMessage = function(message, type, selected_id){
-				
+				var success = false;
 				//for each user selected
 				var keep_going = true;
 				var leader_id = thisUser;
@@ -720,9 +720,14 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					$scope.userList[receiver]["notification"][thisUser] = {};
 					$scope.userList[receiver]["notification"][thisUser] = one_noti;
 					$scope.userList.$save();
+					success = true;
+					
 				}
-
-				alert(alert_content);
+				if(success){
+					Notification.success({message: alert_content, positionY: 'top', positionX: 'center'});
+				}else{
+					Notification.error({message: alert_content, positionY: 'top', positionX: 'center'});
+				}
 			};
 			
 		});
