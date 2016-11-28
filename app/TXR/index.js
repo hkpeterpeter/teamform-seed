@@ -78,7 +78,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        $scope.thisusername = userlist[thisuser]["name"];
      //  team="L1";
        })
-      $scope.quitteammsg= $scope.thisusername+" has left your team "+ $scope.teamname +" in "+ $scope.eventname;
+      
 
       eventlist.$loaded(function(){
        $scope.event = eventlist[$scope.eventname];
@@ -89,7 +89,16 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
       })
 
-
+    $scope.addnotification = function(other,evt,msg,receiver){
+        userlist[receiver]["notification"][thisuser]={
+          "others":other,
+          "event":evt,
+          "message":msg,
+          "name":thisuser
+        }
+        userlist.$save();
+    }
+    $scope.quitteammsg= $scope.thisusername+" has left your team "+ $scope.teamname +" in "+ $scope.eventname;
       $scope.deletemember = function(i){
 
 
@@ -127,14 +136,15 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
      }
 
      $scope.quitteam = function(){
-            userlist[thisuser]["Membership"][$scope.eventname]["identity"]="user";
-            userlist[thisuser]["Membership"][$scope.eventname]["teamName"]="Null";
-            userlist.$save();
-            for (y=0;y<eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].length;y++){
-              if (eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"][y]==thisuser){
-                 eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].splice(y,1);}
-          }
-          eventlist.$save();
+             userlist[thisuser]["Membership"][$scope.eventname]["identity"]="user";
+             userlist[thisuser]["Membership"][$scope.eventname]["teamName"]="Null";
+             userlist.$save();
+             for (y=0;y<eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].length;y++){
+               if (eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"][y]==thisuser){
+                  eventlist[$scope.eventname]["teamList"][$scope.teamname]["memberList"].splice(y,1);}
+           }
+           eventlist.$save();
+          $scope.addnotification(true, $scope.eventname, $scope.quitteammsg, $scope.Leader);
      }
      $scope.deletetag = function(i){
        delete eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"][i];
@@ -282,7 +292,7 @@ app.controller("NotificationController", function($scope, $firebaseObject, $fire
     }
 
     $scope.addnotification = function(other,evt,msg,receiver){
-        userlist[receiver]["notification"][sender]={
+        userlist[receiver]["notification"][$scope.user]={
           "others":other,
           "event":evt,
           "message":msg,
