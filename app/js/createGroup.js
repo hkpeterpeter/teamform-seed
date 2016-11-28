@@ -1,12 +1,47 @@
 var app = angular.module("createGroupApp", ["firebase"]);
 
 app.controller("createGroupCtrl",
-    function($scope, $firebaseArray) {
+    function ($scope, $firebaseArray) {
 
         var ref = firebase.database().ref('teams');
         $scope.teamArr = $firebaseArray(ref);
         var ref = firebase.database().ref('members');
         $scope.members = $firebaseArray(ref);
+        $scope.chatrooms = $firebaseArray(firebase.database().ref('chats'));
+
+        $scope.user = null;
+        $scope.userID = "";
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // User is signed in.
+                $scope.user = user;
+                $scope.members.$loaded().then(function () {
+                    angular.forEach($scope.members, function (e) {
+                        if (e.uid == $scope.user.uid)
+                            $scope.userID = e.id;
+                    });
+                });
+            } else {
+                // No user is signed in.
+                showLoginDialog();
+            }
+        });
+
+        $scope.team = {
+            id: "",
+            name: "",
+            max: 2,
+            destination: "",
+            departure_date: "",
+            return_date: "",
+            preference: "",
+            estimated_budget_per_person: "",
+            descriptions: "",
+            language_for_communication: "",
+            members: [],
+            tags: []
+        };
 
         $scope.tempTeam = {
             id: "",
@@ -23,7 +58,7 @@ app.controller("createGroupCtrl",
             tags: []
         };
 
-        var createTeamObj = function(_id, _name, _max, _destination, _departureDate, _returnDate, _preference, _budget, _description, _language, _members, _tags) {
+        var createTeamObj = function (_id, _name, _max, _destination, _departureDate, _returnDate, _preference, _budget, _description, _language, _members, _tags) {
             this.id = _id;
             this.name = _name;
             this.max = _max;
@@ -42,7 +77,11 @@ app.controller("createGroupCtrl",
             this.tags = _tags;
         };
 
-        $scope.setId = function() {
+        // $scope.tempMember = {
+        // 	id: "0001"
+        // };
+
+        $scope.setId = function () {
             var numOfTeam = $scope.teamArr.length + 1;
             if (numOfTeam < 10) {
                 $scope.tempTeam.id = "g000" + numOfTeam;
@@ -62,7 +101,7 @@ app.controller("createGroupCtrl",
 				- compare with all team.name in firebase
 			3. not less than 3 words and not longer than 50 words
 		************************************************************************/
-        $scope.setTeamName = function() {
+        $scope.setTeamName = function () {
             if ($scope.tempTeam.name == "") {
                 alert("Team name: cannot be empty!");
                 return false;
@@ -78,7 +117,7 @@ app.controller("createGroupCtrl",
         };
 
         // set maximun number of team member
-        $scope.setMaxTeamMember = function(change) {
+        $scope.setMaxTeamMember = function (change) {
             change = parseInt(change);
             if ($scope.tempTeam.max == 20 && change == 1) {
                 alert("Our website can only form a group with not more than 20 members.");
@@ -92,7 +131,7 @@ app.controller("createGroupCtrl",
         };
 
         // set sex perference: M = Male, F = Female, N = No perference
-        $scope.setSexPreference = function(sexPreference) {
+        $scope.setSexPreference = function (sexPreference) {
             $scope.tempTeam.preference = sexPreference;
         };
 
@@ -101,7 +140,7 @@ app.controller("createGroupCtrl",
 			1. In US dollars
 			2. $100 <= budget <= $100000
 		***************************************************************************/
-        $scope.setEstimateBudgetPerPerson = function() {
+        $scope.setEstimateBudgetPerPerson = function () {
             if ($scope.tempTeam.estimatedBudgetPerPerson < 100) {
                 $scope.tempTeam.estimatedBudgetPerPerson = 100;
                 alert("Budget per groupmate: should not be less than $100.");
@@ -116,7 +155,7 @@ app.controller("createGroupCtrl",
         };
 
         // set destination
-        $scope.setDestination = function() {
+        $scope.setDestination = function () {
             if ($scope.tempTeam.destination == "") {
                 alert("Destination: Please choose one country as your destination.");
                 return false;
@@ -126,7 +165,7 @@ app.controller("createGroupCtrl",
         };
 
         // set main language for communication
-        $scope.setLanguageForCommunication = function() {
+        $scope.setLanguageForCommunication = function () {
             if ($scope.tempTeam.languageForCommunication == "") {
                 alert("Language: Please choose one language as your main communication language.");
                 return false;
@@ -136,7 +175,7 @@ app.controller("createGroupCtrl",
         };
 
         // set departure date 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#departureDate").datepicker();
         });
 
@@ -154,13 +193,20 @@ app.controller("createGroupCtrl",
 								-if day <= today day return
 								-if day > today day store
   	*****************************************************************************/
-        var testInVaildDate = function(selectedDate, departureDate = new Date().toUTCString()) {
-            if (Utils.compareDate(departureDate, selectedDate) >= 0)
+        // var testInVaildDate = function (selectedDate, todayDate) {
+        // 	if (selectedDate >= todayDate) {
+        // 		return false;
+        // 	} else if (selectedDate < todayDate) {
+        // 		return true;
+        // 	}
+        // };
+        var testInVaildDate = function (selectedDate) {
+            if (Utils.compareDate(new Date().toUTCString(), selectedDate) >= 0)
                 return true;
             return false;
         };
 
-        $scope.setDepartureDate = function() {
+        $scope.setDepartureDate = function () {
             var partitionDate = $scope.tempTeam.departureDate.split("/");
             var intPartitionDate = [];
             for (var i = 0; i < 3; i++) {
@@ -171,19 +217,20 @@ app.controller("createGroupCtrl",
                 alert("Departure date: Cannot be empty.");
                 return false;
             } else if (testInVaildDate(new Date(Date.UTC(intPartitionDate[2], intPartitionDate[0] - 1, intPartitionDate[1], 0, 0, 0, 0)))) {
-                alert("Departure date: Cannot choose a date in the past!");
+                alert("Cannot choose a date in the past!");
                 return false;
             }
+
             return true;
         };
 
         //set return date
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#returnDate").datepicker();
         });
 
         //Change date from string to int array
-        var changeDateFromStringToIntArray = function(dateString) {
+        var changeDateFromStringToIntArray = function (dateString) {
             var partitionDate = dateString.split("/");
             var intPartitionDate = [];
             for (var i = 0; i < 3; i++) {
@@ -192,7 +239,7 @@ app.controller("createGroupCtrl",
             return intPartitionDate;
         };
 
-        $scope.setReturnDate = function() {
+        $scope.setReturnDate = function () {
             var departureDateArray = changeDateFromStringToIntArray($scope.tempTeam.departureDate);
             var returnDateArray = changeDateFromStringToIntArray($scope.tempTeam.returnDate);
 
@@ -200,16 +247,24 @@ app.controller("createGroupCtrl",
             if ($scope.tempTeam.returnDate == "") {
                 alert("Return date: Cannot be empty.");
                 return false;
-            } else if (testInVaildDate(new Date(Date.UTC(returnDateArray[2], returnDateArray[0] - 1, returnDateArray[1], 0, 0, 0, 0)),
-                new Date(Date.UTC(departureDateArray[2], departureDateArray[0] - 1, departureDateArray[1], 0, 0, 0, 0))
-            )) {
-                alert("Return date: Cannot choose a date in the past!");
-                return false;
+            } else {
+
             }
+            // } else if (testInVaildDate(returnDateArray[2], departureDateArray[2])) {
+            // 	alert("Return date: Cannot choose a year in the past.");
+            // 	return false;
+            // } else if (testInVaildDate(returnDateArray[0], departureDateArray[0])) {
+            // 	alert("Return date: Cannot choose a month in the past.");
+            // 	return false;
+            // } else if (testInVaildDate((returnDateArray[1] - 1), departureDateArray[1])) {
+            // 	alert("Return date: Cannot choose a day in the past.");
+            // 	return false;
+            // }
+
             return true;
         };
 
-        $scope.setMember = function() {
+        $scope.setMember = function () {
             var memberId = document.getElementById('memberId').value;
 
             if (memberId == "") {
@@ -224,7 +279,7 @@ app.controller("createGroupCtrl",
 
             var inGroup = false;
 
-            $scope.tempTeam.members.forEach(function(element) {
+            $scope.tempTeam.members.forEach(function (element) {
                 if (element == memberId) {
                     inGroup = true;
                     return;
@@ -238,7 +293,7 @@ app.controller("createGroupCtrl",
 
             var haveMember = false;
 
-            angular.forEach($scope.members, function(value) {
+            angular.forEach($scope.members, function (value) {
 
                 if (value.id == memberId) {
                     haveMember = true;
@@ -253,7 +308,7 @@ app.controller("createGroupCtrl",
             $scope.tempTeam.members.push(memberId);
         };
 
-        $scope.setTag = function() {
+        $scope.setTag = function () {
             var tag = document.getElementById('tags').value;
 
             if (tag == "") {
@@ -263,7 +318,7 @@ app.controller("createGroupCtrl",
 
             var inTags = false;
 
-            $scope.tempTeam.tags.forEach(function(element) {
+            $scope.tempTeam.tags.forEach(function (element) {
                 if (element == tag) {
                     inTags = true;
                     return;
@@ -279,14 +334,34 @@ app.controller("createGroupCtrl",
         };
 
         // add group into firebase
-        $scope.createGroup = function() {
+        $scope.createGroup = function () {
+            $scope.user = firebase.auth().currentUser;
+            if (!$scope.user) {
+                showLoginDialog();
+                return;
+            }
+
             if ($scope.setTeamName() && $scope.setEstimateBudgetPerPerson() && $scope.setDestination() &&
                 $scope.setLanguageForCommunication() && $scope.setDepartureDate() && $scope.setReturnDate()) {
                 $scope.setId();
+                $scope.tempTeam.members.push($scope.userID);
                 var obj = new createTeamObj($scope.tempTeam.id, $scope.tempTeam.name, $scope.tempTeam.max, $scope.tempTeam.destination, $scope.tempTeam.departureDate,
                     $scope.tempTeam.returnDate, ($scope.tempTeam.preference == 'N' ? 'Both' : $scope.tempTeam.preference == 'M' ? 'Male' : 'Female'),
                     $scope.tempTeam.estimatedBudgetPerPerson, $scope.tempTeam.descriptions, $scope.tempTeam.languageForCommunication, $scope.tempTeam.members, $scope.tempTeam.tags);
                 $scope.teamArr.$ref().child($scope.teamArr.length).set(obj);
+
+                $scope.chatrooms.$loaded().then(function () {
+                    var obj = {
+                        name: "[Team] " + $scope.tempTeam.name,
+                        list: $scope.tempTeam.members,
+                        messages: [{
+                            sender: "System",
+                            message: "Welcome to this new chat group!",
+                            time: new Date().toUTCString()
+                        }]
+                    };
+                    $scope.chatrooms.$ref().child($scope.chatrooms.length).set(obj);
+                });
             } else {
                 alert("Please enter the information again.");
             }
@@ -296,3 +371,17 @@ app.controller("createGroupCtrl",
 
 
     });
+
+
+function showLoginDialog() {
+    $("#loginDialog").removeClass("hide");
+}
+
+function hideLoginDialog() {
+    $("#loginDialog").addClass("hide");
+}
+
+//redirect
+function goToLoginPage() {
+    window.location.href = "index.html";
+}
