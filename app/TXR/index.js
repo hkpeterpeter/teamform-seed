@@ -726,9 +726,10 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
 
      //  team="L1";
        })
-       $scope.editprofileinfo = function(Website,email){
+       $scope.editprofileinfo = function(name,Website,email){
        if (Website !== undefined) userlist[$scope.thisuser]["personalWebsite"] = Website;
        if (email !== undefined) userlist[$scope.thisuser]["email"] = email;
+       if (name !== undefined) userlist[$scope.thisuser]["name"] = name;
        uploadFile = document.getElementById("uploadFile").files[0];
        if (uploadFile !== undefined) {
          s = uploadFile.name.split(".");

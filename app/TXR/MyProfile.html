@@ -30,6 +30,18 @@
                                <div class="col-md-1 col-xs-1"></div>
                             </div>
 
+                            <div class="row filter-bar">
+
+                               <div class="col-md-1 col-xs-1"></div>
+                               <div class="col-md-10 col-xs-10">
+                                 <div class="form-group">
+                                   <label for="comment">Name:</label>
+                                   <input class="form-control" ng-model="thisusername" />
+                                 </div>
+                               </div>
+                               <div class="col-md-1 col-xs-1"></div>
+                           </div>
+
                              <div class="row filter-bar">
 
                                 <div class="col-md-1 col-xs-1"></div>
@@ -59,7 +71,7 @@
 
                             <div class="col-md-9 col-xs-9"></div>
                                 <div class="col-md-3 col-xs-3 ">
-                                <button class="btn btn-primary" ng-click="editprofileinfo(personalWebsite,email)" value="Reload Page">
+                                <button class="btn btn-primary" ng-click="editprofileinfo(name,personalWebsite,email)" value="Reload Page">
                                   Edit
                                </button>
                               </div>
