@@ -1,0 +1,85 @@
+<body ng-app = "teamApp" ng-controller="info">
+    <!-- START BREADCRUMB -->
+    <ul class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">Personal Profile</li>
+    </ul>
+    <!-- END BREADCRUMB -->
+
+    <!-- PAGE CONTENT WRAPPER -->
+    <div class="page-content-wrap">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Personal Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img class="center" src="assets/images/users/avatar.jpg" alt="John Doe">
+                        <h4 style="text-align:center;">Name : Kit</h4>
+                        <h4>Email : kit2@gmail.com</h4>
+                        <h4>Phone : 61234567</h4>
+                        <h4>Gender : Male</h4>
+                        <h4>Position : Creater</h4>
+                        <h4>Level : {{level}} 
+                                    <a href="level.html"><button type="button" class="btn btn-info btn-rounded">Details</button></a></h4>
+                        <h4>Birth Day: 30/11/1994</h4>
+                        <h4>Skill : HTML, CSS, JS, ANGULARJS, PHP, C++</h4>
+                        <h4>Intro : Hi! I am Kit. I come from HK, I love programming and sleeping. I am perparing for start up. Feel free to contact me.</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- END PAGE CONTENT WRAPPER -->
+    </div>
+    <!-- END PAGE CONTENT -->
+
+    <!-- MESSAGE BOX-->
+    <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+                <div class="mb-content">
+                    <p>Are you sure you want to log out?</p>
+                    <p>Press No if youwant to continue work. Press Yes to logout current user.</p>
+                </div>
+                <div class="mb-footer">
+                    <div class="pull-right">
+                        <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
+                        <button class="btn btn-default btn-lg mb-control-close">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MESSAGE BOX-->
+
+    <!-- START PRELOADS -->
+    <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
+    <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
+    <!-- END PRELOADS -->
+
+    <!-- START SCRIPTS -->
+    <!-- START PLUGINS -->
+    <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+    <!-- END PLUGINS -->
+
+    <!-- THIS PAGE PLUGINS -->
+
+    <!-- END PAGE PLUGINS -->
+
+    <!-- START TEMPLATE -->
+    <script type="text/javascript" src="js/plugins.js"></script>
+    <script type="text/javascript" src="js/actions.js"></script>
+    <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->
+</body>
+
+</html>
