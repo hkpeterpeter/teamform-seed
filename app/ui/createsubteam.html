@@ -2,7 +2,7 @@
 <html lang="en">
     <head>        
         <!-- META SECTION -->
-        <title>createTeam</title>            
+        <title>createSubTeam</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -20,13 +20,13 @@
 
                 <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
-                    <li><a href="#">Create Team</a></li>
+                    <li><a href="#">Create SubTeam</a></li>
                 </ul>
                 <!-- END BREADCRUMB -->
                 
                 <!-- PAGE TITLE -->
                 <div class="page-title">                    
-                    <h2><span class="fa fa-arrow-circle-o-right"></span>Create Team</h2>
+                    <h2><span class="fa fa-arrow-circle-o-right"></span>Create SubTeam</h2>
                 </div>
                 <!-- END PAGE TITLE -->                
                 
@@ -38,22 +38,12 @@
 
                             <!-- START VALIDATIONENGINE PLUGIN -->
                             <div class="block">                              
-                                <form name="teamForm">                            
-                                    
-                                    <div class="form-group">
-                                        <label class="col-md-3 control-label">Target Event</label>
-                                        <div class="col-md-9">
-                                            <span ng-show="teamForm.EventName.$touched && teamForm.EventName.$invalid"></span>
-                                            <input name="EventName" ng-model="input.event" required class="form-control">
-                                            <span class="help-block">Required Event Name</span>
-                                        </div>
-                                    </div>
-
+                                <form name="teamForm">
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">Team Name:</label>  
                                         <div class="col-md-9">
                                             <span ng-show="teamForm.newTeamName.$touched && teamForm.newTeamName.$invalid"></span>
-                                             <input name="newTeamName" ng-model="input.name" required class="form-control">
+                                             <input name="newTeamName1" ng-model="input.name1" required class="form-control">
                                             <span class="help-block">Required Team Name</span>
                                         </div>
                                     </div>
@@ -63,13 +53,13 @@
                                           <label class="col-md-3 control-label">Introduction:</label>
                                           <div class="col-md-9">
                                              <span ng-show="teamForm.newTeamIntro.$touched && teamForm.newTeamIntro.$invalid"></span>
-                                             <textarea  class="form-control" type="text" name="newTeamIntro" ng-model="input.intro" required></textarea>
+                                             <textarea  class="form-control" type="text" name="newTeamIntro1" ng-model="input.intro1" required></textarea>
                                              <span class="help-block">Required within 200 words</span>
                                           </div>   
                                     </div>  
 
                                      <div class="btn-group pull-right">
-                                        <button ng-click="submit()" class="btn btn-info btn-rounded" ng-disabled= "teamForm.newTeamIntro.$invalid || teamForm.newTeamName.$invalid">Submit</button>
+                                        <button ng-click="createFreeTeam()" class="btn btn-info btn-rounded" ng-disabled= "teamForm.newTeamIntro1.$invalid || teamForm.newTeamName1.$invalid">Submit</button>
                                     </div>  
                                                  
         

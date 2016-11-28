@@ -56,8 +56,8 @@
 <script src="js/search.js"></script>
 <script src="typequizapp.js"></script>
 <script src="bootstrap.min.js"></script>
-
-
+<script src="js/level.js"></script>
+<script src="js/pi.js"></script>
   <script>
 
 
@@ -107,9 +107,9 @@
          			 <li class="xn-openable">
                 	 <a href="#"><span class="fa fa-search"></span> <span class="xn-text">Search</span></a>
                         <ul>
-                            <li><a href="pages-profile.html"><span class="fa fa-search-minus"></span>Team_Search</a></li>
+                            <li><a ui-sref="teamsearch"><span class="fa fa-search-minus"></span>Team_Search</a></li>
                            
-                           <li><a href="pages-profile.html"><span class="fa fa-search-minus"></span>Member_Search</a></li>
+                           <li><a ui-sref="404"><span class="fa fa-search-minus"></span>Member_Search</a></li>
 
                            <li class="xn-openable">
                                  <a href="#"><span class="fa fa-plus-circle"></span> <span class="xn-text">Recommendation</span></a>
@@ -127,7 +127,7 @@
                         <ul>
                             <li><a ui-sref="eventjoin"><span class="fa fa-credit-card"></span>Join_Event</a></li>
                            
-                           <li><a href="pages-profile.html"><span class="fa fa-credit-card"></span>Join_Team</a></li>
+                           <li><a ui-sref="jointeam"><span class="fa fa-credit-card"></span>Join_Team</a></li>
 
                            <li><a href="pages-profile.html"><span class="fa fa-credit-card"></span>Join_SubTeam</a></li>
                         </ul>   
@@ -146,13 +146,13 @@
                         <a href="#"><span class="fa fa-rocket"></span> <span class="xn-text">Team</span></a>
                         <ul>
                             <li><a ui-sref="Teaminformation"><span class="fa fa-list-alt"></span>Team_Information</a></li>
-                           
+                           <li><a ui-sref="createTeam"><span class="fa fa-list-alt"></span>Create Team</a></li>
                             <li class="xn-openable">
                                  <a href="#"><span class="fa fa-table"></span> <span class="xn-text">Member_Management</span></a>
                                  <ul>
-                                       <li><a href="pages-profile.html"><span class="fa fa-hand-o-up"></span>Requests</a></li>
+                                       <li><a ui-sref="requests"><span class="fa fa-hand-o-up"></span>Requests</a></li>
 
-                                       <li><a href="pages-profile.html"><span class="fa fa-eraser"></span>Kick</a></li>
+                                       <li><a ui-sref="kickmember"><span class="fa fa-eraser"></span>Kick</a></li>
                                 </ul>
                             </li>
 
@@ -169,14 +169,14 @@
              <li class="xn-openable">
                 	 <a href="#"><span class="fa fa-university"></span> <span class="xn-text">Sub_Team</span></a>
                         <ul>
-                            <li><a ui-sref="Teaminformation"><span class="fa fa-list-alt"></span>Team_Information</a></li>
-                           
+                            <li><a ui-sref="subteaminfo"><span class="fa fa-list-alt"></span>Team_Information</a></li>
+                           <li><a ui-sref="createsubteam"><span class="fa fa-list-alt"></span>Create Team</a></li>
                             <li class="xn-openable">
                                  <a href="#"><span class="fa fa-table"></span> <span class="xn-text">Member_Management</span></a>
                                  <ul>
-                                       <li><a href="pages-profile.html"><span class="fa fa-hand-o-up"></span>Requests</a></li>
+                                       <li><a ui-sref="requests"><span class="fa fa-hand-o-up"></span>Requests</a></li>
 
-                                       <li><a href="pages-profile.html"><span class="fa fa-eraser"></span>Kick</a></li>
+                                       <li><a ui-sref="kickmember"><span class="fa fa-eraser"></span>Kick</a></li>
                                 </ul>
                             </li>
 
@@ -199,9 +199,9 @@
                             <li class="xn-openable">
                                  <a href="#"><span class="fa fa-child"></span> <span class="xn-text">Info_Management</span></a>
                                  <ul>
-                                       <li><a href="pages-profile.html"><span class="fa fa-edit"></span>Edit</a></li>
+                                       <li><a ui-sref="404"><span class="fa fa-edit"></span>Edit</a></li>
 
-                                       <li><a href="pages-profile.html"><span class="fa fa-exclamation"></span>Terminate_Account</a></li>
+                                       <li><a ui-sref="404"><span class="fa fa-exclamation"></span>Terminate_Account</a></li>
                                 </ul>
                             </li>
                         </ul>   
