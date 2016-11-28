@@ -77,9 +77,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 
@@ -280,7 +277,6 @@
                 <option value="zambian">Zambian</option>
                 <option value="zimbabwean">Zimbabwean</option>
                 </option>
-
             </select>
             <br> Estimated Budget/person: <input type="text" id="ebp"><br> Language: <input type="text" id="lang"><br> Max Number of People: <input type="text" id="mnp"><br> Preference:
             <select id="pre">
@@ -290,7 +286,10 @@
             </select>
             <br> Return Date: <input type="date" id="dateR"><br>
             <input type="submit" id="submit" value="Confirm">
-        </form>
+        </form><br><br>
+        Requests:
+        <div ng-repeat="request in teamsRequests"><a target="_blank" style="color: blue;" href="member.html?memberId={{mems[request.requester].id}}">{{mems[request.requester].first_name}}, {{mems[request.requester].last_name}}</a> | 
+        <button ng-click="approve(mems[request.requester].id, $index);">Approve</button></div>
     </div>
 
 
