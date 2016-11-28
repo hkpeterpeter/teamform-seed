@@ -43,13 +43,13 @@ app.config(function($routeProvider,NotificationProvider){
         names = key.split("_");
         if (names[0] == thisuser) {
           $scope.convList.push({
-            name:names[1],
+            name: userlist[names[1]].name,
             link: value.event + "/" + names[1]
           });
         }
         if (names[1] == thisuser) {
           $scope.convList.push({
-            name:names[0],
+            name: userlist[names[0]].name,
             link: value.event + "/" + names[0]
           });
         }
