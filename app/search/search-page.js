@@ -34,7 +34,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 		
 
 		//controll search page
-		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject,$firebaseArray){
+		app.controller("searchPage",function($scope,Naruto,$cookies,$window,$firebaseObject,$firebaseArray,Notification){
 
 			
 			//data lists got from firebase
@@ -50,6 +50,10 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			var ref = firebase.database().ref("eventList");
 			var event_list = $firebaseObject(ref);
 			$scope.userList = $firebaseObject(firebase.database().ref("userList"));
+			var conversation = $firebaseObject(firebase.database().ref("conversation"));
+			
+			var storageRef = firebase.storage().ref();
+			$scope.photoList = {};
 			
 			//get tags,teams and users from tag list in firebase
 			/*
@@ -61,6 +65,18 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				}
 			});
 			*/
+			$scope.userList.$loaded(function(){
+				angular.forEach($scope.userList,function(value,key){
+					if($scope.photoList[key] == undefined && $scope.userList[key].img != undefined){
+						//var photoName = $scope.userList[key].img;
+						//var fullName = storageRef.child('user/'+ photoName);
+						//fullName.getDownloadURL().then(function(url){
+							$scope.photoList[key] = $scope.userList[key].img;
+						//});
+					}
+				});
+			});
+			
 			$scope.ignore = false;
 			$scope.reSearch = function(){
 				if($scope.resultTag.length != 0){
@@ -88,18 +104,19 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 				
 				angular.forEach($scope.teamini,function(value,key){
 					teams.push(key);
-					
-					for(var i = 0;i < $scope.teamini[key].skills.length;i++){
-						if(tagini[$scope.teamini[key].skills[i]] == undefined){
-							tagini[$scope.teamini[key].skills[i]] = {};
-							tagini[$scope.teamini[key].skills[i]].teams = [];
-							tagini[$scope.teamini[key].skills[i]].users = [];
-							tagini[$scope.teamini[key].skills[i]].teams.push(key);
+					if($scope.teamini[key].skills != undefined){
+						for(var i = 0;i < $scope.teamini[key].skills.length;i++){
+							if(tagini[$scope.teamini[key].skills[i]] == undefined){
+								tagini[$scope.teamini[key].skills[i]] = {};
+								tagini[$scope.teamini[key].skills[i]].teams = [];
+								tagini[$scope.teamini[key].skills[i]].users = [];
+								tagini[$scope.teamini[key].skills[i]].teams.push(key);
+							}
+							else{
+								tagini[$scope.teamini[key].skills[i]].teams.push(key);
+							}
+							
 						}
-						else{
-							tagini[$scope.teamini[key].skills[i]].teams.push(key);
-						}
-						
 					}
 				});
 
@@ -134,7 +151,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 						tag.push(key);
 					
 					});
-				
+
 			}
 			
 			/*
@@ -401,8 +418,9 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					}
 					
 				}
+				
+				
 			}
-
 			//private search method
 			var findResult = function(type){
 				var list = [];
@@ -568,7 +586,11 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.disable = false;
 			$scope.full = false;
 			$scope.inTeam = false;
+			$scope.noTeam = false;
+			$scope.yourself = false;
 			$scope.passTeam = function(index){
+				$scope.labels = [];
+				$scope.data = [];
 				$scope.disable = false;
 				$scope.full = false;
 				$scope.inTeam = false;
@@ -614,7 +636,99 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			$scope.currentUser = "";
 			$scope.passUser = function(index){
 				$scope.currentUser = $scope.filterResult[index];
+				$scope.disable = false;
+				$scope.full = false;
+				$scope.inTeam = false;
+				$scope.noTeam = false;
+				$scope.yourself = false;
+				if($scope.userList[thisUser]["Membership"][Naruto.Luffy] == undefined){
+					$scope.disable = true;
+					$scope.noTeam = true;
+				}else if($scope.currentUser == thisUser){
+					$scope.disable = true;
+					$scope.yourself = true;
+				}else if($scope.userList[thisUser]["Membership"][Naruto.Luffy].identity != "leader"){
+					$scope.disable = true;
+					$scope.noTeam = true;
+				}else if($scope.teamini[$scope.userList[thisUser]["Membership"][Naruto.Luffy].teamName].memberList.length >= event_list[Naruto.Luffy].maxTeamMem){
+					$scope.disable = true;
+					$scope.full = true;
+				}else{
+					var list = $scope.teamini[$scope.userList[thisUser]["Membership"][Naruto.Luffy].teamName].memberList;
+					for(var i = 0;i < list.length;i++){
+						if(list[i] == $scope.currentUser){
+							$scope.disable = true;
+							$scope.inTeam = true;
+							break;
+						}
+					}
+					
+				}
 			}
+			
+			$scope.sendMessage = function(message, type, selected_id){
+				var success = false;
+				//for each user selected
+				var keep_going = true;
+				var leader_id = thisUser;
+				var alert_content = "Invitation(s) have been sent";
+				var receiver = selected_id;
+				var conversation_name = selected_id + "_" + leader_id; //selected_id = username of invited user
+				if (type === "request"){
+					alert_content = "Request(s) have been sent";
+					//selected_id = team name
+					leader_id = $scope.teamini[selected_id]["memberList"][0];
+					conversation_name = thisUser + "_" + leader_id;
+					receiver = leader_id;
+				}
+
+				//1. conversation
+				//if conversation does not exist, create a new one
+
+				if (!(conversation_name in conversation)) {
+					conversation[conversation_name]={
+					"event":"",
+					"log":[],
+					"type":"invite"
+					};
+				};
+				if (type === "request"){
+					conversation[conversation_name]["type"] = "request";
+				}
+
+
+				if ( conversation[conversation_name]["type"] !== type) {
+					//change alert_content
+					alert_content="Please check the previous message with "+receiver+ " first. This action will not be taken";
+					keep_going = false;
+				};
+
+				if(keep_going){
+					conversation[conversation_name]["event"]=Naruto.Luffy;
+					var one_log = {};
+					one_log["message"] = message;
+					one_log["sender"] = thisUser;
+					conversation[conversation_name]["log"].push(one_log);
+					conversation.$save();
+					//2. notification in userList
+					var one_noti = {};
+					one_noti["name"] = thisUser;
+					one_noti["message"] = message;
+					if($scope.userList[receiver]["notification"] == undefined){
+						$scope.userList[receiver]["notification"] = {};	
+					}
+					$scope.userList[receiver]["notification"][thisUser] = {};
+					$scope.userList[receiver]["notification"][thisUser] = one_noti;
+					$scope.userList.$save();
+					success = true;
+					
+				}
+				if(success){
+					Notification.success({message: alert_content, positionY: 'top', positionX: 'center'});
+				}else{
+					Notification.error({message: alert_content, positionY: 'top', positionX: 'center'});
+				}
+			};
 			
 		});
 
@@ -643,7 +757,8 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 					length ++;
 				}
 				initial ++;
-				if(initial != 1&&(length > $scope.notes )){
+				if(initial == 1 && length > 0)Notification("You have " + length + " notification(s)");
+				if(initial != 1&&(length >= $scope.notes )){
 				  Notification('New notification');
 				}
 				$scope.notes = length;
@@ -659,6 +774,7 @@ var tag = ["javascript","angularjs","html","css","java","cpp","sql"];
 			// $scope.searchThisName = function(){
 			// 	Naruto.searchName();
 			// };
+			
 			$scope.start = function(){
 				Search.search = false;
 
