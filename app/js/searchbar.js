@@ -851,7 +851,7 @@ function hightlight(text, keywords) {
 
 //get country list item
 function getCountryListItem(index) {
-    return countrylist[index].name;
+    return countrylist[index];
 }
 
 //get language list item
