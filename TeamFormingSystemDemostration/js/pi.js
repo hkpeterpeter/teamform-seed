@@ -31,12 +31,13 @@ app.controller("info",
         $scope.updateIq = function() {
             var path = "iq/-KXhHdaWWvGuSqqIRaMH";
             var itemRef = firebase.database().ref(path);
-            $scope.newIq = 87;
-            $scope.iq.iq = 87;
-			$scope.newEq = 87;
-			$scope.iq.eq = 87;
-            itemRef.update($scope.iq);
-            $state.go("iqtest");
+            $timeout( function(){ $scope.newIq = 23;
+            $scope.iq.iq = 23;
+			$scope.newEq = 97;
+			$scope.iq.eq = 97;
+            itemRef.update($scope.iq); }, 5000);
+            
+            // $state.go("iqtest");
         }
 
 	}

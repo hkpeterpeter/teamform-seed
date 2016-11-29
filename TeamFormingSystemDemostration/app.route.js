@@ -44,6 +44,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
         })
 
+        .state('todayrecommendation',{
+            url: '/todaysspecial',
+            templateUrl: 'todaysspecial.html',
+        })
+
  .state('iqtest', {
             url: '/iqtest',
             templateUrl: 'IQtest1.html'
