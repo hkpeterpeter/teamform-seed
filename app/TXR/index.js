@@ -163,7 +163,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
           $scope.addnotification(true, $scope.eventname, $scope.quitteammsg, $scope.Leader);
      }
      $scope.deletetag = function(i){
-       delete eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"][i];
+       delete eventlist[$scope.eventname]["teamList"][$scope.teamname]["skills"].splice(i,1);
        eventlist.$save();
      }
 
@@ -804,7 +804,10 @@ app.controller("profileController",function($scope,$firebaseArray,$firebaseObjec
 
 
     }
-
+     $scope.deletetag = function(i){
+      userlist[$scope.thisuser]["skills"].splice(i,1);
+       userlist.$save();
+     }
 
 
       var storageRef = firebase.storage().ref()
