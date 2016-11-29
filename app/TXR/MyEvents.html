@@ -543,7 +543,7 @@
                   <td>
                       <img ng-src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#{{num*10}}">{{suggested_users["name"]}}
+                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#{{num+50}}">{{suggested_users["name"]}}
                   <p>
                   <div style="font-size: 15px">
                   Fulfill:
@@ -553,7 +553,7 @@
 
 
 
- <div id = "{{num*10}}" class = "modal fade" role = "dialog">
+ <div id = "{{num+50}}" class = "modal fade" role = "dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -703,7 +703,7 @@
                   </td>-->
 
 
-                  <td style="font-size: 30px" id="fat-btn" ><div ng-click="passTeam($index)" data-toggle="modal" data-target="#{{num*10}}">{{team_content.teamname}}<p>
+                  <td style="font-size: 30px" id="fat-btn" ><div ng-click="passTeam($index)" data-toggle="modal" data-target="#{{num+50}}">{{team_content.teamname}}<p>
                   <div style="font-size: 15px">
                   Meet:
                   
@@ -714,7 +714,7 @@
 
 
   <!-- Modal -->
-  <div class="modal fade" id="{{num*10}}" role="dialog">
+  <div class="modal fade" id="{{num+50}}" role="dialog">
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
