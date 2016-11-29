@@ -32,6 +32,11 @@ $("#create").click(function() {
     fixSize();
 });
 
+$("#ads").click(function() {
+    $("#obj").attr("data", "addpost.html");
+    fixSize();
+});
+
 $("#logout").click(function() {
     firebase.auth().signOut().then(function() {
         var url = "index.html";
