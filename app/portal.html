@@ -1,0 +1,80 @@
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/team.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+
+<style>
+#obj {
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+</style>
+
+<script>
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+    authDomain: "comp3111-5fbe5.firebaseapp.com",
+    databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+    storageBucket: "comp3111-5fbe5.appspot.com",
+    messagingSenderId: "946291658553"
+};
+firebase.initializeApp(config);
+
+</script>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Travel</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+            <li><a id="search" href="#">Search</a></li>
+            <li><a id="chat" href="#">Chat Room</a></li>
+            <li><a id="profile" href="#">Profile</a></li>
+            <li><a id="team" href="#">Team</a></li>
+            <li><a id="create" href="#">Create Team</a></li>
+            <li><a id="logout" href="#">Logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<object id="obj" data="search.html"></object>
+
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/portal.js"></script>
+
+
+        <script>
+        var stateChange = function(user) {
+            if (user) {
+
+            } else {
+                var url = "index.html";
+                window.location.href = url;
+            }
+        };
+
+        firebase.auth().onAuthStateChanged(stateChange);
+    </script>
