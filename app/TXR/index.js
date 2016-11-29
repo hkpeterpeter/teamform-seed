@@ -73,7 +73,7 @@ app.config(function($routeProvider,NotificationProvider){
 
 });
 
-app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray, $cookies){
+app.controller("EventController",function($scope,$routeParams,$firebaseObject, $firebaseArray, $cookies,$window){
 
       $scope.eventname = $routeParams.p;
       $scope.photolist = [];
@@ -198,9 +198,26 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
 
           }
 
+    var storageRef = firebase.storage().ref();
     $scope.editteaminfo = function(teamWebsite){
-      eventlist[$scope.eventname]["teamList"][$scope.teamname]["teamWebsite"] = teamWebsite;
-      eventlist.$save();
+      if (teamWebsite !== undefined) eventlist[$scope.eventname]["teamList"][$scope.teamname]["teamWebsite"] = teamWebsite;
+
+      uploadFile = document.getElementById("uploadFileTeam").files[0];
+      if (uploadFile !== undefined) {
+        s = uploadFile.name.split(".");
+        fileType = "." + s[s.length - 1];
+        storageRef.child("team/"+$scope.eventname+"/"+$scope.teamname + fileType).put(uploadFile).then(function(snapshot){
+          eventlist[$scope.eventname].teamList[$scope.teamname].img = snapshot.downloadURL;
+          eventlist.$save().then(function(){
+            $window.location.reload(true);
+          });
+        });
+      }
+      else {
+        eventlist.$save().then(function(){
+          $window.location.reload(true);
+        });
+      }
     }
 
     $scope.editteamintro = function(introduction){
@@ -743,7 +760,7 @@ app.controller("clickCtrl",
           user_list.$loaded(function() {
 				var member = $scope.currentTeam.memberList;
 				for(var i = 0;i < $scope.currentTeam.skills.length;i++){
-					
+
 					$scope.labels.push($scope.currentTeam.skills[i]);
 					var number = 0;
 					for(var j = 0;j < member.length;j ++){
@@ -753,17 +770,17 @@ app.controller("clickCtrl",
 								break;
 							}
 						}
-						
+
 					}
 					$scope.data.push(number);
-					
+
 				}
 				var numMembers = $scope.currentTeam.memberList.length;
 					if(numMembers == event_list[event_name].maxTeamMem){
 							$scope.disable = true;
 							$scope.full = true;
 					}
-					
+
 				if(user_list[this_user]["Membership"][event_name] != undefined){
 					if(user_list[this_user]["Membership"][event_name].identity != "user"){
 						$scope.disable = true;
@@ -771,7 +788,7 @@ app.controller("clickCtrl",
 					}
 				}
           })
-        })	
+        })
 			}
     	$scope.toggle = function () {
 				$scope.type = $scope.type === 'polarArea' ? 'pie' : 'polarArea';

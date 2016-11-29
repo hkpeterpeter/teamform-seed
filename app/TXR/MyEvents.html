@@ -120,6 +120,20 @@
                             <br>
 
 
+                            <div class="row filter-bar">
+
+                               <div class="col-md-1 col-xs-1"></div>
+                               <div class="col-md-10 col-xs-10">
+                                 <div class="form-group">
+                                   <label for="comment">Image:</label>
+                                   <label class="btn btn-primary">
+                                     Browse&hellip; <input type="file" id="uploadFileTeam" style="display:none;" />
+                                   </label>
+                                 </div>
+                               </div>
+                               <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
                              <div class="row filter-bar">
 
                                 <div class="col-md-1 col-xs-1"></div>
@@ -138,7 +152,7 @@
 
                             <div class="col-md-9 col-xs-9"></div>
                                 <div class="col-md-3 col-xs-3 ">
-                                <button class="btn btn-primary" ng-click="editteaminfo(teamWebsite)" value="Reload Page" onClick="document.location.reload(true)">
+                                <button class="btn btn-primary" ng-click="editteaminfo(teamWebsite)" value="Reload Page">
                                   Edit
                                </button>
                               </div>
@@ -572,7 +586,7 @@
 							<div class="col-sm-6 placeholder">
 
 								<h3 class="text-left" style = "font-weight:bold">{{suggested_users.name}}</h3>
-							
+
 							</div>
 
 							</div>
@@ -584,7 +598,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class = "row placeholder">
 						<div class = "col-md-12">
 							<h4 style = "font-weight:bold">Introduction:</h4>
@@ -592,8 +606,8 @@
 						</div>
 					</div>
 
-          
-		  
+
+
 					<h2 class="sub-header">Skills</h2>
 					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
 
@@ -602,7 +616,7 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -706,7 +720,7 @@
                   <td style="font-size: 30px" id="fat-btn" ><div ng-click="passTeam($index)" data-toggle="modal" data-target="#{{num+50}}">{{team_content.teamname}}<p>
                   <div style="font-size: 15px">
                   Meet:
-                  
+
                     <span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in team_content.fulfill_skills">{{x}}</span>
                   </div>
                   </p></div>
