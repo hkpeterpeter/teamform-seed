@@ -5,13 +5,14 @@
             <div class="container">
               <div class="row">
                 <div class="col-sm-2 col-md-2">
-                  <br><br><br>
+                  <br>
                    <img src={{eventavaUrl}}
                    alt="" class="img-rounded img-responsive"/>
+                   <br>
                 </div>
         <div class="col-sm-4 col-md-4">
-          <br><br><br>
-          <h2>{{eventname}}</h2>
+          <br>
+          <h2>{{eventname}}</h2><br>
 
 
         </div>
@@ -290,11 +291,11 @@
         <h2>
       <div align="left">
     <div class="hero-unit">
-        <span class="label label-warning skill" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove" value="Reload Page" onClick="document.location.reload(true)"></span></span>
+        <span class="label label-warning skill" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove" ng-click="deletetag($index)" value="Reload Page" onClick="document.location.reload(true)"></span></span>
 
 
          </div>
-    </div></h2>
+    </div></h2><br>
 
 
 
@@ -366,7 +367,7 @@
                                       <div class="media">
                                         <div class="media-left">
 
-                                          <img class="media-object" src={{imgUrl[username]}} width="50" height="50" alt="...">
+                                          <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
 
                                         </div>
                                         <div class="media-body">
@@ -407,7 +408,7 @@
                                     <div class="col-xs-12">
                                         <div class="media">
                                           <div class="media-left">
-                                            <img class="media-object" src={{imgUrl[username]}} width="50" height="50" alt="...">
+                                            <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
 
                                           </div>
                                           <div class="media-body">
@@ -491,13 +492,13 @@
 
               <tbody>
                 <tr ng-repeat = "member in memberlist">
-                  <td style="font-size: 30px">{{$index}}</td>
+                  <td style="font-size: 30px">{{$index|isLeader}}</td>
                   <td>
-                      <img src={{memberphoto[member]}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                      <img src={{userlist[member].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px"><a href="#">{{member}}</a></td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[member].name}}</a></td>
                  <td>
-                      <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)" value="Reload Page" onClick="document.location.reload(true)"> Delete</button>
+                      <button ng-hide="$index==0" id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)" value="Reload Page" onClick="document.location.reload(true)"> Delete</button>
                   </td>
                 </tr>
                  <!--<tr>
@@ -540,12 +541,19 @@
                 <tr ng-repeat = "(num, suggested_users) in suggested">
                   <td style="font-size: 30px">{{num+1}}</td>
                   <td>
-                      <img ng-src="{{imgUrl[suggested_users.username]}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                      <img ng-src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px" data-target="#userProfile" data-toggle="modal">{{suggested_users["name"]}}</td>
-                 <td>
-                      <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Invite</button-->
-	<div id = "userProfile" class = "modal fade" role = "dialog">
+                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxx">{{suggested_users["name"]}}
+                  <p>
+                  <div style="font-size: 15px">
+                  Fulfill:
+                    <span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.fulfill_skills">{{x}}</span>
+                  </div>
+                  </p></div>
+
+
+
+ <div id = "xxx" class = "modal fade" role = "dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -556,14 +564,40 @@
 				</div>
 				<div class="modal-body">
 					<div class="row placeholders">
-						<div class="col-xs-6 col-sm-3">
-							<img src="peter.jpg" class="img-thumbnail" alt="Generic square placeholder thumbnail">
+						<div class=" col-sm-3">
+							<img src="{{suggested_users.img}}" class="img-thumbnail" alt="Generic square placeholder thumbnail">
 						</div>
-						<div class="col-xs-4 col-sm-4 placeholder">
-							<h4 class="text-left" style = "font-weight:bold">{{suggested_users["name"]}}</h4>
-							<h4 class="text-left">{{suggested_users["introduction"]}}</h4>
+						<div class = "col-sm-9">
+						<div class = "row">
+							<div class="col-sm-6 placeholder">
+
+								<h3 class="text-left" style = "font-weight:bold">{{suggested_users.name}}</h3>
+							
+							</div>
+							<div class="col-sm-6 placeholder">
+								<button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg" ng-click = "sendMessage('Join me please','invite',currentUser)">Invite</button>
+								<p ng-show = "noTeam"><small class="text-danger">You are not team leader</small></p>
+								<p ng-show = "full"><small class="text-danger">Your team is full</small></p>
+								<p ng-show = "yourself"><small class="text-danger">Can`t invite yourself</small></p>
+								<p ng-show = "inTeam"><small class="text-danger">Team member</small></p>
+								
+
+							</div>
+							</div>
+							<div class = "row">
+								<div class = "col-sm-12">
+									<p style = "text-align: left;">Website:<a href = "{{suggested_users.personalWebsite}}" target="_blank">{{suggested_users.personalWebsite}}</a></p>
+									<p style = "text-align: left;">{{suggested_users.email}}</p>
+								</div>
+							</div>
 						</div>
-		
+					</div>
+					
+					<div class = "row placeholder">
+						<div class = "col-md-12">
+							<h4 style = "font-weight:bold">Intruduction:</h4>
+							<p>{{suggested_users.introduction}}</p>
+						</div>
 					</div>
 
           
@@ -572,15 +606,22 @@
 					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
 
 				</div>
-
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
 			
 		</div>
 	</div>
 
+		</div>
+	</div>
 
 
 
+</td>
+
+  <td>
 <!-- Trigger the modal with a button -->
   <button id="fat-btn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{num}}">Invite</button>
 
@@ -636,11 +677,11 @@
             <table class="table table-striped">
               <tbody>
                 <tr ng-repeat = "(num,members) in memberlist">
-                  <td style="font-size: 30px">{{num}}</td>
+                  <td style="font-size: 30px">{{num|isLeader}}</td>
                   <td>
-                      <img src={{memberphoto[members]}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                      <img ng-src={{userlist[members].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>
-                  <td style="font-size: 30px"><a href="#">{{members}}</a></td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[members].name}}</a></td>
 
                 </tr>
 
@@ -668,7 +709,74 @@
                   <!--<td>
                       <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
                   </td>-->
-                  <td style="font-size: 30px"><a href="#">{{team_content.teamname}}</a></td>
+
+
+                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#xxxx">{{team_content.teamname}}<p>
+                  <div style="font-size: 15px">
+                  Meet:
+                  
+                    <span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in team_content.fulfill_skills">{{x}}</span>
+                  </div>
+                  </p></div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="xxxx" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Team Profile</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3">
+              <img src="https://firebasestorage.googleapis.com/v0/b/teamform-ad42e.appspot.com/o/team%2Fteam-building.jpg?alt=media&token=a6822c9e-14fe-4dac-8f2b-fd767c6a5612" class="img-thumbnail" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-6 placeholder">
+              <h4 class="text-left" style = "font-weight:bold">{{team_content.teamname}}</h4>
+			  <h4 class="text-left">Leader: {{team_content.leader}}</h4>
+            </div>
+          </div>
+
+
+
+		  <h2 class="sub-header">Skills Required</h2>
+		  <span class="label label-warning" ng-repeat = "x in team_content.skills" style = "margin-right:5px">{{x}}</span>
+
+
+		  <h2 class="sub-header">Member distribution</h2>
+		  <div class="row placeholders">
+
+				<div class = "col-md-8 col-md-offset-2">
+					<canvas id="base" class="chart-base" chart-type="type" chart-data="data" chart-labels="labels" ></canvas>
+				</div>
+				<div>
+					<button type = "button" class = "btn btn-primary" ng-click = "toggle()" >Toggle</button>
+				</div>
+			</div>
+          </div>
+		  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+</td>
+
+
+
+
+
+
+
+
                  <td>
                       <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button-->
 
