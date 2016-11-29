@@ -14,6 +14,12 @@ app.controller("ConversationController",function($scope,$routeParams,$cookies,$f
   $scope.userList = $firebaseObject(firebase.database().ref("userList"));
   $scope.eventList = $firebaseObject(firebase.database().ref("eventList"));
   $scope.convList = $firebaseObject(firebase.database().ref("conversation"));
+  var ref = firebase.database().ref("conversation");
+  // ref.on("value",function(){
+  //   $scope.logs=$scope.convList[$scope.convKey].log;
+  //   $scope.$apply();
+  //   console.log("new message");
+  // });
   var storageRef = firebase.storage().ref();
 
   $scope.p = $routeParams.p;
