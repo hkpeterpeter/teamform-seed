@@ -211,9 +211,6 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
        eventlist.$save();
 
     }
-    			$scope.toggle = function () {
-				$scope.type = $scope.type === 'polarArea' ? 'pie' : 'polarArea';
-			};
 
 
       var storageRef = firebase.storage().ref();
@@ -733,6 +730,52 @@ app.controller("clickCtrl",
         alert(alert_content);
 
       };
+     $scope.passTeam = function(index){
+				$scope.labels = [];
+				$scope.data = [];
+				$scope.disable = false;
+				$scope.full = false;
+				$scope.inTeam = false;
+				$scope.currentTeam = $scope.suggested_teams[index];
+				event_list.$loaded(function() {
+          user_list.$loaded(function() {
+				var member = $scope.currentTeam.memberList;
+				for(var i = 0;i < $scope.currentTeam.skills.length;i++){
+					
+					$scope.labels.push($scope.currentTeam.skills[i]);
+					var number = 0;
+					for(var j = 0;j < member.length;j ++){
+						for(var k = 0;k < user_list[member[j]].skills.length;k++){
+							if(user_list[member[j]].skills[k] == $scope.currentTeam.skills[i]){
+								number++;
+								break;
+							}
+						}
+						
+					}
+					$scope.data.push(number);
+					
+				}
+				var numMembers = $scope.currentTeam.memberList.length;
+					if(numMembers == event_list[event_name].maxTeamMem){
+							$scope.disable = true;
+							$scope.full = true;
+					}
+					
+				if(user_list[this_user]["Membership"][event_name] != undefined){
+					if(user_list[this_user]["Membership"][event_name].identity != "user"){
+						$scope.disable = true;
+						$scope.inTeam = true;
+					}
+				}
+          })
+        })	
+			}
+    	$scope.toggle = function () {
+				$scope.type = $scope.type === 'polarArea' ? 'pie' : 'polarArea';
+			};
+
+
 
     }
 );
