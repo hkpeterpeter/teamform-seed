@@ -180,7 +180,8 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
                      "leader": thisuser,
                      "introduction": introduction,
                      "teamWebsite": teamWebsite,
-                     "memberList":[thisuser]
+                     "memberList":[thisuser],
+                     "img": "https://firebasestorage.googleapis.com/v0/b/teamform-ad42e.appspot.com/o/team%2Fteam-building.jpg?alt=media&token=3a9f0bc2-5c1a-4ea8-a317-acea93cd9744"
               };
 
               eventlist.$save();
