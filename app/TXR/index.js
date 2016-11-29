@@ -194,6 +194,7 @@ app.controller("EventController",function($scope,$routeParams,$firebaseObject, $
             //};
 
         // alert(alert_content);
+
           }
 
     $scope.editteaminfo = function(teamWebsite){
