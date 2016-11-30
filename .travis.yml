@@ -1,9 +1,12 @@
-services:
-  - firebase
+sudo: required
 language: node_js
 node_js:
-  - "6"
-  - "6.1"
-  - "5.11"
-  - "0.6"
-  - "iojs"
+  - "node"
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - "npm install"
+
+script:
+  - "npm start"
