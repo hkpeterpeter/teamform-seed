@@ -40,9 +40,10 @@
 }
 
 .member-list {
-    height: 380px;
+    height: 425px;
     overflow-x: hidden;
     overflow-y: auto;
+    border: 1px solid #dddddd;
 }
 
 .sub-menu {
@@ -157,5 +158,9 @@
 
 .panel-message {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 0 !important;
+}
+
+.panel-message-container {
+    margin: -20px;
 }

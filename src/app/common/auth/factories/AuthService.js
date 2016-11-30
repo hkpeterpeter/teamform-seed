@@ -53,7 +53,11 @@ export default class AuthService {
     async register(credential) {
         let result = await this.$firebaseAuth.$createUserWithEmailAndPassword(credential.email, credential.password);
         let user = this.$firebaseObject(this.$database.ref('users/' + result.uid));
-        user.pending = true;
+        user.email = credential.email;
+        user.name = credential.email.split('@')[0];
+        user.role = 'member';
+        user.gender = 'M';
+        user.createdAt = Date.now();
         await user.$save();
         return result;
     }
@@ -64,19 +68,6 @@ export default class AuthService {
         } else {
             return Promise.reject(new Error('Unauthorized, Please Login'));
         }
-    }
-    async checkRules(rules = {}) {
-        let user = await this.getUser();
-        if (this.user && rules.signOut) {
-            return Promise.reject('GUEST_REQUIRED');
-        }
-        if (!this.user && (rules.signIn || rules.userId)) {
-            return Promise.reject('AUTH_REQUIRED');
-        }
-        if (rules.userId && (!this.user || this.user.uid != rules.userId)) {
-            return Promise.reject('PERMISSION_DENIED');
-        }
-        return Promise.resolve();
     }
     async sendPasswordResetEmail(email) {
         return await this.$firebaseAuth.$sendPasswordResetEmail(email);

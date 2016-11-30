@@ -9,16 +9,19 @@ const randomstring = require('randomstring');
 const parseXML = require('xml2js').parseString;
 const XMLprocessors = require('xml2js/lib/processors');
 const CONFIG = require('./config.js');
+const admin = require('firebase-admin');
 
-let firebaseService = firebase.initializeApp({
-    serviceAccount: path.join(__dirname, 'firebase-service.json'),
+let firebaseService = admin.initializeApp({
+    credential: admin.credential.cert(require('./firebase-service.json')),
     databaseURL: CONFIG.FIREBASE_DATABASE
-}, 'service');
+});
 
-let firebaseClient = firebase.initializeApp({
-    apiKey: CONFIG.FIREBASE_API_KEY,
-    databaseURL: CONFIG.FIREBASE_DATABASE
-}, 'client');
+let firebaseClient = () => {
+    return firebase.initializeApp({
+        apiKey: CONFIG.FIREBASE_API_KEY,
+        databaseURL: CONFIG.FIREBASE_DATABASE
+    }, 'client');
+};
 
 let app = express();
 
@@ -55,15 +58,20 @@ app.post('/oauth', (req, res) => {
                         firebaseService.database().ref('users').orderByChild('itsc').startAt(itsc).endAt(itsc).once('value', (snap) => {
                             let user = snap.val();
                             if(!user) {
-                                firebaseClient.auth().createUserWithEmailAndPassword(itsc+'@ust.hk', randomstring.generate(12)).then((result) => {
-                                    firebaseClient.auth().signOut();
-                                    firebaseService.database().ref('users/'+result.uid).update({itsc: itsc});
-                                    return resolve({token: firebaseService.auth().createCustomToken(result.uid)});
+                                let client = firebaseClient();
+                                client.auth().createUserWithEmailAndPassword(itsc+'@connect.ust.hk', randomstring.generate(12)).then((result) => {
+                                    client.auth().signOut();
+                                    firebaseService.database().ref('users/'+result.uid).update({itsc: itsc, email: itsc+'@connect.ust.hk', name: itsc, role: 'member', gender: 'M', createdAt: Date.now()});
+                                    firebaseService.auth().createCustomToken(result.uid).then((token) => {
+                                        return resolve({token: token});
+                                    })
                                 }).catch((error) => {
                                     return reject(error);
                                 });
                             } else {
-                                return resolve({token: firebaseService.auth().createCustomToken(Object.keys(user)[0])});
+                                firebaseService.auth().createCustomToken(Object.keys(user)[0]).then((token) => {
+                                    return resolve({token: token});
+                                });
                             }
                         });
                     } else {

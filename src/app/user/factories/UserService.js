@@ -1,16 +1,39 @@
 import User from './User.js';
 export default class UserService {
-    constructor($firebaseArray, $firebaseObject, $database, authService) {
+    constructor($injector, $firebaseArray, $firebaseObject, $database, authService) {
+        this.$injector = $injector;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
         this.authService = authService;
         this.users = null;
     }
+    async me() {
+        let user = await this.authService.getUser();
+        if (user) {
+            return this.getUser(user.uid);
+        }
+        return null;
+    }
+    async checkRules(rules = {}) {
+        let user = await this.me();
+        if (user && rules.signOut) {
+            return Promise.reject('GUEST_REQUIRED');
+        }
+        if (!user && (rules.signIn || rules.admin || rules.userId)) {
+            return Promise.reject('AUTH_REQUIRED');
+        }
+        if (rules.userId && (!user || (((typeof(rules.userId) === 'string' && user.$id != rules.userId) || (rules.userId instanceof Array && rules.userId.indexOf(user.$id) != -1)) && !user.isAdmin()))) {
+            return Promise.reject('PERMISSION_DENIED');
+        }
+        if (rules.admin && (!user || !user.isAdmin())) {
+            return Promise.reject('PERMISSION_DENIED');
+        }
+    }
     async getUser(id) {
         let users = await this.getUsers();
         let user = users.$getRecord(id);
-        if(!user) {
+        if (!user) {
             return Promise.reject(new Error('User not exist'));
         }
         return user;
@@ -19,7 +42,7 @@ export default class UserService {
         if (!this.users) {
             let userFirebaseArray = this.$firebaseArray.$extend({
                 $$added: async(snap) => {
-                    return new User(snap, this.$firebaseArray, this.$firebaseObject, this.$database);
+                    return new User(snap, this.$injector, this.$firebaseArray, this.$firebaseObject, this.$database);
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
@@ -32,12 +55,6 @@ export default class UserService {
     }
     async editUser(user) {
         user.data.pending = null;
-        let newUserSkills = user.data.skills || [];
-        user.data.skills = null;
-        let userSkills = await this.$firebaseArray(this.$database.ref('users/'+user.$id+'/skills')).$loaded();
-        for (let newUserSkill of newUserSkills) {
-            await userSkills.$add(newUserSkill);
-        }
         return this.users.$save(user);
     }
     static instance(...args) {
@@ -48,4 +65,4 @@ export default class UserService {
     }
 }
 UserService.Instance = null;
-UserService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService'];
+UserService.instance.$inject = ['$injector', '$firebaseArray', '$firebaseObject', 'database', 'AuthService'];

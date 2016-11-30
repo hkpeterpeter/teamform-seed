@@ -1,6 +1,7 @@
 import Event from './Event.js';
 export default class EventService {
-    constructor($firebaseArray, $firebaseObject, $database, authService, userService) {
+    constructor($injector, $firebaseArray, $firebaseObject, $database, authService, userService) {
+        this.$injector = $injector;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
@@ -34,7 +35,7 @@ export default class EventService {
         if (!this.event) {
             let eventFirebaseArray = this.$firebaseArray.$extend({
                 $$added: async(snap) => {
-                    return new Event(snap, this.$firebaseArray, this.$firebaseObject, this.$database);
+                    return new Event(snap, this.$injector);
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
@@ -49,7 +50,11 @@ export default class EventService {
         let user = await this.authService.getUser();
         event.createdBy = user.uid;
         event.createdAt = Date.now();
-        return this.$firebaseArray(this.$database.ref('events')).$add(event);
+        let events = await this.getEvents();
+        return events.$add(event);
+    }
+    deleteEvent(event) {
+        return this.events.$remove(event);
     }
     editEvent(event) {
         return this.events.$save(event);
@@ -62,4 +67,4 @@ export default class EventService {
     }
 }
 EventService.Instance = null;
-EventService.instance.$inject = ['$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService'];
+EventService.instance.$inject = ['$injector', '$firebaseArray', '$firebaseObject', 'database', 'AuthService', 'UserService'];

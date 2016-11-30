@@ -8,6 +8,7 @@ import timepicker from 'angular-ui-bootstrap/src/timepicker';
 import 'bootstrap-ui-datetime-picker';
 import { ngTable } from 'ng-table';
 import fileUpload from 'ng-file-upload';
+import nestable from 'nestable';
 
 import routes from './config/routes';
 import alert from '../common/alert';

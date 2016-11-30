@@ -5,5 +5,6 @@ module.exports = {
     FIREBASE_STORAGE: '',
     FIREBASE_MESSAGING_SENDER: '',
     ITSC_AUTH_URL: '',
-    ITSC_SERVICE_URL: ''
+    ITSC_SERVICE_URL: '',
+    CDN_URL: ''
 }

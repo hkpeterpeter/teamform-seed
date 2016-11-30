@@ -1,4 +1,4 @@
-export default class NotificationService {
+export default class WebNotificationService {
     constructor($window) {
         this.$window = window;
         this.supported = ('Notification' in this.$window);
@@ -33,11 +33,11 @@ export default class NotificationService {
         }
     }
     static instance(...args) {
-        if (!NotificationService.Instance) {
-            NotificationService.Instance = new NotificationService(...args);
+        if (!WebNotificationService.Instance) {
+            WebNotificationService.Instance = new WebNotificationService(...args);
         }
-        return NotificationService.Instance;
+        return WebNotificationService.Instance;
     }
 }
-NotificationService.Instance = null;
-NotificationService.$inject = ['$window'];
+WebNotificationService.Instance = null;
+WebNotificationService.$inject = ['$window'];

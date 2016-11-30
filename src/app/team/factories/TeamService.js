@@ -1,6 +1,7 @@
 import Team from './Team.js';
 export default class TeamService {
-    constructor($firebaseArray, $firebaseObject, $database, authService, userService, eventService, messageService) {
+    constructor($injector, $firebaseArray, $firebaseObject, $database, authService, userService, eventService, messageService) {
+        this.$injector = $injector;
         this.$firebaseArray = $firebaseArray;
         this.$firebaseObject = $firebaseObject;
         this.$database = $database;
@@ -27,7 +28,7 @@ export default class TeamService {
         }
         return teamUsers;
     }
-    async joinTeam(id, positionId) {
+    async joinTeam(id, positionId, message) {
         let user = await this.authService.getUser();
         let teamJoin = await this.getTeam(id);
         await this.eventService.joinEvent(teamJoin.data.eventId, true);
@@ -49,16 +50,19 @@ export default class TeamService {
                 let newTeamUser = {
                     id: user.uid,
                     role: teamUser.role,
-                    refId: positionId
+                    refId: positionId,
+                    message: message
                 };
                 if (!teamJoin.data.directJoin) {
                     newTeamUser.pending = true;
                     newTeamUser.confirmed = false;
-                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, user.name + ' Request to Join ' + teamJoin.data.name);
+                    let me = await this.userService.me();
+                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, me.data.name + ' Request to Join ' + teamJoin.data.name + ' Message: '+message);
                     return users.$add(newTeamUser);
                 } else {
                     teamUser.id = newTeamUser.id;
-                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, user.name + ' Joined Your Team: ' + teamJoin.data.name);
+                    let me = await this.userService.me();
+                    this.messageService.sendMessage(user.uid, teamJoin.data.createdBy, me.data.name + ' Joined Your Team: ' + teamJoin.data.name);
                     return users.$save(teamUser);
                 }
             }
@@ -69,20 +73,27 @@ export default class TeamService {
         if (!this.teams) {
             let teamFirebaseArray = this.$firebaseArray.$extend({
                 $$added: async(snap) => {
-                    return new Team(snap, this.$firebaseArray, this.$firebaseObject, this.$database, this.eventService);
+                    return new Team(snap, this.$injector);
                 },
                 $$updated: function(snap) {
                     return this.$getRecord(snap.key).update(snap);
-                }
+                },
+                getInEvent: function(id) {
+                    return this.$list.filter((team) => {
+                        return team.data.eventId == id;
+                    });
+                },
             });
             let teams = await teamFirebaseArray(this.$database.ref('teams')).$loaded();
             this.teams = teams;
         }
         return this.teams;
     }
-    async editTeam(team) {
-        let teams = await this.getTeams();
-        return teams.$save(team);
+    deleteTeam(team) {
+        return this.teams.$remove(team);
+    }
+    editTeam(team) {
+        return this.teams.$save(team);
     }
     async createTeam(team) {
         let user = this.authService.user;
@@ -107,33 +118,60 @@ export default class TeamService {
         return teamUser;
     }
     async confirmTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.confirmed = null;
+        teamUser.message = null;
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, teamUser.id, me.data.name + ' accepted your team join request ' + team.data.name);
         let oldTeamUser = await this.getTeamPositionUser(id, teamUser.refId);
         await oldTeamUser.$remove();
         return teamUser.$save();
     }
     async rejectConfirmTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
-        await teamUser.$remove();
-        return teamUser.$save();
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, teamUser.id, me.data.name + ' rejected your team join request ' + team.data.name);
+        teamUser.refId = null;
+        return teamUser.$remove();
     }
     async acceptTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.pending = null;
         teamUser.accepted = null;
+        teamUser.message = null;
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, team.data.createdBy, me.data.name + ' accepted your team invite request ' + team.data.name);
         return teamUser.$save();
     }
     async rejectAcceptTeamPosition(id, positionId) {
-        // TODO:: send message
         let teamUser = await this.getTeamPositionUser(id, positionId);
         teamUser.id = null;
         teamUser.pending = null;
         teamUser.accepted = null;
+        teamUser.message = null;
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, team.data.createdBy, me.data.name + ' rejected your team invite request ' + team.data.name);
+        return teamUser.$save();
+    }
+    async cancelRequestTeamPosition(id, positionId) {
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        await teamUser.$remove();
+        let me = await this.userService.me();
+        let team = await this.getTeam(id);
+        this.messageService.sendMessage(me.$id, team.data.createdBy, me.data.name + ' canceled his team join request ' + team.data.name);
+        return teamUser.$remove();
+    }
+    async removeTeamPosition(id, positionId) {
+        let teamUser = await this.getTeamPositionUser(id, positionId);
+        teamUser.id = null;
+        teamUser.pending = null;
+        teamUser.accepted = null;
+        teamUser.message = null;
         return teamUser.$save();
     }
     static instance(...args) {
@@ -142,6 +180,7 @@ export default class TeamService {
 }
 
 TeamService.instance.$inject = [
+    '$injector',
     '$firebaseArray',
     '$firebaseObject',
     'database',

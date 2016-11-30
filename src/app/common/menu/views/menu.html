@@ -1,29 +1,77 @@
-<nav class="navbar navbar-static-top navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-         <span class="sr-only">Toggle navigation</span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         <span class="icon-bar"></span>
-         </button>
-            <a class="navbar-brand" href="#">teamform</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in"><a ui-sref="home">Home</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in"><a ui-sref="event">Events</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in"><a ui-sref="team">Teams</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in"><a ui-sref="user">Users</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in"><a ui-sref="chat">Chat</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="!isAuth"><a ui-sref="register">Register</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="!isAuth"><a ui-sref="login">Login</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth"><a ui-sref="message">Message</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth"><a ui-sref="user.detail({userId: user.uid})">My Profile</a></li>
-                <li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth"><a ui-sref="logout({fromState: $state.current.name, fromParams: $state.params})">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div id="nav-col">
+	<section id="col-left" class="col-left-nano">
+		<div id="col-left-inner" class="col-left-nano-content">
+			<div class="collapse navbar-collapse" id="sidebar-nav">
+				<ul class="nav nav-pills nav-stacked">
+					<li class="nav-header nav-header-first hidden-sm hidden-xs">
+						Navigation
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in">
+						<a ui-sref="home">
+							<i class="fa fa-home"></i>
+							<span>Home</span>
+						</a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in">
+						<a ui-sref="event">
+                            <i class="fa fa-rocket"></i>
+							<span>Events</span>
+						</a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in">
+						<a ui-sref="team">
+                            <i class="fa fa-sitemap"></i>
+							<span>Teams</span>
+						</a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in">
+						<a ui-sref="user">
+							<i class="fa fa-user"></i>
+							<span>Users</span>
+						</a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in">
+						<a ui-sref="chat">
+							<i class="fa fa-commenting-o"></i>
+							<span>Chat</span>
+						</a>
+					</li>
+					<li class="nav-header hidden-sm hidden-xs">
+						Users
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="!isAuth">
+						<a ui-sref="register">
+							<i class="fa fa-key"></i>
+							<span>Register<span>
+						</a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="!isAuth">
+						<a ui-sref="login">
+							<i class="fa fa-sign-in"></i>
+							<span>Login</span>
+						</a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth">
+						<a ui-sref="message">
+                            <i class="fa fa-envelope-o"></i>
+                            <span>Message</span>
+                        </a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth">
+						<a ui-sref="user.detail({userId: user.uid})">
+                            <i class="fa fa-address-card-o"></i>
+							<span>My Profile</span>
+						</a>
+					</li>
+					<li ui-sref-active="active" data-toggle="collapse" data-target=".navbar-collapse.in" ng-if="isAuth">
+						<a ui-sref="logout({fromState: $state.current.name, fromParams: $state.params})">
+                            <i class="fa fa-power-off"></i>
+							<span>Logout</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<div id="nav-col-submenu"></div>
+</div>

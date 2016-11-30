@@ -1,12 +1,17 @@
+import fileUploadStyle from '../../../assets/stylesheets/fileUpload.scss';
+import skills from '../../../assets/data/skills.json';
+import positions from '../../../assets/data/positions.json';
+
 export default class TeamCreateCtrl {
-    constructor($location, $state, $stateParams, $timeout, teamService, eventService, authService, userService) {
+    constructor($location, $state, $stateParams, $timeout, Upload, authService, eventService, teamService, userService) {
         this.$location = $location;
         this.$state = $state;
         this.$stateParams = $stateParams;
         this.$timeout = $timeout;
-        this.teamService = teamService;
-        this.eventService = eventService;
+        this.Upload = Upload;
         this.authService = authService;
+        this.eventService = eventService;
+        this.teamService = teamService;
         this.userService = userService;
         this.loading = false;
         this.events = [];
@@ -19,10 +24,18 @@ export default class TeamCreateCtrl {
         this.error = null;
         this.selectedEvent = null;
         this.availablieUsers = [];
+        this.user = {};
+        this.skills = skills;
+        this.positions = positions;
+        this.fileUploadStyle = fileUploadStyle;
         this.setLeader();
         this.getEvents();
-        this.user = {};
-        this.skills = require('json!../../../assets/data/skills.json');
+    }
+    async upload(file) {
+        let imageUrl = await this.Upload.base64DataUrl(file);
+        this.$timeout(() => {
+            this.team.imageUrl = imageUrl;
+        });
     }
     async setLeader() {
         let user = await this.authService.getUser();
@@ -65,6 +78,9 @@ export default class TeamCreateCtrl {
                     user.pending = true;
                     user.accepted = false;
                 }
+                if(!user.role) {
+                    user.role = 'Any';
+                }
                 return user;
             });
             let result = await this.teamService.createTeam(this.team);
@@ -91,7 +107,7 @@ export default class TeamCreateCtrl {
         if (this.selectedEvent) {
             this.$timeout(() => {
                 for (let i = 0; i < this.selectedEvent.data.teamMax; i++) {
-                    this.team.users.push({id: null, role: 'Any', perferredSkills: []});
+                    this.team.users.push({id: null, role: '', perferredSkills: []});
                 }
                 this.team.users = this.team.users.slice(0, this.selectedEvent.data.teamMax);
             });
@@ -121,8 +137,9 @@ TeamCreateCtrl.$inject = [
     '$state',
     '$stateParams',
     '$timeout',
-    'TeamService',
-    'EventService',
+    'Upload',
     'AuthService',
+    'EventService',
+    'TeamService',
     'UserService'
 ];

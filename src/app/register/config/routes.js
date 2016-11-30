@@ -4,8 +4,8 @@ export default ['$stateProvider', ($stateProvider) => {
     $stateProvider
         .state('register', {
             resolve: {
-                auth: ['AuthService', (authService) => {
-                    return authService.checkRules({
+                auth: ['UserService', (userService) => {
+                    return userService.checkRules({
                         signOut: true
                     });
                 }]

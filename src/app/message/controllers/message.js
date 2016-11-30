@@ -16,18 +16,33 @@ export default class MessageCtrl {
         this.error = null;
         this.messageContent = '';
         this.users = [];
-        this.user = '';
+        this.selectedUser = null;
+        this.user = null;
         this.updateMessages();
         this.$scope.$on('messageChanged', () => {
             this.updateMessages();
         });
+        this.getUser();
         this.getUsers();
     }
     onSelectUser($item, $model) {
         this.getConversation($item.$id);
         this.$timeout(() => {
-            this.user = '';
+            this.selectedUser = null;
         });
+    }
+    async getUser() {
+        try {
+            let user = await this.authService.getUser();
+            let detail = await this.userService.getUser(user.uid);
+            this.$timeout(() => {
+                this.user = detail;
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+            });
+        }
     }
     async getUsers() {
         try {
@@ -60,8 +75,8 @@ export default class MessageCtrl {
                 ...messagesRecv
             ];
             allMessage = allMessage.sort((a, b) => {
-                return (a.data.createAt - b.data.createAt);
-                // return (a.data.createAt + (a.recv || 0)) - (b.data.createAt + (b.recv || 0));
+                return (a.data.createdAt - b.data.createdAt);
+                // return (a.data.createdAt + (a.recv || 0)) - (b.data.createdAt + (b.recv || 0));
             });
             let conversations = await allMessage.reduce(async(newConversations, message) => {
                 newConversations = await newConversations;

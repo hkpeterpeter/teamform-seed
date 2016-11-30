@@ -11,6 +11,7 @@ export default class EventEditCtrl {
         this.event = null;
         this.input = {};
         this.error = null;
+        this.deleteConfirm = null;
         this.eventStartDatepickerOptions = {
             minDate: Date.now(),
             showWeeks: false
@@ -56,6 +57,27 @@ export default class EventEditCtrl {
             this.$timeout(() => {
                 this.loading = false;
                 this.$state.go('event.detail', {eventId: result.key});
+            });
+        } catch (error) {
+            this.$timeout(() => {
+                this.error = error;
+                this.loading = false;
+            });
+        }
+    }
+    async delete() {
+        if(this.deleteConfirm !== 'YES') {
+            this.$timeout(() => {
+                this.error = new Error('Please type in \'YES\' to confirm.');
+            });
+            return;
+        }
+        this.loading = true;
+        try {
+            let result = await this.eventService.deleteEvent(this.event);
+            this.$timeout(() => {
+                this.loading = false;
+                this.$state.go('home');
             });
         } catch (error) {
             this.$timeout(() => {

@@ -1,29 +1,44 @@
 <ui-alert message="{{eventList.error.message}}" />
-<div class="pull-right">
-    <a ui-sref="event.create"><button type="button" class="btn btn-primary">Create Event</button></a>
+<div class="row">
+    <div class="col-xs-6">
+        <h1 class="text-left">Event List</h1>
+    </div>
+    <div class="col-xs-6">
+        <div class="text-right">
+            <a ui-sref="event.create"><button type="button" class="btn btn-primary">Create Event</button></a>
+        </div>
+    </div>
 </div>
-<div class="clearfix"></div>
-<div class="divider"></div>
-<div class="table-responsive">
-    <table ng-table="eventList.eventListTableParams" show-filter="true" class="table table-hover">
-        <tbody>
-            <tr ng-repeat="event in $data track by event.$id">
-                <td data-title="'Event Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
-                    <a ui-sref="event.detail({eventId: event.$id})">{{event.data.name}}</a>
-                </td>
-                <td data-title="'User Joined'" sortable="'getTotalEventUsers()'">
-                    {{event.getTotalEventUsers()}}
-                </td>
-                <td data-title="'Team Joined'" sortable="'getTotalTeams()'">
-                    {{event.getTotalTeams()}}
-                </td>
-                <td data-title="'Created By'" filter="{'getCreatedByUser().name': 'text'}" sortable="'getCreatedByUser().name'">
-                    <a ui-sref="user.detail({userId: event.data.createdBy})">{{event.getCreatedByUser().name}}</a>
-                </td>
-                <td data-title="'Created At'" filter="{'data.createdAt': 'text'}" sortable="'data.createdAt'">
-                    {{event.data.createdAt | date:'medium'}}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<div class="main-box no-header clearfix">
+    <div class="main-box-body clearfix">
+        <div class="table-responsive">
+            <table ng-table="eventList.eventListTableParams" show-filter="true" class="table table-hover">
+                <tbody>
+                    <tr ng-repeat="event in $data track by event.$id">
+                        <td data-title="'Event Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
+                            <a ui-sref="event.detail({eventId: event.$id})">
+                                <img ng-src="{{event.getImageUrl()}}" class="img-circle img-small">
+                                {{event.data.name}}
+                            </a>
+                        </td>
+                        <td data-title="'User Joined'" sortable="'getTotalEventUsers()'">
+                            {{event.getTotalEventUsers()}}
+                        </td>
+                        <td data-title="'Team Joined'" sortable="'getTotalTeams()'">
+                            {{event.getTotalTeams()}}
+                        </td>
+                        <td data-title="'Created By'" filter="{'getCreatedByUser().data.name': 'text'}" sortable="'getCreatedByUser().data.name'">
+                            <a ui-sref="user.detail({userId: event.data.createdBy})" ng-class="{red: event.getCreatedByUser().getGender() == 'female'}">
+                                <img ng-src="{{event.getCreatedByUser().getImageUrl()}}" class="img-circle img-small">
+                                {{event.getCreatedByUser().data.name}}
+                            </a>
+                        </td>
+                        <td data-title="'Created At'" filter="{'data.createdAt': 'text'}" sortable="'data.createdAt'">
+                            {{event.data.createdAt | date:'medium'}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

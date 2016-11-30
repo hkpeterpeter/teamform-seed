@@ -1,5 +1,5 @@
-import styles from '../../../assets/stylesheets/main.scss';
 import fileUploadStyle from '../../../assets/stylesheets/fileUpload.scss';
+import skills from '../../../assets/data/skills.json';
 
 export default class UserEditCtrl {
     constructor($location, $state, $stateParams, $timeout, Upload, userService) {
@@ -11,9 +11,8 @@ export default class UserEditCtrl {
         this.Upload = Upload;
         this.user = null;
         this.error = null;
-        this.styles = styles;
         this.fileUploadStyle = fileUploadStyle;
-        this.skills = require('json!../../../assets/data/skills.json');
+        this.skills = skills;
         this.getUser();
     }
     async getUser() {

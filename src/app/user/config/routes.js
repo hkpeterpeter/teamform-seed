@@ -37,8 +37,8 @@ export default ['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRou
         })
         .state('user.detail.edit', {
             resolve: {
-                auth: ['AuthService', '$stateParams', (authService, $stateParams) => {
-                    return authService.checkRules({
+                auth: ['UserService', '$stateParams', (userService, $stateParams) => {
+                    return userService.checkRules({
                         signIn: true,
                         userId: $stateParams.userId
                     });
