@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-event-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - admin page</title>
+
+      <!-- libraries and CSS
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)
+		site.css: A customized css for our web application. Not from any web framework.
+	  -->
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+      <link rel="stylesheet" href="css/site.css" >
+      <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+      <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+
+   </head>
+   <body>
+
+   <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >
+   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+   Back</button></a>
+
+   <br>
+
+   <div>
+      <h1>Event Page</h1>
+
+      <h2 id="text_event_name"></h2>
+
+      <div id="admin_page_controller" ng-controller="eventCtrl">
+
+        <div class="row"> <!--ng-if "role == "member"">-->
+
+          <div class="col-md-12">
+
+            <div class="box box-info">
+              <div class="box-header with-border">
+                <h3 class="box-title">Team Information(Member)</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                <form role="form">
+                  <!-- text input -->
+                  <!--<div class="form-group">-->
+                  <div class="input-group">
+                    <label>Team Name</label>
+                    <div>
+                      <input type="text" class="form-control" ng-model="teamName" disabled="">
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <label>Leader</label>
+                    <div>
+                      <input type="text" class="form-control" disabled="" ng-model="teamName">
+                    </div>
+                    <!--</div>-->
+                  </div>
+                  <div class="input-group">
+                    <label>Member</label>
+                    <div>
+                      <input type="text" class="form-control" disabled="" ng-repeat="mName in member" ng-model="mName.name">
+                    </div>
+                    <!--</div>-->
+                  </div>
+                </from>
+              </div>
+
+            </div>
+
+            <div class="box box-warning" >
+              <div class="box-header with-border">
+                <h3 class="box-title">Team Information(Leader)</h3>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+
+                <label>Team Name</label>
+                <div class="input-group">
+                  <div class="input-group">
+                   <input id="tName" type="text" class="form-control" ng-model="teamName" disabled="">
+                   <span class="btn input-group-addon" ng-click="rmdisabled()"><i class="fa fa-edit"></i></span>
+                   <span class="btn input-group-addon" ng-click="save()"><i class="fa fa-save"></i></span>
+                  </div>
+                </div>
+
+                <label>Leader</label>
+                <div class="input-group">
+                  <div class="input-group">
+                   <input id="tName" type="text" class="form-control" ng-model="teamName" disabled="">
+                 </div>
+               </div>
+
+                <label>Member</label>
+                <div class="input-group" ng-repeat="mName in member">
+                  <div class="input-group">
+                    <input type="text" class="form-control" disabled="" ng-model="mName.name">
+                    <span class="input-group-addon">Java</span>
+                    <span class="btn input-group-addon"><i class="fa fa-close"></i></span>
+
+                    <select class="selectpicker" name="test" >
+                      <option disabled selected>Current Test</option>
+                      <option>option 1</option>
+                      <option>option 2</option>
+                      <option>option 3</option>
+                      <option>option 4</option>
+                      <option>option 5</option>
+                    </select>
+
+                    <select class="selectpicker" name="applicant" >
+                      <option disabled selected>Select your member</option>
+                      <option>option 1</option>
+                      <option>option 2</option>
+                      <option>option 3</option>
+                      <option>option 4</option>
+                      <option>option 5</option>
+                    </select>
+
+                  </div>
+
+                </div>
+                <button type="button" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i> Add Position</button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+   </div>
+
+
+
+   <!-- JavaScript of this page -->
+
+   <!-- Angular and Angular-route libraries (v1.5.7) -->
+<script src="lib/jquery.min.js"></script>
+<script src="lib/angular.min.js"></script>
+<script src="lib/angular-route.min.js"></script>
+<!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+<script src="lib/firebase.js"></script>
+<script src="lib/angularfire.min.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="js/login.js"></script>
+<script src="js/search.js"></script>
+<script src="js/event.js"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+<!--<script>
+		var app = angular.module("teamform-event-app", []);
+		app.controller("eventCtrl",
+
+			function($scope) {
+        console.log('abc');
+				// Implementation the todoCtrl
+        $scope.teamName = "Tong";
+        $scope.member = [{"name":"Ken"},{"name":"Oscar"}];
+
+        $scope.rmdisabled = function() {
+          var input = angular.element(('#tName'));
+          input.removeAttr('disabled');
+        }
+
+        $scope.save = function() {
+          var input = angular.element(('#tName'));
+          $scope.teamName = input.ng-model;
+        }
+
+			}
+		);
+	</script>-->
+
+   </body>
+</html>

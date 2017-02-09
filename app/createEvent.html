@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-member-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - create event page</title>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+     <!-- Theme style -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.8/css/AdminLTE.min.css">
+     <!-- AdminLTE Skins. Choose a skin from the css/skins
+          folder instead of downloading all of them to reduce the load. -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.8/css/skins/_all-skins.min.css">
+     <!-- iCheck -->
+     <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+     <!-- Morris chart -->
+     <link rel="stylesheet" href="plugins/morris/morris.css">
+     <!-- jvectormap -->
+     <link rel="stylesheet" href="plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+     <!-- Date Picker -->
+     <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+     <!-- Daterange picker -->
+     <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+     <!-- bootstrap wysihtml5 - text editor -->
+     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+
+     <link rel="stylesheet" href="css/index.css">
+   </head>
+   <body ng-controller="createEventCtrl">
+     <div class="page-header">
+       <label ng-if="!page">Create Event</label>
+       <label ng-if="page">Create Team</label>
+     </div>
+     <!-- <pre>Event: {{event|json}}</pre> -->
+     <!-- <pre>Test: {{obj}}</pre> -->
+     <form novalidate class="sys-form" name="ceForm" ng-submit="submit()">
+       <div class="form-group has-feedback has-feedback-right">
+         <label>Event Name</label>
+         <input type="text" class="form-control" placeholder="eventID" name="eventID" ng-model="eventID" ngMaxlength="32" required ng-disabled="page">
+         <small class="text-muted">
+           Maximum length of event name is 32 characters.
+         </small>
+         <i class="form-control-feedback glyphicon glyphicon-ok correct" ng-show="(ceForm.$submitted||ceForm.eventID.$touched)&&(ceForm.eventID.$valid)"></i>
+         <i class="form-control-feedback glyphicon glyphicon-remove error" ng-show="(ceForm.$submitted||ceForm.eventID.$touched)&&(ceForm.eventID.$invalid)"></i>
+         <div ng-show="ceForm.$submitted||ceForm.eventID.$touched" style="color:red;">
+           <span ng-show="ceForm.eventID.$error.required">Please type the event name. <br></span>
+           <span ng-show="ceForm.eventID.$error.maxlength">Event name must be shorter than 32 characters. <br></span>
+         </div>
+       </div>
+       <div class="form-group has-feedback has-feedback-right">
+         <label>Minimum Team Size</label>
+         <input type="number" class="form-control" ng-model="minTeam" name="minTeam" min="0" max="{{maxTeam}}" ng-disabled="page">
+         <i class="form-control-feedback glyphicon glyphicon-ok correct" ng-show="(ceForm.$submitted||ceForm.minTeam.$touched)&&(ceForm.minTeam.$valid)"></i>
+         <i class="form-control-feedback glyphicon glyphicon-remove error" ng-show="(ceForm.$submitted||ceForm.minTeam.$touched)&&(ceForm.minTeam.$invalid)"></i>
+         <div ng-show="ceForm.$submitted||ceForm.minTeam.$touched" style="color:red;">
+           <span ng-show="ceForm.minTeam.$error.min">Please enter minimum teamsize larger than 0.<br></span>
+           <span ng-show="ceForm.minTeam.$error.max">Please enter minimum teamsize smaller than {{maxTeam}}.<br></span>
+         </div>
+       </div>
+        <div class="form-group has-feedback has-feedback-right">
+         <label>Maximum Team Size</label>
+         <input type="number" class="form-control" ng-model="maxTeam" name="maxTeam" min="{{minTeam}}" ng-change="fullTeam()" ng-disabled="page">
+         <i class="form-control-feedback glyphicon glyphicon-ok correct" ng-show="(ceForm.$submitted||ceForm.maxTeam.$touched)&&(ceForm.maxTeam.$valid)"></i>
+         <i class="form-control-feedback glyphicon glyphicon-remove error" ng-show="(ceForm.$submitted||ceForm.maxTeam.$touched)&&(ceForm.maxTeam.$invalid)"></i>
+         <div ng-show="ceForm.$submitted||ceForm.maxTeam.$touched" style="color:red;">
+           <span ng-show="ceForm.maxTeam.$error.min">Please enter maximum teamsize larger than {{minTeam}}.<br></span>
+           <span ng-show="ceForm.maxTeam.$error.max">Please enter maximum teamsize smaller than {{}}.<br></span>
+         </div>
+       </div>
+       <div class="form-group" ng-if="page">
+        <div>
+          <label>Create Teams</label>
+   				<!-- <button class="glyphicon glyphicon-plus-sign" type="button" ng-click="addTeam()"></button>
+          <button class="glyphicon glyphicon-minus-sign" type="button" ng-click="newTeam.pop();"></button> -->
+   			</div>
+        <div class="panel-body" ng-repeat="t in newTeam track by $index">
+          <input type="text" class="form-control" placeholder="Type the teamname." name="team{{$index}}" ng-model="newTeam[$index]" required ng-disabled="maxTeam==oldTeam.length">
+          <div ng-show="ceForm.$submitted||ceForm.team{{$index}}.$touched" style="color:red;">
+            <span ng-show="ceForm.team{{$index}}.$error.required">Please type team names before submitting the form. <br></span>
+          </div>
+        </div>
+      </div>
+       <button class="btn btn-primary" type="button" ng-click="">Back</button>
+       <button class="btn btn-primary" type="submit" ng-disabled="ceForm.$invalid">Submit</button>
+     </form>
+
+
+     <!-- JavaScript of this page -->
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular-route.min.js"></script>
+     <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+     <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/angularFire/2.0.0/angularfire.min.js"></script>
+
+     <script src="https://apis.google.com/js/platform.js" async defer></script>
+     <script src="js/createEv.js"></script>
+     <script src="js/site.js"></script>
+     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+     <!-- Bootstrap 3.3.6 -->
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+     <!-- Morris.js charts -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+     <script src="plugins/morris/morris.min.js"></script>
+     <!-- Sparkline -->
+     <script src="plugins/sparkline/jquery.sparkline.min.js"></script>
+     <!-- jvectormap -->
+     <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+     <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+     <!-- jQuery Knob Chart -->
+     <script src="plugins/knob/jquery.knob.js"></script>
+     <!-- daterangepicker -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+     <script src="plugins/daterangepicker/daterangepicker.js"></script>
+     <!-- datepicker -->
+     <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+     <!-- Bootstrap WYSIHTML5 -->
+     <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+     <!-- Slimscroll -->
+     <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+     <!-- FastClick -->
+     <script src="plugins/fastclick/fastclick.js"></script>
+   </body>
+ </html>
