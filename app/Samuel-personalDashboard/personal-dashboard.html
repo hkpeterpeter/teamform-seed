@@ -1,0 +1,188 @@
+<!-- Compiled and minified CSS -->
+<!--TODO: accept or turn down an invitation; go to manage a team; go to manage an event; quit a team.-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+
+
+<div ng-controller="dashboardController">
+<div class="container" style="padding-top: 50px; width:80%;">
+    <div class="row" id="infoDisplay" >
+
+        <div class="col l10 m12 offset-l1 teal" style="border-radius: 20px">
+            <center><a class="btn-floating btn-large waves-effect waves-light animated_div" style="height: 90px; width: 90px;margin-top: 10px; ">
+            <img src="{{displayUser.profilePic}}" style="height: 90px; width: 90px;border-radius: 70px; " >
+        </a></center>
+        <center><div style="padding-top: 20px; width:20%;border-bottom: solid 1px #fff;" /></center>
+
+    <ul class="collection with-header" style="text-align: center; border: none;z-index: 200">
+      <li class="collection-header teal" onclick="$('#reset_userName_panel').slideToggle();$(this).css('border','none')" style="color:#fff;cursor:pointer;"><h4>{{displayUser.name}}</h4></li>
+    <li class="collection-header" id="reset_userName_panel" style="display: none;border-radius: 20px">
+
+            <form ng-submit="receiveNewName()">
+                <div class="row">
+                <div class="input-field col s6 offset-s1">
+                    <input id="newName" type="text" class="validate" ng-model="newName" required>
+                    <label for="newSkill">Set my username</label>
+                </div>
+                <div class="input-field col s4">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Change Name
+                    <i class="material-icons right">send</i>
+                </button>
+                </div>
+            </form>
+    </li>
+        <li class="collection-header teal" onclick="$('#user_email_panel').slideToggle();" style="color:#fff;cursor:pointer;border:none;"><h5> <i class="material-icons left">email</i>My email address <i class="material-icons right">email</i></h5></li>
+        <li class="collection-header" id="user_email_panel"  style="display: block;border-radius: 20px;"><h5>{{displayUser.email}}</h5></li>
+        <!--<li class="collection-header teal" onclick="$('#user_id_panel').slideToggle();" style="color:#fff;cursor:pointer;border:none;"><h5><i class="material-icons left">perm_identity</i>My system ID<i class="material-icons right">perm_identity</i></h5></li>-->
+        <!--<li class="collection-header" id="user_id_panel"  style="display: block;border-radius: 20px;"><h5>{{currentUser.id}}</h5></li>-->
+        <li class="collection-header teal" onclick="$('#user_yanzhi_panel').slideToggle();" style="color:#fff;cursor:pointer;border:none;"><h5> <i class="material-icons left">person_pin</i>My beauty index <i class="material-icons right">person_pin</i></h5></li>
+        <li class="collection-header" id="user_yanzhi_panel"  style="display: block;border-radius: 20px;"><h5>{{displayUser.yanzhi}}</h5></li>
+      </ul>
+
+
+
+
+        </div>
+    </div>
+    <!--<p width="100%">{{currentUser}}</p>-->
+    <div class="divider"></div>
+
+    <div class="row" id="skillManager" style="margin-top: 50px;margin-bottom: 50px;">
+        <h4>Manage my Skills:</h4>
+        <form ng-submit="receiveNewSikll()">
+            <div class="input-field col s6">
+                <input id="newSkill" type="text" class="validate" ng-model="newSkill" required>
+                <label for="newSkill">Add a skill</label>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Add Skill
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+
+  </div>
+    <div class="row" style="margin-bottom: 50px">
+        <div class="col s6 m4 l2" ng-repeat="skill in skillsList" style="margin-bottom: 10px">
+            <div class="chip">
+                {{skill.$value}}
+                <i class="close material-icons" ng-click="skillsList.$remove(skill)">close</i>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="divider"></div>
+
+
+
+
+
+    <!-- NOTIFICATION CENTER -->
+    <div class="row" style="margin-top:50px;">
+        <h3 id="notification_center">Notification Center</h3>
+        <div class="row">
+            <div class="col s12" style="margin-bottom: 30px">
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="active" href="#allInvitations">Invitations</a></li>
+                    <li class="tab col s3"><a href="#allNotifs">Notifs</a></li>
+                </ul>
+            </div>
+            <!--<div id="unreadNotifs">-->
+                <!--<h5>My unread notifications:</h5>-->
+                <!--<div ng-repeat="noti in notifsDisplay | filter: false">-->
+                    <!--<p>{{noti}}  <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Accept</a> <a class="waves-effect waves-light btn" ng-show="isInvitation[$index]">Turn down</a></p>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div id="allInvitations">
+                <h5>I am invited to join the following teams:</h5>
+                <div ng-repeat="display in invitedList">
+                    <team-card team-id="{{display.$value}}"></team-card>
+                        <a class="waves-effect waves-light btn" ng-click="acceptInvitation($index)">Accept Invitation</a>
+                        <a class="waves-effect waves-light btn" ng-click="turndownInvitation($index)">Turn down Invitation</a>
+                </div>
+            </div>
+            <div id="allNotifs">
+
+
+
+                <div ng-show="showAllNotifs">
+                    <h5>All of my notifications:</h5>
+                    <ul>
+                        <li  ng-repeat="notif in notifs | orderBy:'$index':true">
+                            <div class="chip" style="float:none; margin-top: 20px; width: 100%">
+                                <img ng-src="{{notif.imageURL}}" alt="Contact Person">
+                                {{notif.content}}
+                            </div>
+                        </li>
+                    </ul>
+                    <!--<a class="waves-effect waves-light btn" ng-click="showLess()">Show Only 10</a>-->
+                </div>
+                <div ng-show="show10Notifs">
+                    <h5>My most recent notifications:</h5>
+                    <ul>
+                        <li  ng-repeat="notif in last10Notifs | orderBy:'$index':true">
+                            <div class="chip" style="float:none; margin-top: 20px; width: 100%">
+                                <img ng-src="{{notif.imageURL}}" alt="Contact Person">
+                                {{notif.content}}
+                            </div>
+                        </li>
+                    </ul>
+                    <a class="waves-effect waves-light btn" ng-click="showAll()">Show All</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+
+
+
+    <!-- MANAGEMENT TABS -->
+    <div class="row" style="margin-top: 50px">
+    <h3>Teams and events related to you</h3>
+        <div class="col s12" style="margin-bottom: 30px">
+            <ul class="tabs">
+                <li class="tab col s3"><a class="active" href="#eventsAsAdmin">Admin</a></li>
+                <li class="tab col s3"><a href="#teamsAsLeader">Leader</a></li>
+                <li class="tab col s3"><a href="#teamsAsMember">Member</a></li>
+                <li class="tab col s3"><a href="#teamsApplying">Applying</a></li>
+            </ul>
+        </div>
+        <div id="eventsAsAdmin">
+            <h4>I am administrating the following events</h4>
+            <div ng-repeat="event in eventsList">
+                <event-card eid="{{event.$value}}"></event-card>
+            </div>
+        </div>
+        <div id="teamsAsLeader">
+            <h4>I am team leader</h4>
+            <div ng-repeat="team in leadingList">
+                <team-card team-id="{{team.$value}}"></team-card>
+            </div>
+        </div>
+        <div id="teamsAsMember">
+            <h4>I am a member in these teams</h4>
+            <div ng-repeat="team in memberList">
+                <team-card team-id="{{team.$value}}"></team-card>
+            </div>
+        </div>
+        <div id="teamsApplying">
+            <h4>I have pending applications to these teams</h4>
+            <div ng-repeat="pendingTeam in applyingList">
+                <team-card team-id="{{pendingTeam.$value}}"></team-card>
+                <a class="waves-effect waves-light btn" ng-click="withdrawApplication($index)">WITHDRAW Application</a>
+            </div>
+        </div>
+    </div>
+
+    <!--<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>-->
+    </div>
+    <image-board image="zhuxinyu/background2.jpg" content="Using this app designed by TeamUndefined will absolutely be an remarkably amazing experience."></image-board>
+
+
+<event-footer>
+</event-footer>
+</div>

@@ -1,0 +1,52 @@
+.event_form_style label{
+    color: #FFF !important;
+}
+
+.event_form_style p{
+    color: #FFF !important;
+}
+
+.event_form_style textarea{
+    color: #FFF !important;
+}
+
+.rangespinner input[type="text"] {
+    border: 1px solid #ccc;
+    color: #009688;
+    float: left;
+    font-size: 14px;
+    height: 35px;
+    text-align: center;
+    width: 80px;
+    border-radius:2px !important;
+}
+
+.rangespinner input[type="text"]:focus{
+    outline : none;
+}
+
+.rangespinner button[type="button"] {
+    background-color: #009688;
+    border: 1px solid #ccc;
+    color: #FFF;
+    cursor: pointer;
+    float: left;
+    height: 35px;
+    margin: 0;
+    padding: 1px;
+    width: 30px;
+}
+
+.rangespinner button[type="button"]:hover {
+  background-color: #4DB6AC;
+  color: #FFF;
+}
+
+.rangespinner input:focus,
+.rangespinner button:focus {
+  outline: none;
+}
+
+.skillbutton {
+    padding-bottom: 15px !important;
+}

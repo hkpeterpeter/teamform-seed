@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for WU_YUNCHEN/js/form.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">WU_YUNCHEN/js/</a> form.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>61/61</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>52/52</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>17/17</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>61/61</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">62×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36×</span>
+<span class="cline-any cline-yes">33×</span>
+<span class="cline-any cline-yes">32×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">31×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">43×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">    teamapp.controller("formController", function ($rootScope, $scope) {
+&nbsp;
+        $scope.skillsList = new Array();
+        $scope.receiveNewSikll = function () {
+            if ($scope.skillsList.indexOf($scope.newSkill) &lt; 0){
+                $scope.skillsList.push($scope.newSkill);
+            }
+            $scope.newSkill = '';
+        };
+        $scope.removeSkill = function (skill_remove) {
+            var index = $scope.skillsList.indexOf(skill_remove);
+            console.log(index);
+            if (index &gt; -1) {
+                $scope.skillsList.splice(index, 1);
+            }
+        };
+    });
+    
+    teamapp.directive("simpleField",function(){
+        return {
+            restrict: "E",
+            scope: {
+                idOfField: '@',
+                label: '@', 
+                fieldModel: '='
+            },
+            templateUrl: "WU_YUNCHEN/component/simple_field.html", 
+            controller : function($scope,$element,$attrs,$rootScope) {
+            }
+&nbsp;
+        };
+    });
+    
+    teamapp.directive("textareaField",function(){
+        return {
+            restrict: "E",
+            scope: {
+                idOfField: '@',
+                label: '@',
+                fieldModel: '='
+            },
+            templateUrl: "WU_YUNCHEN/component/textarea_field.html", 
+            controller : function($scope,$element,$attrs,$rootScope) {
+            }
+&nbsp;
+        };
+    });
+    
+    teamapp.directive("imageUpload",function(){
+        return {
+            restrict: "E",
+            scope: {
+                idOfField: '@',
+                label: '@'
+            },
+&nbsp;
+            templateUrl: "WU_YUNCHEN/component/image_upload.html"
+&nbsp;
+        };
+    });
+    
+    teamapp.directive('rangeSpinner',  function() {
+        return {
+            restrict : 'AE',
+            scope : {
+                rangeMin:"@",
+                rangeStep:"@",
+                rangeMax:"@",
+                rangeDefaultValue:"@",
+                acceptDecimal:"@",
+                rangeModel:"=",
+                nameOfField:"@",
+                idOfField:"@",
+                rangeDecimalPrecision:"@"
+            },
+            templateUrl : 'tmpl/rangeSpinner.html',
+            controller : function($scope,$element,$attrs) {
+                
+                //Initializing minRange, step and maxRange with default Value if not provided.
+                $scope.minRange = +(angular.isDefined($attrs.rangeMin)?$attrs.rangeMin:0);
+                $scope.step = +(angular.isDefined($attrs.rangeStep)?$attrs.rangeStep:0);
+                $scope.maxRange = +(angular.isDefined($attrs.rangeMax)?$attrs.rangeMax:100);
+                $scope.rangeDecPrec = +(angular.isDefined($attrs.rangeDecimalPrecision)?$attrs.rangeDecimalPrecision:1);
+&nbsp;
+                //Initializing rangeModel with default Value if supplied rangeDefaultValue is not between minRange and maxRange.
+                if(angular.isDefined($scope.rangeDefaultValue) &amp;&amp; !isNaN($scope.rangeDefaultValue)){
+                    var rangeDefaultVal = parseFloat($scope.rangeDefaultValue);
+                    if(rangeDefaultVal &gt;= $scope.minRange &amp;&amp; rangeDefaultVal &lt;= $scope.maxRange){
+                        $scope.rangeModel = parseFloat($scope.rangeDefaultValue).toFixed($scope.rangeDecPrec);
+                    }else{
+                        $scope.rangeModel = parseFloat($scope.minRange).toFixed($scope.rangeDecPrec);
+                    }
+                }
+                    
+                //Plus Button Method
+                $scope.rangePlusFunc = function() {
+                    if (angular.isUndefined($scope.rangeModel) || isNaN($scope.rangeModel) || $scope.rangeModel===""){
+                        $scope.rangeModel = $scope.minRange;
+                    }else{  
+                        if ($scope.rangeModel &lt; $scope.maxRange) {
+                            if($scope.acceptDecimal == 'true'){
+                                $scope.rangeModel = (parseFloat(parseFloat($scope.rangeModel) + parseFloat($scope.step))).toFixed($scope.rangeDecPrec);
+                            }else{
+                                $scope.rangeModel = (parseInt(parseInt($scope.rangeModel) + parseInt($scope.step)));
+                            }
+                        }
+                    }
+                };
+&nbsp;
+                //Minus Button Method
+                $scope.rangeMinusFunc = function() {
+                    if (angular.isUndefined($scope.rangeModel) || isNaN($scope.rangeModel) || $scope.rangeModel===""){
+                        $scope.rangeModel = $scope.minRange;
+                    }else{
+                        if ($scope.rangeModel &gt; $scope.minRange) {
+                            if($scope.acceptDecimal == 'true'){
+                                $scope.rangeModel = (parseFloat(parseFloat($scope.rangeModel) - parseFloat($scope.step))).toFixed($scope.rangeDecPrec);
+                            }else{
+                                $scope.rangeModel = (parseInt(parseInt($scope.rangeModel) - parseInt($scope.step)));
+                            }
+                            
+                        }
+                    }
+                };
+                    
+                //For Direct Editing
+                $scope.$watch(function(){
+                    return $scope.rangeModel;
+                }, function(newvalue, oldvalue){
+                    
+                    if(angular.isDefined($scope.rangeModel)){
+                        if (!isNaN($scope.rangeModel)){
+                            if ($scope.rangeModel &gt; $scope.maxRange){
+                                $scope.rangeModel = $scope.maxRange;
+                            }else if ($scope.rangeModel &lt; $scope.minRange){
+                                $scope.rangeModel = $scope.minRange;
+                            }else{
+                                
+                                if($scope.acceptDecimal == 'true'){
+                                    var precision = String($scope.rangeModel).split(".");
+                                    if(precision.length&gt;1 &amp;&amp; precision[1].length&gt;$scope.rangeDecPrec){
+                                        $scope.rangeModel = (parseFloat($scope.rangeModel)).toFixed($scope.rangeDecPrec);
+                                    }
+                                }else{
+                                    $scope.rangeModel = parseInt($scope.rangeModel);
+                                }
+                            }
+                        }else{
+                            $scope.rangeModel = oldvalue;
+                        }
+                    }
+                },true);
+        
+            }
+        };
+    }
+)
+.run(['$templateCache',function($templateCache){
+    $templateCache.put('tmpl/rangeSpinner.html',
+        '&lt;div class="rangespinner"&gt; \
+            &lt;div&gt; \
+                &lt;button type="button" ng-click="rangeMinusFunc()"&gt;-&lt;/button&gt; \
+                &lt;input name="{{nameOfField}}" id="{{idOfField}}" type="text" range-min="{{rangeMin}}" range-step="{{rangeStep}}" range-max="{{rangeMax}}" ng-model="rangeModel" required&gt; \
+                &lt;button type="button" ng-click="rangePlusFunc()"&gt;+&lt;/button&gt;\
+            &lt;/div&gt; \
+        &lt;/div&gt;');
+}]);
+    
+    teamapp.directive("eventForm",function(){
+        return {
+            restrict: "E",
+&nbsp;
+            templateUrl: "WU_YUNCHEN/component/event_form.html"
+&nbsp;
+        };
+    });
+    
+    teamapp.directive("teamForm",function(){
+        return {
+            restrict: "E",
+&nbsp;
+            templateUrl: "WU_YUNCHEN/component/team_form.html"
+&nbsp;
+        };
+    });
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Nov 15 2016 23:59:34 GMT+0800 (HKT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

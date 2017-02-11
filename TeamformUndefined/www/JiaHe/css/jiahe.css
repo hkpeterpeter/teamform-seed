@@ -1,0 +1,30 @@
+/*Place your own CSS here*/
+.team-private-switch {
+    font-size: 15px;
+}
+
+.team-badge {
+	display: inline-block !important;
+	padding: 5px !important;
+	margin-top: 12px !important;
+}
+
+.smart-pick {
+    font-style: normal;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.light-orange-text {
+    color: #ffd8a6;
+}
+
+.card-reveal.transparent {
+    opacity: 0.9;
+}
+
+.card .card-reveal .cancel {
+    display: inline;
+    font-size: 15px;
+    font-weight: 400;
+}

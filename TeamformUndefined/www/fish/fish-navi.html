@@ -1,0 +1,40 @@
+
+ <div>
+  <ul id="notifications" class="dropdown-content">
+    <li><a href="#!">wwwwwwwwwwwww</a></li>
+    <li><a href="#!">w</a></li>
+    <li class="divider"></li>
+    <li><a href="#!">Show All</a></li>
+  </ul>
+  <ul id="account" class="dropdown-content">
+
+    <li><a href="#!"><i class="material-icons left">person</i>Profile</a></li>
+    <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
+    <li class="divider"></li>
+    <li><a ng-click="logoutHelper()">Sign Out</a></li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">&nbsp;Undefined</a>
+      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#/home">Home</a></li>
+        <li><a href="#/team">Events</a></li>
+        <li><a class="dropdown-button" href="#" data-activates="notifications" data-beloworigin="true" data-constrainwidth="false" data-alignment="right"><i class="material-icons left">notifications_none</i><span class="new badge">4</span></a></li>
+        
+        <!-- Dropdown Trigger -->
+        <li><a class="dropdown-button" href="#!" data-activates="account" data-beloworigin="true">glaceon@eev.ee<i class="material-icons right">arrow_drop_down</i></a></li>
+      </ul>
+
+      <ul class="side-nav" id="mobile-demo">
+        <li><a>glaceon@eev.ee</a></li>
+        <li><a href="#/home">Home</a></li>
+        <li><a href="#/team">Events</a></li>
+        <li><a href="#/notifications"><i class="material-icons left">notifications_none</i>Notifications <span class="new badge" data-badge-caption="">4</span></a></li>
+        <li><a href="#/profile">My Profile</a></li>
+        <li><a ng-click="logoutHelper()">Sign Out</a></li>
+      </ul>
+
+    </div>
+  </nav>
+</div>
