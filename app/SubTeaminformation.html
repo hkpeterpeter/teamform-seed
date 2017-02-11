@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>Team_Information</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->                                       
+    </head>
+    <body ng-app="teamApp">
+        <!-- START PAGE CONTAINER -->
+            
+      
+                
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Team_Information</a></li>
+                </ul>
+                <!-- END BREADCRUMB -->
+                
+                <!-- PAGE CONTENT -->
+            <div class="row">
+                        <div class="col-md-12">
+                 <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h3 class="panel-title">Please select the event below:</h3>
+                  </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row">
+                        <div class="col-md-3">
+                     <select  data-style="btn-success" ng-model="selectedName" ng-options="x.name for x in event">
+                     <option>Choose one Event</option>
+                    </select>
+                    </div>
+                    </div>
+            
+<br>
+                    <!-- START RESPONSIVE TABLES -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">List of Team:</h3>
+                                </div>
+
+                                <div class="panel-body panel-body-table">
+
+                                    <div class="table-responsive" data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
+                                        <table class="table table-bordered table-striped table-actions">
+                                            <thead>
+                                                <tr>
+                                                    <th>name</th>
+                                                    <th>Introduction</th>
+                                                    <th >Number Of Member</th>
+                                                    <th >Public/Private</th>
+                                                    <th >member</th>
+                                                    
+                                                 
+                                                </tr>
+                                            </thead>
+                                                                                       
+                                                <tr data-ng-repeat="(key, g) in q.Team" ng-if="g.name.indexOf(searchText) > -1 || !searchText">
+                                                    
+                                                    <td align="center"><strong>{{g.name}}</strong></td>
+                                                    <td align="center">{{g.intro}}</td>
+                                                    <td align="center">{{g.numberOfmember}}</td>
+                                                     <td align="center">{{g.openness}}</td>
+                           
+                                    
+                                                <ul><div ng-repeat="n in g.member" ng-if="!n.teamleader">
+         <li>{{n.username}}</li>
+         </div>
+         <ul><div ng-repeat="n in g.member" ng-if="n.teamleader">
+            <li  align="left">{{n.name}}</li>
+            
+                <ul><div ng:repeat="n1 in n.member"><li align="left">{{n1.username}}</li></div>
+                                            </tbody>
+                                        </table>
+                                    </div>                                
+
+                                </div>
+                            </div>                                                
+
+                        </div>
+                    </div>
+                    <!-- END RESPONSIVE TABLES -->
+                    
+                <!-- END PAGE CONTENT WRAPPER -->                                    
+                </div>         
+            </div>            
+            <!-- END PAGE CONTENT -->
+        <!-- END PAGE CONTAINER -->    
+
+       
+    
+
+
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>        
+        <!-- END PLUGINS -->
+        
+        <!-- START THIS PAGE PLUGINS-->        
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        
+        <script type="text/javascript" src="js/demo_tables.js"></script>     
+        <!-- END THIS PAGE PLUGINS-->  
+        
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/settings.js"></script>
+        
+        <script type="text/javascript" src="js/plugins.js"></script>        
+        <script type="text/javascript" src="js/actions.js"></script>        
+        <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->                 
+    </body>
+</html>

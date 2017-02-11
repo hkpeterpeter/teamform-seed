@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>Teamform - A real-time online team forming app</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="keywords" content="teamform, team">
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->                                     
+    
+     <!--<script src="http://code.angularjs.org/1.2.13/angular.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.8/angular-ui-router.min.js"></script>
+ 
+
+
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.5.2/firebase-messaging.js"></script>
+
+
+
+
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+<!--<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>-->
+
+<script src="app.js"></script>
+<script src="app.route.js"></script>
+<script src="app.signup_and_login.js"></script>
+<script src="app.personal.js"></script>
+<script src="event.js"></script>
+<script src="search.js"></script>
+<script src="Teaminformation.js"></script>
+<script src="randomTeam.js"></script>
+<script src="terminate_event.js"></script>
+<script src="createTeam.js"></script>
+<script src="join.js"></script>
+<script src="joinevent.js"></script>
+<script src="teamedit.js"></script>
+<script src="kick.js"></script>
+<script src="publicprivate.js"></script>
+<script src="personal_info.js"></script>
+<script src="requests.js"></script>
+<script src="randomEvent.js"></script>
+
+
+  <script>
+
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+            authDomain: "comp3111-bb108.firebaseapp.com",
+            databaseURL: "https://comp3111-bb108.firebaseio.com",
+            storageBucket: "comp3111-bb108.appspot.com",
+            messagingSenderId: "554833059052"
+        };
+        firebase.initializeApp(config);
+</script>
+</head>
+    <body>
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Member Recommendation</li>
+                </ul>
+                <!-- END BREADCRUMB -->                                                
+                
+                <!-- PAGE TITLE -->
+                <div class="page-title">                    
+                    <h2><span class="fa fa-users"></span> Member Recommendation</h2>
+                </div>
+                <!-- END PAGE TITLE -->                
+                
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user8.jpg" alt="Peter Chan"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">Peter Chan</div>
+                                        <div class="profile-data-name">Level 3</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Programming</p>
+                                        <p><small>Skills</small><br/>AngularJS</p>
+                                        <p><small>Number of Teams Joined</small><br/>3</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>0</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                        <div class="col-sm-3">
+                           <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user9.jpg" alt="Haha Lam"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">Haha Lam</div>
+                                        <div class="profile-data-name">Level 10</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Project Management</p>
+                                        <p><small>Skills</small><br/>Trello</p>
+                                        <p><small>Number of Teams Joined</small><br/>0</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>0</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user10.jpg" alt="Hehe Lau"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">Hehe Lau</div>
+                                        <div class="profile-data-name">Level 1</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Programming, Database Management</p>
+                                        <p><small>Skills</small><br/>AngularJS, Firebase, C++</p>
+                                        <p><small>Number of Teams Joined</small><br/>10</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>0</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                        <div class="col-sm-3">
+                          <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user11.jpg" alt="Null Chu"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">Null Chu</div>
+                                        <div class="profile-data-name">Level 4</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Artificial Intellegence</p>
+                                        <p><small>Skills</small><br/>Paint, Adobe Photoshop</p>
+                                        <p><small>Number of Teams Joined</small><br/>0</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>0</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                       
+                    </div>
+                     <div class="row">
+                        <div class="col-sm-3">
+                            <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user15.jpg" alt="Potter Lai"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">Potter Lai</div>
+                                        <div class="profile-data-name">Level 1</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Team Management, Programming</p>
+                                        <p><small>Skills</small><br/>Trello, C++</p>
+                                        <p><small>Number of Teams Joined</small><br/>1</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>1</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                        <div class="col-sm-3">
+                           <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user12.jpg" alt="Alpha Wong"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">Alpha Wong</div>
+                                        <div class="profile-data-name">Level 20</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Database Maangement</p>
+                                        <p><small>Skills</small><br/>Firebase, MySQL</p>
+                                        <p><small>Number of Teams Joined</small><br/>10</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>3</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user13.jpg" alt="Song Lee Kan"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">Song Lee Kan</div>
+                                        <div class="profile-data-name">Level 20</div>
+
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Software Enginnering</p>
+                                        <p><small>Skills</small><br/>Karma, Jasmine</p>
+                                        <p><small>Number of Teams Joined</small><br/>20</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>0</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                        <div class="col-sm-3">
+                          <!-- MEMBER ITEM -->
+                            <div class="panel panel-default">
+                                <div class="panel-body profile">
+                                    <div class="profile-image">
+                                        <img src="assets/images/users/user14.jpg" alt="TK Kuen"/>
+                                    </div>
+                                    <div class="profile-data">
+                                        <div class="profile-data-name">TK Kuen</div>
+                                        <div class="profile-data-name">Level 4</div>
+                                    </div>
+                                    <div class="profile-controls">
+                                        <a href="#" class="profile-control-left"><span class="fa fa-group"></span></a>
+                                        <a href="#" class="profile-control-right"><span class="fa fa-inbox"></span></a>
+                                    </div>
+                                </div>                                
+                                <div class="panel-body">                                    
+                                    <div class="personal-info">
+                                        <p><small>Strength</small><br/>Big Data Technology</p>
+                                        <p><small>Skills</small><br/>XLMiner</p>
+                                        <p><small>Number of Teams Joined</small><br/>1</p> 
+                                        <p><small>Current Number of Teams Joined</small><br/>0</p>                   
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!-- END MEMBER ITEM -->
+                        </div>
+                       
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT WRAPPER -->                                                 
+            </div>            
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to log out?</p>                    
+                        <p>Press No if youwant to continue work. Press Yes to logout current user.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
+
+        <!-- START PRELOADS -->
+        <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
+        <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
+        <!-- END PRELOADS -->          
+        
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>        
+        <!-- END PLUGINS -->
+
+        <!-- START THIS PAGE PLUGINS-->        
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <!-- END THIS PAGE PLUGINS-->        
+
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/settings.js"></script>
+        
+        <script type="text/javascript" src="js/plugins.js"></script>        
+        <script type="text/javascript" src="js/actions.js"></script>        
+        <!-- END TEMPLATE -->
+
+    <!-- END SCRIPTS -->         
+    </body>
+</html>
+
+
+
+
+
+

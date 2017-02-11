@@ -1,0 +1,131 @@
+<html lang="en" ng-app="pi">
+    <head>        
+        <!-- META SECTION -->
+        <title>TITLE</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <link rel="stylesheet" type="text/css" id="theme" href="css/custom.css"/>
+        <!-- EOF CSS INCLUDE -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+            authDomain: "comp3111-bb108.firebaseapp.com",
+            databaseURL: "https://comp3111-bb108.firebaseio.com",
+            storageBucket: "comp3111-bb108.appspot.com",
+            messagingSenderId: "554833059052"
+          };
+          firebase.initializeApp(config);
+        </script>
+    </head>
+    <body ng-controller="info">
+
+            
+          
+                
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>                    
+                    <li class="active">Personal Profile</li>
+                </ul>
+                <!-- END BREADCRUMB -->                
+                
+<!--                 <div class="page-title">                    
+                    <a href="index.html"><h2><span class="fa fa-arrow-circle-o-left"></span> Home</h2></a>
+                </div>  -->                  
+                
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">
+                
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Personal Information</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <img class="center" src="assets/images/users/avatar.jpg" alt="John Doe">
+                                    <h4 style="text-align:center;"><b>Name :</b> Kit</h4>
+                                    <ul class="list-group border-bottom">
+                                    <li class="list-group-item"><h4><b>Email :</b> kit2@gmail.com</h4></li>
+                                    <li class="list-group-item"><h4><b>Phone :</b> 61234567</h4></li>
+                                    <li class="list-group-item"><h4><b>Gender :</b> Male</h4></li>
+                                    <li class="list-group-item"><h4><b>Position :</b> Creater</h4></li>
+                                    <li class="list-group-item"><h4><b>Level :</b> {{level}} 
+                                    <a href="level.html"><button type="button" class="btn btn-info btn-rounded">Details</button></a></h4></li>
+                                    <li class="list-group-item"><h4><b>IQ and EQ: </b> {{newIq}} and {{newEq}} 
+                                    <a href="IQtest1.html"><button type="button" ng-click="updateIq()" class="btn btn-info btn-rounded">Do Test</button></a></h4></li>
+                                    <li class="list-group-item"><h4><b>Birth Day :</b> 30/11/1994</h4></li>
+                                    <li class="list-group-item"><h4><b>Skill :</b> HTML, CSS, JS, ANGULARJS, PHP, C++</h4></li>
+                                    <li class="list-group-item"><h4><b>Intro :</b> Hi! I am Kit. I come from HK, I love programming and sleeping. I am perparing for start up. Feel free to contact me.</h4></li>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                
+                </div>
+                <!-- END PAGE CONTENT WRAPPER -->                
+            </div>            
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END PAGE CONTAINER -->
+
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to log out?</p>                    
+                        <p>Press No if youwant to continue work. Press Yes to logout current user.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
+
+        <!-- START PRELOADS -->
+        <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
+        <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
+        <!-- END PRELOADS -->                 
+        
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>        
+        <!-- END PLUGINS -->
+
+        <!-- THIS PAGE PLUGINS -->
+
+        <!-- END PAGE PLUGINS -->         
+
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/plugins.js"></script>        
+        <script type="text/javascript" src="js/actions.js"></script>        
+        <!-- END TEMPLATE -->
+    <!-- END SCRIPTS -->   
+    <script src="js/pi.js"></script>      
+    </body>
+</html>

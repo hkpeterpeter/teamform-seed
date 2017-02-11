@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" class="body-full-height">
+    <head>        
+        <!-- META SECTION -->
+        <title>login</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->                                     
+    </head>
+    <body>
+    <div ng-controller="AuthCtrl" class="login-container lightmode">
+      <div id="login-page">
+        
+        
+        
+            <div class="login-box animated fadeInDown">
+                
+                <div class="login-body">
+                    <div class="login-title"><strong>Log In</strong> to <strong>Team Forming System</strong></div>
+               
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input style="margin-bottom:10px;" class="form-control" type="text" name="lEmail" ng-model="lInput.email" required placeholder="Email" autofocus>
+                        </div>
+                        
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <input class="form-control" type="password" name="lPassword" ng-model="lInput.password" required placeholder="Password">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-link btn-block">Forgot your password?</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="http://127.0.0.1"><button style="margin-top:10px" class="btn btn-info btn-block" >Log In</button></a>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <button class="btn btn-info btn-block btn-twitter" style="margin-top:10px"><span class="fa fa-twitter"></span> Twitter</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-info btn-block btn-facebook" style="margin-top:10px"><span class="fa fa-facebook"></span> Facebook</button>
+                        </div>
+                        <div class="col-md-4">                            
+                            <button class="btn btn-info btn-block btn-google" style="margin-top:10px"><span class="fa fa-google-plus"></span> Google</button>
+                        </div>
+                    </div>
+                    <div class="login-subtitle">
+                        Don't have an account yet? <a ui-sref="register">Create an account</a>
+                    </div>
+                   
+                </div>
+                <div class="login-footer">
+                    <div class="pull-left">
+                        &copy; 2016 TeamNull
+                    </div>
+                    <div class="pull-right">
+                        <a href="#">About</a> |
+                        <a href="#">Privacy</a> |
+                        <a href="#">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        </div>
+     
+
+    </body>
+</html>
+
+
+
+
+
+

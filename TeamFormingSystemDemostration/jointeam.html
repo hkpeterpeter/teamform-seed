@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="search">
+
+<head>
+    <!-- META SECTION -->
+    <title>TITLE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- END META SECTION -->
+
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css" />
+    <!-- EOF CSS INCLUDE -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBeH4V9bsh-06W46RkiDd2eMlpN3c0IVj8",
+        authDomain: "comp3111-bb108.firebaseapp.com",
+        databaseURL: "https://comp3111-bb108.firebaseio.com",
+        storageBucket: "comp3111-bb108.appspot.com",
+        messagingSenderId: "554833059052"
+      };
+      firebase.initializeApp(config);
+    </script>
+</head>
+
+<body>
+    <!-- START PAGE CONTAINER -->
+
+            <!-- END X-NAVIGATION VERTICAL -->
+
+            <!-- START BREADCRUMB -->
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Search</li>
+            </ul>
+            <!-- END BREADCRUMB -->
+
+
+            <!-- PAGE CONTENT WRAPPER -->
+            <div class="page-content-wrap">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                            <div class="panel-body">
+                                <style>
+                                    table,
+                                    th,
+                                    td {
+                                        border: 1px solid black;
+                                    }
+                                </style>
+                                <h1>Join Team</h1>
+                                <div ng-controller="eventSearch">
+
+                                    Please select the event below: <br>
+                                    <select ng-model="selectedName" ng-options="x.name for x in event">
+</select>
+                                    <br><br><br> Input the name of the team: <input type="text" ng-model="searchText" placeholder="Type to search"><br><br>
+                                    <h3>List of Team: </h3><br>
+
+                                
+                                            
+                                    <div data-ng-repeat="q in event" data-ng-if="q.name == selectedName.name ">
+                                        <table width="800" class="table table-bordered table-striped table-actions">
+                                            <tr align="center">
+                                                <td align="center"><b>Name:</b></td>
+                                                <td align="center"><b>Intro.</b></td>
+                                                <td><b>Enneagram Test</b></td>
+                                                <td><b> Request to join(In Person)</b></td>
+                                                <td><b> Join(In Team)</b></td>
+                                            </tr>
+
+                                            <tr data-ng-repeat="g in q.Team" ng-if="(g.name.indexOf(searchText) > -1 && g.openness == true) || (!searchText && g.openness == true)">
+                                                <td align="center">{{g.name}}</td>
+                                                <td align="center">{{g.intro}}</td>
+
+
+                                                <td align="center">
+                                                	 <div ng-controller="joinTeam"><button ng-click="test()" class="btn btn-info btn-rounded">Start </button></div>
+                                                </td>
+                                                <td align="center">
+                                                    <div ng-controller="joinTeam"><input type="text" ng-model="reqMessage" placeholder="Message" align="center" style="float:left;width:80%" class="form-control"><button ng-click="reqJoinTeamInPerson(q.name,g.name)" class="btn btn-info btn-rounded">Join</button></div>
+                                                </td>
+                                                <td align="center">
+                                                    <div ng-controller="joinTeam"><button ng-click="joinTeamInTeam(q.name,g.name)" class="btn btn-info btn-rounded">Join</button></div>
+                                                </td>
+                                            </tr>
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+        <!-- MESSAGE BOX-->
+        <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+            <div class="mb-container">
+                <div class="mb-middle">
+                    <div class="mb-title"><span class="fa fa-sign-out"></span> Log <strong>Out</strong> ?</div>
+                    <div class="mb-content">
+                        <p>Are you sure you want to log out?</p>
+                        <p>Press No if youwant to continue work. Press Yes to logout current user.</p>
+                    </div>
+                    <div class="mb-footer">
+                        <div class="pull-right">
+                            <a href="pages-login.html" class="btn btn-success btn-lg">Yes</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END MESSAGE BOX-->
+
+        <!-- START PRELOADS -->
+        <audio id="audio-alert" src="audio/alert.mp3" preload="auto"></audio>
+        <audio id="audio-fail" src="audio/fail.mp3" preload="auto"></audio>
+        <!-- END PRELOADS -->
+
+        <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+        <!-- END PLUGINS -->
+
+        <!-- THIS PAGE PLUGINS -->
+
+        <!-- END PAGE PLUGINS -->
+
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/actions.js"></script>
+        <script type="text/javascript" src="js/search.js"></script>
+        <!-- END TEMPLATE -->
+        <!-- END SCRIPTS -->
+</body>
+
+</html>

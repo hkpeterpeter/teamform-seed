@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>        
+        <!-- META SECTION -->
+        <title>Register</title>            
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
+        <!-- END META SECTION -->
+        
+        <!-- CSS INCLUDE -->        
+        <link rel="stylesheet" type="text/css" id="theme" href="css/theme-default.css"/>
+        <!-- EOF CSS INCLUDE -->                  
+    </head>
+    <body>
+        <!-- START PAGE CONTAINER -->
+        <div  ng-controller="AuthCtrl" class="page-container">
+            
+            
+            <!-- PAGE CONTENT -->
+            <div class="page-content">
+                
+                <!-- START BREADCRUMB -->
+                <ul class="breadcrumb">
+                    <li><a href="#">Registration</a></li>
+                </ul>
+                <!-- END BREADCRUMB -->
+                
+                <!-- PAGE TITLE -->
+                <div class="page-title">                    
+                    <h2><span class="fa fa-arrow-circle-o-right"></span>Registration</h2>
+                </div>
+                <!-- END PAGE TITLE -->                
+                
+                <!-- PAGE CONTENT WRAPPER -->
+                <div class="page-content-wrap">                
+                
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <!-- START VALIDATIONENGINE PLUGIN -->
+                            <div class="block">                              
+                                <form id="validate" role="form" class="form-horizontal" action="javascript:alert('Form #validate submited');">                            
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Email</label>
+                                        <div class="col-md-9">
+                                            <span class="required " ng-show="registerForm.email.$error.required"></span>
+                                            <input type="text" class="validate[required,email] form-control" name="Email" ng-model="user.email" required>
+                                            <span class="help-block">Required Email</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">User Name:</label>  
+                                        <div class="col-md-9">
+                                            <span class="required" ng-show="registerForm.username.$error.required"></span>
+                                            <input type="text" class="validate[required,login] form-control" name="Username" ng-model="newMember.username" required>
+                                            <span class="help-block">min size = 2, max size = 8    </span>
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Password:</label>
+                                        <div class="col-md-9">
+                                            <span class="required" ng-show="registerForm.password.$error.required"></span>
+                                            <input type="password" class="validate[required,minSize[5],maxSize[10]] form-control" name="Passsword" id="password" ng-model="user.password" required/>
+                                            <span class="help-block">Required, min size = 5, max size = 10</span>
+                                        </div>
+                                    </div>                
+
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Confirm:</label>
+                                        <div class="col-md-9">
+                                            <input type="password" class="validate[required,equals[password]] form-control"/>
+                                            <span class="help-block">Required, equals Password</span>
+                                        </div>
+                                    </div>         
+
+                                    <div class="form-group">
+                                          <label class="col-md-3 control-label">Introduction:</label>
+                                          <div class="col-md-9">
+                                             <textarea  class="validate[required,minSize[0],maxSize[200]] form-control" type="text" name="intro" ng-model="newMember.intro" required></textarea>
+                                             <span class="help-block">Required within 200 words</span>
+                                          </div>   
+                                    </div>  
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Gender:</label>
+                                        <div class="col-md-3">
+                                            <select class="validate[required] select" id="formGender">
+                                                <option>choose option</option>
+                                                <option type="radio" ng-model="newMember.gender" value="male">Male</option>
+                                                <option type="radio" ng-model="newMember.gender" value="female">Female</option>
+                                                <option type="radio" ng-model="newMember.gender" value="other">Other</option>
+                                            </select>                           
+                                            <span class="help-block">Required</span>
+                                        </div>                        
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Phone:</label>    
+                                            <div class="col-md-9">
+                                                <input type="text" class="form-control" 
+                                                type="tel" name="phone" ng-model="newMember.phone"/>
+                                                <span class="help-block">Example: 23455873</span>
+                                            </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Date of birth:</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="validate[required,custom[date]] form-control" name="birth" ng-model="newMember.birth" placeholder="yyyy-MM-dd"/>
+                                            <span class="help-block">Required, date dd-MM-yyyy</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">Position</label>
+                                        <div class="col-md-3">
+                                            <select class="validate[required] select" id="formGender">
+                                                <option>choose option</option>
+                                                <option ng-model="position1" value="Designer">Designer</option>
+                                                <option type="radio" ng-model="position2" value="Promotion">Promotion</option>
+                                                <option type="radio" ng-model="position2" value="Developer">Developer</option>
+                                            </select>                           
+                                            <span class="help-block">Required</span>
+                                        </div>                        
+                                    </div>
+
+                                    <div class="form-group">
+                                          <label class="col-md-3 control-label">Skill:</label>
+                                          <div class="col-md-9">
+                                             <textarea  class="validate[required,minSize[0],maxSize[200]] form-control" type="text" name="skill" ng-model="newMember.skill" required></textarea>
+                                             <span class="help-block">Required within 200 words</span>
+                                          </div>   
+                                    </div>  
+
+                                    <div class="form-group">
+                                          <label class="col-md-3 control-label">Remark:</label>
+                                          <div class="col-md-9">
+                                             <textarea  class="validate[required,minSize[0],maxSize[200]] form-control" type="text" name="remark" ng-model="newMember.remark" required></textarea>
+                                             <span class="help-block">Required within 200 words</span>
+                                          </div>   
+                                    </div>  
+
+                                     <div class="btn-group pull-right">
+                                        <button class="btn btn-primary" type="button" value="Submit" ng-click="signUp()" ng-disabled="!user.email || !newMember.username || !user.password">Submit</button>
+                                    </div>  
+                                                 
+        
+    <!-- START SCRIPTS -->
+        <!-- START PLUGINS -->
+        <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/plugins/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/plugins/bootstrap/bootstrap.min.js"></script>
+        <!-- END PLUGINS -->
+        
+        <!-- THIS PAGE PLUGINS -->
+        <script type='text/javascript' src='js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        
+        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-datepicker.js'></script>        
+        <script type='text/javascript' src='js/plugins/bootstrap/bootstrap-select.js'></script>        
+
+        <script type='text/javascript' src='js/plugins/validationengine/languages/jquery.validationEngine-en.js'></script>
+        <script type='text/javascript' src='js/plugins/validationengine/jquery.validationEngine.js'></script>        
+
+        <script type='text/javascript' src='js/plugins/jquery-validation/jquery.validate.js'></script>                
+
+        <script type='text/javascript' src='js/plugins/maskedinput/jquery.maskedinput.min.js'></script>
+        <!-- END THIS PAGE PLUGINS -->               
+
+        <!-- START TEMPLATE -->
+        <script type="text/javascript" src="js/settings.js"></script>
+        
+        <script type="text/javascript" src="js/plugins.js"></script>
+        <script type="text/javascript" src="js/actions.js"></script>
+        <!-- END TEMPLATE -->
+        
+        <script type="text/javascript">
+            var jvalidate = $("#jvalidate").validate({
+                ignore: [],
+                rules: {                                            
+                        login: {
+                                required: true,
+                                minlength: 2,
+                                maxlength: 8
+                        },
+                        password: {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 10
+                        },
+                        're-password': {
+                                required: true,
+                                minlength: 5,
+                                maxlength: 10,
+                                equalTo: "#password2"
+                        },
+                        age: {
+                                required: true,
+                                min: 18,
+                                max: 100
+                        },
+                        email: {
+                                required: true,
+                                email: true
+                        },
+                        date: {
+                                required: true,
+                                date: true
+                        },
+                        credit: {
+                                required: true,
+                                creditcard: true
+                        },
+                        site: {
+                                required: true,
+                                url: true
+                        }
+                    }                                        
+                });                                    
+
+        </script>
+        
+    <!-- END SCRIPTS -->          
+        
+    </body>
+</html>
+
+
+
+
+
+

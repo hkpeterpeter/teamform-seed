@@ -1,0 +1,96 @@
+
+<div class="quiz-area" ng-show="inProgress">
+	<div id="score">
+		<span class="" ng-show="quizOver">Done! </span><p ng-if="id!=18"> Question:  {{id+1}} of 18</p>
+	</div>
+	<div class="repeated-item" ng-show="!quizOver">
+		<h2 id="question">{{question}}</h2><br>
+		<ul id="options">
+			<li ng-repeat="option in options">
+				<label>
+					<input type="radio" name="answer" value="{{option}}">
+					{{option}}
+				</label>
+			</li>
+		</ul><br>
+	<!-- 	<button class="btn btn-lg btn-primary" ng-click="checkAnswer()" ng-show="answerMode">Submit</button> ! -->
+
+	<!-- 	<div ng-show="!answerMode"> -->
+			<button ng-click="nextQuestion()" class="btn btn-lg btn-info next-question">Next Question</button>
+			<button class="btn btn-lg btn-danger" ng-click="reset()">Start Over</button>
+		</div>
+
+	<div ng-show="quizOver">
+		<h2>You've completed the test! Let's' check the result</h2>
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Check</button>
+		<button class="btn btn-lg btn-default" ng-click="reset()"><span class="glyphicon glyphicon-left" aria-hidden="true"></span> Play again</button>
+<button class="btn btn-lg btn-default" ng-click="exit()"><span class="glyphicon glyphicon-left" aria-hidden="true"></span> Back to search</button>
+    <div class="modal-dialog modal-sm">
+		<div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Your Result:</h4>
+        </div>
+       <div class="modal-body" ng-if="score>=0 && score<=2">
+           <p align="center"><img src="image/type1.png" alt="type1"></p>
+		   <p ng-if="typeid==1">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=1">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>2 && score<=4">
+           <p align="center"><img src="image/type2.png" alt="type2"></p>
+		   <p ng-if="typeid==2">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=2">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>4 && score<=6">
+           <p align="center"><img src="image/type3.png" alt="type3"></p>
+		   <p ng-if="typeid==3">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=3">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>6 && score<=8">
+           <p align="center"><img src="image/type4.png" alt="type4"></p>
+			<p ng-if="typeid==4">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=4">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>8 && score<=10">
+           <p align="center"><img src="image/type5.png" alt="type5"></p>
+		   <p ng-if="typeid==5">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=5">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>12 && score<=14">
+           <p align="center"><img src="image/type6.png" alt="type6"></p>
+		   <p ng-if="typeid==6">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=6">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>14 && score<=16">
+           <p align="center"><img src="image/type7.png" alt="type7"></p>
+		   <p ng-if="typeid==7">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=7">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>16 && score<=17">
+           <p align="center"><img src="image/type8.png" alt="type8"></p>
+		   <p ng-if="typeid==8">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=8">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+		<div class="modal-body" ng-if="score>17 && score<=18">
+           <p align="center"><img src="image/type9.png" alt="type9"></p>
+		   <p ng-if="typeid==9">Congratulations, You are the one who the team is looking for !</p>
+		   <p ng-if="typeid!=9">Sorry, the team is looking for <b>Type {{typeid}}</b> people, it may not be suitable for you to join!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+	</div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class="intro" ng-show="!inProgress">
+	<button class="btn btn-lg btn-primary" id="startQuiz" ng-click="start()"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Start the Quiz</button>
+</div>
+
