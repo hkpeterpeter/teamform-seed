@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.2/angular.js" data-semver="1.4.2"></script>
+    <script src="app.js"></script>
+    <script crc="choice.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
+    <script src="http://vitalets.github.io/checklist-model/checklist-model.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+
+    </head>
+
+  <body ng-controller="MainCtrl">
+<<<<<<< HEAD
+  <p>
+    <table>
+        <tr>
+            <td>Search :</td>
+            <td><input ng-model="query[queryBy]" /></td>
+        </tr>           
+        <tr>
+            <td>Search By :</td>
+=======
+
+    <table>
+        <tr>
+            <td align="right">Search :</td>
+            <td><input ng-model="query[queryBy]" /></td>
+        </tr>           
+        <tr>
+            <td align="right">Search By :</td>
+>>>>>>> 916cf08f0b37dd0baef2346546cbd79acc9e28b4
+            <td>
+                <select ng-model="queryBy">
+                    <option value="$"></option>
+                    <option value="Name">Name</option>
+                    <option value="Skills">Skills</option>
+                    <option value="Position">Position</option>
+                    <option value="GradeAimed">GradeAimed</option>
+
+                </select>   
+            </td>
+        </tr>
+    </table>
+<<<<<<< HEAD
+    </p>
+
+    <div ng-repeat="module in validation.modules | filter:query">
+    
+    <p> <b>Name:{{module.Name}} </b> <br />
+    Skills:{{module.Skills}} <br />
+    Position:{{module.Position}} <br />
+    GradeAimed:{{module.GradeAimed}}</p>
+	
+	    </div>
+    <div>
+      <form name="myForm" novalidate class="simple-form">
+    <b>Name:</b>  <input value="" type="text" placeholder="Your Name" ng-model="Name"><br />
+    
+    
+    <b>GradeAimed:</b> <select name="gradeSelect" ng-model="GradeAimed">
+=======
+
+
+    <div ng-repeat="module in validation.modules | filter:query">Name:{{module.Name}}
+    Skills:{{module.Skills}}
+    Position:{{module.Position}}
+    GradeAimed:{{module.GradeAimed}}</div>
+    <div>
+      <form name="myForm" novalidate class="simple-form">
+    Name:  <input value="" type="text" placeholder="Your Name" ng-model="Name"><br />
+    
+    <br />
+    Positon: <input value="" type="text" placeholder="Web developer, desinger... " ng-model="Position">
+    <br />
+    GradeAimed: <select name="gradeSelect" ng-model="GradeAimed">
+>>>>>>> 916cf08f0b37dd0baef2346546cbd79acc9e28b4
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </select> <br />
+
+<<<<<<< HEAD
+    <b>Positon:</b> 
+    <div ng-repeat="p in pos">
+    <label>
+    	<input type="checkbox" checklist-model="p.name']"
+    	checklist-value ="p.name" ng-model="p.clicked">{{p.name}}
+    </label></div>
+
+   
+
+	<b>Language Skills:</b>
+	<div ng-repeat="h in language">
+	             <label>
+	              <input type="checkbox" checklist-model="h.name']" checklist-value ="h.name" ng-model="h.clicked">{{h.name}}
+	            </label>
+
+	          </div>
+	          
+	    <button ng-click="addNewItem()">Add to list</button>
+	  </form>
+	  </div>
+=======
+<div ng-repeat="ch in citiesHospitals">
+        <p>{{ch.city}}</p>
+          <div class="checkbox" ng-repeat="h in ch.hospitals">
+            <label>
+              <input type="checkbox" checklist-model="filter.citiesHospitals['{{ch.city}}']" checklist-value="h.name"  ng-model="Skills">{{h.name}}
+            </label>
+          </div>
+    <button ng-click="addItem()">Add to list</button>
+  </form>
+  </div>
+>>>>>>> 916cf08f0b37dd0baef2346546cbd79acc9e28b4
+  </body>
+
+</html>

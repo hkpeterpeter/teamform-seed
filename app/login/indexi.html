@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head>
+    <meta charset="UTF-8">
+    <title>Firebase Authentication SDK 電子郵件/密碼登入</title>
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBm3v0FwEKneu9IBdj5vRh9Zn_iajH0xjk",
+    authDomain: "tast-dc842.firebaseapp.com",
+    databaseURL: "https://tast-dc842.firebaseio.com",
+    storageBucket: "tast-dc842.appspot.com",
+    messagingSenderId: "431016183416"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src="SampleCtrl.js"></script>
+<script src="save.js"></script>
+<script src="team.js"></script>
+
+</head>
+  <body>
+    <div ng-controller="MyAuthCtrl">
+   		E-mail: <input type="text" name="mail" ng-model="input.email"><br>
+  		Password: <input type="text" name="pword" ng-model="input.password"><br>
+  		Display Name: <input type="text" name="dname" ng-model="input.displayname"><br><br>
+      <button type="button" ng-click="createUser()" >Sign up</button>
+      <button type="button" ng-click="loginUser()" >Login</button><br>
+
+    <br>
+    <br>
+    <br>
+    
+      <div ng-controller="TeamCtrl">
+        <select ng-model="selectCourse" ng-options="c.courseName for c in course" ng-change="setCourse(selectCourse.$id)"></select><br>
+
+        Team Name: <input type="text" name="name" ng-model="team.name"><br>
+        Info: <input type="text" name="info" ng-model="team.info"><br>
+
+        <button type="button" ng-click="createTeam()" >Create Team</button>
+        
+        <br>
+        <table>
+          <tr>
+            <td><b>Name</b></td>
+            <td><b>Information</b></td>
+            <td><b>Join</b></td>
+          </tr>
+
+          <tr data-ng-repeat = "t in TeamofChosen">
+            <td> {{t.name}} </td>
+            <td> {{t.info}} </td>
+            <td> <button type="button" ng-click="joinTeam(t.$id)" >Join Team</button></td>
+
+          </tr>
+        </table>
+
+
+      </div>
+
+
+  </body>
+</html>

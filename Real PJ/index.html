@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" >
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+        apiKey: "AIzaSyBm3v0FwEKneu9IBdj5vRh9Zn_iajH0xjk",
+        authDomain: "tast-dc842.firebaseapp.com",
+        databaseURL: "https://tast-dc842.firebaseio.com",
+        storageBucket: "tast-dc842.appspot.com",
+        messagingSenderId: "431016183416"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+    <meta name="author" content="GeeksLabs">
+    <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Team Forming</title>
+
+    <!-- Bootstrap CSS -->    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap theme -->
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <!--external css-->
+    <!-- font icon -->
+    <link href="css/elegant-icons-style.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/profileModal.css">
+    <link rel="stylesheet" href="css/course.css">
+    <script src="../Real PJ/lib/main.js"></script>
+
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+</head>
+  
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+<body ng-controller="LoginCtrl" >
+	<div ng-controller="siteCtrl">
+	    <div ng-controller="notificationCtrl">
+	    <!-- container section start -->
+		    <section id="container" class="">
+		      <!--header start-->
+		      <header class="header dark-bg">
+		            <div class="toggle-nav">
+		                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+		            </div>
+
+		            <!--logo start-->
+		            <a href="index.html" class="logo">Team <span class="lite">Forming</span></a>
+		            <!--logo end-->
+
+		            <div class="nav search-row" id="top_menu">
+		             
+		            </div>
+
+		            <div class="top-nav notification-row">                
+		                <!-- notificatoin dropdown start-->
+		                <ul class="nav pull-right top-menu">
+
+		                	<!-- inbox notificatoin start--><!--
+		                    <li id="mail_notificatoin_bar" class="dropdown">
+		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+		                            <i class="icon-envelope-l"></i>
+		                            <span class="badge bg-important">5</span>
+		                        </a>
+		                        <ul class="dropdown-menu extended inbox">
+		                            <div class="notify-arrow notify-arrow-blue"></div>
+		                            <li>
+		                                <p class="blue">You have 5 new messages</p>
+		                            </li>    
+		                            <li>
+		                                <a href="#">
+		                                    
+		                                    <span class="subject">
+		                                    <span class="from">Ray   Munoz</span>
+		                                    <span class="time">1 day</span>
+		                                    </span>
+		                                    <span class="message">
+		                                        Icon fonts are great.
+		                                    </span>
+		                                </a>
+		                            </li>
+		                            <li>
+		                                <a href="inbox.html">See all messages</a>
+		                            </li>
+		                        </ul>
+		                    </li>-->
+		                    <!-- inbox notificatoin end -->
+		                                  
+		                    <!-- alert notification start--><!--
+		                    <li id="alert_notificatoin_bar" class="dropdown">
+		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+		                            <i class="icon-bell-l"></i>
+		                            <span class="badge bg-important">3</span>
+		                        </a>
+		                        <ul class="dropdown-menu extended notification">
+		                            <div class="notify-arrow notify-arrow-blue"></div>
+		                            <li>
+		                                <p class="blue">You have 3 new notifications</p>
+		                            </li>                          
+		                            <li>
+		                                <a href="#">
+		                                    <span class="label label-success"><i class="icon_like"></i></span> 
+		                                    Mick appreciated your work.
+		                                    <span class="small italic pull-right"> Today</span>
+		                                </a>
+		                            </li>                            
+		                            <li>
+		                                <a href="#">See all notifications</a>
+		                            </li>
+		                        </ul>
+		                    </li>-->
+		                    <!-- alert notification end-->
+
+		                    <!-- user login dropdown start-->
+		                    <li class="dropdown">
+		                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" >
+		                            <span class="profile-ava">
+		                                <img alt="" src="img/avatar1_small.jpg">
+		                            </span>
+		                            <span class="username">{{user.firstname}}, {{user.lastname}}</span>
+		                            <b class="caret"></b>
+		                        </a>
+		                        <ul class="dropdown-menu extended logout">
+		                            <div class="log-arrow-up"></div>
+		                            <li class="eborder-top">
+		                                <a href="#" ng-click="changeSite3()" ><i class="icon_profile"></i> My Profile</a>
+		                            </li>
+		                            <li>
+		                                <a href="login.html"><i class="icon_key_alt"></i> Log Out</a>
+		                            </li>
+
+		                        </ul>
+		                    </li>
+		                    <!-- user login dropdown end -->
+		                </ul>
+		                <!-- notificatoin dropdown end-->
+		            </div>
+		      </header>      
+		      <!--header end-->
+		
+			<!--sidebar start-->
+			<aside>
+			  <div id="sidebar"  class="nav-collapse ">
+			      <!-- sidebar menu start-->
+			      <ul class="sidebar-menu">                
+			          <li class="sub-menu">
+			              <a class="" href="#" ng-click="changeSite1()">
+			                  <i class="icon_house_alt"></i>
+			                  <span>Dashboard</span>
+			              </a>
+			          </li>
+			          <li class="sub-menu">
+			              <a class="" href="#" ng-click="changeSite2()">
+			                  <i class="fa fa-comments-o" ></i>
+			                  <span>Team</span>
+			              </a>
+			          </li>   
+			          
+			          <li class="sub-menu">
+			              <a href="#" class="" ng-click="changeSite4()">
+							  <i class="fa fa-users"></i> 
+							  <span>About Us</span> 
+			              </a>
+			          </li> 
+			          
+			      </ul>
+			      <!-- sidebar menu end-->
+			  </div>
+			</aside>
+			<!--sidebar end-->
+
+			<!--main content start-->
+
+			<section id="main-content">
+				<section class="wrapper">
+					<div ng-switch="pageChange">
+						<div ng-switch-default="home" >
+							<h3 class="page-header"><i class="fa fa-laptop"></i> Dashboard</h3>
+							<!--
+							<div class="col-md-3">
+								<div class="info-box green-bg">
+									<i class="fa fa-envelope-o"></i>
+									<div class="count">5</div>
+									<div class="title">New</div>						
+								</div>
+							</div>
+
+							<div class="col-md-3">
+								<div class="info-box blue-bg">
+									<i class="fa fa-bell-o"></i>
+									<div class="count">7</div>
+									<div class="title">New</div>						
+								</div>		
+							</div>-->
+							<!--/col-->
+							<!--
+							<div class="col-md-3">
+								<div class="info-box yellow-bg">
+									<i class="fa fa-flag-o red"></i>
+									<div class="count">2</div>
+									<div class="title">Total</div>						
+								</div>		
+							</div>-->
+							<!--/col-->
+				
+							<div class="row">
+               	
+								<div class="col-lg-9 col-md-12">	
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h2><i class="fa fa-flag-o red"></i><strong>Your Team</strong></h2>
+										</div>
+										<div class="panel-body">
+											<table class="table bootstrap-datatable countries">
+												<thead>
+													<tr>
+														<th>Course</th>
+														<th>Groupname</th>
+														<th>No.of people</th>
+														<th>Detail</th>
+														<th>Leave Team</th>
+													</tr>
+												</thead>   
+												<tbody>
+													<tr>
+														<td>COMP2011</td>
+														<td>TeamA</td>
+														<td>6</td>
+														<td><button class="btn btn-primary" onclick="window.open('#">Detail</button></td>
+														<td><button class="btn btn-danger" onclick="">Leave</button></td>
+													</tr>
+													<tr>
+														<td>COMP2011</td>
+														<td>TeamA</td>
+														<td>6</td>
+														<td><button class="btn btn-primary" onclick="window.open('#">Detail</button></td>
+														<td><button class="btn btn-danger" onclick="">Leave</button></td>
+													</tr>
+													<tr>
+														<td>COMP2011</td>
+														<td>TeamA</td>
+														<td>6</td>
+														<td><button class="btn btn-primary" onclick="window.open('#">Detail</button></td>
+														<td><button class="btn btn-danger" onclick="">Leave</button></td>
+													</tr>													
+												</tbody>
+											</table>
+										</div>
+					
+									</div>	
+								</div>
+							</div>
+						</div>
+
+
+
+                        <div ng-switch-when="teams" class="try">
+                            <div class="container" ng-controller="TeamCtrl">
+                                <div class="row">
+                                    <div class="">
+                                        <div class="form-group">
+                                            <select class="form-control" ng-model="selectCourse" ng-options="c.courseName for c in course" ng-change="setCourse(selectCourse.$id)"></select>
+                                        </div>
+                                        <h3 style="font-size:300%">{{selectCourse.courseName}}</h3>
+                                        <p style="color:gray">Minimun:{{selectCourse.max}}, Maximum:{{selectCourse.min}}</p>
+                                        <table>
+                                            <tr>
+                                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTeam">Create Team</button></td>
+                                            </tr>
+                                        </table>
+                                        <br/>
+                                        <br/>
+                                        <div align="center"><font size="5" color="#888888"> Search Team </font></div>
+                
+                                        <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                    
+                                        <table id="myTable" class="myTable">
+                                            <tr class="">
+                                                <th>Groupname</th>
+                                                <th>No.of people</th>
+                                                <th>Detail</th>
+                                                <th>Send Request</th>
+                                            </tr>
+                                            <tr>
+                                                <td>TeamK</td>
+                                                <td>3</td>
+                                                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#teamDetail">Detail</button></td>
+                                                <td><button class="btn btn-danger" onclick="">Request</button></td>
+                                            </tr>
+                                        </table>
+                                        <br/>
+                                        <div align="center"><font size="5" color="#888888"> Search Person </font></div>
+                                        <input type="text" id="myInput2" class="myInput2" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name">
+                                        
+                                        
+                                        <table id="myTable2" class="myTable2">
+                                            <tr class="">
+                                                <th>Name</th>
+                                                <th>Team Belong</th>
+                                                <th>Detail</th>
+                                                <th>Send Request</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Jenny</td>
+                                                <td>No</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                                <td><button class="btn btn-danger" onclick="">Request</button></td>
+                                            </tr>
+                                        </table>
+				                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+						<div ng-switch-when="aboutus">
+							<section class="wrapper">
+							    <section id="portfolio">
+							        <div class="container">
+
+							         <div class="row">
+							           <div class="col-lg-12">
+							              <h3 class="page-header">About Team Noname</h3>
+							            </div>
+							         </div>
+
+							        <div class="row">
+							          <div class="col-lg-4 col-lg-offset-2">
+							            <p>TeamNoname is a team forming platform which aims to facilitate students' grouping procedure for projects.</p>
+							          </div>
+							          <div class="col-lg-4">
+							              <p>No matter you are a student or a teacher, TeamNoname could help you in managing your team or your students' team.</p>
+							          </div>
+							        </div>
+							        
+							        <div class="col-lg-8 col-lg-offset-2 text-center">
+							            <br><img src="img/team.png" class="w3-round w3-image" alt="Team management" width="590" height="480">
+							        </div>
+							        
+							         <div class="row">
+							            <br><br><br>
+							            <hr>
+							           <div class="col-lg-12">
+							              <p class="w3-large w3-center w3-padding-16">WHO ARE WE?</p>
+							            </div>
+							         </div>
+							        <section id="portfolio">
+							        <div class="container">
+							            <div class="row">
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/grace.jpg" class="img-responsive" alt="Wong Ngan Chi" width="230" height="230">
+							                    </a>
+							                </div>
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/tsui.jpg" class="img-responsive" alt="Tsui Hin Chi" width="230" height="230">
+							                    </a>
+							                </div>
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal3" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/ada.jpg" class="img-responsive" alt="Yung Lai Ping" width="230" height="230">
+							                    </a>
+							                </div>
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/chan.jpg" class="img-responsive" width="230" height="230" alt="Chan Foo Kiu">
+							                    </a>
+							                </div>
+
+							                <div class="row"><p></p></div>
+							                <div class="row"><p></p></div>
+
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/sam.jpg" class="img-responsive" width="230" height="230" alt="Lau Miu Ngai">
+							                    </a>
+							                </div>
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/charles.jpg" class="img-responsive" width="230" height="230" alt="Lau Chung Lai">
+							                    </a>
+							                </div>
+							                
+							                <div class="col-sm-3 portfolio-item w3-hover-opacity">
+							                    <a href="#portfolioModal7" class="portfolio-link" data-toggle="modal">
+							                        <img src="img/ming.jpg" class="img-responsive" width="230" height="230" alt="Lee Kai Wing">
+							                    </a>
+							                </div>
+							            </div>
+							        </div>
+							    </section>
+							</section>
+						</div>
+
+						<!--Start profile -->
+						<div ng-switch-when="profile">
+							<div class="w3-content w3-container w3-padding-12" id="about">
+								<div class="row">
+									<div class="col-lg-12">
+										<h3 class="page-header">ABOUT ME<a href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
+									</div>
+								</div>
+
+								<div class="w3-row">
+									<div class="w3-col m6 w3-center w3-padding-large">
+										<img src="../UI/img/icon.jpg" class="w3-round w3-image" alt="Photo of Me" width="300" height="300">
+									</div>
+
+									<!-- Hide this text on small devices -->
+									<div class="w3-col m6 w3-hide-small w3-padding-large">
+										<h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
+										<p><b>E-mail: </b>{{user.email}}</p>
+										<p><b>Major: </b>{{user.major}}</p>
+										<p><b>Year: </b>{{user.year}}</p>
+										<p><b>Self Description: </b>{{user.description}}</p>
+										<!--<button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
+											<i class="fa fa-paper-plane"></i> MESSAGE ME!
+										</button>-->
+									</div>
+								</div>
+								<hr>
+								<p class="w3-large w3-center w3-padding-12">MY SKILLS<a href="" data-toggle="modal" data-target="#skillModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+								<p>C++</p>
+								<div class="w3-progress-container">
+									<div class="w3-progressbar" style="width:80%"></div>
+								</div>
+								<br><p>JavaScript</p>
+								<div class="w3-progress-container">
+									<div class="w3-progressbar" style="width:60%"></div>
+								</div>
+								<div ng-show="hidehtml">
+									<br><p>HTML</p>
+									<div class="w3-progress-container">
+										<div class="w3-progressbar" style="width:40%"></div>
+									</div>
+								</div>
+
+								<div ng-show="hidejava">
+									<br><p>JAVA</p>
+									<div class="w3-progress-container">
+										<div class="w3-progressbar" style="width:80%"></div>
+									</div>
+								</div>
+								<!--<br><p>HTML</p>
+								<div class="w3-progress-container">
+									<div class="w3-progressbar" style="width:75%"></div>-->
+								</div>
+							<hr>
+
+							<!-- Container (Portfolio Section) -->
+
+						</div>
+						<!--end profile -->
+					</div>
+
+				</section>
+			</section>
+
+
+			<!--main content end-->
+			<!--<div class="text-right">
+			    <div class="credits">
+			        <a href="">Team Noname</a> by <a href="">Comp3111</a>
+			    </div>
+			</div>-->
+			</section>
+            <!-- Modal -->
+            <div id="teamDetail" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Team Detail</h4>
+                        </div>
+                        <div ng-switch="teamDetailChange">
+                        <div class="modal-body" ng-switch-when="teamLeaderDetail" >
+                            <div class="w3-content w3-container w3-padding-12" id="about">
+                                
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3 class="page-header">ABOUT ME<a href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></h3>
+                                    </div>
+                                </div>
+                                
+                                <div class="w3-row">
+                                    <div class="w3-col m6 w3-center w3-padding-large">
+                                        <img src="../UI/img/icon.jpg" class="w3-round w3-image" alt="Photo of Me" width="300" height="300">
+                                            </div>
+                                    
+                                    <!-- Hide this text on small devices -->
+                                    <div class="w3-col m6 w3-hide-small w3-padding-large">
+                                        <h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
+                                        <p><b>E-mail: </b>{{user.email}}</p>
+                                        <p><b>Major: </b>{{user.major}}</p>
+                                        <p><b>Year: </b>{{user.year}}</p>
+                                        <p><b>Self Description: </b>{{user.description}}</p>
+                                        <!--<button class="w3-btn w3-black w3-left w3-padding w3-section" type="submit">
+                                         <i class="fa fa-paper-plane"></i> MESSAGE ME!
+                                         </button>-->
+                                    </div>
+                                </div>
+                                <hr>
+                                <p class="w3-large w3-center w3-padding-12">MY SKILLS<a href="" data-toggle="modal" data-target="#skillModal"><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i></a></p>
+                                <p>C++</p>
+                                <div class="w3-progress-container">
+                                    <div class="w3-progressbar" style="width:80%"></div>
+                                </div>
+                                <br><p>JavaScript</p>
+                                <div class="w3-progress-container">
+                                    <div class="w3-progressbar" style="width:60%"></div>
+                                </div>
+                                <div ng-show="hidehtml">
+                                    <br><p>HTML</p>
+                                    <div class="w3-progress-container">
+                                        <div class="w3-progressbar" style="width:40%"></div>
+                                    </div>
+                                </div>
+                                
+                                <div ng-show="hidejava">
+                                    <br><p>JAVA</p>
+                                    <div class="w3-progress-container">
+                                        <div class="w3-progressbar" style="width:80%"></div>
+                                    </div>
+                                </div>
+                                <!--<br><p>HTML</p>
+                                 <div class="w3-progress-container">
+                                 <div class="w3-progressbar" style="width:75%"></div>-->
+                            </div>
+                            <hr>
+                            
+                            <!-- Container (Portfolio Section) -->
+                        </div>
+                        </div>
+                    </div>
+                        <div class="modal-body" ng-switch-default="teamDetail">
+                            <div class="container">
+                                <h3 style="font-size:300%">TeamK</h3>
+                                <br/>
+                                <hr>
+                                
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <h3>Description</h3>
+                                        <p>In Peter we trust.</p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <p>Course: <span>Comp3111<span></p>
+                                            <p>Lecture <span>L1<span></p>
+                                                <p>Grade aim: <span>A<span></p>
+                                                    
+                                                    </div>
+                                </div>
+                                <!-- /.row -->
+                                
+                                
+                                <div class="row">
+                                    <hr/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <div align="center"><font size="5" color="#888888"> Team Member List</font></div>
+                                    <br/>
+                                    <br/>
+                                    <table class="table table-hover"  id="team">
+                                        <thead>
+                                            <tr>
+                                                <th>Team Role</th>
+                                                <th>Student Name</th>
+                                                <th>Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Leader</td>
+                                                <td>Student leader</td>
+                                                <td><button type="button" class="btn btn-primary" ng-click="changeteam()" >Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 1</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 2</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 3</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Member</td>
+                                                <td>Member 4</td>
+                                                <td><button class="btn btn-primary" onclick="window.location.href='grace.html'">Detail</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                                <!-- /.row -->
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="createTeam" role="dialog">
+                <div class="modal-dialog">
+                    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Create Team</h4>
+                        </div>
+                        <div class="modal-body">
+                                    <div class="box_color">
+                                        <form id="CreateTeam" method="post" class="form-horizontal" action="teamdetail.html">
+                                            <div class="form-group">
+                                                <label for="Team Name">Team Name</label>
+                                                <input type="text" class="form-control" name="name" id="name">
+                                                    </div>
+                                            <div class="form-group">
+                                                <label for="Course">Course</label>
+                                                <select class="form-control" id="course" name="course">
+                                                    <option value="">Select</option>
+                                                    <option value="COMP1021">COMP1021</option>
+                                                    <option value="COMP2011">COMP2011</option>
+                                                    <option value="COMP2012">COMP2012</option>
+                                                    <option value="COMP3111">COMP3111</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="lecture">Lecture</label>
+                                                <select class="form-control" id="lecture" name="lecture">
+                                                    <option value="">Select</option>
+                                                    <option value="1">L1</option>
+                                                    <option value="2">L2</option>
+                                                    <option value="3">L3</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="grade_aim">Grade Aim</label>
+                                                <select class="form-control" id="grade_aim" name="grade_aim">
+                                                    <option value="">Select</option>
+                                                    <option value="A">A range</option>
+                                                    <option value="B">B range</option>
+                                                    <option value="C">C range</option>
+                                                    <option value="D">D</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Description">Description</label>
+                                                <textarea class="form-control" name="description" id="description" rows="4"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                            <button type="cancel" class="btn btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- Modal -->
+            <div id="editProfileModal" class="modal fade" role="dialog" ng-controller="profileCtrl">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="w3-content w3-container w3-padding-12" id="about">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h3 class="page-header">ABOUT ME</h3>
+                                    </div>
+                                </div>
+                              
+                                <div class="w3-row">
+                                    <div class="w3-col m6 w3-center w3-padding-large">
+                                        <a href="#"><img src="../UI/img/icon.jpg" class="w3-round w3-image w3-hover-opacity" width="300" height="300" alt="Click to change icon"></a>
+                                    </div>
+
+                                <!-- Hide this text on small devices -->
+                                <div class="w3-col m6 w3-hide-small w3-padding-large">
+                                    <h5><i class="fa fa-user w3-margin-right"></i><b>{{user.firstname}}, {{user.lastname}}</b></h5>
+                                    <form id="EditProfile" method="post" class="form-horizontal" ng-submit="EditProfile()">
+                                        <div class="form-group">
+                                            <label for="Major">Major</label>
+                                            <input type="text" class="form-control" name="major" id="major" ng-model="editProfile.major">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Year">Year</label>
+                                            <select class="form-control" id="year" name="year" ng-model="editProfile.year">
+                                                <option value="">Select</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                                      
+                                        <div class="form-group">
+                                            <label for="SelfDescription">Self Description</label>
+                                            <textarea class="form-control" name="selfDescription" id="selfDescription" rows="4" ng-model="editProfile.description"></textarea>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary" id="submit" >Submit</button>
+                                        <button type="cancel" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                    </form>
+                                </div>
+                              </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!--End Modal-->
+
+            <div id="skillModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+
+				    <!-- Modal content-->
+				    <div class="skill">
+				    <div class="modal-content">
+				      	<div class="modal-header">
+				        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+				        	<h4 class="modal-title">ADD SKILL</h4>
+				      	</div>
+				      	<div class="modal-body">
+			        		<select class="form-control" id="sel1"  ng-model="skillChange">
+			        			<option value="">Select the skill you need to add</option>
+								<option value="C++">C++</option>
+							    <option value="JavaScript">JavaScript</option>
+							    <option value="Java">Java</option>
+							    <option value="HTML">HTML</option>
+							    <option value="C#">C#</option>
+							</select>
+
+							<div ng-switch="skillChange">
+								<div ng-switch-default="default" >
+									<div class="panel-body">
+								        <p>This test aims to check your skills and show it to those who would like to form a team with you.</p>
+								    </div>
+								</div>
+
+								<div ng-switch-when="Java" >
+									<div class="panel-heading">
+        								<h3 class="panel-title">Q1. In the given statement below, what does the “arr” indicate?</h3>
+        								<h4>
+								          	char *arr[30];
+								        </h4>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Array of a function
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Array of 30 characters
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Pointer to an array
+											</label>
+										</div>
+							      	</div>		
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q2. What is the only function all C programs must contain?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">start()
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Hsystem()
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">main()
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q3. Where is the correct place to insert a JavaScript?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">The &lt;body&gt; section
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">The &lt;head&gt; section
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">oth are correct
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q4. What is the correct syntax for referring to an external script called "xxx.js"?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">&lt;script src="xxx.js"&gt;
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">&lt;script href="xxx.js"&gt;
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">&lt;script name="xxx.js"&gt;
+											</label>
+										</div>
+						      		</div>
+
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title"> Q5. The external JavaScript file must contain the &lt;script&gt; tag.
+										</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">True
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">False
+											</label>
+										</div>
+						      		</div>
+									<a href="#" class="btn btn-primary" ng-click="hideJAVA()" role="button">Confirm</a>
+								</div>
+
+								<div ng-switch-when="HTML" >
+
+									<div class="panel-heading">
+        								<h3 class="panel-title">Q1. What does HTML stand for?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">Hyperlinks and Text Markup Language
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Hyper Text Markup Language
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Home Tool Markup Language
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q2. Inline elements are normally displayed without starting a new line.</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+								            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">True
+								        </label>
+										</div>
+										<div class="radio">
+											<label>
+									            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">False
+									        </label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q3. What is the correct HTML for inserting a background image?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">&lt;body style="background-image:url(background.gif)"&gt;
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">&lt;body bg="background.gif"&gt;
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">&lt;background img="background.gif"&gt;
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q4. Which of the following is invalid?</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">#include &lt;file&gt;
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">#include "file"
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">#include &lt;file
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">All of the above
+											</label>
+										</div>
+						      		</div>
+
+						      		<div class="panel-heading">
+        								<h3 class="panel-title">Q5. The default executable generation on UNIX for a C program is:</h3>
+      								</div>
+									<div class="panel-body">
+										<div class="radio">
+										<label>
+											<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">a.exe
+										</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">a
+											</label>
+										</div>
+										<div class="radio">
+											<label>
+												<input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">a.out
+										</div>
+						      		</div>
+
+						      		<a href="#" class="btn btn-primary" ng-click="hideHTML()" role="button">Confirm</a>
+
+								</div>
+							</div>
+				      	</div>
+				      	<div class="modal-footer">
+				        	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				      	</div>
+			   	 	</div>
+			   	</div>
+			  	</div>
+			</div>
+            <!--End Modal-->
+
+            <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Wong Ngan Chi</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/grace.jpg" class="img-responsive img-centered" alt="Wong Ngan Chi" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Front-end developer
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>ncwongac@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>60702829
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Tsui Hin Chi</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/tsui.jpg" class="img-responsive img-centered" alt="Tsui Hin Chi" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Front-end developer
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>hctsuiaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>65373392
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Yung Lai Ping</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/ada.jpg" class="img-responsive img-centered" alt="Yung Lai Ping" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Front-end developer
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>lpyungaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>96063642
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Chan Foo Kiu</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/chan.jpg" class="img-responsive img-centered" alt="Chan Foo Kiu" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Developer for the team forming feature
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>fkchanaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>62070489
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Lau Miu Ngai</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/sam.jpg" class="img-responsive img-centered" alt="Lau Miu Ngai" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Developer for the team forming feature
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>mnlauaa@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>62313942
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal6" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Lau Chung Lai</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/charles.jpg" class="img-responsive img-centered" alt="Lau Chung Lai" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Developer for the team forming feature
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>98459809
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		    <div class="portfolio-modal modal fade" id="portfolioModal7" tabindex="-1" role="dialog" aria-hidden="true">
+		        <div class="modal-content">
+		            <div class="close-modal" data-dismiss="modal">
+		                <div class="lr">
+		                    <div class="rl">
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="container">
+		                <div class="row">
+		                    <div class="col-lg-8 col-lg-offset-2">
+		                        <div class="modal-body">
+		                            <h2>Lee Kai Wing</h2>
+		                            <hr class="star-primary">
+		                            <div align="center">
+		                                <img src="img/ming.jpg" class="img-responsive img-centered" alt="Lee Kai Wing" width="350" height="350">
+		                            </div>
+		                            <br><br>
+		                            <ul class="list-inline item-details" align="center">
+		                                <li>Position:
+		                                    <strong>Software tester
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Email:
+		                                    <strong>kwleeaj@connect.ust.hk
+		                                    </strong>
+		                                </li><br><br>
+		                                <li>Mobile:
+		                                    <strong>68431370
+		                                    </strong>
+		                                </li><br><br>
+		                            </ul>
+		                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+
+
+		    <!-- container section end -->
+		    <!-- javascripts -->
+		    <script src="js/jquery.js"></script>
+		    <script src="js/bootstrap.min.js"></script>
+		    <!-- nice scroll -->
+		    <script src="js/jquery.scrollTo.min.js"></script>
+		    <!--custome script for all page-->
+		    <script src="js/scripts.js"></script>
+            <script>
+                function myFunction() {
+                    var input, filter, table, tr, td, i;
+                    input = document.getElementById("myInput");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("myTable");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        if (td) {
+                            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            function myFunction2() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput2");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable2");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }       
+                }
+            }
+            </script>
+		</div>
+  	</div>
+  </body>
+</html>

@@ -1,0 +1,246 @@
+<html lang="en" ng-app="myApp">
+
+<head >
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBm3v0FwEKneu9IBdj5vRh9Zn_iajH0xjk",
+    authDomain: "tast-dc842.firebaseapp.com",
+    databaseURL: "https://tast-dc842.firebaseio.com",
+    storageBucket: "tast-dc842.appspot.com",
+    messagingSenderId: "431016183416"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src="../Real PJ/lib/main.js"></script>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team Forming</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/form-elements.css">
+<link rel="stylesheet" href="css/loginStyle.css">
+<link rel="stylesheet" href="css/modal.css">
+
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!-- Favicon and touch icons -->
+<link rel="shortcut icon" href="img/favicon.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+
+<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Stalinist+One&amp;subset=latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Bungee&amp;subset=latin-ext" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Top content -->
+    <div class="top-content">
+    	
+        <div class="inner-bg">
+            <div class="container">
+            	
+                 <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1>Team Forming</h1>
+                        <div class="description">
+                        	<p>
+                            	A real-time online team forming app for any event
+                        	</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                	<div class="col-sm-3"></div>
+                    <div class="col-sm-6">
+                    	<div class="form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">
+                        			<h3>LOGIN</h3>
+									<br/>
+									<div>
+										<ul style="width:134%" class="nav nav-pills nav-justified">
+											<li class="col-sm-5" class="active"><a href="#student">Student</a></li>
+											<li class="col-sm-5" ><a href="#admin">Admin</a></li>
+										</ul>
+									</div>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<i class="fa fa-lock"></i>
+                        		</div>
+                            </div>	
+							<div class="tab-content">
+								<div id="student" class="tab-pane fade in active" ng-controller="LoginCtrl">
+									<div class="form-bottom">
+										<p style="color:white;">Enter username and password to log on:</p>
+										<form role="form" method="post" class="login-form">
+											<div class="form-group">
+												<table>
+													<th style="width:70%">
+														<label class="sr-only" for="form-username">Username</label>
+														<input type="text" name="form-username" placeholder="Email Address..." class="form-username form-control" id="form-username" ng-model="input.email">
+													</th>
+													<th align="right" style="color:white;font-weight:normal;">&nbsp;&nbsp;@connect.ust.hk
+													</th>
+												</table>
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="form-password">Password</label>
+												<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password" ng-model="input.password">
+											</div>
+											<ul class="nav nav-pills nav-justified">
+												<li class="col-lg-6"><button type="submit" class="btn" href="#">Sign in</button></li>
+												<li class="col-lg-6"><button type="button" class="btn" data-toggle="modal" data-target="#registerModal">Register</button></li>
+											</ul>							
+										</form>
+									</div>
+								</div>
+								<div id="admin" class="tab-pane fade">
+									<div class="form-bottom">
+										<p style="color:white;">Enter username and password to log on:</p>
+										<form role="form" action="" method="post" class="login-form">
+											<div class="form-group">
+												<table>
+													<th style="width:90%">
+														<label class="sr-only" for="form-username">Email Address</label>
+														<input type="text" name="form-username" placeholder="Email Address..." class="form-username form-control" id="form-username">
+													</th>
+													<th align="right" style="color:white;font-weight:normal;">&nbsp;&nbsp;@ust.hk
+													</th>
+												</table>
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="form-password">Password</label>
+												<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+											</div>
+											<button type="submit" class="btn">Sign in</button>
+
+										</form>
+									</div>
+								</div>
+		                    </div>
+	                    </div>
+	                </div>
+
+                    <div class="container">
+					  	<!-- Modal -->
+
+					  	<div class="modal fade" id="registerModal" role="dialog" ng-controller="LoginCtrl">
+					  		<div class="modal-dialog modal-lg" >
+					    	 	<div class="modal-content">
+						        	<div class="modal-header">
+						          		<button type="button" class="close" data-dismiss="modal">&times;</button>
+						    	      	<h5 class="modal-title">REGISTER</h5>
+							        </div>
+							        <div class="modal-body" >
+							        	<div class="form-bottom">
+											<form role="form" method="post" class="registration-form">
+												<div class="form-group">
+						                    		<table>
+														<th style="width:45%">
+															<label class="sr-only" for="form-firstname">Firstname</label>
+															<input type="text" name="form-firstname" placeholder="First Name..." class="form-firstname form-control" ng-model="signInput.firstname" id="form-firstname">
+														</th>
+														<th style="width:5%"> </th>
+														<th style="width:45%">
+															<label class="sr-only" for="form-lastname">Lastname</label>
+															<input type="text" name="form-lastname" placeholder="Last Name..." class="form-lastname form-control" ng-model="signInput.lastname" id="form-lastname">
+														</th>
+													</table>
+						                        </div>
+						                    	<div class="form-group">
+						                    		<table>
+														<th style="width:70%">
+															<label class="sr-only" for="form-username">Username</label>
+															<input type="text" name="form-username" placeholder="Email Address..." class="form-username form-control" id="form-username" ng-model="signInput.email">
+														</th>
+														<th align="right" style="color:white;font-weight:normal;">&nbsp;&nbsp;@connect.ust.hk
+														</th>
+													</table>
+						                        </div>
+						                        <div class="form-group">
+						                        	<label class="sr-only" for="form-password">Password</label>
+						                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password" ng-model="signInput.password">
+						                        </div>
+						                        <div class="form-group">
+						                        	<label class="sr-only" for="form-email">Confirm Password</label>
+						                        	<input type="password" name="form-password2" placeholder="Retype Password..." class="form-password2 form-control" id="form-password2" ng-model="rePassword">
+						                        </div>
+						                        <div class="form-group">
+						                    		<table>
+														<th style="width:45%">
+															<label class="sr-only" for="form-major">Major</label>
+															<input type="text" name="form-major" placeholder="Major..." class="form-major form-control" ng-model="signInput.major" id="form-major">
+														</th>
+														<th style="width:5%"> </th>
+														<th style="width:45%">
+															<label class="sr-only" for="form-year">Year</label>
+															<input type="number" name="form-year" placeholder="Year..." class="form-year form-control" ng-model="signInput.year" min="1" max="5" id="form-lastname">
+														</th>
+													</table>
+						                        </div>
+						                       
+						                        <button type="submit" class="btn">Sign me up!</button>
+						                    </form>
+					                    </div>
+						       	 	</div>     
+					      		</div>
+					    	</div>
+
+					  	</div>
+					</div>                       
+                </div>             
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Footer -->
+    <!-- Javascript -->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/jquery.backstretch.min.js"></script>
+    <script src="js/loginScripts.js"></script>
+	
+	<script>
+	$(document).ready(function(){
+		$(".nav-pills a").click(function(){
+			$(this).tab('show');
+		});
+	});
+	
+	</script>
+	
+    <!--[if lt IE 10]>
+        <script src="js/placeholder.js"></script>
+    <![endif]-->
+
+</body>
+
+</html>

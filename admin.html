@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-admin-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - admin page</title>
+	  
+      <!-- libraries and CSS 	  
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)		
+		site.css: A customized css for our web application. Not from any web framework. 
+	  -->
+	        
+      <script src="lib/jquery.min.js"></script>      
+      <script src="lib/bootstrap.min.js"></script>      
+      	  
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+      <link rel="stylesheet" href="css/site.css" >
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+	  	  
+   </head>
+   <body>
+
+   <a href="index.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >
+   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
+   Back</button></a>
+
+   <br>
+
+   <div class="text-center">
+      <h1>Administrative Page</h1>
+	  
+	 
+					 
+      <h2 id="text_event_name"></h2>
+
+      <div id="admin_page_controller" ng-controller="AdminCtrl">
+
+         <div class="row">
+
+            <div class="col-md-2 col-xs-2"></div>
+
+            <div class="col-md-8 col-xs-8 text-left panel">
+
+			 
+
+             <strong>Minimum Team Size:</strong>  
+
+               <span class="badge">
+                 {{param.minTeamSize}}</span>
+                
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+
+            <br><br>
+
+             <strong>Maximum Team Size: </strong>  
+
+               <span class="badge">
+                 {{param.maxTeamSize}}</span>
+                
+               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+
+                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+
+            <br><br>
+
+             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
+
+
+
+            </div>
+            
+             <div class="col-md-2 col-xs-2"></div>
+
+         </div>
+     
+
+         <hr>
+
+		 <div class="row">
+			 <div class="col-md-6 col-xs-6 text-right" >
+			 
+				<h3>All teams:</h3>
+				<ul ng-repeat="t in team">
+					<li>
+					
+						User ID: {{t.$id}}  <br>
+						Preferred team size: <span class="badge">{{t.size}}</span> <br>
+						Current team members: {{t.teamMembers}}
+					
+					</li>
+					
+				</ul>
+
+			 </div>
+			 
+			 <div class="col-md-6 col-xs-6 text-left">
+							
+			 
+			  <h3>All members:</h3>
+			  <ul ng-repeat="m in member">
+				
+				  <li>ID = {{m.$id}} <br> 
+				  Name = {{m.name}} <br>
+				  request to join the following teams: {{m.selection | json}}</li>
+			  </ul>
+
+			 </div>
+		 </div>
+
+
+      </div>
+   </div>
+
+
+   <!-- JavaScript of this page -->
+
+   <!-- Angular and Angular-route libraries (v1.5.7) -->
+   <script src="lib/angular.min.js"></script>
+   <script src="lib/angular-route.min.js"></script>        
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="lib/firebase.js"></script>     
+   <script src="lib/angularfire.min.js"></script>
+
+   <script src="js/admin.js"></script>
+
+   </body>
+</html>
+
