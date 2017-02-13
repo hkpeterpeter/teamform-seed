@@ -1,9 +1,9 @@
-'use strict';
 
-
-angular.module("member", ["firebase"])
-    .controller("memCtrl", function ($scope, $firebaseArray) {
+angular.module("teaminfo", ["firebase"])
+    .controller("teaminfoCtrl", function ($scope, $firebaseArray) {
         // Initialize Firebase
+
+
         var config = {
             apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
             authDomain: "comp3111-5fbe5.firebaseapp.com",
@@ -13,10 +13,9 @@ angular.module("member", ["firebase"])
         };
         firebase.initializeApp(config);
 
-        var ref = firebase.database().ref("members");
-        $scope.mems = $firebaseArray(ref);
-		$scope.getID = function(){
-			return 0;
-		}
-        });
-    
+        
+
+        //get teams info
+        var ref = firebase.database().ref("teams");
+        $scope.teams = $firebaseArray(ref);
+    });

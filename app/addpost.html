@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/addpost.js"></script>
+	<link href="css/addpost.css" type="text/css" rel="stylesheet" />
+
+    <script>
+            var config = {
+            apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+            authDomain: "comp3111-5fbe5.firebaseapp.com",
+            databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+            storageBucket: "comp3111-5fbe5.appspot.com",
+            messagingSenderId: "946291658553"
+        };
+        firebase.initializeApp(config);
+        </script>
+        
+    <title> Advertisement Board</title>
+
+</head>
+
+<body ng-app="adboard" ng-controller="adboardCtrl">
+	
+    <form role="form" name="postForm" ng-submit="add()" novalidate="">
+		<button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+	
+	 <form >
+    <legend align="left">Leave your trip plan advertisement <a class = "postButton blue" ng-click="">Log out </a></legend>
+            <br>
+			<img src="http://wvecouncil.org/wp/wp-content/uploads/2016/09/we_want_you.png" width = "450" height = "500" class="picRight" class="img-responsive"/>
+            
+			<div class="form-group">
+            <label for="titletxt"> <p align="left">Post Title</label></p>
+            <Input type="text" class="form-control" name="titletxt" ng-model="titletxt"  placeholder="Title" required="">
+            </div>
+			
+
+                 <div class="form-group">
+                <label for="posttxt"> <p align="center"> Post Content</label></p>
+                <textarea rows="8" cols="80" class="form-control" name="contenttxt"  ng-model="contenttxt"  placeholder="Your Trip Plan" required="">
+                </textarea>
+                </div>
+
+
+                    <div class="form-group">
+                    <label for="persontxt"> <p align="left"> Contact Person</label></p>
+                    <Input type="text" class="form-control" name="persontxt" ng-model="persontxt"  placeholder="Contact Person" required="">
+                    </div>
+
+    </form>
+
+     <br><br>
+	 <div class = "buttons">
+    <a class = "postButton blue" ng-click="add()">Post your trip plan</a>
+	</div>
+    <br><br>
+
+<!--     <p>Checkout the latest trip plan!!!!</p> -->
+ <h1>Checkout the latest trip plan!!!!</h1>
+
+<table width="1000" ><tr>
+
+    <tr>
+    <th>Post Title</th>
+    <th>Post Content</th>
+    <th>Contact Person</th>
+    </tr>
+
+         <tr ng-repeat="ad in ads">
+         <td align="left">{{ad.title}}</td>
+         <td align="left">{{ad.content}}</td>
+         <td align="left">{{ad.person}}</td>
+</tr>
+</table>
+
+
+</body>
+
+</html>
