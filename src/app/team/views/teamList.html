@@ -1,0 +1,110 @@
+<ui-alert message="{{teamList.error.message}}" />
+<h1>Team Search</h1>
+<div class="panel-group accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-target="#teamSearchBox">
+                    <i class="fa fa-search"></i>
+                    Search
+                </a>
+            </h4>
+        </div>
+        <div class="panel-collapse collapse in" id="teamSearchBox">
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Event</label>
+                        <div class="col-sm-10">
+                            <ui-select ng-model="teamList.teamListTableParams.filter().data.eventId" required>
+                                <ui-select-match allow-clear="true" placeholder="Select Event">{{$select.selected.data.name}}</ui-select-match>
+                                <ui-select-choices repeat="event.$id as event in teamList.events | filter:$select.search">
+                                    <img ng-src="{{event.getImageUrl()}}" class="img-circle img-small">
+                                    {{event.data.name}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputName" class="col-sm-2 control-label">Team Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="teamList.teamListTableParams.filter().data.name" required>
+                        </div>
+                    </div>
+                    <div class="form-group slider-group">
+                        <label class="col-sm-2 control-label">Vacancy</label>
+                        <div class="col-sm-6">
+                            <div class="slider-range" data-ng-init="teamList.initSlider()"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Private Team</label>
+                        <div class="col-sm-10">
+                            <input bs-switch ng-model="teamList.teamListTableParams.filter().data.private" type="checkbox" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Direct Join</label>
+                        <div class="col-sm-10">
+                            <input bs-switch ng-model="teamList.teamListTableParams.filter().data.directJoin" type="checkbox" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        <h1 class="text-left">Team List</h1>
+    </div>
+    <div class="col-xs-6">
+        <div class="text-right">
+            <a ui-sref="team.create"><button type="button" class="btn btn-primary">Create Team</button></a>
+        </div>
+    </div>
+</div>
+<div class="main-box no-header clearfix">
+    <div class="main-box-body clearfix">
+        <div class="table-responsive">
+            <table ng-table="teamList.teamListTableParams" show-filter="false" class="table table-hover">
+                <tbody>
+                    <tr ng-repeat="team in $data track by team.$id">
+                        <td data-title="''">
+                            <span class="label label-danger" ng-if="team.data.private">Private</span>
+                            <span class="label label-success" ng-if="!team.data.private">Public</span>
+                        </td>
+                        <td data-title="'Team Name'" sortable="'data.name'">
+                            <a ui-sref="team.detail({teamId: team.$id})">
+                                <img ng-src="{{team.getImageUrl()}}" class="img-circle img-small">
+                                {{team.data.name}}
+                            </a>
+                        </td>
+                        <td data-title="'Event Name'" sortable="'getEvent().data.name'">
+                            <a ui-sref="event.detail({eventId: team.data.eventId})">
+                                <img ng-src="{{team.getEvent().getImageUrl()}}" class="img-circle img-small">
+                                {{team.getEvent().data.name}}
+                            </a>
+                        </td>
+                        <td data-title="'Created By'" sortable="'data.createdBy'">
+                            <a ui-sref="user.detail({userId: team.data.createdBy})" ng-class="{red: team.getCreatedByUser().getGender() == 'female'}">
+                                <img ng-src="{{team.getCreatedByUser().getImageUrl()}}" class="img-circle img-small">
+                                {{team.getCreatedByUser().data.name}}
+                            </a>
+                        </td>
+                        <td data-title="'Created At'">
+                            {{team.data.createdAt | date:'medium'}}
+                        </td>
+                        <td data-title="'Vacancy'" sortable="'getVacancy()'" filter="teamList.vacancyFilterDef">
+                            {{team.getVacancy()}}
+                        </td>
+                        <td data-title="'Direct Join'" sortable="'data.directJoin'">
+                            <span class="text-success glyphicon glyphicon-ok fa-2x" ng-if="team.data.directJoin"></span>
+                            <span class="text-danger glyphicon glyphicon-remove fa-2x" ng-if="!team.data.directJoin"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

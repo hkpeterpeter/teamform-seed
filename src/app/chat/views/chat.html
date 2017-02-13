@@ -1,0 +1,47 @@
+<ui-alert message="{{chat.error.message}}"></ui-alert>
+<h1>Chat</h1>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="main-box clearfix">
+			<div class="main-box-header clearfix">
+				<h2>Chatroom</h2>
+			</div>
+
+			<div class="main-box-body clearfix">
+				<div class="conversation-wrapper">
+					<div class="conversation-content" scroll-glue>
+						<div class="conversation-inner" ng-repeat="message in chat.messages">
+							<div class="conversation-item clearfix" ng-class="{'item-left': message.data.createdBy != chat.me, 'item-right': message.data.createdBy == chat.me}">
+								<div class="conversation-user">
+									<img ng-src="{{message.getCreatedByUser().getImageUrl()}}" class="img-small" alt=""/>
+								</div>
+								<div class="conversation-body">
+									<div class="name">
+                                        <a ui-sref="user.detail({userId: message.data.createdBy})" ng-class="{red: message.getCreatedByUser().getGender() == 'female'}">{{message.getCreatedByUser().data.name}}</a>
+									</div>
+									<div class="time hidden-xs">
+										{{message.data.createdAt | date:'medium'}}
+									</div>
+									<div class="text">
+										{{message.data.content}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="conversation-new-message" ng-if="chat.me">
+						<form ng-submit="chat.send()">
+							<div class="form-group">
+								<textarea class="form-control" rows="2" placeholder="Enter your message..." ng-model="chat.message.content"></textarea>
+							</div>
+
+							<div class="clearfix">
+								<button type="submit" class="btn btn-success pull-right">Send message</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

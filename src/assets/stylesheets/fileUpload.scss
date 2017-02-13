@@ -1,0 +1,14 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/mixins';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_wells';
+.drop {
+    composes: well well-lg;
+}
+.drop-success {
+    composes: drop;
+    background-color: $brand-success;
+}
+.drop-danger {
+    composes: drop;
+    background-color: $brand-danger;
+}

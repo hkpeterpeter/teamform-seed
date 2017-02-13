@@ -1,0 +1,117 @@
+<ui-alert message="{{userDetail.error.message}}" />
+<div class="row">
+    <div class="col-xs-6">
+        <h1 class="text-left">User Profile</h1>
+    </div>
+    <div class="col-xs-6">
+        <div class="text-right">
+            <button type="button" class="btn btn-primary" ui-sref="user.detail.edit({userId: userDetail.user.$id})">Edit</button>
+        </div>
+    </div>
+</div>
+<div class="row" id="user-profile">
+    <div class="col-lg-3 col-md-4 col-sm-4">
+        <div class="main-box clearfix" ng-if="userDetail.user">
+            <div class="main-box-header clearfix">
+                <h2>{{userDetail.user.data.name}}</h2>
+            </div>
+            <div class="main-box-body clearfix">
+                <img class="profile-img img-responsive img-circle center-block" ng-src="{{userDetail.user.getImageUrl()}}">
+                <div class="text-center">
+                    {{userDetail.user.data.description}}
+                </div>
+                <div class="profile-label">
+                    <span ng-class="{'label-danger': userDetail.user.data.role == 'admin', 'label-success': userDetail.user.data.role != 'admin'}" class="label capitalize">{{userDetail.user.data.role}}</span>
+                </div>
+                <div class="profile-details">
+                    <h4>Skills:</h4>
+                    <ul class="fa-ul">
+                        <li ng-repeat="skill in userDetail.user.data.skills">
+                            <div class="label label-success">{{skill}}</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="profile-details">
+                    <h4>Gender:
+                        <span class="capitalize" ng-class="{red: eventUser.user.getGender() == 'female', emerald: eventUser.user.getGender() != 'female'}">{{userDetail.user.getGender()}}</span>
+                    </h4>
+                </div>
+                <div class="profile-message-btn center-block text-center">
+                    <a ui-sref="message({conversationId: userDetail.user.$id})" class="btn btn-primary">
+                        <i class="fa fa-envelope"></i> Send message
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-8">
+        <div class="main-box clearfix">
+            <div class="tabs-wrapper profile-tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="javascript:void(0);" data-target="#tab-event" data-toggle="tab">Events Joined</a></li>
+                    <li class=""><a href="javascript:void(0);" data-target="#tab-team" data-toggle="tab">Teams Joined</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="tab-event">
+                        <div class="table-responsive">
+                            <table ng-table="userDetail.eventListTableParams" show-filter="false" class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="event in $data track by event.$id">
+                                        <td data-title="'Event Name'" sortable="'data.name'">
+                                            <a ui-sref="event.detail({eventId: event.$id})">
+                                                <img ng-src="{{event.getImageUrl()}}" class="img-circle img-small">
+                                                {{event.data.name}}
+                                            </a>
+                                        </td>
+                                        <td data-title="'User Joined'" sortable="'getTotalEventUsers()'">
+                                            {{event.getTotalEventUsers()}}
+                                        </td>
+                                        <td data-title="'Team Joined'" sortable="'getTotalTeams()'">
+                                            {{event.getTotalTeams()}}
+                                        </td>
+                                        <td data-title="'Created At'" sortable="'data.createdAt'">
+                                            {{event.data.createdAt | date:'medium'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-team">
+                        <div class="table-responsive">
+                            <table ng-table="userDetail.teamListTableParams" show-filter="false" class="table table-hover">
+                                <tbody>
+                                    <tr ng-repeat="team in $data track by team.$id">
+                                        <td data-title="''">
+                                            <span class="label label-danger" ng-if="team.data.private">Private</span>
+                                            <span class="label label-success" ng-if="!team.data.private">Public</span>
+                                        </td>
+                                        <td data-title="'Team Name'" sortable="'data.name'">
+                                            <a ui-sref="team.detail({teamId: team.$id})">
+                                                <img ng-src="{{team.getImageUrl()}}" class="img-circle img-small">
+                                                {{team.data.name}}
+                                            </a>
+                                        </td>
+                                        <td data-title="'Event Name'" sortable="'getEvent().data.name'">
+                                            <a ui-sref="event.detail({eventId: team.data.eventId})">
+                                                <img ng-src="{{team.getEvent().getImageUrl()}}" class="img-circle img-small">
+                                                {{team.getEvent().data.name}}
+                                            </a>
+                                        </td>
+                                        <td data-title="'Vacancy'" sortable="'getVacancy()'">
+                                            {{team.getVacancy()}}
+                                        </td>
+                                        <td data-title="'Direct Join'" sortable="'data.directJoin'">
+                                            <span class="text-success glyphicon glyphicon-ok" ng-if="team.data.directJoin"></span>
+                                            <span class="text-danger glyphicon glyphicon-remove" ng-if="!team.data.directJoin"></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

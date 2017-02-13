@@ -1,8 +1,13 @@
 !.gitkeep
-node_modules/
-bower_components/
-app/bower_components/
-app/coverage/
+/node_modules/
+/bower_components/
+/dist/
+/coverage/
 tmp
 .DS_Store
 *.log
+.env
+/config.js
+/firebase-service.json
+/src/assets/data/developTeam.js
+/src/assets/images/developers/

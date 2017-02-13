@@ -1,0 +1,65 @@
+<div id="login-page">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="login-box">
+                    <div id="login-box-holder">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <header id="login-header">
+                                    <div id="login-logo">
+                                        Teamform
+                                    </div>
+                                </header>
+                                <div id="login-box-inner">
+                                    <form role="form" ng-submit="login.login()">
+                                        <ui-alert message="{{login.error.message}}" />
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            <input type="email" class="form-control" placeholder="Email address" ng-model="login.credential.email">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                            <input type="password" class="form-control" placeholder="Password" ng-model="login.credential.password">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <a ui-sref="password_reset">
+    													Forgot password?
+												    </a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button type="submit" class="btn btn-success col-xs-12">Login</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <p class="social-text">Or login with</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <button type="button" class="btn btn-block btn-primary" ng-click="login.authenticate('ust')">ITSC</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="login-box-footer">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                Do not have an account?
+                                <a ui-sref="register">Register now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

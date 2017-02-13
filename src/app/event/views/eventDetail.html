@@ -1,0 +1,201 @@
+<ui-alert message="{{eventDetail.error.message}}" />
+<div ng-if="eventDetail.event">
+    <h1>{{eventDetail.event.data.name}}</h1>
+    <div class="main-box clearfix">
+        <div class="main-box-header clearfix">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="text-left">{{eventDetail.event.data.name}}</h2>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><button type="button" class="btn btn-info" ui-sref="event.detail.edit({eventId: eventDetail.event.$id})">Edit</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-box-body clearfix">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <img class="img-responsive img-circle center-block" ng-src="{{eventDetail.event.getImageUrl()}}">
+                </div>
+                <div class="col-xs-12 col-sm-9">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>Event ID</th>
+                                    <td>{{eventDetail.event.$id}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>{{eventDetail.event.data.name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{eventDetail.event.data.description}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Event Start Date</th>
+                                    <td>{{eventDetail.event.data.eventStartDate | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Event End Date</th>
+                                    <td>{{eventDetail.event.data.eventEndDate | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Application Deadline</th>
+                                    <td>{{eventDetail.event.data.eventDeadline | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Team Size</th>
+                                    <td ng-if="eventDetail.event.data.teamMin != eventDetail.event.data.teamMax">{{eventDetail.event.data.teamMin}} - {{eventDetail.event.data.teamMax}}</td>
+                                    <td ng-if="eventDetail.event.data.teamMin == eventDetail.event.data.teamMax">{{eventDetail.event.data.teamMin}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Created Date</th>
+                                    <td>{{eventDetail.event.data.createdAt | date: 'medium'}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Created By</th>
+                                    <td>
+                                        <a ui-sref="user.detail({userId: eventDetail.event.data.createdBy})" ng-class="{red: eventDetail.event.getCreatedByUser().getGender() == 'female'}">{{eventDetail.event.getCreatedByUser().data.name}}</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="button" class="btn btn-block btn-info" ng-click="eventDetail.joinEvent()">Join Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-box clearfix">
+        <div class="main-box-header clearfix">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="text-left">Team Joined</h2>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><button type="button" class="btn btn-success" ui-sref="team.create({eventId: eventDetail.event.$id})">Create Team</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-box-body clearfix">
+            <div class="table-responsive">
+                <table ng-table="eventDetail.teamListTableParams" show-filter="false" class="table table-hover">
+                    <tbody>
+                        <tr ng-repeat="team in $data track by team.$id">
+                            <td data-title="''">
+                                <span class="label label-danger" ng-if="team.data.private">Private</span>
+                                <span class="label label-success" ng-if="!team.data.private">Public</span>
+                            </td>
+                            <td data-title="'Team Name'" filter="{'data.name': 'text'}" sortable="'data.name'">
+                                <a ui-sref="team.detail({teamId: team.$id})">
+                                    <img ng-src="{{team.getImageUrl()}}" class="img-circle img-small"> {{team.data.name}}
+                                </a>
+                            </td>
+                            <td data-title="'Direct Join'" sortable="'directJoin'">
+                                <span class="text-success glyphicon glyphicon-ok fa-2x" ng-if="team.data.directJoin"></span>
+                                <span class="text-danger glyphicon glyphicon-remove fa-2x" ng-if="!team.data.directJoin"></span>
+                            </td>
+                            <td data-title="'Vacancy'" sortable="'getVacancy()'">
+                                {{team.getVacancy()}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="main-box clearfix">
+        <div class="main-box-header clearfix">
+            <h2>User Joined</h2>
+        </div>
+        <div class="main-box-body clearfix">
+            <div class="table-responsive">
+                <table ng-table="eventDetail.userListTableParams" show-filter="false" class="table table-hover">
+                    <tbody>
+                        <tr ng-repeat="eventUser in $data track by eventUser.$id">
+                            <td data-title="'User'" filter="{'user.data.name': 'text'}" sortable="'user.data.name'">
+                                <a ui-sref="user.detail({userId: eventUser.user.$id})" ng-class="{red: eventUser.user.getGender() == 'female'}">
+                                    <img ng-src="{{eventUser.user.getImageUrl()}}" class="img-circle img-small"> {{eventUser.user.data.name}}
+                                </a>
+                            </td>
+                            <td data-title="'Has Team'" sortable="'hasTeam'">
+                                <span class="text-success glyphicon glyphicon-ok fa-2x" ng-if="eventUser.hasTeam"></span>
+                                <span class="text-danger glyphicon glyphicon-remove fa-2x" ng-if="!eventUser.hasTeam"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-box clearfix" ng-if="eventDetail.canManage">
+        <div class="main-box-header clearfix">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2>Auto Teamforming</h2>
+                </div>
+                <div class="col-xs-6">
+                    <div class="text-right"><button type="button" class="btn btn-danger" ng-click="eventDetail.autoFormTeam()">Auto FormTeam</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="main-box-body clearfix">
+            <div class="row">
+                <div ng-repeat="team in eventDetail.autoTeam.teams" ng-if="eventDetail.autoTeam && eventDetail.autoTeam.teams.length > 0">
+                    <div class="col-sm-6">
+                        <h5>{{team.name}}</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-condensed table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="teamUser in team.users" ng-if="teamUser.id != null">
+                                        <td><a ui-sref="user.detail({userId: teamUser.user.$id})" ng-class="{red: teamUser.user.getGender() == 'female'}">{{teamUser.user.data.name}}</a></td>
+                                        <td>{{teamUser.role}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="$odd" class="clearfix"></div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" ng-if="eventDetail.autoTeam && eventDetail.autoTeam.teams.length > 0" ng-click="eventDetail.createTeam();">Create</button>
+            <div ng-if="eventDetail.autoTeam.failed">
+                Failed Users:
+                <ul>
+                    <li ng-repeat="failedUser in eventDetail.autoTeam.failed">
+                        <a ui-sref="user.detail({userId: failedUser.user.$id})">{{failedUser.user.data.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-box clearfix" ng-if="eventDetail.canManage">
+        <div class="main-box-header clearfix">
+            <h2>Team Merging</h2>
+        </div>
+        <div class="main-box-body clearfix">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="nestable" class="dd nestable-lists">
+                        <ol class="dd-list">
+                        </ol>
+                    </div>
+                    <button type="button" class="btn btn-primary ng-scope" ng-click="eventDetail.saveTeam();">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

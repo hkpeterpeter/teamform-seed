@@ -1,0 +1,69 @@
+<ui-alert message="{{message.error.message}}" />
+<h1>Message</h1>
+<div class="main-box no-header clearfix">
+    <div ng-class="[message.style['panel-message']]" class="main-box-body clearfix">
+        <div ng-class="[message.style['panel-message-container']]" class="row">
+            <div class="col-sm-3">
+                <div class="row">
+                    <div ng-class="[message.style['search-input']]">
+                        <input type="text" class="form-control" ng-model="message.selectedUser" placeholder="Search User" typeahead-on-select="message.onSelectUser($item, $model, $label)" uib-typeahead="user as user.data.name for user in message.users | filter:{data: {name: $viewValue}}" typeahead-show-hint="true" typeahead-min-length="0" typeahead-editable="false">
+                    </div>
+                    <div ng-class="[message.style['member-list']]">
+                        <ul class="list-unstyled">
+                            <li ng-click="message.getConversation(conversation.user.$id)" class="left clearfix" ng-repeat="conversation in message.conversations">
+                                <span ng-class="[message.style['chat-img']]" class="pull-left">
+                                   <img ng-src="{{conversation.user.getImageUrl()}}" alt="User Avatar" class="img-circle">
+                                </span>
+                                <div ng-class="[message.style['chat-body']]" class="clearfix">
+                                    <div>
+                                        <div class="pull-left">{{conversation.user.data.name}}</div>
+                                        <div class="pull-right">{{conversation.createdAt | date: 'medium'}}</div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-9">
+                <div class="row">
+                    <div ng-class="[message.style['new_message_head']]">Message to {{message.conversation.user.data.name}}</div>
+
+                    <div ng-class="[message.style['chat_area']]" scroll-glue>
+                        <ul class="list-unstyled">
+                            <li class="clearfix">
+                                <div ng-repeat="msg in message.conversation.messages track by $index">
+                                    <div ng-if="msg.recv">
+                                        <span ng-class="message.style['chat-img1']" class="pull-left">
+                                          <img ng-src="{{message.conversation.user.getImageUrl()}}" alt="User Avatar" class="img-circle">
+                                      </span>
+                                        <div ng-class="[message.style['chat-body1']]" class="clearfix">
+                                            <p><span>{{msg.data.content}}</span></p>
+                                            <div class="pull-left">{{msg.data.createdAt | date: 'medium'}}</div>
+                                        </div>
+                                    </div>
+                                    <div ng-if="msg.sent" ng-class="[message.style['sender-chat']]">
+                                        <span ng-class="message.style['chat-img1']" class="pull-right">
+                                            <img ng-src="{{message.user.getImageUrl()}}" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div ng-class="[message.style['chat-body1']]" class="clearfix">
+                                            <p class="text-right"><span>{{msg.data.content}}</span></p>
+                                            <div class="pull-right">{{msg.data.createdAt | date: 'medium'}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div ng-class="[message.style['message_write']]" ng-if="message.conversation">
+                        <textarea class="form-control" placeholder="type a message" ng-model="message.messageContent"></textarea>
+                        <div class="clearfix"></div>
+                        <button type="button" class="pull-right btn btn-sm btn-success" ng-click="message.sendMessage()" ng-disabled="message.messageContent == 0">Send</btn>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

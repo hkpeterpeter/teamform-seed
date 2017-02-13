@@ -1,0 +1,105 @@
+<h1>Team Create</h1>
+<div class="main-box no-header">
+    <div class="main-box-body clearfix">
+        <form class="form-horizontal">
+            <ui-alert message="{{teamCreate.error.message}}" />
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Event</label>
+                <div class="col-sm-10">
+                    <ui-select on-select="teamCreate.onEventChange($item)" ng-model="teamCreate.team.eventId" required>
+                        <ui-select-match placeholder="Select Event">{{$select.selected.data.name}}</ui-select-match>
+                        <ui-select-choices repeat="event.$id as event in teamCreate.events | filter:$select.search">
+                            <img ng-src="{{event.getImageUrl()}}" class="img-circle img-small">
+                            {{event.data.name}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Team Image</label>
+                <div class="col-sm-10">
+                    <div class="well well-lg" ngf-select="teamCreate.upload($file)" ngf-drop="teamCreate.upload($file)" ng-model="teamCreate.image" ngf-pattern=".jpg,.jpeg,.png" ngf-accept="'image/*'" ngf-capture="'camera'" ngf-drag-over-class="{pattern: 'image/*', accept:eventCreate.fileUploadStyle['drop-success'], reject:eventCreate.fileUploadStyle['drop-danger'], delay:100}"
+                        ngf-drop-available="dropAvailable" ngf-resize="{width: 200, height: 200, centerCrop: true}">
+                        <div ng-if="!teamCreate.team.imageUrl">
+                            <p>Select File <span ng-show="dropAvailable"> or Drop File</span></p>
+                        </div>
+                        <img ng-if="teamCreate.team.imageUrl != null" ngf-src="teamCreate.team.imageUrl" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputName" class="col-sm-2 control-label">Team Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputName" placeholder="Name" ng-model="teamCreate.team.name" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Private Team</label>
+                <div class="col-sm-10">
+                    <input bs-switch ng-model="teamCreate.team.private" type="checkbox" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Direct Join</label>
+                <div class="col-sm-10">
+                    <input bs-switch ng-model="teamCreate.team.directJoin" type="checkbox" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Team Member {{range(teamCreate.selectedEvent.data.teamMax)}}</label>
+                <div class="col-sm-10">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Position</th>
+                                    <th>Perferred Skills</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="user in teamCreate.team.users track by $index">
+                                    <td>
+                                        <ui-select on-select="teamCreate.onTeamUserChange($item)" ng-model="user.id" ng-if="$index > 0">
+                                            <ui-select-match allow-clear="true" placeholder="Invite User">{{$select.selected.user.data.name}}</ui-select-match>
+                                            <ui-select-choices repeat="eventUser.id as eventUser in teamCreate.availablieUsers | filter:$select.search">
+                                                <div>
+                                                    <p>
+                                                        <img ng-src="{{eventUser.user.getImageUrl()}}" class="img-circle img-small">
+                                                        {{eventUser.user.data.name}}
+                                                    </p>
+                                                    <p>Skills: <span ng-repeat="skill in eventUser.user.data.skills" class="label label-success">{{skill}}</span></p>
+                                                </div>
+                                            </ui-select-choices>
+                                            <ui-select-no-choice>
+                                                No User Available
+                                            </ui-select-no-choice>
+                                        </ui-select>
+                                        <input type="text" ng-if="$index == 0" class="form-control" value="{{teamCreate.user.data.name}}" ng-disabled="true" required>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control" placeholder="Role" ng-model="user.role" ng-disabled="$index == 0" uib-typeahead="role for role in teamCreate.positions | filter: $viewValue" typeahead-show-hint="true" typeahead-min-length="0" required>
+                                    </td>
+                                    <td>
+                                        <ui-select multiple tagging tagging-label="" ng-model="user.preferredSkills" ng-if="$index > 0" ng-disabled="user.id != null">
+                                            <ui-select-match placeholder="Add Preferred skills">{{$item}}</ui-select-match>
+                                            <ui-select-choices repeat="skill as skill in teamCreate.skills | filter:$select.search">
+                                                {{skill}}
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <input type="text" ng-if="$index == 0" class="form-control" ng-model="user.preferredSkills" ng-disabled="true" required>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-block btn-primary" ng-click="teamCreate.createTeam()">Create Team</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
