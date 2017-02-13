@@ -1,0 +1,226 @@
+<div class="">
+  <!-- Teamname: {{data.name}}
+  Maxsize: {{data.max}}
+  Current Size: {{data.currentSize}}
+  Desc: {{data.desc}} -->
+  <!-- <div class = "form-group">
+      <div class="btn-group">
+        <ul ng-repeat="tag in tagShowList">
+          <li><input type = "checkbox" ng-click = "tag.state = !tag.state"> {{tag.name}}</li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <ul ng-repeat="tag in tagShowList" ng-if="tag.state">
+            <li> {{tag.name}}</li>
+        </ul>
+      </div>
+  </div> -->
+
+<!-- Basic Team Information -->
+  <div class="container-fluid">
+  	<div class="row-fluid">
+  		<div class="span12">
+  			<h3>
+  				Teamname:  {{teamdata.name}}
+<button class="btn btn-primary" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Change Team info</button>
+        </h3>
+        <!-- <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='leader') && (myEvents[eventID] | teamId)==teamID">{{myEvents[eventID] | role}} in this team</h3> -->
+        <h3 ng-if = "((myEvents[eventID] | role)=='leader' || (myEvents[eventID] | role)=='member')">{{myEvents[eventID] | role}} of team {{teams.$getRecord(user_teamdata.team ).name}} </h3>
+        <h3 ng-if="(myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='visitor'">{{myEvents[eventID] | role}}</h3>
+
+  			<p>
+  				{{teamdata.desc}}
+          <!-- {{memberlist}} -->
+  			</p>
+        <!-- {{alreadyApplied()}} -->
+        <button type = "button" class = "btn btn-primary" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()" ng-click = "ApplyTeam()">Apply for this team</button>
+        <button type = "button" class = "btn btn-primary" disabled="disabled" ng-if="((myEvents[eventID] | role)=='tba' ) && alreadyApplied() " ng-click = "ApplyTeam()">Aleady Applied</button>
+        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID" ng-click = "QuitTeam()">Quit this team</button>
+        <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" ng-click = "Change_Leader()">Change team leader</button>
+  			<!-- <form class="form-search">
+  				<input class="input-medium search-query" type="text" /> <button type="submit" class="btn">Search</button>
+  			</form> -->
+  		</div>
+  	</div>
+    <!-- Members -->
+  	<div class="row-fluid">
+  		<div class="span8">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+              <h3 class="panel-title">Members &nbsp; Max:{{teamdata.max}}, current:{{teamdata.currentSize}}</h3>
+          </div>
+          <div class="panel-body">
+            <ul ng-repeat="(id,uid) in filterLeader(members,teamdata.leader)">
+                 <li>  <a ng-href= "/#/dashboard/profile/{{uid}}">{{users.$getRecord(uid).readOnly.name}}</a>
+                   <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" ng-click = "DeleteMember(uid)">Reject</button>
+                   <button type = "button" class = "btn btn-primary" ng-if="(myEvents[eventID] | role)=='leader' && leader_change && (myEvents[eventID] | teamId)==teamID" ng-click = "SetLeader(uid)">Select as new leader</button>
+                 </li>
+            </ul>
+          </div>
+          <div>
+            <h6>Team Leader:</h6>
+
+          <a ng-href= "/#/dashboard/profile/{{teamdata.leader}}">  {{users.$getRecord(teamdata.leader).readOnly.name}}</a>
+ <!--            <ul ng-repeat="(id,uid) in leader">
+              <li>{{users.$getRecord(uid).readOnly.name}}
+              </li>
+            </ul> -->
+
+          </div>
+        </div>
+  		</div>
+      <!-- Tags -->
+  		<div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <!-- {{noSkillTags}} -->
+              <h3 class="panel-title">Tags</h3>
+          </div>
+
+          <div class="panel-body"> Skill Tags:
+            <div ng-if = "noSkillTags">
+              None
+            </div>
+            <ul ng-repeat="(name,value) in filterSkillTags(skilltags)" ng-if = "!noSkillTags">
+                <li>{{name}} : {{value}}</li>
+            </ul>
+          </div>
+          <!-- {{noLanguageTags}} -->
+          <div class="panel-body"> Language Tags:
+            <div ng-if = "noLanguageTags">
+              None
+            </div>
+            <ul ng-repeat="(name,value) in filterLanguageTags(languagetags)">
+                <li>{{name}}</li>
+            </ul>
+          </div>
+          <!-- {{noMannerTags}} -->
+          <div class="panel-body"> Manner Tags:
+            <div ng-if = "noMannerTags">
+              None
+            </div>
+            <ul ng-repeat="(name,value) in filterMannerTags(mannertags)">
+                <li>{{name}}</li>
+            </ul>
+          </div>
+          <div class="panel-body">
+              <!-- <button type = "button" class = "btn btn-default" data-toggle = "modal" data-target = "#myModal">add a skill tag</button> -->
+              <button type = "button" class = "btn btn-default" ng-click="ManageTagDialogue()"  ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Manage team tags</button>
+          </div>
+        </div>
+  		</div>
+  	</div>
+  	<div class="row-fluid">
+      <!-- Applications -->
+
+
+      <div class="span4"  ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Applications</h3>
+          </div>
+          <form name="myForm" >
+              <label for="repeatSelect"> Search applications by status: </label>
+              <select name="repeatSelect" id="repeatSelect" ng-model="search_model">
+                  <option value = "all">All applications</option>
+                  <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+              </select>
+          </form>
+
+          <div class="panel-body">
+            <ul ng-repeat="(uid,status) in filterByStatus(applications,search_model)">
+              <li>
+                {{users.$getRecord(uid).readOnly.name}} : {{status}}
+                <button type="button" class="btn btn-primary" ng-click="accept_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID">Accept</button>
+                <button type="button" class="btn btn-primary" ng-click="decline_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID">Reject</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Invitations -->
+      <div class="span4" ng-if="(myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID " >
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Invitations</h3>
+          </div>
+          <form name="myForm">
+              <label for="repeatSelect"> Search invitations by status: </label>
+              <select name="repeatSelect" id="repeatSelect" ng-model="search_model">
+                  <option value = "all">All invitations</option>
+                  <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+              </select>
+          </form>
+          <div class="panel-body">
+            <ul ng-repeat="(uid,status) in filterByStatus(invitations,search_model)">
+              <li>{{users.$getRecord(uid).readOnly.name}} : {{status}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Announcements -->
+      <div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title"> Notification Board</h3>
+          </div>
+          <div class="panel-body">
+            <!-- {{applicationid}} -->
+            <ul ng-repeat="x in announcements">
+              <li>
+                {{x.content}} &nbsp; Date : {{x.timeStamp | DateFormat | date:'yyyy-MM-dd HH:mm' }}
+                <button type="button" class="btn btn-default" ng-click="deleteAnnouncement(x.$id)"  ng-if="isDeletingTeamAnn && (myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID">Delete</button>
+              </li>
+            </ul>
+            <button class="btn btn-default" ng-click="addAnnouncementDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID">Post an announcement</button>
+            <button type = "button" class = "btn btn-default" ng-click = "deleteTeamAnnouncementChoice()" ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID">Delete announcements</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="span4">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Chart</h3>
+          </div>
+          <div class="panel-body" ng-init = "initchart()">
+<canvas id="myChart" width="200" height="200"></canvas>
+          </div>
+        </div>
+    </div>
+
+
+  </div>
+
+
+
+
+  <!-- Modal For add skill tag-->
+  <!-- <div class = "modal fade" id = "myModal" role = "dialog">
+      <div class = "modal-dialog">
+        <! Modal content-->
+        <!-- <div class = "modal-content">
+          <div class = "modal-header">
+            <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+            <h4 class = "modal-title">Choose from the following options</h4>
+          </div>
+          <div class = "modal-body">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {{tagList[form.tagid]}} <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="(key,value) in tagList" ng-click = "form.tagid = key">{{value}}</li>
+              </ul>
+            </div>
+            <label for="price">Number needed: </label>
+              <input type="text" class="form-control" style="width:100px" ng-model="form.neednum">
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+
+</div>

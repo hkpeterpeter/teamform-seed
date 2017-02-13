@@ -1,0 +1,130 @@
+<div class="container" class="ng-cloak">
+<div class="col-md-12">
+
+	<!--###############Head###############-->
+	
+	<div class="jumbotron">
+		<h2><i class="icon-list-alt"></i>&nbsp;&nbsp;Profile</h2>	
+		<p>This is the profile page. Just say something here.</p>
+		<p>
+			<button class="btn btn-danger" ng-click="profile_edit()" ng-if="button_visible">
+				<i class="icon-list-alt"></i>&nbsp;&nbsp;&nbsp;Edit my profile
+			</button>
+		</p>		
+	</div> <!--jumbotron-->
+	
+	<!--###############My Personal Details###############-->
+	
+	<div class="col-md-6">
+		<div class="thumbnail">
+		  <div class="caption">
+		  	<!--###Title###-->
+		    <h4><i class="icon-list-alt"></i>&nbsp;&nbsp;My Personal Details</h4>
+		    <p>Basic informations about you.</p>
+		    <hr>
+		    <!--###Content###-->
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-credit-card"></i>&nbsp;&nbsp;Name
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.name}}</div>
+				</div>
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-time"></i>&nbsp;&nbsp;Age
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.age}}</div>
+				</div>
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-envelope"></i>&nbsp;&nbsp;Email
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.email}}</div>
+				</div>
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-phone"></i>&nbsp;&nbsp;Phone
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.phone}}</div>
+				</div>
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-building"></i>&nbsp;&nbsp;Company
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.company}}</div>
+				</div>				
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-globe"></i>&nbsp;&nbsp;Nationality
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.nationality}}</div>
+				</div>
+				<div class="row padding">
+					<div class="col-md-4">
+						<button class="btn btn-block btn-primary" style="text-align:left">
+							<i class="icon-facebook"></i>&nbsp;&nbsp;Facebook
+						</button>
+					</div>
+					<div class="col-md-8">{{profile_info.facebook}}</div>
+				</div>
+			</div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-8-->
+	
+	<!--###############My Tags###############-->
+	
+	<div class="col-md-6">
+		<div class="thumbnail">
+		  <div class="caption">
+		  	<!--###Title###-->
+			  <h4><i class="icon-tag"></i>&nbsp;&nbsp;My Tags</h4>
+				<p>You are highly recommended to tag yourself!</p>
+				<p><sub>
+					Tags are divided into three categories, i.e. Language, Manner, Skill.
+				</sub></p>
+				
+		  	<hr>
+		  	<!--###Content###-->
+		  	
+				<!-- Language Tags -->
+				<div class="thumbnail caption">
+					<button class="btn btn-xs btn-primary">Language</button>
+					<br>
+					<span ng-repeat="(name, value) in profile_info.tags.LanguageTags">
+						<button class="btn btn-xs btn-default" ng-if="value==true">{{name}}</button>
+					</span>
+				</div> <!--thumbnail caption-->
+				<!-- Manner Tags -->
+				<div class="thumbnail caption">
+					<button class="btn btn-xs btn-primary">Manner</button>
+					<br>
+					<span ng-repeat="(name, value) in profile_info.tags.MannerTags">
+						<button class="btn btn-xs btn-default" ng-if="value==true">{{name}}</button>
+					</span>
+				</div> <!--thumbnail caption-->
+				<!-- Skill Tags -->
+				<div class="thumbnail caption">
+					<button class="btn btn-xs btn-primary">Skill</button>
+					<br>
+					<span ng-repeat="(name, value) in profile_info.tags.SkillTags" >
+						<button class="btn btn-xs btn-default">{{name}} [{{value}}]</button>
+					</span>		
+				</div> <!--thumbnail caption-->
+		  </div> <!--caption-->
+		</div> <!--thumbnail-->
+	</div> <!--col-md-8-->
+
+</div> <!--col-md-12-->
+</div> <!--container-->

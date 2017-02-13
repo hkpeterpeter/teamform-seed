@@ -1,0 +1,56 @@
+.padding {
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+.ngdialog.ngdialog-theme-plain .ngdialog-content {
+	width: 550px;
+	height: 600px;
+	overflow: auto;
+	/*display: table;*/
+}
+
+.fix-height-250 {
+	height: 270px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.fix-height-270 {
+	height: 270px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.fix-height-300 {
+	height: 300px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.fix-height-450 {
+	height: 570px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.fix-height-400 {
+	height: 380px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+.fix-height-600 {
+	height: 600px;
+	overflow: auto;
+	overflow-x: hidden;
+}
+
+
+.bold-true {
+	font-weight: bold;
+}

@@ -1,0 +1,57 @@
+<h1>Profile Page</h1>
+<div>
+
+	<label>Name: {{profile_info.name}}</label>
+	<hr />
+	<label>Age: {{profile_info.age}} </label>
+	<hr />
+	<label>Company: {{profile_info.company}}</label>
+	<hr />
+	<label>Email: {{profile_info.email}}</label>
+	<hr />
+	<label>Phone: {{profile_info.phone}}</label>
+	<hr />
+	<label>Nationality: {{profile_info.nationality}}</label>
+	<hr />
+	<label>Facebook: {{profile_info.facebook}}</label>
+	<hr />
+	<label>Tags:</label>
+	<ul>
+		<li><label>Language:</label></li>
+		<ul style="list-style-type:none">
+			<li>Mandarin: {{profile_info.tags.LanguageTags.Mandarin}}</li>
+			<li>Cantonese: {{profile_info.tags.LanguageTags.Cantonese}}</li>
+			<li>Korean: {{profile_info.tags.LanguageTags.Korean}}</li>
+			<li>English: {{profile_info.tags.LanguageTags.English}}</li>
+			<li>Japanses: {{profile_info.tags.LanguageTags.Japanses}}</li>
+			<li>German: {{profile_info.tags.LanguageTags.German}}</li>
+			<li>Spanish: {{profile_info.tags.LanguageTags.Spanish}}</li>
+		</ul>
+		<li><label>Manner:</label></li>
+		<ul style="list-style-type:none">
+			<li>Outgoing: {{profile_info.tags.MannerTags.Outgoing}}</li>
+			<li>OnCampus: {{profile_info.tags.MannerTags.OnCampus}}</li>
+			<li>Pretty: {{profile_info.tags.MannerTags.Pretty}}</li>
+			<li>Thoughtful: {{profile_info.tags.MannerTags.Thoughtful}}</li>
+			<li>Cool: {{profile_info.tags.MannerTags.Cool}}</li>
+			<li>SleepLate: {{profile_info.tags.MannerTags.SleepLate}}</li>
+			<li>Creative: {{profile_info.tags.MannerTags.Creative}}</li>
+		</ul>
+		<li><label>Skill:</label></li>
+		<ul style="list-style-type:none">
+			<li>JavaScript: {{profile_info.tags.SkillTags.Javascript}}</li>
+			<li>HTML: {{profile_info.tags.SkillTags.HTML}}</li>
+			<li>CSS: {{profile_info.tags.SkillTags.CSS}}</li>
+			<li>C: {{profile_info.tags.SkillTags.C}}</li>
+			<li>Python: {{profile_info.tags.SkillTags.Python}}</li>
+			<li>SQL: {{profile_info.tags.SkillTags.SQL}}</li>
+			<li>SML: {{profile_info.tags.SkillTags.SML}}</li>
+			<li>Java: {{profile_info.tags.SkillTags.Java}}</li>
+			<li>Objective-C: {{profile_info.tags.SkillTags.Objective}}</li>
+			<li>FLEX: {{profile_info.tags.SkillTags.FLEX}}</li>
+			<li>PHP: {{profile_info.tags.SkillTags.PHP}}</li>
+			<li>C++: {{profile_info.tags.SkillTags.Cpp}}</li>
+		</ul>
+	</ul>
+	<input  class="btn btn-primary" type="button" value="edit" ng-click = "profile_edit()" ng-if="button_visible">
+</div>

@@ -1,0 +1,340 @@
+<div class="container">
+<div class="col-md-12">
+
+	<!--###############Head###############-->
+
+	<div class="jumbotron">
+		<h2><i class="icon-group"></i>&nbsp;&nbsp;{{teamdata.name}}</h2>
+		<p>{{teamdata.desc}}</p>
+		<p>
+			<div class="btn-group" ng-if="(myEvents[eventID] | teamId)==teamID || (myEvents[eventID] | role)=='tba' || (myEvents[eventID] | role)=='admin'">
+				<div data-toggle="tooltip" data-placement="bottom" title="Your role">
+					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown" id="btnGroupDrop1" type="button">
+						<i class="icon-{{myEvents[eventID] | role | IconDisplayMapping}}"></i>&nbsp;&nbsp;&nbsp;{{myEvents[eventID] | role}}
+						<span class="caret" ng-if="(myEvents[eventID] | role)!='admin'"></span>
+					</button>
+					<ul aria-labelledby="btnGroupDrop1" role="menu" class="dropdown-menu">
+						<li><a class="btn" ng-click="changeTeamInfoDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" style="text-align:left">Edit the team</a></li>
+						<li><a class="btn" ng-click = "ApplyTeam()" ng-if="((myEvents[eventID] | role)=='tba' )&& !alreadyApplied()" style="text-align:left">Apply for this team</a></li>
+						<li><a class="btn" ng-click="QuitTeam()" ng-if="(myEvents[eventID] | role)=='member' && (myEvents[eventID] | teamId)==teamID" style="text-align:left">Leave this team</a></li>
+						<li><a class="btn" ng-click="Change_Leader()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" style="text-align:left">Change team leader</a></li>
+
+					</ul>
+				</div>
+      </div> <!--btn-group-->
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Current Size / Max size">
+				<i class="icon-beaker"></i>&nbsp;&nbsp;&nbsp;{{teamdata.currentSize}} / {{teamdata.max}}
+			</button>
+			<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Team leader" ng-href="/#/dashboard/profile/{{teamdata.leader}}">
+				<i class="icon-star"></i>&nbsp;&nbsp;&nbsp;{{users.$getRecord(teamdata.leader).readOnly.name}}
+			</button>
+		</p>
+	</div> <!--jumbotron-->
+
+	<div class="row">
+
+		<!--###############Members###############-->
+
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4><i class="icon-star-empty"></i>&nbsp;&nbsp;Members</h4>
+				  <p>Members in the team.</p>
+				  <hr>
+				  <!--###Content###-->
+				    <div class="row padding" ng-repeat="(id,uid) in filterLeader(members,teamdata.leader)">
+							<div class="col-md-9">
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
+				      		{{users.$getRecord(uid).readOnly.name}}
+				      	</a>
+				      </div>
+					    <button class="btn btn-danger btn-sm" ng-click="DeleteMember(uid)" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Banish this member">
+					    	<i class="icon-trash"></i>
+					    </button>
+					    <button class="btn btn-danger btn-sm" ng-click="SetLeader(uid)" ng-if="(myEvents[eventID] | role)=='leader' && leader_change && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Select as new leader">
+					    	<i class="icon-star"></i>
+					    </button>
+				    </div> <!--row ng-repeat-->
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-3-->
+
+		<!--###############Tags###############-->
+
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
+				<div class="caption">
+					<!--###Title###-->
+					<h4><i class="icon-tag"></i>&nbsp;&nbsp;Tags</h4>
+					<p>Tags are divided into three categories, i.e. Language, Manner, Skill.</p>
+					<p><sub>
+						Skill tags have color. Green: we are lack of people with this skill. Red: we are abundant in people with this skill.
+					</sub></p>
+					<p>
+						<button class="btn btn-danger" ng-click="ManageTagDialogue()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Manage tags">
+							<i class="icon-tag"></i>
+						</button>
+				 	</p>
+					<hr>
+					<!--###Content###-->
+					<div class="fix-height-270">
+					<div class="thumbnail caption">
+						<button class="btn btn-xs btn-primary">Language</button>
+						<br>
+						<span ng-repeat="(name,value) in filterLanguageTags(languagetags)">
+							<button class="btn btn-xs btn-default">{{name}}</button>
+						</span>
+					</div> <!--thumbnail caption-->
+					<div class="thumbnail caption">
+						<button class="btn btn-xs btn-primary">Manner</button>
+						<br>
+						<span ng-repeat="(name,value) in filterMannerTags(mannertags)">
+							<button class="btn btn-xs btn-default">{{name}}</button>
+						</span>
+					</div> <!--thumbnail caption-->
+					<div class="thumbnail caption">
+						<button class="btn btn-xs btn-primary">Skill</button>
+						<br>
+						<span ng-repeat="(name,content) in filterSkillTags(skilltags)">
+							<button class="btn btn-xs btn-default" ng-style="{backgroundColor:content.color}" ng-if="content.value">{{name}} [{{content.value}}]</button>
+						</span>
+					</div> <!--thumbnail caption-->
+					</div>
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-5-->
+
+		<!--###############Announcement###############-->
+
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4><i class="icon-bullhorn"></i>&nbsp;&nbsp;Announcement</h4>
+				  <p>Please check regularly.</p>
+				  <p>
+						<button class="btn btn-danger" ng-click="addAnnouncementDialogue()" ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="New announcement">
+							<i class="icon-plus-sign"></i>
+						</button>
+						<button class="btn btn-danger" ng-click="deleteTeamAnnouncementChoice()" ng-if="(myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Delete an announcement">
+							<i class="icon-trash"></i>
+						</button>
+					</p>
+				  <hr>
+				  <!--###Content###-->
+				  <div class="fix-height-400">
+				  <div ng-repeat="x in announcements.slice().reverse()">
+				  	{{x.content}}
+				  	<span style="color:gray"><small>({{x.timeStamp | DateFormat | date:'yyyy-MM-dd HH:mm' }})</small></span>
+						<button class="btn btn-danger btn-sm" ng-click="deleteAnnouncement(x.$id)" ng-if="isDeletingTeamAnn && (myEvents[eventID] | role)=='leader'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="icon-remove-sign"></i></button>
+		      </div>  <!--ng-repeat-->
+		      </div>
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-4-->
+
+	</div> <!--row-->
+
+
+	<div class="row" ng-if="((myEvents[eventID] | role)=='leader' ||(myEvents[eventID] | role)=='member')  && (myEvents[eventID] | teamId)==teamID">
+		<hr>
+
+		  <!--###############Recommendation###############-->
+		  
+		  <div class="col-md-4">
+		    <div class="thumbnail fix-height-600">
+		      <div class="caption">
+						<!--###Title###-->
+		        <h4><i class="icon-thumbs-up"></i>&nbsp;&nbsp;Recommendation</h4>
+		        <p>Recommend TBAs that fit your team</p>
+		        <button class="btn btn-danger" ng-click="recommend()" ng-if="(myEvents[eventID] | role)=='leader' && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Recommend">
+							<i class="icon-thumbs-up"></i>&nbsp;&nbsp;Let's GO!
+						</button>
+						<hr>
+		        <!--###Content###-->
+		          <div class="row padding" ng-repeat="user in tba_featurelist_arr | orderBy: 'score': true">
+		            <div class="col-md-9">
+		              <a class="btn btn-primary btn-block btn-sm" type="button" ng-href="" style="text-align:left">
+										{{users.$getRecord(user.uid).readOnly.name}} [{{user.score}}]
+		              </a>
+		            </div>
+		            <button class="btn btn-danger btn-sm" ng-click="invite(user.uid)" ng-if="(myEvents[eventID] | role)=='leader' && validInvite(user.uid)" data-toggle="tooltip" data-placement="bottom" title="Invite">
+		              <i class="icon-leaf"></i>
+		            </button>
+		          </div>
+		      </div>
+		    </div>
+		  </div>
+		  
+		<!--###############Applications###############-->
+
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4><i class="icon-coffee"></i>&nbsp;&nbsp;Applications</h4>
+				  <p>Accept or decline?</p>
+				  <form name="myForm">
+						<button class="btn btn-danger">
+							<i class="icon-filter"></i>
+			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_appli">
+			            <option value = "all">All applications</option>
+			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+			        </select>
+		        </button>
+		    	</form>
+				  <hr>
+				  <!--###Content###-->
+				    <div class="row padding" ng-repeat="(uid,status) in filterByStatus(applications,search_model_appli)">
+							<div class="col-md-8">
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href= "/#/dashboard/profile/{{uid}}" style="text-align:left">
+				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
+				      	</a>
+				      </div>
+							<button class="btn btn-danger btn-sm" ng-click="accept_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Accept the application">
+								<i class="icon-ok-sign"></i>
+							</button>
+							<button class="btn btn-danger btn-sm" ng-click="decline_Application(uid)" ng-if = "(myEvents[eventID] | role)=='leader' &&  status == 'pending'  && (myEvents[eventID] | teamId)==teamID" data-toggle="tooltip" data-placement="bottom" title="Decline the application">
+								<i class="icon-remove-sign"></i>
+							</button>
+						</div> <!--row ng-repeat-->
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-4-->
+
+		<!--###############Invitations###############-->
+
+		<div class="col-md-4">
+			<div class="thumbnail fix-height-600">
+				<div class="caption">
+					<!--###Title###-->
+				  <h4><i class="icon-leaf"></i>&nbsp;&nbsp;Invitations</h4>
+				  <p>Accepted or declined?</p>
+				  <form name="myForm">
+						<button class="btn btn-danger">
+							<i class="icon-filter"></i>
+			        <select class="btn btn-danger" name="repeatSelect" id="repeatSelect" ng-model="search_model_invi">
+			            <option value = "all">All invitations</option>
+			            <option ng-repeat="(key, status) in statusList" value="{{status}}">{{status}}</option>
+			        </select>
+		        </button>
+		    	</form>
+				  <hr>
+				  <!--###Content###-->
+				    <div class="row padding" ng-repeat="(uid,status) in filterByStatus(invitations,search_model_invi)">
+							<div class="col-md-10">
+								<a class="btn btn-primary btn-block btn-sm" type="button" ng-href="/#/dashboard/profile/{{uid}}" style="text-align:left">
+				      		{{users.$getRecord(uid).readOnly.name}} : {{status}}
+				      	</a>
+				      </div>
+						</div> <!--row ng-repeat-->
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-4-->
+		
+</div> <!--col-md-12-->
+
+	<hr>
+
+	<div class="row">
+	
+	<!--###############Chart###############-->
+	
+	<div class="col-md-12">
+			<div class="thumbnail">
+				<div class="caption">
+					<!--###Title###-->
+					<!--{{ltcolors}}-->
+				  <h4><i class="icon-bar-chart"></i>&nbsp;&nbsp;Chart</h4>
+				  <p>Statistics on tags.</p>
+				  <hr>
+				  <div class="panel-group" id="accordion1">
+				
+				  <div class="panel panel-default">
+						<div class="panel-heading">
+					  	<h2 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion1" href="sign_up.html#collapse_1">Skills</a>
+					  	</h2>
+						</div>
+						<div id="collapse_1" class="panel-collapse collapse in">
+							<div class="panel-body">
+								<canvas id="bar" class="chart chart-bar"
+								chart-data="stvalues" chart-labels="stnames" chart-series="stseries" chart-colors="stcolors" chart-options = "stoptions">
+								</canvas>								
+							</div>
+						</div>
+				  </div>
+				  
+				  <div class="panel panel-default">
+						<div class="panel-heading">
+					  	<h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion1" href="sign_up.html#collapse_2">Language</a>
+					  	</h4>
+						</div>
+						<div id="collapse_2" class="panel-collapse collapse">
+							<div class="panel-body">
+								<canvas id="bar" class="chart chart-bar"
+								chart-data="ltvalues" chart-labels="ltnames" chart-series="ltseries" chart-colors="ltcolors" chart-options = "ltoptions">
+								</canvas>								
+							</div>
+						</div>
+				  </div>
+				  
+				  <div class="panel panel-default">
+						<div class="panel-heading">
+						  <h4 class="panel-title">
+								<a data-toggle="collapse" data-parent="#accordion1" href="sign_up.html#collapse_3">Manner</a>
+							</h4>
+						</div>
+						<div id="collapse_3" class="panel-collapse collapse">
+							<div class="panel-body">
+								<canvas id="bar" class="chart chart-bar"
+						chart-data="mtvalues" chart-labels="mtnames" chart-series="mtseries" chart-colors="mtcolors" chart-options = "mtoptions">
+								</canvas>
+							</div>
+						</div>
+					</div>
+					
+				</div> <!--panel-group-->
+				  <!--###Title###-->
+
+				</div> <!--caption-->
+			</div> <!--thumbnail-->
+		</div> <!--col-md-12-->
+
+  </div> <!--row-->
+
+</div> <!--container-->
+
+
+
+
+  <!-- Modal For add skill tag-->
+  <!-- <div class = "modal fade" id = "myModal" role = "dialog">
+      <div class = "modal-dialog">
+        <! Modal content-->
+        <!-- <div class = "modal-content">
+          <div class = "modal-header">
+            <button type = "button" class = "close" data-dismiss = "modal">&times;</button>
+            <h4 class = "modal-title">Choose from the following options</h4>
+          </div>
+          <div class = "modal-body">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {{tagList[form.tagid]}} <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="(key,value) in tagList" ng-click = "form.tagid = key">{{value}}</li>
+              </ul>
+            </div>
+            <label for="price">Number needed: </label>
+              <input type="text" class="form-control" style="width:100px" ng-model="form.neednum">
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+
+</div>
