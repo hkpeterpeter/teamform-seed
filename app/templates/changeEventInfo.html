@@ -1,0 +1,47 @@
+<h1>Change Event Form</h1>
+<form name="EditEventForm" novalidate>
+    <h3>To change info of this event, please fill in following infomation</h3>
+    <div class="form-group">
+        <label>New Event Name: </label>
+        <input class="form-control" type="text" name="EventName" ng-model="newEventInfo.name" ng-init="newEventInfo.name=eventObj.eventInfo.name" required>
+    </div>
+
+    <div class="form-group">
+        <label><span style="font: red;">New Deadline: </label>
+        <input class="form-control" name="ddl" ng-model="newEventInfo.ddl" placeholder="yyyy-mm-dd" type="date" required>
+        <!--{{eventObj.eventInfo.ddl}},,,
+        {{Date.parse("EEE, MMM dd yyyy hh:mm:ss +5",eventObj.eventInfo.ddl)}}
+        {{SimpleDateFormat("yyyy-MM-dd ").parse("2015-10-06")}}  -->
+    
+    </div>
+
+    <div class="form-group">
+        <label>New Minimum number of a team in your Event: </label>
+        <input class="form-control" name="min" ng-model="newEventInfo.min" type="number" min="0" ng-init="newEventInfo.min=eventObj.eventInfo.min" required >
+    </div>
+
+    <div class="form-group">
+        <label>New Maximum number of a team in your Event: </label>
+        <input class="form-control" name="max" ng-model="newEventInfo.max" type="number" min ="0" ng-init="newEventInfo.max=eventObj.eventInfo.max" required >
+    </div>
+
+    <div class="form-group">
+        <label>New Desciption of a team in your Event: </label>
+        <input class="form-control" name="desc" ng-model="newEventInfo.desc" type="text" ng-init="newEventInfo.desc=eventObj.eventInfo.desc" required>
+    </div>
+
+
+    <input class="btn btn-primary" type="button" value="submit" ng-click="EditEventForm.$valid && changeEventInfo()">
+
+    <div role="alert">
+        <span class="error" ng-show="EditEventForm.ddl.$error.date">
+         Not a valid date!</span>
+        <span class="error" ng-show="EditEventForm.min.$error.number">
+         Not a valid minimum!</span>
+        <span class="error" ng-show="EditEventForm.max.$error.number">
+         Not a valid maximum!</span>
+
+    </div>
+    <div>form is {{EditEventForm.$valid}}</div>
+
+</form>

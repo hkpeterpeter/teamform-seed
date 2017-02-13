@@ -1,0 +1,44 @@
+<h1>Create Event Form</h1>
+<form name="CreateEventForm" novalidate >
+
+    <h3>To create a new event,please fill in following infomation</h3>
+    <div class="form-group">
+        <label>Event Name: </label>
+        <input class="form-control" type="text" name="EventName" ng-model="input.name"  required>
+    </div>
+
+    <div class="form-group">
+        <label>Deadline: </label>
+        <input class="form-control" name="ddl" ng-model="input.ddl" placeholder="yyyy-mm-dd" type="date" required>
+    </div>
+
+    <div class="form-group">
+        <label>Minimum number of a team in your Event: </label>
+        <input class="form-control" name="min" ng-model="input.min" type="number" min="0" required >
+    </div>
+
+    <div class="form-group">
+        <label>Maximum number of a team in your Event: </label>
+        <input class="form-control" name="max" ng-model="input.max" type="number" min ="0" required >
+    </div>
+
+    <div class="form-group">
+        <label>Desciption of a team in your Event: </label>
+        <input class="form-control" name="desc" ng-model="input.desc" type="text" required>
+    </div>
+
+
+    <input class="btn btn-primary" type="button" value="submit" ng-click="CreateEventForm.$valid && submit()">
+
+    <div role="alert">
+        <span class="error" ng-show="CreateEventForm.ddl.$error.date">
+         Not a valid date!</span>
+        <span class="error" ng-show="CreateEventForm.min.$error.number">
+         Not a valid minimum!</span>
+        <span class="error" ng-show="CreateEventForm.max.$error.number">
+         Not a valid maximum!</span>
+
+    </div>
+    <div>form is {{CreateEventForm.$valid}}</div>
+
+</form>
