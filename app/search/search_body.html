@@ -1,0 +1,199 @@
+<div ng-controller="searchPage">
+   <div class = "row filter-bar">
+  	<div class = "col-sm-3">
+  		<h5>Enter the tags that you want to search: </h5>
+  	</div>
+  	<div class = "col-sm-2">
+  		<input type="text" class="form-control" ng-model = "hehe"  ng-change = "autocomplete()" placeholder="enter the tag name"/>
+  	</div>
+  	<div class = "col-sm-1">
+  		<button class="btn btn-primary" type="submit" ng-click = "clear()">Clear</button>
+  	</div>
+  	<div class = "col-sm-6">
+  		<p class="text-danger">Please don`t use any special character like '@','#'.'$'.'%','^'.........</p>
+  	</div>
+  </div>
+
+  <hr/>
+
+  <div class = "row filter-bar">
+  	<div class="col-sm-3 ">
+  		<h5>Choose the tags that you want to search: </h5>
+  	</div>
+  	<div class = "col-sm-9  " id = "predefineTag"   >
+  		<div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
+  	</div>
+  </div>
+
+  <hr/>
+
+  <div class = "row filter-bar">
+  	<div class = "col-sm-3 ">
+  		<h5>Current filter tags: </h5>
+  	</div>
+  	<div class = "col-sm-9" id = "searchTag" >
+  		<div class="btn btn-default filter-tag"  ng-repeat = "y in resultTag" >
+  			{{y}}
+  			<span>&nbsp&nbsp</span>
+  			<span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
+  		</div>
+  	</div>
+  </div>
+
+  <hr/>
+
+
+
+  <div class = "row filter-bar">
+  	<div class="col-sm-3 ">
+  		<label for = "full" style = "margin-right:5px"><h4>Ignore full teams: </h4></label>
+  		<input ng-change = "reSearch()" ng-model = "ignore" name = "full" type = "checkbox">
+  	</div>
+  </div>
+
+  <hr/>
+
+  <div class = "row">
+  	<div class = "row">
+  		<div class = "col-sm-3">
+  			<h3>Search Result:</h3>
+			
+  		</div>
+  	</div>
+
+  	<div class="row ">
+  		<div class="media team-list" onmouseenter = "borderColor(this,'lightblue')" ng-click = "passTeam($index)" onmouseleave = "borderColor(this,'silver')" data-toggle="modal" data-target="#teamProfile" style="cursor: pointer;min-height:64px" ng-repeat = "team in filterResult" ng-hide = "teamyeah">
+  			<div class="media-left">
+  				<img class="media-object" style = "height:64px;width:64px" src="https://firebasestorage.googleapis.com/v0/b/teamform-ad42e.appspot.com/o/team%2Fteam-building.jpg?alt=media&token=a6822c9e-14fe-4dac-8f2b-fd767c6a5612" alt="picture of {{team}}">
+  			</div>
+  			<div class="media-body">
+  				<h4 class="media-heading" style = "font-weight:bold">{{team}}</h4>
+  					{{teamini[team].introduction}}
+  			</div>
+
+  		</div>
+		
+  		<div class="media team-list " onmouseenter = "borderColor(this,'lightblue')" ng-click = "passUser($index)" onmouseleave = "borderColor(this,'silver')" data-toggle="modal" data-target="#userProfile" style="cursor: pointer;min-height:64px" ng-repeat = "user in filterResult" ng-hide = "useryeah">
+  			<div class="media-left">
+  				<img class="media-object" style = "height:64px;width:64px" src="{{photoList[user]}}" alt="picture of {{userList[user].name}}">
+  			</div>
+  			<div class="media-body">
+  				<h4 class="media-heading" style = "font-weight:bold">{{userList[user].name}}</h4>
+  				{{userList[user].introduction}}
+  			</div>
+  		</div>
+  	</div>
+  </div>
+  
+  <div id = "teamProfile" class = "modal fade" role = "dialog">
+	<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Team Profile</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3">
+              <img src="https://firebasestorage.googleapis.com/v0/b/teamform-ad42e.appspot.com/o/team%2Fteam-building.jpg?alt=media&token=a6822c9e-14fe-4dac-8f2b-fd767c6a5612" class="img-thumbnail" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-6 placeholder">
+              <h3 class="text-left" style = "font-weight:bold">{{currentTeam}}</h3>
+			  <h4 class="text-left">Leader: {{userList[teamini[currentTeam].leader].name}}</h4>
+			  <h4 class="text-left">#Members: {{teamini[currentTeam].memberList.length}}</h4>
+            </div>
+			<div class="col-xs-2 col-sm-3 placeholder">
+              <button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg" ng-click = "sendMessage('I want to join you','request',currentTeam)">Join</button>
+			  <p ng-show = "full"><small class="text-danger">Team is full</small></p>
+			  <p ng-show = "inTeam"><small class="text-danger">You can only join one team</small></p>
+            </div>
+          </div>
+
+
+
+		  <h2 class="sub-header">Skills Required</h2>
+		  <span class="label label-warning" ng-repeat = "x in teamini[currentTeam].skills" style = "margin-right:5px">{{x}}</span>
+		  
+
+		  <h2 class="sub-header">Member distribution</h2>
+		  <div class="row placeholders">
+			
+				<div class = "col-md-8 col-md-offset-2">
+					<canvas id="base" class="chart-base" chart-type="type" chart-data="data" chart-labels="labels" ></canvas> 
+				</div>
+				<div>
+					<button type = "button" class = "btn btn-primary" ng-click = "toggle()" >Toggle</button>
+				</div>
+			</div>
+          </div>
+		  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+      
+    </div>
+	
+  </div>
+	<div id = "userProfile" class = "modal fade" role = "dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">User Profile</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row placeholders">
+						<div class=" col-sm-3">
+							<img src="{{photoList[currentUser]}}" class="img-thumbnail" alt="Generic square placeholder thumbnail">
+						</div>
+						<div class = "col-sm-9">
+						<div class = "row">
+							<div class="col-sm-6 placeholder">
+								<h3 class="text-left" style = "font-weight:bold">{{userList[currentUser].name}}</h3>
+							
+							</div>
+							<div class="col-sm-6 placeholder">
+								<button ng-disabled = "disable" type="button" class="btn btn-primary btn-lg" ng-click = "sendMessage('Join me please','invite',currentUser)">Invite</button>
+								<p ng-show = "noTeam"><small class="text-danger">You are not team leader</small></p>
+								<p ng-show = "full"><small class="text-danger">Your team is full</small></p>
+								<p ng-show = "yourself"><small class="text-danger">Can`t invite yourself</small></p>
+								<p ng-show = "inTeam"><small class="text-danger">Team member</small></p>
+								
+							</div>
+							</div>
+							<div class = "row">
+								<div class = "col-sm-12">
+									<p style = "text-align: left;">Website:<a href = "{{userList[currentUser].personalWebsite}}" target="_blank">{{userList[currentUser].personalWebsite}}</a></p>
+									<p style = "text-align: left;">Email:{{userList[currentUser].email}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class = "row placeholder">
+						<div class = "col-md-12">
+							<h4 style = "font-weight:bold">Intruduction:</h4>
+							<p>{{userList[currentUser].introduction}}</p>
+						</div>
+					</div>
+
+          
+		  
+					<h2 class="sub-header">Skills</h2>
+					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in userList[currentUser].skills">{{x}}</span>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+  

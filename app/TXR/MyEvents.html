@@ -1,0 +1,852 @@
+<div>
+          <h1 class="page-header">Event Information</h1>
+
+          <div class="row placeholders">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-2 col-md-2">
+                  <br>
+                   <img src={{eventavaUrl}}
+                   alt="" class="img-rounded img-responsive"/>
+                   <br>
+                </div>
+        <div class="col-sm-4 col-md-4">
+          <br>
+          <h2>{{eventname}}</h2><br>
+
+
+        </div>
+</div>
+          </div>
+      <h2 align="left"> Introduction:</h2>
+      <hr>
+       <p align="left">{{event.introduction}}</p>
+
+             <div align="left">
+
+     <button id="modal-666694" data-target="#modal-container-666694" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "user">Create a team</button>
+
+                  <div class="modal fade" id="modal-container-666694" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+                            <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Name:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="newteamname"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+                            <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Introduction:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="introduction"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Website:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="teamWebsite"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="createteam(newteamname,introduction,teamWebsite)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Create
+                             </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+    <button class="btn btn-default btn-lg" type="button" ng-show = "user" ng-click="quitevent()" value="Reload Page" onClick="document.location.reload(true)"> Quit Event </button>
+    </div>
+
+    </div></div>
+
+<div ng-hide="user">
+    <h2 class="page-header" ng-hide="user">Team Information
+   <button id="modal-666693" data-target="#modal-container-666693" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Edit</button>
+    <div class="modal fade" id="modal-container-666693" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+
+                            <div class="row filter-bar">
+
+                               <div class="col-md-1 col-xs-1"></div>
+                               <div class="col-md-10 col-xs-10">
+                                 <div class="form-group">
+                                   <label for="comment">Image:</label>
+                                   <label class="btn btn-primary">
+                                     Browse&hellip; <input type="file" id="uploadFileTeam" style="display:none;" />
+                                   </label>
+                                 </div>
+                               </div>
+                               <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Team Website:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="teamWebsite"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editteaminfo(teamWebsite)" value="Reload Page">
+                                  Edit
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+
+    </h2>
+
+          <div class="row placeholders">
+
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-2 col-md-2">
+                   <img src={{teamavaUrl}}
+                    alt="" class="img-rounded img-responsive"/>
+
+
+                </div>
+        <div class="col-sm-4 col-md-4" ng-hide="user">
+          <p>{{teamname}}</p>
+
+
+
+
+
+
+          <p> Leader: {{Leader}}</p>
+          <p> Team Website: <a href={{team.teamWebsite}}>{{team.teamWebsite}}</a></p>
+
+        </div>
+</div>
+          </div>
+
+
+      <h2 align="left" ng-hide="user"> Introduction
+           <button id="modal-666692" data-target="#modal-container-666692" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Edit</button>
+    <div class="modal fade" id="modal-container-666692" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Introduction:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="team.introduction"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editteamintro(team.introduction)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Edit
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+      </h2>
+
+
+      <hr ng-hide="user">
+      <p align="left">{{team.introduction}}</p>
+      <br>
+
+
+
+      <h2 align="left" ng-hide="user">Skills
+                   <button id="modal-666691" data-target="#modal-container-666691" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Edit</button>
+    <div class="modal fade" id="modal-container-666691" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Skills:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="teamskills"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editteamskills(teamskills)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Edit
+                              </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+      </h2>
+
+    <hr ng-hide="user">
+        <h2>
+      <div align="left">
+    <div class="hero-unit">
+        <span class="label label-warning skill" ng-repeat = "skill in teamskills">{{skill}}<span class="glyphicon glyphicon-remove" ng-click="deletetag($index)"></span></span>
+
+
+         </div>
+    </div></h2><br>
+
+
+
+          <h2 align="left" ng-hide="user">Team Members
+
+            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "leader" ng-click="deleteteam()" value="Reload Page" onClick="document.location.reload(true)">Delete Team</button>
+            <button id="fat-btn" class="btn btn-default btn-lg" type="button" ng-show = "member" ng-click="quitteam()" value="Reload Page" onClick="document.location.reload(true)"> Quit Team</button>
+
+
+
+
+            <!--invite users with pop up window-->
+
+            <button id="modal-666695" data-target="#modal-container-666695" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal" ng-show = "leader">Invite Users</button>
+          </h2>
+                  <div class="modal fade" id="modal-container-666695" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+                        <div ng-controller = "clickCtrl">
+
+
+                        <div class="modal-header">
+                        <!--tag-->
+                           <div class = "row filter-bar">
+                            <div class="col-sm-3 ">
+                              <h5>Add tags to filter users: </h5>
+                              <!--pre>{{filtered|json}}</pre-->
+                            </div>
+                            <div class = "col-sm-9  " id = "predefineTag"   >
+                              <div class="btn btn-default filter-tag" ng-click = "reset($index)" ng-repeat = "x in currentTag" >{{x}}</div>
+                            </div>
+                          </div>
+
+                          <hr>
+
+                          <div class = "row filter-bar">
+                            <div class = "col-sm-3 ">
+                              <h5>Current tags: </h5>
+                            </div>
+                            <div class = "col-sm-9" id = "searchTag" >
+                              <div class="btn btn-default filter-tag" ng-repeat = "y in resultTag" >
+                                {{y}}
+                                <span>&nbsp&nbsp</span>
+                                <span  onmouseenter = "setColor(this,'red')"  onmouseleave = "setColor(this,'black')" ng-click = "delete($index)" style = "font-weight:bold">&times;</span>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="modal-body">
+                          <!--main body-->
+                          <!--user list + add button + chosen list; delete container and change row to row filter-bar-->
+                          <div class="row filter-bar">
+                          <div class="col-md-6 col-xs-6">
+                          <h2>Users</h2>
+                          <!--to choose-->
+                          <div class="pre-scrollable">
+                            <!--div class="container"-->
+                              <div class="col-md-12 col-xs-12">
+                                  <div class="list-group" >
+                                  <!--one user-->
+
+                                  <label ng-repeat="(username, content) in filtered">
+                                    <div class="row">
+                                  <div class="col-xs-12">
+                                    <!--button id="{{user.name}}" type="button" class="list-group-item" data-ng-click = "clickButton($event)"-->
+                                      <div class="media">
+                                        <div class="media-left">
+
+                                          <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
+
+                                        </div>
+                                        <div class="media-body">
+                                          <h4 class="media-heading">{{content.name}}</h4>
+                                          {{content.introduction}}
+                                        </div>
+
+                                        <div class="media-right">
+                                          <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
+                                        </div>
+                                      </div>
+                                    <!--/button-->
+
+                                    </div>
+                                    </div>
+                                    </label>
+
+
+                                  </div>
+                              </div> <!--end of to be chosen-->
+                              <!--/div-->
+                          </div>
+
+
+                          </div>
+                          <!--chosed-->
+                          <div class="col-md-6 col-xs-6">
+                          <h2>Selected</h2>
+                          <!--chosen-->
+                            <div class = "pre-scrollable">
+                              <!--div class="container"-->
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="list-group" >
+                                    <!--one user-->
+
+                                    <label  ng-repeat="(username,content) in selected">
+                                      <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="media">
+                                          <div class="media-left">
+                                            <img class="media-object" src={{content.img}} width="50" height="50" alt="...">
+
+                                          </div>
+                                          <div class="media-body">
+                                            <h4 class="media-heading">{{content.name}}</h4>
+                                            {{content.introduction}}
+                                          </div>
+
+                                          <div class="media-right">
+                                            <span class="{{content.select}}" aria-hidden="true" id="{{username}}" data-ng-click = "clickButton($event)"></span>
+
+                                          </div>
+
+                                        </div>
+                                      <!--/button-->
+
+                                      </div>
+                                      </div>
+                                      </label>
+
+                                      <!--pre>{{users[0]|json}}</pre-->
+                                    </div>
+
+                                </div>
+                                <!--/div> <end of chosed-->
+                                </div>
+                            </div>
+                           </div>
+
+                           <!--invite button-->
+                            <br>
+
+                            <div class="row filter-bar">
+                            <!--input request-->
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Message:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="newMessage"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+                            <!--{{newMessage}}-->
+
+
+                            <div class="row filter-bar">
+                              <!--invited button-->
+                                <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="sendInvitation(newMessage)"><
+                                  Invite
+                                </button>
+                              </div>
+                            </div>
+
+                            </div>
+                              <!--currentTag:
+                              <pre>{{currentTag|json}}</pre>
+                              filtered:
+                              <pre>{{filtered|json}}</pre-->
+                           </div>
+
+                           </div>
+                           </div>
+                        </div>
+
+
+
+
+
+
+ <hr ng-hide="user">
+
+          <div class="row" ng-show = "leader">
+         <div class="col-lg-6" id="teammembers">
+        <h2>Current Members</h2>
+
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+
+              <tbody>
+                <tr ng-repeat = "member in memberlist">
+                  <td style="font-size: 30px">{{$index|isLeader}}</td>
+                  <td>
+                      <img src={{userlist[member].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                  </td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[member].name}}</a></td>
+                 <td>
+                      <button ng-hide="$index==0" id="fat-btn" class="btn btn-default btn-lg" type="button" ng-click="deletemember($index)" value="Reload Page" onClick="document.location.reload(true)"> Delete</button>
+                  </td>
+                </tr>
+                 <!--<tr>
+                  <td style="font-size: 30px">2</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/jason.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Jason</a></td>
+                  <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
+                  </td>
+                </tr>
+             <tr>
+                  <td style="font-size: 30px">3</td>
+                  <td>
+                      <img src="https://course.cse.ust.hk/comp3111/images/ken.png" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                  </td>
+                  <td style="font-size: 30px"><a href="#">Ken</a></td>
+                 <td>
+                      <button id="fat-btn" class="btn btn-default btn-lg" type="button"> Delete</button>
+                  </td>
+                </tr>-->
+
+              </tbody>
+            </table>
+          </div>
+          </div>
+
+
+        <div class="col-lg-6" id="suggestion">
+
+          <div class="table-responsive" ng-controller = "clickCtrl">
+
+            <div ng-show = "leader">
+            <h2>Suggested Users</h2>
+            <table class="table table-striped">
+
+
+              <tbody>
+                <tr ng-repeat = "(num, suggested_users) in suggested">
+                  <td style="font-size: 30px">{{num+1}}</td>
+                  <td>
+                      <img ng-src="{{suggested_users.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                  </td>
+                  <td style="font-size: 30px" id="fat-btn" ><div data-toggle="modal" data-target="#{{num+50}}">{{suggested_users["name"]}}
+                  <p>
+                  <div style="font-size: 15px">
+                  Fulfill:
+                    <span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.fulfill_skills">{{x}}</span>
+                  </div>
+                  </p></div>
+
+
+
+ <div id = "{{num+50}}" class = "modal fade" role = "dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">User Profile</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row placeholders">
+						<div class=" col-sm-3">
+							<img src="{{suggested_users.img}}" class="img-thumbnail" alt="Generic square placeholder thumbnail">
+						</div>
+						<div class = "col-sm-9">
+						<div class = "row">
+							<div class="col-sm-6 placeholder">
+
+								<h3 class="text-left" style = "font-weight:bold">{{suggested_users.name}}</h3>
+
+							</div>
+
+							</div>
+							<div class = "row">
+								<div class = "col-sm-12">
+									<p style = "text-align: left;">Website:<a href = "{{suggested_users.personalWebsite}}" target="_blank">{{suggested_users.personalWebsite}}</a></p>
+									<p style = "text-align: left;">{{suggested_users.email}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class = "row placeholder">
+						<div class = "col-md-12">
+							<h4 style = "font-weight:bold">Introduction:</h4>
+							<p>{{suggested_users.introduction}}</p>
+						</div>
+					</div>
+
+
+
+					<h2 class="sub-header">Skills</h2>
+					<span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in suggested_users.skills">{{x}}</span>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+		</div>
+	</div>
+
+
+
+</td>
+
+  <td>
+<!-- Trigger the modal with a button -->
+  <button id="fat-btn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{num}}">Invite</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="{{num}}" role="dialog">
+    <div class="modal-dialog">
+
+
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">To {{suggested_users.name}}</div>
+        <div class="modal-body">
+          <div class="row filter-bar">
+
+              <div class="col-md-1 col-xs-1"></div>
+                <div class="col-md-10 col-xs-10">
+                  <div class="form-group">
+                    <label for="comment">Message:</label>
+                      <textarea class="form-control" rows="3" id="comment" ng-model="inviteMessage"></textarea>
+                  </div>
+                </div>
+              <div class="col-md-1 col-xs-1"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="sendMessage(inviteMessage,'invite',suggested_users.username)">Send</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+          <div class="row" ng-show = "member">
+         <div class="col-lg-10" id="teammembers">
+
+
+
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <tbody>
+                <tr ng-repeat = "(num,members) in memberlist">
+                  <td style="font-size: 30px">{{num|isLeader}}</td>
+                  <td>
+                      <img ng-src={{userlist[members].img}} class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                  </td>
+                  <td style="font-size: 30px"><a href="#">{{userlist[members].name}}</a></td>
+
+                </tr>
+
+
+              </tbody>
+            </table>
+          </div>
+          </div>
+
+      </div>
+    </div>
+</div>
+
+        <div class="col-md-12 col-lg-12" id="suggestion" ng-show = "user">
+
+          <div class="table-responsive" ng-controller = "clickCtrl">
+
+            <div>
+            <h2>Suggested teams</h2>
+            <table class="table table-striped">
+
+              <tbody>
+                <tr ng-repeat = "(num, team_content) in suggested_teams">
+                  <td style="font-size: 30px">{{num+1}}</td>
+                  <!--<td>
+                      <img src="{{team_content.img}}" class="img-responsive" alt="Cinque Terre" width="50" height="50">
+                  </td>-->
+
+
+                  <td style="font-size: 30px" id="fat-btn" ><div ng-click="passTeam($index)" data-toggle="modal" data-target="#{{num+50}}">{{team_content.teamname}}<p>
+                  <div style="font-size: 15px">
+                  Meet:
+
+                    <span class="label label-warning" style = "margin-right:5px" ng-repeat = "x in team_content.fulfill_skills">{{x}}</span>
+                  </div>
+                  </p></div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="{{num+50}}" role="dialog">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Team Profile {{labels}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row placeholders">
+            <div class="col-xs-6 col-sm-3">
+              <img src="https://firebasestorage.googleapis.com/v0/b/teamform-ad42e.appspot.com/o/team%2Fteam-building.jpg?alt=media&token=a6822c9e-14fe-4dac-8f2b-fd767c6a5612" class="img-thumbnail" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-6 placeholder">
+              <h4 class="text-left" style = "font-weight:bold">{{team_content.teamname}}</h4>
+			  <h4 class="text-left">Leader: {{team_content.leader}}</h4>
+            </div>
+          </div>
+
+
+
+		  <h2 class="sub-header">Skills Required</h2>
+		  <span class="label label-warning" ng-repeat = "x in team_content.skills" style = "margin-right:5px">{{x}}</span>
+
+
+		  <h2 class="sub-header">Member distribution</h2>
+		  <div class="row placeholders">
+
+				<div class = "col-md-8 col-md-offset-2">
+					<canvas id="base" class="chart-base" chart-type="type" chart-data="data" chart-labels="labels" ></canvas>
+				</div>
+				<div>
+					<button type = "button" class = "btn btn-primary" ng-click = "toggle()" >Toggle</button>
+				</div>
+			</div>
+          </div>
+		  <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+</td>
+
+
+
+
+
+
+
+
+                 <td>
+                      <!--button id="fat-btn" class="btn btn-default btn-lg" type="button"> Request</button-->
+
+
+<!-- Trigger the modal with a button -->
+  <button id="fat-btn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#{{num}}">Request</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="{{num}}" role="dialog">
+    <div class="modal-dialog">
+
+
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">To team: {{team_content.teamname}}</div>
+        <div class="modal-body">
+          <div class="row filter-bar">
+
+              <div class="col-md-1 col-xs-1"></div>
+                <div class="col-md-10 col-xs-10">
+                  <div class="form-group">
+                    <label for="comment">Message:</label>
+                      <textarea class="form-control" rows="3" id="comment" ng-model="requestMessage"></textarea>
+                  </div>
+                </div>
+              <div class="col-md-1 col-xs-1"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="sendMessage(requestMessage,'request',team_content.teamname)">Send</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>

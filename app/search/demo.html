@@ -1,0 +1,76 @@
+<html>
+<body>
+<link rel="icon" href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQcziU6o9PT-sqVJkhJsDL6OjJnfouu_Dd5sW8IioyhHGmKiI043Q">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+ <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+ <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+ 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Angular Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.js"></script>
+
+    <!-- draw pie chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ <script src="../jzhangbs/drawPie.js"></script>
+	<script src = "Chart.min.js"></script>
+	<script src = "angular-chart.min.js"></script>
+  <script src="notify.js"></script>
+	 <!--temporary css of search tag-->
+   <script src="../jzhangbs/site.js"></script>
+   <script src="index.js"></script>
+
+   <script src="../search/search-page.js"></script>
+   <script src="../zwangbm/js/btnclick.js"></script>
+   <script src="../search/navbar.js"></script>
+   <script src="../jzhangbs/sidebar.js"></script>
+  <style type="text/css">
+    html {
+      font-family: Helvetica;
+    }
+    .boxes {
+      margin: 150px;
+    }
+    .box {
+      border: thin solid blue;
+      padding: 10px;
+      margin: 20px;
+      width: 100px;
+    }
+    .wrapper {
+      margin-top: 50px
+    }
+  </style>
+
+  <div class="boxes"></div>
+
+  <!-- run code -->
+  <script class="demo">
+    $.notify.defaults({
+      autoHide: false
+    });
+    var classes = ["error", "success", "warn", "info"];
+    var boxes = $(".boxes");
+    $.each(classes, function(i, c) {
+      var box = $("<div class=\"box\">"+c+"</div>");
+      boxes.append($("<div class=\"wrapper\"/>").append(box));
+      setTimeout(function() {
+        box.notify(c, {className: c});
+      }, 500)
+    });
+  </script>
+
+</body>
+ <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</html>

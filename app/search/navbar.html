@@ -1,0 +1,59 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" >
+
+      <div class="container-fluid">
+        <div class="navbar-header">
+			<a class="navbar-brand" href="#/" >
+				<div ng-controller = "navCtrl">
+					<!--use firebase to get the user picture and user name-->
+					<img alt="Brand" style = "height:30px;width:30px" ng-src="{{avaUrl}}" ng-show="avaUrl"/> <span>{{name}}    </span>
+
+					<!--not yet dicided-->
+					<button type="button" class="btn btn-default btn-xs" ng-click="logout()">Logout</button>
+				</div>
+			</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse" ng-controller = "navbar">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li ng-click = "haha()">
+					<!-- not yet decided -->
+					<!-- get personal data and count the number of notifications in notification json-->
+					<!-- ng-click to go to notification section?-->
+					<a href="../TXR/#MyNotifications" ><img src = "../search/images.png" style = "width:20px;height:20px"/> <span class="badge" id = "noti">{{notes}}<!--use angular js--></span></a>
+				</li>
+			</ul>
+
+			
+			<form class="navbar-form navbar-right">
+				<select class="form-control" style="cursor: pointer;" ng-model = "Naruto.Luffy">
+					<option value="">select a event</option>
+					<option   ng-repeat = "(x,y) in event_list">{{x}}</option>	
+				</select>
+				<label for = "search">
+					<div class="dropdown"  >
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" >
+								{{Naruto.Sakura}}
+							<span class="caret"></span>
+						</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						<li><a href="" ng-click = "Naruto.setSearchT()">Search Team</a></li>
+						<li><a href="" ng-click = "Naruto.setSearchP()">Search Person</a></li>
+					</ul>
+					</div>
+				</label>
+			
+			
+            <input name = "search" type="text" class="form-control" ng-model = "Naruto.Sasuke" ng-focus = "start()" placeholder="Search...">
+			<button type="button" class="btn btn-default" aria-label="Left Align" ng-click = "Naruto.searchName()">
+				<span class="glyphicon glyphicon-search" aria-hidden="true" >
+			</button>
+			<button type = "button" class = "btn btn-default" aria-label="Left Align" ng-click = "Naruto.clear()">
+				Clear
+			</button>
+          </form>
+
+		</div>
+      </div>
+	  
+    </nav>

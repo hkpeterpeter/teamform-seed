@@ -1,0 +1,273 @@
+
+
+          <h1 class="page-header">Personal Information
+       <button id="modal-666689" data-target="#modal-container-666689" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal">Edit</button>
+    <div class="modal fade" id="modal-container-666689" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+                            <div class="row filter-bar">
+
+                               <div class="col-md-1 col-xs-1"></div>
+                               <div class="col-md-10 col-xs-10">
+                                 <div class="form-group">
+                                   <label for="comment">Image:</label>
+                                   <label class="btn btn-primary">
+                                     Browse&hellip; <input type="file" id="uploadFile" style="display:none;" />
+                                   </label>
+                                 </div>
+                               </div>
+                               <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+                            <div class="row filter-bar">
+
+                               <div class="col-md-1 col-xs-1"></div>
+                               <div class="col-md-10 col-xs-10">
+                                 <div class="form-group">
+                                   <label for="comment">Name:</label>
+                                   <input class="form-control" ng-model="thisusername" />
+                                 </div>
+                               </div>
+                               <div class="col-md-1 col-xs-1"></div>
+                           </div>
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Personal Website:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="personalWebsite"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Email:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="email"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editprofileinfo(thisusername,personalWebsite,email)" value="Reload Page">
+                                  Edit
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+          </h1>
+
+          <div class="row placeholders">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-2 col-md-2">
+                   <img ng-src={{avaUrl}}
+                    alt="" class="img-rounded img-responsive" />
+                </div>
+        <div class="col-sm-4 col-md-4">
+          <p>{{thisusername}}</p>
+
+          <p> Email: <a href="mailto:someone@example.com?Subject=Hello%20again", target="_top">{{email}}</a></p>
+          <p> Personal website: <a href={{personalWebsite}}>{{personalWebsite}}</a></p>
+        </div>
+</div>
+          </div>
+<br><br>
+      <h2 align="left">Introduction
+       <button id="modal-666688" data-target="#modal-container-666688" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal">Edit</button>
+    <div class="modal fade" id="modal-container-666688" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Personal Introduction:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="introduction"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editprofileintro(introduction)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Edit
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+      </h2>
+      <hr>
+      <p align="left">{{introduction}}</p>
+      <br>
+
+
+      <h2 align="left">Skills
+       <button id="modal-666687" data-target="#modal-container-666687" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal">Edit</button>
+    <div class="modal fade" id="modal-container-666687" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Skill:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="skills"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="editprofileskills(skills)" value="Reload Page" onClick="document.location.reload(true)">
+                                  Edit
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+
+        <hr>
+      <div align="left">
+    <div class="hero-unit">
+ 
+    <span class="label label-warning skill" ng-repeat = "skill in skills">{{skill}}<span class="glyphicon glyphicon-remove" ng-click="deletetag($index)"></span></span>
+  
+         <br></h2>
+<br><br><br>
+
+   <h2 align="left">
+       <button id="modal-666686" data-target="#modal-container-666686" role="button" class="btn btn-default btn-lg" type="button" data-toggle="modal"> Join Event </button>
+    <div class="modal fade" id="modal-container-666686" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+
+
+
+
+                        <div class="modal-body">
+
+
+
+
+                            <br>
+
+
+                             <div class="row filter-bar">
+
+                                <div class="col-md-1 col-xs-1"></div>
+                                <div class="col-md-10 col-xs-10">
+                                  <div class="form-group">
+                                    <label for="comment">Event you want to join:</label>
+                                    <textarea class="form-control" rows="3" id="comment" ng-model="event"></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-1 col-xs-1"></div>
+                            </div>
+
+
+
+
+                            <div class="row filter-bar">
+
+                            <div class="col-md-9 col-xs-9"></div>
+                                <div class="col-md-3 col-xs-3 ">
+                                <button class="btn btn-primary" ng-click="joinevent(event)"  value="Reload Page" onClick="document.location.reload(true)">
+                                  Join
+                               </button>
+                              </div>
+                            </div>
+
+                            </div>
+
+
+
+                           </div>
+                           </div>
+                        </div>
+
+        <hr>
+  </h2>
+
+    </div></div>
+    </div>

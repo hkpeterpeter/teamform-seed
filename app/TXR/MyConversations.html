@@ -1,0 +1,43 @@
+
+<div class="well well-sm">
+			<div class="row">
+      <div class="col-md-9 col-lg-9">
+        <h3 align="left">{{action}} to join <strong>{{team}}</strong></h3>
+			</div>
+
+
+
+<div align="right" ng-show="isMaster" class="col-md-3 col-lg-3">
+
+                        <button type="button" class="btn btn-md btn-primary" ng-click="accept()">Accept</button>
+                        <button type="button" class="btn btn-md btn-danger" ng-click="reject()">Reject</button>
+                      </div>
+	</div>
+</div>
+
+	<div ng-repeat="log in convList[convKey].log">
+		<div id="message" class="row" ng-show="log.sender==p">
+    	<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[p].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+    	<div class="col-lg-11 col-md-11" id="message_content">
+    		{{log.message}}
+    	</div>
+    </div>
+		<div id="message" class="row" ng-show="log.sender==thisuser">
+    	<div class="col-lg-11 col-md-11" id="message_content" align="right">
+    		{{log.message}}
+    	</div>
+			<div class="col-md-1 col-lg-1" id="message_sender"><img ng-src="{{userList[thisuser].img}}" alt="" width="50" height="30" class="img-thumbnail"></div>
+    </div>
+		<br>
+	</div>
+
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+	    <div class="input-group">
+	      <input type="text" class="form-control" placeholder="Message {{userList[p].name}}" ng-model="input">
+	      <span class="input-group-btn">
+	        <button class="btn btn-default" type="button" ng-click="send()">Send</button>
+	      </span>
+	    </div><!-- /input-group -->
+	  </div>
+		</div>

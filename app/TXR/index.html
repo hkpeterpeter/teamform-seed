@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>O(3^n) is not that slow</title>
+    <link rel="icon" href="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQcziU6o9PT-sqVJkhJsDL6OjJnfouu_Dd5sW8IioyhHGmKiI043Q">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+ <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+ <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+ 	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-black.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- Angular Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.js"></script>
+
+    <!-- draw pie chart -->
+    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+    <!-- <script src="../jzhangbs/drawPie.js"></script> -->
+	<script src = "../search/Chart.min.js"></script>
+	<script src = "../search/angular-chart.min.js"></script>
+	<!--notification popup-->
+	<link rel="stylesheet" href="../search/angular-ui-notification.min.css">
+	<script src="../search/angular-ui-notification.min.js"></script>
+
+<script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCI2oKMFJECxHD11aRCxzVNG5M-Uvm8X20",
+      authDomain: "teamform-ad42e.firebaseapp.com",
+      databaseURL: "https://teamform-ad42e.firebaseio.com",
+      storageBucket: "teamform-ad42e.appspot.com",
+      messagingSenderId: "609768855060"
+    };
+		firebase.initializeApp(config);
+
+  </script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    	 <!--<script>
+		angular.module("searchToggle",[])
+		.controller("searchController",function($scope){
+			$scope.searchType = "Search Team";
+			$scope.setSearchT = function(){
+				$scope.searchType = "Search Team";
+			};
+			$scope.setSearchP = function(){
+				$scope.searchType = "Search Person";
+			};
+			$scope.setSearchE = function(){
+				$scope.searchType = "Search Event";
+			};
+		});
+	 </script>-->
+	 <!--temporary css of search tag-->
+   <script src="../jzhangbs/site.js"></script>
+   <script src="index.js"></script>
+
+   <script src="../search/search-page.js"></script>
+   <script src="../zwangbm/js/btnclick.js"></script>
+   <script src="../search/navbar.js"></script>
+   <script src="../jzhangbs/sidebar.js"></script>
+   <script src="../TXR/conv.js"></script>
+
+   <link rel="stylesheet" href="index.css">
+
+  </head>
+  <body ng-app="mainApp">
+       <div>
+       	<div ng-include="'../search/navbar.html'"></div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar" ng-controller="sidebarCtrl">
+            <ul class="nav nav-sidebar" ng-click="startSearch.search=true" ng-controller="sidebarController">
+            <li class="{{isActive('profile')}}"><a href="#/" ng-click="setActive('profile')">My Profile<span class="sr-only">(current)</span></a></li>
+            		<li class="{{isActive('event')}}">
+                  <a href="" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">My Events</a>
+                    <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+
+                    <li ng-repeat="(event,value) in eventlist">
+                      <a ng-href="#/MyEvents/{{event}}" ng-click="setActive('event')">{{event}}</a></li>
+                    </ul>
+                  </li>
+
+            <li class="{{isActive('notif')}}"><a href="#MyNotifications" ng-click="setActive('notif')">My Notifications</a></li>
+           		<li class="{{isActive('conv')}}"><a href="" id="btn-1" data-toggle="collapse" data-target="#submenu2" aria-expanded="false">My Conversations</a>
+                    <ul class="nav collapse" id="submenu2" role="menu" aria-labelledby="btn-1">
+                    <!-- <li><a href="#MyConversation/Peter">Peter</a></li>
+                    <li><a href="#MyConversation/Jason">Jason</a></li>
+                    <li><a href="#MyConversation/Kevin">Kevin</a></li> -->
+                    <li ng-repeat="conv in convList">
+                      <a ng-href="#MyConversation/{{conv.link}}" ng-click="setActive('conv')">{{conv.name}}</a>
+                    </li>
+                    </ul>
+                  </li>
+          </ul>
+        </div>
+      <div ng-controller="switchView">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"   ng-hide = "Search.search">
+          <div ng-include="'../search/search_body.html'"></div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ng-view" ng-show="Search.search"></div>
+      </div>
+    </div></div></div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </body>
+</html>
