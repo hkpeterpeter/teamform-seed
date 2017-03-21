@@ -1,204 +1,300 @@
 <!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>teamform - A real-time online team forming app</title>
-	  
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
+<html lang="en" ng-app="login">
 
-      
-      <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+    <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>teamform - A real-time online team forming app</title>
+
+    <!-- libraries and CSS      
+      JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)     
+      Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+      Font-awesome: More icons for the web development (v4.6.3 is used)    
+      site.css: A customized css for our web application. Not from any web framework. 
+   -->
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
 
 
-	  	  
-   </head>
-   <body>
-   
-   <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/hkpeterpeter/teamform-seed" target="_blank">Fork me on GitHub</a></span>
-   
-  
-   
-   
-      <div class="navbar-wrapper">
-	  
-         <div class="container">
+
+</head>
+
+<body>
+
+    <style>
+        #forkongithub a {
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            font-family: arial, sans-serif;
+            text-align: center;
+            font-weight: bold;
+            padding: 5px 40px;
+            font-size: 1rem;
+            line-height: 2rem;
+            position: relative;
+            transition: 0.5s;
+        }
+        
+        #forkongithub a:hover {
+            background: #c11;
+            color: #fff;
+        }
+        
+        #forkongithub a::before,
+        #forkongithub a::after {
+            content: "";
+            width: 100%;
+            display: block;
+            position: absolute;
+            top: 1px;
+            left: 0;
+            height: 1px;
+            background: #fff;
+        }
+        
+        #forkongithub a::after {
+            bottom: 1px;
+            top: auto;
+        }
+        
+        @media screen and (min-width:800px) {
+            #forkongithub {
+                position: fixed;
+                display: block;
+                top: 0;
+                right: 0;
+                width: 200px;
+                overflow: hidden;
+                height: 200px;
+                z-index: 9999;
+            }
+            #forkongithub a {
+                width: 200px;
+                position: absolute;
+                top: 60px;
+                right: -60px;
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                -o-transform: rotate(45deg);
+                box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8);
+            }
+        }
+    </style><span id="forkongithub"><a href="https://github.com/hkpeterpeter/teamform-seed" target="_blank">Fork me on GitHub</a></span>
+
+
+
+
+    <div class="navbar-wrapper">
+
+        <div class="container">
             <nav class="navbar navbar-static-top navbar-default">
-               <div class="container">
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                      <span class="sr-only">Toggle navigation</span>
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
-                     </button>
-                     <a class="navbar-brand" href="#">teamform</a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav">
-                        
-                        <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="#page_about">About teamform</a></li>
-                              <li>
-                              <a href="#page_team">Development team</a>
-                              </li>
-                              <li role="separator" class="divider"></li>
-                              <li><a href="#">TODO: Add menu items here... </a></li>
-                           </ul>
-                        </li>
-						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-							
-							<ul class="dropdown-menu">
-								<li>
-									<a href="coverage/index.html" target="_blank">Report</a>
-								</li>
-								<li role="separator" class="divider"></li>
-								
-								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-								</li>
-								
-								<li><a href="#">TODO: Add more test cases here... </a></li>
-							</ul>
-						</li>
-                        
-                     </ul>
-                  </div>
-               </div>
+                  </button>
+                        <a class="navbar-brand" href="#">teamform</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#page_about">About teamform</a></li>
+                                    <li>
+                                        <a href="#page_team">Development team</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#" id="log">Log In</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
+
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="coverage/index.html" target="_blank">Report</a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+
+                                    <li>
+                                        <a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
+                                    </li>
+
+                                    <li><a href="#">TODO: Add more test cases here... </a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
             </nav>
-         </div>
-      </div>
-      <!-- A sample login page -->
-      <div class="container" id="page_home">
-         <div class="row">
+        </div>
+    </div>
+    <!-- A sample login page -->
+    <div class="container" id="page_home">
+        <div class="row">
             <div class="col-md-12">
-               <div class="row">
-                  <div class="col-md-12">
-                     
-                     <div class="text-center">
-                        <h1>teamform</h1>
-                        <p>A real-time online team forming app for any event</p>
-                     </div>
+                <div class="row">
+                    <div class="col-md-12">
 
-                     <br >
-
-                     <div class="text-center">
-
-                        <input id="input_text" type="text" class="input-lg">
-                        <br>
-                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
-                        <br>
-                        <br>
-
-                        <div>
-                           
-                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-                          
-
-
-                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-                          
-                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-                          
-
-
+                        <div class="text-center">
+                            <h1>teamform</h1>
+                            <p>A real-time online team forming app for any event</p>
                         </div>
-                     </div>
-                     <br >
-					 
-																 
-					
-					 
-                     <br >
-                  </div>
-               </div>
-               <hr >
+
+                        <br>
+
+                        <div class="text-center">
+
+                            <input id="input_text" type="text" class="input-lg">
+                            <br>
+                            <em>Enter a name (e.g. Japan(1/1 - 7/1)  to create/join an trip) to create/join an trip</em>
+                            <br>
+                            <br>
+
+                            <div>
+
+                                <button id="btn_admin" type="button" class="btn btn-primary">Administrator</button>
+
+
+
+                                <button id="btn_leader" type="button" class="btn btn-primary">Team Leader</button>
+
+                                <button id="btn_member" type="button" class="btn btn-primary">Member</button>
+
+
+
+                            </div>
+                        </div>
+                        <br>
+
+
+
+
+                        <br>
+                    </div>
+                </div>
+                <hr>
             </div>
-         </div>
-      </div>
-      <!-- Marketing messaging and featurettes
-         ================================================== -->
-      <!-- Wrap the rest of the page in another container to center all the content. -->
-      <div class="container marketing">
+        </div>
+    </div>
+    <!-- Marketing messaging and featurettes
+      ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
 
 
-         <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="page_about">
+        <!-- START THE FEATURETTES -->
+        <div class="row featurette" id="page_about">
             <div class="col-md-12">
-               <h2 class="featurette-heading">What is teamform?
-                  <br>
-                  <span class="text-muted">A real-time online team forming app</span>
-               </h2>
-               <p class="lead"> The following roles are supported in teamform:
-               </p>
+                <h2 class="featurette-heading">What is travelling teamform?
+                    <br>
+                    <span class="text-muted">A real-time online team forming tool designed for users to create or join a trip plan and allowed users to find members with some same preferences</span>
+                </h2>
+                <p class="lead"> The following roles are supported in travelling teamform:
+                </p>
 
-               <div class="row">
-                  <div class="col-md-4">
-                     <h3 class="text-center">Administrator</h3>
-                     <ul>
-                        <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
-						<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
-                     </ul>
-                  </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3 class="text-center">Administrator</h3>
+                        <ul>
+                            <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
+                            <li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
+                            <li>Be able to make sure the details of the planning of the trip are clear </li>
+                        </ul>
+                    </div>
 
-                  <div class="col-md-4">
-                     <h3 class="text-center">Team</h3>
-                     <ul>
-                        <li>Be able to add and remove requests made by members</li>
-						<li>Once a member joins the team, all his/her requests will be deleted</li>
-                     </ul>
-                  </div>
+                    <div class="col-md-4">
+                        <h3 class="text-center">Team</h3>
+                        <ul>
+                            <li>Be able to add and remove requests made by members</li>
+                            <li>Once a member joins the team, all his/her requests will be deleted</li>
+                        </ul>
+                    </div>
 
-                  <div class="col-md-4">
-                     <h3 class="text-center">Member</h3>
-                     <ul>
-                        <li>Be able to request to join multiple teams</li>
-                     </ul>
-                  </div>
-               </div>
+                    <div class="col-md-4">
+                        <h3 class="text-center">Member</h3>
+                        <ul>
+                            <li>Be able to request to join multiple teams</li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
-         </div>
-         <hr class="featurette-divider">
+        </div>
+        <hr class="featurette-divider">
 
-          <!-- START THE FEATURETTES -->
-         <div class="row featurette" id="page_team">
+        <!-- START THE FEATURETTES -->
+        <div class="row featurette" id="page_team">
             <div class="col-md-12">
-               <h2 class="featurette-heading">Development Team
-                  <br>
-                  <span class="text-muted">[Your Team Name]</span>
-               </h2>
-               
+                <h2 class="featurette-heading">Development Team
+                    <br>
+                    <span class="text-muted">Love Sung and Peter</span>
+                </h2>
 
-               <div class="row">
-            
-            
+
+                <div class="row">
+
+
+                    <div class="col-xs-6 col-md-3">
+                        <div class="thumbnail text-center">
+                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
+                            <div class="caption">
+                                <h4>Cheung Ka Yiu</h4>
+                                 <p>ITSC:<a href=mailto:kycheungaq@connect.ust.hk> kycheungaq@connect.ust.hk</a></p>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-md-3">
+                        <div class="thumbnail text-center">
+                            <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                            <div class="caption">
+                             <h4>Lam Chak Tim</h4>
+                             <p>ITSC:<a href=mailto:ctlamaf@connect.ust.hk> ctlamaf@connect.ust.hk</a></p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-3">
+                  <div class="thumbnail text-center">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
+                    <div class="caption">
+                     <h4>Lam Cheuk Ming</h4>
+                     <p>ITSC:<a href=mailto:cmlamaeconnect.ust.hk> cmlamaeconnect.ust.hk</a></p>
+                     
+                    </div>
+                  </div>
+                 </div> 
+
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
                     <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
+                     <h4>Leung Sin Hang</h4>
+                     <p>ITSC:<a href=mailto:shleungae@connect.ust.hk> shleungae@connect.ust.hk</a></p>
                      
                     </div>
                   </div>
@@ -206,36 +302,304 @@
 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
                     <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
+                     <h4>Sun Chun Hin</h4>
+                     <p>ITSC:<a href=mailto:chsunab@connect.ust.hk> chsunab@connect.ust.hk</a></p>
                      
                     </div>
                   </div>
                  </div> 
-              
-               </div>
 
-             </div>
-         </div>
+                  <div class="col-xs-6 col-md-3">
+                  <div class="thumbnail text-center">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
+                    <div class="caption">
+                     <h4>Wong Chun Lung</h4>
+                     <p>ITSC:<a href=mailto:clwongaj@connect.ust.hk> clwongaj@connect.ust.hk</a></p>
+                     
+                    </div>
+                  </div>
+                 </div> 
 
+                 <div class="col-xs-6 col-md-3">
+                  <div class="thumbnail text-center">
+                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
+                    <div class="caption">
+                     <h4>Wong Ka Chun</h4>
+                     <p>ITSC:<a href=mailto:kcwongay@connect.ust.hk> kcwongay@connect.ust.hk</a></p>
+                     
+                    </div>
+                  </div>
+                 </div> 
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+               
+                </div>
 
+            </div>
+        </div>
 
-         <!-- /END THE FEATURETTES -->
-         <!-- FOOTER -->
-         <hr>
-         <footer>
+        <!-- /END THE FEATURETTES -->
+        <!-- FOOTER -->
+        <hr>
+        <footer>
             <p class="pull-right"><a href="#">Back to top</a></p>
             <p>&copy; 2017 COMP3111/H teaching team </p>
             <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
-         </footer>
-      </div>
-      <!-- /.container -->
+        </footer>
+    </div>
+    <!-- /.container -->
 
-      <!-- JavaScript of this page -->
-      <script src="js/index.js"></script>
+    <div id="dialog" title="Please choose your login method">
+        <button id="loginByFb">Facebook Login</button>
+        <button id="loginByMailAndPw">Email Login</button>
+        <button id="reg">Register</button>
+    </div>
+
+    <div id="loginByMailAndPwDialog" title="Please Login">
+        <form id="loginByMailAndPwForm" ng-submit="submit()" ng-controller="LoginController">
+            Email: <input type="text" id="email" ng-model="email" ng-change='checkEmailTyped()'><br><span id="emailText">{{emailText}}</span><br> Password: <input type="password" id="password" ng-model="password" ng-change='checkPwTyped()'><br><span id="pwText">{{pwText}}</span><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+    <div id="regDialog" title="Please Login">
+        <form id="RegByMailAndPwForm" ng-submit="submit()" ng-controller="RegController">
+            Email: <input type="text" ng-model="emailReg" id="emailReg" ng-change='checkEmailTypedd()'><br><span id="emailTextReg">{{emailTextReg}}</span><br> First name: <input type="text" id="name" ng-model="namee"><br> Last name: <input type="text" id="nameLast" ng-model="nameee"><br> Password: <input type="password" id="passwordReg" ng-model="passwordReg"><br> Password again: <input type="password" id="passwordAgainReg" ng-model="passwordAgainReg"><br> Gender:
+            <input type="radio" name="gender" value="male" ng-model="gender" checked> Male
+            <input type="radio" name="gender" value="female" ng-model="gender"> Female<br> Avaliable to travel? <input type="checkbox" name="avali" value="true" ng-model="avali" checked><br> Language(s):
+            <br> <label ng-repeat="lang in langs">
+  <input
+    type="checkbox"
+    name="selectedLangs[]"
+    value="{{lang.name}}"
+    ng-model="lang.selected"
+  > {{lang.name}}
+</label> <br> Nationality: <select name="nation" ng-model="nation" ng-selected="chinese">
+  <option value="afghan">Afghan</option>
+  <option value="albanian">Albanian</option>
+  <option value="algerian">Algerian</option>
+  <option value="american">American</option>
+  <option value="andorran">Andorran</option>
+  <option value="angolan">Angolan</option>
+  <option value="antiguans">Antiguans</option>
+  <option value="argentinean">Argentinean</option>
+  <option value="armenian">Armenian</option>
+  <option value="australian">Australian</option>
+  <option value="austrian">Austrian</option>
+  <option value="azerbaijani">Azerbaijani</option>
+  <option value="bahamian">Bahamian</option>
+  <option value="bahraini">Bahraini</option>
+  <option value="bangladeshi">Bangladeshi</option>
+  <option value="barbadian">Barbadian</option>
+  <option value="barbudans">Barbudans</option>
+  <option value="batswana">Batswana</option>
+  <option value="belarusian">Belarusian</option>
+  <option value="belgian">Belgian</option>
+  <option value="belizean">Belizean</option>
+  <option value="beninese">Beninese</option>
+  <option value="bhutanese">Bhutanese</option>
+  <option value="bolivian">Bolivian</option>
+  <option value="bosnian">Bosnian</option>
+  <option value="brazilian">Brazilian</option>
+  <option value="british">British</option>
+  <option value="bruneian">Bruneian</option>
+  <option value="bulgarian">Bulgarian</option>
+  <option value="burkinabe">Burkinabe</option>
+  <option value="burmese">Burmese</option>
+  <option value="burundian">Burundian</option>
+  <option value="cambodian">Cambodian</option>
+  <option value="cameroonian">Cameroonian</option>
+  <option value="canadian">Canadian</option>
+  <option value="cape verdean">Cape Verdean</option>
+  <option value="central african">Central African</option>
+  <option value="chadian">Chadian</option>
+  <option value="chilean">Chilean</option>
+  <option value="chinese" default>Chinese</option>
+  <option value="colombian">Colombian</option>
+  <option value="comoran">Comoran</option>
+  <option value="congolese">Congolese</option>
+  <option value="costa rican">Costa Rican</option>
+  <option value="croatian">Croatian</option>
+  <option value="cuban">Cuban</option>
+  <option value="cypriot">Cypriot</option>
+  <option value="czech">Czech</option>
+  <option value="danish">Danish</option>
+  <option value="djibouti">Djibouti</option>
+  <option value="dominican">Dominican</option>
+  <option value="dutch">Dutch</option>
+  <option value="east timorese">East Timorese</option>
+  <option value="ecuadorean">Ecuadorean</option>
+  <option value="egyptian">Egyptian</option>
+  <option value="emirian">Emirian</option>
+  <option value="equatorial guinean">Equatorial Guinean</option>
+  <option value="eritrean">Eritrean</option>
+  <option value="estonian">Estonian</option>
+  <option value="ethiopian">Ethiopian</option>
+  <option value="fijian">Fijian</option>
+  <option value="filipino">Filipino</option>
+  <option value="finnish">Finnish</option>
+  <option value="french">French</option>
+  <option value="gabonese">Gabonese</option>
+  <option value="gambian">Gambian</option>
+  <option value="georgian">Georgian</option>
+  <option value="german">German</option>
+  <option value="ghanaian">Ghanaian</option>
+  <option value="greek">Greek</option>
+  <option value="grenadian">Grenadian</option>
+  <option value="guatemalan">Guatemalan</option>
+  <option value="guinea-bissauan">Guinea-Bissauan</option>
+  <option value="guinean">Guinean</option>
+  <option value="guyanese">Guyanese</option>
+  <option value="haitian">Haitian</option>
+  <option value="herzegovinian">Herzegovinian</option>
+  <option value="honduran">Honduran</option>
+  <option value="hungarian">Hungarian</option>
+  <option value="icelander">Icelander</option>
+  <option value="indian">Indian</option>
+  <option value="indonesian">Indonesian</option>
+  <option value="iranian">Iranian</option>
+  <option value="iraqi">Iraqi</option>
+  <option value="irish">Irish</option>
+  <option value="israeli">Israeli</option>
+  <option value="italian">Italian</option>
+  <option value="ivorian">Ivorian</option>
+  <option value="jamaican">Jamaican</option>
+  <option value="japanese">Japanese</option>
+  <option value="jordanian">Jordanian</option>
+  <option value="kazakhstani">Kazakhstani</option>
+  <option value="kenyan">Kenyan</option>
+  <option value="kittian and nevisian">Kittian and Nevisian</option>
+  <option value="kuwaiti">Kuwaiti</option>
+  <option value="kyrgyz">Kyrgyz</option>
+  <option value="laotian">Laotian</option>
+  <option value="latvian">Latvian</option>
+  <option value="lebanese">Lebanese</option>
+  <option value="liberian">Liberian</option>
+  <option value="libyan">Libyan</option>
+  <option value="liechtensteiner">Liechtensteiner</option>
+  <option value="lithuanian">Lithuanian</option>
+  <option value="luxembourger">Luxembourger</option>
+  <option value="macedonian">Macedonian</option>
+  <option value="malagasy">Malagasy</option>
+  <option value="malawian">Malawian</option>
+  <option value="malaysian">Malaysian</option>
+  <option value="maldivan">Maldivan</option>
+  <option value="malian">Malian</option>
+  <option value="maltese">Maltese</option>
+  <option value="marshallese">Marshallese</option>
+  <option value="mauritanian">Mauritanian</option>
+  <option value="mauritian">Mauritian</option>
+  <option value="mexican">Mexican</option>
+  <option value="micronesian">Micronesian</option>
+  <option value="moldovan">Moldovan</option>
+  <option value="monacan">Monacan</option>
+  <option value="mongolian">Mongolian</option>
+  <option value="moroccan">Moroccan</option>
+  <option value="mosotho">Mosotho</option>
+  <option value="motswana">Motswana</option>
+  <option value="mozambican">Mozambican</option>
+  <option value="namibian">Namibian</option>
+  <option value="nauruan">Nauruan</option>
+  <option value="nepalese">Nepalese</option>
+  <option value="new zealander">New Zealander</option>
+  <option value="ni-vanuatu">Ni-Vanuatu</option>
+  <option value="nicaraguan">Nicaraguan</option>
+  <option value="nigerien">Nigerien</option>
+  <option value="north korean">North Korean</option>
+  <option value="northern irish">Northern Irish</option>
+  <option value="norwegian">Norwegian</option>
+  <option value="omani">Omani</option>
+  <option value="pakistani">Pakistani</option>
+  <option value="palauan">Palauan</option>
+  <option value="panamanian">Panamanian</option>
+  <option value="papua new guinean">Papua New Guinean</option>
+  <option value="paraguayan">Paraguayan</option>
+  <option value="peruvian">Peruvian</option>
+  <option value="polish">Polish</option>
+  <option value="portuguese">Portuguese</option>
+  <option value="qatari">Qatari</option>
+  <option value="romanian">Romanian</option>
+  <option value="russian">Russian</option>
+  <option value="rwandan">Rwandan</option>
+  <option value="saint lucian">Saint Lucian</option>
+  <option value="salvadoran">Salvadoran</option>
+  <option value="samoan">Samoan</option>
+  <option value="san marinese">San Marinese</option>
+  <option value="sao tomean">Sao Tomean</option>
+  <option value="saudi">Saudi</option>
+  <option value="scottish">Scottish</option>
+  <option value="senegalese">Senegalese</option>
+  <option value="serbian">Serbian</option>
+  <option value="seychellois">Seychellois</option>
+  <option value="sierra leonean">Sierra Leonean</option>
+  <option value="singaporean">Singaporean</option>
+  <option value="slovakian">Slovakian</option>
+  <option value="slovenian">Slovenian</option>
+  <option value="solomon islander">Solomon Islander</option>
+  <option value="somali">Somali</option>
+  <option value="south african">South African</option>
+  <option value="south korean">South Korean</option>
+  <option value="spanish">Spanish</option>
+  <option value="sri lankan">Sri Lankan</option>
+  <option value="sudanese">Sudanese</option>
+  <option value="surinamer">Surinamer</option>
+  <option value="swazi">Swazi</option>
+  <option value="swedish">Swedish</option>
+  <option value="swiss">Swiss</option>
+  <option value="syrian">Syrian</option>
+  <option value="taiwanese">Taiwanese</option>
+  <option value="tajik">Tajik</option>
+  <option value="tanzanian">Tanzanian</option>
+  <option value="thai">Thai</option>
+  <option value="togolese">Togolese</option>
+  <option value="tongan">Tongan</option>
+  <option value="trinidadian or tobagonian">Trinidadian or Tobagonian</option>
+  <option value="tunisian">Tunisian</option>
+  <option value="turkish">Turkish</option>
+  <option value="tuvaluan">Tuvaluan</option>
+  <option value="ugandan">Ugandan</option>
+  <option value="ukrainian">Ukrainian</option>
+  <option value="uruguayan">Uruguayan</option>
+  <option value="uzbekistani">Uzbekistani</option>
+  <option value="venezuelan">Venezuelan</option>
+  <option value="vietnamese">Vietnamese</option>
+  <option value="welsh">Welsh</option>
+  <option value="yemenite">Yemenite</option>
+  <option value="zambian">Zambian</option>
+  <option value="zimbabwean">Zimbabwean</option>
+  </option>
+
+</select><br> Birthday: <input type="date" id="date" ng-model="date"><br> Profile picture: <input type="file" id="pImg" ng-model="pImg"><br> Preview: <img id="preview" ng-model="preview" src="#" alt="preview" width="60" height="60" />
+
+            <input type="submit" id="submit" value="Register">
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+    <!-- JavaScript of this page -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="js/index.js"></script>
 
 
-   </body>
+</body>
+
 </html>

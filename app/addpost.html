@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html ng-app="adboard"> 
+<head>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+ 	<!-- Angular Library -->
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+ 
+ 	<!-- Firebase -->
+<!--  	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script> -->
+ 
+ 	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
+ 	<script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+ 
+<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+    authDomain: "comp3111-5fbe5.firebaseapp.com",
+    databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+    storageBucket: "comp3111-5fbe5.appspot.com",
+    messagingSenderId: "946291658553"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<!-- <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBQx6O7A6c0YXgWdhfQPaIWjDAHuSwXe4Y",
+    authDomain: "comp3111-12136.firebaseapp.com",
+    databaseURL: "https://comp3111-12136.firebaseio.com",
+    storageBucket: "comp3111-12136.appspot.com",
+    messagingSenderId: "519493978618"
+  };
+  firebase.initializeApp(config);
+</script> -->
+<title> Add Advertisement Page</title>
+</head>
+<body> 
+<!-- for creating post -->
+ 	<div ng-controller="adboardCtrl" class="container">
+		<form role="form" name="postForm" ng-submit="createPost()" novalidate="">
+		<legend>Create trip plan advertisement</legend>
+		<div class ="row">
+		<!-- //\\<div class="col-md-5"> -->
+			<div class="form-group">
+			<label for="nametxt">User Name</label>
+			<Input type="text" name="nametxt" class="form-control" placeholder="Contact Person" ng-model="article.nametxt" required="">
+			</div>
+
+			<div class="form-group">
+				<label for="posttxt">Post</label>
+				<textarea name="posttxt" class="form-control" placeholder="Your Trip Plan" ng-model="article.posttxt" required=""></textarea>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary" ng-disabled="postForm.$invalid">Add Post</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+<!-- </div>
+ -->
+<!-- for showing posts -->
+ 	<div ng-controller="ViewCtrl" class="container">
+
+	<div class="row">
+		<div class="col-md-12">
+			<h1>{{article.name}}</h1>
+			<p>{{article.post}}</p>
+		</div>
+	</div>
+</div>
+
+		<script src="js/addpost.js"></script>
+</body>
+</html>

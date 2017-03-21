@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+ <html ng-app="chatroomApp"> 
+ <head>
+ 	<!-- Angular Library -->
+ 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+ 
+ 	<!-- Firebase -->
+ 	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+ 
+ 	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
+ 	<script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+	 <script src="lib/jquery.min.js"></script>
+ 
+ 	<script>
+  	// Initialize Firebase
+ 	var config = {
+     apiKey: "AIzaSyAjSwkuqVhX249KogPKC04riNIzOTJTQGk",
+    authDomain: "comp3111-fc3c0.firebaseapp.com",
+    databaseURL: "https://comp3111-fc3c0.firebaseio.com",
+     storageBucket: "comp3111-fc3c0.appspot.com",
+     messagingSenderId: "863597722858"
+   	};
+  	firebase.initializeApp(config);
+ 	</script>
+ 
+ 	<style>
+ 	.css-form .required{color: red;}
+ 	</style>
+ 
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+ 
+ 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<link href="css/Chatroom.css" type="text/css" rel="stylesheet" />
+
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+ </head>
+ <body>
+	 
+ 	<div ng-controller="chatroomCtrl" class="container">
+		 <input type="button" ng-click="addChatRecord()" value="test"></button>
+ 		<div class="page-header">
+  			<center><h1>Chatroom </h1></center>
+		</div>
+
+ 		<div class="row">
+			<div align=right ng-repeat="q in chatrooms" >
+ 				<p class="triangle-right"><big>{{q.content}}</big><br>Time: {{q.date}}</p>
+			
+			</div>
+ 
+ 			<form name="form" class="css-form col-md" novalidate>
+ 				<div class="form-group">
+ 					<textarea class="form-control" name="content" ng-model="input.msgs.content" placeholder="Type a message" style="font size:20; height: 40px; resize: none;" required></textarea>
+ 					<br>
+ 				<input class="button" type="button" value="Enter" ng-click="addChatRecord()" ng-disabled="!input.msgs.content">
+ 				</div>
+				 <div class="col-md-8">
+				<p>Debug:</p>
+				<pre>input = {{ input | json }}</pre>
+				<pre>questions = {{ questions | json }}</pre>
+			</div>
+ 			
+ 			</form>
+ 		</div>
+ 	</div>
+ 	<script src="js/chatroomCtrl.js"></script>
+
+ </body>
+ </html> 
