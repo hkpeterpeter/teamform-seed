@@ -1,0 +1,138 @@
+.centralize {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fullscreen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.badge.id-badge {
+    margin-left: 10px;
+}
+
+.showSearchResult {
+    display: flex;
+    justify-content: center;
+}
+
+.myBtn {
+    margin: 15px 0 0 0;
+}
+
+#advancedSearchCancelBtn{
+    margin: 5px;
+}
+
+#searchTextField, #searchSuggestion *, .myBtn, .font-size-md {
+    font-size: medium;
+}
+
+.font-size-sm{
+    font-size: small;
+}
+
+.font-size-xs{
+    font-size: smaller;
+}
+
+.searchResultElementTitle span {
+    font-weight: bold;
+    font-size: large;
+}
+
+a.searchResultElementTitle {
+    text-decoration: none;
+}
+
+.wellPadding {
+    padding: 30px;
+}
+.wellHalfTransparent{
+    background-color: rgba(240,240,240,0.95);
+}
+
+.topPadding {
+    padding-top: 30px;
+}
+
+.leftRightPadding{
+    padding: 0 30px;
+}
+
+.noPadding {
+    padding: 0;
+}
+
+#searchSuggestion {
+    height: 0;
+    overflow: visible;
+    z-index: 1000;
+}
+
+#searchBtnContainer {
+    z-index: 100;
+}
+
+.searchIcon{
+    background-image: url("http://www.freeiconspng.com/uploads/search-icon-png-17.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: lightcoral;
+    margin: 5px;
+}
+
+.highlightText{
+    background-color: darkred;
+    color: white;
+}
+
+.highlightTextSub{
+    background-color: rgba(200,20,20,0.5);
+    color: white;
+}
+
+span.badge.tags-style{
+    background-color: darkgray;
+    font-size: small;
+    margin-right: 5px;
+}
+
+span.badge.tags-style:hover{
+    cursor: pointer;
+}
+
+div.description-style{
+    background-color: rgba(0,0,0,0.05);
+}
+
+p.description-style-indent, .indent{
+    padding-left: 7px;
+}
+
+body{
+    background-image: url("http://exchange.wysetc.org/wp-content/uploads/sites/11/2016/03/Backpacker-Australia.jpg");
+    background-size: cover;
+}
+
+#advancedSearchPanel{
+    height: 40vh;
+    overflow: auto;
+}
+
+#ut{
+    position: fixed;
+    right: 0;
+    top:0;
+    font-weight: bold;
+    font-size: small;
+    z-index: 1500;
+}
+
+#ut::before{
+    content: "Universal Time: ";
+    font-weight: bold;
+}

@@ -1,0 +1,43 @@
+body{
+    background-image: url("http://www.allianceabroad.com/wp-content/uploads/backpackers_on_clif.jpg");
+    background-size: cover;
+     
+}
+h1
+{
+	font-size:  xxxxxx-large;
+	font-family: Comic Sans, Comic Sans MS, Cursive;
+	font-style: italic;
+	
+}
+h2
+{
+	font-style: center;
+}
+h4
+{
+	font-size:  xxxxxx-large;
+	font-family: Comic Sans, Comic Sans MS, Cursive;
+}
+.bubble 
+{
+position: absolute;
+left: 0px;
+width: 800px;
+height: 500px;
+padding: 40px;
+background-color: rgba(255,255,255,0.4);
+-webkit-border-radius: 37px;
+-moz-border-radius: 37px;
+border-radius: 37px;
+border: #7F7F7F solid 1px;
+}
+
+
+
+
+
+
+	
+	
+	
