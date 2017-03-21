@@ -1,0 +1,48 @@
+<div class="text-center">
+    <h1>Create New Administrator</h1>
+    <div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter a new User ID">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputUserName" class="col-sm-3 control-label">Name</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Enter your name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3>Create a New Event</h3>
+                <label for="eventName" class="col-sm-3 control-label">Event Name</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" id="eventName" ng-model="eventName" placeholder="Enter the name of your event">
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-md-8 col-xs-8">
+                    <strong>Minimum Team Size:</strong>
+                <span class="badge">
+                 {{param.minTeamSize}}</span>
+                    <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+                    <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+                    <br><br>
+                    <strong>Maximum Team Size: </strong>
+                <span class="badge">
+                 {{param.maxTeamSize}}</span>
+                    <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+                    <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+                    <br><br>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Admin and Event</button>
+
+        </form>
+    </div>
+</div>
