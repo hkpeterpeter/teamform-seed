@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-event-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - admin page</title>
+	  
+      <!-- libraries and CSS 	  
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)		
+		site.css: A customized css for our web application. Not from any web framework. 
+	  -->
+	        
+      <script src="lib/jquery.min.js"></script>      
+      <script src="lib/bootstrap.min.js"></script>      
+      	  
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+     <link rel="stylesheet" href="css/site.css" >
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+	  	  
+   </head>
+   
+   <style>
+	h1 {
+	font-weight: bold;
+	font-size: 40px;
+   }
+   </style>
+   
+   <body  ng-controller="EventCtrl">
+   <div ng-include="'navbar.html'" id='navbarMenu'></div>
+   <br>
+
+   <div class="text-center">
+      <h1><u>Event Page</u></h1>
+      <div id="event_description_div">
+	    <div ng-include="'description.html'"></div>
+      </div>
+
+	  <hr>
+	  
+      <div id="event_page_controller">
+	    <u><font size="6px" align="middle"><b>Announcements</b></font></u>&nbsp;&nbsp;
+		<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#announcement_div">
+            <span class="glyphicon glyphicon-collapse-up"></span>
+        </button>
+		<br><br>
+        <!--announcement div-->
+        <div id="announcement_div">
+		    <div ng-include="'readAnn.html'"></div>
+		</div>     
+        <!--end of announcement div-->
+        <br><hr>
+		<br>
+        <!-- create team button -->
+        <button id="btn_createTeam" type="button" class="btn btn-primary" ng-click="createTeam('default')">Create teams</button>
+
+
+        <!--teams & member list-->
+        <div class="row">
+            <div class="col-md-6 col-xs-6 text-right" >
+              <h3>All teams:</h3>
+              <!--<div ng-include="'teamList.html'" id="teamList"></div>-->
+              <table id="teamsList" class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Team Name</th>
+                        <th>Team Leader</th>
+                        <th>Team members</th>
+                        <th>Preference</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="t in teams" ng-init="getUserNameInTeam(t)">
+                      <tr>
+                        <td>{{t.teamName}}</td>
+                        <td>{{t.teamLeaderName}}</td>
+                        <td>
+                          <span ng-repeat="member in t.members">
+                            <a href="profile.html?q={{member.memberID}}">{{member.memberName}}</a>{{$last ? '' : ', '}}
+                          </span>
+                        </td>
+                        <td>{{t.preference}}</td>
+                        <td><button>(to be done)</button></td>
+                         <!-- enter the team button -->
+                        <td><button id="btnEnterTeam" type="button" class="btn btn-primary" ng-click="enterTeam(t.$id)">Enter a team</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+			 
+			      <div class="col-md-6 col-xs-6 text-left">
+                <h3>All members:</h3>
+                <ul ng-repeat="m in member">
+                  <li>ID = {{m.$id}} <br> 
+                  Name = {{m.name}} <br>
+                  request to join the following teams: {{m.selection | json}}</li>
+                </ul>
+            </div>
+          </div>
+          <!--end of teams & member list-->
+      </div>
+   </div>
+   
+
+
+   <!-- JavaScript of this page -->
+
+   <!-- Angular and Angular-route libraries (v1.5.7) -->
+   <script src="lib/angular.min.js"></script>
+   <script src="lib/angular-route.min.js"></script>        
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="lib/firebase.js"></script>     
+   <script src="lib/angularfire.min.js"></script>
+
+   <script src="js/event.js"></script>
+
+   </body>
+</html>
+

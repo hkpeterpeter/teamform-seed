@@ -10,7 +10,6 @@ function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
 }
 
-
 // Returns a random integer between min (included) and max (included)
 // Using Math.round() will give you a non-uniform distribution!
 // Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -29,11 +28,21 @@ function getRandomIntInclusive(min, max) {
 function initalizeFirebase() {
 	
   // Initialize Firebase
+  // var config = {
+  //   apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
+  //   authDomain: "teamform-15bcb.firebaseapp.com",
+  //   databaseURL: "https://teamform-15bcb.firebaseio.com",
+  //   storageBucket: "teamform-15bcb.appspot.com",
+  // };
+  
+  //the config above is peter's firebase'
+  //our own firebase (owned under team account)
   var config = {
-    apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
-    authDomain: "teamform-15bcb.firebaseapp.com",
-    databaseURL: "https://teamform-15bcb.firebaseio.com",
-    storageBucket: "teamform-15bcb.appspot.com",
+    apiKey: "AIzaSyCw7pPwTqi5mXO84LEfYOVUOI1_UPTTg94",
+    authDomain: "teapot-576b6.firebaseapp.com",
+    databaseURL: "https://teapot-576b6.firebaseio.com",
+    storageBucket: "teapot-576b6.appspot.com",
+    messagingSenderId: "955450264497"
   };
   firebase.initializeApp(config);
 
@@ -47,4 +56,3 @@ function initalizeFirebase() {
 function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
 }
-

@@ -1,0 +1,141 @@
+<html lang="en" ng-app="profile-app" ng-controller="ProfileCtrl">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - profile</title>
+	  
+      <!-- libraries and CSS 	  
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)		
+		site.css: A customized css for our web application. Not from any web framework. 
+	  -->
+	        
+      <script src="lib/jquery.min.js"></script>      
+      <script src="lib/bootstrap.min.js"></script>      
+      	  
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+      <!--link rel="stylesheet" href="css/site.css" -->
+    <link rel="stylesheet" href="css/custom.css">
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+	  	  
+
+      <style>
+      .ng-invalid.ng-dirty {
+      border-color: #FA787E;
+      }
+        
+      .ng-valid.ng-dirty {
+      border-color: #78FA89;
+      }
+      </style>
+
+    
+   </head>
+   <body>
+       
+      <!--navbar-->
+      <div ng-include="'navbar.html'" id='navbarMenu'></div>
+       <!--<img src="img/img1_thin.jpg" alt="teamform_banner" style="width:100%;">-->
+       <!--<div class="page-header">-->
+    <div>
+     <section  style="background-image: url('img/img1_thin.jpg');" class="banner img-responsive" >
+          <br><br><br><br><br>
+          <h1 class="pull-left banner_title">Edit Your Profile</h1>
+      </section>
+    </div>
+      <div class="container">
+             
+ 
+            <!--<br>
+  			<h2 class="text-center ">Your Profile</h2>
+              <br>-->
+		<!--</div>-->
+        <div class="col-md-3">
+        </div>
+        <div class="profile_box row col-md-6">
+            <form name="ProfileForm" class="css-form "  novalidate>
+                <div class="form-group">
+                    <label>Name*:</label>
+                    <div class="col-md-12"><input class="form-control ng-dirty ng-invalid ng-valid" type="text" name="userName" placeholder="Please enter Username" ng-model="userData.name" required>
+                    <br>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label>Language:</label>
+                        <ol>
+                            <li style="cursor: pointer" ng-repeat="lan in userData.language">{{lan}}
+                                <a class="" ng-click="removeLanguage(lan)">Remove</a></li>
+                        </ol>
+                        <div class="col-md-10">
+                    <input class="form-control" type="text" name="lan" ng-model="txtLanguage"></div>
+                    <div class="col-md-2"><button class="btn btn-primary "  ng-click="addLanguage()">Add</button>
+                    <br></div>
+                </div>
+
+                <div class="form-group">
+                    <label>GPA:</label>
+                    <div class="col-md-12"><input class="form-control ng-dirty ng-invalid ng-valid" type="number" name="gpa" ng-model="userData.gpa" placeholder="0 to 4.3" min=0 max=4.3 required>
+                    <br></div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label>Description:</label>
+                    <div class="col-md-12">
+                    <textarea class="form-control" ng-model="userData.description"></textarea>
+                    <br></div>
+                </div>
+                
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Submit" ng-click='submitUserData()'>
+                </div>
+            
+ 
+                <div class="form-group">CurrentTeam:{{userData.team}}</div>
+                <div class="form-group">Eventlist:{{userData.eventlist}}</div>
+                <div class="form-group">My User id: {{userData.userid}}</div>
+                        
+                <!--button class="btn btn-primary" ng-click="testeventlist()">test event list</button-->        
+
+            </form>
+        </div>
+        <div class="col-md-3">
+        </div>
+        
+       <h2>list of all users</h2>
+       <div ng-repeat="u in users">
+           <ul>
+               <li>Name:{{u.name}}</li>
+               <li>Gpa:{{u.gpa}}</li>
+               <li>Language:{{u.language}}</li>
+               <li>Team:{{u.team}}</li>
+               <li>Description:{{u.description}}</li>
+               <li>User Id: {{u.$id}}</li>
+            </ul>
+        </div>           
+
+       </div> <!--container /div-->
+
+
+       <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>        
+     
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>     
+      <script src="lib/angularfire.min.js"></script>
+
+
+      <!-- JavaScript of this page -->
+      <script src="js/profile.js"></script>
+   </body>

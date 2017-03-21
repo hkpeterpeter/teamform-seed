@@ -18,111 +18,171 @@
       <script src="lib/jquery.min.js"></script>      
       <script src="lib/bootstrap.min.js"></script>      
       	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link rel="stylesheet" href="css/site.css" >
+     <link rel="stylesheet" href="css/site.css" >
 
 
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 	  	  
    </head>
-   <body>
+   
+   <!-- format the website below -->
+   <style>
+   td.edit {
+    padding: 10px;
+	font-size: 15px;
+   }
+   
+   th.editor {
+    padding: 5px;
+	font-size: 18px;
+	font-weight: bold;
+   }
+   
+   th.ann {
+    padding: 1px;
+	font-size: 12px;
+	font-weight: bold;
+   }
+   
+   h1 {
+	font-weight: bold;
+	font-size: 40px;
+   }
+   
+   .panel {
+    box-shadow: 0 1px 20px 20px rgba(0,0,0,.05);
+	padding: 5px 5px 5px 5px;
+	margin: 0px;
+   }
+   
+   .table {
+    width: 60%;
+	margin-left:auto; 
+    margin-right:auto;
+    max-width: 60%;
+	}
+   </style>
+   <!-- end of formatting this page -->
 
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >
-   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-   Back</button></a>
-
+   <body  ng-controller="AdminCtrl">
+   <div ng-include="'navbar.html'" id='navbarMenu'></div>
    <br>
-
-   <div class="text-center">
-      <h1>Administrative Page</h1>
+   <div id="event" class="text-center">
+      <h1><u>Administrative Page</u></h1>
 	  
-	 
-					 
-      <h2 id="text_event_name"></h2>
-
-      <div id="admin_page_controller" ng-controller="AdminCtrl">
-
+      <div id="admin_event_div">
+	      <div ng-include="'description.html'"></div>
+		  <!--smart generator-->
+            <button id="btn_smart_generator" type="button" class="btn btn-danger" ng-click="generate_click()" 
+			   ng-hide="(deadline-today)>0" ng-disabled="editable">Generate Teams</button>
+          <!--show if achieve deadline-->
+	  </div>
+	  <br>
+	  
+	  <button id="btn_event_edit" ng-click="edit_click()" ng-hide="editable">Edit the Event</button>
+	  
+	  <br>
+	  
+      <div id="admin_page_controller">
          <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
-
-            <div class="col-md-8 col-xs-8 text-left panel">
-
-			 
-
-             <strong>Minimum Team Size:</strong>  
-
-               <span class="badge">
-                 {{param.minTeamSize}}</span>
-                
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
-
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
-
-            <br><br>
-
-             <strong>Maximum Team Size: </strong>  
-
-               <span class="badge">
-                 {{param.maxTeamSize}}</span>
-                
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
-
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
-
-            <br><br>
-
-             <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Create/Modify</button>
-
-
-
-            </div>
-            
-             <div class="col-md-2 col-xs-2"></div>
-
-         </div>
-     
-
-         <hr>
-
-		 <div class="row">
-			 <div class="col-md-6 col-xs-6 text-right" >
-			 
-				<h3>All teams:</h3>
-				<ul ng-repeat="t in team">
-					<li>
-					
-						User ID: {{t.$id}}  <br>
-						Preferred team size: <span class="badge">{{t.size}}</span> <br>
-						Current team members: {{t.teamMembers}}
-					
-					</li>
-					
-				</ul>
-
-			 </div>
-			 
-			 <div class="col-md-6 col-xs-6 text-left">
-							
-			 
-			  <h3>All members:</h3>
-			  <ul ng-repeat="m in member">
+		    <div class="col-md-3 col-xs-3"></div>
+            <div class="col-md-6 col-xs-6 text-left panel" ng-show="editable">
+              <!--description for event-->
 				
-				  <li>ID = {{m.$id}} <br> 
-				  Name = {{m.name}} <br>
-				  request to join the following teams: {{m.selection | json}}</li>
-			  </ul>
+				<table align ="center">
+				  <th class="editor" colspan=2"><center>This is the real-time editor. You can see the results above instantly.</center></th>
+		          <tr align ="left"><td class="edit"><strong>Event Name: </strong></td>
+				      <td class="edit"><input ng-model="param.eventName"></td></tr>
+					  
+	              <tr align ="left"><td class="edit"><strong>Description: </strong></td>
+				      <td class="edit"><input ng-model="param.description" type="textarea"></td></tr>
+					  
+		          <tr align ="left"><td class="edit"><strong>Admin: </strong></td>
+				      <td class="edit"><a href="profile.html?q={{param.admin}}">{{adminName}}</a></td></tr>
+					  
+		          <tr align ="left"><td class="edit"><strong>Min. Team Size: </strong></td>
+					  <td class="edit"><span class="badge">{{param.minTeamSize}}</span>
+                      <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+                      <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button></td></tr>
+					  
+		          <tr align ="left"><td class="edit"><strong>Max. Team Size: </strong></td>
+				      <td class="edit"><span class="badge">{{param.maxTeamSize}}</span>
+                      <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+                      <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button></td></tr>
+					  
+		          <tr align ="left"><td class="edit"><strong>Event Deadline: </strong></td>
+				      <td class="edit"><input type="date" ng-model="deadline" min="{{today | date:'yyyy-MM-dd'}}"/>
+				      <span ng-hide="(deadline-today)<0">(Days left: {{(deadline - today)/(1000*60*60*24) | number:0}})</span></td></tr>
+					  
+				  <tr><th colspan=2"><center><button type="button" class="btn btn-success" ng-click="saveFunc();" >Save</button></center></th></tr>
+		        </table>
+            </div>
+			<div class="col-md-3 col-xs-3"></div>
+         </div> 
+        <!--end of edit panel-->
+        <br><hr>
 
-			 </div>
-		 </div>
+        <!--announcement div-->
+        <div id="announcement_div">
+		    <div ng-include="'editAnn.html'"></div>
+		</div>     
+        <!--end of announcement div-->
 
+        <!--teams & member list-->
+		<hr>
+        <div class="row">
+            <div class="col-md-6 col-xs-6 text-right" >
+              <h3>All teams:</h3>
+              <!--<div ng-include="'teamList.html'" id="teamList"></div>-->
+              <table id="teamsList" class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Team Name</th>
+                      <th>Team Leader</th>
+                      <th>Team members</th>
+                      <th>Preference</th>
+                      <th>Action(not done)</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="t in teams" ng-init="getUserNameInTeam(t)">
+                    <tr>
+                      <td>{{t.teamName}}</td>
+                      <td>{{t.teamLeaderName}}</td>
+                      <td>
+                        <span ng-repeat="member in t.members">
+                          <a href="profile.html?q={{member.memberID}}">{{member.memberName}}</a>{{$last ? '' : ', '}}
+                        </span>
+                      </td>
+                      <td>{{t.preference}}</td>
+                      <td><button><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button></td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+			 
+			      <div class="col-md-6 col-xs-6 text-left">
+                <h3>All members:</h3>
+                <ul ng-repeat="m in member">
+                  <li>ID = {{m.$id}} <br> 
+                  Name = {{m.name}} <br>
+                  request to join the following teams: {{m.selection | json}}</li>
+                </ul>
+            </div>
+          </div>
+          <!--end of teams & member list-->
+
+          <!-- create team button -->
+          <button id="btn_createTeam" type="button" class="btn btn-primary" ng-click="createTeam('default')">Create team</button>
 
       </div>
-   </div>
+
+
+   </div>   <!--end of admin_page_controller-->
+   
 
 
    <!-- JavaScript of this page -->
