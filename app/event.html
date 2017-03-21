@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-event-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>teamform - admin page</title>
+	  
+      <!-- libraries and CSS 	  
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)		
+		site.css: A customized css for our web application. Not from any web framework. 
+	  -->
+	        
+      <script src="lib/jquery.min.js"></script>      
+      <script src="lib/bootstrap.min.js"></script>      
+      	  
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+     <link rel="stylesheet" href="css/site.css" >
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+	  	  
+   </head>
+   <body  ng-controller="EventCtrl">
+   <div ng-include="'navbar.html'" id='navbarMenu'></div>
+   <br>
+
+   <div class="text-center">
+      <h1>Event Page</h1>
+      <h2 id="text_event_name"></h2>
+      This part should be shared the even description that completed by christie with ng-include
+      <div id="event_description_div">
+      </div>
+
+      <div id="event_page_controller">
+        <h3>Announcements<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#announcement_div">
+            <span class="glyphicon glyphicon-collapse-up"></span>
+        </button></h3>
+        <!--announcement div--><br>
+        <div id="announcement_div" class="collapse in">
+            <!--current announcement list-->
+            <div id="announcement_list">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Announcement</th>
+                        <th>Announcement date</th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="a in announcements">
+                      <tr>
+                        <td>{{a.text}}</td>
+                        <td>{{a.date | date: 'dd/MM/yyyy'}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+            </div>
+        </div><br>
+        <!--end of announcement div-->
+
+
+        <!-- create team button -->
+        <button id="btn_createTeam" type="button" class="btn btn-primary" ng-click="createTeam('default')">Creat team</button>
+
+
+        <!--teams & member list-->
+        <div class="row">
+            <div class="col-md-6 col-xs-6 text-right" >
+              <h3>All teams:</h3>
+              <ul ng-repeat="t in team">
+                <li>
+                  User ID: {{t.$id}}  <br>
+                  Preferred team size: <span class="badge">{{t.size}}</span> <br>
+                  Current team members: {{t.teamMembers}}					
+                </li>
+              </ul>
+            </div>
+			 
+			      <div class="col-md-6 col-xs-6 text-left">
+                <h3>All members:</h3>
+                <ul ng-repeat="m in member">
+                  <li>ID = {{m.$id}} <br> 
+                  Name = {{m.name}} <br>
+                  request to join the following teams: {{m.selection | json}}</li>
+                </ul>
+            </div>
+          </div>
+          <!--end of teams & member list-->
+      </div>
+   </div>
+   
+
+
+   <!-- JavaScript of this page -->
+
+   <!-- Angular and Angular-route libraries (v1.5.7) -->
+   <script src="lib/angular.min.js"></script>
+   <script src="lib/angular-route.min.js"></script>        
+     
+   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="lib/firebase.js"></script>     
+   <script src="lib/angularfire.min.js"></script>
+
+   <script src="js/event.js"></script>
+
+   </body>
+</html>
+
