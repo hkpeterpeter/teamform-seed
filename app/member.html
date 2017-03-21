@@ -1,120 +1,206 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="teamform-member-app">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>teamform - member page</title>
-	  
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link rel="stylesheet" href="css/site.css" >
+<html ng-app = "teamform-member-app" ng-controller="MemberCtrl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>LIGHT OF WISDOM</title>
+
+	<link rel="shortcut icon" href="assets/images/logo.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+
+      <!-- Angular Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+      <!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
 
 
-      <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
-	  	  
-   </head>
-   <body>
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>        
 
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
 
-   <br>
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/member.js"></script>
+   
+   
+</head>
 
-   <div class="text-center">
-      <h1>Member Page</h1>
-      <h2 id="text_event_name"></h2>
-       <div id="member_page_controller" ng-controller="MemberCtrl">
+<body>
+	<!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" align="middle"></a>
+			</div>
+			<div class="navbar-collapse collapse" >
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="#">HOME</a></li>
+					<li><a href="#event">EVENTS</a></li>
+					<li><a href="#about">ABOUT US</a></li>
+					<li><a href="admin.html">ADMIN(FOR TEST)</a></li>
+					<li><a href="member.html">MEMBER</a></li>
+
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+
+		<div class="container">
+
+			<ol class="breadcrumb">
+				<li><a href="index.html">Home</a></li>
+				<li class="active">Member</li>
+			</ol>
+
+			<div class="row">
+				
+				<!-- Article main content -->
+				<article class="col-sm-8 maincontent">
+					<header class="page-header">
+						<h1 class="page-title">{{userObj.name}}</h1>
+					</header>
+					<h3>Your Position</h3>
+					<p><img src="assets/images/messi.png" alt="personal photo?" class="img-rounded pull-right" width="150" height="150" ></p>
+
+					<select ng-model="position">
+						<option value="Forward">Forward</option>
+						<option value="Midfield">Midfield</option>
+						<option value="LeftBack">LeftBack</option>
+						<option value="RightBack">RightBack</option>
+						<option value="Goalkeeper">Goalkeeper</option>
+					</select>
+					<input class="btn btn-default btn-sm" type="button" value="Submit" ng-click="addPosition()" >
+					<p><tt>{{ userObj.position }}</tt></p>
+
+				</article>
+				<!-- /Article -->
+				
+				<!-- Sidebar -->
+				<aside class="col-sm-4 sidebar sidebar-right">
+
+					<div class="widget">
+						<h4>Joined Event</h4>
+						<ul class="list-unstyled list-spaces">
+							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
+							<li><a href="">[Event Name]</a><br><span class="small text-muted">[Team Name]</span></li>
+						</ul>
+					</div>
+
+				</aside>
+				<!-- /Sidebar -->
+
+			</div>
+		</div>	<!-- /container -->
+
+	
+
+	<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Contact</h3>
+						<div class="widget-body">
+							<p>+234 23 9873237<br>
+								<a href="mailto:#">some.email@somewhere.com</a><br>
+								<br>
+								234 Hidden Pond Road, Ashland City, TN 37015
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-3 widget">
+						<h3 class="widget-title">Follow me</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons clearfix">
+								<a href=""><i class="fa fa-twitter fa-2"></i></a>
+								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Text widget</h3>
+						<div class="widget-body">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, dolores, quibusdam architecto voluptatem amet fugiat nesciunt placeat provident cumque accusamus itaque voluptate modi quidem dolore optio velit hic iusto vero praesentium repellat commodi ad id expedita cupiditate repellendus possimus unde?</p>
+							<p>Eius consequatur nihil quibusdam! Laborum, rerum, quis, inventore ipsa autem repellat provident assumenda labore soluta minima alias temporibus facere distinctio quas adipisci nam sunt explicabo officia tenetur at ea quos doloribus dolorum voluptate reprehenderit architecto sint libero illo et hic.</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		<div class="footer2">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="simplenav">
+								<a href="#">Home</a> | 
+								<a href="about.html">About</a> |
+								<a href="sidebar-right.html">Sidebar</a> |
+								<a href="contact.html">Contact</a> |
+								<b><a href="signup.html">Sign up</a></b>
+							</p>
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<div class="widget-body">
+							<p class="text-right">
+								Copyright &copy; 2014, Your name. Designed by <a href="http://gettemplate.com/" rel="designer">gettemplate</a> 
+							</p>
+						</div>
+					</div>
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+	</footer>	
+		
 
 
-         <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
-
-            <div class="col-md-8 col-xs-8 panel">
-			
-
-               
-               <form class="form-horizontal">
-                  <div class="form-group">
-                     <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
-                     <div class="col-sm-5">
-                     <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
-                     </div>
-					 
-					 <div class="col-sm-4">
-					   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add/Modify</button>
-					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
-					  </div>
-                  </div>
-
-                  <div class="form-group">
-                     <label for="inputName" class="col-sm-3 control-label">Name</label>
-                     <div class="col-sm-9">
-                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
-                     </div>
-                  </div>
-				  
-				  
-				 
 
 
-
-               </form>
-			   
-			     <div class="row text-left">
-			        
-				    <h3>Your team preference:</h3>
-			       <div ng-repeat="team in teams">
-					  					  
-					 <div class="checkbox">
-						<label><input type="checkbox" value="{{team.$id}}" 
-						  ng-checked="selection.indexOf(team.$id) > -1"
-						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}</label>
-					 </div>
-					  
-				  </div>
-				</div>
-
-               
-            </div>
-            <div class="col-md-2 col-xs-2"></div>
-         </div>
-
-
-
-       </div>
-   </div>
-
-
-   <!-- Angular and Angular-route libraries (v1.5.7) -->
-   <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>        
-     
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>     
-   <script src="lib/angularfire.min.js"></script>
-
-
-
-   <!-- JavaScript of this page -->
-   <script src="js/member.js"></script>
-
-   </body>
+	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="assets/js/headroom.min.js"></script>
+	<script src="assets/js/jQuery.headroom.min.js"></script>
+	<script src="assets/js/template.js"></script>
+</body>
 </html>
-
