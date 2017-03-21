@@ -17,19 +17,28 @@ angular.module('teamform-member-app', ['firebase'])
 	
 	
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	initializeFirebase();
 	
 	$scope.userID = "";
 	$scope.userName = "";	
 	$scope.teams = {};
 	
-	
+	firebase.auth().onAuthStateChanged(function (user) {
+	    if (user) {
+	        // User is signed in.
+	        $scope.userName = user.displayName;
+	        $scope.uid = user.uid;
+	    } else {
+	        // No user is signed in.
+	    }
+	});
+
 	
 	$scope.loadFunc = function() {
 		var userID = $scope.userID;
 		if ( userID !== '' ) {
 			
-			var refPath = getURLParameter("q") + "/member/" + userID;
+		    var refPath = "event/" + getURLParameter("q") + "/member/" + userID;
 			retrieveOnceFirebase(firebase, refPath, function(data) {
 								
 				if ( data.child("name").val() != null ) {
@@ -60,10 +69,11 @@ angular.module('teamform-member-app', ['firebase'])
 									
 			var newData = {				
 				'name': userName,
-				'selection': $scope.selection
+				'selection': $scope.selection,
+				'uid': $scope.uid
 			};
 			
-			var refPath = getURLParameter("q") + "/member/" + userID;	
+			var refPath = "event/" + getURLParameter("q") + "/member/" + userID;
 			var ref = firebase.database().ref(refPath);
 			
 			ref.set(newData, function(){
@@ -81,7 +91,7 @@ angular.module('teamform-member-app', ['firebase'])
 	}
 	
 	$scope.refreshTeams = function() {
-		var refPath = getURLParameter("q") + "/team";	
+	    var refPath = "event/" + getURLParameter("q") + "/team";
 		var ref = firebase.database().ref(refPath);
 		
 		// Link and sync a firebase object

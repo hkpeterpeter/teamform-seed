@@ -15,21 +15,20 @@ angular.module('teamform-team-app', ['firebase'])
     function($scope, $firebaseObject, $firebaseArray) {
 		
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	initializeFirebase();
 
 	var refPath = "";
 	var eventName = getURLParameter("q");	
-	
 	// TODO: implementation of MemberCtrl	
 	$scope.param = {
 		"teamName" : '',
 		"currentTeamSize" : 0,
-		"teamMembers" : []
+		"teamMembers" : [],
+		"priority" : false
 	};
 		
-	
 
-	refPath =  eventName + "/admin";
+	refPath = "event/" + eventName + "/admin";
 	retrieveOnceFirebase(firebase, refPath, function(data) {	
 
 		if ( data.child("param").val() != null ) {
@@ -42,15 +41,14 @@ angular.module('teamform-team-app', ['firebase'])
 	});
 	
 	
-	refPath = eventName + "/member";	
+	refPath = "event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
 	
-	refPath = eventName + "/team";	
+	refPath = "event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
-	
 	
 	$scope.requests = [];
 	$scope.refreshViewRequestsReceived = function() {
@@ -67,7 +65,7 @@ angular.module('teamform-team-app', ['firebase'])
 			if ( typeof obj.selection != "undefined"  && obj.selection.indexOf(teamID) > -1 ) {
 				//$scope.test += userID + " " ;
 				
-				$scope.requests.push(userID);
+			    $scope.requests.push({ "id": userID, "uid": obj.uid, "name": obj.name});
 			}
 		});
 		
@@ -81,55 +79,50 @@ angular.module('teamform-team-app', ['firebase'])
 	
 	
 
-	$scope.changeCurrentTeamSize = function(delta) {
-		var newVal = $scope.param.currentTeamSize + delta;
-		if (newVal >= $scope.range.minTeamSize && newVal <= $scope.range.maxTeamSize ) {
-			$scope.param.currentTeamSize = newVal;
-		} 
-	}
-
 	$scope.saveFunc = function() {
 		
 		
 		var teamID = $.trim( $scope.param.teamName );
-		
-		if ( teamID !== '' ) {
-			
-			var newData = {				
-				'size': $scope.param.currentTeamSize,
-				'teamMembers': $scope.param.teamMembers
-			};		
-			
-			var refPath = getURLParameter("q") + "/team/" + teamID;	
-			var ref = firebase.database().ref(refPath);
-			
-			
-			// for each team members, clear the selection in /[eventName]/team/
-			
-			$.each($scope.param.teamMembers, function(i,obj){
-				
-				
-				//$scope.test += obj;
-				var rec = $scope.member.$getRecord(obj);
-				rec.selection = [];
-				$scope.member.$save(rec);
-				
-				
-				
-			});
-			
-			
-			
-			ref.set(newData, function(){			
+		if (($scope.param.currentTeamSize >= $scope.range.minTeamSize) && ($scope.param.currentTeamSize <= $scope.range.maxTeamSize)) {
+		    if (teamID !== '') {
 
-				// console.log("Success..");
-				
-				// Finally, go back to the front-end
-				// window.location.href= "index.html";
-			});
-			
-			
-			
+		        var newData = {
+		            'size': $scope.param.currentTeamSize,
+		            'teamMembers': $scope.param.teamMembers,
+		            'priority': $scope.param.priority
+		            //,'$$hashkey': $scope.param.$$hashkey
+		        };
+
+		        var refPath = "event/" + getURLParameter("q") + "/team/" + teamID;
+		        var ref = firebase.database().ref(refPath);
+
+		        // for each team members, clear the selection in /[eventName]/team/
+
+		        $.each($scope.param.teamMembers, function (i, obj) {
+
+
+		            //$scope.test += obj;
+		            var rec = $scope.member.$getRecord(obj.id);
+		            rec.selection = [];
+		            $scope.member.$save(rec);
+
+
+
+		        });
+
+
+
+		        ref.set(newData, function () {
+
+		            // console.log("Success..");
+
+		            // Finally, go back to the front-end
+		            // window.location.href= "index.html";
+		        });
+
+
+
+		    }
 		}
 		
 		
@@ -138,7 +131,7 @@ angular.module('teamform-team-app', ['firebase'])
 	$scope.loadFunc = function() {
 		
 		var teamID = $.trim( $scope.param.teamName );		
-		var eventName = getURLParameter("q");
+		var eventName = "event/" + getURLParameter("q");
 		var refPath = eventName + "/team/" + teamID ;
 		retrieveOnceFirebase(firebase, refPath, function(data) {	
 
@@ -170,7 +163,7 @@ angular.module('teamform-team-app', ['firebase'])
 			$scope.param.teamMembers.length < $scope.param.currentTeamSize  ) {
 				
 			// Not exists, and the current number of team member is less than the preferred team size
-			$scope.param.teamMembers.push(r);
+		    $scope.param.teamMembers.push(r);
 			
 			$scope.saveFunc();
 		}

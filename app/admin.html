@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" ng-app="teamform-admin-app">
    <head>
       <meta charset="utf-8">
@@ -59,9 +59,9 @@
                <span class="badge">
                  {{param.minTeamSize}}</span>
                 
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMinTeamSize(1);"></span></button>
+               <button ng-click="changeMinTeamSize(1);"><span class="glyphicon glyphicon-plus"></span></button>
 
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMinTeamSize(-1);"></span></button>
+                <button ng-click="changeMinTeamSize(-1);"><span class="glyphicon glyphicon-minus"></span></button>
 
             <br><br>
 
@@ -70,9 +70,14 @@
                <span class="badge">
                  {{param.maxTeamSize}}</span>
                 
-               <button><span class="glyphicon glyphicon-plus" ng-click="changeMaxTeamSize(1);"></span></button>
+               <button ng-click="changeMaxTeamSize(1);"><span class="glyphicon glyphicon-plus"></span></button>
 
-                <button><span class="glyphicon glyphicon-minus" ng-click="changeMaxTeamSize(-1);"></span></button>
+                <button ng-click="changeMaxTeamSize(-1);"><span class="glyphicon glyphicon-minus"></span></button>
+                <br><br>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea class="form-control" name="desc" ng-model="param.desc" placeholder="Event description..." required></textarea>
+                </div>
 
             <br><br>
 

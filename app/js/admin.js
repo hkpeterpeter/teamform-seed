@@ -1,4 +1,4 @@
-$(document).ready(function(){
+var onReady = function(){
 	
 	$('#admin_page_controller').hide();
 	$('#text_event_name').text("Error: Invalid event name ");
@@ -8,7 +8,9 @@ $(document).ready(function(){
 		
 	}
 
-});
+};
+
+$(document).ready(onReady);
 
 angular.module('teamform-admin-app', ['firebase'])
 .controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
@@ -19,12 +21,12 @@ angular.module('teamform-admin-app', ['firebase'])
 	$scope.param = {};
 			
 	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
+	initializeFirebase();
 	
 	var refPath, ref, eventName;
 
 	eventName = getURLParameter("q");
-	refPath = eventName + "/admin/param";	
+	refPath = "event/"+ eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
 		
 	// Link and sync a firebase object
@@ -50,12 +52,12 @@ angular.module('teamform-admin-app', ['firebase'])
 		});
 		
 	
-	refPath = eventName + "/team";	
+	refPath = "event/" + eventName + "/team";
 	$scope.team = [];
 	$scope.team = $firebaseArray(firebase.database().ref(refPath));
 	
 	
-	refPath = eventName + "/member";
+	refPath = "event/" + eventName + "/member";
 	$scope.member = [];
 	$scope.member = $firebaseArray(firebase.database().ref(refPath));
 	
@@ -63,22 +65,19 @@ angular.module('teamform-admin-app', ['firebase'])
 
 	$scope.changeMinTeamSize = function(delta) {
 		var newVal = $scope.param.minTeamSize + delta;
-		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
-			$scope.param.minTeamSize = newVal;
+		if ((newVal >=1) && (newVal <= $scope.param.maxTeamSize) ) {
+			$scope.$apply($scope.param.minTeamSize = newVal);
 		} 
-		
-		$scope.param.$save();
 
 		
 	}
 
 	$scope.changeMaxTeamSize = function(delta) {
 		var newVal = $scope.param.maxTeamSize + delta;
-		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
+		if ((newVal >=1) && (newVal >= $scope.param.minTeamSize )) {
 			$scope.param.maxTeamSize = newVal;
 		} 
 		
-		$scope.param.$save();
 		
 		
 	}

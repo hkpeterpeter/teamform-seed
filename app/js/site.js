@@ -26,16 +26,20 @@ function getRandomIntInclusive(min, max) {
 // Reference: https://console.firebase.google.com 
 //
 
-function initalizeFirebase() {
+function initializeFirebase() {
 	
   // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
-    authDomain: "teamform-15bcb.firebaseapp.com",
-    databaseURL: "https://teamform-15bcb.firebaseio.com",
-    storageBucket: "teamform-15bcb.appspot.com",
-  };
-  firebase.initializeApp(config);
+    var config = {
+        apiKey: "AIzaSyB9w7_f06cUyClSj4079RXthS7ygPXBaUY",
+        authDomain: "lab-firebase-d860e.firebaseapp.com",
+        databaseURL: "https://lab-firebase-d860e.firebaseio.com",
+        storageBucket: "lab-firebase-d860e.appspot.com",
+        messagingSenderId: "869332816452"
+
+    };
+
+   firebase.initializeApp(config);
+
 
 }    
 
@@ -46,5 +50,6 @@ function initalizeFirebase() {
 
 function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
+ 
 }
 
