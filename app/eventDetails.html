@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html ng-app = "teamform-member-app" lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>teamform - member page</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+      <link href="css/eventDetails.css" type="text/css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<!-- Angular Library -->
+	<!-- Angular Library -->
+ 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+ 	<!-- Firebase -->
+ 	<!-- <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script> -->
+
+ 	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
+ 	<!-- <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+ 	<script>
+  	// Initialize Firebase
+ 	var config = {
+     apiKey: "AIzaSyAjSwkuqVhX249KogPKC04riNIzOTJTQGk",
+    authDomain: "comp3111-fc3c0.firebaseapp.com",
+    databaseURL: "https://comp3111-fc3c0.firebaseio.com",
+     storageBucket: "comp3111-fc3c0.appspot.com",
+     messagingSenderId: "863597722858"
+   	};
+  	firebase.initializeApp(config);
+ 	</script>  -->
+
+</head>
+
+<body>
+   <div ng-controller = "MemberCtrl" class="container">
+   </div>
+   <a href="admin.html"
+   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <!-- Portfolio Item Heading -->
+            <div class="text-center">
+				<h1><font color="white">Event Details</font></h1>
+			</div>
+        <!-- /.row -->
+
+
+    <div class="text">
+
+       <p>-Please write down what do you want your team members know<br>
+         <br>-For example, do you need some special equipments?
+      </p>
+
+    </div>
+
+
+
+<div class="row" >
+            <div class="col-md-12">
+                <div align=left class="bubble" class="img-responsive" style="margin-top:80px">
+                  <textarea name="styled-textarea" id="styled" onfocus=" setbg('rgba(255,255,255,0.8)');" onblur="setbg('rgba(255,255,255,0.4)');" Placeholder="Your comment...."></textarea>
+                  <script>
+                  function setbg(color)
+                  {
+                    document.getElementById("styled").style.background=color
+
+                  }
+                  </script>
+
+                </div>
+                <br>
+                <br>
+                <br>
+                <div style="text-align:center">
+                  <a class = "postButton blue" type="submit">Submit</a>
+                </div>
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+	<script src="js/member.js"></script>
+	<script src="js/eventDetails.js"></script>
+</body>
+
+</html>

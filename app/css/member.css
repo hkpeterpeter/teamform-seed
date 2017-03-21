@@ -1,0 +1,46 @@
+	    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+	    body {
+	        background: #76b852;
+	        /* fallback for old browsers */
+	        
+	        background: -webkit-linear-gradient(right, #76b852, #8DC26F);
+	        background: -moz-linear-gradient(right, #76b852, #8DC26F);
+	        background: -o-linear-gradient(right, #76b852, #8DC26F);
+	        background: linear-gradient(to left, #76b852, #8DC26F);
+	        background-image: url("https://www.nps.gov/cany/planyourvisit/images/_DSC2811.jpg");
+	        background-size: cover;
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    h1 {
+	        font-size: 800%;
+	        color: white;
+	    }
+	    h3 {
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    h2 {
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    h4 {
+	        font-family: "Roboto", sans-serif;
+	        -webkit-font-smoothing: antialiased;
+	        -moz-osx-font-smoothing: grayscale;
+	    }
+	    .bubble {
+	        width: 100%;
+	        height: auto;
+	        padding: 20px;
+	        background-color: rgba(255, 255, 255, 0.6);
+	        -webkit-border-radius: 15px;
+	        -moz-border-radius: 15px;
+	        border-radius: 15px;
+	    }
+	    span {
+	        font-size: x-large;
+	    }

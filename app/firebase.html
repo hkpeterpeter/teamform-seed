@@ -1,0 +1,26 @@
+<html>
+<head>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/firebase.js"></script>
+    <style>
+        input[type='button']{
+            font-size: large;
+            margin: 30px;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body ng-app="firebaseRestore" ng-controller="firebaseRestoreCtrl">
+    <input type="button" value="Restore Data" ng-click="restore()">
+    <input type="button" value="Clear Data" ng-click="clear()">
+</body>
+</html>

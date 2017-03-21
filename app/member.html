@@ -1,120 +1,106 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="teamform-member-app">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>teamform - member page</title>
-	  
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link rel="stylesheet" href="css/site.css" >
+<head>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/member.js"></script>
+    <link href="css/member.css" type="text/css" rel="stylesheet" />
+    <title>Member Page</title>
+</head>
 
 
-      <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
-	  	  
-   </head>
-   <body>
+<body ng-app="member" ng-controller="memCtrl">
 
-   <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >Back to the front-end</button></a>
-
-   <br>
-
-   <div class="text-center">
-      <h1>Member Page</h1>
-      <h2 id="text_event_name"></h2>
-       <div id="member_page_controller" ng-controller="MemberCtrl">
-
-
-         <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
-
-            <div class="col-md-8 col-xs-8 panel">
-			
-
-               
-               <form class="form-horizontal">
-                  <div class="form-group">
-                     <label for="inputUserID" class="col-sm-3 control-label">User ID</label>
-                     <div class="col-sm-5">
-                     <input type="text" class="form-control" id="inputUserID" ng-model="userID" placeholder="Enter your User ID">
-                     </div>
-					 
-					 <div class="col-sm-4">
-					   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add/Modify</button>
-					  <button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
-					  </div>
-                  </div>
-
-                  <div class="form-group">
-                     <label for="inputName" class="col-sm-3 control-label">Name</label>
-                     <div class="col-sm-9">
-                     <input type="text" class="form-control" id="inputUserName" ng-model="userName" placeholder="Type in your name">
-                     </div>
-                  </div>
-				  
-				  
-				 
-
-
-
-               </form>
-			   
-			     <div class="row text-left">
-			        
-				    <h3>Your team preference:</h3>
-			       <div ng-repeat="team in teams">
-					  					  
-					 <div class="checkbox">
-						<label><input type="checkbox" value="{{team.$id}}" 
-						  ng-checked="selection.indexOf(team.$id) > -1"
-						  ng-click="toggleSelection(team.$id)">
-						{{team.$id}}</label>
-					 </div>
-					  
-				  </div>
-				</div>
-
-               
+    <form>
+        <div class="container">
+            <!-- Portfolio Item Heading -->
+            <div class="text-center">
+                <h1>Profile</h1>
             </div>
-            <div class="col-md-2 col-xs-2"></div>
-         </div>
+            <hr>
+            <hr><br>
+
+
+            <!-- /.row -->
+
+            <!-- Portfolio Item Row -->
+            <div class="row" style="margin-top: 1px;">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-8">
+                    <div class="bubble" class="img-responsive" style="margin-top:1px">
+                        <h2 style="margin-top:-10px">
+                            <center>Your Profile</center>
+                        </h2>
+                        <img src="{{user.profile_pic}}" width="170" height="220" class="picleft" class="img-responsive" / align=left>
+
+                        <div>
+                            <h3>Last Name: &nbsp;<span>{{user.last_name}}</span></h3>
+                            <h3>Member ID: &nbsp;<span>{{user.id}}</span></h3>
+                            <h3>Gender: &nbsp;<span>{{user.gender}}</span></h3>
+                            <h3>Lives in: &nbsp; <span>{{user.from}}</span></h3>
+                            <h3>Date of Born: &nbsp;<span>{{user.birthday}}</span></h3>
+                            <h3>Email Address: &nbsp;<span>{{user.email}}</span></h3>
+                            <h3>Descriptions: &nbsp;<span>{{user.descriptions}}</span></h3>
+                            <h3>Available For Traveling?: &nbsp;<span>{{user.available_for_traveling}}</span></h3>
+                            <h3>Has been to: &nbsp;<span ng-repeat="to in user.has_been">{{to}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                            <h3>Languages: &nbsp;<span ng-repeat="language in user.language">{{language}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                            <h3>Wish List: &nbsp;<span ng-repeat="place in user.want_to_travel">{{place}}&nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+            <!-- /.row -->
+
+            <!-- Related Projects Row -->
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <h1 Style="color: white">Team Joined</h1>
+                    </div>
+                    <hr>
+                    <hr><br>
+                    <div class="row" style="margin-top: 1px;" ng-repeat="team in teamsJoined">
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="bubble" class="img-responsive" style="margin-top:1px">
+                                <h2 style="margin-top:-10px">
+                                    <center>{{team.name}}</center>
+                                </h2>
+                                <div>
+                                    <h3>Departure Date: &nbsp;<span>{{team.departure_date}}</span></h3>
+                                    <h3>Descriptions: &nbsp;<span>{{team.descriptions}}</span></h3>
+                                    <h3>Destination: &nbsp;<span>{{team.destination}}</span></h3>
+                                    <h3>Estimated Budget/person: &nbsp; <span>{{team.estimated_budget_per_person}}</span></h3>
+                                    <h3>Language: &nbsp;<span>{{team.language_for_communication}}</span></h3>
+                                    <h3>Max Number of People: &nbsp;<span>{{team.max}}</span></h3>
+                                    <h3>Preference: &nbsp;<span>{{team.preference}}</span></h3>
+                                    <h3>Return Date: &nbsp;<span>{{team.returnDate}}</span></h3>
+                                    <h3>Members: &nbsp;<span ng-repeat="memberId in team.members"><a href="member.html?memberId={{memberId}}">{{membersAll[memberId].first_name}}, {{membersAll[memberId].last_name}}</a> &nbsp;&nbsp;&nbsp;&nbsp;</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+
+                        </div>
+                    </div>
+                </div>
 
 
 
-       </div>
-   </div>
-
-
-   <!-- Angular and Angular-route libraries (v1.5.7) -->
-   <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>        
-     
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>     
-   <script src="lib/angularfire.min.js"></script>
+            </div>
+            <!-- /.row -->
 
 
 
-   <!-- JavaScript of this page -->
-   <script src="js/member.js"></script>
+        </div>
+    </form>
+    <!-- /.container -->
 
-   </body>
-</html>
-
+    <script src="js/member.js"></script>
+    <script src="js/site.js"></script>
+</body>

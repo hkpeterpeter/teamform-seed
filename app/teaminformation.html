@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head>
+  <script src="lib/angular.min.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+    <script src="js/teaminformation.js"></script>
+
+<style>
+table,th, td {
+    border: 1px solid black;
+    border-collapse:  collapse;
+}
+th, td{
+    padding:15x;
+}
+</style>
+</head>
+
+
+<body ng-app="teaminfo" ng-controller="teaminfoCtrl">
+
+         <h1>Team information</h1>
+
+
+
+     <table width="1000" ><tr align="center">
+
+     <td>Departure Date</td>
+     <td>Return Date</td>
+     <td>Team Name</td>
+     <td>Description</td>
+     <td>Destination</td>
+     <td>Est.Bud. Per Person</td>
+     <td>Commu. Lang.</td>
+     <td>Preference</td>
+    <!--  //<td>Members</td> -->
+     <td>Max No. of members</td>
+     <td>Tags</td>
+     <td>Members List</td>
+
+     </tr>
+
+           <tr ng-repeat="team in teams">
+         <td align="center">{{team.departure_date}}</td>
+         <td align="center">{{team.return_date}}</td>
+         <td align="center">{{team.name}}</td>
+         <td align="center">{{team.descriptions}}</td>
+         <td align="center">{{team.destination}}</td>
+         <td align="center">{{team.estimated_budget_per_person}}</td>
+         <td align="center">{{team.language_for_communication}}</td>
+         <td align="center">{{team.preference}}</td>
+         <td align="center">{{team.max}}</td>
+         <td align="center">{{team.tags}}</td>
+         <td align="center">{{team.members}}</td>
+
+
+
+         </tr>
+        
+         </table>
+         </div>
+        
+         </div>
+            <script src="js/teaminformation.js"></script>
+    </body> 
+    </html>

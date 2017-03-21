@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="chatroomApp">
+
+<head>
+	<script src="lib/jquery.min.js"></script>
+	<!-- Angular Library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>
+
+	<!-- AngularFire URL: https://github.com/firebase/angularfire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+	<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAlt_yl9mLcadDyhjtT2h4Ct9DDCxjGL4M",
+    authDomain: "comp3111-5fbe5.firebaseapp.com",
+    databaseURL: "https://comp3111-5fbe5.firebaseio.com",
+    storageBucket: "comp3111-5fbe5.appspot.com",
+    messagingSenderId: "946291658553"
+  };
+  firebase.initializeApp(config);
+</script>
+	<script type="text/javascript" src="http://Menu16.com/U/F62AA341/1/MyMenu1.js?h=5AA4"></script>
+	<style>
+		.required {
+			color: red;
+		}
+	</style>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+		crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
+		crossorigin="anonymous">
+
+	<link href="css/Chatroom.css" type="text/css" rel="stylesheet" />
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+		crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+	<div id="loginDialog" class="hide">
+		<div id="loginDialog-content" class="well">
+			<div class="message">
+				<span>You have to sign in before doing any operations!</span><br>
+				<span>Press OK to redirect to the login page.</span>
+			</div>
+			<div class="button-group">
+				<input type="button" class="btn btn-md btn-danger" value="OK" onclick="goToLoginPage()" />
+				<input type="button" class="btn btn-md btn-danger" value="Cancel" onclick="hideLoginDialog()" //>
+			</div>
+		</div>
+	</div>
+
+	<div ng-controller="chatroomCtrl" class="container">
+		<div id="chatroom-container" class="well">
+			<!--left-panel-->
+			<div id="left-panel" class="well">
+				<div id="left-panel-title" class="well">{{currentConversation?currentConversation.name:""}} </div>
+
+				<div id="left-top-panel" class="well">
+					<div ng-repeat="m in currentConversation.messages">
+						<div class="converationBubble {{m.sender==userID?'pull-right':'pull-left'}}">
+							<div class="sender">{{m.sender=="System"?"System":getNameByID(m.sender)}}</div>
+							<div>{{m.message}}</div>
+							<div class="time pull-right">{{readableTime(m.time)}}</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="left-bottom-panel">
+					<input type="text" placeholder="Please input the message here..." class="form-control" ng-model="msg">
+					<input type="button" class="btn btn-md btn-danger" value="Send" ng-click="send()">
+				</div>
+			</div>
+
+			<!--right-panel-->
+			<div id="right-panel" class="well">
+				<input type="button" class="btn btn-md btn-danger" value="Create new conversation" ng-click="createConversation()">
+				<div class="well conversation" ng-repeat="c in chatrooms" ng-click="showConversation(c)">{{c.name}}</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<script src="js/sharedScript.js"></script>
+	<script src="js/chatroomCtrl.js"></script>
+
+</body>
+
+</html>
