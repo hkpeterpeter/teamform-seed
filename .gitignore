@@ -6,3 +6,6 @@ app/coverage/
 tmp
 .DS_Store
 *.log
+.idea
+app/dummy*.json
+chatroom.*

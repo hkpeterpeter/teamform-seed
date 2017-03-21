@@ -12,5 +12,9 @@ describe('Test site.js', function() {
 
    });
 
-
+   describe('getURLParameter Test', function(){
+      it('getURLParamter', function(){
+      	expect(getURLParameter('q')).toEqual(null);
+      });   		
+   });
 });
