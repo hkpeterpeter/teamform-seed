@@ -1,0 +1,115 @@
+<html ng-app = "teamform-memberDetail-app">
+<head> 
+<title>Profile testing</title> 
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+   <script src="lib/angular.min.js"></script>
+   <script src="lib/angular-route.min.js"></script>
+   
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+   <script src="lib/firebase.js"></script>     
+   <script src="lib/angularfire.min.js"></script>
+
+</head>
+<body>
+
+<div id = "YourProfile" ng-controller = "ProfileAcc" class="text-center">
+  Please input your data:)<br>Use UserID and activity to access data from database.<br>
+  <form id = "ProfileForm">
+    <label>Your UserId:<input type=text ng-model = "FUID"></label><br>
+    <label>Your Name:<input type=text ng-model = "Fname"></label><br>
+    <label>You are well-known in :<input type=text ng-model = "Fskill"></label><br>
+    <label>You apply for activity: <input type = text ng-model = "activity"></label><br>
+    <input type = "button" ng-click = "load()" value = "load"> <input type = "button" ng-click = "save()" value = "save">
+  </form>
+  <div id = "testing_ouput">
+    {{ datadebug | json}}
+  </div>
+   
+ </div>
+   
+
+<script>
+   
+angular.module('teamform-memberDetail-app',['firebase'])
+.controller('ProfileAcc',  ['$scope', '$firebaseObject', '$firebaseArray',function($scope) {
+
+  //initalizeFirebase();
+  initalizeFirebase();
+  database = firebase.database();
+  
+  $scope.FUID = "";
+  $scope.Fname = "";
+  $scope.Fskill = "";
+  $scope.activity = "";
+  $scope.datadebug = {
+    name: $scope.Fname,
+    skill: $scope.Fskill
+  };
+  
+  $scope.load = function () {
+    alert ("click load :P");
+    FUID = $scope.FUID;
+    activity = $scope.activity;
+    if ( FUID !== '' ) {
+  
+      var refPath = activity + "/member/"+FUID;
+      alert (refPath);
+      //This is the way for getting data from firebase
+      //.once("value") <--the value inside value must be value;
+      database.ref(refPath).once("value").then(function (data)
+      {
+        //here use data to get back the data :)        
+        alert(data.val().name);
+        if ( data.val().name != null ) {
+          $scope.Fname = data.val().name;
+        } else {
+          $scope.Fname = "";
+        }
+        if ( data.val().skills != null ) {
+          $scope.Fskill = data.val().skills;
+        } else {
+          $scope.Fskill = "";
+        }
+        $scope.datadebug = {
+        name: data.val().name,
+        skill: data.val().skills
+        };
+      });
+    }
+  }
+  $scope.save = function () {
+    alert ("click save :P");
+    FUID = $scope.FUID;
+    Fname = $scope.Fname;
+    activity = $scope.activity;
+    Inskills = $scope.Fskill;
+    skilllist = Inskills.split(';');
+    if ( FUID !== '' && activity !=='') {
+      
+      var refPath = activity + "/member/"+FUID;
+      alert (refPath);
+      //this is the method to set/rewrite the data inside firebase
+      database.ref(refPath).set(
+      {
+        name: Fname,
+        skills: skilllist
+        
+      });
+      $scope.datadebug = {
+        name: Fname,
+        skills: skilllist
+        
+      };
+    }
+  }
+  
+
+}]);
+   
+   </script>
+
+</body>
+</html>

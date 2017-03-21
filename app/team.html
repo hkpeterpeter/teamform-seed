@@ -1,178 +1,175 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="teamform-team-app">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="keywords" content="teamform, team">
-      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>teamform - team page</title>
-	  
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
-      <link rel="stylesheet" href="css/site.css" >
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teamform</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Theme CSS -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
 
 
-      <!-- Customized libraries shared by pages -->
-      <script src="js/site.js"></script>
-	  	  
-   </head>
-   <body>
+</head>
 
-    <a href="index.html"
-   <button id="btn_admin" type="button" class="btn btn-primary" >
-   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
-   Back</button></a>
-   <br>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-   <div class="text-center">
-      <h1>Team Page</h1>
-      <h2 id="text_event_name"></h2>
-       <div id="team_page_controller" ng-controller="TeamCtrl">
-
-         <div class="row">
-
-            <div class="col-md-2 col-xs-2"></div>
-
-            <div class="col-md-6 col-xs-6 text-left panel">
-			
-			 
-
-
-               <!-- Controls go here.. -->
-                <form class="form-horizontal text-left">
-				
-                  <div class="form-group">
-				  
-                     <label for="inputTeamName" class="control-label">Team Name</label>
-					 <br>
-					 
-					 <div class="row">
-						 <div class="col-md-8 col-xs-8">
-							<input type="text" class="form-control" id="inputTeamName" placeholder="Enter your team name" ng-model="param.teamName">													
-						 </div>
-						
-						<div class="col-md-1 col-xs-1">
-						   <button type="button" class="btn btn-primary" ng-click="saveFunc();" >Add</button>
-						 </div>
-						 
-						 <div class="col-md-1 col-xs-1">
-							<button type="button" class="btn btn-primary" ng-click="loadFunc();" >Load</button>
-						</div>
-					</div>
-					
-										 
-					 
-                  </div>
-
-                
-				  <div class="row">
-					  <strong>Preferred Team Size: </strong> 					  
-					  <span>
-						 <span class="badge">
-						   {{param.currentTeamSize}}</span>
-						  
-						 <button><span class="glyphicon glyphicon-plus" ng-click="changeCurrentTeamSize(1);"></span></button>
-
-						  <button><span class="glyphicon glyphicon-minus" ng-click="changeCurrentTeamSize(-1);"></span></button>
-
-						  
-					   </span>
-				   </div>
-				   
-				   
-
-                  </form>
-
-
-				<div class="row">
-                  <div class="col-sm-6">
-                     <h4>Team members</h4>
-                     <!-- TODO: Show the current team member list -->
-					 
-					 <div ng-repeat="member in param.teamMembers">
-						<button type="button" class="btn" ng-click="removeMember(member);">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {{member}}
-						</button>
-					 </div>
-					 
-                  </div>
-
-                  <div class="col-sm-6">
-                     <h4>Requests received:</h4>
-
-                     <!--TODO: Show the requests -->
-					 
-					 <div ng-repeat="r in requests">
-						<button type="button" class="btn" ng-click="processRequest(r);">
-							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span> {{r}}
-						</button>
-					 </div>
-					 
-                  </div>
-				</div>
-				  
-				  
-
-                  				  
-					
-                   
-                  
-
-
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <!--<i class="fa fa-play-circle"></i> <span class="light">Start</span> Bootstrap-->
+                    <!--profile-->
+                    <a href = "#contact"  data-toggle ="modal">
+                        <div class = "navbar-brand">
+                            
+                            <img src="profile/brown.png" height=400% data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                </div>
+                    </a>
+                </a>
             </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="tutorial.html">Tutorial</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="explore.html">Explore</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="login.html">Logout</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Header -->
+    <header class="intro">
+        <div class="intro-body">
+            <div class="container">
+                
+                <!--team inform-->
+                <div class = "row">
+                    
+                     <div class = "col-lg-3">
+                      <div class ="list-group">
+                      
+                      
+        
+                      <a href = "#" class = "list-group-item " >
+                      <h4 class = "list-group-item-heading">Name</h4>
+                      <p class ="list-group-item-text"> position of the team</p>
+                      </a>
+                          
+                      <a href = "#" class = "list-group-item">
+                      <h4 class = "list-group-item-heading" >Name</h4>
+                      <p class = "list-group-item-text">position of the team</p>
+                      </a>
+                      </div>
+                    
+                      </div>
+                      <div class = "col-lg-9">
+                        <div class = " panel-default">
+                            <div class = "panel-body">
+                                <div class = "page-header">
+                                    <h3>Your teamname <small>posted</h3>
+                            
+                        </div>
+                        <img class = "featuredImg" src = "img/team-img.jpg" width = "100%" > 
+                        <p> your team information here... </p>
+                        
+                     </div>
+
+                 </div>
+            </div>
+    
+		</div>
+       
+</div>  
+        </div>
+             </div>
+      </div>
+        </div>
+    </header>
+
+  
+ <div class="modal fade" id="contact">
+        <!--<div class="modal-content">-->
+        <div class="close-modal" data-dismiss="modal">
+                    <div class="lr">
+                        <div class="rl">
+                        </div>
+                    </div>
+                </div>
+        
+        
+        <div class="container">
+            <div class="col-xs-8 col-xs-offset-2">
+                <center>
+                    <!-- <div class="panel panel-default"><div class="panel-body">-->
+                    <img class="fetureImg" src="profile/brown.png">
+                        
+                        <h2> {Username} </h2>
+                        <hr>
+                        <h3> {Self-Intro}</h3>
+                        <p> In order for assistive technologies – such as screen readers – to convey that a series of buttons is grouped, an appropriate role attribute needs to be provided. For button groups, this would be role="group", while toolbars should have a role="toolbar".One exception are groups which only contain a single control (for instance the justified button groups with elements) or a dropdown.
+                        
+                        In addition, groups and toolbars should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. In the examples provided here, we use aria-label, but alternatives such as aria-labelledby can also be used.
+                        
+                        </p>
+                        </center>
+            </div>
+        </div>
 
 
+  
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.js"></script>
 
-            <div class="col-md-4 col-xs-4 text-left">
-			
-					
-			 
-					<h3>All teams:</h3>
-					<ul ng-repeat="t in team">
-						<li>
-						
-							User ID: {{t.$id}}  <br>
-							Preferred team size: <span class="badge">{{t.size}}</span> <br>
-							Current team members: {{t.teamMembers}}
-						
-						</li>
-						
-					</ul>			
-			
-			</div>
-         </div>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- Plugin JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-       </div>
-   </div>
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
+    <!-- Theme JavaScript -->
+    <script src="js/grayscale.min.js"></script>
+    
 
-   <!-- JavaScript of this page -->
+</body>
 
-   <!-- Angular and Angular-route libraries (v1.5.7) -->
-   <script src="lib/angular.min.js"></script>
-   <script src="lib/angular-route.min.js"></script>        
-     
-   <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
-   <script src="lib/firebase.js"></script>     
-   <script src="lib/angularfire.min.js"></script>
-
-
-   <script src="js/team.js"></script>
-
-   </body>
 </html>
-
