@@ -1,3 +1,34 @@
+$(document).ready(function() {
+  $("#blogin").hide();
+  $("#blogout").hide();
+
+  $("#blogout").click(function(){
+      firebase.auth().signOut().then(function() {
+        location.reload();
+      });
+  });
+
+  if(firebase.apps.length === 0) {
+    initalizeFirebase();
+  }
+
+  firebase.auth().onAuthStateChanged(function(firebaseUser) {
+    if(firebaseUser) {
+      var user = firebase.auth().currentUser;
+      $("#blogout").show();
+      $("#blogin").hide();
+      $("#userName").text(user.displayName);
+      if(user.photoURL) {
+        $("#fbicon").attr("src", user.photoURL); 
+      }
+    }
+    else {
+      $("#blogout").hide();
+      $("#blogin").show();
+    }
+  });
+
+});
 
 //
 // How to parse parameters from URL string
@@ -5,19 +36,8 @@
 // Usage:
 //   var myvar = getURLParameter('myvar');
 //
-
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
-}
-
-
-// Returns a random integer between min (included) and max (included)
-// Using Math.round() will give you a non-uniform distribution!
-// Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 //
@@ -27,17 +47,15 @@ function getRandomIntInclusive(min, max) {
 //
 
 function initalizeFirebase() {
-	
-  // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyDTXQFSuriwxpvJd0mZHElmLmhL8AIYmWE",
-    authDomain: "teamform-15bcb.firebaseapp.com",
-    databaseURL: "https://teamform-15bcb.firebaseio.com",
-    storageBucket: "teamform-15bcb.appspot.com",
+    apiKey: "AIzaSyDpVqVvHIhoL6i02-hNzKFwq4UfLFAakAQ",
+    authDomain: "team-anonymous-team-forming.firebaseapp.com",
+    databaseURL: "https://team-anonymous-team-forming.firebaseio.com",
+    storageBucket: "team-anonymous-team-forming.appspot.com",
+    messagingSenderId: "903294276428"
   };
   firebase.initializeApp(config);
-
-}    
+}
 
 //
 // User-defined function - Useful for retrieving an object once, without 3-way sync 
@@ -46,5 +64,28 @@ function initalizeFirebase() {
 
 function retrieveOnceFirebase(firebase, refPath, callbackFunc) {
 	firebase.database().ref(refPath).once("value").then(callbackFunc);
+}
+
+function getUserWithId(id) {
+	var refPath = "user/" + id;
+	return firebase.database().ref(refPath);
+}
+
+function getUserName(id, users) {
+	for(var tmpIdx = 0; tmpIdx < users.length; tmpIdx++) {
+		if(users[tmpIdx].$id == id) {
+			return users[tmpIdx].name;
+		}
+	}
+	return "null";
+}
+
+function getTeamMembersName(teamMembers, users) {
+	var result = [];
+	var length = (typeof teamMembers != 'undefined') ? teamMembers.length : 0;
+	for(var idx = 0; idx < length; idx++) {
+		result.push(getUserName(teamMembers[idx], users));
+	}
+	return result;
 }
 

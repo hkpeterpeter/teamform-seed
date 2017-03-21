@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-profile-app">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+    
+    <title>teamform - profile page</title>
+      
+    <script src="lib/jquery.min.js"></script>      
+    <script src="lib/bootstrap.min.js"></script>      
+      
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">     
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/login.css">
+    
+    <script src="js/site.js"></script>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+         <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+            <li><a href="index.html">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            Back</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown" id="blogout">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="padding:0">
+                <div>
+                <span id="userName"></span>
+                <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+                <img id="fbicon" src="images/dp.jpg" width="48" height="48"/>
+                </div>
+                </a>
+                <ul class="dropdown-menu">
+                <li id="logOut"><a href="#">Log out</a></li>
+                </ul>
+              </li>               
+              <li>
+                <button type="button" class="btn btn-primary" id="blogin" onclick="document.getElementById('login-form').style.display='block'"> Log In
+                </button>
+              </li>
+          </ul>
+         </div>
+      </div>
+    </nav>
+
+    <div login id="login-form" class="modal"></div>
+
+    <br>    
+    <div class="text-center">
+      <h1>My Page</h1> 
+      <div id="profile_page_controller" ng-controller="ProfileCtrl">
+        <h2>Information</h2>
+        <div class="row">
+          <div class="col-sm-offset-2 col-sm-4 text-left">
+            <img id="profile-photo" src="" width="250" height="250"/>
+            <span ng-if="isMyPage()"><input type="text" placeholder="URL for your new photo" ng-model="toPhotoUrl"><button type="button" class="btn btn-info" ng-click="changePhoto()">Change</button></span>
+          </div>
+          <div class="col-sm-4 text-left">
+            <h4>Name: {{userInfo.name}}</h4>
+            <h4>Email: {{userEmail}}</h4>
+            <h4>Description:</h4>
+            <div ng-if="isMyPage()">
+              <textarea class="form-control" rows="6" placeholder="Write something about yourself" ng-model="userInfo.description"></textarea>
+              <button type="button" class="btn btn-info" ng-click="saveDescription()">Save</button>
+            </div>
+            <p ng-if="!isMyPage()" style="word-wrap: break-word;">{{userInfo.description}}</p>
+          </div>
+        </div>
+        <div class="row">
+        <h2>Invitation</h2>
+          <div class="col-md-2 col-xs-2"></div>   
+          	<div class="col-md-8 col-xs-8 text-left panel">
+          	  <table class="table" ng-if="hasInvitation(inEventInfo)">
+       	        <tr><th>Event name</th><th>Invited By</th></tr>
+       	        <tr ng-repeat="eventInfo in inEventInfo track by $index" ng-if="eventInfo.invitedBy !== undefined">
+       	          <td>{{eventInfo.eventId}}</td>
+       	          <td>{{eventInfo.invitedBy.toString()}}</td>
+       	        </tr>
+          	  </table>
+          	  <div>No invitation</div>
+        	</div>    
+        </div>
+        <h2>Abilities</h2>
+        <div class="row">
+          <div class="col-md-2 col-xs-2"></div>   
+          	<div class="col-md-8 col-xs-8 text-left panel">
+          	  <table class="table" ng-if="abilityInfo.length > 0">
+          	    <tr><th>Ability</th><th>Score</th><th>Can retake</th></tr>
+          	    <tr ng-repeat="ability in abilityInfo">
+          	      <td>{{ability.$id}}</td>
+          	      <td>{{ability.marks + "/100"}}</td>
+          	      <td>{{getRetakeDate(ability.takenAt)}}</td>
+          	    </tr>
+          	  </table>
+          	  <div ng-if="abilityInfo.length <= 0">No Ability</div>
+        	</div>    
+        </div>
+        <h2>Joined Events</h2>
+        <div class="row">
+          <div class="col-md-2 col-xs-2"></div>
+          	<div class="col-md-8 col-xs-8 text-left panel">
+              <table class="table" ng-if="inEventInfo.length > 0">
+                <tr><th>Event Name</th><th>Joined Team</th></tr>
+                <tr ng-repeat="eventInfo in inEventInfo">
+                <td><a href="member.html?q={{eventInfo.eventId}}">{{eventInfo.eventId}}</a></td>
+                <td>{{(eventInfo.inTeam !== undefined? eventInfo.inTeam: "None")}}</td>
+                </tr>
+              </table>
+          	  <div ng-if="inEventInfo.length <= 0">No event joined yet.</div>
+        	</div>    
+        </div>
+      </div>
+    </div>
+
+  
+  <script src="lib/angular.min.js"></script>
+  <script src="lib/angular-route.min.js"></script>
+
+  <script src="lib/firebase.js"></script>     
+  <script src="lib/angularfire.min.js"></script>
+  
+  <script src="js/profile.js"></script>
+  
+  </body>
+</html>
+

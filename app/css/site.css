@@ -1,0 +1,188 @@
+.navbar-collapse.collapse {
+  display: block!important;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
+}
+
+.featurette ul.nav li:hover {
+    cursor: pointer;
+}
+
+#fbicon {
+	padding: 10px;
+}
+
+#blogin {
+	background: #4080ff;
+	margin-top: 8px;
+	color: white;
+	font-weight: bold;
+}
+
+#blogout div {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.dropdown:hover .dropdown-menu {
+	display: block;
+}
+
+@media (max-width: 460px) {
+	#teamform {
+		display: none;
+	}
+}
+
+p {
+	margin-bottom: 0px;
+}
+.dropbtn {
+    background-color: #888888;
+    color: white;
+    padding: 13px;
+    font-size: 13px;
+    border-radius:10px;
+    cursor: pointer;
+}
+.dropbtn2 {
+    background-color: #888888;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #888888;
+}
+#myInput {
+    border-box: box-sizing;
+    background-image: url('searchicon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-tags{
+    padding-left : 10px;
+    font-size: 16px;
+    display: none;
+    position: relative;
+    background-color: #f6f6f6;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.dropdown-text{
+    padding-top: 5px;
+    border-bottom: 2px solid #888888;
+}
+.dropdown-text h5{
+    font-weight:bold;
+    font-family:Sans-serif, Serif;
+    font-size: 16px;
+}
+.dropdown-content {
+    padding-left : 18px;
+    font-size: 16px;
+    display: none;
+    position: relative;
+    background-color: #f6f6f6;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content:hover {
+    cursor: pointer;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}
+
+#page_event table tr:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+#eventDetail table tr#teamInfo:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+.panel-body {
+    padding-bottom: 0;
+}
+#page_event div.text-center ul.pager li {
+    cursor: pointer;
+}
+.pager {
+    margin: 0;
+}
+
+ul.list-unstyled li {
+    padding: 5px;
+    border: 2px solid #888888;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);    
+}
+
+ul.list-unstyled li:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.col-xs-2, .col-xs-5 {
+    padding: 0;
+}
+
+.teamList{
+    padding: 5px;
+}
+
+#input_text {
+    width:30vw;
+}
+
+@media (max-width: 767px) {
+    .tmember:nth-child(2n+1) {
+        clear: left;
+    }
+    #input_text {
+        width: 50vw;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 991px) {
+    .tmember:nth-child(3n+1) {
+        clear: left;
+    }
+    #input_text {
+        width: 40%;
+    }
+}
+
+@media (min-width: 992px) {
+    .tmember:nth-child(4n+1) {
+        clear: left;
+    }
+}
