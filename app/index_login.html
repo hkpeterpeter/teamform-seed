@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = "teamform-index-app" id="index_page_controller" ng-controller="IndexCtrl">
+   <head>
+<meta charset="utf-8">
+	<meta name="viewport"    content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author"      content="Sergey Pozhilov (GetTemplate.com)">
+	
+	<title>LIGHT OF WISDOM</title>
+
+	<link rel="shortcut icon" href="assets/images/logo.png">
+	
+	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+	<!-- Custom styles for our template -->
+	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen" >
+	<link rel="stylesheet" href="assets/css/main.css">
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+
+   <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
+
+      <!-- Angular Library -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+
+      <!-- Firebase -->
+   <script src="https://www.gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+
+      <!-- AngularFire URL: https://github.com/firebase/angularfire -->
+   <script src="https://cdn.firebase.com/libs/angularfire/2.0.0/angularfire.min.js"></script>
+
+
+   <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>        
+
+   <script src="assets/js/headroom.min.js"></script>
+   <script src="assets/js/jQuery.headroom.min.js"></script>
+   <script src="assets/js/template.js"></script>
+
+   <script src="assets/js/site.js"></script>
+   <script src="assets/js/index.js"></script>
+
+
+
+
+
+
+
+
+	</head>
+	
+   <body>
+   
+   
+  
+   
+   
+      <!-- Fixed navbar -->
+	<div class="navbar navbar-inverse navbar-fixed-top headroom">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- Button for smallest screens -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+				<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" alt="Progressus HTML5 template"></a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav pull-right">
+					<li class="active"><a href="#">HOME</a></li>
+					<li><a href="#event">EVENTS</a></li>
+					<li><a href="#about">ABOUT US</a></li>
+					<li><a href="member.html">Member(FOR TEST)</a></li>
+					<li><a href="create_event.html">ADMIN</a></li>
+					<li><a class="btn" ng-click="logout()">SIGN OUT</a></li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div> 
+	<!-- /.navbar -->
+	
+	
+
+
+	
+    <!-- Header -->
+	<header id="head">
+		<div class="container">
+			<h2 class="featurette-heading">What is teamform?
+                  <br>
+                  <span class="text-muted">A real-time online team forming app</span>
+               </h2>
+               <p class="lead"> The following roles are supported in teamform:</p>
+
+               <div class="row">
+			   <font color="white">
+
+                  <div class="col-md-4">
+                     <h3 class="text-center">Administrator</h3>
+                     <ul>
+                        <li>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</li>
+						<li>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <h3 class="text-center">Team</h3>
+                     <ul>
+                        <li>Be able to add and remove requests made by members</li>
+						<li>Once a member joins the team, all his/her requests will be deleted</li>
+                     </ul>
+                  </div>
+
+                  <div class="col-md-4">
+                     <h3 class="text-center">Member</h3>
+                     <ul>
+                        <li>Be able to request to join multiple teams</li>
+                     </ul>
+					 </font>
+                  </div>
+		</div>
+	</header>
+	<!-- /Header -->
+	
+	<!-- Search -->
+      
+         <div class="row">
+            <div class="col-md-12">
+               <div class="row">
+                  <div class="col-md-12">
+                     
+                     <div class="text-center">
+						<br>
+                        <h1 class="thin"><p> You are currently login as {{userObj.name}}</p></h1>
+
+                        <p>A real-time online team forming app for any event</p>
+                     </div>
+					<div class="jumbotron top-space">
+                     <div class="text-center">
+
+                        <input id="input_text" type="text" class="input-lg" placeholder="Enter a name here">
+                        <br>
+                        <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
+                        <br>
+                        <br>
+
+                        <div>
+                           
+                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
+                           <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
+                           <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
+
+                        </div>
+                     </div>
+					 </div>
+                  </div>
+               </div>
+               <hr >
+            </div>
+         </div>
+      
+	  <!-- /Search -->
+	  
+      	<!-- Intro -->
+	<div class="container text-center">
+		<br>
+		<h2 class="thin" id="event">Current Events</h2>
+	</div>
+	<!-- /Intro-->
+	
+	<!-- Highlights - jumbotron -->
+	<div class="jumbotron top-space parallax">
+
+		<div class="container text-center">
+			<div class="row" >
+
+			<table align="center" border="1" style="background-color:#FFFFE0;border-color:#BDB76B;">
+			<tr style="background-color:#BDB76B;color:#ffffff;">
+			<td><b> Event Name </b></td><td><b> Holder </b></td><td><b> Team Size </b></td><td></td></tr>
+
+
+			<tr ng-repeat="e in events">
+			<td>{{e.param.EventName}} </td>
+			<td>{{e.param.EventAdmin}} </td>
+			<td>{{e.param.TeamSize}}</td>
+			<td><button type="button" class="btn btn-primary btn-sm" ng-click ="viewevent(e.param.EventName);">More Info</button></td>
+			</tr>
+
+			</table>
+	</div>
+	</div>
+	</div>
+
+	<!-- /Highlights -->
+	<p class="pull-right"><a href="#">Back to top</a></p>
+	  
+	<div class="container">
+    <!-- Intro -->
+	<div class="container text-center">
+		<br>
+		<h2 class="thin" id="about">Development Team</h2>
+	</div>
+	<!-- /Intro-->
+		
+		<div class="jumbotron top-space parallax">
+			<div class="container text-center">
+			
+			<h3 class="text-center thin"><b>We are the team Light of Wisdom.</b></h3>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Henry</h3></div>
+					<div class="h-body text-center">
+						<p><strong>description</strong></p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Anderson</h3></div>
+					<div class="h-body text-center">
+						<p><strong>description</strong></p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Wyman</h3></div>
+					<div class="h-body text-center">
+						<p><strong>description</strong></p>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Chung</h3></div>
+					<div class="h-body text-center">
+						<p><strong>description</strong></p>
+					</div>
+				</div>
+			</div> <!-- /row  -->
+			
+			<div class="row">
+				<div class="col-md-4 col-sm-6 highlight">
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Lydia</h3></div>
+					<div class="h-body text-center">
+						<p><strong>description</strong></p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 highlight">
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Lickie</h3></div>
+					<div class="h-body text-center">
+						<p><strong>description</strong></p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 highlight">
+					<div class="h-caption"><h3><i class="fa fa-smile-o fa-5"></i>Victoria</h3></div>
+					<div class="h-body text-center">
+						<p><strong>description</strong></p>
+					</div>
+				</div>
+			</div> <!-- /row  -->
+		
+		</div>
+  		</div>
+	</div>
+		
+        <p class="pull-right"><a href="#">Back to top</a></p>
+	
+	<!-- Social links. @TODO: replace by link/instructions in template -->
+	<section id="social">
+		<div class="container">
+			<div class="wrapper clearfix">
+				<!-- AddThis Button BEGIN -->
+				<div class="addthis_toolbox addthis_default_style">
+				<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+				<a class="addthis_button_tweet"></a>
+				<a class="addthis_button_linkedin_counter"></a>
+				<a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+				</div>
+				<!-- AddThis Button END -->
+			</div>
+		</div>
+	</section>
+	<!-- /social links -->
+
+
+	<footer id="footer" class="top-space">
+
+		<div class="footer1">
+			<div class="container">
+				<div class="row">
+					
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Contact</h3>
+						<div class="widget-body">
+							<p>Light of Wisdom<br>
+								<a href="mailto:#">lightofwisdom3111@gmail.com</a><br>
+								<br>
+								"phone: 31800000"
+							</p>	
+						</div>
+					</div>
+
+					<div class="col-md-6 widget">
+						<h3 class="widget-title">Follow us</h3>
+						<div class="widget-body">
+							<p class="follow-me-icons">
+								<a href=""><i class="fa fa-twitter fa-2"></i></a>
+								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
+								<a href=""><i class="fa fa-github fa-2"></i></a>
+								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+							</p>	
+						</div>
+					</div>
+
+			
+
+				</div> <!-- /row of widgets -->
+			</div>
+		</div>
+
+		
+
+	</footer>	
+
+	</div>
+
+   </body>
+</html>
