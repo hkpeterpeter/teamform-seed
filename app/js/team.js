@@ -161,6 +161,20 @@ angular.module('teamform-team-app', ['firebase'])
 		});
 
 	}
+
+	//Delete Team Functionality**
+	$scope.deleteFunc = function() {
+	    if (confirm("Are you sure you want to delete this team from the event?\nCurrent team members will not be deleted.\n \nWARNING- this cannot be undone!")){
+		//remove the event from firebase, including all child nodes
+		var teamID = $.trim( $scope.param.teamName );		
+		var eventName = getURLParameter("q");
+		var refPath = eventName + "/team/" + teamID ;
+		ref = firebase.database().ref(refPath);
+		ref.remove();
+		//if deleted return to the index page
+		window.location.href= "index.html";
+	    }
+	}
 	
 	$scope.processRequest = function(r) {
 		//$scope.test = "processRequest: " + r;
