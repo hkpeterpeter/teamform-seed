@@ -1,0 +1,37 @@
+//sth that should be include for navbar
+
+	$scope.loggedIn = true;
+	// Call Firebase initialization code defined in site.js
+	initalizeFirebase();	
+
+    	//$scope.users is an array of users in firebase
+    var usersRef = firebase.database().ref('users');
+    $scope.users = $firebaseArray(usersRef);
+	
+	//logout function
+	$scope.logout = function(){
+		firebase.auth().signOut();
+	}
+
+//monitor if the user is logged in or not
+	firebase.auth().onAuthStateChanged(user => {
+		if(user){
+			console.log('logged in');
+            var database = firebase.database();
+            var usersRef = database.ref('users/'+user.uid);
+            var currentUserData = $firebaseObject(usersRef);
+            currentUserData.$loaded()
+                .then(function(data){
+                    $scope.username = currentUserData.name;
+                })
+                .catch(function(error){
+                    console.error("Error: "+error);
+                });
+            $scope.loggedIn = true;
+			$scope.uid = user.uid;
+        }else{
+			console.log('not log in');
+            $window.location.href = '/index.html';
+		}
+	})
+}]);

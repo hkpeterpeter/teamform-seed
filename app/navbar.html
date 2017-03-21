@@ -1,0 +1,78 @@
+
+      <!-- JavaScript of this page -->
+      <script src="js/site.js"></script>
+      <div class="navbar-wrapper">
+         <div class="container">
+            <nav class="navbar navbar-static-top navbar-default">
+               <div class="container"  style='margin-left = 10000px'>
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand" href="index.html">teamform</a>
+                  </div>
+                  <div id="navbar" class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
+                           <ul class="dropdown-menu">
+                              <li><a href="#page_about">About teamform</a></li>
+                              <li>
+                              <a href="#page_team">Development team</a>
+                              </li>
+                              <li role="separator" class="divider"></li>
+                              <li><a href="#">TODO: Add menu items here... </a></li>
+                              <li>
+                                <a href="profile.html" ng-show="loggedIn">Profile</a>
+                                <!--Show this when login-->
+                              </li>
+                              <li>
+                                <a href="admin.html" ng-show="loggedIn">Administrative Page</a>
+                              </li>
+                              <li>
+                                <a href="team.html" ng-show="loggedIn">Team page</a>
+                              </li>
+                              <li>
+                                <a href="member.html" ng-show="loggedIn">Member Page</a>
+                              </li>
+                           </ul>
+                        </li>
+                        
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
+                          
+                          <ul class="dropdown-menu">
+                            <li>
+                              <a href="coverage/index.html" target="_blank">Report</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                              <a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
+                            </li>
+                            
+                            <li><a href="#">TODO: Add more test cases here... </a></li>
+                          </ul>
+                        </li>
+                        </ul>
+                        <!--navbar right side->account control / sign up-->
+                        <ul class="nav navbar-nav navbar-right" ng-show="loggedIn">
+                            <li><a href="profile.html" ng-show="loggedIn">{{username}}</a></li>
+                            <li>
+                              <a ng-click="logout()" id="">
+                              <span class="glyphicon glyphicon-log-out" ng-show="loggedIn" style="cursor: pointer"> Logout</span>
+                              </a>
+                            </li>
+                        </ul>
+                  </div>
+                  <!--close collapse-->
+               </div>
+               <!--close inside container-->
+            </nav>
+            <!--close navbar statis top-->
+         </div>
+         <!--close ouside contain-->
+      </div>
+      <!--close wrapper-->
