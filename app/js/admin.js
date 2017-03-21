@@ -1,29 +1,15 @@
-$(document).ready(function(){
-	
-	$('#admin_page_controller').hide();
-	$('#text_event_name').text("Error: Invalid event name ");
-	var eventName = getURLParameter("q");
-	if (eventName != null && eventName !== '' ) {
-		$('#text_event_name').text("Event name: " + eventName);
-		
-	}
-
-});
-
-angular.module('teamform-admin-app', ['firebase'])
-.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', function($scope, $firebaseObject, $firebaseArray) {
+angular.module('teamform')
+.controller('AdminCtrl', ['$scope', '$firebaseObject', '$firebaseArray', '$stateParams', '$state',
+	function($scope, $firebaseObject, $firebaseArray, $stateParams, $state) {
 	
 	// TODO: implementation of AdminCtrl
 	
 	// Initialize $scope.param as an empty JSON object
 	$scope.param = {};
-			
-	// Call Firebase initialization code defined in site.js
-	initalizeFirebase();
 	
 	var refPath, ref, eventName;
 
-	eventName = getURLParameter("q");
+	eventName = $stateParams.event;
 	refPath = eventName + "/admin/param";	
 	ref = firebase.database().ref(refPath);
 		
@@ -65,31 +51,37 @@ angular.module('teamform-admin-app', ['firebase'])
 		var newVal = $scope.param.minTeamSize + delta;
 		if (newVal >=1 && newVal <= $scope.param.maxTeamSize ) {
 			$scope.param.minTeamSize = newVal;
-		} 
-		
+		}
 		$scope.param.$save();
-
-		
-	}
+	};
 
 	$scope.changeMaxTeamSize = function(delta) {
 		var newVal = $scope.param.maxTeamSize + delta;
 		if (newVal >=1 && newVal >= $scope.param.minTeamSize ) {
 			$scope.param.maxTeamSize = newVal;
-		} 
-		
+		}
 		$scope.param.$save();
-		
-		
-	}
+	};
 
 	$scope.saveFunc = function() {
 
 		$scope.param.$save();
 		
 		// Finally, go back to the front-end
-		window.location.href= "index.html";
+        $state.go('login');
+	};
+    
+    // Delete Event Functionality**
+    $scope.deleteFunc = function() {
+	if (confirm("Are you sure you want to delete this event from the database? \n \nWARNING- this cannot be undone!")){
+	    //remove the event from firebase, including all child nodes
+	    refPath = $stateParams.event;
+	    ref = firebase.database().ref(refPath);
+	    ref.remove();
+	    //if deleted return to the index page
+	    $state.go('login');
 	}
-	
-		
+    }
+    
+    
 }]);

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+
+    <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>teamform - A real-time online team forming app</title>
+
+    <script src="app/lib/jquery.min.js"></script>
+    <script src="app/lib/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+    <!-- Customized CSS file shared by pages -->
+    <link rel="stylesheet" href="app/css/site.css">
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="app/lib/firebase.js"></script>
+
+    <script>
+        var config = {
+            apiKey: "AIzaSyDpflKeM1c07q-guKmbpJGjHosd9-PKjU8",
+            authDomain: "teamharambe-10608.firebaseapp.com",
+            databaseURL: "https://teamharambe-10608.firebaseio.com",
+            storageBucket: "teamharambe-10608.appspot.com",
+            messagingSenderId: "491929198847"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+<body ng-app="teamform">
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-static-top navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">teamform</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a >How to Use</a>
+                        </li>
+                        <li>
+                            <a ui-sref="about_us">About Us</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a ui-sref="login">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+<!-- Marketing messaging and featurettes
+   ================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+<div class="container marketing">
+    <div ui-view>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2016 Team Harambe</p>
+        <p>Powered by <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></p>
+    </footer>
+</div>
+
+<!-- Angular and Angular-route libraries (v1.5.7) -->
+<script src="app/lib/angular.min.js"></script>
+<script src="app/lib/angular-route.min.js"></script>
+
+<script src="app/lib/angularfire.min.js"></script>
+<script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+<script src="app/js/index.js"></script>
+<script src="app/js/main.js"></script>
+<script src="app/js/login.js"></script>
+<script src="app/js/admin.js"></script>
+<script src="app/js/member.js"></script>
+<script src="app/js/team.js"></script>
+<script src="app/js/member-creation.js"></script>
+<script src="app/js/team-creation.js"></script>
+<script src="app/js/admin-creation.js"></script>
+
+</body>
+</html>
