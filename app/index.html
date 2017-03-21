@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="teamform-login-app">
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,128 +7,95 @@
       <meta name="keywords" content="teamform, team">
       <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <title>teamform - A real-time online team forming app</title>
-	  
-      <!-- libraries and CSS 	  
-		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)		
-		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
-		Font-awesome: More icons for the web development (v4.6.3 is used)		
-		site.css: A customized css for our web application. Not from any web framework. 
-	  -->
-	        
-      <script src="lib/jquery.min.js"></script>      
-      <script src="lib/bootstrap.min.js"></script>      
-      	  
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">   
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">   
 
-      
+      <!-- libraries and CSS
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)
+		site.css: A customized css for our web application. Not from any web framework.
+	  -->
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+
       <!-- Customized libraries shared by pages -->
       <script src="js/site.js"></script>
 
 
-	  	  
+
    </head>
    <body>
-   
+
    <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/hkpeterpeter/teamform-seed" target="_blank">Fork me on GitHub</a></span>
-   
-  
-   
-   
-      <div class="navbar-wrapper">
-	  
-         <div class="container">
-            <nav class="navbar navbar-static-top navbar-default">
-               <div class="container">
-                  <div class="navbar-header">
-                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                     <span class="sr-only">Toggle navigation</span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     <span class="icon-bar"></span>
-                     </button>
-                     <a class="navbar-brand" href="#">teamform</a>
-                  </div>
-                  <div id="navbar" class="navbar-collapse collapse">
-                     <ul class="nav navbar-nav">
-                        
-                        <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="#page_about">About teamform</a></li>
-                              <li>
-                              <a href="#page_team">Development team</a>
-                              </li>
-                              <li role="separator" class="divider"></li>
-                              <li><a href="#">TODO: Add menu items here... </a></li>
-                           </ul>
-                        </li>
-						
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Coverage <span class="caret"></span></a>
-							
-							<ul class="dropdown-menu">
-								<li>
-									<a href="coverage/index.html" target="_blank">Report</a>
-								</li>
-								<li role="separator" class="divider"></li>
-								
-								<li>
-									<a href="unit_tests/test_site.js" target="_blank">test_site.js (sample)</a>
-								</li>
-								
-								<li><a href="#">TODO: Add more test cases here... </a></li>
-							</ul>
-						</li>
-                        
-                     </ul>
-                  </div>
-               </div>
-            </nav>
-         </div>
-      </div>
+
+<!--background-->
+    <body background="photos\background.jpg" background-repeat="no-repeat"> 
+<!--backgroundend-->
+
+      <div ng-include="'navbar.html'"></div>
       <!-- A sample login page -->
       <div class="container" id="page_home">
          <div class="row">
             <div class="col-md-12">
                <div class="row">
                   <div class="col-md-12">
-                     
+
                      <div class="text-center">
-                        <h1>teamform</h1>
-                        <p>A real-time online team forming app for any event</p>
+                       <font color="white"> <h1>TeamForm</h1> </font>
+                       <font color="white"> <p>A real-time online team forming app for any event</p></font>
                      </div>
 
                      <br >
 
-                     <div class="text-center">
+                     <div class="text-center" >
 
                         <input id="input_text" type="text" class="input-lg">
-                        <br>
+                       <font color="white"> <br>
                         <em>Enter a name (e.g. COMP3111-L1, COMP3111-L2 or COMP3111H) to create/join an event</em>
                         <br>
-                        <br>
+                        <br></font>
 
-                        <div>
-                           
-                           <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button>
-                          
+                        <div ng-controller="LoginCtrl">
 
+                          <font color="white"> <button id="btn_admin" type="button" class="btn btn-primary" >Administrator</button></font>
+
+ <font color="white"> 
 
                            <button id="btn_leader" type="button" class="btn btn-primary" >Team Leader</button>
-                          
+
                            <button id="btn_member" type="button" class="btn btn-primary" >Member</button>
-                          
-
-
+                           <br>
+                           <br>
+                           Email:<input id="input_text" type="text" class="input-email" ng-model="loginUser">
+                           <br>
+                           Password:<input id="input_text" type="text" class="input-pw" ng-model="loginPW">
+                           <br>
+                           <p ng-if="message">Message: <strong>{{ message }}</strong></p>
+                           <p ng-if="error">Error: <strong>{{ error }}</strong></p>
+                           <br>
+                           <button type="button" class="btn btn-primary" ng-click="fbLogin();">Facebook Login(ng)</button>
+                           <button type="button" class="btn btn-primary" ng-click="emailAccCreate();">create Email acc(ng)</button>
+                           <button type="button" class="btn btn-primary" ng-click="emailLogin();">Email Login(ng)</button>
+                           <button type="button" class="btn btn-primary" ng-click="signOut();">Log out(ng)</button>
+                           <br>
+                           using ng one is better
+                           <br>
+                           <button id="btn_login_fb" type="button" class="btn btn-primary" >Facebook Login(JS)</button>
+                           <button id="btn_create_email_acc" type="button" class="btn btn-primary" >create Email acc(JS)</button>
+                           <button id="btn_login_email" type="button" class="btn btn-primary" >Email Login(JS)</button>
+                           <button id="btn_login_out" type="button" class="btn btn-primary" >Logout(JS)</button>
                         </div>
                      </div>
                      <br >
-					 
-																 
-					
-					 
+
+
+ </font>
+
                      <br >
                   </div>
                </div>
@@ -141,7 +108,7 @@
       <!-- Wrap the rest of the page in another container to center all the content. -->
       <div class="container marketing">
 
-
+ <font color="white"> 
          <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_about">
             <div class="col-md-12">
@@ -184,46 +151,95 @@
           <!-- START THE FEATURETTES -->
          <div class="row featurette" id="page_team">
             <div class="col-md-12">
-               <h2 class="featurette-heading">Development Team
+               <h2 class="featurette-heading">Chess
                   <br>
-                  <span class="text-muted">[Your Team Name]</span>
+                  <span class="text-muted">Provided by Team Long Time No Name</span>
                </h2>
-               
+
 
                <div class="row">
-            
-            
-                 <div class="col-xs-6 col-md-3">
-                  <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member1&w=150&h=150" class="img-circle img-responsive">
-                    <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
-                     
-                    </div>
-                  </div>
-                 </div> 
+
 
                  <div class="col-xs-6 col-md-3">
                   <div class="thumbnail text-center">
-                    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=member2&w=150&h=150" class="img-circle img-responsive">
+                    <img src="photos/King.jpg" >
                     <div class="caption">
-                     <h4>[Your name]</h4>
-                     <p>[ITSC email]</p>
-                     
+                     <h4>King</h4>
+                     <p>Team Leader</p>
+                        <p>Leading our victory and honour</p>
+
                     </div>
                   </div>
-                 </div> 
-              
+                 </div>
+
+                 <div class="col-xs-6 col-md-3">
+                  <div class="thumbnail text-center">
+                    <img src="photos/Queen.jpg">
+                    <div class="caption">
+                     <h4>Queen</h4>
+                     <p>Omnipotent</p>
+                        <p>Capable of anything</p>
+
+                    </div>
+                  </div>
+                 </div>
+
                </div>
 
              </div>
          </div>
 
+        
+           <div class="row">
 
 
+                 <div class="col-xs-6 col-md-3">
+                  <div class="thumbnail text-center">
+                    <img src="photos/Knight.jpg" >
+                    <div class="caption">
+                     <h4>Knight</h4>
+                     <p>Attacker</p>
+                        <p>Crash anything</p>
+
+                    </div>
+                  </div>
+                 </div>
+
+               
+               
+           <div class="row">
+
+
+                 <div class="col-xs-6 col-md-3">
+                  <div class="thumbnail text-center">
+                    <img src="photos/Bishop.jpg" >
+                    <div class="caption">
+                     <h4>Bishop</h4>
+                     <p>Schemer</p>
+                        <p>Decision Making</p>
+
+                    </div>
+                  </div>
+                 </div>
+
+
+                 <div class="col-xs-6 col-md-3">
+                  <div class="thumbnail text-center">
+                    <img src="photos/Rook.jpg" >
+                    <div class="caption">
+                     <h4>Rook</h4>
+                     <p>BackUp</p>
+                        <p>Support anything</p>
+
+                    </div>
+                  </div>
+                 </div>
+
+
+</font>
          <!-- /END THE FEATURETTES -->
          <!-- FOOTER -->
+ <font color="white">           
          <hr>
          <footer>
             <p class="pull-right"><a href="#">Back to top</a></p>
@@ -234,8 +250,16 @@
       <!-- /.container -->
 
       <!-- JavaScript of this page -->
+      <!-- Angular and Angular-route libraries (v1.5.7) -->
+      <script src="lib/angular.min.js"></script>
+      <script src="lib/angular-route.min.js"></script>
+
+      <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+      <script src="lib/firebase.js"></script>
+      <script src="lib/angularfire.min.js"></script>
+
       <script src="js/index.js"></script>
 
-
+</font>
    </body>
 </html>

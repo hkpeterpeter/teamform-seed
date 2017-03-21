@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+
+    <!-- Firechat -->
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" />
+    <script src="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.js"></script>
+
+    <!-- Custom CSS -->
+    <style>
+      #firechat-wrapper {
+        height: 475px;
+        max-width: 325px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        margin: 50px auto;
+        text-align: center;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 5px 25px #666;
+        -moz-box-shadow: 0 5px 25px #666;
+        box-shadow: 0 5px 25px #666;
+      }
+    </style>
+  </head>
+
+  <!--
+    Example: Anonymous Authentication
+
+    This example uses Firebase Simple Login to create "anonymous" user sessions in Firebase,
+    meaning that user credentials are not required, though a user has a valid Firebase
+    authentication token and security rules still apply.
+
+    Requirements: in order to use this example with your own Firebase, you'll need to do the following:
+      1. Apply the security rules at https://github.com/firebase/firechat/blob/master/rules.json
+      2. Enable the "Anonymous" authentication provider in Forge
+      3. Update the URL below to reference your Firebase
+      4. Update the room id for auto-entry with a public room you have created
+   -->
+  <body>
+    <div id="firechat-wrapper"></div>
+    <script type="text/javascript">
+    
+      // Initialize Firebase SDK
+      
+ 	 var config = {
+  	 	apiKey: "AIzaSyAquft9UUOycldBxHWyG2toWPEsUgbOW34",
+   	 	authDomain: "team-long-time-no-name.firebaseapp.com",
+   	 	databaseURL: "https://team-long-time-no-name.firebaseio.com",
+  	  	storageBucket: "team-long-time-no-name.appspot.com",
+  	 	messagingSenderId: "7595823211"
+ 	 };
+ 
+      firebase.initializeApp(config);
+
+      // Get a reference to the Firebase Realtime Database
+      var chatRef = firebase.database().ref('chatroom');
+
+      // Create an instance of Firechat
+      var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+
+      // Listen for authentication state changes
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // If the user is logged in, set them as the name they use in profile
+          
+          //get the latest name in 'profile'
+          var userDataRef = firebase.database().ref("profile/" + user.uid+ "/name");
+          
+          //get the username used last time in chatroom
+          var lastUsernameInChatroomPath = firebase.database().ref("chatroom/users/" + user.uid+ "/name");
+          var lastUsernameInChatroom;
+          lastUsernameInChatroomPath.once("value").then(function(snapshot){
+          	lastUsernameInChatroom = snapshot.val();
+          });
+          
+          userDataRef.on("value", function(snapshot){
+          	//automatically change user name in chatroom database whenever the name is changed on 'profile'
+          	//or when user first time uses chatroom
+          	
+          	//if username is changed, change the name in chatroom database
+          	if(snapshot.val() != lastUsernameInChatroom)
+          	{
+          		firebase.database().ref("chatroom/users/" + user.uid).set({
+          			name: snapshot.val()
+          		});
+          	}
+          	//set up user for entering chatroom with latest name
+          	chat.setUser(user.uid, snapshot.val());
+          });
+          //chat.setUser(user.uid, userDataRef.child("name")); //"Anonymous" + user.uid.substr(10, 8)); //user.name);//
+        } else {
+          // If the user is not logged in, sign them in anonymously
+          firebase.auth().signInAnonymously().catch(function(error) {
+            console.log("Error signing user in anonymously:", error);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

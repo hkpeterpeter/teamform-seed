@@ -10,18 +10,22 @@ module.exports = function(config) {
       'lib/angular-route.min.js',
       'lib/angular-mocks.js',
 	  'lib/firebase.js',
-	  'lib/angularfire.min.js',	  
+	  'lib/angularfire.min.js',
 	  'js/*.js',
-      'unit_tests/*.js'	  
+      'unit_tests/*.js'
     ],
 	exclude: [
+    'js/*.min.js',
+    'js/firechat-ui.js',
+    'js/firebase.js'
 	],
-	preprocessors: {	 	
-		 'js/site.js' : ['coverage'],		
+	preprocessors: {
+		 'js/site.js' : ['coverage'],
 		 'js/index.js' : ['coverage'],
 		 'js/admin.js' : ['coverage'],
 		 'js/team.js' : ['coverage'],
-		 'js/member.js' : ['coverage']
+		 'js/member.js' : ['coverage'],
+     'js/login.js' : ['coverage']
 	},
 	reporters: ['progress', 'coverage'],
 	coverageReporter: {
@@ -31,13 +35,13 @@ module.exports = function(config) {
 	},
 	port: 8080,
 	colors: true,
-    browsers: ['Chrome'],
+    browsers: ['Firefox'],
 	singleRun: true,
     plugins: [
-      'karma-chrome-launcher',      
+      'karma-firefox-launcher',
       'karma-jasmine',
 	  'karma-coverage'
-    ]    
+    ]
 
   });
 };

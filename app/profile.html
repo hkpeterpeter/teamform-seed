@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="teamform-profile-app">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="keywords" content="teamform, team">
+      <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>Profile</title>
+
+      <!-- libraries and CSS
+		JQuery: Necessary for some bootstrap interactions (v1.12.4 is used)
+		Bootstrap: Library and CSS for bootstrap framework (v3.3.7 is used)
+		Font-awesome: More icons for the web development (v4.6.3 is used)
+		site.css: A customized css for our web application. Not from any web framework.
+	  -->
+
+
+
+      <script src="lib/jquery.min.js"></script>
+      <script src="lib/bootstrap.min.js"></script>
+
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+      <link rel="stylesheet" href="css/site.css" >
+
+
+      <!-- Customized libraries shared by pages -->
+      <script src="js/site.js"></script>
+
+   </head>
+
+   <body>
+    <div ng-include = "'navbar.html'"> </div>
+     <div class="container" ng-controller="profileinput" >
+
+          <div class="row col-md-3 all ">
+
+
+                <!-- <img src={{profile.pic}} class="img-responsive img-circle" alt="Responsive image">
+                  <input type="file" id="file" name="file">
+                  <button type="btn btn-primary" id="uploadButton" ng-click="uploadFile()" >SUBMIT</button>
+                </img> -->
+
+                <!-- <input type="image" src="img/propic.jpg" class="img-responsive img-circle" alt="Responsive image" />
+
+
+              </input> -->
+              <Label for="file">
+                <img src="{{profile.pic}}" class="img-responsive img-circle " alt="Responsive image">
+              </Label>
+                <input type="file" id="file" name="file" style="visibility:hidden;" >
+                <div class="col-md-6 updateProfileview" ng-hide="check">
+                  <button class="btn btn-primary" id="uploadButton" ng-click="uploadFile();">
+          					<span class="glyphicon glyphicon-ok"></span> SAVE
+
+          				</button>
+                </div>
+                <div class="col-md-6 updateProfileview" ng-hide="check">
+                  <button class="btn btn-primary" type="button" ng-click="removeFile();">
+          					<span class="glyphicon glyphicon-ok"></span> Remove
+
+          				</button>
+                </div>
+
+              <div class="col-md-6 Profileview">
+                <button class="btn btn-primary" type="button" ng-click="likeFunction();">
+        					<span class="glyphicon glyphicon-thumbs-up"></span> Likes
+        					<span class="badge"> {{profile.like.length}}</span>
+
+        				</button>
+
+              </div>
+
+              <div class="col-md-6 updateProfileview" ng-hide = "check">
+                <input type="text"  data-role="tagsinput" ng-model="SkillTemp" placeholder="Add skills" />
+                <button class="btn btn-default" type="add" ng-click="addSkill()">AddSkill</button>
+
+
+              </div>
+
+
+              </div>
+
+
+
+        <div class="row col-md-9 all ">
+<div class="row col-md-offset-3 ">
+      <div class="form-group">
+        <label class="col-md-4 control-label">Username</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="name" ng-model="input.name" placeholder="Name" value="profile.name" required>
+              <span id="helpUsername" class="help-block" >
+                Length limited to 5-20 characters.
+              </span>
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.name}}</p>
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label class="col-md-4 control-label">Gender</label>
+        <div class="col-md-8">
+
+            <input class="form-control" type="text" id="gender" ng-model="input.gender" placeholder="Gender" value ="{{Gender}}" required>
+
+
+        </div>
+      </div> -->
+      <div class="form-group">
+                        <label class="col-md-4 control-label">Gender</label>
+                        <div class="col-md-8 updateProfileview">
+                            <!-- <p class="form-control-static profileView">Male</p> -->
+
+                                <label class="radio">
+                                    <input type="radio" name="gender" value="Male" ng-model = "input.gender" checked> Male
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="gender" value="Female" ng-model = "input.gender"> Female
+                                </label>
+
+                        </div>
+                        <div class="col-md-8 Profileview">
+                          <p>{{profile.gender}}</p>
+                        </div>
+
+                    </div>
+
+        <!-- <div class="col-md-8">
+          <p>HI</p>
+        </div> -->
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Birth Date</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="birth" ng-model="input.birth" placeholder="Birth" required>
+
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.birth}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Zodiac</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="star" ng-model="input.star" placeholder="Zodiac" required>
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.star}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Location</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="location" ng-model="input.location" placeholder="location" required>
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.location}}</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Personality</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <button class="btn btn-primary" ng-click="showme=true;ShowQ()" >TEST</button>
+              <p>{{profile.personality}}</p>
+
+
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.personality}}</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Skill</label>
+        <div class="col-md-8 updateProfileview">
+        <div class="col-md-2 "  ng-repeat="p in profile.skills">
+
+          <button class="btn btn-primary" type="button" ng-click="removeSkill(p)">
+            <span class="btn-label"></span> {{p}}
+            <span class="glyphicon glyphicon-remove"></span>
+
+          </button>
+        </div>
+      </div>
+      <div class="col-md-8 Profileview">
+        <div class="col-md-1 " ng-repeat="p in profile.skills">
+          <button class="control-label">{{p}}</button>
+        </div>
+      </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label">Description</label>
+        <div class="col-md-8 updateProfileview">
+
+
+              <input class="form-control" type="text" id="description" ng-model="input.description" placeholder="description" required>
+              <span id="helpIntroduction" class="help-block updateProfileView" style="display: block;">Max 100 characters allowed.</span>
+        </div>
+        <div class="col-md-8 Profileview">
+          <p>{{profile.description}}</p>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+           <div class="col-md-offset-6 updateProfileview" ng-hide = "check" >
+
+             <button class="btn btn-default" type="save" ng-click="saveProfile();showProfile()">Save</button>
+
+           </div>
+           <div class="col-md-offset-6 Profileview" ng-hide = "check" >
+
+             <button class="btn btn-default" type="save" ng-click="saveProfile();editProfile()">Edit</button>
+
+           </div>
+
+         </div>
+
+
+
+</div>
+<div id="test" class="col-md-6 onlytest" ng-hide="check">
+
+
+    <div class="container" ng-show="showme">
+
+          <div id="title">
+            <h1>Personlity Test</h1>
+          </div>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" ng-model="ans" > {{option1}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" ng-model="ans"> {{option2}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" ng-model="ans"> {{option3}}
+            </label>
+            <br>
+            <label class="radio-inline">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4" ng-model="ans"> {{option4}}
+            </label>
+            <br>
+            <br>
+
+            <button id="next" ng-click="nextQ()">Next</button>
+            <button id="finish" ng-click="showAns()">Finish</button>
+            {{ans}}
+            {{answer}}
+
+            <!-- <div class='button' id='prev'><a href='#'>Prev</a></div>
+            <div class='button' id='start'> <a href='#'>Start Over</a></div> -->
+
+
+            <!-- <button class='' id='next'>Next</a></button>
+            <button class='' id='prev'>Prev</a></button>
+            <button class='' id='start'> Start Over</a></button> -->
+ </div>
+
+         </div>
+
+{{input}}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <script src="lib/angular.min.js"></script>
+     <script src="lib/angular-route.min.js"></script>
+
+     <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+     <script src="lib/firebase.js"></script>
+     <script src="lib/angularfire.min.js"></script>
+
+
+
+     <!-- JavaScript of this page -->
+     <script src="js/profile.js"></script>
+     <script src="js/login.js"></script>
+
+     </body>
+  </html>

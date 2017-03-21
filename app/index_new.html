@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" ng-app="teamform-app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="teamform, team">
+        <!-- The meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>teamform - A real-time online team forming app</title>
+
+    <!-- Customized libraries shared by pages -->
+    <script src="js/site.js"></script>
+
+    <!-- Press Start 2P Font -->
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&subset=cyrillic,greek,latin-ext" rel="stylesheet">
+
+    <!-- Lato Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+    <!-- Bootstrap styles -->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Font Awesome -->
+    <link href="css/font-awesome.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Lightbox styles -->
+    <link href="lightbox/css/lightbox.css" rel="stylesheet">
+
+    <!-- Charts styles -->
+    <link href="css/morris.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Loaders styles -->
+    <link href="loaders.css-master/loaders.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Custom styles -->
+    <link href="css/styles.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Responsive styles -->
+    <link href="css/responsive.min.css" media="screen" rel="stylesheet" type="text/css">
+
+    <!-- Modernizr -->
+    <script type="text/javascript" src="js/modernizr.custom.js"></script>
+
+    <!-- Favicon -->
+    <link rel="icon" href="img/favicon.png" type="image/png">
+
+</head>
+
+<body data-spy="scroll" data-offset="122" data-target="#main-menu" data-skrollr="true">
+
+    <div class="loader-overlay">
+        <div class="loader">
+            <div class="loader-inner pacman">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <h3 class="loader-text">Loading</h3>
+        </div>
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="LoginCtrl">
+        <div class="triangle">
+            <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+        </div>
+        <div class="header-top clearfix">
+            <div class="container">
+                <ul class="list-inline social-links">
+                    <!-- <li>
+                        <a href="#" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a href="#" title="Skype"><i class="fa fa-skype"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="LinkedIn"><i class="fa fa-linkedin"></i></a>
+                    </li><li class="hidden-xxs">
+                        <a href="#" title="Google +"><i class="fa fa-google-plus"></i></a>
+                    </li><li>
+                        <a href="#" title="Youtube"><i class="fa fa-youtube-play"></i></a>
+                    </li> -->
+                    <li>
+                        <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
+                    </li>
+                </ul>
+                <div class="header-top-dropdown">
+                    <div class="btn-group dropdown">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-search"></i> Search</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <form class="search-box" action="#">
+                                    <div class="form-group has-feedback no-margin">
+                                        <input type="text" class="form-control" placeholder="Search">
+                                        <i class="fa fa-search form-control-feedback"></i>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-hide="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> Login</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <li>
+                                <form class="login-form" ng-submit="emailLogin();">
+                                  {{uid}}{{logedin}}
+                                  <div ng-if="message" class="alert alert-info">{{ message }}</div>
+                                  <div ng-if="error" class="alert alert-danger">{{ error }}</div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_email" type="text" class="form-control" placeholder="Username" ng-model="username" required>
+                                        <i class="fa fa-user form-control-feedback"></i>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input id="input_password" type="password" class="form-control" placeholder="Password" ng-model="password" required >
+                                        <i class="fa fa-lock form-control-feedback"></i>
+                                    </div>
+                                    <button id="btn_login_email" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Log In <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <h3 class="text-center">or</h3>
+                                    <button id="btn_create_email_acc" type="submit" class="btn btn-default btn-block">
+                                        <span class="text">Sign Up <i class="fa fa-arrow-right"></i></span>
+                                    </button>
+                                    <p class="text-center"><a href="#" title="Reset password">Forgot your password?</a></p>
+                                    <h3 class="text-center">Sign in with your social account</h3>
+                                    <ul class="list-inline text-center">
+                                        <li>
+                                            <a href="#" id="btn_login_fb" title="Login with Facebook"><span class="icon-circle-small"><i class="fa fa-facebook"></i></span></a>
+                                        </li><li>
+                                            <a href="#" title="Login with Google +"><span class="icon-circle-small"><i class="fa fa-google-plus"></i></span></a>
+                                        </li>
+                                    </ul>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="btn-group dropdown" ng-show="logedin">
+                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                            <span class="text"><i class="fa fa-user"></i> {{profile.name}}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right" >
+                            <a href="profile.html"><img src="{{profile.pic}}" class="img-responsive img-circle " alt="profile picture"></a>
+                          <li>
+                            <a href="profile.html">Profile</a>
+                          </li>
+                          <li>
+                            <a href="myevent.html">(TODO)My event</a>
+                          </li>
+                          <li>
+                            <button id="btn_login_out" type="submit" class="btn btn-default btn-block" ng-click="signOut();">Logout</button>
+                          </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html" title="TeamforM">
+                    <i class="glyphicon glyphicon-tower" aria-hidden="true"></i><span class="yellow">T</span>eamfor<span class="yellow">M</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="main-menu">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#home">
+                            <span class="main-link">Home</span>
+                            <span class="additional-info-link bracket">
+                                start here
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about">
+                            <span class="main-link">About</span>
+                            <span class="additional-info-link bracket">
+                                what it is
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#flow">
+                            <span class="main-link">Getting started</span>
+                            <span class="additional-info-link bracket">
+                                how to use
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#team">
+                            <span class="main-link">Team</span>
+                            <span class="additional-info-link bracket">
+                                our works
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-home" id="home">
+        <div class="overlay"></div>
+        <canvas class="particles" id="particles"></canvas>
+        <div class="container">
+            <div class="home-container">
+                <div class="hex-shape"><i class="glyphicon glyphicon-tower" aria-hidden="true" style="margin-top: 25px;"></i></div>
+                <div class="clearfix"></div>
+                <h2 class="digit-header">teamform</h2>
+                <h3 class="signature-header"><small>By Team<strong> Long Time No Name</strong></small></h3>
+                <h1 class="system-header">A real-time online team forming app</h1>
+                <p style="margin-bottom: 0px;">Enter a event name</p>
+                  <div class="row" style="margin-bottom: 10px;"><div class="col-xs-12 col-md-6 "><input id="input_text" type="text" class="form-control col-xs-12 col-md-6 col-md-offset-6"></div></div>
+                  <a href="#" id="btn_member" class="btn btn-border btn-default" title="Search">
+                      <span><i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search</span>
+                  </a>
+                <!-- <a href="#" class="btn btn-border btn-default" title="Search" data-toggle="modal" data-target="#order-modal">
+                    <span><i class="glyphicon glyphicon-search" aria-hidden="true"></i> Search</span>
+                </a> -->
+            </div>
+        </div>
+        <div class="home-bg"></div>
+    </div>
+
+    <div class="standard-section section-about" id="about">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">what it is</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">About</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-info"></i></div>
+            </div>
+            <p class="text-center lead">A real-time online team forming app for any event</p>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
+                            <ul>
+                                <li><span>creating an event</span></li>
+                                <li><span>minimum team size</span></li>
+                                <li><span>maximum team size</span></li>
+                            </ul>
+                        ">
+                            <span class="icon-circle-inner">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Administrator</h3>
+                        <p>Be responsible for creating an event for team forming (e.g. COMP3111, COMP3111H, hackUST)</p>
+                        <p>Be able to set the minimum and maximum team size for the event (e.g. 5..7 team members in COMP3111 and 5..8 team members in COMP3111H)</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1"><strong>Easy</strong> to manage your event!</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
+                            <ul>
+                                <li><span>Creative</span></li>
+                                <li><span>Experimental</span></li>
+                                <li><span>Perfect</span></li>
+                            </ul>
+                        ">
+                            <span class="icon-circle-inner">
+                                <i class="fa fa-hand-pointer-o" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Team leader</h3>
+                        <p>Be able to add and remove requests which made by members</p>
+                        <p>Once a member joins the team, all his/her requests will be deleted</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">I am <strong>leading</strong> the world!</p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-toggle="tooltip" data-placement="top" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1" title="
+                            <ul>
+                                <li><span>Programming</span></li>
+                                <li><span>Graphic design</span></li>
+                                <li><span>Perfect</span></li>
+                            </ul>
+                        ">
+                            <span class="icon-circle-inner">
+                                <span class="glyphicon glyphicon-user"></span>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Member</h3>
+                        <p>Be able to request to join multiple teams</p>
+                        <p class="standard-lines no-margin" data-100p-top="transform[swing]:scale(0.5);opacity[swing]:0" data-75p-top="transform[swing]:scale(1);opacity[swing]:1">We <strong>can</strong> do it!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="standard-section section-promo section-buy" id="buy">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="text text-center">
+                <p class="lead" data-100p-top="transform[swing]:translateX(40px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Join for</p>
+                <h2 class="special-header" data-100p-top="padding[swing]:25px 150px 21px" data-75p-top="padding[swing]:15px 50px 11px">Game</h2>
+                <p>
+                    <span class="star text-center" data-100p-top="transform[swing]:translateX(-100px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <i class="glyphicon glyphicon-star" aria-hidden="true"></i>
+                    </span>
+                    <span class="star text-center" data-100p-top="transform[swing]:translateX(-80px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <i class="glyphicon glyphicon-star" aria-hidden="true"></i>
+                    </span>
+                    <span class="star text-center" data-100p-top="transform[swing]:translateX(-60px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <i class="glyphicon glyphicon-star" aria-hidden="true"></i>
+                    </span>
+                    <span class="star text-center" data-100p-top="transform[swing]:translateX(-40px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <i class="glyphicon glyphicon-star" aria-hidden="true"></i>
+                    </span>
+                    <span class="star text-center unactive" data-100p-top="transform[swing]:translateX(-20px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <i class="glyphicon glyphicon-star" aria-hidden="true"></i>
+                    </span>
+                </p>
+                <h3 class="yellow"><i class="fa fa-tag" aria-hidden="true"></i> 50% discount!</h3>
+                <p><strong class="text-uppercase">Price:</strong> <del>$100</del> / $50</p>
+                <a href="#" title="Order now!" class="btn btn-transparent btn-lg no-margin" data-100p-top="transform[swing]:translateY(20px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1" data-toggle="modal" data-target="#order-modal"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Order now!</a>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="standard-section section-gray section-blog" id="blog">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">recent posts</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Blog</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-newspaper-o" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Donec varius tellus pretium, molestie nulla eget, tristique mi. Nunc vitae posuere libero. Nulla ultrices erat non mi luctus, sollicitudin pulvinar metus consectetur.</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="post-item post-item-big" data-75p-top="transform[swing]:translateX(0px);opacity[swing]:1" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0">
+                        <div class="post-image">
+                            <div class="post-description">
+                                <h3>
+                                    <a href="blog-item.html" title="Witcher 3: Discount 50%">Witcher 3: Discount 50%</a>
+                                </h3>
+                                <p>Praesent condimentum gravida condimentum. Sed ut nisi ante. Praesent ut molestie libero. Etiam luctus porttitor orci, non mollis elit finibus et.</p>
+                            </div>
+                            <a class="post-image-link" href="blog-item.html" title="Witcher 3: Discount 50%">
+                                <span class="frame"></span>
+                                <img class="img-responsive" src="img/blog-1.jpg" alt="screenshot">
+                            </a>
+                            <div class="post-info">
+                                <span class="post-day">19</span>
+                                <span class="post-month">October</span>
+                                <p class="post-comments">10 comments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="post-item post-item-small" data-75p-top="transform[swing]:translateX(0px);opacity[swing]:1" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0">
+                        <div class="post-image">
+                            <div class="post-description">
+                                <h3>
+                                    <a href="blog-item.html" title="Far Cry Primal on sale">Far Cry Primal on sale</a>
+                                </h3>
+                                <p>Ut at erat sed lacus vulputate suscipit. Donec tempor enim nec rutrum interdum. Pellentesque ac venenatis turpis.</p>
+                            </div>
+                            <a class="post-image-link" href="blog-item.html" title="Far Cry Primal on sale">
+                                <span class="frame"></span>
+                                <img class="img-responsive" src="img/blog-2.jpg" alt="screenshot">
+                            </a>
+                            <div class="post-info">
+                                <span class="post-day">02</span>
+                                <span class="post-month">October</span>
+                                <p class="post-comments">2 comments</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-item post-item-small" data-75p-top="transform[swing]:translateX(0px);opacity[swing]:1" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0">
+                        <div class="post-image">
+                            <div class="post-description">
+                                <h3>
+                                    <a href="blog-item.html" title="Obduction now available">Obduction now available</a>
+                                </h3>
+                                <p>Nunc mattis ante a pellentesque vehicula. Quisque in ultricies diam. Aenean ac ex massa. Proin a lacus lacus. Nunc lacinia eu urna sit amet convallis</p>
+                            </div>
+                            <a class="post-image-link" href="blog-item.html" title="Obduction now available">
+                                <span class="frame"></span>
+                                <img class="img-responsive" src="img/blog-3.jpg" alt="screenshot">
+                            </a>
+                            <div class="post-info">
+                                <span class="post-day">13</span>
+                                <span class="post-month">September</span>
+                                <p class="post-comments">2 comments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-more-container" data-100p-top="transform[swing]:translateY(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                <a href="blog-item.html" class="btn btn-more clearfix" title="More">
+                    <span><span>More</span></span>
+                </a>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div class="standard-section section-portfolio" id="portfolio">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">our works</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Portfolio</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-paint-brush"></i></div>
+            </div>
+            <p class="text-center lead">Vivamus aliquet vehicula nulla eu consequat. Sed in tellus diam. Fusce accumsan cursus elit, sit amet placerat felis feugiat nec. Pellentesque semper turpis diam, malesuada ultrices diam pulvinar quis.</p>
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="portfolio-item" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="portfolio-image-container">
+                            <img class="img-responsive" src="img/screenshot-10-thumb.jpg" alt="Witcher 3">
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-outer">
+                                    <div class="portfolio-caption-inner">
+                                        <h4>Witcher 3</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a class="portfolio-caption-icon" data-lightbox="portfolio" data-title="Witcher 3" href="img/screenshot-10.jpg" title="Zoom"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" data-toggle="tooltip-clickable" href="#" title="
+                                                <h3>Witcher 3</h3>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida tempus nisi, sit amet aliquet orci facilisis accumsan. Proin dapibus nisi sit amet rutrum tristique.</p>
+                                                "><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" href="img/screenshot-10.jpg" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-picture-o portfolio-icon pull-right" aria-hidden="true"></i>
+                        <h4 class="portfolio-header"><a href="blog-item.html" title="Witcher 3">Geralt in the mountains</a></h4>
+                        <p class="portfolio-toolbar">by <strong>kwarc</strong> / Witcher 3</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="portfolio-item" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <div class="portfolio-image-container">
+                            <img class="img-responsive" src="img/screenshot-6-thumb.jpg" alt="Battlefield 1">
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-outer">
+                                    <div class="portfolio-caption-inner">
+                                        <h4>Battlefield 1</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a class="portfolio-caption-icon" data-lightbox="portfolio" data-title="Battlefield 1" href="img/screenshot-6.jpg" title="Zoom"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" data-toggle="tooltip-clickable" href="#" title="
+                                                <h3>Battlefield 1</h3>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida tempus nisi, sit amet aliquet orci facilisis accumsan. Proin dapibus nisi sit amet rutrum tristique.</p>
+                                                "><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" href="img/screenshot-6.jpg" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-picture-o portfolio-icon pull-right" aria-hidden="true"></i>
+                        <h4 class="portfolio-header"><a href="blog-item.html" title="Battlefield 1">The battle</a></h4>
+                        <p class="portfolio-toolbar">by <strong>kwarc</strong> / Battlefield 1</p>
+                    </div>
+                </div>
+                <div class="clearfix visible-sm"></div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="portfolio-item" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="portfolio-image-container">
+                            <img class="img-responsive" src="img/screenshot-2-thumb.jpg" alt="Star Wars: Battlefront">
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-outer">
+                                    <div class="portfolio-caption-inner">
+                                        <h4>Star Wars: Battlefront</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a class="portfolio-caption-icon" data-lightbox="portfolio" data-title="Star Wars: Battlefront" href="img/screenshot-2.jpg" title="Zoom"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" data-toggle="tooltip-clickable" href="#" title="
+                                                <h3>Star Wars: Battlefront</h3>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida tempus nisi, sit amet aliquet orci facilisis accumsan. Proin dapibus nisi sit amet rutrum tristique.</p>
+                                                "><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" href="img/screenshot-2.jpg" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-picture-o portfolio-icon pull-right" aria-hidden="true"></i>
+                        <h4 class="portfolio-header"><a href="blog-item.html" title="Star Wars: Battlefront">Lord Vader has arised</a></h4>
+                        <p class="portfolio-toolbar">by <strong>kwarc</strong> / Star Wars: Battlefront</p>
+                    </div>
+                </div>
+                <div class="clearfix hidden-sm"></div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="portfolio-item" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="portfolio-image-container">
+                            <img class="img-responsive" src="img/screenshot-9-thumb.jpg" alt="Tomb Rider">
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-outer">
+                                    <div class="portfolio-caption-inner">
+                                        <h4>Tomb Rider</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a class="portfolio-caption-icon" data-lightbox="portfolio" data-title="Tomb Rider" href="img/screenshot-9.jpg" title="Zoom"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" data-toggle="tooltip-clickable" href="#" title="
+                                                <h3>Tomb Rider</h3>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida tempus nisi, sit amet aliquet orci facilisis accumsan. Proin dapibus nisi sit amet rutrum tristique.</p>
+                                                "><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" href="img/screenshot-9.jpg" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-picture-o portfolio-icon pull-right" aria-hidden="true"></i>
+                        <h4 class="portfolio-header"><a href="blog-item.html" title="Tomb Rider">Lara Croft</a></h4>
+                        <p class="portfolio-toolbar">by <strong>kwarc</strong> / Tomb Rider</p>
+                    </div>
+                </div>
+                <div class="clearfix visible-sm"></div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="portfolio-item" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <div class="portfolio-image-container">
+                            <img class="img-responsive" src="img/screenshot-11-thumb.jpg" alt="The Last Of Us">
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-outer">
+                                    <div class="portfolio-caption-inner">
+                                        <h4>The Last Of Us</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a class="portfolio-caption-icon" data-lightbox="portfolio" data-title="The Last Of Us" href="img/screenshot-11.jpg" title="Zoom"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" data-toggle="tooltip-clickable" href="#" title="
+                                                <h3>The Last Of Us</h3>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida tempus nisi, sit amet aliquet orci facilisis accumsan. Proin dapibus nisi sit amet rutrum tristique.</p>
+                                                "><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" href="img/screenshot-11.jpg" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-picture-o portfolio-icon pull-right" aria-hidden="true"></i>
+                        <h4 class="portfolio-header"><a href="blog-item.html" title="The Last Of Us">Abandoned house</a></h4>
+                        <p class="portfolio-toolbar">by <strong>kwarc</strong> / The Last Of Us</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="portfolio-item" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="portfolio-image-container">
+                            <img class="img-responsive" src="img/screenshot-3-thumb.jpg" alt="Dragon Age: Inquisition">
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-outer">
+                                    <div class="portfolio-caption-inner">
+                                        <h4>Dragon Age: Inquisition</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                        <ul class="list-inline">
+                                            <li>
+                                                <a class="portfolio-caption-icon" data-lightbox="portfolio" data-title="The Last Of Us" href="img/screenshot-3.jpg" title="Zoom"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" data-toggle="tooltip-clickable" href="#" title="
+                                                <h3>Dragon Age: Inquisition</h3>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida tempus nisi, sit amet aliquet orci facilisis accumsan. Proin dapibus nisi sit amet rutrum tristique.</p>
+                                                "><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                                            </li><li>
+                                                <a class="portfolio-caption-icon" href="img/screenshot-3.jpg" title="Download"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="fa fa-picture-o portfolio-icon pull-right" aria-hidden="true"></i>
+                        <h4 class="portfolio-header"><a href="blog-item.html" title="Dragon Age: Inquisition">The lake</a></h4>
+                        <p class="portfolio-toolbar">by <strong>kwarc</strong> / Dragon Age: Inquisition</p>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-more-container" data-100p-top="transform[swing]:translateY(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                <a href="blog-item.html" class="btn btn-more clearfix" title="More">
+                    <span><span>More</span></span>
+                </a>
+            </div>
+        </div>
+    </div>
+ -->
+    <div class="standard-section section-promo section-flow" id="flow">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">short instruction</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Getting started</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-power-off"></i></div>
+            </div>
+            <p class="text-center lead">Quisque condimentum vehicula dolor, sit amet mollis metus varius in. Duis eu gravida massa. Nulla id egestas mi. Etiam sit amet odio aliquet, malesuada velit nec, mollis justo. Integer porttitor nibh eu dignissim porttitor. Etiam dictum dolor metus, nec ultrices nulla facilisis ac. Maecenas congue arcu eget tempor ornare.</p>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                            <span class="icon-circle-inner">
+                                <i class="fa fa-download" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Download</h3>
+                        <p class="no-margin">Download our game from <a href="#" title="google">google.com</a>. You can choose portable or installer version.</p>
+                        <img class="arrow arrow-up hidden-xs" src="img/arrow-1.png" alt="arrow" data-100p-top="transform[swing]:rotate(45deg);opacity[swing]:0" data-75p-top="transform[swing]:rotate(0deg);opacity[swing]:1">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-65px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                            <span class="icon-circle-inner">
+                                <i class="fa fa-hdd-o" aria-hidden="true"></i>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Install</h3>
+                        <p class="no-margin">Install the game in your hard drive. The game size is only 2 GB.</p>
+                        <img class="arrow arrow-down hidden-xs" src="img/arrow-2.png" alt="arrow" data-100p-top="transform[swing]:rotate(-45deg);opacity[swing]:0" data-75p-top="transform[swing]:rotate(0deg);opacity[swing]:1">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="feature-box text-center">
+                        <span class="icon-circle-outer" data-100p-top="transform[swing]:translateY(-100px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                            <span class="icon-circle-inner">
+                                <span class="main-icon glyphicon glyphicon-play"></span>
+                            </span>
+                        </span>
+                        <h3 class="standard-subheader bracket">Play</h3>
+                        <p class="no-margin">Create your own character and have fun during killing monster!.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-team" id="team">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">our people</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Team</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-users" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Team Long Time No name</p>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/cc_v1.png" alt="Person"  height="300" width="300">
+                        <div class="team-description">
+                            <h3>Cheung Chi Chong</h3>
+                            <p><i class="fa fa-briefcase"></i> CEO &amp; Founder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateY(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <img class="team-image" src="img/lion.png" alt="Person" height="300" width="250">
+                        <div class="team-description">
+                            <h3>Lion</h3>
+                            <p><i class="fa fa-briefcase"></i> Programmer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <img class="team-image" src="img/bobby.png" alt="Person" height="300" width="250">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/eric.png" alt="Person" height="300" width="250">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/wasin_v1.png" alt="Person" height="300" width="230">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/victor.png" alt="Person" height="300" width="300">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                 <div class="col-sm-4">
+                    <div class="team-item" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <img class="team-image" src="img/Tiv.png" alt="Person" height="300" width="400">
+                        <div class="team-description">
+                            <h3>Tom Buckley*</h3>
+                            <p><i class="fa fa-briefcase"></i> Graphic designer</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="standard-section section-gray section-pricing" id="pricing">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">our people</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Pricing</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-money" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Vestibulum scelerisque id justo ac gravida.</p>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="price-item price-basic">
+                            <div class="price-header">
+                                <h3>$ <strong>6</strong> / month</h3>
+                            </div>
+                            <div class="price-description">Basic</div>
+                            <div class="price-image">
+                                <div class="overlay"></div>
+                                <h4 class="price-title">
+                                    <span class="overlay-header">Game</span>
+                                </h4>
+                            </div>
+                            <div class="price-list">
+                                <ul class="list-unstyled text-center">
+                                    <li>Download link</li>
+                                    <li>Manual (pdf)</li>
+                                    <li>DRM free</li>
+                                    <li>Money back guarantee</li>
+                                    <li><i class="fa fa-close" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-close" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-close" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-close" aria-hidden="true"></i></li>
+                                </ul>
+                            </div>
+                            <div class="price-button">
+                                <a href="#" class="btn btn-system btn-default btn-block" title="Buy it" data-toggle="modal" data-target="#order-modal"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Buy it</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <div class="price-item price-gold">
+                            <div class="price-feature">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            </div>
+                            <div class="price-header">
+                                <h3>$ <strong>12</strong> / month</h3>
+                            </div>
+                            <div class="price-description">Gold</div>
+                            <div class="price-image">
+                                <div class="overlay"></div>
+                                <h4 class="price-title">
+                                    <span class="overlay-header">Game</span>
+                                    <br>
+                                    <span class="overlay-header">+</span>
+                                    <br>
+                                    <span class="overlay-header">DLC</span>
+                                </h4>
+                            </div>
+                            <div class="price-list">
+                                <ul class="list-unstyled text-center">
+                                    <li> DRM free</li>
+                                    <li> Money back guarantee</li>
+                                    <li> Free shipping</li>
+                                    <li> Download link + DVD</li>
+                                    <li> Manual (book and pdf)</li>
+                                    <li> DLC</li>
+                                    <li><i class="fa fa-close" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-close" aria-hidden="true"></i></li>
+                                </ul>
+                            </div>
+                            <div class="price-button">
+                                <a href="#" class="btn btn-system btn-default btn-block" title="Buy it" data-toggle="modal" data-target="#order-modal"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Buy it</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="price-item price-platinium">
+                            <div class="price-header">
+                                <h3>$ <strong>14</strong> / month</h3>
+                            </div>
+                            <div class="price-description">Platinium</div>
+                            <div class="price-image">
+                                <div class="overlay"></div>
+                                <h4 class="price-title">
+                                    <span class="overlay-header">Game</span>
+                                    <br>
+                                    <span class="overlay-header">+</span>
+                                    <br>
+                                    <span class="overlay-header">DLC</span>
+                                </h4>
+                            </div>
+                            <div class="price-list">
+                                <ul class="list-unstyled text-center">
+                                    <li>DRM free</li>
+                                    <li>Money back guarantee</li>
+                                    <li>Free shipping</li>
+                                    <li>Download link + DVD</li>
+                                    <li>Manual (book and pdf)</li>
+                                    <li>DLC</li>
+                                    <li>Poster with world map</li>
+                                    <li>Soundtrack on CD</li>
+                                </ul>
+                            </div>
+                            <div class="price-button">
+                                <a href="#" class="btn btn-system btn-default btn-block" title="Buy it" data-toggle="modal" data-target="#order-modal"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Buy it</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-promo section-testimonials" id="testimonials">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">what people say about us</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Testimonials</h2>
+            </div>
+            <div class="testimonials">
+                <div id="carousel-testimonials" class="carousel carousel-testimonials slide" data-ride="carousel">
+                    <div class="carousel-inner" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="item active">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-2">
+                                    <div class="testimonials-image">
+                                        <img class="img-responsive" src="img/man-2.jpg" alt="Person">
+                                        <div class="testimonials-icon">
+                                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-md-10">
+                                    <div class="testimonials-text">
+                                        <h3>Great and innovative</h3>
+                                        <p class="lead"><em>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur..."</em></p>
+                                        <p class="testimonials-author">Gary Brubeck, <span class="text-muted">IT Company</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-2">
+                                    <div class="testimonials-image">
+                                        <img class="img-responsive" src="img/man-3.jpg" alt="Person">
+                                        <div class="testimonials-icon">
+                                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-md-10">
+                                    <div class="testimonials-text">
+                                        <h3>Very attractive</h3>
+                                        <p class="lead"><em>"Cras interdum metus risus, tristique pellentesque eros imperdiet eu. Vestibulum rutrum dignissim enim eget tempus. Fusce dapibus lobortis leo, vel convallis mauris lacinia in. Integer eu fringilla turpis, quis maximus felis. Etiam molestie..."</em></p>
+                                        <p class="testimonials-author">John Wayne, <span class="text-muted">ART Company</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="row">
+                                <div class="col-sm-4 col-md-2">
+                                    <div class="testimonials-image">
+                                        <img class="img-responsive" src="img/man-1.jpg" alt="Person">
+                                        <div class="testimonials-icon">
+                                            <i class="fa fa-comment-o" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-md-10">
+                                    <div class="testimonials-text">
+                                        <h3>Good company</h3>
+                                        <p class="lead"><em>"Ut fringilla massa vitae leo fringilla, ut molestie ex consequat. Donec mattis, velit et ullamcorper volutpat, urna nisl sagittis lectus, sed tristique erat est ut sapien. Nulla non porttitor nisi, sed suscipit neque. Cras eget fringilla sem, ac consequat urna..."</em></p>
+                                        <p class="testimonials-author">Phil Doe, <span class="text-muted">ART Company</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ol class="carousel-indicators" data-100p-top="transform[swing]:translateY(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <li data-target="#carousel-testimonials" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-testimonials" data-slide-to="1"></li>
+                        <li data-target="#carousel-testimonials" data-slide-to="2"></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-faq" id="faq">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">frequently asked questions</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">FAQ</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-question" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Donec lacinia consectetur convallis.</p>
+            <div class="panel-group no-margin" id="accordion">
+                <div class="panel panel-default" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                <span class="glyphicon glyphicon-plus"></span> What is GameR?
+                            </a>
+                            <span class="faq-icon">
+                                <i class="fa fa-question" aria-hidden="true"></i>
+                            </span>
+                        </h3>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida tempus nisi, sit amet aliquet orci facilisis accumsan. Proin dapibus nisi sit amet rutrum tristique. Fusce at ipsum eget massa sagittis condimentum. Duis eros ante, imperdiet a magna vitae, consectetur interdum leo. Morbi vitae leo ac diam commodo posuere quis ac ex. Aenean pretium euismod augue a aliquam. Sed sodales suscipit mi, id elementum libero dapibus nec. Aliquam id ex metus. Pellentesque imperdiet ultrices cursus.</p>
+                            <p class="no-margin">Maecenas sit amet justo eget mi pellentesque varius. Nullam sit amet molestie risus. Nulla et metus non orci finibus sodales. Nam finibus eleifend elit, at bibendum nunc convallis aliquam. Aenean ac euismod odio. Etiam faucibus eros id lorem laoreet faucibus. Vestibulum et nulla sed magna porttitor luctus quis non risus. Ut ipsum lectus, aliquam eget euismod ut, imperdiet a erat. Fusce imperdiet orci non velit tincidunt tempus.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                <span class="glyphicon glyphicon-plus"></span> Lorem ipsum dolor sit amet, consectetur adipiscing elit?
+                            </a>
+                            <span class="faq-icon">
+                                <i class="fa fa-question" aria-hidden="true"></i>
+                            </span>
+                        </h3>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p class="no-margin">Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus eget euismod erat. Curabitur fringilla diam ac malesuada ullamcorper. Fusce ullamcorper nunc eget pulvinar fringilla. In euismod blandit felis eu congue. Pellentesque sed turpis justo. Aliquam viverra, tellus vel pretium malesuada, urna tellus iaculis nibh, et fringilla mi nisi sit amet felis. Nam leo metus, gravida nec imperdiet ut, consectetur ac lectus. Etiam sed purus viverra, pellentesque quam vitae, dictum nisi. Donec tincidunt diam a enim pellentesque tincidunt. Fusce placerat consectetur augue, tristique placerat velit ullamcorper vel. Nunc cursus mauris sit amet diam iaculis, et rhoncus urna tempor. Suspendisse ac vehicula dolor.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                <span class="glyphicon glyphicon-plus"></span> Maecenas quis orci sagittis, aliquam neque et, dictum justo?
+                            </a>
+                            <span class="faq-icon">
+                                <i class="fa fa-question" aria-hidden="true"></i>
+                            </span>
+                        </h3>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p class="no-margin">Morbi blandit ipsum non nunc consectetur pellentesque. Quisque ultricies, turpis sed sagittis congue, elit libero tincidunt odio, eu rutrum nunc felis aliquam risus. Phasellus est ipsum, dignissim sit amet ultrices id, feugiat finibus libero. Phasellus fermentum turpis ligula. Donec aliquam elementum enim, eu mattis elit bibendum at. Phasellus feugiat aliquet arcu at vestibulum. Cras tempor lacus nisl, eu interdum ligula iaculis vitae. Sed tempor aliquam sollicitudin. Curabitur lacinia viverra lacus ac fermentum. Etiam lobortis scelerisque elit at fermentum. Vestibulum posuere tempor risus, quis rutrum dolor lobortis non. Aliquam at malesuada augue. Pellentesque egestas scelerisque nibh et semper. Quisque et auctor velit, ut pulvinar massa. Duis mattis tempor rutrum.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-gray section-timeline" id="timeline">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">our calendar</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Timeline</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-calendar"></i></div>
+            </div>
+            <p class="text-center lead">Sed diam nonumy eirmod tempor invidunt</p>
+            <div class="timeline no-margin">
+                <div class="timeline-block">
+                    <div class="timeline-img" data-100p-top="transform[swing]:scale(0)" data-75p-top="transform[swing]:scale(1)">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <a href="blog-item.html" title="Project started" class="frame"></a>
+                        <span class="timeline-date">
+                            <span>2015-11-14</span>
+                        </span>
+                        <div class="timeline-feature">
+                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="timeline-header">
+                            <a href="blog-item.html" title="Project started">Project started</a>
+                        </h3>
+                        <img class="img-responsive" src="img/screenshot-5-thumb.jpg" alt="Project started">
+                        <div class="timeline-description">
+                            <p>Cras fermentum gravida luctus. Etiam imperdiet lacus in ante placerat, quis posuere tellus mollis. Sed porttitor, ante at semper placerat, libero diam convallis nunc, eu aliquam dui arcu quis est. Duis porta ipsum nec felis imperdiet sollicitudin. Vivamus et posuere lectus, vitae scelerisque libero. Cras vulputate condimentum elit, eu tempor nunc imperdiet eget. Praesent hendrerit enim eu dolor ornare... <a href="blog-item.html" class="read-more" title="more">more &raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-block">
+                    <div class="timeline-img" data-100p-top="transform[swing]:scale(0)" data-75p-top="transform[swing]:scale(1)">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <a href="blog-item.html" title="First working demo of our game" class="frame"></a>
+                        <span class="timeline-date">
+                            <span>2016-02-22</span>
+                        </span>
+                        <div class="timeline-feature">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="timeline-header">
+                            <a href="blog-item.html" title="First working demo of our game">First working demo of our game</a>
+                        </h3>
+                        <img class="img-responsive" src="img/screenshot-4-thumb.jpg" alt="First working demo of our game">
+                        <div class="timeline-description">
+                            <p>Suspendisse pretium, lacus accumsan posuere volutpat, nibh orci cursus dui, a ullamcorper purus magna vel quam. Donec tincidunt semper justo, ac sodales mauris tempor sit amet. Vivamus sed erat iaculis, pellentesque neque ut, auctor metus. Nullam velit nulla, pulvinar a imperdiet id, iaculis a odio... <a href="blog-item.html" class="read-more" title="more">more &raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-block">
+                    <div class="timeline-img" data-100p-top="transform[swing]:scale(0)" data-75p-top="transform[swing]:scale(1)">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <a href="blog-item.html" title="Work in progress" class="frame"></a>
+                        <span class="timeline-date">
+                            <span> from February 2016 to July 2016</span>
+                        </span>
+                        <div class="timeline-feature">
+                            <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="timeline-header">
+                            <a href="blog-item.html" title="Work in progress">Work in progress</a>
+                        </h3>
+                        <img class="img-responsive" src="img/screenshot-8-thumb.jpg" alt="Work in progress">
+                        <div class="timeline-description">
+                            <p>Praesent condimentum gravida condimentum. Sed ut nisi ante. Praesent ut molestie libero. Etiam luctus porttitor orci, non mollis elit finibus et. Nullam vitae tristique augue. Ut at erat sed lacus vulputate suscipit. Donec tempor enim nec rutrum interdum. Pellentesque ac venenatis turpis. Phasellus vehicula urna dolor, in pellentesque nibh dictum ac. Nunc mattis ante a pellentesque vehicula. Quisque in ultricies diam. Aenean ac ex massa. Proin a lacus lacus. Nunc lacinia eu urna sit amet convallis... <a href="blog-item.html" class="read-more" title="more">more &raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-block">
+                    <div class="timeline-img" data-100p-top="transform[swing]:scale(0)" data-75p-top="transform[swing]:scale(1)">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <a href="blog-item.html" title="Testing and debugging" class="frame"></a>
+                        <span class="timeline-date">
+                            <span> from July 2016 to August 2016</span>
+                        </span>
+                        <div class="timeline-feature">
+                            <i class="fa fa-bug" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="timeline-header">
+                            <a href="blog-item.html" title="Testing and debugging">Testing and debugging</a>
+                        </h3>
+                        <img class="img-responsive" src="img/screenshot-12-thumb.jpg" alt="Testing and debugging">
+                        <div class="timeline-description">
+                            <p>Vivamus aliquet vehicula nulla eu consequat. Sed in tellus diam. Fusce accumsan cursus elit, sit amet placerat felis feugiat nec... <a href="blog-item.html" class="read-more" title="more">more &raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-block">
+                    <div class="timeline-img" data-100p-top="transform[swing]:scale(0)" data-75p-top="transform[swing]:scale(1)">
+                        <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <a href="blog-item.html" title="Alfa version released" class="frame"></a>
+                        <span class="timeline-date">
+                            <span>2016-08-25</span>
+                        </span>
+                        <div class="timeline-feature">
+                            <i class="fa fa-gamepad" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="timeline-header">
+                            <a href="blog-item.html" title="Alfa version released">Alfa version released</a>
+                        </h3>
+                        <img class="img-responsive" src="img/screenshot-1-thumb.jpg" alt="Alfa version released">
+                        <div class="timeline-description">
+                            <p>Etiam sit amet odio aliquet, malesuada velit nec, mollis justo. Integer porttitor nibh eu dignissim porttitor. Etiam dictum dolor metus, nec ultrices nulla facilisis ac... <a href="blog-item.html" class="read-more" title="more">more &raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-block">
+                    <div class="timeline-img" data-100p-top="transform[swing]:scale(0)" data-75p-top="transform[swing]:scale(1)">
+                         <i class="fa fa-circle-thin" aria-hidden="true"></i>
+                    </div>
+                    <div class="timeline-content" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <a href="blog-item.html" title="Alfa version released" class="frame"></a>
+                        <span class="timeline-date">
+                            <span>2016-09-14</span>
+                        </span>
+                        <div class="timeline-feature">
+                            <i class="fa fa-flag-checkered" aria-hidden="true"></i>
+                        </div>
+                        <h3 class="timeline-header">
+                            <a href="blog-item.html" title="Alfa version released">Final version released</a>
+                        </h3>
+                        <img class="img-responsive" src="img/screenshot-2-thumb.jpg" alt="Plugin countdown">
+                        <div class="timeline-description">
+                            <p>Praesent ut molestie libero. Etiam luctus porttitor orci, non mollis elit finibus et. Nullam vitae tristique augue. Ut at erat sed lacus vulputate suscipit. Donec tempor enim nec rutrum interdum. Pellentesque ac venenatis turpis. Phasellus vehicula urna dolor, in pellentesque nibh dictum ac. Nunc mattis ante a pellentesque vehicula. Quisque in ultricies diam. Aenean ac ex massa. Proin a lacus lacus. Nunc lacinia eu urna sit amet convallis. Aliquam eu magna non dolor... <a href="blog-item.html" class="read-more" title="more">more &raquo;</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-promo section-counter" id="counter">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">time is running out</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Counter</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Quisque auctor ut purus et elementum. Vestibulum scelerisque id justo ac gravida. Suspendisse dolor risus, sagittis vitae arcu vel, tincidunt ultricies leo. Quisque tempor, urna eget hendrerit dapibus, nisi justo egestas neque, ac dapibus mauris nibh ut purus. Ut dui magna, facilisis id nunc a, gravida viverra augue. Aliquam semper, dolor sit amet ornare molestie, massa ipsum molestie tellus, nec imperdiet arcu tellus id ligula.</p>
+            <div class="clock" id="clock">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                             <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-65p-top="transform[swing]:rotate(0deg)">
+                                <span class="days"></span>
+                            </span>
+                            <span class="countdown-label">days</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                             <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-70p-top="transform[swing]:rotate(0deg)">
+                                <span class="hours"></span>
+                            </span>
+                            <span class="countdown-label">hours</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                            <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-75p-top="transform[swing]:rotate(0deg)">
+                                <span class="mins"></span>
+                            </span>
+                            <span class="countdown-label">minutes</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="text-center">
+                            <span class="counter-number" data-100p-top="transform[swing]:rotate(-90deg)" data-80p-top="transform[swing]:rotate(0deg)">
+                                <span class="secs"></span>
+                            </span>
+                            <span class="countdown-label">seconds</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-requirements" id="requirements">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">technical specification</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Requirements</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-cogs" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Etiam eget tempor erat. Quisque eget laoreet massa, a luctus nunc. Maecenas a velit ut magna malesuada fermentum vel et arcu. Ut fermentum tellus vitae pellentesque tristique. Nulla tortor mi, dignissim vel facilisis quis, porta a nibh.</p>
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="requirement-item" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="requirement-icon">
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="requirement-description">
+                                    <h3>CPU</h3>
+                                    <p>Intel CPU Core 3.3GHz / AMD CPU Phenom II</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="requirement-item" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="requirement-icon">
+                                    <i class="fa fa-desktop" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="requirement-description">
+                                    <h3>Video Card</h3>
+                                    <p>Nvidia GPU GeForce GTX / AMD GPU Radeon</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix visible-sm"></div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="requirement-item" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="requirement-icon">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="requirement-description">
+                                    <h3>RAM</h3>
+                                    <p>6 GB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix hidden-sm"></div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="requirement-item" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="requirement-icon">
+                                    <i class="fa fa-hdd-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="requirement-description">
+                                    <h3>HDD</h3>
+                                    <p>40 GB Free space</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix visible-sm"></div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="requirement-item" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="requirement-icon">
+                                    <i class="fa fa-windows" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="requirement-description">
+                                    <h3>OS</h3>
+                                    <p>Win 7 64</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="requirement-item" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="requirement-icon">
+                                    <i class="fa fa-keyboard-o" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-9">
+                                <div class="requirement-description">
+                                    <h3>Direct X</h3>
+                                    <p>11</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-gray section-charts" id="charts">
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">some fun numbers</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Charts</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-bar-chart" aria-hidden="true"></i></div>
+            </div>
+            <p class="text-center lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis mi eu purus bibendum aliquam ac sit amet mi. Donec lacinia consectetur convallis</p>
+            <h4 class="text-center">Users</h4>
+            <div class="progress" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%">
+                    <span><strong>90%</strong> active users</span>
+                </div>
+            </div>
+            <h4 class="text-center">World</h4>
+            <div class="progress" data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                    <span><strong>70%</strong> of the map to explore</span>
+                </div>
+            </div>
+            <h4 class="text-center">Copies</h4>
+            <div class="progress" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
+                    <span><strong>1400</strong> games copies available</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="chart chart-circle" id="order-chart" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="chart chart-circle" id="fun-chart" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1"></div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="chart chart-circle" id="device-chart" data-100p-top="transform[swing]:translateY(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1"></div>
+                </div>
+            </div>
+            <div class="chart" id="gpu-bar" data-100p-top="transform[swing]:translateY(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1"></div>
+        </div>
+    </div>
+
+    <div class="standard-section section-promo section-partners" id="partners">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">business friends</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Partners</h2>
+            </div>
+            <div id="carousel-partners" class="carousel carousel-partners slide" data-ride="carousel" data-interval="7000">
+                <div class="carousel-inner">
+                    <div class="item">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/facebook.png" alt="Facebook">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/twitter.png" alt="Twitter">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/wordpress.png" alt="Wordpress">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="visible-sm"></div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/linkedin.png" alt="LinkedIn">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/joomla.png" alt="Joomla">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/vimeo.png" alt="Vimeo">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item active">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/wordpress.png" alt="Wordpress">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/joomla.png" alt="Joomla">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="visible-sm"></div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/facebook.png" alt="Facebook">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/vimeo.png" alt="Vimeo">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="visible-sm"></div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/twitter.png" alt="Twitter">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-4">
+                                <div class="client">
+                                    <a href="#">
+                                        <img class="img-responsive" src="img/linkedin.png" alt="LinkedIn">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel-partners" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right carousel-control" href="#carousel-partners" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <ol class="carousel-indicators" data-100p-top="transform[swing]:translateY(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateY(0);opacity[swing]:1">
+                    <li data-target="#carousel-partners" data-slide-to="0"></li>
+                    <li data-target="#carousel-partners" data-slide-to="1" class="active"></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-contact-details" id="contact-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <h3>Contact Details</h3>
+                        <p>Nullam dictum felis eu pede mollis pretium. Cras dapibus. Vivamus elementum se semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae seasne eleifend acenimin viverra quis feugiat a telus. </p>
+                        <p><a href="#" title="Keep in touch">Keep in touch</a></p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <h3>New York</h3>
+                        <p>Nullam dictum felis eu pede mollis pretium. Cras dapibus vivamus <a href="#">newyork@gamer.com</a></p>
+                        <p><strong>( 495 ) 663 287 547</strong></p>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div data-100p-top="transform[swing]:translateX(50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                        <h3>Cracow</h3>
+                        <p>Nullam dictum felis eu pede mollis pretium. Cras dapibus vivamus <a href="#">cracow@gamer.com</a></p>
+                        <p><strong>( 495 ) 663 287 547</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="map-content">
+            <div id="map" class="map"></div>
+            <div class="map-info">
+                <div class="overlay"></div>
+                <div class="map-info-content">
+                    <p data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"><span class="glyphicon glyphicon-map-marker"></span> Powisle street 7 &#8226; Cracow</p>
+                    <p data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1"><span class="glyphicon glyphicon-calendar"></span> Open hours &#8226; 8:00 - 17:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="standard-section section-promo section-send-us-message" id="send-us-message">
+        <div class="triangle triangle-up" data-100p-top="top[swing]:-54px" data-75p-top="top[swing]:-24px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="triangle triangle-down" data-100p-top="bottom[swing]:-70px" data-75p-top="bottom[swing]:-40px">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="text-center">
+                <h3 class="standard-subheader bracket" data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">keep in touch</h3>
+                <h2 class="standard-header" data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">Send us message</h2>
+            </div>
+            <div class="section-icon" data-100p-top="transform[swing]:translateX(-50px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                <div class="hex-shape"><i class="fa fa-envelope"></i></div>
+            </div>
+            <p class="text-center lead">Sed diam nonumy eirmod tempor invidunt</p>
+            <form class="contact-form form" method="POST" action="#">
+                <div class="overlay"></div>
+                <div class="contact-form-content">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div data-100p-top="transform[swing]:translateX(-25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" placeholder="Enter name">
+                                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <input type="email" class="form-control" placeholder="Enter email">
+                                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                </div>
+                                <div class="form-group has-feedback">
+                                    <input type="text" class="form-control" placeholder="Enter phone">
+                                    <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="3" cols="40" placeholder="Your Message"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 col-md-offset-9">
+                            <div data-100p-top="transform[swing]:translateX(25px);opacity[swing]:0" data-75p-top="transform[swing]:translateX(0);opacity[swing]:1">
+                                <button type="submit" class="btn btn-system btn-default btn-block">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+ -->
+    <footer class="footer text-center" id="follow-us">
+        <div class="container">
+            <ul class="list-inline">
+                <li>
+                    <a href="http://github.com/vivtony00/teamform-seed" title="github"><i class="fa fa-github"></i></a>
+                </li>
+            </ul>
+            <p> &copy; 2016 <a href="http://jakubkwarcinski.pl" title="Team Long Time No name">Team Long Time No name</a></p>
+            <p class="text-center"><small>*Photos courtesy of and copyright Free Range Stock, <a href="http://www.freerangestock.com">www.freerangestock.com</a></small></p>
+        </div>
+    </footer>
+
+    <div id="toTop" class="to-top">
+        <a href="#" class="To the top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+    </div>
+
+    <div class="modal fade" id="order-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Order form</h3>
+                </div>
+                <form method="post" action="#">
+                    <div class="modal-body">
+                        <blockquote>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sagittis leo ut sapien tristique adipiscing. Nunc vitae nisi id ipsum congue ullamcorper.</p>
+                            <footer>Bill Archway <cite title="Source Title">100 games you must have</cite></footer>
+                        </blockquote>
+                        <div class="form-group has-feedback">
+                            <label for="order-first-name">First Name:</label>
+                            <input type="text" class="form-control" id="order-first-name" placeholder="Enter first name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-last-name">Last Name:</label>
+                            <input type="text" class="form-control" id="order-last-name" placeholder="Enter last name">
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-email">Email:</label>
+                            <input type="email" class="form-control" id="order-email" placeholder="Enter email">
+                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-phone">Phone:</label>
+                            <input type="text" class="form-control" id="order-phone" placeholder="Enter phone">
+                            <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="order-company">Company:</label>
+                            <input type="text" class="form-control" id="order-company" placeholder="Your company">
+                            <span class="glyphicon glyphicon-home form-control-feedback"></span>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Yes, I want to get the newsletter
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-system btn-default"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Order now</button><button type="button" class="btn btn-system btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+
+
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!-- jQuery parallax -->
+    <script type="text/javascript" src="js/jquery.parallax-1.1.3-min.js"></script>
+
+    <!-- jQuery countdown -->
+    <script type="text/javascript" src="js/countdown.min.js"></script>
+
+    <!-- Lightbox -->
+    <script type="text/javascript" src="lightbox/js/lightbox.min.js"></script>
+
+    <!-- skrollr -->
+    <script type="text/javascript" src="js/skrollr.min.js"></script>
+
+    <!-- raphael -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+
+    <!-- morris charts -->
+    <script type="text/javascript" src="js/morris.min.js"></script>
+
+    <!-- particles -->
+    <script src="js/TweenLite.min.js"></script>
+    <script src="js/EasePack.min.js"></script>
+    <script src="js/rAF.min.js"></script>
+    <script src="js/particles.min.js"></script>
+
+    <!-- Custom javascript -->
+    <script type="text/javascript" src="js/custom.min.js"></script>
+
+    <!-- Main page javascript -->
+    <script type="text/javascript" src="js/main.min.js"></script>
+
+    <!-- Angular and Angular-route libraries (v1.5.7) -->
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-route.min.js"></script>
+
+    <!-- Firebase (v3.0.3) and AngularFire (v2.0.0) (after angular library is loaded) -->
+    <script src="lib/firebase.js"></script>
+    <script src="lib/angularfire.min.js"></script>
+    <!-- Log in control -->
+    <script src="js/login.js"></script>
+</body>
+</html>
